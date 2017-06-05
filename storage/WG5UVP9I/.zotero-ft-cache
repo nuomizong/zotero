@@ -1,0 +1,548 @@
+Computers and Structures 122 (2013) 2–12
+
+Contents lists available at SciVerse ScienceDirect
+
+Computers and Structures
+journal homepage: www.elsevier.com/locate/compstruc
+
+3D-shell elements for structures in large strains
+Theodore Sussman a, Klaus-Jürgen Bathe b,⇑
+a b
+
+ADINA R&D, Inc., Watertown, MA 02472, United States Massachusetts Institute of Technology, Cambridge, MA 02139, United States
+
+a r t i c l e
+
+i n f o
+
+a b s t r a c t
+We present in this paper MITC shell elements for large strain solutions of shell structures. While we focus on the 4-node element, the same formulation is also applicable to the 3-node element. Since the elements are formulated using three-dimensional continuum theory with the full three-dimensional constitutive behavior, they are referred to as 3D-shell elements. Speciﬁc contributions in this paper are that the elements are formulated using two control vectors at each node to describe the large deformations, MITC tying and volume preserving conditions acting directly on the material ﬁber vectors to avoid shear locking, and a pressure interpolation to circumvent volumetric locking. Also, we present solutions to some large strain shell problems that represent valuable benchmark tests for any large strain shell analysis capability. Ó 2012 Elsevier Ltd. All rights reserved.
+
+Article history: Received 3 October 2012 Accepted 13 December 2012 Available online 22 February 2013 Keywords: Shell elements 3D-shell elements MITC tying Large strains Benchmark solutions Buckling
+
+1. Introduction The analysis of shells undergoing large strains has attracted a considerable research effort, see Refs. [1–19] and the references therein. There are many practical situations where structures modeled as shells undergo large strains, like in metal forming and the crush and crash simulations of motorcars. Special ﬁnite element programs have been developed to solve such problems. However, although much research has been focused on the large strain analysis of shells and various computer programs are already abundantly used to simulate shell structures in large deformations and strains, there is still need for more reliable and efﬁcient elements. Indeed, the ﬁeld of shell analysis – in general – is so rich that research in many areas is still needed, see Refs. [20–22]. To model the large strain behavior of shells, different approaches can be pursued. The simplest approach is to perform a large deformation analysis and update the thickness of the shell elements iteratively during the incremental solution [5]. This approach requires relatively small incremental steps and is only attractive when the strains through the shell thickness are not very large. The second approach is to model the shell using three-dimensional (3D) solid elements, and here typically 12-node or 27-node displacement-based elements are used to model the shell with a single element layer to allow straining through the shell thickness. These models suffer from shear and membrane locking, and to a lesser degree from pinching locking [21]; hence very ﬁne meshes
+⇑ Corresponding author. Tel.: +1 6179265199.
+E-mail address: kjb@mit.edu (K. J. Bathe). 0045-7949/$ - see front matter Ó 2012 Elsevier Ltd. All rights reserved. http://dx.doi.org/10.1016/j.compstruc.2012.12.018
+
+may need to be used and as a consequence, general large strain shell problems in practice can be expensive to solve [23,24]. The third approach is to use three-dimensional continuum theory to develop 3D-shell elements. These elements contain the kinematics of the three-dimensional solid elements used in the second approach, referred to above, but the geometry and displacement behavior are described with variables on the shell midsurface only. For example, the 12-node solid element reduces to a 4-node shell element and the 27-node solid element reduces to a 9-node shell element, each with degrees of freedom at the shell element nodes that are used in addition to those usually employed for shell elements. A mathematical analysis of the underlying displacementbased 3D-shell mathematical model for linear analysis is given in Refs. [21,25,26]. However, like the displacement-based 3D solid elements, the displacement-based 3D-shell elements used in the discretization of this mathematical model are hardly usable because of locking phenomena, and to obtain an effective 3D-shell element it is necessary to circumvent these detrimental effects [21]. A number of researchers used the enhanced assumed strain (EAS) approach to propose 3D-shell elements, see e.g. Refs. [2,3,27]. Considering this approach, one disadvantage is that the use of ‘enhanced strains’ render an element computationally quite inefﬁcient, due to the additional strain terms, but another disadvantage is that such elements exhibit severe instabilities at large strains, see Refs. [28,29]. Many researchers used ‘reduced integration’ which also results into instabilities, that is, spurious zero energy modes [30]. These instabilities – encountered with the EAS approach and the reduced integration schemes – can be suppressed using artiﬁcial numerical factors that at large strains may need to change with
+
+T. Sussman, K. J. Bathe / Computers and Structures 122 (2013) 2–12
+
+3
+
+the deformation response [31–34]. While the reduced integration techniques have been used abundantly in explicit dynamic analyses, difﬁculties are encountered in static and slow dynamic situations. In fact, the use of any of these numerical factors is quite undesirable, in particular, when large deformations and large strains shall be predicted, since the solutions may contain physical instabilities that may be masked by artiﬁcial factors; hence the solutions can be unreliable and quite inaccurate. A requirement that we focus on in our developments, is to not have element instabilities in the formulation and not use any artiﬁcial numerical factors. Spurious zero energy modes should not exist, and this must hold for any amount of reasonable deformations and straining. Hence we do not use the methods of enhanced assumed strains and reduced integration. Instead, we employ, in general, the MITC approach to avoid shear and membrane locking in plate and shell solutions [21,30], and the displacement/pressure (u/p) formulation to circumvent volumetric locking in solids [30]. In the next sections, we give the formulation of the 3D-shell elements that we deem to be effective. These elements build upon the usual triangular and quadrilateral MITC shell elements [35,36] and are developed to model large strain behavior. In a section thereafter we present various example solutions that can be regarded to be benchmark tests for large strain shell formulations. While we focus in the paper on a 4-node element (which is mostly used), the discussion is also directly applicable to a 3-node element, however, as pointed out in Section 2.5, the relevant strain interpolations need to be used [36]. Both the 4-node and 3-node elements have been implemented in the ADINA ﬁnite element program. 2. Formulation of the 3D-shell element In this section we give the fundamental concepts used in the formulation of the 3D-shell elements and the notation. We consider general nonlinear analysis, with large displacements and large strains. For the most part, the notation is the same as in Ref. [30]. 2.1. Kinematics The kinematic description of the 3D-shell element, in a Cartesian coordinate system, is based on the quantities shown in Fig. 1. The element in the ﬁgure, with four midsurface nodes
+
+L = 1, . . . , 4, is described by the positions of the nodes given at time t by the vectors txmL, with components t xmL ; i ¼ 1; 2; 3, and the i nodal control vectors taL and tbL, with components t aL and i t L bi ; i ¼ 1; 2; 3. An isoparametric coordinate system is used, in which r1, r2 are the isoparametric coordinates on the midsurface and r3 is the isoparametric coordinate out of the midsurface. At a given point (r1, r2, r3), the position of a material particle at time t is given by
+t
+
+xi ðr1 ; r 2 ; r3 Þ ¼ t xmi þ
+
+Á Á 1À 1À r3 þ r2 t ai þ Àr 3 þ r 2 t bi for i ¼ 1; 2; 3 3 3 2 2 ð1Þ X X
+L
+
+in which
+t
+
+xmi ¼
+
+X
+
+hL t xmL ; i
+
+t
+
+ai ¼
+
+hL t aL ; i
+
+t
+
+bi ¼
+
+hL t bi for i ¼ 1; 2; 3 ð2a; 2b; 2cÞ
+
+where xmi, i = 1, 2, 3, gives the position of a material particle on the midsurface, the tai and tbi, i = 1, 2, 3, are the components of the control vectors ta and tb at the point (r1,r2), the hL are the shape functions deﬁned on the midsurface and the summation is over all nodes L. In the following presentation we shall always imply that the subscript i is for the values 1, 2, 3 and no longer explicitly state so. There are two differences between the control vectors ta, tb and the usual director vector tVn with components tVni [30]. The control vectors include the element thickness, whereas a director vector is of unit length, and there are two control vectors at each point on the midsurface, whereas there is only one director vector at such point. Note that the kinematic assumptions used here are more general than for the element presented in Ref. [37], which was developed for large displacement solutions but small strains. The initial (time = 0.0) control vectors at each node are equal and opposite, with
+0 L ai
+
+t
+
+¼
+
+aL 0 L V ; 2 ni
+
+0 L bi
+
+¼À
+
+aL 0 L V 2 ni
+
+ð3a; 3bÞ
+
+where aL ; 0 V L are the initial thickness and the components of the ni director vector at node L. Hence the initial control vectors 0a, 0b are equal and opposite everywhere on the element midsurface. Consider a line of material particles at a position r1, r2 that extends from r3 = À1 to r3 = 1. This line is denoted as ‘‘the line through the thickness’’. Along this line,
+
+@ t xi 1 t ¼ ð ai À t bi Þ þ ðt ai þ t bi Þr 3 @r 3 2
+
+ð4Þ
+
+Fig. 1. Nodes and control vectors in 3D-shell element.
+
+4
+
+T. Sussman, K. J. Bathe / Computers and Structures 122 (2013) 2–12
+
+Evidently the line through the thickness is straight when ta and tb are parallel (opposite but not necessarily of equal lengths), and is curved otherwise. The stretch along this line is
+t 0k
+
+sﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ,sﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ @ t xi @ t xi @ 0 xi @ 0 xi ¼ @r 3 @r 3 @r 3 @r 3
+
+ð5Þ
+
+which shows that the stretch along this line, and hence the strain along this line, depends on r3. For the case when ta, tb are parallel, namely when tai = ktaktVni, tbi = ÀktbktVni, Eq. (5) becomes
+1 t 0k
+
+¼2
+
+ðkt ak þ kt bkÞ þ ðkt ak À kt bkÞr 3 1 ðk0 ak þ k0 bkÞ 2
+
+ð6Þ
+
+which shows that the stretch along this line depends in general linearly on r3. It is necessary to allow the strain along the line through the thickness to depend on r3. For example, in pure out-of-plane bending, with the material for r3 > 0 in tension and for r3 < 0 in compression, the Poisson effect causes the element to thin for r3 > 0 and to thicken for r3 < 0. 2.2. Nodal degrees of freedom Each node has, at most, the following nodal degrees of freedom:
+
+Du i Dhi De e D~ h D~i
+
+incremental translations of the node, with components in the global system, incremental rotations at the node, with components in the global system, constant thickness incremental strain, linear thickness incremental strain, incremental warping rotations at the node, with components in the global system,
+
+thickness incremental strain’’ is appropriate for De. Also, a positive value for D~ lengthens ta and shortens tb, so the name ‘‘linear e thickness incremental strain’’ is appropriate for D~. e We also note that the degrees of freedom Dhi control the rotations of ta and tb equally, so these degrees of freedom can be said to be the ‘‘rotations’’ at the node. On the other hand, the degrees of freedom D~i cause equal and opposite rotations of ta and tb. Since h 0 a and 0b are initially equal and opposite, if D~i is zero throughout h the analysis, then the vectors ta and tb remain opposite (but not necessarily equal in length), and therefore all of the lines through the thickness remain straight. Hence the effect of D~i is to warp h the lines through the thickness from straight lines into curved lines, and the name ‘‘warping rotations’’ is used for D~i . h In thin shells, it is frequently assumed that the lines through the thickness remain straight. This condition is easily modeled by deleting the warping rotation degrees of freedom. Then the nodal degrees of freedom are Dui ; Dhi ; De; D~. e The choice of rotations Dhi ; D~i , with components given in the h global coordinate system, has the drawback that an incremental rotation about ta causes no update of ta (and similar for an incremental rotation about tb). Hence there are two zero energy rotations per node. To avoid this situation, in each case, new directions of rotations with one component parallel to the control vector are chosen, and the degree of freedom for the parallel component is deleted. We do not give the details here, as the process is similar to that given in Ref. [30]. 2.3. Deformation gradients Let us deﬁne the deformation gradients with respect to the isoparametric conﬁguration of the element at times 0 and t, respectively,
+0 rX
+
+¼
+
+! @ 0 xi ; @r j
+
+t rX
+
+¼
+
+@ t xi @r j
+
+! ð9a; 9bÞ
+
+where we do not give the superscript L for ease of writing. We assume that the increments are ﬁnite, although relatively small, but consider of course very large total deformations. The incremental motions of the control vectors are controlled by the Dui, and the Dhi ; De; D~ and D~i as follows. Deﬁne h e
+
+where within the brackets we give the components, and we use the term ‘‘deformation gradient’’ for 0 X although no deformation might r have actually occurred. Here, and in the following, we have that i = 1, 2, 3 and j = 1, 2, 3. The quantities
+@ 0 xi @rj @0 x @t x ; @rj , @rj
+
+with components
+
+;
+
+1 1 h h ¼ ðDhi þ D~i Þ; Dhb ¼ ðDhi À D~i Þ; i 2 2 1 1 e e Dea ¼ ðDe þ D~Þ; Deb ¼ ðDe À D~Þ 2 2
+
+@ t xi , @r j
+
+can also be interpreted as vectors corresponding to a mate-
+
+Dha i
+
+rial ﬁber lying in the direction rj at times 0, t. The inverse deformation gradients can be calculated using
+
+ð7a; 7b; 7c; 7dÞ
+
+r 0X
+
+¼
+
+Here the superscript a denotes a quantity that updates control vector ta and the superscript b denotes a quantity that updates control vector tb. Then the updated control vector t+Dta is given by
+tþDt
+
+@ri ¼ 0 XÀ1 ; @ 0 xj r
+
+r tX
+
+¼
+
+@ri ¼ t XÀ1 @ t xj r
+t
+
+ð10a; 10bÞ
+
+@ The usual deformation gradient t X ¼ @ 0xi can be calculated using 0 xj [30]
+
+a ¼ kQ t a
+
+ð8Þ
+
+where k = exp(Dea), and
+
+@ t xi @ t xi @r k ¼ @ 0 xj @r k @ 0 xj
+and the volume ratio det t X can therefore be obtained as 0
+
+ð11Þ
+
+1 sin c=2 2 Q ¼Iþ Sþ S ; c 2 c=2 ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ qÀ Á À Á À Á c ¼ Dha 2 þ Dha 2 þ Dha 2 ; 1 2 3 2 6 S ¼ 4 Dh a 3 0 ÀDha 3 0 Dha 1 3 Dha 2 7 ÀDha 5: 1 0
+
+sin c
+
+det t X ¼ det t X det r X 0 r 0
+
+ð12Þ
+
+2.4. Cauchy–Green deformation tensor and Green–Lagrange strain tensor Here we deﬁne
+t rC
+
+ÀDha 2
+
+Here Q is the usual ﬁnite rotation update matrix described in, for example Ref. [30]. The control vector tb is updated in exactly the same way using the variables with superscript b. We note that the degree of freedom De controls the update in the lengths of ta and tb equally, hence the name ‘‘constant
+
+¼
+
+@ t xk @ t xk ; @r i @rj
+
+t r
+
+e¼
+
+Á 1 Àt 0 rC À r C 2
+
+ð13a; 13bÞ
+
+as the Cauchy–Green deformation tensor and Green–Lagrange strain tensor with respect to the isoparametric conﬁguration of the element.
+
+T. Sussman, K. J. Bathe / Computers and Structures 122 (2013) 2–12
+
+5
+
+The usual Green–Lagrange strain tensor from t e using r
+t 0 ij
+
+t 0
+
+e can be calculated
+ð14Þ
+
+t AS r C 13
+
+¼
+
+ AS @ t xk @ t xk ; @r 1 @r 3
+
+t AS r C 23
+
+¼
+
+ AS @ t xk @ t xk @r2 @r3
+
+ð18a; 18bÞ
+
+e ¼
+
+@r k @r l t e @ 0 xi @ 0 xj r kl
+
+Eqs. (18a) and (18b), together with Eqs. (16a) and (16c), thus give  AS @t two equations for the three unknown components of @rx . 3 To obtain a third equation, we assume that
+
+2.5. Tying rule So far we presented the kinematics of a 3D-shell element based on displacement assumptions only. The kinematical description used represents an extension of the usual displacement-based shell description [30]. While the asymptotic behaviors of the mathematical shell models using director vectors are understood [21,25,38], it is well-known that the displacement-based models are not effective due to locking phenomena. For the low-order elements that we consider here, the shear locking effects need to be relieved and we describe next how we proceed. We focus in this section on the MITC4 3D-shell element but the presentation is also directly applicable to the 3-node element with the appropriate strain interpolations [36]. The tying rule to relieve shear locking in large strain analysis is an extension and reinterpretation of the tying rule used in the classical shell element [30,35]. In the following, the superscript DI denotes a quantity obtained directly from the displacement interpolation and the superscript AS denotes an ‘‘assumed strain’’, namely a quantity obtained including the effects of tying. In the MITC4 classical shell element, the components t eAS are computed from the t eDI using r ij r ij
+t AS r 13 t AS r 23
+
+det t CAS ¼ det t CDI r r
+or, equivalently,
+
+ð19Þ
+
+det t XAS ¼ det t XDI r r
+Since det t XDI r 
+
+ð20Þ
+
+  DI    AS @t @t @t @t @t @t ¼ @rx Â @rx Á @rx and det t XAS ¼ @rx Â @rx Á @rx , r 1 2 3 1 2 3
+
+we have that Eq. (20) can be written as
+
+ t   t AS @ x @t x @x Á Â ¼ det t XDI r @r1 @r2 @r3
+Eqs. (18a), (18b), (21) can be combined in matrix form as
+
+ð21Þ
+
+2 6 6 6 4
+
+@ t x1 @r 1 @ t x1 @r 2 @ Â @rx 2
+t
+
+@ t x2 @r 1
+
+@t x @r 1
+
+
+1
+
+
+
+@ t x2 @r 2 @t x @r 1 @ Â @rx 2
+t
+
+
+2
+
+2  3 3 @t x1 AS 3 2 t AS 7 6 @r3 76  AS 7 6 r C 13 7 tx @ 3 7 6 t AS 7 76 @t x2 7 ¼ 4 r C 23 5 76 @r2 7   56 @r3 4  AS 5 @t x @t x det t XDI Â @r2 r @ t x3 @r 1
+@ t x3 @r1 3 @r 3
+
+ð22Þ
+The three rows of this matrix are linearly independent, since the t @t vectors @ x ; @rx are not parallel (unless the element is overdistorted) @r1 2 solved for the components of and row 3 is orthogonal to both rows 1 and 2. Hence Eq. (22) can be  AS @t x . @r3
+
+e ¼ ð1 À r2 Þtr eDI ð0;À1Þ þ ð1 þ r2 Þtr eDI ð0;1Þ 13 13 e
+
+  1 1 2 2   1 1 t DI  ¼ ð1 À r 1 Þr e23 ðÀ1;0Þ þ ð1 þ r 1 Þt eDI ð1;0Þ r 23 2 2
+t AS r ij
+
+ð15aÞ ð15bÞ
+
+with
+
+e ¼ tr eDI for the other strain components. ij
+
+Using Eq. (13b), the tying rules Eqs. (15a) and (15b) can also be written
+
+  1 1   ð1 À r 2 Þt C DI  þ ð1 þ r 2 Þt C DI  r 13 r 13 ð0;À1Þ ð0;1Þ 2 2   1 1 0 AS 0 DI  0 DI  ð1 À r 2 Þr C 13  þ ð1 þ r 2 Þr C 13  r C 13 ¼ ð0;À1Þ ð0;1Þ 2 2   1 1 t AS t DI  t DI  þ ð1 þ r 1 Þr C 23  ð1 À r 1 Þr C 23  r C 23 ¼ ðÀ1;0Þ ð1;0Þ 2 2   1 1 0 AS 0 DI  0 DI  þ ð1 þ r 1 Þr C 23  ð1 À r 1 Þr C 23  r C 23 ¼ 2 2 ðÀ1;0Þ ð1;0Þ
+t AS r C 13
+
+¼
+
+ð16aÞ ð16bÞ ð16cÞ ð16dÞ
+
+Section 3 gives a simple physical interpretation of this tying rule.  t AS  0 AS Once the components @ xi and @ xi for i = 1, 2, 3 are @r 3 @r 3 known, we can compute all quantities. For example, Eq. (13b) be  comes t eAS ¼ 1 t CAS À 0 CAS . Thus, through the remainder of our r r 2 r presentation, we drop the superscript AS. Note that all the above discussion is directly applicable to the 3node 3D-shell element in which also only the transverse shear strain components (that is, the corresponding Cauchy–Green deformation tensor components) are interpolated and tied. 2.6. Material law In the formulation of classical small strain shell elements, it is assumed that the stress in the direction normal to the midsurface is zero. This assumption allows the strain in this direction, for any material behavior, to be condensed out of the material relationship. Hence there are, for example, no difﬁculties with incompressible material behaviors. However, in the 3D-shell element, the assumption of zero stress through the shell thickness is not used in the material law. All strain components / deformation gradient components enter the material law, exactly as in the material law for 3D solid elements. We consider materials undergoing large strains. For hyperelastic materials, we can directly write
+t 0 Sij
+
+with t C AS ¼ t C DI for the other components. Notice that the same tyr ij r ij ing rule is used for the conﬁguration at time 0 and the conﬁguration at time t. In the following, we focus on the conﬁguration at time t, with the understanding that we use the same tying rule for the conﬁgurations at all times considered. Now the Cauchy–Green deformation tensor, referred to the isoparametric system, is constructed as the dot product of vectors using Eq. (13a), for example
+t r C 13
+
+¼
+
+@ t xk @ t xk ; @r 1 @r 3
+
+t r C 23
+
+¼
+
+@ t xk @ t xk @r 2 @r3
+
+ð17a; 17bÞ
+
+Thus tying conditions expressed as conditions on the t C ij can also be r expressed as tying conditions on the material ﬁber vectors @ x. Since @ri only t C 13 , t C 23 are affected by the tying, it is natural to keep the vecr r tors @r1 ; @r2 unchanged during the tying process (so that the components vector
+t t t r C 11 ; r C 12 ; r C 22 @t x @r 3 @t x @t x
+t
+
+¼ t Sij 0
+
+
+
+t 0 ij
+
+e
+
+
+
+ð23Þ
+
+are unchanged). However, we replace the  AS @t by a vector @rx such that shear locking is relieved 3
+
+where the t Sij are the components of the 2nd Piola–Kirchhoff stress 0 tensor. For inelastic materials, we use a material law that operates directly on the deformation gradient
+t
+
+through the tying, hence
+
+sij ¼ t sij ðt0 X ij Þ
+
+ð24Þ
+
+6
+
+T. Sussman, K. J. Bathe / Computers and Structures 122 (2013) 2–12
+
+where the tsij are the components of the Cauchy stress tensor. This approach is used in the updated Lagrangian Hencky formulation [30]. 2.7. Principle of virtual work for incompressible analysis In practice, many materials undergoing large strains exhibit almost incompressible behavior, for example, rubber-like materials and elastic–plastic materials. Hence a practical large strain shell element must be usable with incompressible materials. For such analyses, the MITC4 3D-shell element should be used with the pressure interpolation discussed below to avoid volumetric locking. In the following, we assume that the relationship between the pressure and volume ratio can be written as tp = f(t J 3 ), where, for 0 ease of writing, we deﬁne t J 3 = det t X. We will also use the inverse 0 0 relationship t J 3 = fÀ1(tp). 0 We use a form of the u/p mixed formulation [30] for the internal virtual work
+
+undergoing membrane action only, the tp1 degrees of freedom will be zero and the elements will all have constant pressure, similar to an assemblage of three-dimensional 8/1 elements (8 nodes for displacements and constant element pressure). These 8-node brick elements can checker-board in pressure when uniform meshes and
+
+dW ¼
+
+Z
+0V
+
+t t 0 0 Sij d0 ij dV
+
+e
+
+þ
+
+Z
+0V
+
+~ ðÀt J 3 þ t e3 Þdp0 dV 0 0J
+
+ð25Þ
+Fig. 2. Shell element lamina.
+
+and employ the following deﬁnitions: t  ~ @J The material law is given by Eq. (23): t Sij ¼ t Sij þ ðt p À t pÞ @ t0e3 . 0 0
+0 ij
+
+The material law is given by Eq. (24): with t Sij calculated from tsij 0
+
+t
+
+  ~ sij ¼ t sij þ ðt p À t pÞdij ,
+
+t 0 Sij t t
+
+sij
+
+p p
+
+t~
+
+t 0 J3
+
+te 0J3
+
+dij
+
+2nd Piola–Kirchhoff stresses as computed from the deformations (including the effects of tying) Cauchy stresses as computed from the deformations (including the effects of tying) pressure computed from the volume ratio, that is, t p ¼ f ðt J 3 Þ 0 separately interpolated pressure volume ratio as computed from the displacements. Note that by the explicit assumption in the tying rule the volume is not changed due to tying. volume ratio as computed from the separately ~ interpolated pressure, that is, t e3 ¼ f À1 ðt pÞ 0J Kronecker delta
+
+The force vector for the element is obtained by expressing dW in terms of the variations in the nodal point degrees of freedom dui ; dhi ; de; d~; d~i , and also the pressure degrees of freedom dpi. e h The stiffness matrix for the element is obtained by differentiating dW with respect to both the nodal point degrees of freedom and the pressure degrees of freedom. Since we use pressure degrees of freedom that are not shared between elements, we use static condensation to eliminate these variables from the element force vector and stiffness matrix, before assembly into the global ﬁnite element vector and matrix. 2.8. Pressure interpolation It is important to choose the interpolations for the separately interpolated pressure appropriately. For the 3D-shell element, we use the interpolation
+t~
+
+p ¼ t p0 þ t p1 r 3
+t t
+
+ð26Þ
+
+where p0 and p1 are the pressure degrees of freedom in each element. It is necessary to include the r3 term in order to model out-of-plane bending. For an assemblage of 3D-shell elements
+
+Fig. 3. Schematic tying example in two dimensions, element drawn from the side.
+
+T. Sussman, K. J. Bathe / Computers and Structures 122 (2013) 2–12
+
+7
+
+speciﬁc boundary conditions are used [30] but checker-boarding is hardly observed in practice. Note that the 3-node 3D-shell element with the above pressure interpolation is not effective in incompressible analysis, since in pure membrane situations the element would lock as does the constant strain triangular element in plane strain conditions. 3. Physical interpretation of the proposed tying rule  Section 2 describes a tying rule in which the material ﬁber DI  AS @t is replaced by the material ﬁber @rx in a manner closely @r 3 3
+
+@t x
+
+related to the tying of strain components in the MITC4 classical
+
+shell element, without changing the determinant of the deformation gradient. The tying rule has a simple physical interpretation. Consider ﬁrst that Eq. (1) can be interpreted as giving the positions of laminae parallel to the shell midsurface (see Fig. 2). Namely, for each coordinate r3, there is a differentially thick lamina (the thickness is given by dr3). Fig. 3 shows a simple schematic example in two dimensions, in which the element is drawn from the side, so that the element thickness is in the y direction. Initially the sides of the element are straight (Fig. 3a) and the three differential elements A, B, C along the shown lamina are square. When the shell element is subjected to out-of-plane shear (Fig. 3b), each of the differential elements A, B, C shear by the same amount. Thus Eq. (16) gives
+t AS r C ij
+
+¼ t C DI , Eq. (22) gives r ij
+
+Fig. 4. Material ﬁber vectors before and after tying.
+
+Fig. 5. Compatibility of adjacent laminae.
+
+Fig. 6. Plane strain bending of a neo-Hookean rectangular block: geometry, material properties and loading.
+
+Fig. 7. Deformed meshes for plane strain bending of a neo-Hookean rectangular block.
+
+8
+
+T. Sussman, K. J. Bathe / Computers and Structures 122 (2013) 2–12
+@ t xi @r 3
+
+
+
+AS
+
+¼
+
+
+
+@ t xi @r 3
+
+DI
+
+, and therefore the differential elements are un-
+
+changed by the tying. When the shell element is subjected to pure out-of-plane bending (Fig. 3c), the differential elements A, B, C stretch the same @t amounts in the x direction (in other words the material ﬁber @rx in1 creases in length, and this increase is the same for each differential element). However the differential elements also shear, and this shear varies along the lamina. This example illustrates the cause of shear locking, namely, when the shell element attempts to represent a state of pure bending, spurious shear is produced in the laminae. In this case Eq. (16) gives t C AS ¼ 0; 0 C AS ¼ 0; t C AS ¼ 0; 0 C AS ¼ 0. r 13 r 13 r 23 r 23  AS @t is perpendicular to The ﬁrst two rows of Eq. (22) show that @rx 3
+@t x @r1 @ and @rx, and the last row of Eq. (22) shows that the volume of the 2
+t
+
+are now uniform within the lamina, each differential element has stretched, in accordance with the stretching of the lamina, and the undesirable shear has been removed. In addition, the differential volume used in the stress–strain calculations is the same as the differential volume obtained from the kinematical assumptions. This is very important in incompressible analysis, since a motion that is volume preserving remains volume preserving after the tying is applied. Fig. 4 summarizes schematically the change in the material ﬁber due to tying. Note that the tying process violates displacement compatibility between adjacent laminae, as shown in Fig. 5. Hence the tying can be interpreted as a weakening of the strain–displacement compatibility conditions (as can the MITC tying of strain components in the classical shell element).
+
+differential elements does not change as a result of the tying. The result is shown in Fig. 3d. Notice that the differential elements
+
+Fig. 10. Detail of undeformed mesh for plane strain folding of a thin plastic shell.
+
+Fig. 8. Moment-rotation curves for plane strain bending of a neo-Hookean rectangular block, different number of elements considered.
+
+Fig. 11. Midsurface displacements in plane strain folding of a thin plastic shell.
+
+Fig. 9. Plane strain folding of a thin plastic shell: geometry, material properties and loading.
+
+Fig. 12. Detail of deformed mesh for plane strain folding of a thin plastic shell, contours of accumulated effective plastic strain are shown.
+
+T. Sussman, K. J. Bathe / Computers and Structures 122 (2013) 2–12
+
+9
+
+4. Illustrative solutions This section gives some illustrative benchmark problems and solutions. The geometries of the problems given here are relatively simple, and are fully described. The problems are solved not
+
+addressing the questions of efﬁciency, the order of numerical integration through the thickness, how coarse a (possibly graded) mesh could be used, and the effects of mesh reﬁnements through the thickness (for the 3D solid element meshes used for comparison). These questions we leave for further studies. The problems are solved using the MITC4 3D-shell element which is clearly more effective than the triangular element [22]. As all of the solutions involve incompressible material behavior, the u/p formulation is used throughout. Additional problem solutions in which the MITC4 3D-shell element is used are given, for example, in Ref. [39]. 4.1. Plane strain bending, neo-Hookean material model Here we consider the solution of the problem given in Fig. 6. The analytical solution to this problem can be obtained with the method given in Ref. [40]. The problem can be solved using a mesh of 50 4-node 3D-shell elements, using 3-point Gauss integration through the thickness. Fig. 7 shows the deformed meshes at four solution times. The thinning in tension and the thickening in compression are clearly observed. Fig. 8 shows the moment–curvature response for ﬁnite element meshes with various numbers of 4-node 3D-shell elements, along with the analytical solution. The ﬁnite element solution is too stiff in general, however the solution improves as the mesh is reﬁned.
+
+Fig. 13. Force–deﬂection curves for plane strain folding of a thin plastic shell, different numbers and types of elements considered.
+
+Fig. 14. Buckling of a thin geometrically perturbed cylindrical shell.
+
+10
+
+T. Sussman, K. J. Bathe / Computers and Structures 122 (2013) 2–12
+
+4.2. Plane strain folding of a thin shell, elastic–plastic material model One way to generate high curvatures in thin shells is to form a fold. Fig. 9 shows the problem considered. The shell is thin (thickness/length = 1/500) and an elastic-perfectly plastic material model is used. As the moving contact surface displaces downwards, the shell is squeezed and a fold forms where the shell is ﬁxed. For the solution, we use meshes of 4-node 3D-shell elements, and also, for comparison, meshes of the 27/4 three-dimensional (3D) solid elements (for which the u/p formulation with 27 nodes for the displacements and 4 pressure degrees of freedom per element is used [30]). The meshes are graded so that the elements are smallest at the built-in end. In all of the analyses, 3-point Gauss integration is used through the shell thickness. For the 100 element mesh of 3D-shell elements, Fig. 10 shows a detail of the undeformed model near the built-in end, and Figs. 11 and 12 show the deformed mesh for the prescribed displacements discussed below. Fig. 13 shows the calculated force–deﬂection curves. On both axes, a log scale is used so that the entire solution response over the whole range of displacements can be shown in one ﬁgure. The calculated responses are quite close to each other, however, as expected, the 50 element 3D solid element model is stiffer than the other models. For displacements above 49.5 mm, the force–deﬂection curves exhibit a ‘‘stair-step’’ behavior. This behavior arises due to the contact algorithm; the force–deﬂection curve stiffens each time an additional node comes into contact. We note the following regarding the solution response at various displacements: Displacement of 7.8 mm: The built-in end begins to become plastic. The force–deﬂection curve softens at this point. This softening happens ‘‘suddenly’’ because only three integration points
+
+are used through the thickness, so most of the section becomes immediately plastic. Displacement of 38.4 mm: The free end of the mesh becomes horizontal and the contact forces on the free end of the mesh start to become distributed over the free end. The plastic strain is only about 4.5% at the built-in end. The force–deﬂection curve begins to stiffen because the moment arm of the forces acting on the shell model begins to decrease. Displacement of 49.34 mm: The free end of the mesh contacts the bottom contact surface. Displacement of 49.9 mm: Fig. 12 shows a detail of the 100 element model of 3D-shell elements at the displacement of 49.9 mm, and also contours of the accumulated effective plastic strain. The plastic strain at the built-in end is almost 67%. 4.3. Buckling of a thin geometrically perturbed cylindrical shell, elastic–plastic material model Another way to generate high curvatures in thin shells is to create a plastic hinge by buckling. Fig. 14 shows the problem considered. The shell segment is thin (thickness/length = 1/100) and an elastic-perfectly plastic material model is used. The geometry of the midsurface of the perturbed cylindrical shell segment is given in terms of parametric coordinates n1, n2 as follows:
+
+x ¼ n1 ;
+where
+
+y ¼ ðR À bÞ cos h þ b cosðh þ aÞ;
+
+z ¼ ðR À bÞ sin h þ b sinðh þ aÞ
+
+b¼B
+
+n 1 þ cos pL 1 ; 2
+
+h ¼ p=2 À n2 =R;
+
+a ¼ maxð0; 4ðh À p=4ÞÞ
+
+and 0 6 n1 6 L; 0 6 n2 6 p R. Here R, L are the radius and length of 2 the shell segment, and B is the perturbation. With B = 0, the above
+
+Fig. 15. Mesh outlines for buckling of a thin geometrically perturbed cylindrical shell, undeformed mesh outline and outlines for compressive displacements of 1, 2, 3, 4 mm.
+
+Fig. 16. Deformed mesh for buckling of a thin geometrically perturbed cylindrical shell, displacement = 4 mm.
+
+T. Sussman, K. J. Bathe / Computers and Structures 122 (2013) 2–12
+
+11
+
+7000 6000 5000 4000 3000 2000 1000 0 0.0 50 75 3D-shell elements 100 150 3D-shell elements 50 75 27/4 3D elements 100 150 27/4 3D elements
+
+directly on the material ﬁber vectors to avoid shear locking and preserve the volume. Since material incompressibility may be encountered in large strains, we also use the u/p formulation when this condition need be modeled. To obtain insight into the capabilities of the element, we presented the solutions of benchmark problems. These solutions should also be valuable to test other shell element formulations for their applicability in large strain analyses. However, as previously mentioned, further studies of these benchmark problems regarding efﬁciency, numerical integration, mesh grading, and mesh reﬁnements through the thickness (when using 3D solid element meshes) would be valuable.
+
+Force (N)
+
+References
+0.2 0.4 0.6 0.8 1.0 1.2 1.4 1.6 1.8 2.0
+
+Displacement (mm)
+Fig. 17. Force–deﬂection curves for buckling of a thin geometrically perturbed cylindrical shell, different numbers and types of elements considered.
+
+formulas reduce to the geometry of a cylindrical segment with length L and radius R, and with boundaries x = 0, x = L, y = 0, z = 0. The shell geometric perturbation at a constant x coordinate is shown in Fig. 14c. It is seen that the cross-section (thick line) is constructed using two circles, one circle with radius R À b and the other circle with radius b. The slope of the cross-section line is zero at y = 0. The shell cross-section for y = 0 is shown in Fig. 14d. Here, it is seen that the slope of the cross-section line is zero at x = 0. For the ﬁnite element solutions, we use 3D-shell elements and also 3D solid elements (the 27/4 solid element) for comparison. In all cases, 3-point Gauss integration is used through the thickness. Fig. 15 shows the calculated deformed geometries of a 50 Â 75 3D-shell element mesh for compressive prescribed displacements of 1, 2, 3, 4 mm. Fig. 16 shows the same mesh for a prescribed displacement of 4 mm. A fold forms near the x = 0 line of symmetry and very large strains are generated at the fold. Fig. 17 shows the force–deﬂection curves obtained using 3Dshell and 3D solid element meshes of various mesh reﬁnements. The calculated force–displacement responses are very close to each other. In addition, the location and shape of the fold is similar for all of the meshes.
+
+5. Concluding remarks The objective in this paper was to present a large strain shell element formulation and benchmark solutions. The element formulation represents an extension of the now widely used MITC4 shell element. While we focused on the 4-node element, the same approach can directly be employed to also establish the 3-node MITC 3D-shell element, of course using the relevant strain tying interpolations. Considering higher-order MITC 3D-shell elements, the discussion given in the paper is also applicable, but since the membrane and hence bending strains are also tied, see Ref. [30], additional considerations arise. Also, while higher-order plate and shell elements can be effective in linear analyses [21,22,41,42], it is still questionable how effective such elements are in large strain solutions (involving frequently also contact conditions). Some special considerations are needed to obtain a formulation that can reliably be used for the analysis of shells in very large strains. Speciﬁcally, we use two control vectors to describe the kinematics of the shell behavior, and tying conditions acting
+
+[1] Parisch H. An investigation of a ﬁnite rotation four node assumed strain shell element. Int J Numer Methods Eng 1991;31:127–50. [2] Büchter N, Ramm E. 3D-extension of nonlinear shell equations based on the enhanced assumed strain concept. In: Proceedings of European conference on numerical methods in engineering; 1992. p. 55–62. [3] Büchter N, Ramm E, Roehl D. Three-dimensional extension of non-linear shell formulation based on the enhanced assumed strain concept. Int J Numer Methods Eng 1994;37:2551–68. [4] Sansour C. A theory and ﬁnite element formulation of shells at ﬁnite deformations involving thickness change: circumventing the use of a rotation tensor. Arch Appl Mech 1995;65:194–216. [5] Dvorkin EN, Pantuso D, Repetto EA. A formulation of the MITC4 shell element for ﬁnite strain elasto-plastic analysis. Comput Methods Appl Mech Eng 1995;125:17–40. [6] Roehl D, Ramm E. Large elasto-plastic ﬁnite element analysis of solids and shells with the enhanced assumed strain concept. Int J Solids Struct 1996;33:3215–37. [7] Basar Y, Ding Y. Finite-element analysis of hyperelastic thin shells with large ß strains. Comput Mech 1996;18:200–14. [8] Betsch P, Gruttmann F, Stein E. A 4-node ﬁnite shell element for the implementation of general hyperelastic 3D-elasticity at ﬁnite strains. Comput Methods Appl Mech Eng 1996;130:57–79. [9] Basar Y, Ding Y. Shear deformation models for large-strain shell analysis. Int J ß Solids Struct 1997;34:1687–708. [10] Bischoff M, Ramm E. Shear deformable shell elements for large strains and rotations. Int J Numer Methods Eng 1997;40:4427–49. [11] Sansour C. Large strain deformations of elastic shells: constitutive modelling and ﬁnite element analysis. Comput Methods Appl Mech Eng 1998;161:1–18. [12] Hauptmann R, Schweizerhof K. A systematic development of ‘solid-shell’ element formulations for linear and non-linear analyses employing only displacement degrees of freedom. Int J Numer Methods Eng 1998;42:49–69. [13] Miehe C. A theoretical and computational model for isotropic elastoplastic stress analysis in shells at large strains. Comput Methods Appl Mech Eng 1998;155:193–233. [14] Hauptmann R, Doll S, Harnau M, Schweizerhof K. ‘Solid-shell’ elements with linear and quadratic shape functions at large deformations with nearly incompressible materials. Comput Struct 2001;79:1671–85. ´ [15] Brank B, Korelc J, Ibrahimbegovic A. Nonlinear shell problem formulation accounting for through-the-thickness stretching and its ﬁnite element implementation. Comput Struct 2002;80:699–717. [16] Bas ßar Y, Hanskötter U, Schwab Ch. A general high-order ﬁnite element formulation for shells at large strains and ﬁnite rotations. Int J Numer Methods Eng 2003;57:2147–75. [17] Reese S. A large deformation solid-shell concept based on reduced integration with hourglass stabilization. Int J Numer Methods Eng 2007;69:1671–716. [18] Toscano RG, Dvorkin EN. A shell element for ﬁnite strain analyses: hyperelastic material models. Eng Comput 2007;24:514–35. [19] Trinh VD, Abed-Meraim F, Combescure A. A new assumed strain solid-shell formulation ‘‘SHB6’’ for the six-node prismatic ﬁnite element. J Mech Sci Technol 2011;25:2345–64. [20] Chapelle D, Bathe KJ. Fundamental considerations for the ﬁnite element analysis of shell structures. Comput Struct 1998;66:19–36. [21] Chapelle D, Bathe KJ. The ﬁnite element analysis of shells – fundamentals. 2nd ed. Springer; 2011. [22] Bathe KJ, Lee PS. Measuring the convergence behavior of shell analysis schemes. Comput Struct 2011;89:285–301. [23] Bathe KJ, Wilson EL. Thick shells. In: Pilkey WD, Saczalski K, Schaeffer HG, editors. Chapter in Structural mechanics computer programs: surveys, assessments, and availability. University of Virginia Press; 1974. [24] Bathe KJ. An assessment of current ﬁnite element analysis of nonlinear problems in solid mechanics. In: Hubbard B, editor. Chapter in Numerical solution of partial differential equations – III. Academic Press; 1976. [25] Chapelle D, Ferent A, Bathe KJ. 3D-shell elements and their underlying mathematical model. Math Models Methods Appl Sci 2004;14:105–42. [26] Chapelle D, Mardare C, Münch A. Asymptotic considerations shedding light on incompressible shell models. J Elasticity 2004;76:199–246.
+
+12
+
+T. Sussman, K. J. Bathe / Computers and Structures 122 (2013) 2–12 [35] Dvorkin EN, Bathe KJ. A continuum mechanics based four-node shell element for general non-linear analysis. Eng Comput 1984;1:77–88. [36] Lee PS, Bathe KJ. Development of MITC isotropic triangular shell ﬁnite elements. Comput Struct 2004;82:945–62. [37] Kim DN, Bathe KJ. A 4-node 3D-shell element to model shell surface tractions and incompressible behavior. Comput Struct 2008;86:2027–41. [38] Chapelle D, Bathe KJ. The mathematical shell model underlying general shell elements. Int J Numer Methods Eng 2000;48:289–313. [39] Kazancı Z, Bathe KJ. Crushing and crashing of tubes with implicit time integration. Int J Impact Eng 2012;42:80–8. [40] Rivlin RS. Large elastic deformations of isotropic materials. VI. Further results in the theory of torsion, shear and ﬂexure. Philos Trans Roy Soc Lond Ser A Math Phys Sci 1949;242:173–95. [41] Bathe KJ, Brezzi F, Cho SW. The MITC7 and MITC9 plate bending elements. Comput Struct 1989;32(3/4):797–814. [42] Lee PS, Bathe KJ. The quadratic MITC plate and MITC shell elements in plate bending. Adv Eng Software 2010;41:712–28.
+
+[27] Andelﬁnger U, Ramm E. EAS-elements for two-dimensional, threedimensional, plate and shell structures and their equivalence to HRelements. Int J Numer Methods Eng 1993;36:1311–37. [28] Wriggers P, Reese S. A note on enhanced strain methods for large deformations. Comput Methods Appl Mech Eng 1996;135:201–9. [29] Pantuso D, Bathe KJ. On the stability of mixed ﬁnite elements in large strain analysis of incompressible solids. Finite Elem Anal Des 1997;28:83–104. [30] Bathe KJ. Finite element procedures. Prentice Hall; 1996. [31] Daniel WJT, Belytschko T. Suppression of spurious intermediate frequency modes in under-integrated elements by combined stiffness/viscous stabilization. Int J Numer Methods Eng 2005;64:335–53. [32] Reese S, Wriggers P. A stabilization technique to avoid hourglassing in ﬁnite elasticity. Int J Numer Methods Eng 2000;48:79–109. [33] Wall WA, Bischoff M, Ramm E. A deformation dependent stabilization technique, exempliﬁed by EAS elements at large strains. Comput Methods Appl Mech Eng 2000;188:859–71. [34] Reese S. On a physically stabilized one point ﬁnite element formulation for three-dimensional ﬁnite elasto-plasticity. Comput Methods Appl Mech Eng 2005;194:4685–715.
+

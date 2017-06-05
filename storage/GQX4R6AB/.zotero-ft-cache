@@ -1,0 +1,358 @@
+Computational Design of Actuated Deformable Characters
+M´ lina Skouras1,2 e Bernhard Thomaszewski2
+1
+
+Stelian Coros2
+2
+
+Bernd Bickel 2
+
+Markus Gross1,2
+
+ETH Zurich
+
+Disney Research Zurich
+
+Figure 1: We present a method to convert animated digital characters into physically fabricated prototypes. Our physical characters can be actuated using pins, strings, or posed by hand.
+
+Abstract
+We present a method for fabrication-oriented design of actuated deformable characters that allows a user to automatically create physical replicas of digitally designed characters using rapid manufacturing technologies. Given a deformable character and a set of target poses as input, our method computes a small set of actuators along with their locations on the surface and optimizes the internal material distribution such that the resulting character exhibits the desired deformation behavior. We approach this problem with a dedicated algorithm that combines ﬁnite-element analysis, sparse regularization, and constrained optimization. We validate our pipeline on a set of two- and three-dimensional example characters and present results in simulation and physically-fabricated prototypes. CR Categories: I.3.7 [Computer Graphics]: Three-Dimensional Graphics and Realism—Animation; I.6.8 [Simulation and Modeling]: Types of Simulation—Animation Keywords: computational materials, physically-based simulation, elastic solids, control Links: DL PDF
+
+extremes ranging from humanoid virtual actors with bulging muscles, to invertebrate ﬁgures like jelly monsters and stylized background characters such as plants, buildings and other man-made objects. Digital characters are typically created solely for the virtual worlds they live in. However, many other applications such as theme park attractions, exhibitions, artistic installations or nextgeneration games require real, physical embodiments of these ﬁgures. While there is an extensive set of tools for digital character design and animation, translating animated characters to the real world is an extremely difﬁcult task. This problem is made even more evident by the quickly growing availability of rapid manufacturing devices and services that might soon lead to a switch from mass fabrication to personalized design of characters such as action ﬁgures. Realizing this technological trend, recent work by B¨ cher et al. a [2012] and Cal` et al. [2012] proposed solutions for transformı ing articulated digital characters into 3D-printed ﬁgures that can be posed in various ways. While this is a signiﬁcant advancement in fabrication-oriented character design, these methods are restricted to rigidly articulated characters and, more importantly, do not address the problem of how to animate the resulting ﬁgures. Motivated by these observations, we propose a method for fabrication-oriented design of actuated deformable characters. Given a digital representation of an animated (or animatable) character as input, we seek to ﬁnd a system of external actuators as well as an internal material distribution that allow us to fabricate a physical prototype whose range of deformation and movements closely approximate the input. Our solution to this problem is a dedicated algorithm that combines ﬁnite-element analysis, sparse regularization, and constrained optimization. We demonstrate our method on a set of two- and three-dimensional example characters. We present results in simulation as well as physically-fabricated prototypes with different types of actuators and materials.
+
+1
+
+Introduction
+
+Character design is a vital part of animated movie production, game development and other applications of computer graphics. Many virtual characters are rigidly articulated, others are very deformable, and most of them show properties between these two
+
+2
+
+Related Work
+
+Designing and animating digitial characters is a central research area in computer graphics. We refer the interested reader to the survey by McLaughlin et al. [2011] for an overview of the many challenges related to this task. Here, we focus on three ﬁelds that are most closely related to our research.
+
+Computational Materials are used in animated movies and liveaction ﬁlms to simulate the motion of, e.g., hair, cloth, and muscles. For an overview of existing techniques, we refer to Nealen et al. [2006]. A common challenge with such simulations is the selection of material parameters that yield a desired deformation behavior. Since hand-selecting the right parameters of a nonlinear material model and the right spatial distribution of multiple materials is a virtually impossible task, Bickel et al. [2009] presented a method to measure the parameters from a set of samples. However, such a data-driven approach is an option only if the material, the character in our case, is already physically available. Recent work by Martin and colleagues [2011] offers an elegant way to sidestep the tedious taks of parameter selection by describing material behavior through a set of example deformations. However, it is unclear how to translate example-based materials to physical materials since a real-world counterpart might not even exist. We follow the example-based modeling paradigm but solve a very different problem—the deformation space of our characters is described by a set of example poses, but we ask that the character be composed of a set of given base materials and that example poses should be reachable using only a limited number of external actuators. Structural Design Optimization is used in engineering to design, e.g., elastic structures [Bendsoe and Sigmund 2004]. Sizing optimization adapts the thickness of components of a model to meet, e.g., structural stability thresholds while keeping the topology of the model ﬁxed. Stava et al. [2012] improve the structural strength of 3D printable objects based on a stress analysis by hollowing and thickening parts or inserting supporting struts. In a shape optimization problem [Haslinger and M¨ kinen 2003], the goal is to ﬁnd an a optimal shape deﬁned by a prescribed domain. In graphics, realistic structural models that can be interacted with are of importance in physical simulations. Smith et al. [2002] optimize the geometry and the mass of truss structures for designing, e.g., bridges, towers, or roof supports. Procedural modeling in combination with structural optimization is also used for the design of buildings [Whiting et al. 2012] and plant modeling [Hart et al. 2003], where static analysis has been used to balance the weight of branches for creating realistic tree structures. Topology optimization can be seen as a generalization of this approach, involving additional features such as the number and location of holes as well as the connectivity of the domain [Rozvany 2009]. We draw inspiration from topology optimization by formulating the discrete material distribution problem as a continuous optimization task. While material optimization is only one part of our pipeline, it is to our knowledge the ﬁrst scheme to allow for multiple target poses, nonlinear elastic models, unknown external forces, and extreme deformations. Fabrication-Oriented Design of physically reproducible objects recently gained increased attention in the computer graphics community. Several approaches were presented for reproducing properties such as reﬂectance [Weyrich et al. 2009; Malzbender et al. 2012], subsurface scattering [Hasan et al. 2010; Dong et al. 2010], and shape in the context of computing burr puzzles from 3D models [Xin et al. 2011], designing plush toys [Mori and Igarashi 2007], or designing furniture [Lau et al. 2011; Umetani et al. 2012]. B¨ cher et al. [2012] and Cali et al. [2012] presented systems for a creating 3D-printable posable characters, whereas Zhu et al. [2012] proposed a method to synthesize mechanical toys given the motion of their features as input. Common to these approaches is that they generate models consisting of static geometry or piecewise rigid parts. In contrast, our work addresses the problem of computing a deformable character. The fabrication of deformable models has been investigated in a number of recent works, including materials with desired deformation behavior [Bickel et al. 2010], customshaped rubber balloons [Skouras et al. 2012], and synthetic skin for
+
+animatronic ﬁgures [Bickel et al. 2012]. Our work shares some of these goals but takes a signiﬁcantly different approach. Instead of designing the rest shape of an object made of a single material, we optimize for the spatial distribution of multiple materials, providing a much larger and more expressive design space. Furthermore, we automatically compute the number of actuators and their respective locations and applied forces that allow us to accurately capture the deformation space of the input model.
+
+3
+
+Overview
+
+Our method accepts as input a mesh describing a deformable character in its neutral state as well as a set of target shapes that represent desired deformations. We then optimize for the actuation parameters (number, placement, and forces) and an internal material distribution that allow us to fabricate a physical character whose range of deformation closely approximates the target shapes. Our formulation admits arbitrary types of actuators, but we focus on three variants in this work: pin-type actuators that can apply arbitrary forces at a given location, string-type actuators that can apply forces only in certain directions, and clamp-type actuators that prescribe the positions for sets of vertices, thus emulating the process of posing characters by hand. As summarized in Fig. 2, our pipeline for deformable character design consists of three main stages. The ﬁrst stage determines an estimate of how many actuators should be used and in which regions they should be placed. We consider two variants: by default, we let the user select actuation points on the model. This is convenient when the user wants to have a particular number of actuators and/or knows roughly where they should be placed. In other cases, in particular for characters without apparent articulation structure, it can be difﬁcult for the user to make a suggestion. In this case, we automatically suggest a number of actuators and their locations using sparse regularization.
+Initial Actuation
+
+Given the number of actuators and an initial estimate for their locations, we next adjust their placement such as to minimize the overall distance of the model to the individual target poses. At this point, we take into account the type of actuation, i.e., strings or pins, and solve the problem using constrained optimization.
+Actuator Locations
+
+With the actuator positions ﬁxed on the model, the third stage computes an internal material distribution that further optimizes the matching for the individual target poses. We assume that there are two materials available and initially allow each element of the model to assume an arbitrary convex combination of the base materials. As the optimization progresses, we drive the elements’ materials toward one of the base materials, which eventually results in a discrete material layout that is ready for fabrication.
+Material Optimization
+
+Finally, we use the optimized actuator locations and material distribution to fabricate a physical prototype of the deformable character using rapid prototyping technology.
+
+4
+
+Theory
+
+The input to our model consists of a deformable character in its neutral pose as well as a set of target deformed poses. We represent the models using triangle meshes for 2D characters and tetrahedron meshes in the 3D case. We let nv denote the number of vertices in the mesh and use X ∈ Rdim·nv to refer to the vector of undeformed positions, where dim denotes the number of dimensions. Likewise,
+
++
+Input and Target Shapes Actuator Initial Placement Actuator Location Optimization Material Optimization Fabricated Deformable Model
+
+Figure 2: An overview of our optimization scheme: an input character and target shapes are provided by the user, the number of actuators and their initial locations are determined, the positions of the actuators are optimized, and an internal material distribution is computed. Finally, the physical prototype is fabricated.
+
+we let ti ∈ Rdim·nv for i ∈ {1, . . . , np } denote the position vectors of the np target poses.
+
+4.1
+
+Elastic Model
+
+We start by constructing an elastic model of the input shape using ﬁnite elements. Since the characters that we consider exhibit large deformations, we use a nonlinear deformation measure but retain linear elements for the sake of efﬁciency. For simplicity, we ﬁrst focus on the three-dimensional case. Let Xe ∈ R12 , resp. xe ∈ R12 , denote the vectors of concatenated undeformed, resp. deformed, nodal positions Xe , 0 ≤ i ≤ 3, resp. xe , 0 ≤ i ≤ 3 of a single i i tetrahedral element e. We ﬁrst compute the deformation gradient Fe (Xe , xe ) = dD−1 where d is the (3×3) matrix whose columns hold the edge vectors di = xe − xe . Analogously, the edge vector 0 i matrix D is deﬁned through Di = Xe − Xe . We deﬁne the elastic 0 i energy density of the element using a Neo Hookean material model, κ Ψ (F ) = µ(tr(C ) − 3) + (det(Fe ) − 1)2 , 2
+e e e
+
+as close as possible to their corresponding target shapes. As it is generally not possible to exactly match the target poses, we ask that the distance of each deformed pose xi to its corresponding target pose ti be minimized. We quantify closeness using a distance energy function that measures differences in positions on the model’s boundary between deformed xi and target poses ti as Ed =
+i i Ed (ti , xi ) = 1 2 i j∈B
+
+||xi − ti ||2 , j j
+
+(3)
+
+where B denotes the set of boundary vertices. Letting p denote the vector of generic parameters that we want to optimize for, we seek to ﬁnd optimal values for p that minimize the distance energy Ed when the physical system is at equilibrium. This can be formulated as a constrained optimization problem:
+np
+
+min
+xi ,p i
+
+i Ed (ti , xi )
+
+(4)
+
+(1)
+
+i i s.t fint (xi , p) = −fext (xi , p) ∀i ∈ 1 . . . np , i where fext are external forces including actuation. Note that the objective function prefers deformed poses xi that are close to their target counterparts, whereas the constraints require that each of the xi is a physically-feasible solution, i.e., represents an equilibrium i state in which the internal forces fint are in balance with the exteri nally applied forces fext .
+
+where µ and κ are material parameters and C = (Fe )T Fe is the right Cauchy-Green tensor. The elastic energy of the deformed element is then obtained by integrating (1) over its domain. Since we use linear ﬁnite elements, the deformation gradient is constant across the element such that we have W e = Ψe V e , where V e denotes the volume of the tetrahedron. The global deformation energy W (X, x) between the rest state X and an arbitrary deformed state x is obtained by summing up elemental contributions as W (X, x) = e We (Xe , xe ). Finally, the elastic energy gives i rise to internal forces fint ∈ Rdim·nv as fint = − ∂W (X, x) . ∂x (2)
+
+For the two-dimensional case, we use linear triangle elements, and the derivation of the elastic energy is largely similar. As an important difference, however, we follow Skouras et al. [2012] and expand the two-dimensional Cauchy-Green tensor to three dimensions by inferring the thickness stretch from the assumption of volume-preserving deformations. This allows us to also use (1) for the two-dimensional case.
+
+The minimization problem (4) has a large number of degrees of freedom as well as numerous nonlinear constraints which have to be satisﬁed exactly. Following recent work in graphics [Skouras et al. 2012; Narain et al. 2012], we use an augmented Lagrangian method (ALM) to optimize for the system’s variables. In ALM, the usual Lagrangian function is augmented by an additional term penalizing constraint violations. The resulting function is minimized iteratively by alternating between unconstrained minimization of the modiﬁed objective and Lagrange multiplier updates. For our speciﬁc optimization problem, the augmented objective function has the following form,
+Numerical Optimization
+
+Λ(x, p) = Ed (x) − λt f (x, p) +
+
+µ ||f (x, p)||2 , 2
+
+(5)
+
+4.2
+
+Optimization Scheme
+
+where x ∈ Rdim·nv ·np is the concatenation of the np deformed position vectors xi and f (x, p) = fint (x, p) + fext (x, p). In every step of the optimization, the multipliers λ are ﬁxed, and the minimization of Λ is performed using a Newton-Raphson procedure including line search. Bound constraints on the variables are
+
+Our goal is to compute the internal material structure of the deformable model and the sets of actuation forces that, when applied to the model, lead to deformed states that are
+Basic Formulation
+
+handled using a gradient projection approach as described in Nocedal and Wright [2000]. After each minimization step, we update the Lagrange multipliers using the scheme λi = λi − µfi , provided that the decrease in the constraints is sufﬁcient. Otherwise, the weight of the penalty term µ is increased while keeping the multipliers unchanged. The procedure stops when both the gradients of Λ and of the constraints f are smaller than given thresholds.
+
+In our case, the design variables are force vectors comprising two or three components. Since all of these components have to be zero simultaneously in order to obtain a zero net force, we introduce a regularizer that penalizes the sum of force magnitudes. Considering only a single target pose i for the moment, we deﬁne a sparse regularizer as
+nv dim 1/α i
+
+4.3
+
+Initial Actuation
+
+Rsparse (q ) = ksparse
+j k
+
+(qi )2 j k
+
+,
+
+(6)
+
+Given a deformable character and its desired range of deformation, we ﬁrst have to determine a number of actuators and an initial estimate for their locations. We will require that the actuators be placed on the boundary of the characters and denote by Q = (l, q1 , . . . , qnp ) the actuation system where l ∈ Rdim·na holds the locations of the na actuators in the rest state and each vector qi ∈ Rdim·na holds the actuation forces for a target pose ti . In some cases, the structure of a character will largely imply the number of actuators. In other cases, the user can have a speciﬁc idea of how many actuators should be used and where they should be placed. Yet, for many characters, in particular those without apparent skeletal structure, the answer to this question is far from obvious. In order to treat both of these cases, we support two variants of actuator layout in our system: the user can hand-select a desired number of points on the undeformed model, in which case we directly proceed to the next stage of our pipeline. Otherwise, we ask the user to specify an admissible range for the number of actuators (e.g. 5-10) and automatically compute a suggestion as described subsequently. The underlying reasoning of our approach is that it is generally desirable to have the smallest number of actuators that yield a sufﬁciently good approximation of the target poses. Indeed, the mechanical complexity of real-world actuation systems typically imposes strict bounds on the number of actuators, as is the case for our string-based setup (see Fig. 5) and animatronic ﬁgures in general (see, e.g., [Bickel et al. 2012]). Finding the optimal number of actuators is an inherently discrete problem that does not directly lend itself to continuous optimization. Instead of turning toward specialized optimization methods such as mixed-integer programming, we draw inspiration from sparse regularization techniques used in, e.g., machine learning and image processing. Starting with a dense set of actuators on the boundary of the model, we introduce a regularizer that prefers sparse solutions, i.e., a small number of actuators. A widely used approach for sparse regularization is to penalize the L1 -norm of the design variables, i.e., the sum of absolute values.
+
+where ksparse is a scaling parameter and α > 2 generalizes the L1 -norm to more strongly penalize small values. In order to incorporate multiple target poses, we ask that a given actuator should have a zero value only if its force vectors vanish for all target poses. This requirement can be modeled as
+nv np dim 1/α 1 np
+
+Rsparse (q , . . . , q
+
+) = ksparse
+j i k
+
+(qi )2 j k
+
+. (7)
+
+We add this reqularizer to the basic optimization problem (4) with p = (q1 , . . . , qnp ) and, depending on the value of ksparse , obtain solutions with different numbers of actuators (see Fig. 3). Since it is not possible to choose ksparse a priori in order to obtain a desired number of actuators na , we solve a sequence of problems with different values of ksparse until we ﬁnd a solution within the admissible range speciﬁed by the user.
+
+4.4
+
+Actuator Locations
+
+The initial actuation step provides us with a number of actuators and their initial locations. Next, we improve the matching quality, i.e., the correspondence between deformed poses xi and target poses ti , by allowing the actuators to slide along the boundary of the character. In order to ensure that actuators can move freely along the surface but not in their normal directions, we introduce a penalty term that attracts the actuators to the zero-levelset of a local distance ﬁeld Φ around the surface. Using the implicit moving least ¨ squares (IMLS) method of Oztireli et al. [2009], the distance ﬁeld is deﬁned as Φ(x) =
+k
+
+nk · (x − Xk )φk (x) , k φk (x)
+4
+
+(8)
+
+k 2 where φk (x) = 1 − are locally-supported kernel h2 functions that vanish beyond their support radius h. Using this formulation, we deﬁne a penalty energy
+
+||x−X ||2
+
+EIMLS =
+i
+
+Φ(li )2
+
+(9)
+
+that attracts the actuator locations li to the surface. In order to ensure that the actuation forces vary smoothly as the actuators move along the surface, we distribute them to a local neighborhood of vertices using the IMLS-kernels
+i fk =
+
+0.001
+
+0.01
+
+0.03
+
+1.0
+
+qi φk (lj ) j . l∈Sj φl (lj )
+
+(10)
+
+Figure 3: Sparse regularization demonstrated on the TourEiffel example. The number of actuators (black arrows) is effectively controlled by the coefﬁcient ksparse (indicated below the ﬁgures).
+
+Here, k, l ∈ Sj where Sj denotes the set of vertices whose kernel functions are nonzero at lj (see also Fig. 4, left). In addition to this penalty term, we also want to prevent actuators from moving too close together as coinciding actuators would lead to a null-space
+
+4.5
+
+Material Optimization
+
+������j ������ k ������k
+
+������j
+
+������i j
+i ������ j
+
+Even with the location optimization described in the previous section, characters can have poses that are difﬁcult to achieve. Such difﬁcult poses arise, e.g., from conventional articulation such as the sharp bending of an arm. Approximating such poses with a homogeneous material would require a large number of actuators. We address this problem by allowing the material properties to vary spatially, thus building preferences for deformation directly into the model. As a basis for material optimization, we will assume that there is a library of non-miscible base materials (such as silicone and printable plastics) described by energy density functions W i . For simplicity, we restrict considerations to two material types per character, typically a soft and a stiff one. We allow the material properties to vary among the elements but assume that each element consists of a homogeneous material. If we directly constrain each element to take on only material properties from the library, we arrive at a discrete optimization problem and its associated difﬁculties. In order to avoid the need for more complex optimization methods, we convert the discrete problem into a continuous one by allowing the per-element materials to be interpolations of the base materials. We start the optimization by allowing arbitrary (convex) combinations of the base materials and then progressively drive the interpolation weights to the boundary of the intervals, thus enforcing a discrete material distribution. On a technical level, we do not interpolate material descriptions but the elastic energies that would result from the different base materials. The effective deformation energy of a given element e is deﬁned as W (Fe , ρe ) = ρe W 1 (Fe ) + (1 − ρe ) W 2 (Fe ) , (15)
+
+Figure 4: Illustrations for the IMLS distance ﬁeld (left) and the string-based actuator (right).
+
+during optimization. To this end, we deﬁne a C 2 continuous repulsion term Erep (lj , lk ) = krep (εrep − ||lj − lk ||)3 , (11)
+
+which is activated whenever the distance between actuators is smaller than a threshold value εrep . Adding (9) and (11) to (3), we compute the optimal positions x and parameters p = (l, q1 , . . . , qnp ) which solve the problem (4).
+String-Based Actuation The formulation so far assumed that the actuators can apply forces qi in arbitrary directions. Since this is not the case for strings, a few adaptations have to be made. A string actuator is deﬁned through an attachment point aj located on an external support structure as well as another attachment point on the surface of the character. The force that can be exerted by such an actuator depends on the deformed conﬁguration,
+i q i = kj j
+
+(aj − xi ) j ||aj − xi || j
+
+,
+
+(12)
+
+i where kj > 0 corresponds to the tension of the string and xi is j the actuator’s location on the deformed surface (see Fig. 4, right). i Note that we require kj > 0 since the string can only pull, not push. Using the formulation described above, we optimize for the i actuator’s location lj on the rest state but add kj and aj as further degrees of freedom.
+
+where ρe are interpolation weights. Adopting this interpolated material model and adding the interpolation weights per element as free variables to the optimization problem, we can solve for a material distribution that leads to an optimal approximation of the target poses by optimizing for the parameters p = (q1 , . . . , qnp , ρe1 , . . . , ρen ). However, in order to obtain a physically meaningful solution, we have to drive the interpolation weights to 0 or 1. We achieve this with a penalty energy of the form Rmat = kmat ρe (1 − ρe ) , (16)
+e
+
+We enforce the condition that aj be on the support structure using a formulation similar to (9). Assuming a circular support, we formulate the penalty energy as
+j Estring (aj ) = (||aj − c|| − r)2 ,
+
+(13)
+
+where kmat is a scaling parameter that is progressively increased until a solution is found that satisﬁes ρe (1 − ρe ) < ε, where ε denotes a small threshold value. While the penalty term Rmat will eventually ensure that all interpolation weights are either 0 or 1, they can potentially assume values out of this range in earlier iterations. We therefore have to explicitly enforce the bounds on the interpolation variables since we could otherwise encounter nonphysical material combinations that would hinder convergence. The material optimization scheme computes material distributions that are optimal in the sense of approximating the target poses. However, multiple solutions can lead to equivalent approximations of the target poses. In our approach, we aim to ﬁnd macroscopic material distributions rather than micro-level structures. We therefore favor larger material clusters rather than small, isolated islands by adding the regularizer, Rsmooth = ksmooth
+j
+
+where r is the radius of the support and c denotes its center. In order to limit the likelihood of strings intersecting with the model or tangling up during animation, we prefer string directions that are close to the boundary normals at the attachment point. We express this preference with a further penalty term
+np na
+
+Edir = kdir
+i j ni φ (l )
+
+1−
+
+qi j · ni (lj ) ||qi || j
+
+2
+
+,
+
+(14)
+
+(ρj −
+
+1 nj
+
+ρ k )2 ,
+k∈Tj
+
+(17)
+
+k k j where ni (lj ) = k φk (lj ) denotes the interpolated normal at the k string location lj in pose i.
+
+where Tj denotes the set of nj elements adjacent to element j. Finally, since our focus is on deformable characters, we also prefer
+
+the actuators locations. These pins are then plugged into precisiondrilled holes in an acrylic plate to reproduce the target poses. The 3D characters, “Palmy3D” and “Grampolo”, were designed using the same framework as for the 2D examples, but for simplicity, we pose and animate these models by hand. The ﬁrst stage of our pipeline provides an initial guess for the actuator locations and already leads to fair approximation quality in some cases. As can be seen from Table 1, however, the subsequent actuator location optimization is able to signiﬁcantly reduce the error for all examples. Allowing material properties to vary spatially further improves the visual and quantitative error of all characters. A particularly striking example can be seen in Fig. 9, where material optimization allowed us to create very different deformation styles with only two actuators. Note that our scheme leads to intuitive solutions if the character exhibits mostly rigid articulation, as is the case, e.g., for “Palmy2D” (Fig. 7) and “Grampolo” (Fig. 1, right). Although we used only one example pose for the “Grampolo” character, the optimization scheme was able to infer a meaningful material distribution, putting soft material at joint locations and rigid material at limbs. For characters with more complex deformations, however, the material distribution can be signiﬁcantly more complex as shown in Fig. 8 and Fig. 9.
+Material Optimization
+
+Figure 6: 3D printed example of a straight bar with uniform (left) and optimized (right) material distribution that is bent into a question mark shape by applying force only on its end caps. The small orange icon shows the target shape.
+
+soft materials over stiff ones in regions where the difference in approximation quality is small. We model this preference with a second regularization term,
+ne
+
+Rsoft = ksoft
+i
+
+(ρe )2 ,
+
+(18)
+
+assuming that the soft material corresponds to ρ = 0.
+
+5
+
+Results
+
+We evaluated our method by designing and fabricating six characters with different types of actuators and materials. For fabrication, we used an Objet Connex350 multi-material printer with two base materials of signiﬁcantly different stiffnesses. We chose VeroClear, a rigid and transparent material, and TangoBlack+, a black material with properties similar to soft rubber. Three of the characters were printed directly (“Palmy3D”, “Questionmark”, “Grampolo”), whereas the remaining three were fabricated using silicone injection molding with 3D-printed rigid parts (“TourEiffel”, “Palmy2D”, “WormEye”). We simulated the material behavior during the design process using measured data for silicone [Bickel et al. 2012] and data provided by Objet for the 3D-printed materials. In the following paragraphs, we discuss our results and highlight the roles played by the individual stages of our design pipeline. For all examples shown in this paper, we employed the sparse regularization approach for computing an appropriate number of actuators. We observed that, especially for characters that do not have an obvious internal structure, manually selecting the number of actuators and their placement proved to be difﬁcult. Our automatic approach signiﬁcantly simpliﬁed this design task.
+Actuator Optimization
+
+Our method uses a number of different penalty terms to enforce soft constraints or drive the solution toward a preferred subspace. The weights that we used for the different examples are listed in Table 2. For most of the weights, determining an appropriate value posed no difﬁculty, since the corresponding penalty terms were not directly competing with other objectives. However, the weights of the regularization terms (17) and (18) have a signiﬁcant impact on the ﬁnal material distribution. We set these weights by ﬁrst selecting a value for (18) which, together with the target poses, determines the overall material structure. We use a default value for (17) and, if necessary, adjust it with 1-2 iterations to suppress small material islands without changing the boundary of larger structures too much.
+Weight Selection
+
+Our fabricated prototypes show good agreement with the simulation. Fig. 7 illustrates the progressive improvement during each step of our pipeline including the ﬁnal fabricated character.
+Accuracy, Robustness and Performance
+
+A variation in the position of the actuators affects the resulting material distributions. However, in practice we observed that a small variation leads to a solution with similar quality. We also investigated whether multiple iterations of our pipeline would lead to improved results but did not observe any signiﬁcant improvement after the ﬁrst cycle in our experiments. Statistics for each example including the number of elements, number of actuation points and computation times can be found in Table 2. The largest fraction of the computation time is spent on material optimization. This is mostly due to the fact that the optimization scheme uses several outer iterations to increase the parameter kmat that eventually enforces each element to assume one of the base materials.
+
+Fig. 5 shows an example of string-based actuation. We extracted ﬁve key frames from an artist-generated input animation and used the sparse regularization method to automatically determine the number of actuators as well as their initial locations. We fabricated the model with silicone and attached strings driven by servo motors to playback the animation. The strings are routed through pulleys at a ring around the model, whose locations are optimized as well. We refer to the accompanying video for the full animation. The “QuestionMark” example (Fig. 6) is posed using clamp-type actuators that ﬁx both the position and orientation of the end caps of the model. The remaining examples were designed using pin-type actuators. We pose the planar characters by attaching small pins at
+
+6
+
+Conclusion
+
+We presented a method for creating physically fabricated prototypes of animated digital characters. Our approach automatically ﬁnds a sparse set of actuation locations on the surface and optimizes the internal material distribution such that the resulting character
+
+Figure 5: “TourEiffel” model actuated with 5 strings. From a given animation, we extracted several key frames and automatically optimized the actuator locations. The top row shows the resulting deformations in simulation. We also fabricated the model with silicone and attached strings driven by servo motors to replay the animation (bottom row).
+
+(a)
+
+(b)
+
+(c)
+
+(d)
+
+(e)
+
+Figure 7: “Palmy2D.” Given 3 target poses (a), we use sparse regularization to ﬁnd an initial location of 4 actuation points (b). We then reﬁne the location of the actuation points by allowing them to slide on the surface (c) and optimize for an internal material distribution that allows us to better approximate the target poses (d). Columns (b-d) show the resulting simulated deformations of each optimization stage. We validated the results by fabricating the character with silicone and rigid insets. The fabricated character is then posed using pins (e).
+
+Figure 8: “WormEye.” Top row: Frames from an animation of two WormEye characters. Bottom row: Optimized material distribution and actuator locations for reproducing poses present in the animation (left) and real fabricated deformed character (right).
+
+Figure 10: “Palmy3D.” From left to right: Rest pose with optimized material distribution (black/stiff, blue/soft), simulated poses (blue) overlaid with input target poses (red), 3D printed character. exhibits the desired deformation behavior. We demonstrated our method on a set of simulated as well as physically-fabricated characters with different types of actuators and materials. We believe that our method is an important step toward physics-based design of real-world characters.
+
+Model TourEiffel (1) TourEiffel (2) Palmy2D (1) Palmy2D (2) Palmy2D (3) Questionmark (2) Questionmark (3) Grampolo (1) Grampolo (2) Grampolo (3)
+
+Pose1 4.8/0.5 3.6/0.5 7.1/0.7 7.6/0.4 5.1/0.5 8.3/0.4 3.1/0.2 17.1/3.7 13.6/2.6 2.7/0.4
+
+Pose2 3.0/0.4 2.0/0.4 11.0/0.9 7.4/0.5 5.1/0.3 -
+
+Pose3 2.8/0.5 3.6/0.5 5.7/0.4 4.8/0.2 2.6/0.1 -
+
+Pose4 6.4/0.8 5.2/0.6 -
+
+Pose 5 4.4/0.6 3.8/0.6 -
+
+Size 202 202 100 100 100 80 80 102 102 102
+
+Limitations and Future Work
+
+Table 1: Error statistics. Max/mean Euclidean distance (in mm) between vertices of the simulated poses and vertices of the input poses after initial actuation (1), optimization of actuation locations (2), and optimization of material distribution (3). The size corresponds to the maximum length of the character’s bounding box.
+
+We optimize for sets of actuation forces corresponding to equilibrium states that are as close as possible to the target poses. However, knowing the forces at the deformed state does not imply that there is a unique way of getting to that state from the undeformed conﬁguration as there can be bifurcation points (buckling) along the way. While we did not encounter this sort of problems in our examples, further treatment might be necessary in order to ensure robust tracking of the input animation in between target poses. As one possible direction for future work, we would like to explore the possibility of using a larger number or range of materials, e.g., by printing micro-level structures. An interesting related problem is also the design of more elaborate actuation systems that would enable us to animate more complex characters in an automated way.
+
+Model
+
+#Elem. #Actuation Computation Weights Points Time TourEiffel 525 5 20min02s 1/-/Palmy2D 2745 4 5h26min 0.01/10−5 /0.01 Palmy3D 8362 4 7h17min 0.1/10−7 /0.01 WormEye 808 8 3h10min 1.5 10−4 /10−6 /0.1 Questionmark 4536 caps ﬁxed 1h09min -/10−7 /1 Grampolo 17709 7 4h44min 500/10−3 /1
+
+Acknowledgments
+We would like to thank the reviewers for their insightful comments. We also greatly appreciate the help of Christian Schumacher, Maurizio Nitti, and Ronnie G¨ nsli. This work was partly funded by the a NCCR Co-Me of the Swiss NSF.
+
+Table 2: Example statistics. From left to right: Number of elements, number of actuation points, total computation time, weights used for the regularization terms Rsparse , Rsoft and Rsmooth .
+
+¨ H ASLINGER , J., AND M AKINEN , R. A. E. 2003. Introduction to Shape Optimization. SIAM. L AU , M., O HGAWARA , A., M ITANI , J., AND I GARASHI , T. 2011. Converting 3d furniture models to fabricatable parts and connectors. ACM Trans. Graph. (Proc. SIGGRAPH) 30, 4. M ALZBENDER , T., S AMADANI , R., S CHER , S., C RUME , A., D UNN , D., AND DAVIS , J. 2012. Printing reﬂectance functions. ACM Trans. Graph. 31, 3. M ARTIN , S., T HOMASZEWSKI , B., G RINSPUN , E., AND G ROSS , M. 2011. Example-based elastic materials. ACM Trans. Graph. (Proc. SIGGRAPH) 30, 4. M C L AUGHLIN , T., C UTLER , L., AND C OLEMAN , D. 2011. Character rigging, deformations, and simulations in ﬁlm and game production. In ACM SIGGRAPH 2011 Courses. M ORI , Y., AND I GARASHI , T. 2007. Plushie: An interactive design system for plush toys. ACM Trans. Graph. (Proc. SIGGRAPH) 26, 3. Figure 9: A straight bar is deformed into four different question mark shapes by imposing position constraints on its end caps. The ﬁrst row shows the target shapes, the second row the result without material optimization and the third our results after material optimization (stiff/soft material shown in grey/blue color). NARAIN , R., S AMII , A., AND O’B RIEN , J. F. 2012. Adaptive anisotropic remeshing for cloth simulation. ACM Trans. Graph. (Proc. SIGGRAPH Asia) 31, 6. ¨ N EALEN , A., M ULLER , M., K EISER , R., B OXERMAN , E., AND C ARLSON , M. 2006. Physically based deformable models in computer graphics. Computer Graphics Forum 25, 4. N OCEDAL , J., AND W RIGHT, S. J. 2000. Numerical Optimization. Springer. ¨ O ZTIRELI , C., G UENNEBAUD , G., AND G ROSS , M. 2009. Feature preserving point set surfaces based on non-linear kernel regression. Computer Graphics Forum (Proc. Eurographics) 28, 2. ROZVANY, G. 2009. A critical review of established methods of structural topology optimization. Structural and Multidisciplinary Optimization 37, 3. S KOURAS , M., T HOMASZEWSKI , B., B ICKEL , B., AND G ROSS , M. 2012. Computational design of rubber balloons. Computer Graphics Forum (Proc. Eurographics) 31, 2. S MITH , J., H ODGINS , J. K., O PPENHEIM , I., AND W ITKIN , A. 2002. Creating models of truss structures with optimization. ACM Trans. Graph. (Proc. SIGGRAPH) 21, 3. ˇ S TAVA , O., VANEK , J., B ENES , B., C ARR , N., AND M E CH , R. 2012. Stress relief: improving structural strength of 3d printable objects. ACM Trans. Graph. (Proc. SIGGRAPH) 31, 4. U METANI , N., I GARASHI , T., AND M ITRA , N. J. 2012. Guided exploration of physically valid shapes for furniture design. ACM Trans. Graph. (Proc. SIGGRAPH) 31, 4. W EYRICH , T., P EERS , P., M ATUSIK , W., AND RUSINKIEWICZ , S. 2009. Fabricating microgeometry for custom surface reﬂectance. ACM Trans. Graph. (Proc. SIGGRAPH) 28, 3. W HITING , E., S HIN , H., WANG , R., O CHSENDORF, J., AND D U RAND , F. 2012. Structural optimization of 3d masonry buildings. ACM Trans. Graph. (Proc. SIGGRAPH Asia) 31, 6. X IN , S., L AI , C.-F., F U , C.-W., W ONG , T.-T., H E , Y., AND C OHEN -O R , D. 2011. Making burr puzzles from 3d models. ACM Trans. Graph. (Proc. SIGGRAPH) 30, 4. Z HU , L., X U , W., S NYDER , J., L IU , Y., WANG , G., AND G UO , B. 2012. Motion-guided mechanical toy modeling. ACM Trans. Graph. (Proc. SIGGRAPH Asia) 31, 6.
+
+References
+¨ B ACHER , M., B ICKEL , B., JAMES , D. L., AND P FISTER , H. 2012. Fabricating articulated characters from skinned meshes. ACM Trans. Graph. (Proc. SIGGRAPH) 31, 4. B ENDSOE , M. P., tion. Springer.
+AND
+
+S IGMUND , O. 2004. Topology Optimiza-
+
+¨ B ICKEL , B., B ACHER , M., OTADUY, M. A., M ATUSIK , W., P FISTER , H., AND G ROSS , M. 2009. Capture and modeling of non-linear heterogeneous soft tissue. ACM Trans. Graph. (Proc. SIGGRAPH) 28, 3. ¨ B ICKEL , B., B ACHER , M., OTADUY, M. A., L EE , H. R., P FIS TER , H., G ROSS , M., AND M ATUSIK , W. 2010. Design and fabrication of materials with desired deformation behavior. ACM Trans. Graph. (Proc. SIGGRAPH) 29, 4. B ICKEL , B., K AUFMANN , P., S KOURAS , M., T HOMASZEWSKI , B., B RADLEY, D., B EELER , T., JACKSON , P., M ARSCHNER , S., M ATUSIK , W., AND G ROSS , M. 2012. Physical face cloning. ACM Trans. Graph. (Proc. SIGGRAPH) 31, 4. C AL`, J., C ALIAN , D. A., A MATI , C., K LEINBERGER , R., I S TEED , A., K AUTZ , J., AND W EYRICH , T. 2012. 3d-printing of non-assembly, articulated models. ACM Trans. Graph. (Proc. SIGGRAPH Asia) 31, 6. D ONG , Y., WANG , J., P ELLACINI , F., T ONG , X., AND G UO , B. 2010. Fabricating spatially-varying subsurface scattering. ACM Trans. Graph. (Proc. SIGGRAPH) 29, 4. H ART, J. C., BAKER , B., AND M ICHAELRAJ , J. 2003. Structural simulation of tree growth and response. The Visual Computer. H ASAN , M., F UCHS , M., M ATUSIK , W., P FISTER , H., AND RUSINKIEWICZ , S. 2010. Physical reproduction of materials with speciﬁed subsurface scattering. ACM Trans. Graph. (Proc. SIGGRAPH) 29, 4.
+

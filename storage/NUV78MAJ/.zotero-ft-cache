@@ -1,0 +1,290 @@
+Computational Aspects of Fabrication
+
+3D-Printing Spatially Varying BRDFs
+Olivier Rouiller ■ Technical University of Berlin Bernd Bickel ■ Disney Research Zurich Jan Kautz ■ University College London Wojciech Matusik ■ MIT Marc Alexa ■ Technical University of Berlin
+
+ecent advances in 3D printers have enabled consumers to print highly accurate 3D models, and multimaterial printers let users print colored 3D models. However, these printers can’t directly replicate a digital model’s reflection properties. Instead, the printed model’s reflection properties are A new method fabricates simply due to the chosen printcustom surface reflectance and ing material. Unfortunately, the spatially varying bidirectional available printing materials ofreflectance distribution fer a restrictive set of reflectance functions (svBRDFs). It lets properties—mostly matte, slightly people print svBRDFs on glossy (polished plastic), or very specular (transparent plastic). planar samples with current Even if the appropriate mate3D printing technology, even rial is available, printers support with a limited set of printing only a few concurrent materials, materials. It extends naturally severely limiting the gamut of to printing svBRDFs on printable reflectances. arbitrary shapes. According to microfacet theory, a surface is an aggregate of microscopic perfect mirrors with different orientations.1 The fraction of light reflected from the surface in a particular direction depends on the distribution of these mirrors’ normals. The resulting reflectance is therefore a function of the normal distribution, often represented as a normal distribution function (NDF). Many analytical reflectance models use some variant of an NDF.
+48 November/December 2013
+
+R
+
+This suggests you can achieve specific reflectances by modifying the microscale surface structure of an otherwise highly specular material (mimicking the perfect mirrors of the microfacet theory). The main question is then how to find a microsurface corresponding to a specific NDF. To solve this problem, we geometrically model the reflectances, encompassing both the diffuse and specular components. This involves two main challenges. First, the microsurface to replicate the specular component should be smooth and (locally) convex to be suitable for 3D printing. To address this challenge, we create microsurfaces consisting of domes whose normal distribution approximates the input NDF. Second, we need a way to print a combination of (colored) diffuse and specular components. So, we print the microsurface using transparent plastic, which lets us embed it atop a (mostly) diffuse color layer, yielding a complete reflectance model. Our method’s main contributions are
+■
+
+■
+
+a computational model for designing microstructures to replicate specular and diffuse reflectances and a model for simulating and designing effective bidirectional reflectance distribution functions (BRDFs) with our microgeometry.
+0272-1716/13/$31.00 © 2013 IEEE
+
+Published by the IEEE Computer Society
+
+Preprocessing Printing materials Measure Models for fb , fs fs Microgeometry Simulate Measure fmicrodatabase
+
+Runtime fmicrodatabase, fb Input ftarget Optimize
+
+(a)
+
+Output NDF parameters and α so that f = ftarget
+
+Optimize NDFs (b)
+
+(c)
+
+Model
+
+Figure 1. Our pipeline to control a 3D-printed surface’s reflectance. (a) During preprocessing, we measure the reflectance of the matte printing material fb and glossy material fs . (b) We then optimize a microgeometry to reproduce a range of normal distribution functions (NDFs) and simulate this geometry’s net effect when it’s printed on a surface. This processing produces a database of realizable bidirectional reflectance distribution functions (BRDFs) fmicro with our geometry. (c) To match a target reflectance, we use this database in conjunction with a simple model of the effective BRDF f of the surface to find the parameters (the NDF and a, the density of the microgeometry on the surface) that produce the best results.
+
+To our knowledge, this is the first attempt to fabricate spatially varying BRDFs (svBRDFs) on 3D models.
+
+Overview
+To print svBRDFs, we map a given input BRDF to a microgeometry that can be applied to an object’s shape and 3D-printed. Our method lets us control and increase the appearance range of 3D-printing processes without modifying the base materials. We assume the printer can generate surfaces with a matte and a glossy finish, giving us corresponding base BRDFs f b and fs that are diffuse and specular, respectively. We replicate an input BRDF model’s effective reflectance by composing these two base BRDFs with custom microgeometry of the surface. During preprocessing, we measure the printer’s base materials (see Figure 1a). We then start with a set of analytic NDFs, compute their corresponding microgeometry, and measure for each the effect of composing this geometry with the printing material (see Figure 1b). Given an analytic NDF as input, we efficiently optimize a hemispherical base consisting of discrete facets such that its normal distribution corresponds to the desired NDF. This process requires us to first generate a sampling of the NDF with blue noise. We use this sampling to construct the dome by optimizing the areas of the facets of a cell of a 3D Voronoi diagram. Using global illumination, we then simulate the resulting BRDF of a surface covered by the domes, taking into account the base material’s measured BRDFs. This analysis lets us fit analytic BRDFs to the simulated data and thus predict how the geometry and material affect the model’s final appearance. By optimizing and analyzing domes for different NDFs, we explore the space of reproducible BRDFs with our model and store them in a database.
+
+During runtime (see Figure 1c), we use a datadriven approach to synthesize an NDF to match a desired appearance. Given a target reflectance as input, we determine the domes’ geometry and adapt their placement density on the surface to find the best approximation of the target BRDF.
+
+The Microgeometry Model
+We denote a material’s BRDF as f(wi, wo), where wi is the light direction and wo is the view direction. Intuitively, given wi and wo, only the facets with a normal equal to their half-vector h contribute to the reflected light. So, f(wi, wo) is equal to the proportion of the microsurface covered by facets with normal h: f(wi, wo) ∝ p(h), where p(h) is the NDF. However, no simple direct relationship exists between an NDF and a BRDF because of the effects of masking and because of the facets’ reflection properties. (We discuss this topic in more detail later.) Keeping in mind these considerations, we design a microgeometry with a controlled NDF as the first step toward fabricating BRDFs. In writing down our microgeometry’s requirements, we consider p(h)dW to be the probability that a randomly picked facet lies in the infinitesimal solid angle dW around h. This requirement is continuous, and realizing a surface from a continuous NDF is related to normalfield integration, which isn’t always possible and depends on boundary conditions. Also regarding an NDF, no constraints exist on the normals’ spatial repartition, so translating an NDF into a normal field also isn’t straightforward. Instead, following Tim Weyrich and his colleagues’ approach, we construct a surface from a discrete set of normals that reconstruct the input NDF.2 (For more on this approach, see the sidebar.) This surface has one facet for each normal in the sampling, and all the facets have roughly the same area.
+IEEE Computer Graphics and Applications 49
+
+Computational Aspects of Fabrication
+
+Representing and Reproducing Surface Appearance
+any methods and models exist for representing or measuring real materials’ appearance. Julie Dorsey and her colleagues provided a comprehensive overview.1 As we mentioned in the main article, most reflectance models employ a representation of a distribution of the normals of reflectances, as described by microfacet theory. Examples include the Cook-Torrance model,2 Gregory Ward’s model,3 and Michael Ashikhmin and his colleagues’ model.4 Tim Weyrich and his colleagues proposed a method to fabricate microgeometry—by milling metal—that yields a user-controlled highlight (specular reflectance only).5 Their method samples normals from a user-defined normal distribution function (NDF) and then uses simulated annealing to find a C0-continuous microsurface that can be tiled and milled. This method showed interesting results and could handle complex NDFs. However, the achieved reflectance had observable artifacts, and the milling process made the method hard to use for curved objects. Bidirectional reflectance distribution functions (BRDFs) are commonly used to represent a surface’s optical reflection properties.6 Wojciech Matusik and his colleagues overlaid inks with different reflectance to print spatially varying BRDFs with a reasonable gamut from mostly diffuse to low glossy.7 Tom Malzbender and his colleagues used paper with a static microgeometry.8 They selectively printed opaque or partially opaque ink on portions of that surface to control the resulting specular highlight from specific incident-light directions. Both techniques apply only to printing on paper and don’t directly extend to 3D printers.
+
+M
+
+Researchers have used 3D printers to reproduce material appearance. For example, Yue Dong and his colleagues modeled subsurface scattering by 3D-printing several layers.9 The results were of high quality. Unfortunately, the techniques don’t apply to 3D-printing of spatially varying reflectance on object surfaces.
+
+References
+1. J. Dorsey, H. Rushmeier, and F. Sillion, Digital Modeling of Material Appearance, Morgan Kaufmann, 2007. 2. R.L. Cook and K.E. Torrance, “A Reflectance Model for Computer Graphics,” ACM Trans. Graphics, vol. 1, no. 1, 1982, pp. 7–24. 3. G. Ward, “Measuring and Modeling Anisotropic Reflection,” Proc. Siggraph, ACM, 1992, pp. 265–272. 4. M. Ashikhmin, S. Premože, and P. Shirley, “A Facet-Based BRDF Generator,” Proc. Siggraph, ACM, 2000, pp. 65–74. 5. T. Weyrich et al., “Fabricating Microgeometry for Custom Surface Reflectance,” ACM Trans. Graphics, vol. 28, no. 3, 2009, article 32. 6. F.E. Nicodemus et al., Geometrical Considerations and Nomen­ clature for Reflectance, US Nat’l Bureau of Standards, 1977; http://graphics.stanford.edu/courses/cs448-05-winter/papers/ nicodemus-brdf-nist.pdf. 7. W. Matusik et al., “Printing Spatially Varying Reflectance,” ACM Trans. Graphics, vol. 28, no. 5, 2009, article 128. 8. T. Malzbender et al., “Printing Reflectance Functions,” ACM Trans. Graphics, vol. 31, no. 3, 2012, article 20. 9. Y. Dong et al., “Fabricating Spatially Varying Subsurface Scattering,” ACM Trans. Graphics, vol. 29, no. 4, 2010, article 62.
+
+NDF Microgeometry as a Voronoi Cell
+Given a sampling of an NDF ni (see Figure 2a) and the points pi = rini and the origin (see Figure 2b), where the distances ri are positive numbers, we construct the 3D Voronoi diagram of those points (see Figure 2c). The diagram’s restriction to the central cell (see Figure 2d) is a convex surface having exactly one face for each normal of the sampling. To adapt the areas ai of the dome faces, we interpret ri as a weight. Decreasing ri increases ai; increasing ri decreases ai.
+
+or shrink. So, the distance between neighboring samples should be maximal. A good strategy to fulfill these two requirements is to use sampling based on Lloyd’s relaxation. We employ capacity-constrained Voronoi tessellation,3 an improvement of Lloyd’s method that ensures blue noise as well as the adaptation to a distribution. To perform this sampling, we use an orthogonal projection of the hemisphere to the plane.
+
+Optimizing the Face Areas
+Provided an adapted sampling of an NDF, building a dome with equal distances ri yields a surface with highly unbalanced areas (see Figure 3a). We balance the areas by least-squares optimization. Because we want the areas to be equal, we compute the error with respect to the areas’ mean, M: E=
+
+Sampling the NDF
+To generate a discrete dome representing a desired NDF, the sampling of the normals must approximate the NDF as accurately as possible. Moreover, as we present in the next subsection, we must optimize ai to reconstruct the NDF. So that we can optimize the areas such that all faces have approximately the same area, the initial normal sampling must have blue noise. Our ability to adapt the facets’ area depends on the faces’ freedom to grow
+50 November/December 2013
+
+∑ ( a − M)
+i i
+
+2
+
+.
+
+The optimization is iterative. We change the distances in a direction that decreases the areas’
+
+error. More precisely, at each iteration, we update ri proportionally to the distance from ai to M: For all i, ri ← ri – a(ai – M),
+(a) ni
+
+pi = ri ni
+
+(b)
+
+where a is the domes’ density on the surface. We continue until E is stable. If we choose a small-enough a, the algorithm will converge to a minimum. To improve the stability, we scale the vector r = (ri) so that its largest component is equal to 1. The number of iterations to reach a satisfying minimum depends on the distribution and number of samples. Figure 3b shows an optimized dome, with balanced areas. Figure 4 shows a typical convergence plot of the error and a histogram of the areas.
+
+ai (ri ) (c) (d)
+
+An Effective BRDF of the Microgeometry
+Even though we generate a microgeometry with a precise NDF, we don’t know a priori the resulting BRDF. First, the microfacet theory doesn’t propose a one-to-one mapping between the NDF and BRDF. The BRDF also depends on the facets’ arrangement, which influences the geometry attenuation factor. And, because the printing material isn’t perfectly specular, we must consider the composition of the NDF and base BRDF. Early models for geometry attenuation factors1 usually considered only V-groove geometry. This restriction was because shadowing and masking are global phenomena, so deriving analytic models was difficult. Researchers later developed models that took into account the base material’s BRDF. Charles Han and his colleagues used a convolution to model the composition of a BRDF with a normal map.4 Weyrich and his colleagues, who first generated and fabricated microgeometry to reproduce BRDFs, used this model.2 Using the milled material’s BRDF, they deconvoluted the NDF to compensate for the base material’s blurring effect. Recently, successful approaches to edit and render biscale materials have considered both effects.5,6 Starting from the rendering equation, they express the effective BRDF of a surface patch as the integral of the product of the base material and a bidirectional visible normal distribution function (BVNDF). The model is similar to a convolution of a BRDF and an NDF, but the BVNDF also takes shadowing and masking into account. In practice, you evaluate the BVNDF by rendering the geometry under different lighting and viewing directions. This method has proved suitable for accurately and efficiently rendering biscale materials but doesn’t let you produce an NDF from a target BRDF.
+
+Figure 2. Constructing the Voronoi diagram. Starting with (a) a set of normals ni, we create (b) a point pi along each normal. We then generate (c) the Voronoi diagram, which reflects (d) the NDF geometry. Radius ri is the distance from pi to the origin; ai is the area of the face with ni.
+
+(a)
+
+(b)
+
+Figure 3. Optimizing the dome areas. (a) A dome before optimization. (b) The dome after optimization. Both domes have the same normal, but the areas are balanced after optimization.
+
+To achieve this, we combine simulation with a data-driven approach. Specifically, we use rendering to measure the microgeometry’s effective reflectance.
+
+Assumptions and Printing Constraints
+We used an Objet350 Connex (www.stratasys. com/3d-printers/design-series/precision/objet -connex350) 3D printer for our experiments because of its geometric accuracy and its ability to print glossy materials. We want to employ a very specular material so that we can reproduce the widest range of specularity. In the following, we assume we can print the microgeometry with fs. A constraint of our geometry is that we can’t cover the surface entirely. In the case of isotropic NDFs, the domes have a circular boundary, so the maximum density we can achieve is that of a circle packing. The remaining surface or background also contributes to the effective reflectance. Because we don’t control this surface’s roughness, we want as diffuse a material as possible. As we mentioned before, we designate the diffuse material as f b.
+IEEE Computer Graphics and Applications 51
+
+Computational Aspects of Fabrication
+
+2.5 2.0 Error 1.5 1.0 0.5 0 0 (a) 400 No. of faces per bin 300 200 100 0 −2 (b)
+
+1,000 2,000 3,000 4,000 5,000 6,000 7,000 No. of iterations
+
+cently, Hongzhi Wu and his colleagues used formulations starting from the rendering equation.5 We use this approach because it lets us take into account the surface materials and geometry. Using a derivation similar to that of Wu and his colleagues, we consider a surface with a macroscopic normal n, covered with domes having faces with normals nj and associated areas aj. We print the surface with f b; domes printed with fs cover the surface with density a. Omitting the visibility factors, we write this surface’s effective BRDF f as f (wo , wi ) = (1 − a) f b (wi , wo ) + a
+
+(n.wi )(n.wo ) ∑ j f s (n j , wi , wo )a j (n j .wi )(n j .wo ) .   ∑ j a j (n j .n)
+
+0
+
+2
+
+4 Area (× 10−3)
+
+6
+
+8
+
+10
+
+Figure 4. Optimization results. (a) Typical convergence of the optimization algorithm. (b) A histogram of the areas of the facets. The histogram shows that the deviation of the areas with respect to the mean is small and satisfactory for our application.
+
+This model shows we can modulate the printed surface’s reflectance by varying a. The other degree of freedom is the domes’ normal distribution. Although this model won’t likely be practical for optimizing the NDF geometry, it shows that under some approximation, we can write the effective BRDF of the surface in our setting as f (wo , wi ) = (1 − a) f b (wi , wo ) + a f micro (wi , wo ) . (1)
+
+Simulation Representation of the Printing Materials
+To model the printer materials, we fit an analytic model to measurements. For fs, we used VeroBlack+ without support material; for f b, we used TangoBlack+ covered with support material. We printed thin layers of these materials and bent them onto a cylinder so that a single shot captured a range of incident-light directions and view directions. Figure 5a shows a cropped view of the printer material samples we used. More details about the measurement setup and procedure appear later. We fit a modified Blinn-Phong BRDF model to the measured samples. Our experiments showed that using a model with two Blinn-Phong specular lobes resulted in good fits of the measurements. Figures 5b and 5c show the plots of the measurements and fits for the two materials. To verify that our microgeometry lets us control the surface’s reflectance, we use Equation 1 to simulate the measurements on planar samples. We generate domes for a Blinn-Phong normal m distribution p (h) = (m + 2 2π )(h.n) , with the exponent m ranging from 1 to 1,500. (The higher m is, the more specular the dome is.) To maximize the domes’ density, we distribute them on a planar sample with a hexagonal tiling. We render images for a high number of view directions, with normal light incidence. For each image, we extract a sample of f by summing the radiance on the planar sample and dividing by the projected area of the square on the image.
+
+Implementation and Validation
+Our experiments demonstrated that our microgeometry can be distributed on planar samples and arbitrary 3D models, thus letting us print 3D models with svBRDFs.
+
+A Model of the Effective BRDF
+Models of rough surfaces’ effective reflectance have proven suitable for rendering. Michael Ashikhmin and his colleagues introduced the common approach.7 This formulation sums the infinitesimal contribution of all facets to the global reflection and relies on a probability distribution. More re52 November/December 2013
+
+Generating Planar Examples
+We first generated planar samples with spatially varying reflectance. We initially printed gray-level samples because we ran our pipeline with black materials. We printed both the background and
+
+(a) 1.0 0.8
+BRDF
+Samples Fit
+
+0.07 0.06 0.05
+
+Samples Fit
+
+BRDF
+
+0.6 0.4 0.2
+
+0.04 0.03 0.02 0.01
+
+(b)
+
+0.05
+
+0.10
+
+0.15 Θh
+
+0.20
+
+0.25
+
+(c)
+
+0.2
+
+0.4
+
+Θh
+
+0.6
+
+0.8
+
+Figure 5. Representation of the printer materials. (a) Crops of the photos used for measuring the printer materials. At the top is the background diffuse material (TangoBlack+ covered with support material); at the bottom is the specular material (VeroBlack+ without support material). (b) The measurements and fits of the specular material. (c) The measurements and fits of the background material. Using a model with two BlinnPhong specular lobes resulted in good fits of the measurements. Qh denotes the angle between the surface normal and the half-angle h.
+
+microgeometry with VeroBlack+ but printed the background with a matte finish. To produce a matte finish, the Objet350 Connex deposits a layer of support material on top of the printed surface. After you remove that material, the portion of the surface in contact with it has a matte finish. We found this useful because we wanted to print the surface between the domes with a matte finish. During the printing of arbitrary surfaces, the support material covers the entire surface; so, only high-field surfaces can be printed with a glossy finish. The domes in our experiments comprised 1,000 facets. On the printed models, distinguishing the individual facets was impossible. However, we needed such a large number of facets for the simulation because domes with few facets result in noisy effective BRDFs. The printer’s vertical resolution was approximately 0.1 mm.
+
+Printing Color Examples
+For our method to be usable in a broader range of applications, it must be able to use material with diffuse colors. This problem is challenging with current printing technology. Some powder-based 3D printers (such as the ZPrinter) can print full color, but the surface is rough. The printouts are initially very matte. To get a glossy finish, we could have covered them with glue, wax, or epoxy. But
+
+this would have affected the whole surface, and covering only the domes would have been difficult. To mitigate this limitation, we propose printing transparent domes and sticking them on the color surface. Using a clear material such as VeroClear, we can produce highly glossy transparent domes. The dome’s primary reflection contributes to the specular reflection. The diffuse material reflects the light that’s transmitted into the microgeometry, adding a diffuse-color component to the surface’s global reflection. This scenario still must take into account other effects such as Fresnel reflection and caustics cast on the base surface. To demonstrate this approach’s viability, we printed the Spot model, which had varying diffuse color and specularity (see Figure 6). We printed the basic model using a ZPrinter and created insets on the surface where we manually placed transparent domes that our Objet350 Connex printed with VeroClear. We used a constant density of domes over the printed model’s surface. We distributed them using Massimiliano Corsini and his colleagues’ Poisson point-sampling algorithm.8 We covered the surface with microgeometry optimized for the modified Blinn-Phong NDF with exponents m of 10, 50, and 100. We covered the cow’s nose with the most diffuse domes (m = 10). We used the two other NDFs to increase the contrast between the black flecks and the rest of the cow.
+IEEE Computer Graphics and Applications 53
+
+Computational Aspects of Fabrication
+
+Figure 6. The 3D-printed Spot model under different viewing and lighting directions. We printed the basic model in color and created insets on the surface where we manually placed transparent domes. The black flecks are more specular than the rest of the body, and the nose is more diffuse. (Model courtesy of Keenan Crane.)
+
+(a)
+
+(b)
+
+(c)
+
+Figure 7. Validating the material design model with renderings. (a) Rendering a synthetic model with a spatially varying Phong BRDF under different lighting directions. (b) Rendering the reconstructed model using our microgeometry. (c) Photographs of the printed sample. The reconstructed model and printed example showed the same reflectance as the target model.
+
+Validating the Material Design Model with Renderings
+To validate the model, we used Equation 1 to synthesize a planar svBRDF. Figure 7a shows the target model rendered under different light incidences; Figure 7b shows the reconstructed model with our microgeometry rendered under the same incidences. We rendered both models with lighting directions from normal incidence (on the left) to grazing-angle incidence—an angle of 50 degrees between the light direction and the sample’s normal (on the right). The target example has four different materials; two are very specular, and the other two are slightly glossy. The specular materials appear brighter than the glossy materials under normal incidence, and the glossy materials are still bright under grazing-angle incidence. Figure 7b verifies that our microgeometry reproduced these effects correctly.
+54 November/December 2013
+
+Validation with Printed Samples
+To measure the BRDF of the base materials and the domes’ microgeometries, we used an image-based approach similar to that of Stephen Marschner and his colleagues.9 We printed a cylinder covered by our microgeometry and measured the BRDF on a row while the cylinder rotated around its axis of symmetry (see Figure 8a). This setup let us perform the integration over a surface patch involved in the model of the effective BRDF. By taking long exposures of the rotating sample (see Figure 8b), we integrated in one direction. We performed another integration by averaging vertically the radiance of several rows of the same dome (see Figure 8c). Our measurement setup comprised
+■ ■
+
+the turntable on which we placed the sample, a standard digital camera, and
+
+(a)
+
+(b)
+
+(c)
+
+Figure 8. To measure the effective BRDF of real samples, we (a) distributed several rows of the same dome on a cylinder, (b) took long-exposure photographs of the rotating cylinder, and (c) averaged the radiance vertically for each kind of dome.
+■
+
+a rectilinear light source.
+
+0.30 0.25 0.20
+BRDF
+
+The setup was surrounded by black cloth to avoid lighting from the environment. The rectilinear light source let us assume that the incoming light was on a horizontal plane. The light source was a thin neon tube chosen for its white spectrum. We took high-dynamic-range images of the samples and recovered the curves’ scaling by measuring the radiance reflected by a diffuse Spectralon sample under the same illumination conditions. We printed samples of our database (with exponents m of 1, 10, 25, 100, 500 and 1,000) distributed on a hexagonal lattice, with maximal radii. Figure 9 shows the measured BRDFs. We verified that the measured BRDFs had a profile resembling the Blinn-Phong BRDF. However, the measured material’s exponents and specular coefficient were higher than the ones observed in the simulation. This nonnegligible difference was due mainly to the printing resolution. The Objet350 Connex printed the geometry layer by layer; even though these layers were thin, the printed domes weren’t smooth but stair-shaped. So, the proportion of the surface that was flat increased, resulting in higher specularity. Finally, we printed the sample in Figure 7; its size was 30 × 30 cm, and 4,000 domes were distributed on the surface. As Figure 7c shows, the printed sample exhibits the same effects as the simulation.
+
+0.15 0.10 0.05 0 0.1 0.2 0.3 Θh 0.4
+
+mndf = 1 mndf = 10 mndf = 25 mndf = 50 mndf = 100 mndf = 500 mndf = 1,000
+
+0.5
+
+0.6
+
+0.7
+
+Figure 9. The effective BRDF measured on printed samples for exponents m of the NDF. The measured BRDF had a profile resembling the Blinn-Phong BRDF. However, the simulation exhibited a nonnegligible difference due mainly to the printing resolution.
+
+lution at the price of increased optimization time. However, on domes with a radius of approximately 2 millimeters and 100 normals, we couldn’t visually distinguish the individual facets. The limitation on the printer’s spatial resolution resulted in a smoothing of the sharp geometry. Spatial resolution. Because our microgeometry is compact, our method’s spatial resolution was limited mainly by the printer’s vertical resolution, which resulted in a lack of precision when reproducing highly glossy BRDFs. The domes reproducing these BRDFs tended to be very flat. So, the printer fabricated the domes as a single horizontal layer or a few horizontal layers. Compared to the Weyrich and his colleagues’ method,2 our microgeometry allows a much higher spatial resolution. This let us print spatially varying samples (see Figure 7) and let us apply the method on arbitrary geometries. Weyrich and his colleagues
+IEEE Computer Graphics and Applications 55
+
+Angular and Spatial Resolution
+When fabricating svBRDFs, you must assess both the resulting angular and spatial resolutions. Angular resolution. The angular resolution is tied strongly to the number of facets. Our method lets us optimize domes for an arbitrary number of facets. So, in theory, we could reach any angular reso-
+
+Computational Aspects of Fabrication
+
+(a)
+
+(b)
+
+(c)
+
+Figure 10. Generating an anisotropic distribution and computing the corresponding microgeometry. (a) Domes optimized on the basis of an anisotropic Phong normal distribution. From left to right, the specularity increases in the vertical direction. (b) Renderings of disks with anisotropic domes aligned along concentric circles for different combinations of the NDF parameters nu and nv. (c) Photographs of printed disks with anisotropic NDF geometry under a spherical light source. The light direction varies from normal incidence (at the top) to a direction almost aligned with the view direction.
+
+presented height fields with approximately 1,000 facets, which is comparable to the angular resolution we achieved. With the printing technology we used, we couldn’t make the domes small enough to be below the human eye’s spatial resolution while keeping a satisfying angular resolution. Ideally, a facet should be on the order of 10 –5 meter to print objects such as a cup or a teapot. However, our microgeometry is usable when the printing technology lets you print smaller details. Also, our method is viable for manufacturing larger objects seen from a long distance.
+
+an anisotropic distribution and computed the corresponding microgeometry (see Figure 10a). We reconstructed this normal distribution: p ( h) =
+
+(nu + 1)(nv + 1)
+2π
+
+(h.n)
+
+nu cos2(f)+nv sin2(f)
+
+,
+
+where f is the angle between the half-vector’s projection and the tangent plane’s first axis. Renderings showed that a circular arrangement of these domes produced a brushed-metal aspect (see Figure 10b). We printed two samples with the selected parameters nu and nv; these printouts showed the same aspect (see Figure 10c).
+
+Working with Anisotropic BRDFs
+Our algorithm can also naturally handle anisotropic BRDFs and optimize domes for the anisotropic Phong normal distribution. Using Michael Ashikhmin and Peter Shirley’s approach,10 we generated
+56 November/December 2013
+
+T
+
+he Objet350 Connex can reproduce glossy surfaces only if they aren’t in contact with support material. This currently limits one-pass fabrication to geometries that can be represented
+
+as a height field. We fabricated more complex shapes using a two-step process, which required combining the diffuse object shape and the separately printed microgeometry. But given the rapid development of additive manufacturing and available base materials, we’re confident that this limitation will be resolved as 3D printers become more advanced. The Blinn-Phong model is one of the most widely used analytic models in computer graphics. However, many other analytic models could be explored. Furthermore, it would be interesting to investigate and characterize the gamut of reproducible BRDFs with our microstructure. Finally, as we mentioned before, our domes’ circular footprint limits the percentage of the surface it can cover. It would be exciting to investigate fabrication-oriented design of other base shapes that are both easy to manufacture and easy to apply on arbitrary 3D objects.
+
+BRDF Model,” J. Graphics Tools, vol. 5, no. 2, 2000, pp. 25–32. Olivier Rouiller is a PhD student in the Technical University of Berlin’s Computer Graphics group. His main research interests are modeling and fabricating material appearance. Rouiller received a master of science in digital media engineering from the Technical University of Denmark. Contact him at olivier.rouiller@tu-berlin.de. Bernd Bickel is a research scientist at Disney Research Zurich, where he heads the research group on computational materials. His research involves acquiring, simulating, modeling, and physically realizing deformation behavior and visual appearance, with applications in animation, biomechanics, material science, and computational design for digital fabrication. Bickel received a PhD in computer science from ETH Zurich. Contact him at bernd@disneyresearch.com. Jan Kautz is a professor of visual computing in University College London’s Virtual Environments and Computer Graphics Group. He’s particularly interested in intuitive tools for high-quality visual-content creation and manipulation. Kautz received a PhD in computer science from Max-PlanckInstitut für Informatik. He was program cochair of the 2007 Eurographics Symposium on Rendering, program chair of the 2008 IEEE Symposium on Interactive Ray Tracing, program cochair for Pacific Graphics 2011, and program chair of the 2012 European Conference on Visual Media Production. He’s cochair of Eurographics 2014 and is on the editorial boards of IEEE Transactions on Visualization and Computer Graphics and the Visual Computer. Contact him at j.kautz@ucl.ac.uk. Wojciech Matusik is an associate professor of electrical engineering and computer science at the Computer Science and Artificial Intelligence Laboratory at MIT, where he’s a member of the Computer Graphics Group. His research interests are direct digital manufacturing and computer graphics, particularly in modeling and physical reproduction of materials, computational photography, and novel display systems. Matusik received a PhD in computer graphics from MIT. In 2004, MIT’s Technology Review named him one of the world’s top 100 young innovators. In 2009, he received ACM Siggraph’s Significant New Researcher Award, and in 2012 he was named a Sloan Research Fellow. Contact him at wojciech@mit.edu. Marc Alexa is a professor at the Technical University of Berlin and heads the university’s Computer Graphics group. He’s interested in creating, processing, and manufacturing shapes and in intuitive interfaces for these tasks. Alexa received a PhD in computer science from the Darmstadt University of Technology. He chaired the Siggraph 2013 Technical Papers Committee and has received a European Research Council Starting Grant. Contact him at marc.alexa@ tu-berlin.de. IEEE Computer Graphics and Applications 57
+
+References
+1. K.E. Torrance and E.M. Sparrow, “Theory for OffSpecular Reflection from Roughened Surfaces,” J. Optical Soc. America, vol. 57, no. 9, 1967, pp. 1105–1114. 2. T. Weyrich et al., “Fabricating Microgeometry for Custom Surface Reflectance,” ACM Trans. Graphics, vol. 28, no. 3, 2009, article 32. 3. M. Balzer, T. Schlömer, and O. Deussen, “CapacityConstrained Point Distributions: A Variant of Lloyd’s Method,” ACM Trans. Graphics, vol. 28, no 3, 2009, article 86. 4. C. Han et al., “Frequency Domain Normal Map Filtering,” ACM Trans. Graphics, vol. 26, no. 3, 2007, article 28. 5. H. Wu, J. Dorsey, and H. Rushmeier, “Physically Based Interactive Bi-scale Material Design,” Proc. 2011 Siggraph Asia Conf. (SA 11), ACM, 2011, article 145. 6. K. Iwasaki, Y. Dobashi, and T. Nishita, “Interactive Bi-scale Editing of Highly Glossy Materials,” ACM Trans. Graphics, vol. 31, no. 6, 2012, article 144. 7. M. Ashikhmin, S. Premože, and P. Shirley, “A FacetBased BRDF Generator,” Proc. Siggraph, ACM, 2000, pp. 65–74. 8. M. Corsini, P. Cignoni, and R. Scopigno, “Efficient and Flexible Sampling with Blue Noise Properties of Triangular Meshes,” IEEE Trans. Visualization and Computer Graphics, vol. 18, no. 6, 2012, pp. 914–924. 9. S.R. Marschner et al., “Image-Based BRDF Measurement Including Human Skin,” Proc. 10th Eurographics Conf. Rendering (EGWR 99), Eurographics Assoc., 1999, pp. 131–144. 10. M. Ashikhmin and P. Shirley, “An Anisotropic Phong
+

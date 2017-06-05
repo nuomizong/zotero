@@ -1,0 +1,1475 @@
+CU-CAS-03-02
+
+CENTER FOR AEROSPACE STRUCTURES
+
+A Study of Optimal Membrane Triangles with Drilling Freedoms
+
+by C. A. Felippa
+
+February 2003
+
+COLLEGE OF ENGINEERING UNIVERSITY OF COLORADO CAMPUS BOX 429 BOULDER, COLORADO 80309
+
+A Study of Optimal Membrane Triangles with Drilling Freedoms
+
+Carlos A. Felippa
+
+Department of Aerospace Engineering Sciences and Center for Aerospace Structures University of Colorado Boulder, Colorado 80309-0429, USA
+
+February 2003
+
+Report CU-CAS-03-02 Revision of Report CU-CAS-02-07 (June 2002)
+
+The work reported here has been supported by Sandia National Laboratories under the Finite Elements for Salinas contract. Portions of the report were written while the writer was at CIMNE, Barcelona, Spain, under a fellowship granted by the Spanish Ministerio of Educaci´ n y Cultura. Accepted for o publication in Comp. Meths. Appl. Mech. Engrg.
+
+A Study of Optimal Membrane Triangles with Drilling Freedoms
+Carlos A. Felippa Department of Aerospace Engineering Sciences and Center for Aerospace Structures University of Colorado Boulder, Colorado 80309-0429, USA
+
+SUMMARY This article compares derivation methods for constructing optimal membrane triangles with corner drilling freedoms. The term “optimal” is used in the sense of exact inplane pure-bending response of rectangular mesh units of arbitrary aspect ratio. Following a comparative summary of element formulation approaches, the construction of an optimal 3-node triangle using the ANDES formulation is presented. The construction is based upon techniques developed by 1991 in student term projects, but taking advantage of the more general framework of templates developed since. The optimal element that ﬁts the ANDES template is shown to be unique if energy orthogonality constraints are enforced a priori. Two other formulations are examined and compared with the optimal model. Retroﬁtting the conventional LST (Linear Strain Triangle) element by midpoint-migrating by congruential transformations is shown to be unable to produce an optimal element while rank deﬁciency is inevitable. Use of the quadratic strain ﬁeld of the 1988 Allman triangle, or linear ﬁltered versions thereof, is also unable to reproduce the optimal element. Moreover these elements exhibit serious aspect ratio lock. These predictions are veriﬁed on benchmark examples.
+
+Keywords: ﬁnite elements, templates, high performance, drilling freedoms, triangles, membrane, plane stress, shell, assumed natural deviatoric strains, hierarchical models, signatures, clones.
+
+TABLE OF CONTENTS
+Page
+
+§1. §2.
+
+§3. §4.
+
+§5.
+
+§6. §7.
+
+§8.
+
+§9.
+
+§10. §A.
+
+§B.
+
+INTRODUCTION ELEMENT DERIVATION APPROACHES §2.1. Fixing Up . . . . . . . . . . . . . . §2.2. Retroﬁtting . . . . . . . . . . . . . . §2.3. Direct Fabrication . . . . . . . . . . . . §2.4. A Warning . . . . . . . . . . . . . . . A GALLERY OF TRIANGLES THE ANDES TRIANGLE WITH DRILLING FREEDOMS §4.1. Element Description . . . . . . . . . . . §4.2. Natural Strains . . . . . . . . . . . . . §4.3. Hierarchical Rotations . . . . . . . . . . §4.4. The Stiffness Template . . . . . . . . . . . §4.5. The Basic Stiffness . . . . . . . . . . . §4.6. The Higher Order Stiffness . . . . . . . . . §4.7. Instances, Signatures, Clones . . . . . . . . §4.8. Energy Orthogonality . . . . . . . . . . . §4.9. Other Templates . . . . . . . . . . . . FINDING THE BEST §5.1. The Bending Test . . . . . . . . . . . . §5.2. Optimality for Isotropic Material . . . . . . . §5.3. Optimality for Non-Isotropic Material . . . . . . Multiple Element Layers . . . . . . . . . §5.4. §5.5. Is the Optimal Element Unique? . . . . . . . §5.6. Morphing . . . . . . . . . . . . . . §5.7. Strain and Stress Recovery . . . . . . . . . A MATHEMATICA IMPLEMENTATION RETROFITTING LST §7.1. Midpoint Migration Migraines . . . . . . . . Divide and Conquer . . . . . . . . . . . . §7.2. §7.3. Stiffness Matrix Assessment . . . . . . . . §7.4. Deriving a Mass Matrix . . . . . . . . . . THE ALLMAN 1988 TRIANGLE Shape Functions . . . . . . . . . . . . §8.1. §8.2. Variants . . . . . . . . . . . . . . . . NUMERICAL EXAMPLES §9.1. Example 1: Cantilever under End Moment . . . . §9.2. Example 2: The Shear-Loaded Short Cantilever . . §9.3. Example 3: Cook’s Problem . . . . . . . . DISCUSSION AND CONCLUSIONS The Higher Order Strain Field §A.1. The Pure Bending Field . . . . . . . . . . §A.2. The Torsional Field . . . . . . . . . . . Solving Polynomial Equations for Template Optimality
+
+. . . . . .
+
+. . . . . .
+
+. . . . . .
+
+. . . . . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . . . . . . . .
+
+. . . . . .
+
+. . . . . . . .
+
+. . . .
+
+. . . . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . .
+
+1 2 2 3 3 3 3 5 6 7 8 10 10 11 13 13 14 15 15 16 17 18 18 19 20 20 23 23 24 28 28 29 29 30 31 31 33 35 36 40 40 40 42
+
+1. INTRODUCTION One active area of “ﬁnitelementology” is the development of high-performance (HP) elements. The deﬁnition of such creatures is subjective. The writer likes to use a result-oriented deﬁnition, as stated in [1]: “simple elements that provide results of engineering accuracy with coarse meshes.” But what are “simple” elements? Again that term is subjective. The writer’s deﬁnition is: elements with only corner nodes and physical degrees of freedom. Following the high-order element frenzy of the late 1960s and 1970s, the back trend towards simplicity was noted as early as 1986 by the father of NASTRAN: “The limitations of higher order elements set out by Zienkiewicz have proved themselves in application. As a practical matter, the real choice is between lowest order elements (constant strain, probably with some linear strain terms) and next-lowest-order elements (linear strain, possibly with some quadratic strain terms), because these are the ones that developers of ﬁnite element programs have found to be commercially viable” [2, p. 89]. The trend has strenghtened since that statement because commercial FEM codes are now used by comparatively more novices, often as backend of CAD studies. These users have at best only a foggy notion of what goes on inside the black boxes. Hence the writer’s admonition in an introductory FEM course: “never, never, never use a higher order or special element unless you are absolutely sure of what you are doing.” The attraction of HP elements in the real world is understandable: to get reasonable answers with models that cannot stray too far from physics. An optimal element is one whose performance cannot be improved for a given node-freedom conﬁguration. The concept is fuzzy, however, unless one speciﬁes precisely what is the optimality measure. There are often tradeoffs. For example, passing patch tests on any mesh may conﬂict with insensitivity to mesh distortion [2, p. 115]. One of the side effects of interest in high performance is the proliferation of elements with drilling degrees of freedom (DOFs). These are nodal rotations that are not taken as independent DOFs in conventional elements. Two well known examples are: (i) corner rotations normal to the plane of a membrane element (or to the membrane component of a shell element); (ii) three corner rotations added to solid elements. This paper considers only (i). Why membrane drilling freedoms? Three reasons are given in the Introduction to [3]: 1. 2. 3. The element performance may be improved without adding midside nodes, keeping model preparation and mesh generation simple. The extra degree of freedom is “free of charge” in programs that carry six DOFs per node, as is the case in most commercial codes. It simpliﬁes the treatment of shell intersections as well as connection of shells to beam elements.
+
+The purpose of this paper is to review critically several approaches for the construction of these elements. To keep the exposition to a reasonable length, only triangular membrane elements with 3 corner nodes are studied.
+
+1
+
+FIX-UP APPROACH, a.k.a. "Shooting" Improvable element Improve element by medication
+
+RETROFITTING APPROACH "Parent" Element Make descendants High Performance Element Sometimes possible Optimal Element
+
+DIRECT FABRICATION APPROACH Piece 1 + Piece 2 + ....
+
+Build from scratch in stages
+
+Figure 1. Element derivation approaches, not to be confused with methods.
+
+2. ELEMENT DERIVATION APPROACHES The term approach is taken here to mean a combination of methods and empirical tools to achieve a given objective. In FEM work, isoparametric, stress-assumed-hybrid and ANS (Assumed Natural Strain) formulations are methods and not approaches. An approach may zig-zag through several methods. FEM approaches range from heuristic to highly analytical. The experience of the writer in teaching advanced FEM courses is that even bright graduate students have trouble connecting different construction methods, much as undergraduates struggle to connect mathematics and laws of nature. To help students the writer has grouped element derivation approaches into those pictured in Figure 1. Figure 1 makes an implicit assumption: the performance of an element of given geometry, node and freedom conﬁguration can be improved. There are obvious examples where this is not possible. For example, constant-strain elements with translational freedoms only: 2-node bar, 3-node membrane triangle and 4-node elasticity tetrahedron. Those cases are excluded because it makes no sense to talk about high performance or optimality under those conditions. 2.1. Fixing Up Conventional element derivation methods, such as the isoparametric formulation, may produce bad or mediocre low-order elements. If that is the case two questions may be raised: (i) Can the element be improved? (ii) Is the improvement worth the trouble? If the answer to both is yes, the ﬁx-up approach tries to improve the performance by an array of remedies that may be collectively called the FEM pharmacy. Cures range from heuristic tricks such as reduced and selective integration to more scientiﬁcally based concoctions. This approach accounts for most of the current publications in ﬁnitelementology. Playing doctor can 2
+
+be fun. But also frustating, as trying to ﬁnd a black cat in a dark cellar at midnight. Inject these incompatible modes: oops! the patch test is violated. Make the Jacobian constant: oops! it locks in distortion. Reduce the integration order: oops! it lost rank sufﬁciency. Split the stress-strain equations and integrate selectively: oops! it is not observer invariant. And so on. 2.2. Retroﬁtting Retroﬁtting is a more sedated activity. One begins with a irreproachable parent element, free of obvious defects. Typically this is a higher order iso-P element constructed with a complete or bicomplete polynomial; for example the 6-node quadratic triangle or the 9-node Lagrange quadrilateral. The parent is ﬁne but too complicated to be an HP element. Complexity is reduced by master-slave constraint techniques so as to ﬁt the desired node-freedom conﬁguration pattern. This approach commonly makes use of node and freedom migration techniques. For example, drilling freedoms may be deﬁned by moving translational midpoint or thirdpoint freedoms to corner rotations by kinematic constraints. The development of “descendants” of the LST element discussed in Section 7 ﬁts this approach. Discrete Kirchhoff constraints and degeneration (3D→2D) for plate and shell elements provide another example. Retroﬁtting has the advantage of being easy to understand and teach. It occasionally produces useful elements but rarely high performance ones. 2.3. Direct Fabrication This approach relies on divide and conquer. To give an analogy: upon short training a FEM novice knows that a discrete system is decomposed into elements, which interact only through common freedoms. Going deeper, an element can be constructed as the superposition of components or pieces, with interactions limited through appropriate orthogonality conditions. (Mathematically, components are multiﬁeld subspaces [4].) Components are invisible to the user once the element is implemented. Fabrication is done in stages. At the start there is nothing: the element is without form, and void. At each stage the developer injects another component (= subspace). Components may be done through different methods. The overarching principle is correct performance after each stage. If at any stage the element has problems (for example: it locks) no retroactive cure is attempted as in the ﬁx-up approach. Instead the component is trashed and another one picked. One never uses more components than strictly needed: condensation is forbidden. Components may contain free parameters, which may be used to improve performance and eventually to try for optimality. One general scheme for direct fabrication is the template approach [5]. All applications of the direct fabrication method to date have been done in two stages, separating the element response into basic and higher order. This process is further elaborated in Section 4.3. 2.4. A Warning The classiﬁcation of Figure 1 is based on approaches and not methods. A method may appear in more than one approach. For example, methods based on hybrid functionals may be used to retroﬁt or to fabricate, and even (more rarely) to ﬁx up. Methods based on assumed strain or incompatible displacement ﬁelds may be used to do all three. This interweaving of methods and approaches is what makes so difﬁcult to teach advanced FEM. While it is relatively easy to teach methods, choosing and pursuing an approach is a synthesis activity that relies on judgement, experience and luck. 3
+
+ux3 ,u y3 3 ux6 ,uy6 6
+y
+
+ux3 ,u y3 3 5 4 ux4 ,uy4 u x5 ,u y5 2 ux2 ,uy2
+
+u x3 , uy3 ,θz3 3
+
+2 1 ux1 ,u y1
+x
+
+u x2 ,u y2 1 ux1 ,u y1
+
+1 u x1 , uy1 ,θz1 LST-3/9R u x3 , uy3 θ z3 , exx3 e yy3 , exy3 3
+
+2 u x2 , uy2 ,θz2
+
+CST-3/6C (Parent) ux3 ,u y3 3 7 ux7 ,u y7
+
+LST-6/12C (Parent) ux3 , uy3 ux,x3, uy,x3 ux,y3, uy,y3
+
+3
+
+ux8 ,uy8 ux9 ,uy9 1 ux1 ,u y1
+
+8 6 ux6 ,uy6 0 ux0 ,uy0 9 2 ux2 ,uy2 5 4 ux5 ,uy5 ux4 ,uy4
+
+0 ux0 ,u y0 1 u x1 , uy1 ux,x1, uy,x1 ux,y1, uy,y1 QST-4/20G ux3 , uy3 ux,x3, uy,x3 ux,y3, uy,y3
+
+QST-10/20C (Parent)
+
+2 ux2 , uy2 1 ux,x2, uy,x2 ux,y2, uy,y2 u x1 , uy1 θ z1 , exx1 e yy1 , exy1
+
+0 ux0 ,u y0
+
+2 u x2 , uy2 θ z2 , exx2 e yy2 , exy2
+
+QST-4/20RS
+
+ux8 ,uy8 ux9 ,uy9 1 ux1 ,u y1
+
+8
+
+ux3 ,u y3 3 7 ux7 ,u y7 6 ux6 ,uy6
+
+3
+
+u x3 , uy3 θ z3 , exx3 e yy3 , exy3 3
+
+9 2 ux2 ,uy2 5 4 ux5 ,uy5 ux4 ,uy4
+
+QST-9/18C
+
+1 u x1 , uy1 ux,x1, uy,x1 ux,y1, uy,y1 QST-3/18G
+
+2 u x2 , uy2 1 ux,x2, uy,x2 ux,y2, uy,y2 u x1 , uy1 θ z1 , exx1 e yy1 , exy1 QST-3/18RS
+
+2 u x2 , uy2 θ z2 , exx2 eyy2 , exy2
+
+Figure 2. Node and freedom conﬁguration of triangular membrane element families. Only non-hierarchical models with Cartesian node displacements are shown.
+
+4
+
+z y
+
+x
+
+;;; ;;; ;;; ;;;
+(a) Parent (LST-6/12C) 3 3 6 5 1 1 4 uy 2 ux 2
+Figure 3. Node and freedom conﬁguration of the membrane triangle LST-3/9R and its parent element LST-6/12C.
+
+(b) Descendant (LST-3/9R)
+
+θz uy ux
+
+3. A GALLERY OF TRIANGLES This article looks at triangular membrane elements in several ﬂavors organized along family lines. To keep track of parents and siblings it is convenient to introduce the following notational scheme for the conﬁguration of an element: xST-n/m[variants][-application] (1)
+
+Lead letter x is C, L or Q, which ﬁngers the parent element as indicated below. Integers n and m give the total number of nodes and freedoms, respectively. Further distinction is made by appending letters to identify variants. For example QST-10/20C, QST-3/20G and QST-3/20RS identify the QST parent and two descendants. Here C, G and RS stand for “conventional freedoms”, “gradient freedoms” and “rotational-plus-strain freedoms,” respectively. The reader may see examples of this identiﬁcation scheme arranged in Figure 2. The three parent elements shown there are generated by complete polynomials. They are: 1. Constant Strain Triangle or CST. Also called linear triangle and Turner triangle. Developed as plane stress element by Jon Turner, Ray Clough and Harold Martin in 1952–53 [6]; published 1956 [7]. Linear Strain Triangle or LST. Also called quadratic triangle and Veubeke triangle. Developed by B. Fraeijs de Veubeke in 1962–63 [8]; published 1965 [9]. Quadratic Strain Triangle or QST. Also called cubic triangle. Developed by the writer in 1965; published 1966 [10]. Shape functions for QST-10/20RS to QST-3/18G were presented there but used for plate bending instead of plane stress; e.g., QST-3/18G clones the BCIZ element [11].
+
+2. 3.
+
+Drilling freedoms in triangles were used in static and dynamic shell analysis in Carr’s thesis under Ray Clough [12,13], using QST-3/20RS as membrane component. The same idea was independently exploited for rectangular and quadrilateral elements, respectively, in the theses of Abu-Ghazaleh [14] and Willam [15], both under Alex Scordelis. A variant of the Willam quadrilateral, developed by Bo Almroth at Lockheed, has survived in the nonlinear shell analysis code STAGS as element 410 [16]. (For access to pertinent old-thesis material through the writer, see References section.) The focus of this article is on LST-3/9R, shown in the upper right corner of Figure 2 and, in 3D view, in Figure 3(b). The whole development pertains to the membrane (plane stress) problem. Thus no additional identiﬁers are used. Should the model be applied to a different problem, for example plane strain or axisymmetric analysis, an application identiﬁer would be necessary under scheme (1). 5
+
+(a)
+s6 = s13 1 (x1, y1 ) y
+
+n6 =n13 6
+
+3 (x3 , y3)
+
+(b)
+t 6 = t13
+
+m 6 = m13 3 6
+
+s5 = s32 5 n4 =n 21 z x l21 4 s4 = s21 2 (x2 , y2) a 3 = a 21 n 5 = n32
+
+1
+
+0 5 4 t 4= t 21 m4 = m 21
+
+t 5 = t32 m5 = m 32
+
+2
+
+Figure 4. Triangle geometry.
+
+4. THE ANDES TRIANGLE WITH DRILLING FREEDOMS As pictured in in Figure 3(b), the LST-3/9R membrane triangle has 3 corner nodes and 3 DOFs per node: two inplane translations and a drilling rotation. In the retroﬁtting approach studied in Section 7 the parent element is the conventional Linear Strain Triangle, which is technically identiﬁed as LST-6/12C. The direct fabrication approach was used in a three-part 1992 paper [3,17,18] to construct an optimal version of LST-3/9R. (This work grew out of student term projects in an advanced ﬁnite element course.) Two different techniques were used in that development: EFF. The Extended Free Formulation, which is a variant of the Free Formulation (FF) of Bergan [19–27]. ANDES. The Assumed Natural DEviatoric Strain formulation, which combines the FF of Bergan and a variant of the Assumed Natural Strain (ANS) method due to Park and Stanley [28,29]. ANDES has also been used to develop plate bending and shell elements [30,31]. For the LST-3/9R, these techniques led to stiffness matrices with free parameters: 3 and 7 in the case of EFF and ANDES, respectively. Free parameters were optimized so that rectangular mesh units are exact in pure bending for arbitrary aspect ratios, a technique further discussed in Section 5. Surprisingly the same optimal element was found. In the nomenclature of templates summarized in Section 4.7 the two elements are said to be clones. This coalescence nurtured the feeling that the optimal form is unique. More recent studies reported in Section 5.5 verify uniqueness if certain orthogonality constraints are placed on the higher order response. 4.1. Element Description The membrane (plane stress) triangle shown in Figure 4 has straight sides joining the corners deﬁned by the coordinates {xi , yi }, i = 1, 2, 3. Coordinate differences are abbreviated xi j = xi − x j and yi j = yi − y j . The signed area A is given by 2A = (x2 y3 − x3 y2 ) + (x3 y1 − x1 y3 ) + (x1 y2 − x2 y1 ) = y21 x13 − x21 y13 (and 2 others). (2)
+
+In addition to the corner nodes 1, 2 and 3 we shall also use midpoints 4, 5 and 6 for derivations although these nodes do not appear in the ﬁnal equations of the LST-3/9R. Midpoints 4, 5, 6 are located opposite 6
+
+corners 3, 1 and 2, respectively. The centroid is denoted by 0. As shown in Figure 4, two intrinsic coordinate systems are used over each side: n 21 , s21 , m 21 , t21 , n 32 , s32 , m 32 , t32 , n 13 , s13 , m 13 , t13 . (3) (4)
+
+Here n and s are oriented along the external normal-to-side and side directions, respectively, whereas m and t are oriented along the triangle median and normal-to-median directions, respectively. The coordinate sets (3)–(4) align only for equilateral triangles. The origin of these systems is left “ﬂoating” and may be adjusted as appropriate. If the origin is placed at the midpoints, subscripts 4, 5 and 6 may be used instead of 21, 32 and 13, respectively, as illustrated in Figure 4. Other intrinsic dimensions of use in element derivations are
+ij
+
+=
+
+ji
+
+=
+
+xi2j + yi2j ,
+
+ai j = ak = 2A/
+
+ij,
+
+mk =
+
+3 2
+
+2 2 xk0 + yk0 ,
+
+bk = 2A/m k ,
+
+(5)
+
+Here j and k denote the positive cyclic permutations of i; for example i = 2, j = 3, k = 1. The i j ’s are the lengths of the sides, ak = ai j are triangle heights, m k are the lengths of the medians, and bk are side lengths projected on normal-to-median directions. The well known triangle coordinates are denoted by ζ1 , ζ2 and ζ3 , which satisfy ζ1 + ζ2 + ζ3 = 1. The degrees of freedom of LST-3/9R are collected in the node displacement vector u R = [ u x1 u y1 θ1 u x2 u y2 θ2 u x3 u y3 θ3 ]T . (6)
+
+Here u xi and u yi denote the nodal values of the translational displacements u x and u y along x and y, respectively, and θ ≡ θz are the “drilling rotations” about z (positive counterclockwise when looking down on the element midplane along −z). In continuum mechanics these rotations are deﬁned by θ = θz =
+1 2
+
+∂u y ∂u x − ∂x ∂y
+
+.
+
+(7)
+
+The triangle will be assumed to have constant thickness h and uniform plane stress constitutive properties. These are deﬁned by the 3 × 3 elasticity and compliance matrices arranged in the usual manner: E= E 11 E 12 E 13 E 12 E 22 E 23 E 13 E 23 E 33 , C=E
+−1
+
+=
+
+C11 C12 C13
+
+C12 C22 C23
+
+C13 C23 C33
+
+.
+
+(8)
+
+For later use six invariants of the elasticity tensor are listed here: JE1 = E 11 + 2E 12 + E 22 , JE2 = −E 12 + E 33 , JE3 = (E 11 − E 22 )2 + 4(E 13 + E 23 )2 ,
+
+JE4 = (E 11 − 2E 12 + E 22 − 4E 33 )2 + 16(E 13 − E 23 )2 ,
+2 2 2 JE5 = det(E) = E 11 E 22 E 33 + 2E 12 E 13 E 23 − E 11 E 23 − E 22 E 13 − E 33 E 12 , 3 2 2 2 2 3 JE6 = 2E 13 + E 12 E 13 E 22 − E 13 E 22 + E 11 E 23 + 2E 13 E 23 + E 12 E 22 E 23 − 2E 13 E 23 − 2E 23 + 2E 22 (E 13 + E 23 )E 33 − E 11 (E 12 E 13 − E 13 E 22 + E 12 E 23 + E 22 E 23 + 2(E 13 + E 23 )E 33 ). (9) Of these JE1 , JE2 and JE5 are well known, while the others were found by Mathematica.
+
+7
+
+(s) 1
+
+3
+
+(m) 1
+
+3
+
+(n) 1
+
+3 1
+
+(t)
+
+3
+
+ε21
+
+ε13 ε32
+2
+
+εm2 εm3 εm1
+
+2
+Along medians
+
+2
+Along normal to sides
+
+2
+Along normal to medians
+
+Along side directions
+
+Figure 5. Four choices for natural strains. Labels (s) through (t) correlate with the notation (3)-(4). Although the “natural straingage rosettes” are pictured at the centroid for viewing convenience, they may be placed at any point on the triangle.
+
+4.2. Natural Strains In the derivation of the higher order stiffness by ANDES [17] natural strains play a key role. These are extensional (direct) strains along three directions intrinsically related to the triangle geometry. Four possible choices are depicted in Figure 5. Choice (s): strains along the 3 side directions, was the one used in [17] because it matches the direction of neutral axes of the assumed inplane bending modes as discussed in Section 4.6. The (s) natural strains are collected in the 3-vector =[
+21 32 13
+
+]T .
+
+(10)
+
+Vector at point i is denoted by i . The natural strain jk at point i will be written jk|i , the bar being used for reading convenience. The natural strains are related to Cartesian strains {ex x , e yy , 2ex y } by the “straingage rosette” transformation
+12 23 31 2 x21 / 2 =  x32 / 2 x13 /
+
+
+
+=
+
+2 21 2 32 2 13
+
+2 y21 / 2 y32 / 2 y13 /
+
+2 21 2 32 2 13
+
+x21 y21 / x32 y32 / x13 y13 /
+
+2 21 2 32 2 13
+
+ 
+
+ex x e yy 2ex y
+
+= T−1 e, e
+
+(11)
+
+in which ex x e yy 2ex y
+
+2 ji
+
+= x 2 + y 2 . The inverse relation is ji ji y23 y13 2 21 1  = x23 x13 2 21 4A2 (y23 x31 + x32 y13 )  y31 y21 2 32 x31 x21 2 32 (y31 x12 + x13 y21 ) y12 y32 2 13 x12 x32 2 13 (y12 x23 + x21 y32 )  
+2 13 12 23 31
+
+,
+
+(12) or, in compact matrix notation, e = Te . Note that Te is constant over the triangle. The natural stress-strain matrix Enat is deﬁned by T Enat = Te ETe , (13) which is also constant over the triangle. 8
+
+2 21
+
+2 32
+
+3 1
+
+3 Total motion
+
+1 2 3 CST motion 1 1 2 3 Hierarchical motion 2 3
+θ1
+~
+
+θ3
+
+~
+
++
+2
+
+1
+θ2
+~
+
+2
+
+Figure 6. Decomposition of inplane motion into CST (linear displacement) + hierarchical. The same idea (in 2D or 3D) is also important in corotational formulations.
+
+4.3. Hierarchical Rotations Hierarchical drilling freedoms are useful for compactly expressing the higher order behavior of the element. Their geometric interpretation is shown in Figure 6. To extract the hierarchical corner ˜ rotations θi from the total corner rotations θi , subtract the mean or CST rotation θ0 : ˜ θi = θi − θ0 , where i = 1, 2, 3 is the corner index and 1 x23 u x1 + x31 u x2 + x12 u x3 + y23 u y1 + y31 u y2 + y12 u y3 . 4A (14)
+
+θ0 =
+
+(15)
+
+Applying (14)-(15) to the three corners we assemble the transformation  u x1  u y1     θ1    0  u x2    ˜ 0  u y2  = Tθu u R .   4A  θ2     u x3    u y3 θ3 
+
+˜  θ1 ˜ =  θ2  = 1 ˜ θ 4A ˜ θ3
+
+x32 x32 x32
+
+y32 y32 y32
+
+4A 0 0
+
+x13 x13 x13
+
+y13 y13 y13
+
+0 4A 0
+
+x21 x21 x21
+
+y21 y21 y21
+
+(16)
+
+For some developments it is useful to complete this transformation with the identity matrix for the 9
+
+translational freedoms: 1  0  u y1     x32 ˜  θ1   4A     u x2   0     ˜ u R =  u y2  =  0  x   ˜   32  θ2   4A    u x3   0 u    0 y3 x32 ˜3 θ 4A
+x1
+
+u
+
+
+
+
+
+0 1 y32 4A 0 0 y32 4A 0 0 y32 4A
+
+0 0 1 0 0 0 0 0 0
+
+0 0 x13 4A 1 0 x13 4A 0 0 x13 4A
+
+0 0 y13 4A 0 1 y13 4A 0 0 y13 4A
+
+0 0 0 0 0 1 0 0 0
+
+0 0 x21 4A 0 0 x21 4A 1 0 x21 4A
+
+0 0 y21 4A 0 0 y21 4A 0 1 y21 4A
+
+  0  u x1 0   u y1  0   θ1    0   u x2    ˜ 0   u y2  = T R u R .     0   θ2    0   u x3    0  u y3 θ3 1
+
+(17)
+
+˜ −1 ˜ −1 ˜ The inverse transformation T R that connects u R = T R u R is obtained by simply transposing the subscripts in the coordinate differences; x32 → −x32 = x23 , etc. The foregoing transformation matrices are constant over the element. 4.4. The Stiffness Template The fundamental element stiffness decomposition of the two-stage direct fabrication method is K = Kb + K h (18)
+
+Here Kb is the basic stiffness, which takes care of consistency, and Kh is the higher order stiffness, which takes care of stability (rank sufﬁciency) and accuracy. This decomposition was found by Bergan and Nyg˚ rd [20] as part of the Free Formulation (FF), but actually holds for any element that passes the a Individual Element Test (IET) of Bergan and Hanssen [32]. (The IET is a strong form of the patch test that demands pairwise cancellation of tractions between adjacent elements in constant stress states.) Similar elements were constructed by Belytschko and coworkers [33] using an hourglass stabilization approach. See also Hughes [34, §4.8]. Orthogonality conditions satisﬁed by Kh are discussed in [4,19,21–27,35–38]. The EFF and ANDES triangles derived in [3] and [17] initially carry along a set of free numerical parameters, most of which affect the higher order stiffness: KEFF’91 (αb , αh , γ ) = Kb (αb ) + (1 − γ )Ku (αh ), h KANDES’91 (αb , β, ρ1 , . . . ρ5 ) = Kb (αb ) + βKu (ρ1 , . . . ρ5 ), h (19) (20)
+
+where Ku is the unscaled higher order stiffness. Both Kb and Kh must have rank 3. Algebraic forms h such as (19)-(20) possessing free parameters are called element stiffness templates or simply templates. The basic stiffness Kb (αb ) is identical for both (19) and (20). In fact, patch test and template theory [5,35–38] says that Kb (αb ) must be shared by all elements that pass the IET although αb may vary for different models. However αb must be the same for all LST-3/9R elements connected in an assembly, for otherwise the patch test would be violated. This is called a mixability condition. Parameters other than αb may, in principle, vary from element to element without affecting convergence. 10
+
+4.5. The Basic Stiffness An explicit form of the basic stiffness for the LST-3/9R conﬁguration was obtained in 1984 and published the following year [21]. It can be expressed as Kb = V −1 L E LT . where V = Ah is the element volume, and L is a 3 × 9 matrix that contains a free parameter αb : y23 0  1 αb y23 (y13 − y21 ) 6  y31   L = 1h  0 2  1  6 αb y31 (y21 − y32 )  y12   0 1 αb y12 (y32 − y13 ) 6  0 x32 1 α x (x − x12 ) 6 b 32 31 0 x13 1 α x (x − x23 ) 6 b 13 12 0 x21 1 αb x21 (x23 − x31 ) 6  x32 y23   1 αb (x31 y13 − x12 y21 )  3  x13   y31 .  1 α (x y − x23 y32 )  3 b 12 21  x21   y12 1 α (x y − x31 y13 ) 3 b 23 32 (21)
+
+(22)
+
+In the FF this is called a force-lumping matrix, hence the symbol L. Under certain conditions L can be ¯ related to the mean strain-displacement matrix B0 or B used in one-point reduced integration schemes: T B0 = L /V , for speciﬁc choices of αb . This matrix also appears in the so-called “B-bar” formulation [34]. If αb = 0 the basic stiffness reduces to the total stiffness matrix of the CST-3/6C, in which case the rows and columns associated with the drilling rotations vanish. One interesting result is that ˜ LT = LT T R , ˜ (also B0 = B0 T R ), (23)
+
+for any αb , which shows that the transformation (17) projects out the higher order behavior. The deep signiﬁcance of this development is: the basic stiffness of any element with this node-freedom conﬁguration that passes the IET must have the form (21)–(22). Most derivation methods produce the total stiffness K directly, with Kb concealed behind the scenes. This is one of the reasons accounting for the capricious nature of the ﬁx-up approach. In the direct fabrication approach the decomposition (18) is explicitly used in the two-stage construction of the element: ﬁrst Kb and then Kh . 4.6. The Higher Order Stiffness We describe here essentially the ANDES form of Kh developed in [17], with some generalizations in the set of free parameters discussed at the end of this subsection. The higher order stiffness matrix is ˜T ˜ Kh = c f ac Tθu Kθ Tθu . (24)
+
+˜ where Kθ is the 3 × 3 higher order stiffness in terms of the hierarchical rotations θ of (14), Tθ˜ u is the matrix (16), and c f ac is a scaling factor to be determined later. To construct Kθ by ANDES one picks deviatoric natural strain patterns, in which “deviatoric” means change from the constant strain states. Since the main objective is to have good inplane bending behavior, it is logical to begin by assuming patterns associated with three bending-like modes. A key question is, along which directions? For 11
+
+3 1 1
+
+Bending modes 3 1
+
+3 1
+
+Torsion mode 3
+
+∼ −θ1= θ2 =1, θ3 =0
+
+∼ ∼
+
+2
+
+∼ −θ2= θ3 =1, θ1 =0
+
+∼ ∼
+
+2
+
+∼ −θ3= θ1 =1, θ2 =0
+
+∼ ∼
+
+2
+
+θ1= θ2 =θ 3 =1
+
+∼ ∼ ∼
+
+2
+
+Figure 7. Patterns chosen to build the higher order stiffness of the ANDES template (31): three bending-along-sides modes plus a torsion mode. Although pictured as displacement motions for visualization convenience, the bending modes were initially assumed in natural strains as described in Appendix A. The “neutral axes” of the bending modes are parallel to the sides and pass through the centroid.
+
+a triangle, four choices — already depicted in Figure 5 as regards the deﬁnition of natural strains — satisfy observer invariance: Along the side directions s4 , s5 , s6 Along the normal directions n 4 , n 5 , n 6 Along the median directions m 4 , m 5 , m 6 Along the normal-to-the-median directions t4 , t5 , t6 (24) (25) (26) (27)
+
+Choice (24) was adopted in [17]. The three bending strain patterns are sketched on the left of Figure 7 as displacement modes for visualization convenience. (The bending shapes pictured there were obtained by integrating the assumed strain ﬁelds and adjusting for rigid body motions.) It turns out that the three patterns are not linearly independent: their sum vanishes for any triangle geometry. Thus use of only those modes would produce a rank deﬁcient Kh . To attain the correct rank of 3 the “torsion” pattern depicted on the right of Figure 7 is adjoined. This ˜ ˜ ˜ can be visualized as produced by applying identical hierarchical rotations θ1 = θ2 = θ3 . A cubic displacement pattern was constructed from the QST-4/20G interpolation. The associated quadratic strain pattern was transformed to natural strains and ﬁltered to a linear variation by midpoint collocation. Those derivations are presented in Appendix A for readers interested in the technical details. To express Kθ compactly, introduce the following matrices, which depend on nine free dimensionless parameters, β1 through β9 :  β  β  β β β  β β  β β  2A Q1 = 3   β  4  2  32  β 7
+2 13 1 2 21
+
+β5 β8
+
+2 2 21 2 32 2 13
+
+  2A  β3 β6     2 2  , Q2 = 3  32 32    β β9 6
+2 13 2 13
+
+3 2 21
+
+9 2 21
+
+β1 β4
+
+7 2 21 2 32 2 13
+
+  2A  β8 β2     2 2  , Q3 = 3  32 32    β β5 3
+2 13 2 13
+
+8 2 21
+
+5 2 21
+
+β9 β1
+
+6 2 21 2 32 2 13
+
+ β7   2 . 32  β2 
+2 13
+
+4 2 21
+
+(28)
+
+12
+
+The scaling by 2A/3 is for convenience in correlating with prior developments. Matrix Qi relates the ˜ natural strains i at corner i to the deviatoric corner curvatures θ. At a point of triangular coordinates ˜ {ζ1 , ζ2 , ζ3 }, = Q θ, where Q = Q1 ζ1 + Q2 ζ2 + Q3 ζ3 . Evaluate this at the midpoints: Q4 = 1 (Q1 + Q2 ), 2 Then
+T T T Kθ = h Q4 Enat Q4 + Q5 Enat Q5 + Q6 Enat Q6 ,
+
+Q5 = 1 (Q2 + Q3 ), 2
+
+Q6 = 1 (Q3 + Q1 ) 2
+
+(29)
+
+(30)
+
+T and Kh = 3 β0 Tθ u Kθ Tθ u , where β0 is an overall scaling coefﬁcient. (This coefﬁcient could be absorbed 4 into the βi but it is left separate to simplify the incorporation of material behavior into the optimal element.) So ﬁnally K R assumes a template form with 11 free parameters: αb , β0 , β1 , . . . β9 :
+
+˜T ˜ K R (αb , β0 , β1 , . . . β9 ) = V −1 LELT + 3 β Tθu Kθ Tθu . 4
+
+(31)
+
+The factor 3 in Kh comes from “historical grandfathering”: as shown in Section 5 the optimal β0 for 4 isotropic material with ν = 0 becomes 1 , same as in the 1984 FF element [21]. The template (31) will 2 be called the “LST-3/9R ANDES Template” to distinguish it from others alluded to in Section 4.9. It is easily checked that if the 3 × 3 matrix with {β1 , β2 , β3 }, {β4 , β5 , β6 } and {β7 , β8 , β9 } as rows is nonsingular, then Q1 , Q2 and Q3 have full rank for A = 0 and nonzero side lengths. With the usual restrictions on the elasticity matrix E, Kθ has full rank of 3 and K R is rank sufﬁcient. As remarked previously, the parameter set in (28) is more general than that used in [17]. That development carried only ﬁve free parameters in the Qi matrices: ρ1 through ρ5 , cf. (20), which enforced a priori the triangular symmetry conditions β7 = −β1 , β8 = −β3 , β9 = −β2 . (32)
+
+These constraints may be derived, for example, by taking an equilateral triangle in which 21 = 32 = 13 ˜ and looking at symmetries about the medians as the θi are applied to each corner in turn. Furthermore the torsional mode was not separately parametrized. The present parameter set is able to encompass elements, such as the retroﬁtted LST, where that mode is missing. 4.7. Instances, Signatures, Clones An element generated by specifying numerical values to the parameters {αb , β0 , β1 , . . . β9 } is a template instance. The set of parameter values is the template signature. Two elements with the same signature, possibly derived through different methods, are called clones. Table 1 lists triangular elements compared later in this paper. Table 2 deﬁnes their signatures if they happen to be instances of the ANDES template (31). By construction all template instances verify exactly the IET for rigid body modes and uniform strain/stress states. Here we see the key advantage of the direct fabrication approach: any template instance that keeps the correct rank is guaranteed to be consistent and stable. Since surprises are mitigated the task of optimizing the element, covered in Section 5, is straightforward. 13
+
+Table 1. Identiﬁer of Triangle Element Instances Name ALL-3I ALL-3M ALL-EX ALL-LS CST FF84 LST-Ret OPT Description Allman 88 element integrated by 3-point interior rule. Allman 88 element integrated by 3-midpoint rule. Allman 88 element, exactly integrated Allman 88 element, least-square strain ﬁt. Constant strain triangle CST-3/6C. 1984 Free Formulation element of Bergan and Felippa. Retroﬁtted LST with αb = 4/3. Optimal ANDES Template. See Section 8 Section 8 Section 8 Section 8 Ref. [7] Ref. [21] Section 7 Sections 5.2 and 5.3
+
+Table 2. Signatures of Some LST-3/9R Instances Beﬁtting the ANDES Template (31) Name ALL-3I ALL-3M ALL-EX ALL-LS CST FF84 LST-Ret OPT αb 1 1 1 0 4/3 3/2 β0 4/9 4/9 4/9 any 1/2 see §5.2 β1 1/12 1/4 3/20 0 2/3 1 β2 5/12 5/4 3/4 0 −2/3 2 β3 1/2 3/2 9/10 0 0 1 β4 0 0 0 0 0 0 β5 1/3 1 3/5 0 −4/3 1 β6 −1/3 −1 −3/5 0 4/3 −1 β7 −1/12 −1/4 β8 −1/2 −3/2 β9 −5/12 −5/4 −3/4 0 2/3 −2
+
+not an instance of ANDES template −3/20 −9/10 0 −2/3 −1 0 0 −1
+
+not an instance of ANDES template
+
+4.8. Energy Orthogonality For future use the following deﬁnition is noted. An element with linearly varying higher order strains is called energy orthogonal in the sense of Bergan [19] if Q = Q1 ζ1 + Q2 ζ2 + Q3 ζ3 vanishes at the centroid ζ1 = ζ2 = ζ3 = 1/3. This gives the algebraic condition Q1 + Q2 + Q3 = 0. (33)
+
+For the matrices (28), condition (33) translates to β1 + β5 + β9 = β2 + β6 + β7 = β3 + β4 + β8 = 0. These conditions are not enforced a priori. The optimal element derived in Section 5, however, is found to satisfy energy orthogonality. For more general strain variations energy orthogonality conditions are discussed in [19,21–27,35–38]. 4.9. Other Templates Three more templates for Kh may be generated by choosing bending patterns according to the prescriptions (24), (25) and (26) for the bending modes. This has not been done to date and remains an open 14
+
+Mx
+y x
+
+Mx
+
+z
+
+y b = a/γ a 3 b 1 a
+
+;; ;;
+y z b
+Cross section
+
+h
+
+x
+
+2
+
+Figure 8. Constant-moment inplane bending test along the x direction.
+
+research problem. The closest attempt in this direction was the development of the 1984 FF element described in [21,22] by assuming bending modes along the 3 median directions. Because the FF was used, the modes were initially constructed in displacement form. An advantage of this choice is that the three modes are linearly independent and there is no need to adjoin the torsional mode. But perfect optimality in the sense discussed below was not attainable. As there are indications that the optimal element derivable from (31) is unique, as discussed in Section 5.5, there seems to be no compelling incentive for exploring other templates. 5. FINDING THE BEST A template such as (31) generates an inﬁnity of element instances by assigning numeric values to the free parameters. The obvious question is: among all those instances, is there a best one? Because all template instances pass the IET for basic modes (rigid body motions and constant strain states) any optimality criterion must necessarily rely on higher order patch tests. The obvious tests involve the response of regular mesh units to inplane bending along the side directions. This leads to element bending tests expressed as energy ratios. These have been used since 1984 to tune up the higher order stiffness of triangular elements [21,24]. 5.1. The Bending Test The x-bending test is deﬁned in Figure 8. A Bernoulli-Euler plane beam of thin rectangular crosssection with span L, height b and thickness h (normal to the plane of the ﬁgure) is bent under applied end moments Mx . The beam is fabricated of isotropic material with elastic modulus E and Poisson’s ratio ν. Except for possible end effects the exact solution of the beam problem (from both the theoryof-elasticity and beam-theory standpoints) is a constant bending moment M(x) = Mx along the span. 1 The stress ﬁeld is σx x = Mx y/Izz , σ yy = σx y = 0, where Izz = 12 hb3 . Computing the strain ﬁeld −1 e = E σ and integrating it one ﬁnds the associated displacement ﬁeld u x = −κ x y, u y = 1 κ(x 2 + νy 2 ), 2 (34)
+
+where κ is the deformed beam curvature Mx /E Izz . The internal energy taken up by a Bernoulli-Euler beam 2 beam segment of length a is Ux = Mx κa = 6a E Mx /(b3 h). 15
+
+To test the ANDES template, the beam is modeled with one layer of identical rectangular mesh units dimensioned a × b and made up of two LST-3/9R triangles, as illustrated in Figure 9. The aspect ratio a/b is called γ . All rectangles will undergo the same deformations and stresses. We can therefore consider a typical mesh unit. Both triangles will absorb the same energy so it is sufﬁcient to take one triangle and multiply by two. For simplicity begin by taking ν = 0. Evaluating (34) at nodes 1-2-3 of the triangle shown at the bottom right of Figure 8 we get the node displacement vector utrig = x 3Mx Eγ 2 [ −a a2h
+1 γa 2
+
+−2γ
+
+a
+
+1 γa 2
+
+2γ
+
+a
+
+1 γa 2
+
+−2γ ]T
+
+(35)
+trig
+
+The strain energy absorbed by the triangle under these applied node displacements is Ux = trig trig quad 1 trig T (ux ) Kux . That absorbed by the two-triangle mesh unit is Ux = 2Ux . The bending en2 ergy ratio computed by Mathematica can be expressed as Ux r = beam = c0 + c2 γ 2 + c4 γ 4 , Ux
+quad
+
+(36)
+
+where c0 , c2 and c4 are only functions of the free parameters. For the ensuing derivation we use the parameters of (31), but under the symmetry constraints (32) that effectively reduce the 11 parameters to 8: αb , β0 , β1 , . . . β6 . Introduce the 6-vector β = [ β1 β2 β3 β4 β5 β6 ]. Then a compact form of the coefﬁcients is c0 = 1 β0 (αb − 6)αb + (βT C0 β), 3 64 c2 = 2 β0 (αb − 3)αb + (βT C2 β), 3 64 c4 = β0 T (β C4 β), (37) 64
+
+in which C are the symmetric matrices  13 −11 −1 2 2 −6   26 −20 −4 −10 12 −6   1 1 −3  −11 13 −1 −2 −2 6   −20 22 −2 8 −14 8   1 1 −3  −1 −1 1 0 0 0   −4 −2 6 0 2 0   −3 −3 9     C0 =   2 −2 0 1 1 −3  , C2 =  −10 8 0 5 −5 1  , C4 =  0 0 0     
+2 −2 −6 6 0 1 1 −3 0 −3 −3 9 12 −14 −6 8 2 −5 9 −5 0 1 −5 5 0 0 0 0 0 0 0 0 0 0 0 0 0  9 −3 −3   0 −3 1 1 0 −3 1 1 (38)
+
+
+
+The energy ratio (36) happens to be the ratio of the exact (beam) displacement solution to that of the 2D solution. Hence r = 1 means that we get the exact answer, that is, the LST-3/9R element is x-bending exact. If r > 1 or r < 1 the triangle is overstiff or overﬂexible in x bending, respectively. In particular, if r >> 1 as a/b = γ grows the element is said to experience aspect ratio locking along the x direction. The treatment of energy balance in y bending for rectangular mesh units stacked in the y direction only entails replacing γ by 1/γ . Therefore if the element is x-bending optimal in the sense discussed below it is also y-bending optimal and the analysis need not be repeated. 5.2. Optimality for Isotropic Material If r = 1 for any aspect ratio γ the element is called bending optimal. From (36) optimality requires c0 = 1, c2 = 0, c4 = 0, for all γ = a/b and real parameter values. 16 (39)
+
+Table 3 Bending Energy Ratios r for Triangular Elements of Table 1 Triangle Bending ratio r for isotropic material γ =0 γ =1 ν= 1 ν= 1 4 4 1.442 1.595 γ =4 ν= 1 4 γ = 16 ν= 1 4
+
+ALL-3I ALL-3M ALL-EX ALL-LS CST FF84 LST-Ret OPT
+
+584 + (79 − 91ν)γ 2 + 6γ 4 432(1 − ν 2 ) 24 + (5 − 9ν)γ 2 + 2γ 4 16(1 − ν 2 ) 84 + (15 − 19ν)γ 2 + 2γ 4 60(1 − ν 2 ) 1672 + (263 − 371ν)γ 2 + 54γ 4 1200(1 − ν 2 ) 6 + 3(1 − ν)γ 2 2(1 − ν 2 ) 13 + 54γ 2 + 119γ 4 + 70γ 6 + 13γ 8 3+ 13 + 4 96(1 − ν) 96(1 + 3γ 2 + γ 4 )2 (1 + ν) 34 + 5(1 − ν)γ 2 27(1 − ν 2 ) 1
+
+7.457 1007.901
+
+1.600 1.916 38.667 8786.667 1.493 1.711 13.511 2378.311 1.486 1.686 16.196 3185.956 3.200 4.400 22.400 1.039 1.020 1.343 1.491 1.000 1.000 1.035 3.714 1.000 310.400 1.039 39.269 1.000
+
+The last proviso means that complex solutions for template parameters are not admissible. The solution method is explained in Appendix B. It gives the optimal parameter set αb = 3 , β0 = 1 , β1 = β3 = β5 = 1, β2 = 2, β4 = 0, β6 = β7 = β8 = −1, β9 = −2, 2 2 (40)
+
+and the Qi matrices found in [17] are recovered. It is easily veriﬁed that r = rb + rh = 3/4 + 1/4, where rb and rh come from energy taken by the basic and higher-order stiffnesses, respectively. That is, for the optimal element the basic energy accounts for 75% of the exact beam energy. The symbolic analysis for an arbitrary ν is similar and shows that only β0 needs to be changed: αb = 3 , β0 = 1 (1 − 4ν 2 ), β1 = β3 = β5 = 1, β2 = 2, β4 = 0, β6 = β7 = β8 = −1, β9 = −2. 2 2 (41) In this case rh = 1 (1 − 4ν 2 ) so for ν = 1 the basic stiffness takes up all the bending energy. Since for 4 2 ν = 1 the optimal β0 is 0, the higher order stiffness would vanish and the element is rank deﬁcient. To 2 maintain stability one sets a tiny minimum β0 , for example β0 = max( 1 (1 − 4ν 2 ), 0.01) is used in our 2 shell codes. The case of a non-isotropic material is treated in the next subsection. Table 3 gives bending ratios for the elements listed in Table 1, along with numerical values for ν = 1/4 and γ = 1, 2, 4, 16. Those quoted for elements other than OPT are derived in Sections 7 and 8. 5.3. Optimality for Non-Isotropic Material If the elasticity matrix takes up the general form (8) the analysis of bending optimality becomes more elaborate, but follows essentially the same steps. Only the ﬁnal results are stated here. For optimal 17
+
+bending behavior along a direction xϕ that forms an angle ϕ (positive ccw) from x, the optimal parameter set is still given by (41) except for the overall scaling parameter β0 : β0ϕ = E 11ϕ 3 2 − , ϒ = E 11ϕ C11ϕ , ϒ 2 4 3 2 2 3 4 = E 11 cϕ + 4E 13 cϕ sϕ + (2E 12 + 4E 33 )cϕ sϕ + 4E 23 cϕ sϕ + E 22 sϕ ,
+
+(42)
+
+4 3 2 2 3 4 C11ϕ = C11 cϕ + 2C13 cϕ sϕ + (2C12 + C33 )cϕ sϕ + 2C23 cϕ sϕ + C22 sϕ ,
+
+with sϕ = sin ϕ and cϕ = cos ϕ. Here E 11ϕ and C11ϕ are the elasticity and compliance along xϕ , respectively, when (8) are rotated by ϕ. For isotropic material of Poisson’s ratio ν, ϒ = 1/(1 − ν 2 ) and the rule (41) is recovered for any ϕ. Two difﬁculties, however, arise in the general case: 1. 2. The optimal β0 depends on orientation of bending actions with respect the element axis. That information is not likely to be known a priori. There is no guarantee that ϒ < 4/3, so β0ϕ may turn out to be negative.
+
+The ﬁrst obstacle is overcome by adopting an invariant measure that involves the average of E 11ϕ C11ϕ over a 2π sweep: ¯ ϒ= 1 2π
+2π 0
+
+E 11ϕ C11ϕ dϕ =
+
+W , 128 det(E)
+
+¯ β0 =
+
+3 2 − . ¯ 2 ϒ
+
+(43)
+
+Mathematica gives W as the complicated expression listed in Figure 12. In terms of the elasticity tensor 3 2 2 3 invariants listed in (9), 8W = 9JE1 + 48JE1 JE2 + JE1 (80JE2 − 10JE3 + JE4 ) + 8(16JE2 − JE2 (JE3 + ¯ JE4 ) + 72JE5 ) so the invariance of β0 is conﬁrmed. The second difﬁculty is handled by checking ¯0 is less that a positive treshold, say, 0.01 and if so setting β0 = 0.01. ¯ whether β What is the effect of setting a β0 that is not exactly optimal? Choosing αb , β1 , . . . β9 as listed in (40) or (41) guarantees that c2 = c4 = 0 for any E. Consequently the element cannot lock as the aspect ratio γ increases. On the other hand c0 will generally differ from one so suboptimal performance can be expected if the material is not isotropic. 5.4. Multiple Element Layers Results of the energy bending test can be readily extended to predict the behavior of 2n (n = 1, 2, . . .) identical layers of elements symmetrically placed through the beam height. If γ stays constant, the energy ratio becomes 22n − 1 + r , (44) r (2n) = 22n where r is the ratio (38) for one layer, as in the conﬁguration of Figure 8. If r ≡ 1, r 2n ≡ 1 so bending exactness is maintained, as can be expected. For example, if n = 1 (two element layers), r (2) = (3 + r )/4. This is actually the ratio reported in Table 2 of [18]. 5.5. Is the Optimal Element Unique? To investigate whether the optimal element is unique, the common factor A in the matrices (30) was replaced by nine values A jk , j = 1, 2, 3, k = 1, 2, 3. These have dimensions of area but are otherwise arbitrary. A jk is assigned to the { j, k} entry of Q1 and then cyclically carried through Q2 and Q3 . If the 18
+
+y z
+Cross section
+
+Figure 9. Morphing a 12-DOF two-triangle mesh unit to a 6-DOF beam-column element.
+
+; ;
+h
+
+− ux 2
+
+4 1 a
+
+3 2
+
+− u x1
+morphing
+
+θ1
+
+−
+
+θ2 − uy2
+
+−
+
+b = a/γ
+
+u y1 1
+
+x
+2 E, A, Izz
+
+a=L
+
+energy orthogonality condition (36) is enforced a priori, a complete symbolic analysis of the bending ratio was possible with Mathematica. Except for β0 the previous solution (43) re-emerges for r ≡ 1 in the sense that the A jk = A and the βi are recovered except for a scaling factor. Absorbing this factor into β0 the same element is obtained. If the orthogonality constraint (36) is not enforced a priori, the energy balance conditions become highly complicated (a system of three quartic polynomial equations emerges with unknown terms βi β j Ak Amn ) and no simple solution was found. Thus the question of whether non-energy-orthogonal optimal elements of this conﬁguration exist remains open. 5.6. Morphing Morphing means transforming an individual element or macroelement into a simpler model using kinematic constraints. Often the simpler element has lower dimensionality. For example a plate bending macroelement may be morphed to a beam or a torqued shaft [5]. To illustrate the idea consider transforming the rectangular panel of Figure 9 into the two-node Bernoulli-Euler beam-column element shown on the right of that Figure. The length, cross sectional area and moment of inertia of the beamcolumn element, respectively, are denoted by L = a, A = bh and Izz = b3 h/12 = a 3 h/(12γ 3 ), respectively. The transformation between the freedoms of the mesh unit and those of the beam-column is   1 u x1  u y1   0     θ1   0     u x2   0     u y2   0     θ  0 uR =  2  =   u x3   0     u y3   0     θ3   0     u x4   1    u y4 0 θ4 0  0 1b 2 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 −1b 2 1 0 0 1 0 0 0 1 0 0 1 0 0 0 0 0  0 0 0 0   0 0   ¯  1 0 2 b  u x1  ¯ 1 0   u y1   ¯  0 1   θ1   = Tm um . ¯  0 − 1 b   u x2  ¯  2  1 0   u y2  ¯  0 1  θ2 ¯  0 0   0 0 0 0
+
+(45)
+
+¯ where a superposed bar distinguishes the beam-column freedoms grouped in array um . Let Kunit denote R the 12 × 12 stiffness of the mesh unit of Figure 9 assembled with two optimal LST-3/9R triangles 19
+
+triangles. For isotropic material with ν = 0 a symbolic calculation gives the morphed stiffness   A 0 0 −A 0 0 2 2 12c22 Izz /L 6c23 Izz /L 0 −12c22 Izz /L 6c23 Izz /L   0   E 0 6c23 Izz /L 4c33 Izz 0 −6c23 Izz /L 4c33 Izz  T unit Km = Tm K R Tm =  , 0 0 A 0 0  L  −A   2 2 0 12c22 Izz /L 6c23 Izz /L 0 −12c22 Izz /L 6c23 Izz /L 0 6c23 Izz /L 4c33 Izz 0 −6c23 Izz /L 4c33 Izz (46) in which c22 = c23 = (1 + 8γ 2 + γ 4 )/12 and c33 = (5 + 8γ 2 + γ 4 )/16. The entries in rows/columns 1 and 4 form the well known two-node bar stiffness. Those in rows and columns 2, 3, 5 and 6 are dimensionally homogeneous to those of a C 1 beam, and may be grouped into the following matrix conﬁguration:     0 0 0 0 12/L 2 6/L −12/L 2 6/L E Izz  0 1 0 −1  3 −6/L 3  ¯  6/L 2 Kbeam = (47)  +β  m 0 0 0 0 −12/L −6/L 12/L 2 −6/L L 0 −1 0 1 6/L 3 −6/L 3 ¯ ¯ with β = c22 = c23 = (4c33 − 1)/3 = (1 + 8γ 2 + γ 4 )/12. For arbitrary Poisson’s ratio, β = 2 4 2 2 3 2 ((1 − 4ν )(1 + γ ) + γ (8 − 9ν + 8ν − 12ν ))/(12(1 − ν )). Now (47) happens to be the universal template of a prismatic beam, ﬁrst presented in [4] and further studied, for the C 1 case, in [39,40] using Fourier methods. The basic stiffness on the left characterizes the pure-bending symmetric response to a uniform bending moment, whereas the higher-order stiffness on the right characterizes the antisymmetric response to a linearly-varying, bending moment of zero mean. ¯ For the C 1 Bernoulli-Euler beam constructed with cubic shape functions, β = 1. For the C 0 Timoshenko ¯ beam, the exact equilibrium model [41, p. 80] is matched by β = 1/(1 + φ), φ = 12E Iz /(G As L 2 ), in 1 which As = 5bh/6 is the shear area and G = 2 E/(1 + ν) the shear modulus. ¯ As γ grows the morphed beam template shows that the antisymmetric response, as scaled by β, stiffens rapidly. However, the symmetric response is exact for any γ , which conﬁrms the optimality of the triangular macroelement. Observe also that what was a higher order patch test on the two-triangle mesh unit becomes a basic (constant-moment) patch test on the morphed element. This is typical of morphing transformations that reduce spatial dimensionality. What is the difference between morphing and retroﬁtting? They share reduction techniques but have different goals: the morphed element is not used as a product but as a way to learn about the source element. 5.7. Strain and Stress Recovery Once node displacements are computed, element strains and stresses can be recovered using the following scheme. Let ue denote the compute node displacements. The Cartesian stresses at a point {ζ1 , ζ2 , ζ3 } are σ = Ee, in which the Cartesian strains are computed from
+e e = (LT /(Ah) ue + Te β0 (Q1 ζ1 + Q2 ζ2 + Q3 ζ3 )Tθu ue , ˜
+
+(48)
+
+Here L is the lumping matrix (22) with αb = 3/2, and Qi are the matrices (28) computed with the e optimal parameters (41). However β0 is not that recommended for K(e) . Least-square ﬁt studies using e the method outlined in [42] suggest using β0 = 3/2 for isotropic material. (For the non-isotropic case (e) the best β0 is still unknown.) This value is used in the stress results reported in Sections 9ff. 20
+
+6. A MATHEMATICA IMPLEMENTATION Figure 10 lists a Mathematica implementation of (31) as Module LST39RMembTemplateStiffness. The four module arguments are the node coordinates xycoor ordered { { x1,y1 },{ x2,y2 },{ x3,y3 } }, the 3 × 3 stress-strain matrix Emat, the thickness h and the set of free parameters ordered {αb , β0 , β1 , β2 , . . . β9 }. The module returns matrices Kb and Kh as list { Kb,Kh }, a separate return of the two matrices being useful for research work.
+LST39RMembTemplateStiffness [xycoor_,Emat_,h_,fpars_]:=Module[ {x1,y1,x2,y2,x3,y3,x12,y12,x21,y21,x23,y23,x32,y32,x31,y31, x13,y13,A,A4,V,LL21,LL32,LL13,αb,β0,β1,β2,β3,β4,β5,β6,β7,β8,β9, Te,Tθu,Q1,Q2,Q3,Q4,Q5,Q6,c,L,Enat,Kθ,Kh,Kb,Ke}, {{x1,y1},{x2,y2},{x3,y3}}=xycoor; {αb,β0,β1,β2,β3,β4,β5,β6,β7,β8,β9}=fpars; x12=x1-x2; x23=x2-x3; x31=x3-x1; x21=-x12; x32=-x23; x13=-x31; y12=y1-y2; y23=y2-y3; y31=y3-y1; y21=-y12; y32=-y23; y13=-y31; A=(y21*x13-x21*y13)/2; A2=2*A; A4=4*A; L= {{y23,0,x32},{0,x32,y23}, {y23*(y13-y21),x32*(x31-x12),(x31*y13-x12*y21)*2}*αb/6, {y31,0,x13},{0,x13,y31}, {y31*(y21-y32),x13*(x12-x23),(x12*y21-x23*y32)*2}*αb/6, {y12,0,x21},{0,x21,y12}, {y12*(y32-y13),x21*(x23-x31),(x23*y32-x31*y13)*2}*αb/6}*h/2; Kb=(L.Emat.Transpose[L])/(h*A); Tθu={{x32,y32,A4,x13,y13, 0,x21,y21, 0}, {x32,y32, 0,x13,y13,A4,x21,y21, 0}, {x32,y32, 0,x13,y13, 0,x21,y21,A4}}/A4; LL21=x21^2+y21^2; LL32=x32^2+y32^2; LL13=x13^2+y13^2; Te={{y23*y13*LL21, y31*y21*LL32, y12*y32*LL13}, {x23*x13*LL21, x31*x21*LL32, x12*x32*LL13}, {(y23*x31+x32*y13)*LL21,(y31*x12+x13*y21)*LL32, (y12*x23+x21*y32)*LL13}}/(A*A4); Q1={{β1,β2,β3}/LL21,{β4,β5,β6}/LL32,{β7,β8,β9}/LL13}*A2/3; Q2={{β9,β7,β8}/LL21,{β3,β1,β2}/LL32,{β6,β4,β5}/LL13}*A2/3; Q3={{β5,β6,β4}/LL21,{β8,β9,β7}/LL32,{β2,β3,β1}/LL13}*A2/3; Q4=(Q1+Q2)/2; Q5=(Q2+Q3)/2; Q6=(Q3+Q1)/2; Enat=Transpose[Te].Emat.Te; Kθ=(3/4)*β0*h*A*(Transpose[Q4].Enat.Q4+Transpose[Q5].Enat.Q5+ Transpose[Q6].Enat.Q6); Kh=Transpose[Tθu].Kθ.Tθu; Return[{Kb,Kh}]];
+
+Figure 10. A Mathematica implementation of the LST-3/9R ANDES template (31). A f77 version clocked at over 380000 trigs/sec on a 3GHz P4 is available from the writer by e-mail.
+
+This implementation emphasizes readibility and may be further streamlined. A carefully coded Fortran or C implementation can form Kb +Kh in about 500 ﬂoating point operations. A f77 version is available from the writer by e-mail. On a 3GHz P4 processor under SUSE Linux, that version was clocked at over 380000 triangles per second. A 18-DOF shell element using this triangle as membrane component can be formed in roughly 2400 ﬂoating-point operations. To expedite “cloning tests” discussed in the Conclusions, the optimal stiffness of a triangle with x1 = y1 = 0, x2 = 4.08, y2 = −3.44, x3 = 3.4, y3 = 1.14, E = 120, ν = 1/4 and h = 1/8 is formed 21
+
+and displayed by the statements in Figure 11. (Module LST39ANDESTemplateSignature referenced therein is listed in Figure 12.) SetPrecision keeps output entries down to 5 signiﬁcant places so matrices ﬁt across the page. The results are  10.350  0.95258  7.7327   −2.1309  Kb =  1.7629  2.1745   −8.2194 
+7.7327 −2.1309 1.7629 2.1745 −8.2194 −2.7155 −9.9073  8.1695 2.7629 0.17327 −5.7458 −3.7155 −4.2491 −2.4237  19.723 3.9414 1.3377 −9.4943 −11.674 −9.5072 −10.229   3.9414 2.7575 −1.1855 −4.1179 −0.62660 −1.5774 0.17657   1.3377 −1.1855 5.8957 −4.6390 −0.57737 −6.0690 3.3013  −9.4943 −4.1179 −4.6390 13.777 1.9434 10.385 −4.2825   −11.674 −0.62660 −0.57737 1.9434 8.8460 4.2928 9.7307   −9.5072 −1.5774 −6.0690 10.385 4.2928 10.318 −0.87754 −10.229 0.17657 3.3013 −4.2825 9.7307 −0.87754 14.512 (49) −0.27977 −0.63728 0.20769 0.069638 −0.52781 −0.24923 0.21014 −0.83208  1.8844 4.2923 −1.3989 −0.46903 3.5549 1.6786 −1.4153 5.6043  4.2923 12.833 −3.1864 −1.0684 7.7151 3.8237 −3.2239 10.092   −1.3989 −3.1864 1.0385 0.34819 −2.6390 −1.2462 1.0507 −4.1604   −0.46903 −1.0684 0.34819 0.11675 −0.88485 −0.41783 0.35229 −1.3950  3.5549 7.7151 −2.6390 −0.88485 7.9515 3.1668 −2.6701 9.7104   1.6786 3.8237 −1.2462 −0.41783 3.1668 1.4954 −1.2608 4.9925   −1.4153 −3.2239 1.0507 0.35229 −2.6701 −1.2608 1.0630 −4.2093 5.6043 10.092 −4.1604 −1.3950 9.7104 4.9925 −4.2093 20.204 (50) 1.6467 −8.4687 −2.5053 −10.739  −2.1909 −2.0368 −5.6644 3.1805  −1.7792 −7.8504 −12.731 −0.13702   −6.7570 −1.8728 −0.52670 −3.9838   −5.5238 −0.99520 −5.7167 1.9063  21.728 5.1102 7.7147 5.4278   5.1102 10.341 3.0320 14.723   7.7147 3.0320 11.381 −5.0869 5.4278 14.723 −5.0869 34.716 (51)
+
+0.95258 4.0758 8.1695 2.7629 0.17327 −5.7458 −3.7155 −2.7155 −4.2491 −9.9073 −2.4237
+
+ 0.041538  −0.27977  −0.63728   0.20769  Kh =  0.069638  −0.52781   −0.24923 
+
+0.21014 −0.83208
+
+K R = Kb + Kh =  10.392 0.67281 7.0955 −1.9232 1.8325 5.9602 12.462 1.3640 −0.29577  0.67281  7.0955 12.462 32.557 0.75498 0.26929   −1.9232 1.3640 0.75498 3.7959 −0.83734  6.0125  1.8325 −0.29577 0.26929 −0.83734  1.6467 −2.1909 −1.7792 −6.7570 −5.5238   −8.4687 −2.0368 −7.8504 −1.8728 −0.99520  −2.5053 −5.6644 −12.731 −0.52670 −5.7167 −10.739 3.1805 −0.13702 −3.9838 1.9063
+
+The eigenvalues of K R to 5 places are [ 52.913 43.834 26.434 11.181 1.8722 0.64900 0 0 0 ]. When doing element comparison studies as in Section 9 it is convenient to pass from a user supplied mnemonic name to the set of free parameters (template signature). Module LST39ANDESTemplateSignature, listed in Figure 12, returns the template signature given an mnemonic type name. The second argument, which is the stress-strain matrix E, is only used for type "OPT". For example LST39ANDESTemplateSignature["LSTRet",0] returns {4/3, 1/2, 2/3, −2/3, 0, 0, −4/3, 4/3, −2/3, 0, 2/3} as the set of free parameters for the retroﬁtted LST derived in the next section.
+
+22
+
+xycoor=N[{{0,0},{102/25,-86/25},{85/25,285/250}}]; Print["xycoor=",xycoor]; Em=120; ν=1/4; h=1/8; Emat=Em/(1-ν^2)*{{1,ν,0},{ν,1,0},{0,0,(1-ν)/2}}; fpars= LST39RANDESTemplateSignature["OPT", Emat]; {Kb,Kh}=LST39RMembTemplateStiffness [xycoor,Emat,h,fpars]; Print["Kb=",SetPrecision[N[Kb],5]//MatrixForm]; Print["Kh=",SetPrecision[N[Kh],5]//MatrixForm]; Print["Ke=",SetPrecision[N[Kb+Kh],5]//MatrixForm]; Print["eigs of Ke=",Chop[Eigenvalues[N[Kb+Kh]]]];
+
+Figure 11. Test statements that produce the matrices (49)–(51).
+LST39RANDESTemplateSignature[name_,Emat_]:=Module[{fpars, E11,E22,E33,E12,E13,E23,Edet,W,E11C11avg,β0}, fpars={0,0,0,0,0,0,0,0,0,0,0}; (* CST *) If [name=="OPT", {{E11,E12,E13},{E12,E22,E23},{E13,E23,E33}}=Emat; Edet=E11*E22*E33+2*E12*E13*E23-E11*E23^2-E22*E13^2-E33*E12^2; W=-6*E12^3+5*E11^2*E22-5*E12^2*E22-E22*(75*E13^2+ 14*E13*E23+3*E23^2)+2*E12*(7*E13^2+46*E13*E23+7*E23^2)E11*(5*E12^2+3*E13^2-6*E12*E22-5*E22^2+14*E13*E23+75*E23^2)+ (3*E11^2+82*E11*E22+3*E22^2-4*(6*E12^2+5*E13^2-6*E13*E23+ 5*E23^2))*E33+4*(5*E11-6*E12+5*E22)*E33^2; E11C11avg=W/(128*Edet); β0=Max[2/E11C11avg-3/2,1/100]; fpars={3/2,β0,1,2,1,0,1,-1,-1,-1,-2}]; If [name=="ALL3I", fpars={ 1,4/9,1/12,5/12,1/2,0,1/3,-1/3,-1/12,-1/2,-5/12}]; If [name=="ALL3M", fpars={ 1,4/9,1/4,5/4,3/2,0,1,-1,-1/4,-3/2,-5/4}]; If [name=="ALLLS", fpars={ 1,4/9,3/20,3/4,9/10,0,3/5,-3/5,-3/20,-9/10,-3/4}]; If [name=="LSTRet", fpars={4/3,1/2,2/3,-2/3,0,0,-4/3,4/3,-2/3,0,2/3}]; Return[fpars]];
+
+Figure 12. Module to return signature given a template instance name.
+
+7. RETROFITTING LST The process of building templates by direct fabrication may look like black magic to the uninitiated. By comparison, retroﬁtting a well known “parent” element appears straightforward because kinematic constraints and congruential transformations are taught in introductory FEM courses. 7.1. Midpoint Migration Migraines The idea explored in this section is to start with the conventional Linear Strain Triangle depicted in Figure 3(a). The LST-3/12C has 12 DOFs arranged as uC = [ u x1 u y1 u x2 u y2 u x3 u y3 u x4 u y4 u x5 u y5 u x6 u y6 ]T . (52)
+
+The triangle has straight sides, with nodes 4, 5 and 6 at the midpoints. (It makes no sense to start with the more general curved-side iso-P element since these nodes are eventually eliminated.) The stiffness of this superparametric triangle is readily computed in closed form since the Jacobian is constant. For 23
+
+constant E and h, a very simple expression, discovered in 1966 [10], is
+T T T KC = 1 Ah B1 EB1 + B2 EB2 + B3 EB3 3
+
+(53)
+
+in which A is the triangle area and 1 B1 = 2A B2 = 1 2A 1 2A y32 0 x23 y23 0 x32 y23 0 x32 0 x23 y32 0 x32 y23 0 x32 y23 y31 0 x13 y13 0 x31 y31 0 x13 0 x13 y31 0 x31 y13 0 x13 y31 y12 0 x21 y12 0 x21 y21 0 x12 0 x21 y12 0 x21 y12 0 x12 y21 2y23 0 2x32 2y31 0 2x13 2y21 0 2x12 0 2x32 2y23 0 2x13 2y31 0 2x12 2y21 2y32 0 2x23 2y31 0 2x13 2y12 0 2x21 0 2x23 2y32 0 2x13 2y31 0 2x21 2y12 2y23 0 2x32 2y13 0 2x31 2y12 0 2x21 0 2x32 2y23 0 2x31 2y13 0 2x21 2y12
+
+(54)
+
+B3 =
+
+Next, establish by some method a “midpoint migration” 12 × 9 transformation matrix TC R that links uC = TC R u R , where the latter is conﬁgured as per (6). Then the LST-3/9R stiffness is
+T K L = TC R KC TC R
+
+(55)
+
+where the subscript distinguishes this stiffness from that derived in the previous section. One advantage of this technique is that TC R can be reused to produce consistent mass, geometric stiffness matrices and consistent forces from those of the LST-6/12C, which are well known and available in many codes. If this sounds too good to be true, it is. Three things may go wrong. First, there is no guarantee that (55) will pass the patch test. Generally it will not: as shown below, the TC R form that does it while avoiding the second problem is very special. Second, the transformation may “blow up” for some triangle geometries. Third, the element may be rank deﬁcient. There are no easy cures for any of these mishaps. Repeated failures during the 1970s prompted Irons and Ahmad in 1980 to proclaim, a bit prematurely, that trying to construct membrane elements with drilling freedoms was a waste of time [43, p. 289]. To be fair, some of the tools used here were not known at the time. In particular the fundamental decomposition (18), which facilitates passing the patch test a priori, came after their book. 7.2. Divide and Conquer Begin by decomposing the stiffness KC of (53) into basic and higher order: KC = KCb + KCh . It is easily checked that for constant E and h
+T KCb = A h B0 E B0 , T T T KCh = 1 A h Bh1 E Bh1 + Bh2 E Bh2 + Bh3 E Bh3 . 3
+
+(56)
+
+in which B0 = 1 (B1 +B2 +B3 ) and Bhi = Bi −B0 , i = 1, 2, 3. Explicit forms of the strain-displacement 3 24
+
+matrices are y23 0 y31 0 y12 0 4y21 0 4y32 0 4y13 0 0 x32 0 x13 0 x21 0 4x12 0 4x23 0 4x31 x32 y23 x13 y31 x21 y12 4x12 4y21 4x23 4y32 4x31 4y13 0 y32 0 2y21 +y23 0 1 2y32 0 y31 0 y12 0 2y13 +y23 Bh1 = 0 2x23 0 x13 0 x21 0 x13 +2x23 0 x23 0 2x12 +x32 3A 2x 2y x y31 x21 y12 x13 +2x23 2y13 +y23 x23 y32 2x12 +x32 2y21 +y23 23 32 13 y23 0 2y13 0 y12 0 y31 +2y32 0 2y21 +y31 0 y13 0 1 Bh2 = 0 x32 0 2x31 0 x21 0 x13 +2x23 0 2x12 +x13 0 x31 3A x y23 2x31 2y13 x21 y12 x13 +2x23 y31 +2y32 2x12 +x13 2y21 +y31 x31 y13 32 y23 0 y31 0 2y21 0 y21 0 2y3 +y12 0 y12 +2y32 0 1 Bh3 = 0 x32 0 x13 0 2x12 0 x12 0 x21 +2x31 0 x21 +2x23 3A x y23 x13 y31 2x12 2y21 x12 y21 x21 +2x31 2y3 +y12 x21 +2x23 y12 +2y32 32 (57) While B0 is unique, there are several Bhi matrices that produce the same KCh through the formula in (56). This indeterminacy causes no problems, however, since KCh is unique because KC and KCb are. Insertion of KC = KCb + KCh into (55) shows that 1 B0 = 6A K L = K Lb + K Lh ,
+T K Lb = TC R KCb TC R , T K Lh = TC R KCh TC R .
+
+(58)
+
+Next, we make use of the hierarchical form of the LST introduced in [44, p. 222]. This variant, labelled LST-6/20CH, has the same nodes as the LST-6/12C but the midpoint freedoms are deviations from linearity: ˜ uC = [ u x1 u y1 u x2 u y2 u x3 u y3 u x4 u y4 u x5 u y5 u x6 u y6 ]T . ˜ ˜ ˜ ˜ ˜ ˜ (59)
+
+where u x4 = u x4 − 1 (u x1 + u x2 ), u y4 = u y4 − 1 (u y1 + u y2 ), etc. The freedoms of the conventional and ˜ ˜ 2 2 hierarchical LST are related by the transformation ˜ uC = TC H uC , in which 1 0  0  0  0  0 =1 2  0  0  0  1
+2
+
+˜ uC = T H C uC , 0 0 0 0 1 0 0 0
+1 2
+
+(60) 0 0 0 0 0 0 0 0 0 0 1 0 0 0  0  0  0  0  0  0  0  0  0 1
+
+TC H
+
+0 1 0 0 0 0 0
+1 2
+
+0 0 1 0 0 0
+1 2
+
+0 0 0 1 0 0 0
+1 2
+
+0
+1 2
+
+0 0 0
+1 2
+
+0
+1 2
+
+0 0 0 0 0 1 0 0 0
+1 2
+
+0
+
+0 0 0
+
+0
+1 2
+
+0 0
+
+0
+1 2 1 2
+
+0
+
+0 0 0 0 0 0 1 0 0 0 0 0
+
+0 0 0 0 0 0 0 1 0 0 0 0
+
+0 0 0 0 0 0 0 0 1 0 0 0
+
+0 0 0 0 0 0 0 0 0 1 0 0
+
+(61)
+
+−1 The inverse T H C = TC H is obtained by changing all
+
+to − 1 . It follows that 2 ˜ KCh = TT C KCh T H C . H (62)
+
+˜ ˜ ˜ KC = TT C KC T H C = KCb + KCh , H
+
+˜ KCb = TT C KCb T H C , H 25
+
+From the Free Formulation let us borrow a couple of modal-basis matrices:
+
+GCb
+
+1 0 0 1  1 0  0 1  1 0  0 1 = 1 0  0 1  1 0  0 1  1 0 0 1
+
+
+
+y1 −x1 y2 −x2 y3 −x3 y4 −x4 y5 −x5 y6 −x6
+
+x1 0 x2 0 x3 0 x4 0 x5 0 x6 0
+
+0 y1 0 y2 0 y3 0 y4 0 y5 0 y6
+
+ y1 x1   y2   x2   y3   x3  , y4   x4   y5   x5   y6 x6
+
+G Rb
+
+1 0 0 1  0 0  1 0  = 0 1  0 0  1 0  0 1 0 0
+
+
+
+y1 −x1 1 y2 −x2 1 y3 −x3 1
+
+x1 0 0 x2 0 0 x3 0 0
+
+0 y1 0 0 y2 0 0 y3 0
+
+ y1 x1   0  y2   x2   0  y3   x3 0
+
+(63)
+
+and their hierarchical counterparts:
+
+˜ GCb = GCb TC R
+
+(64) The ﬁrst three columns of each matrix span the rigid body modes and the last three the constant strain modes evaluated at the nodes (these bases are not orthonormalized since that property is not required here.) Collectively these six columns are called the basic kinematic modes, hence the subscript. ˜ ˜ ˜T ˜ The hierarchical form of TC R is TC R , connecting K L = TC R K R TC R . This 12×9 matrix has 108 entries. ˜ But 90 are immediately set to 1 or 0 by the obvious assumption: the hierarchical rotations θi , i = 1, 2, 3 ˜ are deﬁned only by the hierarchical midpoint displacements u xm , u ym , m = 4, 5, 6. Consequently TC R ˜ ˜ 26
+
+1 0  1  0  1  0 = 0  0  0  0  0 0
+
+
+
+0 y1 x1 0 1 −x1 0 y1 0 y2 x2 0 1 −x2 0 y2 0 y3 x3 0 1 −x3 0 y3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+ y1 x1   y2   x2   y3   x3  , 0  0  0  0  0 0
+
+˜ G Rb = G Rb Tu u ˜
+
+1 0  0  1  = 0  0  1  0 0
+
+
+
+0 y1 x1 0 1 −x1 0 y1 0 0 0 0 0 y2 x2 0 1 −x2 0 y2 0 0 0 0 0 y3 x3 0 1 −x3 0 y3 0 0 0 0
+
+ y1 x1   0  y2   x2   0  y3   x3 0
+
+must have the form
+
+˜ TC R
+
+1 0  0  0  0  0 = 0  0  0  0  0 0
+
+
+
+0 1 0 0 0 0 0 0 0 0 0 0
+
+0 0 0 0 0 0 q12 p21 q11 q11 q13 p31
+
+0 0 1 0 0 0 0 0 0 0 0 0
+
+0 0 0 1 0 0 0 0 0 0 0 0
+
+0 0 0 0 0 0 q21 p12 q23 p32 q22 p22
+
+0 0 0 0 1 0 0 0 0 0 0 0
+
+0 0 0 0 0 1 0 0 0 0 0 0
+
+ 0 0   0   0   0   0   q33   p33   q32   p23   q31 p13
+
+(65)
+
+˜ Here pi j and qi j are 18 undetermined coefﬁcients with dimension of length. Now TC R must preserve rigid body modes and constant strain states in the hierarchical elements. This requirement is expressed as ˜ ˜ ˜ GCb = TC R G Rb (66) which gives six nontrivial conditions. These are satisﬁed by taking q11 = −(q23 + q32 ), p11 = −( p23 + p32 ), q22 = −(q13 + q31 ), p22 = −( p13 + p31 ), q33 = −(q12 + q21 ) and p33 = −( p12 + p21 ). ˜ Transforming to non-hierarchical freedoms gives TC R = T H C TC R . Matrix TC R gains twelve 1 entries 2 at midpoint locations but still has 12 undetermined coefﬁcients. Finally, require that the Individual Element Test (IET) be passed by forcing the basic stiffness matrices T to coalesce: TT KCb T RC = V TT B0 EB0 T RC = V −1 LELT . Hence V B0 T RC = LT , where L is RC RC given in equation (24). The solution for pi j and qi j contain divisors that can vanish for certain triangular geometries unless one sets p21 = − p12 , q21 = −q12 , p32 = − p23 , q32 = −q23 , p31 = − p13 and q31 = −q13 , whence p11 = q11 = p22 = q22 = p33 = q33 = 0. On doing that the unique solution is found to be p12 = 1 αb x12 , p23 = 1 αb x23 , p13 = 1 αb x13 , q12 = 1 αb y12 , q13 = 1 αb y13 , q23 = 1 αb y23 . 8 8 8 8 8 8 Hence the only transformation that avoids singularities while satisfying the IET is 1 0  0  0  0  0 =1 2  0  0  0  1
+2
+
+TC R
+
+0 1 0 0 0 0 0
+1 2
+
+0 0 0
+1 2
+
+0
+
+0 0 0 0 0 0 1 α y 8 b 12 1 α x 8 b 21 0 0 1 α y 8 b 13 1 α x 8 b 31
+
+0 0 1 0 0 0 0 0
+1 2
+
+0 0 0 1 0 0 0 0 0
+1 2
+
+0 0 0
+
+0 0
+
+0 0 0 0 0 0 1 α y 8 b 21 1 α x 8 b 12 1 α y 8 b 23 1 α x 8 b 32 0 0
+
+0 0 0 0 1 0
+1 2
+
+0 0 0 0 0 1 0
+1 2
+
+0
+1 2
+
+0
+1 2
+
+0
+1 2
+
+0
+1 2
+
+0
+
+0  0   0   0   0   0   0   0   1 α y  8 b 32  1 α x  8 b 23  1 α y  8 b 31 1 α x 8 b 13
+
+(67)
+
+By inspection, if αb = 0 this matrix has the nontrivial null vector: Tunull = 0, R unull = [ 0 0 1 0 0 1 0 0 1 ]T . R 27 (68)
+
+u y1= 1
+
+u x1= 1
+
+θ1 = 1
+
+Figure 13. Shape functions for corner 1 of retroﬁtted LST, αb = 1.
+
+If αb = 0 the dimension of the null space grows to three. The shape functions of this element are obtained on postmultiplying the shape functions of the LST-6/12 by TC R . The interpolation is u x = N x x1 u x1 + N x y2 u y1 + N xθ 1 θ1 + . . . + N xθ 3 θ3 , u y = N yx1 u x1 + N yy2 u y1 + N yθ1 θ1 + . . . + N yθ3 θ3 . (69)
+
+where N x xi = N yyi = ζi (i = 1, 2, 3), N x yi = N yxi = 0 (i = 1, 2, 3), N xθ 1 = αζ1 (y12 ζ2 − y31 ζ3 )/2, N xθ2 = αζ2 (y23 ζ3 − y12 ζ1 )/2, N xθ 3 = αζ3 (y31 ζ1 − y23 ζ2 )/2 N yθ1 = αζ1 (x21 ζ2 − x13 ζ3 )/2, N yθ1 = αζ2 (x32 ζ3 − x21 ζ1 )/2, N yθ 1 = αζ3 (x13 ζ1 − x32 ζ2 )/2. The shape functions for the three freedoms of corner node 1 are plotted in Figure 13. Note that the translational node displacement shape functions are the same as those of the CST-3/6C, and thus conforming. The shape functions for the rotational freedoms are quadratic and nonconforming. 7.3. Stiffness Matrix Assessment It is easily veriﬁed that K L is an instance of the ANDES template (31), with αb = α, β0 = 1 , β1 = β9 = 1 α, β2 = β7 = −β1 , β3 = β4 = β8 = 0, β5 = −α, β6 = α. 2 2 Computing the bending energy ratio gives for an isotropic material r = c0 + c2 γ 2 , c0 =
+2 144 − 96αb + 25αb , 48(1 − ν 2 )
+
+(70)
+
+with
+
+c2 =
+
+2 144 − 192αb + 73αb . 96(1 + ν)
+
+(71)
+
+The αb roots of c2 = 0 are imaginary, so the element cannot be bending optimal. However, the dependence of r on γ is fairly mild compared to that of the elements with c4 = 0. Coefﬁcient c2 is minimized by taking αb = 96/73 = 1.31507 . . . ≈ 4/3. Because of (68) the element is rank deﬁcient by one for all αb > 0 with unull as spurious mode. This R could be cured by adding the torsional mode of Figure 7 as stabilization mode. This stabilization leads to the cubic elements studied in the next Section. The bad news is that stabilization worsens signiﬁcantly the aspect ratio locking. 28
+
+7.4. Deriving a Mass Matrix An advantage previously noted for the retroﬁtting approach is that it readily produces mass matrices, geometric stiffness matrices and consistent load vectors from those of the parent element. We give here an application of this approach for deriving a mass matrix. The consistent mass matrix of a LST-6/12C triangle of uniform thickness and mass density ρ is 6 0 −1 0 −1 0 0 0 −4 0  0 6 0 −1 0 −1 0 0 0 −4   −1 0 6 0 −1 0 0 0 0 0   0 −1 0 6 0 −1 0 0 0 0   −1 0 −1 0 6 0 −4 0 0 0 h Aρ  0 −1 0 −1 0 6 0 −4 0 0  MC =  180  0 0 0 0 −4 0 32 0 16 0   0 0 0 0 0 −4 0 32 0 16   −4 0 0 0 0 0 16 0 32 0   0 −4 0 0 0 0 0 16 0 32  0 0 −4 0 0 0 16 0 16 0 0 0 0 −4 0 0 0 16 0 16  0 0 −4 0 0 0 16 0 16 0 32 0  0 0  0  −4   0  0  0  16   0  16   0 32
+
+(72)
+
+Using the transformation (67), a possible mass matrix for the LST-6/12R conﬁguration is
+T M L = TC R MC TC R ,
+
+(73)
+
+which is easily obtained in closed form. This mass matrix has a rank deﬁciency of one if α = 0, with the null eigenvector (68). However rank deﬁciency of mass matrices is not that important as in stiffness matrices, unless they are used in explicit transient analysis. The mass matrix M L depends on the parameter α present in T RC . To ﬁnd the best value α M when this mass is paired to the OPT stiffness it is convenient to morph the mass into that of a Bernoulli-Euler beam T following the technique outlined in Section 5.6: Mbeam = Tm M L Tm . Then the plane-wave Fourier analysis described in [39,40] on a repeating beam lattice is carried out. The end result for the computed nondimensional acoustic frequency is the dispersion relation
+2 ωa = k 4 +
+
+1 + (17 + 2α)γ 2 + (16α − 23)γ 4 + (2α − 3)γ 6 6 k + O(k 8 ) 12γ 2 (1 + 8γ 2 + γ 4 )
+
+(74)
+
+2 where k is the wavenumber. The exact nondimensional acoustic frequency is ωa = k 4 . Because of the dependence on γ , the term in k 6 cannot be made to vanish for a speciﬁc α. But it rapidly tends to zero for γ >> 1 if α M = α = 3/2, which is the recommended value. (Note that this differs from the recommended value for the retroﬁtted stiffness, which is αb = 4/3. But the mass-stiffness pairing of M L is not with K L , but with that of the optimal element.)
+
+8. THE ALLMAN 1988 TRIANGLE In 1984 Allman published [45] a drilling freedom triangle based on quadratic shape functions. This element is a clone of that presented in Section 7 if one takes αb = 1. It is therefore rank deﬁcient. This was corrected in a subsequent publication [46]. 29
+
+8.1. Shape Functions The displacement interpolation used by Allman in the 1988 element is u x = N x x1 u x1 + N x y1 u y1 + N xθ 1 θ1 + . . . + N xθ 3 θ3 , u y = N yx1 u x1 + N yy1 u y1 + N yθ1 θ1 + . . . + N yθ3 θ3 . where the shape functions are N x x1 = ζ1 − x23 xr 0 , N x y1 = −y23 xr 0 , N x x2 = ζ2 − x31 xr 0 , N x y2 = −y31 xr 0 , N x x3 = ζ3 − x12 xr 0 , N x y3 = −y12 xr 0 , N xθ 1 = 1 (−g1 ζ12 + g5 ζ31 + g1 ζ1221 + g5 ζ3113 ), 2 N xθ2 = 1 (−g3 ζ23 + g1 ζ12 + g3 ζ2332 + g1 ζ1221 ), N xθ 3 = 1 (−g5 ζ31 + g3 ζ23 + g5 ζ3113 + g3 ζ2332 ), 2 2 N yx1 = −x23 yr 0 , N yy1 = ζ1 − y23 yr 0 , N yx2 = −x31 yr 0 , N yy2 = ζ2 − y31 yr 0 , N yx3 = −x12 yr 0 , N yy3 = ζ3 − y12 yr 0 , N yθ 1 = 1 (−g2 ζ12 + g6 ζ31 + g2 ζ1221 + g6 ζ3113 ), 2 N yθ 2 = 1 (−g4 ζ23 + g2 ζ12 + g4 ζ2332 + g2 ζ1221 ), N yθ3 = 1 (−g6 ζ31 + g4 ζ23 + g6 ζ3113 + g4 ζ2332 ). 2 2 (76) in which ζ12 = ζ1 ζ2 , ζ23 = ζ2 ζ3 , ζ31 = ζ3 ζ1 , ζ1221 = ζ12 (ζ2 − ζ1 ), ζ2332 = ζ23 (ζ3 − ζ2 ), ζ3113 = ζ31 (ζ1 − ζ3 ), a12 = 2A/L 12 , b12 = (x12 x13 + y12 y13 )/L 12 , a23 = 2A/L 23 , b23 = (x23 x21 + y23 y21 )/L 23 , a31 = 2A/L 31 , b31 = (x31 x32 + y31 y32 )/L 31 , x p12 = x21 b12 /L 12 + x1 , y p12 = y21 b12 /L 12 + y1 , x p23 = x32 b23 /L 23 + x2 , y p23 = y32 b23 /L 23 + y2 , x p31 = x13 b31 /L 31 + x3 , y p31 = y13 b31 /L 31 + y3 , g1 = L 12 (x p12 − x3 )/a12 , g2 = L 12 (y p12 − y3 )/a12 , g3 = L 23 (x p23 − x1 )/a23 , g4 = L 23 (y p23 − y1 )/a23 , g5 = L 31 (x p31 − x2 )/a31 , g6 = L 31 (y p31 − y2 )/a31 , (77) The shape functions for the three freedoms of corner node 1 are plotted in Figure 14. In contrast to those of Figure 13, all shape functions are nonconforming. The strain-displacement matrix e = Bu is readily computed by differentiation of the shape functions. The stiffness matrix is then obtained as KA =
+e
+
+(75)
+
+xr 0 = (g1 ζ1221 + g3 ζ2332 + g5 ζ3113 )/(4A), yr 0 = (g2 ζ1221 + g4 ζ2332 + g6 ζ3113 )/(4A),
+
+h BT E B d ,
+
+(78)
+
+where d is the element of area. Variants of this element result according to the integration rule adopted in (78). These are studied next. 8.2. Variants Since the shape functions (75) are cubic, the derived strains vary quadratically. For uniform E and h the integrand of (78) varies quartically. Exact integration may be achieved with the 7-point Gauss rule for triangles. For an isotropic material the exactly integrated element, has the bending energy ratio listed in Table 3 under label ALL-EX. This has γ 4 growth and hence rapidly locks for high aspect ratios. Since the optimal element of Section 5 has linearly varying strains, it is of interest to see whether ﬁltering the strains to a linear variation improves the bending behavior. One way of linearizing strains is by 30
+
+u y1= 1
+
+u x1= 1
+
+θ1 = 1
+
+Figure 14. Shape functions for corner 1 of Allman 1988 triangle.
+
+reducing the integration rule. Consider the 3-point triangle quadrature rule deﬁned parametrically by F(ζ1 , ζ2 , ζ3 ) d A ≈
+A
+
+A F (ξ, ξ, 1 − 2ξ ) + F (ξ, 1 − 2ξ, ξ ) + F (1 − 2ξ, ξ, ξ ) 3
+
+(79)
+
+where 0 ≤ ξ ≤ 1 . The two useful rules of this type are ξ = 1/6 (the interior-three-point rule) and 2 ξ = 1/2 (the midpoint rule), both of which exhibit quadratic accuracy. But in the present context it is instructive to leave initially ξ free. A symbolic analysis with Mathematica shows that if the 1988 Allman element is numerically integrated by (79), the stiffness matrix is an instance of the ANDES template (31) with αb = 4ξ(2 − 3ξ ), β4 = 0, β5 = 2ξ, β0 = 4 , 9 β1 = 1 ξ, 2 β2 = 5 ξ, 2 β3 = 3ξ, β9 = − 5 ξ. 2 (80)
+
+β6 = −2ξ, β7 = − 1 ξ, 2
+
+β8 = −3ξ,
+
+Inserting these into (36)–(38) the bending energy ratio r is readily obtained. Results for the particular cases ξ = 1/2 and ξ = 1/6 are listed in Table 3 under labels ALL-3M and ALL-3I, respectively. Yet another way to ﬁt a linear strain pattern to Allman’s quadratic strain ﬁt is by minimizing a dislocation potential, which results in a least-square-like ﬁt [42]. The resulting element is called ALL-LS. One ﬁnds that this element is an instance of the template (31) with the parameters shown in Table 2. The energy ratio is given in Table 3. It can be seen that all variants of the Allman element exhibit catastrophic aspect ratio locking with r growing as γ 4 for γ >> 1. Of the four variants shown in Tables 1–3, ALL-3I is preferable since it has the lowest r as γ grows. But all of them are worse than the humble CST when γ > 9. 9. NUMERICAL EXAMPLES References [17,21] contain extensive comparisons of triangular elements with drilling freedoms, as does the thesis of Nyg˚ rd [23] for both triangles and quadrilaterals. Only three numerical examples are a presented here. The ﬁrst two are standard benchmarks that focus on the effect of aspect ratio on the bending response. The third (Cook’s problem) is included since there are published results for many element types. 9.1. Example 1: Cantilever under End Moment The slender cantilever beam of Figure 15 is subjected to an end moment M = 100. The modulus of elasticity is set to E = 768 so that the exact tip deﬂection δti p = M L/(2E I ) is 100. Regular meshes 31
+
+; ; ;
+a)
+
+y x
+
+E = 768, ν = 1/4, h = 1 2 32 C M = 100
+
+; ;
+b)
+3
+
+1
+
+Figure 15. Slender cantilever beam under end moment: root contraction allowed; four-overlaid-triangle mesh units; a 32 × 2 mesh is shown in (b).
+
+Table 4 Tip Deﬂections (exact=100) for Cantilever under End Moment Element Load Lumping EBQ EBQ EBQ EBQ LI EBQ EBQ EBQ Mesh: x-subdivisions × y-subdivisions 32 × 2 16 × 2 8×2 4×2 2×2 (γ = 1) (γ = 2) (γ = 4) (γ = 8) (γ = 16) 87.08 81.36 84.90 85.36 54.05 98.36 89.05 99.99 76.48 53.57 69.09 68.25 36.36 97.17 81.04 99.99 38.32 9.59 24.23 20.83 15.75 96.58 59.58 99.99 5.42 0.71 2.47 1.89 4.82 96.34 28.93 99.96 0.39 0.04 0.16 0.12 1.28 96.27 9.46 100.07
+
+ALL-3I ALL-3M ALL-EX ALL-LS CST FF84 LST-Ret OPT
+
+ranging from 32 × 2 to 2 × 2 are used, each rectangle mesh unit being composed of four half-thickness overlaid triangles. The element aspect ratios vary from 1:1 through 16:1. The root clamping condition is imposed by setting u x1 = u x2 = u x3 = 0, u y2 = 0, θx1 = θx2 = θx3 = 0, (81)
+
+where 1, 2, 3 are the root nodes, numbered from the top. It is important to leave u y1 and u y3 unrestrained for ν = 0. This allows for the Poisson’s contraction at the root and makes the exact solution merge with the displacement solution given in Section 5.1 over the entire beam. Table 4 reports computed tip deﬂections (y displacement at C) for several element types and ﬁve aspect ratios. The identiﬁers in the “load lumping” column deﬁne ways in which the applied tractions at the free end are transformed to node forces; this topic is elaborated upon in [18]. Because two elements through the height are used, the computed deﬂections should be 100/r (2) , where r (2) = (3 + r )/4 as per equation (44). This provides a valuable numerical conﬁrmation of the energy ratios listed in Table 3. Discrepancies from that prediction are due to load lumping schemes. For example, the results for OPT should be exactly 100.00 for any γ . And in fact they are if another load lumping scheme labeled EBZ in [18] is used. But the effect of the load lumping is slight, affecting only 32
+
+;; ;; ;; ;;
+y
+a)
+
+x
+
+12
+
+C
+
+total shear load P = 40
+
+48
+
+;; ;; ;;
+b)
+
+Figure 16. Cantilever under end shear: E = 30000, ν = 1/4, h = 1; root contraction not allowed; four-overlaid-triangle mesh units; a 8 × 2 mesh is shown in (b).
+
+Figure 17. Intensity contour plot of σx y given by the 64 × 16 OPT mesh. Stress node values averaged between adjacent elements. The root singularity pattern is visible.
+
+60 40 20 0 − 20 − 40 − 60 −6
+
+σxx
+0.75 0.5 0.25 0
+− 0.25 − 0.5
+
+σyy
+
+5 4 3 2
+
+σxy
+
+Exact Computed
+−4 −2 0 2 4 6
+
+y
+
+− 0.75
+
+Exact Computed
+−6 −4 −2 0 2 4 6
+
+1
+
+y
+
+0
+
+Exact Computed
+−6 −4 −2 0 2 4 6
+
+y
+
+Figure 18. Distributions of σx x , σ yy and σx y at x = 12 given by the 16 × 64 OPT mesh. Stress node values averaged between adjacent elements. Note different stress scales. Deviations at y = ±6 (free edges) due to “upwinded” y averaging.
+
+the fourth place of the computed deﬂections. The tiny deviations from 100.00 are due to scheme EBQ not being in exact energy balance, as explained in that reference. The FF84 element maintains good but not perfect accuracy. The Allman 88 triangles perform well for unit aspect ratios but rapidly become overstiff for γ > 2; all variants are inferior to the CST for γ > 9. Of the four variants listed in Table 4 ALL-3I is consistently superior. 33
+
+Table 5 Tip Deﬂections (exact = 100) for Short Cantilever under End Shear Element ALL-3I ALL-3M ALL-EX ALL-LS CST FF84 LST-Ret† OPT ALL-3I ALL-3M ALL-EX ALL-LS CST FF84 LST-Ret† OPT ALL-3I ALL-3M ALL-EX ALL-LS CST FF84 LST-Ret† OPT 8×2 96.41 82.70 89.43 89.72 55.09 99.15 70.86 101.68 4×2 82.27 54.23 70.71 69.97 37.85 94.27 79.58 96.68 2×2 42.53 12.39 26.16 23.02 17.83 89.26 56.71 92.24 Mesh: x-subdivisions × y-subdivisions 16 × 4 98.59 94.78 96.88 96.94 82.59 99.71 91.10 100.30 8×4 93.22 81.84 89.63 89.30 69.86 97.85 93.53 98.44 4×4 72.66 31.81 56.93 52.37 43.84 96.37 83.79 96.99 32 × 8 99.59 98.57 99.16 99.17 94.90 99.87 97.90 100.03 16 × 8 97.86 94.52 96.93 96.94 90.04 99.23 98.14 99.37 8×8 90.72 63.68 83.54 80.84 75.01 98.66 95.14 98.70 64 × 16 99.91 99.62 99.79 99.79 98.65 99.96 99.56 100.00 32 × 16 99.38 98.50 99.15 99.17 97.25 99.74 99.49 99.78 16 × 16 97.32 87.24 95.14 94.22 92.13 99.50 98.63 99.48 128 × 32 99.99 99.91 99.96 99.96 99.66 99.99 99.90 100.00 64 × 32 99.83 99.61 99.77 99.79 99.28 99.92 99.83 99.93 32 × 32 99.27 96.41 98.69 98.45 97.86 99.83 99.62 99.81
+
+† Requires one drilling freedom to be ﬁxed, else stiffness is singular.
+
+9.2. Example 2: The Shear-Loaded Short Cantilever The shear-loaded cantilever beam deﬁned in Figure 16 has been selected as a test problem for plane stress elements by many investigators since originally proposed in [10]. A full root-clamping condition is implemented by constraining both displacement components to zero at nodes located at the root section x = 0. Drilling rotations must not be constrained at the root because the term ∂u y /∂ x in the continuum-mechanics deﬁnition is nonzero there. The applied shear load varies parabolically over the end section and is consistently lumped at the nodes. The comparison value is the tip deﬂection δC = u yC at the center of the end-loaded cross section. One perplexing question concerns the analytical value of δC . An approximate solution derived from 2-D elasticity, based on a polynomial Airy stress function, gives δel = 0.34133+0.01400 = 0.35533, where the ﬁrst term comes from the bending deﬂection P L 3 /3E Izz , Izz = h H 3 /12, and the second from a y-quadratic shear ﬁeld. The shear term coefﬁcient in the second term results from assuming a warpingallowed root-clamping condition that is more “relaxed” than the fully-clamped prescription for the FE model. Consequently in [10] it was argued that δel should be an upper bound, which was veriﬁed by the 34
+
+conforming FE models tested at that time. The ﬁnest grid results in [21] gave, however, δC ≈ 0.35587, which exceeds that “bound” in the fourth place. The ﬁnest OPT mesh ran here (128 × 32) gave a still larger value: 0.35601. The apparent explanation for this paradox is that if ν = 0, a mild singularity in σ yy and τx y , induced by the restraint u y |x=0 = 0, develops at the corners of the root section, as depicted in Figure 17. This singularity “clouds” convergence of digits 4-5. (In retrospect it would have been better to allow for lateral contraction effects as in Example 1 to avoid this singularity.) The percentage results in Tables 3-5 of [21] therefore contain errors in the 4th place. Table 5 gives computed deﬂections for rectangular mesh units with aspect ratios of 1, 2 and 4. Mesh units consist of four half-thickness overlaid triangles. For reporting purposes the load was scaled by 100/0.35601 so that the “theoretical solution” becomes 100.00. The data in Table 5 generally follows the patterns of the previous example; the main difference being the lack of drastically small deﬂections because element aspect ratios only go up to 4:1. Of the four Allman triangle versions again ALL-3I outperformed the others. The results for FF84 and OPT triangles are very similar, without the latter displaying the clear advantages of Example 1. The data for FF84 and CST changes slightly from that of Tables 3-5 of [21] on two accounts: four-triangle, rather than two-triangle, macroelements are used to eliminate y-directionality, and the normalizing “theoretical” solution changes by +0.00014 as explained above. Figure 18 plots averaged node stress values at section x = 12 computed from the 64 × 16 OPT mesh. e The recovery is based on (48) with β0 = 3/2. The agreement with the standard beam stress distribution (the section is sufﬁciently away from the root) is very good at interior points but less so at the free edges y = ±6 since the averaging becomes biased. 9.3. Example 3: Cook’s Problem Table 6 gives results computed for the plane stress problem deﬁned in Figure 19. This problem was proposed by Cook [47] as a test case for nonrectangular quadrilateral elements. There is no known analytical solution but the OPT results for the 64 × 64 mesh may be used for comparison purposes. (Extrapolation of the OPT results using Wynn’s algorithm [48] yields u yC = 23.956.) The last six lines in Table 6 pertain to quadrilateral elements. Results for HL, HG and Q4 are taken from [47] whereas those for Q6 and QM6 are taken from [49]. Results for the Free Formulation quadrilateral FFQ are taken from Nyg˚ rd’s thesis [23]. Further data on other elements is provided in [50]. a For triangle tests, quadrilaterals were assembled with two triangles in the shortest-diagonal-cut layout as illustrated in Figure 16 for a 2 × 2 mesh. Cutting the quadrilaterals the other way or using fouroverlaid-triangle macroelements yields stiffer results. Since element aspect ratios are reasonable near the root (where the action is), the performance of the seven LST-3/9R models tested can be expected to be similar, and indeed it was. Of the seven ALL-3I is best followed closely by LST-Ret, OPT and FF84. It should be noted that accuracy of the FF84 and OPT triangles for this problem is dominated by the basic stiffness response. Consequently the deﬂection values provided by the FF84 and OPT elements, which share the same basic stiffness, are very close. The overall stress distribution for this problem is rarely reported. Figure 18 displays a Mathematicagenerated intensity contour plot of the von Mises stress computed from the 32 × 32 OPT mesh, using e the recovery formula (48) with β0 = 3/2. A singularity pattern at point {x = 0, y = 44}, which is located at a ﬁxed entrant corner, is evident.
+
+35
+
+y
+48 C C total shear load P =1 uniformly distributed
+
+16
+
+44
+
+Figure 19. Cook’s problem: clamped trapezoid under end shear. A 8 × 8 mesh is shown.
+
+;; ;; ;; ;; ;; ;; ;;
+
+E = 1, ν = 1/3, h = 1
+
+x
+
+Figure 20. von Mises stress intensity distribution from 32 × 32 OPT element mesh. Peak occurs at upper left corner.
+
+10. DISCUSSION AND CONCLUSIONS The conclusions are posted below in a Q&A format so that readers can scan subjects quickly. Has the OPT triangle been used much? The optimal LST-3/9R element has been used since 1991 as membrane component of a shell element with 6 DOF per corner. The presence of the drilling freedoms facilitates modeling of surface intersections and stiffeners. In fact the shell element is so fast and versatile that it has largely replaced beams in modeling complete aircraft structures. Figure 21 shows portion of the interior structure of an F-16 used in aeroelastic studies by Farthat’s team [51]: note that triangles are used for any thin wall component. 36
+
+Table 6 Results for Cook’s Problem Vertical deﬂection at C for subdivision 4 × 4 8 × 8 16 × 16 32 × 32 23.00 21.05 21.83 22.32 18.28 22.42 22.62 22.45 23.11 22.03 23.23 18.30 23.48 23.02 23.66 23.02 23.43 23.44 22.02 23.41 23.58 23.43 23.79 23.88 23.69 23.81 23.82 23.41 23.79 23.86 23.80 23.88 23.81 23.91 23.43 23.94 23.87 23.91 23.92 23.91 23.94 23.91 23.94
+
+Element ALL-3I ALL-3M ALL-EX ALL-LS CST FF84 LST-Ret† OPT FFQ HL HG Q4 Q6 QM6
+
+2×2 21.61 16.61 19.01 19.43 11.99 20.36 19.82 20.56 21.66 18.17 22.32 11.85 22.94 21.05
+
+64 × 64
+
+23.95
+
+† Requires one drilling DOF to be ﬁxed, else stiffness is singular
+
+A corotational version developed by Haugen [52] is used in the FEDEM multibody dynamics system. The FF84 ancestor is used in codes developed at Trondheim by P˚ l Bergan and his colleagues. a When is exact pure-bending response important? Bending response exactness for any aspect ratio γ is important in modeling thin and composite aerospace structures, such as the stiffened panel depicted in Figure 22. If the longitudinal direction called x in the bending test is set along the panel, that Figure shows a very high γ in a ﬂange and a small γ in a joint. Aspect ratio locking in such mesh units can adversely affect the response of the whole structure. What are the main advantages of templates? The obvious one is the possibility of searching for optimal or custom element instances, without worry as to ﬁxing up bad elements along the way. They are also useful in research studies because a template spans an inﬁnity of possible elements including elements already published. This uniﬁcation facilitates comparison of previous and new elements using a single implementation, as in Figure 10. Why are strains good choice for higher order trial spaces? Strains are intermediate variables between displacements and stresses. Unlike them, no boundary conditions can be applied on strains. This mediatory nature tends to produce elements of balanced behavior: neither too stiff nor too ﬂexible. In non-mechanical problems, the same role can be assigned to the intermediate variable that appears in Tonti diagrams of the variational formulation [4]. Do templates supersede conventional element derivation methods? No. The template conﬁguration, by which it is meant the sequence of matrix products and the functional dependence of matrix entries on geometry and constitutive properties, has to be established by conventional methods. For example, the ANDES formulation leads to the forms (28)–(31), which could not be guessed a priori. Parameters are injected as weights of algebraic terms as appropriate. 37
+
+Figure 21. Internal structure of an F-16 modeled with triangle shell elements (courtesy Greg Brown).
+
+I have derived an alledgely new LST-3/9R triangle. How do I check if it is optimal? The ﬁrst step is to run the bending ratio test of Section 5.1, numerically or (better) symbolically. If: (i) the ratio r = 1 for all γ , (ii) the element passes the ordinary patch tests and (iii) is rank sufﬁcient, it is indeed optimal. But is it new? The next step should be to try the test geometry of Section 6 and compare K to (52). If it matches, the “new triangle” is likely a clone of the OPT element. This can be rigurously proven by extracting its template signature, which is not a easy process if the element was fabricated as a whole. If it does not match you have a different optimal element. As discussed in Section 5.5, this cannot happen if the element is energy orthogonal. Should parameters be left as arguments of element implementations? Only for research studies, and to ﬁnd clones (as in the scenario of the foregoing question). In production implementations parameters should be hardwired to a name, as illustrated by the module listed in Figure 12. Few users have the knowledge or interest to play around with parameter values. Why is it worth republishing the optimal element? Two reasons. First, the fact that a membrane element with this freedom conﬁguration that is insensitive to aspect ratio can be constructed does not seem to be generally known. Second, the derivation can be now comfortably placed within the framework of ﬁnite element templates, which was an embryonic concept ten years ago. As a result, several elements in common use can be exhibited as instances of the ANDES template, facilitating uniﬁed implementation and testing. 38
+
+joint: γ <<1
+
+flange: γ >>1
+
+Figure 22. Stiffened panels modeled by facet shell elements are a common source of high aspect ratio elements.
+
+The paper discusses three models, but more have been published. Why the omissions? The three models are intended to illustrate the derivation approaches of Figure 1. The ANDES template exempliﬁes the direct fabrication approach. The retroﬁtted LST is a textbook example of, well, the retroﬁtting approach. The Allman 1988 triangle displays the typical tribulations of the ﬁxed-up approach in that several variants are possible but none cures aspect ratio locking. Including more models would have lenghtened the exposition without achieving appreciable beneﬁts over the optimal one.
+
+39
+
+Appendix A. The Higher Order Strain Field For completeness the construction of the higher order strain ﬁeld carried out in Ref [17] is summarized here. Split ˜ ¯ ¯ ¯ ¯ ˜ ˜ ˜ the hierarchical rotations into mean and deviatoric: θ1 = θ +θ1 , θ2 = θ +θ2 , θ3 = θ +θ3 , where θ = 1 (θ1 + θ2 + θ3 ). 3 ¯ ˜ = θ + θ where θ = θ [ 1 1 1 ]T and θ = [ θ θ θ ]T . The deviatoric corner rotations deﬁne ¯ ¯ In matrix form: θ 1 2 3 the linear deviatoric-rotation ﬁeld: θ = θ1 ζ1 + θ2 ζ2 + θ3 ζ3 , (82) which integrates to zero over the element. For subsequent use we note the matrix relation
+
+
+
+θ1 1  θ2   0  θ  =  0 3 1 ¯ θ 3
+
+
+
+
+
+0 1 0
+1 3
+
+0 1 0  1 1 − 1  3 1 1 0 3
+
+
+
+
+
+1 1 1 0
+
+1 1  1  0
+
+
+
+˜ θ1 ˜ θ2 ˜ θ3
+
+
+
+=
+
+1 3
+
+2  −1  −1 1
+
+−1 2 −1 1
+
+−1 −1  2 1
+
+
+
+˜ θ1 ˜ θ2 ˜ θ3
+
+.
+
+(83)
+
+The splitting (83) translates to a similar decomposition of the higher order strains: ed = eb + et , where subscripts b and t identify “pure bending” and “torsional” strain ﬁelds, respectively. These are generated by the deviatoric ¯ rotations θ and the mean hierarchical rotation θ, respectively. A.1 The Pure Bending Field This ﬁeld is produced by the deviatoric corner rotations θi , i = 1, 2, 3, inducing the side-aligned natural strains
+b
+
+=[
+
+b21
+
+b32
+
+b13
+
+]T .
+
+(84)
+
+pertaining to choise (s) in Figure 5. The straingage locations are chosen at the triangle corners. The natural strain jk at corner i is written jk|i , the bar being used for reading convenience. Vector b at corner i is denoted by bi . The goal is to construct the 3 × 3 matrices Qbi that relate natural straingage readings to the deviatoric rotations:
+b1
+
+= Qb1 θ ,
+
+b2
+
+= Qb2 θ ,
+
+b3
+
+= Qb3 θ ,
+
+(85)
+
+Once these are known the natural bending strains can be obtained by linear interpolation over the triangle: b = (Qb1 ζ 1 + Qb2 ζ2 + Qb3 ζ3 )θ = Qb θ . Consider b21 (P) at an arbitrary point P of the triangle. Denote by d21|P the signed distance from the centroid to P measured along the internal normal to side 21, and specialize P to corners: d21|3 = 4A , 3 21 d21|1 = d21|2 = − 1 d21|3 = − 2 2A . 3 12 (86)
+
+Assume that b21|P depends only on d21|P divided by the side length 21 , which introduces a distance scaling. These dimensionless ratios will be called χ21|P = d21|P / 21 , which specialized to the corners become χ21|3 = 4A , 3 2 21 χ21|1 = χ21|2 = − 2A . 3 2 21 (87)
+
+Formulas for corners 2 and 3 are obtained by cyclic permutation. According to the foregoing assumption, the natural straingage readings b21|i at corner i depend only on χ21|i , multiplied by as yet unknown weighting factors. In matrix form: ψ ψ ψ  1 2 3
+b1
+
+=
+
+b21|1 b32|1 b13|1
+
+ 21 2A  ψ4  2 = 3  32 
+ψ7
+2 13
+
+2
+
+ψ5 ψ8
+
+2 21 2 32 2 13
+
+ψ6   ψ9
+2 32 2 13
+
+2 21
+
+ θ 1  θ2  θ3
+
+= Qb1 θ .
+
+(88)
+
+Here ψ1 through ψ9 are dimensionless weight parameters. [In reference [17] ﬁve parameters called ρ1 through ρ5 were used instead as shown in equation (20); these account a priori for the triangular symmetries (32).] Relations for corners 2 and 3 are constructed by cyclic permutation. Pictures of the unweighted bending modes are shown in Figure 7. These were obtained by integrating the strain ﬁeld into displacements, which is possible because both natural and Cartesian strains vary linearly.
+
+40
+
+Before filtering:
+
+After filtering:
+
+Figure 23. The torsional displacement mode before and after strain ﬁltering. Filtered patterns were obtained by integrating the strain ﬁeld (92). Note that for an equilateral triangle the ﬁltered pattern becomes a bubble mode. A.2 The Torsional Field The higher order stiffness produced by the pure bending ﬁeld alone is rank deﬁcient by one because of the deviatoric ˜ ¯ constraint θ1 + θ2 + θ3 = 0. To get rank sufﬁciency it is necessary to build a strain ﬁeld associated with θi = θ, others zero. This may be viewed as forcing each corner of the triangle to rotate by the same amount while the corner displacements are precluded. A displacement-based solution to this problem is provided by the cubic ﬁeld of the QST4-20G shown in the center of Figure 2. From [10, p. 30] the shape function interpolation for u x is
+
+ u T   2 ζ1 (3 − 2ζ1 ) − 7ζ1 ζ2 ζ3 x1 2  u x,x|1   ζ12 (x21 ζ2 − x13 ζ3 ) + (x13 − x21 )ζ1 ζ2 ζ3   u x,y|1   ζ1 (y21 ζ2 − y13 ζ3 ) + (y13 − y21 )ζ1 ζ2 ζ3      2  u x2    ζ2 (3 − 2ζ2 ) − 7ζ1 ζ2 ζ3    2   u x,x|2   ζ2 (x32 ζ3 − x21 ζ1 ) + (x21 − x32 )ζ1 ζ2 ζ3  u x (ζ1 , ζ2 , ζ3 ) =      u x,y|2   ζ22 (y32 ζ3 − y21 ζ1 ) + (y21 − y32 )ζ1 ζ2 ζ3   u x3    2 ζ3 (3 − 2ζ3 ) − 7ζ1 ζ2 ζ3    2   u x,x|3   ζ3 (x13 ζ1 − x32 ζ2 ) + (x32 − x13 )ζ1 ζ2 ζ3     2 
+u x,y|3 u x0 ζ3 (y13 ζ1 − y32 ζ2 ) + (y32 − y13 )ζ1 ζ2 ζ3 27ζ1 ζ2 ζ3
+
+(89)
+
+where u x,x|i and u x,y|i denote ∂u x /∂ x and ∂u x /∂ y, respectively, evaluated at node i, with i = 0 for the centroid. ¯ The same shape functions interpolate u y (ζ1 , ζ2 , ζ3 ). The torsional mode with unit rotations θi = θ = 1 is imposed by setting the nodal displacements to u xi = u yi = u x,x| j = u y,y| j = 0, ¯ u x,y| j = −θ , ¯ u y,x| j = θ , i = 0, 1, 2, 3, j = 1, 2, 3. (90)
+
+Differentiating the QST interpolation with respect to x and y, collapsing freedoms via (90) and transforming to natural strains via (11) yields χ21|3 (ζ1 − ζ2 )ζ3 t21 ¯ = 3 χ32|1 (ζ2 − ζ3 )ζ1 θ , (91) t = t32 χ13|2 (ζ3 − ζ1 )ζ2 t13 This quadratic ﬁeld was found unable to produce optimal elements in conjunction with the foregoing bending ﬁeld. A midpoint-ﬁltered ﬁt that permits optimality is obtained by collocating (91) at the midpoints and interpolating linearly over the triangle:
+m t
+
+=
+
+m t21 m t32 m t13
+
+=
+
+3 2
+
+χ21|3 (ζ1 − ζ2 ) χ32|1 (ζ2 − ζ3 ) χ13|2 (ζ3 − ζ1 )
+
+¯ def θ =
+
+4A ψ0 3
+
+(ζ1 − ζ2 )/ (ζ2 − ζ3 )/ (ζ3 − ζ1 )/
+
+2 21 2 32 2 13
+
+¯ θ.
+
+(92)
+
+The effect of this strain ﬁltering is pictured in Figure 23 using integrated displacement patterns.
+
+41
+
+As indicated on the right of (92) the ﬁeld is scaled by a weight coefﬁcient ψ0 chosen so that ψ0 = 1 for the parameter set that produces the optimal element. Evaluating (92) at corner 1, combining with (88) and using the rotational transformation (83) gives
+
+1
+
+ψ 1 2  21 2A  ψ4  2 = 3  32 
+ψ7
+2 13
+
+ψ2 ψ5 ψ8
+
+2 21 2 32 2 13
+
+ψ3 ψ6 ψ9
+
+4ψ0 
+2 21
+
+2 21 2 32 2 13
+
+0 −4ψ0
+2 13
+
+β 1 2  1  21   θ2  2A  β4   =  2  θ 3  32  3  θ 
+¯ θ β7
+2 13
+
+β2 β5 β8
+
+2 21 2 32 2 13
+
+β3 
+2 21
+
+  ˜  θ1  β6   ˜  ˜ θ2 = Q1 θ, 2  32  ˜3 θ
+β9
+2 13
+
+(93)
+
+in which β1 = 1 (4ψ0 + 2ψ1 − ψ2 − ψ3 ), β2 = 1 (4ψ0 − ψ1 + 2ψ2 − ψ3 ), β3 = 1 (4ψ0 − ψ1 − ψ2 + 2ψ3 ), 3 3 3 β4 = 1 (2ψ4 − ψ5 − ψ6 ), β5 = 1 (−ψ4 + 2ψ5 − ψ6 ), β6 = 1 (−ψ4 − ψ5 + 2ψ6 ), β7 = 1 (−4ψ0 + 2ψ7 − ψ8 − ψ9 ), 3 3 3 3 β8 = 1 (−4ψ0 − ψ7 + 2ψ8 − ψ9 ) and β9 = 1 (−4ψ0 − ψ7 − ψ8 + 2ψ9 ). Matrices Q2 and Q3 are obtained by cyclic 3 3 permutation. These matrices are used in Section 4.6 to construct the ANDES template (31). Appendix B. Solving Polynomial Equations for Template Optimality In early work with HP elements (1984-1990) the writer searched for optimal free parameters using mathematical programming methods, by minimizing squared deviations of energy ratios from unity. This approach has a serious disadvantage: numerical studies require speciﬁc material and geometric data. The MP libraries gave answers but no solutions. The following approach has been found to be highly effective in symbolic work, which provides complete solutions. Let p = [ p1 p2 . . . pn ]T be a n-vector of template parameters. While seeking template optimality under high order patch tests one must usually deal with a polynomial energy ratio of the form r (p) = c0 + c2 γ 2 + . . . + ck γ k , (94)
+
+where k is even, γ is an element aspect ratio, and coefﬁcients c j = c j (p) for j = 0, 2 . . . k, take on one of the quadratic forms c j = pT A j p, c j = pT A j p + 2bT p, j or c j = pT Ai p + 2bT p + d j . j (95)
+
+The kernel matrices A j , are n × n symmetric matrices whereas b j is an n-vector. The second and third forms of (95) may be reduced to the homogeneous form by the obvious augmentation ˆ p → p = [ 1 p1 p2 . . . pk ] , ˆ Aj → Aj = dj bT j bj Aj , ˆ ˆ ˆ c j = pT A j p. (96)
+
+The optimization conditions are c0 = 1 and c j = 0 for j = 2, . . . k. One is interested only in solutions p = ˆ ˆ ˆ [ p1 . . . pn ]T or p = [ 1 p1 . . . pn ]T with real entries. Preferably the solutions should be rational if the entries of A j , b j and d j are, as is often the case. If n(k + 2) > 4, a brute force solution as a system of polynomial ˆ equations in exact rational aritmetic may be hopeless. It is observed in practice, however, that matrices A j or A j are highly singular and nonnegative. This allows an efﬁcient staged reduction scheme in which most of the steps involve only the solution of linear equations. The method will be explained by example, using the optimization of the ANDES template undertaken in Section 5.2 as case study. The coefﬁcients of the energy ratio r of (36)–(38): r = c0 + c2 γ 2 + c4 γ 4 can be expressed as c0 − 1 = pT A0 p, c2 = pT A2 p, c4 = pT A4 p, (97)
+
+ˆ in which p is the 8-vector [ 1 αb β1 β2 β3 β4 β5 β6 ]. This is actually the augmented vector denoted by p above, with the hat suppressed for brevity, and likewise over the A j s. The kernel matrices are
+
+42
+
+
+
+A0 =
+
+1 3
+
+
+
+9 −3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  −3 1 0 0 0 0 0 0  0 0  0 0 0 0 0 0 0 0  0 0 13 −11 −1 2 2 −6       0 0 0 0 0 0 0 0  β0  0 0 −11 13 −1 −2 −2 6       0 0 0 0 0 0 0 0  + 32  0 0 −1 −1 1 0 0 0  ,      0 0 0 0 0 0 0 0 0 0 2 −2 0 1 1 −3   0 0 0 0 0 0 0 0 0 0  2 −2 0 1 1 −3 0 0 0 0 0 0 0 0 0 0 −6 6 0 −3 −3 9
+
+
+
+
+
+
+
+(98)
+
+A2 =
+
+1 6
+
+−9 −6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 −6 4 0 0 0 0 0 0  0 0 0 0 0 0 0 0    0 0 0 0 0 0 0 0  0 0 26 −20 −4 −10 12 −6       0 0 0 0 0 0 0 0  β0  0 0 −20 22 −2 8 −14 8   +  ,  0 0 0 0 0 0 0 0  32  0 0 −4 −2 6 0 2 0      0 0 0 0 0 0 0 0  0 0 −10 8 0 5 −5 1   0 0 0 0 0 0 0 0  0 0 12 −14 2 −5  9 −5 0 0 0 0 0 0 0 0 0 0 −6 8 0 1 −5 5 0 0 0  β0  0  A4 = 64  0  0 0 0
+
+
+
+
+
+
+
+(99)
+
+
+
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 −3 0 0 0   0 1 1 −3 0 0 0   0 −3 −3 9 0 0 0   0 0 0 0 9 −3 −3   0 0 0 0 −3 1 1 0 0 0 0 −3 1 1
+
+
+
+(100)
+
+The optimality conditions are c0 − 1 = 0, c2 = 0, c4 = 0. Taking the higher order scaling factor β0 = 1/2 for convenience, matrices A0 , A2 and A4 have the eigenvalues √ √ eigs of A0 : [ 10/3 3/64 (35 + 521)/128 (35 − 521)/128 0 0 0 0 ] eigs of A2 : [ 13/6 8053/8904 1063/6333 1774/25955 0 0 0 0 ] eigs of A4 : [ 11/64 11/64 0 0 0 0 0 0 0 0 ] (For A2 the listed eigenvalues #2 through #4 are rational approximants within 10−8 .) Consequently the conditions stated previously are met. Begin with A4 , which has rank 2, rank deﬁciency 6, and spectral decomposition
+T A4 = V4 Λ4 V4 ,
+
+(101)
+
+Λ4 =
+
+11 64
+
+0
+11 64
+
+0
+
+,
+
+1 0 0 −1 −1 3 0 0 0 V4 = √ 0 0 −3 1 1 11 0 0 0
+
+T
+
+.
+
+(102)
+
+T T Since Λ4 is positive deﬁnite the only real solutions of c4 = pT A4 p = pT V4 Λ4 V4 p = 0 are those of V4 p = 0. This is an underdetermined linear system of 2 equations in 8 variables, from which 2 entries in p are designated as dependent and eliminated: β1 = 3β3 − β2 and 3β4 = β5 + β6 . Replacing these relations into c2 = pT A2 p = 0 reduces p to six entries and A2 to 6 × 6. The reduced A2 is nonnegative deﬁnite and has rank 4. This allows 4 more variables to be eliminated. Repeating the spectral analysis yields αb = 3/2, β2 = −2β6 , β3 = −β6 and β5 = −β6 . 2 Finally, replacing into c0 − 1 = 0 gives β6 = 1. Choosing β6 = −1 the complete solution is
+
+αb = 3 , β0 = 1 , β1 = β3 = β5 = 1, β2 = 2, β4 = 0, β6 = β7 = β8 = −1, β9 = −2, 2 2 which is used in Section 5.2.
+
+(103)
+
+It is not always necessary to do the complete eigenspectral analysis of the A j s. It is sufﬁcient to get a full-rank basis V j for the range spaces. This is easily done by getting the null space through the appropriate function of
+
+43
+
+Mathematica or Maple, and then forming V as the orthogonal complement by Gram-Schmidt. This alternative path is useful for systems treated by exact arithmetic if the eigenvalues are complicated functions of the matrix coefﬁcients. Acknowledgements The work reported here has been supported by Sandia National Laboratories under the Finite Elements for Salinas contract. Portions of the report were written while at CIMNE, Barcelona, Spain, under a fellowship granted by the Spanish Ministerio of Educaci´ n y Cultura. o References [1] C. A. Felippa and C. Militello, Developments in variational methods for high performance plate and shell elements, in Analytical and Computational Models for Shells, CED Vol. 3, Eds. A. K. Noor, T. Belytschko and J. C. Simo, The American Society of Mechanical Engineers, ASME, New York, 1989, 191–216. R. H. MacNeal, The evolution of lower order plate and shell elements in MSC/NASTRAN, in T. J. R. Hughes and E. Hinton (eds.), Finite Element Methods for Plate and Shell Structures, Vol. I: Element Technology, Pineridge Press, Swansea, U.K., 1986, 85–127. K. Alvin, H. M. de la Fuente, B. Haugen and C. A. Felippa, Membrane triangles with corner drilling freedoms: I. The EFF element, Finite Elements Anal. Des., 12, 163–187, 1992. C. A. Felippa, A survey of parametrized variational principles and applications to computational mechanics, Comp. Meths. Appl. Mech. Engrg., 113, 109–139, 1994. C. A. Felippa, Recent advances in ﬁnite element templates, Chapter 4 in Computational Mechanics for the Twenty-First Century, ed. by B.H.V. Topping, Saxe-Coburn Publications, Edinburgh, 71–98, 2000. R. W. Clough, The ﬁnite element method – a personal view of its original formulation, in From Finite Elements to the Troll Platform - the Ivar Holand 70th Anniversary Volume, ed. by K. Bell, Tapir, Trondheim, Norway, 89–100, 1994. M. J. Turner, R. W. Clough, H. C. Martin, and L. J. Topp, Stiffness and deﬂection analysis of complex structures, J. Aero. Sci., 23, 805–824, 1956. O. C. Zienkiewicz, preface to reprint of B. M. Fraeijs de Veubeke’s “Displacement and equilibrium models” in Int. J. Numer. Meth. Engrg., 52, 287–342, 2001. B. M. Fraeijs de Veubeke, Displacement and equilibrium models, in Stress Analysis, ed. by O. C. Zienkiewicz and G. Hollister, Wiley, London, 1965, 145–197. Reprinted in Int. J. Numer. Meth. Engrg., 52, 287–342, 2001.
+
+[2]
+
+[3] [4] [5] [6]
+
+[7] [8] [9]
+
+[10] C. A. Felippa, Reﬁned ﬁnite element analysis of linear and nonlinear two-dimensional structures, Ph.D. Dissertation, Department of Civil Engineering, University of California at Berkeley, Berkeley, CA, 1966. [11] G. P. Bazeley, Y. K. Cheung, B. M. Irons and O. C. Zienkiewicz, Triangular elements in plate bending – conforming and nonconforming solutions, in Proc. 1st Conf. Matrix Meth. Struc. Mech., ed. by J. Przemieniecki et. al., AFFDL-TR-66-80, Air Force Institute of Technology, Dayton, Ohio, 1966, 547–576. [12] A. J. Carr, A reﬁned ﬁnite element analysis of thin shell structures including dynamic loadings, Ph. D. Dissertation, Department of Civil Engineering, University of California at Berkeley, Berkeley, CA, 1968. [13] R. W. Clough, Analysis of structural vibrations and dynamic response, in Recent Advances in Matrix Methods of Structural Analysis and Design, ed by R. H. Gallagher, Y. Yamada and J. T. Oden, University of Alabama Press, Hunstsville, AL, 1971, 441–486. [14] B. N. Abu-Gazaleh, Analysis of plate-type prismatic structures, Ph. D. Dissertation, Dept. of Civil Engineering, Univ. of California, Berkeley, CA, 1965.
+
+44
+
+[15] K. J. Willam, Finite element analysis of cellular structures, Ph. D. Dissertation, Dept. of Civil Engineering, Univ. of California, Berkeley, CA, 1969. [16] C. C. Rankin, F. A. Brogan, W. A. Loden and H. Cabiness, STAGS User Manual, Lockheed Mechanics, Materials and Structures Report P032594, Version 3.0, January 1998. [17] C. A. Felippa and C. Militello, Membrane triangles with corner drilling freedoms: II. The ANDES element, Finite Elements Anal. Des., 12, 189–201, 1992. [18] C. A. Felippa and S. Alexander, Membrane triangles with corner drilling freedoms: III. Implementation and performance evaluation, Finite Elements Anal. Des., 12, 203–239, 1992. [19] P. G. Bergan, Finite elements based on energy orthogonal functions, Int. J. Numer. Meth. Engrg., 15, 1141– 1555, 1980. [20] P. G. Bergan and M. K. Nyg˚ rd, Finite elements with increased freedom in choosing shape functions, Int. J. a Numer. Meth. Engrg., 20, 643–664, 1984. [21] P. G. Bergan and C. A. Felippa, A triangular membrane element with rotational degrees of freedom, Comp. Meths. Appl. Mech. Engrg., 50, 25–69, 1985. [22] P. G. Bergan and C. A. Felippa, Efﬁcient implementation of a triangular membrane element with drilling freedoms, in T. J. R. Hughes and E. Hinton (eds.), Finite Element Methods for Plate and Shell Structures, Vol. I: Element Technology, Pineridge Press, Swansea, U.K., 1986, 128–152. [23] M. K. Nyg˚ rd, The Free Formulation for nonlinear ﬁnite elements with applications to shells, Ph. D. Dissera tation, Division of Structural Mechanics, NTH, Trondheim, Norway, 1986. [24] C. A. Felippa and P. Bergan, A triangular plate bending element based on an energy-orthogonal free formulation, Comp. Meths. Appl. Mech. Engrg., 61, 129–160, 1987. [25] C. A. Felippa, Parametrized multiﬁeld variational principles in elasticity: II. Hybrid functionals and the free formulation, Comm. Appl. Numer. Meth., 5, 79–88, 1989. [26] C. A. Felippa, The extended free formulation of ﬁnite elements in linear elasticity, J. Appl. Mech., 56, 609–616, 1989. [27] G. Skeie, The Free Formulation: linear theory and extensions with applications to tetrahedral elements with rotational freedoms, Ph. D. Dissertation, Division of Structural Mechanics, NTH, Trondheim, Norway, 1991. [28] K. C. Park and G. M. Stanley, A curved C 0 shell element based on assumed natural-coordinate strains, J. Appl. Mech., 53, 278–290, 1986. [29] G. M. Stanley, K. C. Park and T. J. R. Hughes, Continuum based resultant shell elements, in T. J. R. Hughes and E. Hinton (eds.), Finite Element Methods for Plate and Shell Structures, Vol. I: Element Technology, Pineridge Press, Swansea, U.K., 1986, 1–45. [30] C. Militello, Application of parametrized variational principles to the ﬁnite element method, Ph. D. Dissertation, Department of Aerospace Engineering Sciences, University of Colorado, Boulder, CO, 1991. [31] C. Militello and C. A. Felippa, The ﬁrst ANDES elements: 9-DOF plate bending triangles, Comp. Meths. Appl. Mech. Engrg., 93, 217–246. 1991. [32] P. G. Bergan and L. Hanssen, A new approach for deriving ‘good’ ﬁnite elements, MAFELAP II Conference, Brunel University, 1975, in The Mathematics of Finite Elements and Applications – Volume II, ed. by J. R. Whiteman, Academic Press, London, 483–497, 1976. [33] T. Belytschko, W. K. Liu and B. E. Engelmann, The gamma elements and related developments, in T. J. R. Hughes and E. Hinton (eds.), Finite Element Methods for Plate and Shell Structures, Vol. I: Element Technology, Pineridge Press, Swansea, U.K., 316–347, 1986.
+
+45
+
+[34] T. J. R. Hughes, The Finite Element Method: Linear Static and Dynamic Finite Element Analysis, Prentice Hall, Englewood Cliffs, N. J., 1987. [35] C. Militello and C. A. Felippa, The individual element patch revisited, in The Finite Element Method in the 1990’s — a book dedicated to O. C. Zienkiewicz, ed. by E. O˜ ate, J. Periaux and A. Samuelsson, CIMNE, n Barcelona and Springer-Verlag, Berlin, 554–564, 1991. [36] C. A. Felippa, B. Haugen and C. Militello, From the individual element test to ﬁnite element templates: evolution of the patch test, Int. J. Numer. Meth. Engrg., 38, 199–229, 1995. [37] C. A. Felippa and C. Militello, Construction of optimal 3-node plate bending elements by templates, Comput. Mech., 24/1, 1–13, 1999. [38] C. A. Felippa, Recent developments in basic ﬁnite element technologies, in Computational Mechanics in Structural Engineering - Recent Developments, ed. by F. Y. Cheng and Y. Gu, Elsevier, Amsterdam, 141–156, 1999. [39] C. A. Felippa, Customizing the mass and geometric stiffness of plane thin beam elements by Fourier methods, Engrg. Comput., 18, 286–303, 2001. [40] C. A. Felippa, Customizing high performance elements by Fourier methods, Trends in Computational Mechanics, ed. by W. A. Wall, K.-U. Bleitzinger and K. Schweizerhof, CIMNE, Barcelona, Spain, 283-296, 2001. [41] Przemieniecki, J. S., Theory of Matrix Structural Analysis, McGraw-Hill, New York, 1968; Dover edition 1986. [42] C. A. Felippa and K. C. Park, Fitting strains and displacements by minimizing dislocation energy, Proceedings of the Sixth International Conference on Computational Structures Technology, Prague, September 2002, Saxe-Coburn Publications, Edinburgh, 49–51 (complete text in CDROM) [43] B. M. Irons and S. Ahmad, Techniques of Finite Elements, Ellis Horwood Ltd, 1980. [44] C. A. Felippa and R. W. Clough, The ﬁnite element method in solid mechanics, in Numerical Solution of Field Problems in Continuum Physics, ed. by G. Birkhoff and R. S. Varga, SIAM–AMS Proceedings II, American Mathematical Society, Providence, R.I., 210–252, 1969. [45] D. J. Allman, A compatible triangular element including vertex rotations for plane elasticity analysis, Computers & Structures, 19, 1–8, 1984. [46] D. J. Allman, Evaluation of the constant strain triangle with drilling rotations, Int. J. Numer. Meth. Engrg., 26, 2645–2655, 1988. [47] R. D. Cook, Improved two-dimensional ﬁnite element, Journal of the Structural Division, ASCE, 100, ST6, 1851–1863, 1974. [48] J. Wimp, Sequence Transformations and Their Applications, Academic Press, New York, 1981. [49] R. L. Taylor, P. J. Beresford and E. L. Wilson, A non-conforming element for stress analysis, Int. J. Numer. Meth. Engrg., 10, 1211–1219, 1976. [50] R. D. Cook, Ways to improve the bending response of ﬁnite elements, Int. J. Numer. Meth. Engrg., 11, 1029–1039, 1977. [51] C. Farhat, P. Geuzaine and G. Brown, Application of a three-ﬁeld nonlinear ﬂuid-structure formulation to the prediction of the aeroelastic parameters of an F-16 ﬁghter, Computers and Fluids, 32, 3–29, 2003. [52] B. Haugen, Buckling and stability problems for thin shell structures using high-performance ﬁnite elements, Ph. D. Dissertation, Dept. of Aerospace Engineering Sciences, University of Colorado, Boulder, CO, 1994.
+
+46
+

@@ -1,0 +1,1025 @@
+Universit¨t Karlsruhe (TH) a Institut fur Baustatik ¨
+
+A linear quadrilateral shell element with fast stiﬀness computation
+F. Gruttmann, W. Wagner
+
+Mitteilung 1(2004)
+
+BAUSTATIK
+
+Universit¨t Karlsruhe (TH) a Institut fur Baustatik ¨
+
+A linear quadrilateral shell element with fast stiﬀness computation
+F. Gruttmann, W. Wagner
+
+Mitteilung 1(2004)
+
+BAUSTATIK
+
+c
+
+Prof. Dr.–Ing. W. Wagner Telefon: Institut f¨r Baustatik u Telefax: Universit¨t Karlsruhe a E–mail: Postfach 6980 Internet: 76128 Karlsruhe
+
+(0721) 608–2280 (0721) 608–6015 bs@.uni-karlsruhe.de http://www.bs.uni-karlsruhe.de
+
+A linear quadrilateral shell element with fast stiﬀness computation
+F. Gruttmann Institut f¨r Werkstof u und Mechanik im Bauwesen Technische Universit¨t Darmstadt a Petersenstraße 12 64287 Darmstadt Germany W. Wagner Institut f¨r Baustatik u Universit¨t Karlsruhe (TH) a Kaiserstraße 12 76131 Karlsruhe Germany
+
+Contents
+1 Introduction 2 Kinematics and Variational Formulation 3 Finite Element Equations 3.1 Mid–Surface and Displacement Interpolation . 3.2 Transverse Shear Strains . . . . . . . . . . . . 3.3 Discrete Strain Displacement Matrix . . . . . 3.4 Interpolation of the Stress Resultants . . . . . 3.5 Analytical Integration of the Element Matrices 3.6 Transformation of the Element Matrices . . . 4 Examples 4.1 Membrane and bending patch test . . 4.2 Corner supported square plate . . . . 4.3 Hemispherical shell with a 18◦ hole . 4.4 Full hemispherical shell . . . . . . . 4.5 Twisted beam . . . . . . . . . . . . 4.6 Hypar shell . . . . . . . . . . . . . . 4.7 Steel frame structure . . . . . . . . . 5 Conclusions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2 4 5 5 6 7 9 9 11 14 14 14 16 16 17 20 22 26
+
+1
+
+Abstract A new quadrilateral shell element with 5/6 nodal degrees of freedom is presented. Assuming linear isotropic elasticity a Hellinger–Reissner functional with independent displacements, rotations and stress resultants is used. Within the mixed formulation the stress resultants are interpolated using ﬁve parameters for the membrane forces as well as for the bending moments and four parameters for the shear forces. The hybrid element stiﬀness matrix resulting from the stationary condition is integrated analytically. This leads to a part obtained by one point integration and a stabilization matrix. The element possesses the correct rank, is free of locking and is applicable within the whole range of thin and thick shells. The in–plane and bending patch tests are fulﬁlled and the computed numerical examples show that the convergence behaviour of the stress resultants is very good in comparison to comparable existing elements. The essential advantage is the fast stiﬀness computation due to the analytically integrated matrices. Keywords Reissner–Mindlin shell theory, Hellinger–Reissner variational principle, quadrilateral shell element, eﬀective analytical stiﬀness evaluation, one point integration and stabilization matrix, in–plane and bending patch test
+
+1
+
+Introduction
+
+Computational shell analysis is based on stress resultant theories e.g. [1, 2] or on the so– called degenerated approach [3]. New developments in this ﬁeld are discussed in e.g. [4, 5]. In the following only the main computational aspects are considered. Although the hypothesis underlying the degenerated approach and classical shell theory are essentially the same, the reduction to resultant form is typically carried out numerically in the former, and analytically in the latter, [6]. Many of the computational shell models consider transverse shear deformations within a Reissner–Mindlin theory [7], [8] to by–pass the diﬃculties caused by C 1 –requirements of the Kirchhoﬀ–Love theory, see e.g. [9, 10, 11]. Generally, shell behaviour is extremely sensitive to initial geometry and imperfections, thus a successful correlation between theory and analysis is achieved only after including speciﬁc details of these quantities. Low order elements like quadrilaterals based on standard displacement interpolation are usually characterized by locking phenomena. In shells two types of locking occur: transverse shear locking in which bending modes are excluded and nearly all energy is stored in transverse shear terms, and; membrane locking in which all bending energy is restrained and energy is stored in membrane terms. Elements which exhibit a locking tendency lead to unacceptable stiﬀ results when reasonable ﬁnite element meshes are employed. In attempting to avoid locking, reduced integration methods have often been advocated, see e.g. [12]. Use of reduced (or selective reduced) integration is often accompanied by spurious zero energy modes. Hence, authors have developed stabilization techniques to regain the correct rank of the element stiﬀness matrix, e.g. [13, 14, 9]. In some cases, however, results computed using these formulations turned out to be sensitive to the ad hoc hourglass control parameters. Furthermore these elements do not fulﬁll the bending patch test. An eﬀective method to avoid transverse shear locking is based on assumed shear strain ﬁelds ﬁrst proposed in [15], and subsequently extended and reformulated in [16, 17, 18, 19].
+
+2
+
+Mixed variational principles provide the basis for the discussed ﬁnite element techniques. Assuming linear elasticity a Hellinger–Reissner functional has been used in e.g. [20, 21]. Ref. [20] describe a quadrilateral element with assumed stresses for membrane, bending and shear parts whereas in Ref [21] explicit stabilization matrices for a nine node element have been derived. For general nonlinear material behaviour a three ﬁeld variational functional with independent displacements, stresses and strains is more appropriate. Within the so– called enhanced strain formulations the independent stresses are eliminated from the set of equations using orthogonality conditions and a two ﬁeld formulation remains, [22]. For shells this method has been applied enhancing the Green–Lagrangean membrane strains e.g. in [23]. The drawbacks in [13, 14, 9] have been overcome in [24]. The theory is based on a Hu–Washizu three–ﬁeld variational principle with independent displacements, stresses and strains. The stabilization matrix is derived from the orthogonality between the constant part of the strain ﬁeld and the non-constant part using 5 degrees of freedom at each node. In this context we also refer to [25] where an updated Lagrangian approach is used. Further developments for diﬀerent boundary value problems are considered in [26], where stabilization matrices on basis of the enhanced strain method have been derived. An important issue within the context of developing a ﬁnite shell model is the number and type of rotational parameters on the element. Mostly general shell theories exclude explicit dependence of a rotational ﬁeld about the normal to the shell surface which leads to a ﬁve parameter model (three displacements and two local rotations). Use of 5 degree–of–freedom frame requires construction of special coordinate systems for the rotational parameters. Considering the so–called drilling degree-of–freedom leads to a ﬁnite element discretization with six nodal parameters. This has some advantages since both displacement and rotation parameters are associated with a global coordinate frame. On the other hand a larger set of algebraic equations has to be solved. In this context we mention the four–node shell element according to [27] with three global displacements and three global rotations at each node. The element employs a membrane interpolation ﬁeld with drilling degrees–of–freedom. The bending stiﬀness is based on the discrete Kirchhoﬀ theory. For arbitrary shaped elements a transformation of the stiﬀness matrix, which considers the warping eﬀects, leads to good results also for a non–ﬂat geometry. The element [27] has been widely used in the literature for comparisons, e.g. in [10] and in the present paper. The essential features and new contributions of the present formulation are summarized as follows: (i) Assuming linear elasticity the variational formulation of the shear–elastic shell is based on the Hellinger–Reissner principle. We specify the shape functions for the independent stress resultants, where the interpolation of the membrane forces and of the bending moments corresponds to the approach in [10]. Here, the new contribution is the analytical integration of the matrices, which leads to a one–point integrated part and an explicit stabilization matrix. This requires the replacement of the variable base vectors and director vectors by those of the element center, which corresponds to a projection on a ﬂat surface, see also [27]. For warped elements the above mentioned transformation according to [27] is implemented. (ii) The interpolation of the shear forces along with assumed shear strains and the explicit matrix representation of the stabilization matrix is a further new contribution. 3
+
+(iii) The element possesses with six zero eigenvalues the correct rank. No control parameters have to be chosen to prevent locking or to avoid hour–glassing. The in–plane and bending patch tests are fulﬁlled. Especially the convergence behaviour of the stress resultants is superior to comparable four–node shell elements. The main advantage is the fast stiﬀness computation. In our implementation the present formulation requires only about 60% of the computing time to setup the global stiﬀness matrix compared with the element [27]. (iv) The element formulation allows the analysis of shells with intersections. At all nodes which are not positioned on intersections the drilling degree of freedom is ﬁxed. Thus, the nodal degrees of freedom are: three global displacements components, three global rotations at nodes on intersections and two local rotations at other nodes.
+
+2
+
+Kinematics and Variational Formulation
+
+Let B0 be the three–dimensional Euclidean space occupied by the shell in the un–deformed conﬁguration with boundary ∂B0 . The position vector Φ of any point P ∈ B0 is associated with the global coordinate frame ei Φ(ξ 1 , ξ 2 , ξ 3 ) = Φi ei = X + ξ 3 D(ξ 1 , ξ 2 ) with |D(ξ 1 , ξ 2 )| = 1 and − h h ≤ ξ3 ≤ 2 2 (1)
+
+with the position vector X(ξ 1 , ξ 2 ) of the shell mid–surface Ω, the shell thickness h, and ξ i the convected coordinate system of the body. A director D(ξ 1 , ξ 2 ) is deﬁned as a vector perpendicular to the shell mid–surface. The usual summation convention is used, where Latin indices range from 1 to 3 and Greek indices range from 1 to 2. Commas denote partial diﬀerentiation with respect to the coordinates ξ i . Hence, the geometry of the deformed shell space B is described by φ(ξ 1 , ξ 2 , ξ 3 ) = φi ei = x(ξ 1 , ξ 2 ) + ξ 3 d(ξ 1 , ξ 2 ) with d = D + ∆d . (2)
+
+With the kinematic assumption (2) shear deformations are accounted for and thus d is not normal to the deformed shell mid–surface. ¯ Inserting the position vectors (1) and (2) in the linear strain tensor ε one obtains ¯ ¯ ε = εij Gi ⊗ Gj εαβ = εαβ + ξ 3 καβ ¯ 2 εα3 = γα ¯ ε33 = 0 , ¯ (3)
+
+where Gi denote the contravariant base vectors. The membrane strains εαβ , curvatures καβ and shear strains γα read εαβ = καβ γα 1 (u,α ·X,β +u,β ·X,α ) 2 1 = (u,α ·D,β +u,β ·D,α +X,α ·∆d,β +X,β ·∆d,α ) 2 = u,α ·D + X,α ·∆d . 4
+
+(4)
+
+and are organized in a vector ε = [ε11 , ε22 , 2ε12 , κ11 , κ22 , 2κ12 , γ1 , γ2 ]T . The variational formulation is based on a Hellinger–Reissner functional, where the dis¯ placement ﬁeld and the stress resultants are independent. The shell is loaded by loads p ¯ on a part of the boundary Γσ . The potential is a funcin Ω and by boundary loads t tion of the displacement ﬁeld v = [u, ∆d]T with u = x − X and the stress resultants σ = [n11 , n22 , n12 , m11 , m22 , m12 , q1 , q2 ]T with membrane forces nαβ , bending moments mαβ and shear forces qα ΠHR (v, σ) =
+(Ω)
+
+1 (εT σ − σ T C−1 σ) dA − 2
+
+
+¯ uT p dA −
+(Ω) (Γσ )
+
+t uT ¯ ds → stat.
+
+(5)
+
+Assuming linear isotropic elasticity the constitutive matrix reads
+  C=
+
+C 0 0
+
+m
+
+0 0 Cb 0   0 Cs
+
+
+
+with C m
+
+1 ν 0 Eh  ν 1  0  = 1−ν 1 − ν2  0 0 2
+
+   , 
+
+Cb = Cs
+
+h2 m C , (6) 12 = κ G h 12
+
+with the second order unit matrix 12 , Young´s modulus E, shear modulus G, Poisson´s ratio ν and shear correction factor κ = 5 . 6 The stationary condition yields δΠHR (v, σ, δv, δσ) =
+(Ω)
+
+¯ [δεT σ + δσ T (ε − C−1 σ) − δuT p] dA −
+(Γσ )
+
+t δuT ¯ ds = 0
+
+(7)
+
+with virtual displacements δv = [δu, δd]T and virtual stress resultants δσ = [δn11 , δn22 , δn12 , δm11 , δm22 , δm12 , δq1 , δq2 ]T . The virtual shell strains read δεαβ = δκαβ δγα 1 (δu,α ·X,β +δu,β ·X,α ) 2 1 (δu,α ·D,β +δu,β ·D,α +X,α ·δd,β +X,β ·δd,α ) = 2 = δu,α ·D + X,α ·δd
+
+(8)
+
+and are summarized in vector notation δε = [δε11 , δε22 , 2δε12 , δκ11 , δκ22 , 2δκ12 , δγ1 , δγ2 ]T .
+
+3
+3.1
+
+Finite Element Equations
+Mid–Surface and Displacement Interpolation
+
+For a quadrilateral element we exploit the isoparametric concept with coordinates ξ and η deﬁned in the unit square {ξ, η} ∈ [−1, 1]. Hence the position vector and the director vector of the shell mid–surface are interpolated using the bi–linear functions NI = 1 (1 + ξI ξ)(1 + ηI η) = a0I + a1I ξ + a2I η + hI ξη 4 ξI ∈ {−1, 1, 1, −1} a0I =
+1 4
+
+ηI ∈ {−1, −1, 1, 1} a2I = 1 ηI 4 5 hI = 1 ξI ηI 4
+
+(9)
+
+a1I = 1 ξI 4
+
+as follows Xh =
+
+4 I=1
+
+NI XI
+
+Dh =
+
+4 I=1
+
+NI DI ,
+
+(10)
+
+where the index h denotes the ﬁnite element approximation. The position vectors XI and the local cartesian basis systems akI , k = 1, 2, 3 are generated within the mesh input. Here, DI = a3I is perpendicular to Ω and a1I , a2I are constructed in such a way that the boundary conditions can be accommodated. With (10)2 the orthogonality is only given at the nodes. Furthermore, a local cartesian basis ti is introduced at the element center ¯ d1 = X3 − X1 ¯ d2 = X2 − X4 t1 = (d1 + d2 )/|d1 + d2 | t2 = (d1 − d2 )/|d1 − d2 | t3 = t1 × t2 The shell mid–surface described by (10)1 is in general a non–planar surface Ωh , whereas the ﬂat projection introduced by t1 and t2 is denoted by Ωh , see Fig. 1 and Ref. [27]. 0
+4 A h 1 X
+3 h 3
+
+¯ ¯ d1 = d1 /|d1 | ¯ ¯ d2 = d2 /|d2 | (11)
+
+D p x
+3
+
+3
+1
+
+W h W0
+h
+
+h
+
+h
+4
+
+h x C
+
+t3
+
+t2 t1
+
+3
+
+h
+
+B 2
+
+midsurface W (x =0)
+h
+
+X
+
+2 1
+
+X
+
+2
+
+Figure 1: Quadrilateral shell element The displacements and rotations are interpolated using also the bi–linear functions uh =
+4 I=1
+
+NI uI
+
+∆dh =
+
+4 I=1
+
+NI ∆dI .
+
+(12)
+
+Here, uI = uIk ek describes the nodal displacement vector and ∆dI = ϕI × DI is given with the nodal rotation vector ϕI = ϕIk ek where ϕIk are rotations about global cartesian axes. The virtual displacements δu and rotations δd are approximated in the same way.
+
+3.2
+
+Transverse Shear Strains
+
+The fulﬁllment of the bending patch test is discussed in [28], where for a plate it is shown, that with the transverse shear strains (4)3 the patch test can not be fulﬁlled within the 6
+
+present mixed formulation. The non constant part of the shear strains according to (4)3 leads for a constant stress state to a contribution of the shear energy on the element level. For this reason we approximate the shear strains with independent interpolation functions proposed in [18, 19] as follows γ1 γ2
+−1
+
+=J
+
+γξ γη
+
+where
+
+γξ = γη
+
+1 B D [(1 − η)γξ + (1 + η)γξ ] 2 1 A C = [(1 − ξ)γη + (1 + ξ)γη ] 2
+
+(13)
+
+The strains at the midside nodes A, B, C, D according to Fig. 1 are speciﬁed as follows
+M γξ = [u,ξ ·D + X,ξ ·∆d]M L γη = [u,η ·D + X,η ·∆d]L
+
+M = B, D L = A, C
+
+(14)
+
+where the following quantities are given with the bilinear interpolation (10) DA DB DC DD XAη , B X ,ξ XCη , D X ,ξ = = = = = = = =
+1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2
+
+(D4 + D1 ) (D1 + D2 ) (D2 + D3 ) (D3 + D4 ) (X4 − X1 ) (X2 − X1 ) (X3 − X2 ) (X3 − X4 )
+
+∆dA ∆dB ∆dC ∆dD uAη , B u ,ξ uCη , D u ,ξ
+
+= = = = = = = =
+
+1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2
+
+(∆d4 + ∆d1 ) (∆d1 + ∆d2 ) (∆d2 + ∆d3 ) (∆d3 + ∆d4 ) (u4 − u1 ) (u2 − u1 ) (u3 − u2 ) (u3 − u4 )
+
+(15)
+
+Remark: An alternative three ﬁeld variational formulation based on a Hu–Washizu principle for the shear part, which would be the appropriate variational formulation for an independent shear interpolation, leads to identical ﬁnite element matrices due to the fact that the shear stiﬀness matrix is diagonal.
+
+3.3
+
+Discrete Strain Displacement Matrix
+4
+
+Considering (4) and the ﬁnite element equations (10) - (15) the approximation of the strains is now obtained by εh =
+I=1
+
+BI vI ,
+
+vI = [uI , ϕI ]T ,
+
+(16)
+
+7
+
+with
+
+
+
+  NI ,2 XT,2     NI ,1 XT,2 +NI ,2 XT,1    NI ,1 DT1 ,  BI =    NI ,2 DT2 ,    NI ,1 DT2 +NI ,2 DT1 , ,       NI ,ξ DT   M  J−1  N , DT 
+I η L M
+
+NI ,1 XT,1
+
+      0   T  NI ,1 b1I     NI ,2 bT 2I   T T  NI ,1 b2I + NI ,2 b1I      NI ,ξ ξI bT    M  J−1  N , η bT 
+
+0 0
+
+
+
+(17)
+
+I η
+
+I
+
+L
+
+and bαI = DI × X,α = WI X,α , bM = WI X ,ξ , bL = The allocation of the mid– side nodes to the corner nodes is given by (I, M, L) ∈ {(1, B, A); (2, B, C); (3, D, C); (4, D, A)} . The skew–symmetric matrix WI is associated to DI = DIk ek as follows
+   WI = skew DI =   
+
+WI XLη . ,
+
+0 −DI3 DI3 −DI2 DI1
+
+DI2 0
+
+  
+
+ 0 −DI1  
+.
+
+(18)
+
+Furthermore, the derivatives of the position vectors X,α and director vectors D,α are obtained from (10) in a standard way using
+
+
+NI ,1 NI ,1
+
+= J−1
+
+NI ,ξ NI ,η
+
+J= 
+
+xL,ξ y L,ξ xL,η y L,η
+
+
+
+
+
+  =
+
+Gξ · t1 Gξ · t2 Gη · t1 Gη · t2
+
+  
+.
+
+(19)
+
+Here, J denotes the Jacobian matrix where the local coordinates xL = (X − X0 ) · t1 and y L = (X − X0 ) · t2 are computed with the position vector of the element center X0 . The base vectors are obtained from Gξ = G 0 + η G 1 ξ Gη = G0 + ξ G1 η G0 = ξ G0 = η G1 = The determinant of J yields det J = j0 + ξ j1 + η j2 j0 = (G0 · t1 )(G0 · t2 ) − (G0 · t1 )(G0 · t2 ) ξ η η ξ 0 1 1 0 j1 = (Gξ · t1 )(G · t2 ) − (G · t1 )(Gξ · t2 ) j2 = (G1 · t1 )(G0 · t2 ) − (G0 · t1 )(G1 · t2 ) . η η (21)
+4 I=1 4 I=1 4 I=1
+
+a1I XI a2I XI hI XI . (20)
+
+Note, that z L = (X − X0 ) · t3 does not enter in (19), which makes clear that the below computed matrices are deﬁned in Ωh . 0 8
+
+3.4
+
+Interpolation of the Stress Resultants
+σh = S β 13 0 0 Sm 0 0  S =  0 13 0 0 Sb 0   0 0 12 0 0 Ss Sm = Sb
+0 0 0 0 ¯  J11 J11 (η − η ) J21 J21 (ξ − ξ) ¯ 0 0 ¯  ¯ =  J12 J12 (η − η ) J22 J22 (ξ − ξ)   0 0 0 0 0 0 ¯ ¯ J11 J12 (η − η ) J21 J22 (ξ − ξ) 0 0 ¯ J11 (η − η ) J21 (ξ − ξ) ¯ 0 0 ¯ ¯ J12 (η − η ) J22 (ξ − ξ)
+
+The independent ﬁeld of stress resultants σ is interpolated as follows
+
+
+
+
+
+
+
+(22)
+
+Ss =
+
+.
+
+Here, we denote by 12 , 13 second and third order unit matrices, respectively. The vector β contains 8 parameters for the constant part and 6 parameters for the varying part of the stress ﬁeld, respectively. The interpolation of the membrane forces and the bending moments in (22) corresponds to the procedure in Ref. [10]. In this context see also the ¯ ¯ original approach for plane stress of Pian and Sumihara [29] with ξ = η = 0 and the text book Zienkiewicz and Taylor, part 1, [30]. Finally we mention Ref. [20], where the shear approximation is performed in a more complicated way. ¯ The constants ξ and η are introduced to obtain decoupled matrices in the below deﬁned ¯ matrix H and denote the coordinates of the center of gravity of the element. 1 ¯ ξ= Ae ξ dA =
+(Ωe )
+
+1 j1 3 j0
+
+η= ¯
+
+1 Ae
+
+η dA =
+(Ωe )
+
+1 j2 3 j0
+
+(23)
+
+The element area is given by Ae = 4j0 . The transformation coeﬃcients in (22) are the components of the Jacobian matrix J according to (19), evaluated at the element center 0 Jαβ = Jαβ (ξ = 0, η = 0) . The coeﬃcients have to be constant in order to fulﬁll the patch test, see e.g. [30].
+
+3.5
+
+Analytical Integration of the Element Matrices
+
+Inserting the ﬁnite element equations (9)- (23) and the corresponding equations for the virtual stresses and virtual strains into the stationary condition (7) yields δΠh = HR
+numel e=1
+
+δβ δv
+
+T e
+
+−H G GT 0
+
+β v
+
+−
+
+0 p
+
+= 0,
+e
+
+(24)
+
+where numel denotes the total number of shell elements to discretize the problem. Here, v = [v1 , v2 , v3 , v4 ]T is the element displacement vector and and δv , δβ the corresponding virtual element vectors, respectively. The element load vector p = [p1 , p2 , p3 , p4 ]T which follows from the external virtual work is identical with a pure displacement formulation. 9
+
+Furthermore the matrices H and G are introduced with B = [B1 , B2 , B3 , B4 ] , H=
+(Ωe )
+
+ST C−1 S dA ,
+
+G=
+(Ωe )
+
+ST B dA .
+
+(25)
+
+Since the integrand in (25)1 involves only polynomials of the coordinates ξ and η the integration can be carried out analytically. In this context we also refer to the expressions for ¯ a plate in [28]. Due to the introduced constants ξ and η one obtains a matrix H only with ¯ diagonal entries
+
+
+H=
+
+Ae C 0
+
+−1
+
+0  h
+
+
+
+with
+
+hm 0 0   h =  0 hb 0    0 0 hs
+
+
+
+
+
+.
+
+(26)
+
+(6×6)
+
+The components of the symmetric sub-matrices hm , hb = 12 hm /h2 and hs are given with hm = 11 hm 22 hm 12 hs 11 hs 22 hs 12 f11 f22 f12 Ae f11 02 02 (J11 + J12 )2 3Eh Ae f22 02 02 = (J21 + J22 )2 3Eh Ae f12 0 0 0 0 0 0 0 0 = hm = (J11 J21 + J22 J12 )2 − ν (J11 J22 − J12 J21 )2 21 3Eh Ae f11 02 02 = (J11 + J12 ) 3κGh Ae f22 02 02 (J + J22 ) = 3κGh 21 Ae f12 0 0 0 0 = hs = (J J + J22 J12 ) . 21 3κGh 11 21 1 = 1− 3 j2 j0
+2
+
+(27)
+
+1 j1 = 1− 3 j0 1 j1 j2 = − 3 j0 j0
+
+2
+
+The matrix G according to (25)2 can only be integrated analytically in Ωh . For this 0 reason we replace in (17) the base vectors X,α by tα , introduce b0 = WI tα and replace αI , D,α by D0α evaluated at the element center
+  
+
+D0T ,1 D0T ,2
+
+
+
+
+
+1 0−1   = J  4
+
+−DT + DT + DT − DT 1 2 3 4 −DT − DT + DT + DT 1 2 3 4
+
+  ,
+
+J0 = J(ξ = η = 0) .
+
+(28)
+
+These assumptions have consequences on the element behaviour, which are discussed in the next section. With the simpliﬁcations G0 is obtained by analytical integration, where the 10
+
+subscript 0 refers to the ﬂat projection Ωh 0 G0 = [G01 , G02 , G03 , G04 ] where
+
+0 NI ,1 tT 1
+
+G0I
+
+Ae B0 0I   = g0I 0 0
+
+
+
+
+
+
+(29)
+
+  0 NI ,2 tT  2   0 T 0  NI ,1 t2 + NI ,2 tT 1   0 0T  NI ,1 D ,1  B0 =  0I  0  NI ,2 D0T ,2    N 0 ,1 D0T +N 0 ,2 D0T ,2 ,1 I  I      a1I DT   M  J0−1  a DT 
+2I L
+
+      0   0 0T  NI ,1 b1I    0 0T  NI ,2 b2I   0 0T 0 0T  NI ,1 b2I + NI ,2 b1I      T 1 0−1  bM    J  bT  4
+L
+
+(30)
+
+0 NI ,1 0 NI ,2
+
+= J0−1
+
+
+a1I a2I
+     0 0 J11 b0T + J12 b0T  1I 2I   0 0T 0 0T J21 b1I + J22 b2I    11 T 12 T  γI ξI bM + γI ηI bL   21 T 22 T 
+
+and
+
+g0I =
+
+  0 0 J21 tT + J22 tT  1 2   0 0T 0 0T  Ae  J11 D ,1 +J12 D ,2 γI  0 0T  J D , +J 0 D0T ,2 3 1  21 22   11 12  γI DT + γI DT M L   21 T 22 T
+
+0 0 J11 tT + J12 tT 1 2
+
+0 0
+
+
+
+γI DM + γI DL
+
+γI ξI bM + γI ηI bL
+
+(31)
+
+γI = hI −
+11 γI 21 γI
+
+j2 j1 a1I − a2I j0 j0 j2 = (hI − a1I )/γI j0 j2 = − a1I /γI j0
+
+12 γI = − 22 γI
+
+j1 a2I /γI j0 j1 = (hI − a2I )/γI . j0
+
+3.6
+
+Transformation of the Element Matrices
+
+Since the interpolation of the stress resultants are discontinuous at the element boundaries and with δv = 0, δβ = 0, the parameters β can be eliminated on the element level considering (24) (32) β = H−1 G v . 11
+
+Hence the stationary condition (24) reads δΠh HR
+numel
+
+=
+e=1
+
+δv S =
+e=1
+
+T
+
+numel
+
+T δv0 S0 = 0 ,
+
+S = GT H−1 G v − p S0 = GT 0 H
+−1
+
+(33)
+
+G0 v0 − p0 .
+
+The assembly can be performed as within a pure displacement formulation. However, at ﬁrst the nodal force vector S0 = [S01 , S02 , S03 , S04 ]T has to be transformed considering the distance vector rI between Ωh and Ωh at the nodes, see Fig. 1 and Ref. [27] 0 rI = zI t3 , ¯ zI = (XI − X0 ) · t3 = ±h , X0 = 1 4
+4 I=1
+
+XI .
+
+(34)
+
+¯ ¯ The equilibrium equations read with WI = skew rI deﬁned by rI × fI = WI fI
+ 
+
+f0I m0I
+
+
+
+13 0 fI  =     ¯ WI 13 mI
+
+
+
+ 
+
+
+
+(35)
+
+S0I = TSI SI . The corresponding transformations for the displacements and virtual displacements can be derived from the virtual work (33)
+ 
+
+u0I ϕ0I
+
+
+
+
+
+ = 
+
+¯ 13 WI 0 13
+
+   
+
+uG I ϕG I
+
+ 
+
+(36)
+
+G v0I = T1I vI .
+
+It should be noted that without transformation (36) the element is unacceptable stiﬀ for warped conﬁgurations, see also [27]. At the nodes which are not positioned on intersections no drilling stiﬀness is available and a second transformation of the stiﬀness and the load vector is necessary:
+ 
+
+uG I ϕG I
+
+
+
+
+
+ = 
+
+13 0
+
+0 T3I
+
+   
+
+uG I ϕL I
+
+ 
+
+G vI = T2I vI
+
+(37) for nodes on shell intersections for all other nodes
+
+T3I =
+
+13 [a1I , a2I ](3×2)
+
+At all nodes which are not positioned on intersections the drilling degree of freedom is ﬁxed. Thus the element possesses six degrees of freedom at all nodes on intersections and ﬁve at all other nodes. In this context we also refer to [31, 32].
+
+12
+
+Combining (36) and (37) with (33) yields the total transformation TI = T1I T2I and GI = G0I TI =
+
+
+Ae B0 I gI
+0 NI ,1 tT 1 0 ¯ NI ,1 bT 1I 0 ¯T N ,2 b I 2I 0 0 ¯ ¯ NI ,1 bT + NI ,2 bT 2I 1I 0 ˜ NI ,1 bT 1I 0 ˜ NI ,2 bT 2I 0 0 ˜ ˜ NI ,1 bT + NI ,2 bT 2I 1I
+
+                     
+
+B0 I
+
+ 0  NI ,2 tT  2   0 T 0  NI ,1 t2 + NI ,2 tT 1   0 0T  NI ,1 D ,1  =   0  NI ,2 D0T ,2    N 0 , D0T +N 0 , D0T ,2 ,1  I 1 I 2      a1I DT   M  J0−1  a DT 
+2I L
+
+  ˜  bT  M J0−1  ˜ bT 
+L
+
+
+
+gI =
+
+  0 0  J21 tT + J22 tT 1 2   0 0T 0 0T  J D , +J D , 1 2 12 Ae  11  γI  0 0T 0  J21 D ,1 +J22 D0T ,2 3   11 12  γI DT + γI DT  M L   21 ˜ T 22 ˜ T
+
+0 0 J11 tT + J12 tT 1 2
+
+0 ¯ 0 ¯ J11 bT + J12 bT 1I 2I 0 ¯T 0 ¯T J21 b1I + J22 b2I 0 ˜ 0 ˜ J11 bT + J12 bT 1I 2I 0 ˜ 0 ˜ J21 bT + J22 bT 1I 2I 11 ˆ 12 ˆ γI bT + γI bT M L 21 ˆ 22 ˆ γI bT + γI bT M L
+
+                
+
+(38)
+
+γI DM + γI DL
+
+¯ bαI = TT tα 4I ˜ bαI = TT D0 ,α + TT b0 4I 3I αI ˜ bM = ˜ bL =
+1 4 1 4
+
+(ξI TT DM + TT bM ) 4I 3I (ηI TT DL + TT bL ) 4I 3I
+
+ˆ bM = TT DM + ξI TT bM 4I 3I ˆ bL = TT DL + ηI TT bL . 4I 3I ¯ ¯ ¯ with T4I = WI T3I . For a constant load p = pi ei in Ω we obtain pI = TT p0I = Ae (a0I + I
+ 
+
+1 j1 1 j2 . a1I + a2I )  T 3 j0 3 j0 ¯ T4I p
+
+¯ p
+
+(39)
+
+Thus considering (26), (33) and (38) the element stiﬀness matrix reads ke = GT H−1 G = k0 + kstab
+T kIK = GT H−1 GK = Ae B0T CB0 + gI h−1 gK . I I K
+
+(40)
+
+13
+
+Here, k0 denotes the stiﬀness of a one–point integrated Reissner–Mindlin shell element with assumed shear strains and kstab the stabilization matrix. The matrix h according to (26) consists of three submatrices of order two and thus can easily be inverted. The element stiﬀness matrix possesses with six zero eigenvalues the correct rank.
+
+4
+
+Examples
+
+The derived element formulation has been implemented in an extended version of the general purpose ﬁnite element program FEAP, see Zienkiewicz and Taylor [30].
+
+4.1
+
+Membrane and bending patch test
+
+Here we investigate a rectangular plate under membrane forces and bending moments according to [33]. Both, membrane and bending patch test are fulﬁlled by the present element.
+
+4.2
+
+Corner supported square plate
+
+A corner supported plate with edge length 2a subjected to uniform load is discussed. Considering symmetry the mesh consists of 8 × 8 elements for a quarter of the plate, see Fig. 2. The geometrical and material data are also given. An approximate ansatz according to [34] reads (41) w(x, y) = c1 + c2 x2 + c3 y 2 + c4 x4 + c5 x2 y 2 + c6 y 4 , where the origin of the co-ordinate system lies in the center of the plate. The boundary condition of vanishing bending moments at the edges can only be fulﬁlled in an integral sense. The other boundary conditions and the partial diﬀerential equation can be fulﬁlled exactly. The constants are determined and thus for y = 0 the approximate Kirchhoﬀ solution reads ν ν2 x 4 qa4 2 2 x 2 [11 − 6ν − ν + (−5 + 4ν + ν )( ) + (1 + − )( ) ] . w(x, y = 0) = 2Eh3 a 2 2 a a h q E ν = = = = = 12 0.375 0.03125 430000 0.38
+a a
+
+(42)
+
+y
+
+x
+
+Figure 2: Corner supported plate The deﬂections w(x, y = 0) obtained with diﬀerent elements are plotted in Fig. 3. The Belytschko/Tsay element [13] leads to hourglass modes for parameters rw < 0.02, optimal results for 0.02 ≤ rw ≤ 0.05 and locking for rw > 0.05, see also [13] and Fig. 3. The parameter rβ = 0.02 has been chosen constant in all cases.
+
+14
+
+0,14
+
+0,12
+
+0,10 displacement w
+
+0,08
+
+0,06 B/T r_w = 0.02 B/T r_w = 0.001 0,04 B/T r_w = 10 Present 0,02 Analytical (approx.)
+
+0,00 0,00
+
+2,00
+
+4,00
+
+6,00 coordinate x
+
+8,00
+
+10,00
+
+12,00
+
+Figure 3: Deﬂection w(x, y = 0) for the corner supported plate, comparison of diﬀerent elements
+
+15
+
+4.3
+
+Hemispherical shell with a 18◦ hole
+
+The hemispherical shell with a 18◦ hole under opposite loads is a standard example in linear and nonlinear shell analysis. The material properties are E = 6.825 · 107 and ν = 0.3, the radius is R = 10 and the thickness is h = 0.04. Considering symmetry conditions a quarter of the shell is modelled with a regular mesh, see Fig. 4. Table 1 presents results for the displacement of the loaded node for diﬀerent elements. The values are normalized with respect to our converged solution w = 0.0935 for F = 1. Analytical solutions based on asymptotic expansions are reported in [10] with w = 0.093. In Ref. [33] a value of w = 0.094 has been used for normalization. It can be seen that the results obtained with the present element as well as the results using the elements [27], [23] converge against the same solution. For this example the convergence behaviour of the investigated elements is practically the same.
+
+z
+
+x
+
+2F
+
+2F y
+
+Figure 4: Hemispherical shell: Un-deformed and deformed mesh (ampliﬁed by a factor 50)
+
+Table 1: Normalized displacements for diﬀerent elements Nodes per side 3 5 9 17 33
+∗
+
+Simo[10] 91.4 99.9 99.3 99.4 -
+
+Taylor [27] 66.1 92.5 100.7 100.0 ∗ 100.0
+∗
+
+Sauer [23] 106.7 103.8 100.3 99.8 100.0
+
+Present 106.2 103.8 100.4 99.8 100.0
+
+Own results using the element of Taylor [27].
+
+4.4
+
+Full hemispherical shell
+
+The convergence behaviour using distorted and warped elements is investigated with the hemispherical shell of the last section without the hole. The results for the deﬂections in load direction are normalized with respect to our converged numerical solution w = 0.09227, 16
+
+see Table 2. In Ref. [10] a reference value of 0.0924 is given. The elements [23], [27] and the present element converge against the same solution. The deformed mesh along with the radial displacements is plotted in Fig. 5. Table 2: Normalized displacements for diﬀerent elements Nodes per side 5 9 17 33 65
+∗
+
+Simo[10] Simo[10] Taylor[27]∗ Sauer[23] Present mixed disp 65.2 46.9 77.0 50.5 57.4 96.9 93.4 100.8 95.5 97.2 99.4 98.9 100.8 100.0 100.3 100.2 100.0 100.1 100.0 100.0 100.0
+
+Own results using the element of Taylor [27].
+
+-9.252E-02 min -7.930E-02 -6.609E-02 -5.287E-02 -3.965E-02 -2.643E-02 -1.322E-02 -8.173E-09 1.322E-02 2.643E-02 3.965E-02 5.287E-02 6.609E-02 7.930E-02 9.252E-02 max
+
+Figure 5: Radial displacements and deformed mesh (ampliﬁed by a factor 50)
+
+4.5
+
+Twisted beam
+
+This problem, a clamped beam twisted 90◦ subjected to two diﬀerent concentrated loads at the tip, was originally introduced by MacNeal and Harder [33]. A more demanding thin shell version was proposed by Jetteur [35] and is investigated in this paper. The example is chosen to test the assess of warping on the performance of shell elements. Two load cases are discussed. Load case 1 is a unit shear load in width direction whereas load case 2 is a unit shear load in thickness direction, see Fig. 6. The computed tip displacements in load direction are normalized with respect to our converged solutions 1.387 (load case 1) and 0.343 (load case 2) and are presented in Tab. 3. The displacements uz and uy are plotted for the respective load case on the deformed conﬁgurations in Fig. 7.
+
+17
+
+z x h
+
+w y
+
+l F=1.0
+
+l w h E ν F
+
+= = = = = =
+
+12 1.1 0.05 29 · 106 0.22 1.0
+
+Figure 6: Twisted beam: geometrical and material data
+
+Table 3: Load case 1 normalized displacement uz for diﬀerent elements Mesh El. Simo[10] Taylor[27] 99.4 100.0 100.1 100.2 100.1 100.2 100.1 100.0 Sauer[23] Present 99.5 99.7 99.9 100.0 102.0 100.6 99.3 100.0
+
+1*6 6 2*12 24 4*24 96 8*48 384
+
+Table 4: Load case 2 normalized displacement uy for diﬀerent elements Mesh El. Simo[10] Taylor[27] 95.1 98.6 99.7 100.0 102.1 101.0 100.2 100.0 Sauer[23] Present 94.0 98.4 99.6 99.9 104.3 100.5 99.3 100.0
+
+1*6 6 2*12 24 4*24 96 8*48 384
+
+18
+
+-1.388E+00 min -1.289E+00 -1.190E+00 -1.090E+00 -9.913E-01 -8.922E-01 -7.931E-01 -6.939E-01 -5.948E-01 -4.957E-01 -3.965E-01 -2.974E-01 -1.983E-01 -9.913E-02 0.000E+00 max
+
+0.000E+00 min 2.450E-02 4.900E-02 7.351E-02 9.801E-02 1.225E-01 1.470E-01 1.715E-01 1.960E-01 2.205E-01 2.450E-01 2.695E-01 2.940E-01 3.185E-01 3.430E-01 max
+
+Figure 7: Deformed conﬁgurations for load case 1 and 2 and respective displacements uz and uy
+
+19
+
+4.6
+
+Hypar shell
+f z y h l x l f
+l f h E ν pz ¯ = 20 m = l/32 m = 0.2 m = 108 kN/m2 = 0 = −5 kN/m2
+
+Figure 8: Hypar shell: geometrical and material data The geometry of the considered hyperbolic paraboloid shell is described by the function z = 1/8 xy. The shell is loaded by a constant load pz per shell middle surface in vertical ¯ direction. Along the boundary the deﬂections are restrained in global z–direction. Furthermore the boundary conditions ux (−l/2, 0) = ux (l/2, 0) = 0 and uy (0, −l/2) = uy (0, l/2) = 0 are considered. An analytical Kirchhoﬀ solution with slightly diﬀerent boundary conditions using Fourier series has been derived by Duddeck [36]. The shell with coordinates z(l/2, l/2) = ±f = l/32 is rather ﬂat. Therefore the support perpendicular to the shell which has been considered in [36] does not lead to signiﬁcant diﬀerent results. The geometrical and material data as well as a typical ﬁnite element mesh are depicted in Fig. 8. The distribution of the global displacement w = uz is symmetric with respect to x = 0 and y = 0. In Fig. 9 the deﬂection w (0 < x < l/2, y = 0) is depicted. The calculated results are in good agreement with the solution of Duddeck. Furthermore the distribution of the bending moment mxy (0 < x < l/2, y = l/2) is presented in this Figure. Diﬀerences occur along the edges due to the fact that the analytical solution is based on a Kirchhoﬀ theory whereas the numerical solution is calculated using the Reissner–Mindlin theory. In Fig. 10 the distribution of the bending moment mx (0 < x < l/2, y = 0) and mx (x = 0, 0 < y < l/2) are shown. The good agreement with the analytical solution is noted. Table 5: Center displacement w(0, 0) in cm for diﬀerent elements Nodes w(0, 0) ∗ per Side Taylor [27] Sauer [23] Present 2 4.05 2.84 4.03 4 4.42 4.39 4.41 8 4.51 4.51 4.52 17 4.55 4.56 4.56 33 4.56 4.58 4.58 65 4.57 4.60 4.60 ∗ Own results with the element of Taylor [27].
+
+Duddeck [36]
+
+4.6
+
+20
+
+Finally a convergence study is presented in Tables 5 and 6 for the center deﬂection w(0, 0) and the bending moment mx (0, 0), respectively. It shows that the present element exhibits a superior convergence behaviour for the bending moment. Table 6: Center moment mx (0, 0) in kNm/m for diﬀerent elements Nodes mx (0, 0) ∗ per Side Taylor [27] Sauer [23] Present 2 36.0 25.2 53.6 4 57.7 60.2 64.0 8 62.6 63.3 64.3 17 64.3 64.6 64.9 33 64.8 65.0 65.1 65 64.9 65.3 65.3 ∗ Own results with the element of Taylor [27].
+
+Duddeck [36]
+
+63
+
+5 4,5 4 3,5 3 2,5 2 1,5 1 0,5 0 0 2
+Present 4x 4 mesh Present 8x 8 mesh Present 32x32 mesh Duddeck
+moment m xy [kNm/m]
+
+90,0 80,0 70,0 60,0 50,0 40,0 30,0 20,0 10,0 0,0
+Present 4x 4 mesh Present 8x 8 mesh Present 32x32 mesh Duddeck
+
+displacement w [cm]
+
+4
+
+6
+
+8
+
+10
+
+0
+
+2
+
+4
+
+6
+
+8
+
+10
+
+[0,0]
+
+coordinate x [m]
+
+[10,0]
+
+[0,10]
+
+coordinate x [m]
+
+[10,10]
+
+Figure 9: Displacement w(x, y | 0 < x < l/2, y = 0) and bending moment mxy (x, y | 0 < x < l/2, y = l/2)
+70,0 60,0
+moment m x [kNm/m]
+
+70,0 60,0
+moment m x [kNm/m]
+
+50,0 40,0 30,0
+Present 4x 4 mesh
+
+50,0 40,0
+Present 4x 4 mesh
+
+30,0 20,0 10,0 0,0
+
+Present 8x 8 mesh Present 32x32 mesh Duddeck
+
+20,0 10,0 0,0 0 2
+
+Present 8x 8 mesh Present 32x32 mesh Duddeck
+
+4
+
+6
+
+8
+
+10
+
+0
+
+2
+
+4
+
+6
+
+8
+
+10
+
+[0,0]
+
+coordinate x [m]
+
+[10,0]
+
+[0,0]
+
+coordinate y [m]
+
+[0,10]
+
+Figure 10: Bending moment mx (x, y | 0 < x < l/2, y = 0) and mx (x, y | x = 0, 0 < y < l/2)
+
+21
+
+4.7
+
+Steel frame structure
+
+In the last example we discuss a symmetrical frame structure with welded cross–sections, see Figs. 11, 12. Thus, diﬀerent intersections of plates occur, which can be treated with the present model. The frame is loaded by a constant vertical load p = 16 kN/m. The ¯ problem with all geometrical data as well as the load distribution is presented in Fig. 11, the underlying data for the cross–sections of a beam model are depicted in Fig. 12. Elastic material behaviour is assumed using the parameters E = 21000 kN/cm2 and ν = 0.3.
+p 1.2 1.2 20 20 40
+
+1.2
+1.6
+
+400 340 z y x 474 600 102 24 24 [cm]
+
+Figure 11: Frame structure: system and loading
+
+20
+
+20
+
+1.0
+
+48
+
+0.8 1.2 [cm]
+
+40
+
+frame column A = 112.0 cm2 Iy = 46094 cm4 Iz = 2137 cm4 IT = 70.6 cm4
+
+horizontal member A = 80.0 cm2 Iy = 23472 cm4 Iz = 1602 cm4 IT = 29.9 cm4
+
+1.6
+
+Figure 12: Deﬁnition of cross sections The ﬁnite element calculations are performed with the developed shell element using a mesh with 530 nodes and 368 elements, see Fig. 13, and for comparison with 15 two– dimensional beam elements, see Fig. 17. It can be seen from Tables 7 and 8 that the results of all used three shell elements are very similar for the vertical displacement uz (0, 0, 400) in the symmetry plane as well as for the stresses σ11 in axial direction at the coordinates (0, 0, 420) and (0, 0, 380). This could also be veriﬁed using the beam model with only little deviations. In detail Fig. 13 show the un–deformed and deformed mesh, whereas the axial 22
+
+stresses σ11 at the plate mid–surfaces are depicted in Figs. 15 and 16. Finally Fig. 17 presents the associated results for the beam model. Here, normal forces of N = −72.6 kN and N = −96.0 kN occur in the horizontal member and the column of the frame. It should be noted that only the shell model is able to analyze the stress state in the corner of the frame (see Fig. 16). Table 7: Vertical displacement uz (0, 0, 400) in cm Displacement uz Shell model Beam model Taylor[27] Sauer[23] Present -1.818 -1.817 -1.817 -1.761
+
+Table 8: Axial stresses σ11 in symmetry plane in kN/cm2 Axial Stress σ11 (0, 0, 420) σ11 (0, 0, 380) Taylor[27] Sauer[23] Present -8.78 -8.77 -8.78 7.06 7.05 7.06 Beam -8.83 7.02
+
+Figure 13: Undeformed and deformed mesh (ampliﬁed by a factor 20)
+
+23
+
+-1.817E+00 min -1.686E+00 -1.554E+00 -1.422E+00 -1.291E+00 -1.159E+00 -1.027E+00 -8.958E-01 -7.642E-01 -6.326E-01 -5.009E-01 -3.693E-01 -2.377E-01 -1.061E-01 2.558E-02 max
+
+Figure 14: Vertical deﬂection uz in cm
+
+-8.775E+00 min -7.645E+00 -6.515E+00 -5.384E+00 -4.254E+00 -3.124E+00 -1.994E+00 -8.635E-01 2.667E-01 1.397E+00 2.527E+00 3.657E+00 4.788E+00 5.918E+00 7.048E+00 max
+
+Figure 15: Axial stresses σ11 at mid–surfaces in kN/cm2
+
+24
+
+Figure 16: Axial stresses σ11 at mid–surfaces in kN/cm2 in the frame corner
+
+MOMENT M_y -1.801E+04 min 0.000E+00 9.502E+03 max
+
+Figure 17: Beam model: undeformed mesh, deformed mesh (ampliﬁed by a factor 20) and bending moment
+
+25
+
+5
+
+Conclusions
+
+The main aspect of the present work is to derive a four–node shell element with explicit representation of the stiﬀness matrix. The formulation with 5 or 6 nodal degrees of freedom is applicable for shell problems with intersections. The element possesses a correct rank, is free of locking, and can be used for the structural analysis of thin and thick shells. The computed results obtained for various shell problems with positive and negative Gaussian curvature are very satisfactory. Especially the convergence behaviour of the stress resultants is superior to comparable elements. The essential advantage is the fast stiﬀness computation due to the analytically derived stiﬀness matrix.
+
+References
+[1] Koiter, W.T.: On the nonlinear theory of thin elastic shells, Proc. Kon. Ned. Ak. Wet. B69, 1966, 1-54. 1 [2] Nagdhi, P.M.: The theory of shells, in Handbuch der Physik, Vol. VIa/2, Mechanics of Solids II, C. Truesdell Ed., Springer-Verlag Berlin. 1972 1 [3] Ahmad, S., Irons B.M., Zienkiewicz, O.C.: Analysis of thick and thin shell structures by curved ﬁnite elements, Int. J. Num. Meth. Engng., 2, 419–451, 1970. 1 [4] Papadrakakis, M., Samartin, A., O˜ate, E. (eds.), IASS-IACM 2000, Proceedings of n the Fourth International Colloquium on Computation of Shell & Spatial Structures, Chania, Greece, 2000. 1 [5] Yang, H.T.Y., Saigal, S., Masud, A., Kapania, R.K.: A survey of recent shell ﬁnite elements., Int. J. Num. Meth. Engng., 47, 101–127, 2000. 1 [6] B¨chter N., Ramm E.: Shell theory versus degeneration–A comparison in large rotation u ﬁnite element analysis, Int. J. Num. Meth. Engng., 34, 39–59, 1992. 1 [7] Reissner, E.: The eﬀect of transverse shear deformation on the bending of elastic plates, J. Appl. Mech. 12, 69–76, 1945. 1 [8] Mindlin, R.D.: Inﬂuence of rotatory inertia and shear ﬂexural motions of isotropic elastic plates, J. Appl. Mech. 18, 31–38, 1951. 1 [9] Liu, K.K., Law S.E., Lam D., Belytschko, T.: Resultant–stress degenerated shell element, Comp. Meth. Appl. Mech. Engrg, 55, 261–300, 1986. 1 [10] Simo, J.C., Fox D.D., Rifai M.S.: On a stress resultant geometrically exact shell model. Part II: The linear theory; Computational aspects, Comp. Meth. Appl. Mech. Engrg, 73, 53–92, 1989. 1, 3.4, 4.3, 1, 4.4, 2, 3, 4 [11] Stanley G.M., Park K.C., Hughes T.J.R., Continuum–Based Resultant Shell Elements, in: Finite Element Methods for Plate and Shell Structures 1: Element Technology, eds. T.J.R. Hughes and E. Hinton, Swansea U.K.: Pineridge Press, 1986. 1
+
+26
+
+[12] Zienkiewicz, O. C., Taylor, R.L. and Too, J. : Reduced integration techniques in general analysis of plates and shells, Int. J. Num. Meth. Engng., 3, 275–290, 1971. 1 [13] Belytschko, T., Tsay, C.-S.: A stabilization procedure for the quadrilateral plate element with one–point quadrature, Int. J. Num. Meth. Engng., 19, 405–419, 1983. 1, 4.2 [14] Belytschko, T., Lin, J.I., Tsay,C.-S.: Explicit algorithms for the nonlinear dynamics of shells, Comp. Meth. Appl. Mech. Engrg, 42, 225–251, 1984. 1 [15] MacNeal, R. H.: A simple quadrilateral shell element, Comput. Struct., 8, 175–183, 1978. 1 [16] Hughes, T. J. R. and Tezduyar, T. E.: Finite elements based upon Mindlin plate theory, with particular reference to the 4–node bilinear isoparametric element, J. Appl. Mech., 48, 587–595, 1981. 1 [17] MacNeal, R. H.: Derivation of element stiﬀness matrices by assumed strain distribution, Nuclear Engineering Design, 70, 3–12, 1982. 1 [18] Dvorkin, E., Bathe, K.-J.: A continuum mechanics based four node shell element for general nonlinear analysis, Engineering Computations, 1, 77–88, 1984. 1, 3.2 [19] Bathe, K.J., Dvorkin, E.: A 4–Node Plate bending element based on Mindlin/Reissner theory and a mixed interpolation, Int. J. Num. Meth. Engng., 21, 367–383, 1985. 1, 3.2 [20] Baumann, M., Schweizerhof K., Andrussow S.: An eﬃcient mixed hybrid 4-node shell element with assumed stresses for membrane, bending and shear parts, Engineerung Computations, 11, 69–80 , 1994. 1, 3.4 [21] Sze, K.Y.: An explicit hybrid–stabilized 9–node Lagrangian shell element, Comp. Meth. Appl. Mech. Engrg, 117, 361–379, 1994. 1 [22] Simo, J.C., Rifai, M.S.: A class of mixed assumed strain methods and the method of incompatible modes, Int. J. Num. Meth. Eng., 29, 1595–1638, 1990. 1 [23] Sauer, R.: Eine einheitliche Finite–Element–Formulierung f¨r Stab– und Schalentragu werke mit endlichen Rotationen, Bericht 4 (1998), Institut f¨r Baustatik, Universit¨t u a Karlsruhe (TH). 1, 4.3, 1, 4.4, 2, 3, 4, 5, 6, 7, 8 [24] Belytschko, T., Leviathan, I.: Physical stabilization of the 4–node shell element with one point quadrature, Comp. Meth. Appl. Mech. Engrg, 113, 321–350, 1994. 1 [25] Cardoso, R.P.R., Yoon, J.-W., Gr´cio, J.J., Barlat, F., C´sar de S´, J.M.A.: Developa e a ment of a one point quadrature shell element for nonlinear applications with contact and anisotrpoy, Comp. Meth. Appl. Mech. Engrg, 191, 5177–5206, 2002. 1 [26] Reese, S., Wriggers, P.: A stabilization technique to avoid hourglassing in ﬁnite elasticity, Int. J. Num. Meth. Engng., 48, 79–109, 2000. 1
+
+27
+
+[27] Taylor, R. L.: Finite element analysis of linear shell problems, in: J.R. Whiteman (Ed), The Mathematics of Finite Elements and Applications VI, (MAFELAP 1987), Academic Press Ltd., London, 1988, p. 191–204. 1, 3.1, 3.6, 3.6, 4.3, 1, 4.4, 2, 3, 4, 5, 6, 7, 8 [28] Gruttmann, F., Wagner, W.: A stabilized one–point integrated quadrilateral Reissner– Mindlin plate element, Int. J. Num. Meth. Engng., 61, 2273-2295, 2004. 3.2, 3.5 [29] Pian, T. H. H. and Sumihara, K.: Rational approach for assumed stress ﬁnite elements. Int. J. Num. Meth. Eng., 20, 1685-1695, 1984. 3.4 [30] Zienkiewicz, O.C., Taylor, R.L.: The Finite Element Method Vol. 1–3, 5. ed., Butterworth-Heinemann, Oxford, 2000. 3.4, 3.4, 4 [31] Hughes, T.J.R., Liu W.K.: Nonlinear ﬁnite element analysis of shells: Part I. Threedimensional shells, Comp. Meth. Appl. Mech. Engrg, 26:331–362, 1981. 3.6 [32] Simo, J.C.: On a stress resultant geometrically exact shell model. Part VII: Shell intersections with 5/6-DOF ﬁnite element formulations, Comp. Meth. Appl. Mech. Engrg, 108, 319–339, 1993. 3.6 [33] MacNeal, R.H., Harder R.L.: A proposed standard set of problems to test ﬁnite element accuracy, Finite Elements in Analysis and Design, 1, 3–20, 1985. 4.1, 4.3, 4.5 [34] Lee, S. L., Ballesteros, P.: Uniformly loaded rectangular plate supported at corners, Int. J. Mech. Sci., 2, 206–211, 1960. 4.2 [35] Jetteur, P., Improvement of the quadrilateral Jet shell element for a particular class of shell problems, IREM Internal Report 87/1, Ecole Polytechnique F´d´rale de Lausanne, e e 1987. 4.5 [36] Duddeck, H.: Die Biegetheorie der ﬂachen hyperbolischen Paraboloidschale z = c xy, ¯ Ing. Archiv, 31, 44–78, 1962. 4.6, 5, 6
+
+28
+

@@ -1,0 +1,768 @@
+A cell-based smoothed three-node Mindlin plate element (CS-MIN3) for static and free vibration analyses of plates T. Nguyen-Thoi, P. Phung-Van, H. Luong-Van, H. Nguyen-Van & H. Nguyen-Xuan
+Computational Mechanics Solids, Fluids, Structures, FluidStructure Interactions, Biomechanics, Micromechanics, Multiscale Mechanics, Materials, Constitutive Modeling, Nonlinear Mechanics, Aerodynamics ISSN 0178-7675 Comput Mech DOI 10.1007/s00466-012-0705-y
+
+1 23
+
+Your article is protected by copyright and all rights are held exclusively by SpringerVerlag. This e-offprint is for personal use only and shall not be self-archived in electronic repositories. If you wish to self-archive your work, please use the accepted author’s version for posting to your own website or your institution’s repository. You may further deposit the accepted author’s version on a funder’s repository at a funder’s request, provided it is not made publicly available until 12 months after publication.
+
+1 23
+
+Author's personal copy
+Comput Mech DOI 10.1007/s00466-012-0705-y
+
+ORIGINAL PAPER
+
+A cell-based smoothed three-node Mindlin plate element (CS-MIN3) for static and free vibration analyses of plates
+T. Nguyen-Thoi · P. Phung-Van · H. Luong-Van · H. Nguyen-Van · H. Nguyen-Xuan
+
+Received: 13 August 2011 / Accepted: 23 March 2012 © Springer-Verlag 2012
+
+Abstract The cell-based strain smoothing technique is combined with the well-known three-node Mindlin plate element (MIN3) to give a so-called the cell-based smoothed MIN3 (CS-MIN3) for static and free vibration analyses of plates. In the process of formulating the system stiffness matrix of the CS-MIN3, each triangular element will be divided into three sub-triangles, and in each sub-triangle, the stabilized MIN3 is used to compute the strains and to avoid the transverse shear locking. Then the strain smoothing technique on whole the triangular element is used to smooth the strains on these three sub-triangles. The numerical examples demonstrated that the CS-MIN3 is free of shear locking, passes the patch test and shows four superior properties such as: (1) be a strong competitor to many existing three-node triangular plate elements in the static analysis, (2) can give high accurate solutions for problems with skew geometries in the static analysis, (3) can give high accurate solutions in free vibration analysis, (4) can provide accurately the values of high frequencies of plates by using only coarse meshes.
+T. Nguyen-Thoi (B) · H. Nguyen-Xuan Department of Mechanics, Faculty of Mathematics & Computer Science, University of Science, Vietnam National University HCM, 227 Nguyen Van Cu, Dist. 5, Hochiminh City, Vietnam e-mail: ngttrung@hcmus.edu.vn; thoitrung76@gmail.com T. Nguyen-Thoi · P. Phung-Van · H. Nguyen-Xuan Division of Computational Mechanics, Ton Duc Thang University, 98 Ngo Tat To St., Ward 19, Binh Thanh Dist., Hochiminh City, Vietnam H. Luong-Van Faculty of Civil Engineering, Hochiminh City University of Technology (HCMUT), Hochiminh City, Vietnam H. Nguyen-Van Faculty of Civil Engineering, Hochiminh City University of Architecture, Hochiminh City, Vietnam
+
+Keywords Reissner–Mindlin plate · Shear locking · Finite element method (FEM) · Cell-based smoothed three-node Mindlin plate element (CS-MIN3) · Three-node Mindlin plate element (MIN3) · Strain smoothing technique
+
+1 Introduction In the past 50 years, many of plate bending elements based on the Mindlin–Reissner theory using the ﬁrst-order shear deformation (FSDT) has been proposed by researchers. Such a large amount of elements can be found in literatures [1–10], and in recent papers [11–14]. In formulations of a Mindlin– Reissner plate element using the FSDT, the deﬂection w and rotations βx , β y are independent functions and required at least to be C0-continuous. Due to the complexity of existing plate elements, research on simpler, more efﬁcient and inexpensive plate elements receives continuously strong interest. Compared with quadrilateral elements, three-node triangular plate elements are particularly attractive because of its simplicity, easy in automatic meshing and re-meshing in adaptive analysis. These elements usually possess high accuracy and fast convergence speed for displacement solutions. However for stresses or internal forces, they usually give the low accuracy [15–17] and need a post-process to improve the solution [18,19]. In addition, the main difﬁculty encountered of these elements is the phenomenon of shear locking which induces over-stiffness as the plate becomes progressively thinner. In order to avoid shear locking, many new numerical techniques and effective modiﬁcations have been proposed and tested, such as the reduced integration and selective reduced integration schemes proposed by Zienkiewicz et al. [20] and Hughes et al. [21,22]; the stabilization procedure proposed by Belytschko et al. [23,24]; free formulation
+
+123
+
+Author's personal copy
+Comput Mech
+
+method proposed by Bergan and Wang [25], the substitute shear strain method proposed by Hinton and Huang [26], mixed formulation/hybrid elements [27–30]; etc. However, these elements are still subjected to some drawbacks such as instability due to rank deﬁciency or low accuracy or complex performance. In order to overcome these drawbacks, Hughes and Tezduzar [31] introduced an assumed natural strain (ANS) method which allows deﬁning the shear strains independently from the approximation of kinematic variables. In this method, the shear strain ﬁeld of a 4-node quadrilateral element is interpolated independently by rational constant shear strains along each element side, and the shear locking problem will be overcome. It has been proved to be mathematically valid by Bathe and Brezzi [32,33] and Brezzi et al. [34]. Based on this method, many successful models were then presented, including the mixed interpolated tensorial components (MITC) family proposed by Bathe’s group [32–38]; the discrete Reissner–Mindlin family [39,40] and the linked interpolation elements (Q4BL [41] and T3BL [42]) by Zienkiewicz’s group; discrete Kirchhoff elements DKT [43] and DKQ [44] proposed by Batoz and Lardeur; the discrete Kirchhoff–Mindlin elements DKMQ [45] and DKMT proposed by Katili [46]; the discrete-sheargap (DSG) method proposed by Bletzinger et al. [47]; etc. Also based on the ANS method, Tessler and Hughes [48] proposed a three-node Mindlin plate element (MIN3) in which a complete quadratic deﬂection ﬁeld is constrained by continuous shear edge constraints. The MIN3 is free of shear locking and produces convergent solutions. However, the accuracy of the MIN3 element is still worse than those of some others three-node plate elements [14], especially for the thick plate. In the other frontier of developing advanced ﬁnite element technologies, Liu and Nguyen-Thoi et al. [49] have applied a strain smoothing technique of meshfree methods [50] into the conventional ﬁnite element method (FEM) using linear interpolations to formulate a series of smoothed FEM (S-FEM) models named as the cell-based S-FEM (CS-FEM) [51–55], the node-based S-FEM (NS-FEM) [56–60], the edge-based S-FEM (ES-FEM) [61–66] and the face-based S-FEM (FSFEM) [67,68]. In these S-FEM models, the ﬁnite element mesh is used similarly as in the FEM models. However, these S-FEM models evaluate the weakform based on smoothing domains created from the entities of the element mesh such as cells/elements, or nodes, or edges, or faces. These smoothing domains can be located inside the elements (CS-FEM) or cover parts of adjacent elements (NS-FEM, ES-FEM and FS-FEM). These smoothing domains are linear independent and hence ensure stability and convergence of the S-FEM models. In the CS-FEM [51,52], the number of supporting nodes in smoothing domains are as same as those in elements, and hence the bandwidth of stiffness matrix in the CS-FEM is
+
+similar to that in the FEM. However, due to using the strain smoothing technique to increase the accuracy in each elements, the computational cost in the CS-FEM is a little higher than those of the FEM. However, in general, when the efﬁciency of computation (computation time for the same accuracy) in terms of the error estimator versus computational cost is considered, the CS-FEM is still efﬁcient than the counterpart FEM models. The CS-FEM, however so far, has been developed mainly only for the 4-node quadrilateral elements [51–54] and the improvement of accuracy of solutions compared to those of FEM is still marginal. This paper hence extends the CS-FEM for triangular elements and for significant improvement of solutions of plate analysis. The cell-based strain smoothing technique in the CS-FEM is combined with the MIN3 [48] to give a so-called the cell-based smoothed MIN3 (CS-MIN3) for static and free vibration analyses of plates. In the process of formulating the system stiffness matrix of the CS-MIN3, each triangular element will be divided into three sub-triangles, and in each subtriangle, the stabilized MIN3 is used to compute the strains and to avoid the transverse shear locking. Then the strain smoothing technique on whole the triangular element is used to smooth the strains on these three sub-triangles.
+
+2 Weakform for the Reissner–Mindlin plate Consider a plate under bending deformation. The middle (neutral) surface of plate is chosen as the reference plane that occupies a domain ⊂ R 2 as shown in Fig. 1. Let wbe the deﬂection, and β T = βx β y be the vector of rotations, in which βx , β y are the rotations of the middle plane around y- and x-axis, respectively, with the positive directions deﬁned as shown in Fig. 1. The unknown vector of three independent ﬁeld variables at any point in the problem domain of the Reissner–Mindlin plates can be written as u T = w βx β y (1)
+
+The curvature of the deﬂected plate κ and the shear strains γ are deﬁned, respectively, as κ = Ld β γ = ∇w + β (2) (3)
+
+where ∇ = [∂/∂ x ∂/∂ y]T , and Ld is a differential operator matrix deﬁned by ⎡ ⎤ ∂/∂ x 0 ∂/∂ y ⎦ (4) Ld = ⎣ 0 ∂/∂ y ∂/∂ x The standard Galerkin weakform of the static equilibrium equations for the Reissner–Mindlin plate can now be written as [69]:
+
+123
+
+Author's personal copy
+Comput Mech
+
+Fig. 1 Reissner–Mindlin thick plate and positive directions of the displacement w and two rotations βx , β y
+
+δ κT Db κd +
+
+δ γT Ds γd
+
+=
+
+δuT bd
+
+(5)
+
+⎤ N I (x) 0 0 ⎦ dI ⎣0 N I (x) 0 uh = I =1 0 0 N I (x)
+Nn
+
+⎡
+
+(10)
+
+where b = [ p (x, y) 0 0]T is the distributed load applied on the plate. The matrix Db is the material matrix related to the bending deformation, and is given by ⎡ ⎤ 1 ν 0 Et 3 ⎣ν 1 0 ⎦ (6) Db = 12 1 − ν 2 0 0 (1 − ν) /2 in which E is the Young’s modulus, t is the thickness of plate. The matrix Ds is the material matrix related to shear deformation, and has the form of Ds = kt μ 0 0 μ (7)
+
+where Nn is the total number of nodes of problem domain discretized, N I (x) is the shape function at node I, d I = [w I βx I β y I ]T is the displacement vector of the nodal degrees of freedom (DOF) of uh associated to node I , respectively. The bending and shear strains can be then expressed in the matrix forms as: κ=
+I
+
+B I d I , γs =
+I
+
+SI dI
+
+(11)
+
+where
+
+⎤ 0 N I,x 0 BI = ⎣ 0 0 N I,y ⎦ , Si = 0 N I,y N I,x
+
+⎡
+
+N I,x N I 0 NI N I,y 0
+
+(12)
+
+with the shear modulus μ, and the shear correction factor k = 5/6. For the free vibration analysis of Reissner–Mindlin plates, the standard Galerkin weakform can be derived from the dynamic form of energy principle [69]: δ κT Db κd + δγ T Ds γ d + ¨ δuT mud =0 (8)
+
+The discretized system of equations of the Mindlin–Reissner plate using the FEM for static analysis then can be expressed as, Kd = F where K= BT Db B d + ST Ds S d (14) (13)
+
+where m is the matrix containing the mass density of the material ρ and thickness t as ⎤ ⎡ t 0 0 ⎥ ⎢ t3 (9) m = ρ ⎣ 0 12 0 ⎦ 3 t 0 0 12
+
+is the global stiffness matrix, and the load vector F= pN d + f b (15)
+
+in which f b is the remaining part of F subjected to prescribed boundary loads. For free vibration analysis, we have (K − ω2 M)d = 0 (16)
+
+3 FEM formulation for the Reissner–Mindlin plate Now, discretize the bounded domain into Ne ﬁnite eleNe ments such that = e=1 e and i ∩ j = ∅, i = j, T then the ﬁnite element solution uh = w βx β y of a displacement model for the Mindlin–Reissner plate is expressed as:
+
+where ω is the natural frequency and M is the global mass matrix deﬁned by M= NT mNT d (17)
+
+123
+
+Author's personal copy
+Comput Mech
+
+and the initial deﬂection w is assumed to be quadratic as
+6
+
+w=
+I =1
+
+R I w I = Rwini
+
+(19)
+
+Fig. 2 Three-node triangular element
+
+where N = [N1 (x) N2 (x) N3 (x)] with N I (x), I = 1, 2, 3, are the linear shape functions at node I ; β T = [βx1 βx2 βx3 ] x and β T = β y1 β y2 β y3 are the rotational DOFs at three y T nodes of the element; wini = [w1 w2 w3 w4 w5 w6 ] is the deﬂection DOFs at six nodes (three nodes of the elements and three mid-edge points as shown in Table 1), and R is the row vector of quadratic shape functions given by R = [N1 (2N1 − 1) N2 (2N2 − 1) N3 (2N3 − 1) 4N1 N2 4N2 N3 4N3 N1 ] (20) Now, in order to condense out the mid-edge deﬂection DOFs, w4 , w5 , w6 in w, the continuous shear constraints at every element edge were enforced by the following differential relation w,s + βn
+,s edges
+
+4 CS-MIN3 formulation for the Reissner–Mindlin plate In this section, the cell-based strain smoothing technique [51] is combined with the MIN3 [48] to give a so-called the CS-MIN3 for static and free vibration analyses of plates.
+
+4.1 Brief on the MIN3 formulation [48] In the MIN3 [48], the rotations are assumed to be linear through the rotational DOFs at three nodes of the elements, and the deﬂection is initial assumed to be quadratic through the deﬂection DOFs at six nodes (three node of the elements and three mid-edge points). Then, by enforcing continuous shear constraints at every element edge, the deﬂection DOFs at three mid-edge points can be removed and the deﬂection is now approximated only by vertex DOFs at three nodes of the elements. The MIN3 element hence can overcome shearlocking-free and produces convergent solutions [48]. In this paper, we just brief on the MIN3 formulation which is necessary for the formulation of the CS-MIN3. Using a mesh of three-node triangular elements as shown in Fig. 2, two rotations βx and β y at the element level are assumed to be linear as
+3 3
+
+=0
+
+(21)
+
+where s denotes the edge coordinate and βn is the tangential edge rotation as shown in Fig. 2. The enforcement of constraints (21) at three element edges yields w4 = 1 (w1 + w2 ) 2 1 + b3 (βx1 − βx2 ) + a3 β y2 − β y 1 8 1 w5 = (w2 + w3 ) 2 1 + b1 (βx2 − βx3 ) + a1 β y3 − β y2 8 1 w6 = (w3 + w1 ) 2 1 + b2 (βx3 − βx1 ) + a2 β y1 − β y3 8 (22)
+
+βx =
+I =1
+
+N I (x)βx I = Nβ x ; β y =
+I =1
+
+N I (x)β y I = Nβ y (18)
+
+Table 1 Nodal conﬁgurations for initial (unconstrained) and constrained displacement ﬁeld in the MIN3
+
+Shape functions
+
+Initial nodal conﬁguration
+
+Continuous shear edge constraints: =0 w,s + βn ,s
+edges
+
+Constrained nodal conﬁguration
+
+w Quadratic
+
+βx , β y Linear Three edge constraints
+
+123
+
+Author's personal copy
+Comput Mech
+
+where ⎡
+
+⎤ 0 0 N,x B = ⎣ 0 N,y 0 ⎦ 0 N,x N,y S= N,x L,x + N H,x N,y L,y H,y + N
+
+(27)
+
+(28)
+
+It was suggested [70] that a stabilization term needs to be added to further improve the accuracy of approximate solutions and to stabilize shear force oscillations. Such a modiﬁˆ cation is achieved by simply replacing Ds in Eq. (26) by Ds , as follows.
+MIN3 Ke =
+e
+
+BT Db Bd
+
++
+e
+
+ˆ ST Ds Sd
+
+(29)
+
+where
+Fig. 3 Three-node triangular element coordinate description in the MIN3 element
+
+ˆ Ds =
+
+t2
+
+kt 3 + αh 2 e
+
+1 0 0 1
+
+(30)
+
+where a1 = x3 − x2 , a2 = x1 − x3 , a3 = x2 − x1 , b1 = y2 − y3 , b2 = y3 − y1 , b3 = y1 − y2 as shown in Fig. 3. Substituting Eq. (22) into Eq. (19), the deﬂection, w, is now approximated only by vertex DOFs at three nodes of the elements as
+3 3
+
+in which h e is the longest length of the edges of the element and α is a positive constant [71]. In this paper, the stabilized parameter α is ﬁxed at 0.1 for both static and free vibration analyses. 4.2 Formulation of CS-MIN3
+
+w=
+I =1
+
+NI wI +
+I =1 3
+
+H I βx I In the CS-MIN3, each triangular element is divided into three sub-triangles by connecting the central point of the element to three ﬁeld nodes, and the displacement vector at the central point is assumed to be the average of three displacement vectors of ﬁeld nodes. In each sub-triangles, MIN3 is used to compute the strains, and then the strain smoothing technique on whole triangular element is used to smooth the strains on these three sub-triangles. Hence, the continuous shear constraints in CS-MIN3 will be satisﬁed at three element edges, and also at three interior lines connecting the central point with three ﬁeld nodes. The CS-MIN3 is hence softer than MIN3, and shows many superior properties compared to than the MIN3 and other triangular plate elements. Consider a typical triangular element e as shown in Fig. 4. We now divide the element into three sub-triangles 1 , 2 and 3 by connecting the central point O with three ﬁeld nodes as shown in Fig. 4. The coordinates x O = [x O y O ]T of the central point O are calculated by xO = (26) 1 (x1 + x2 + x3 ) ; 3 yO = 1 (y1 + y2 + y3 ) 3 (31)
+
++
+I =1
+
+L I β y I = Nw + Lβ x + Hβ y
+
+(23)
+
+where w T = [w1 w2 w3 ] , H = [H1 H2 H3 ] , L = [L 1 L 2 L 3 ] are the vectors of shape functions, with H I and L I , I = 1, 2, 3, given by H1 = H2 = H3 = L1 = L2 = L3 = 1 (a2 N3 N1 − a3 N1 N2 ) ; 2 1 (a3 N1 N2 − a1 N2 N3 ) ; 2 1 (a1 N2 N3 − a2 N3 N1 ) 2 1 (b3 N1 N2 − b2 N3 N1 ) ; 2 1 (b1 N2 N3 − b3 N1 N2 ) ; 2 1 (b2 N3 N1 − b1 N2 N3 ) 2
+
+(24)
+
+(25)
+
+MIN3 , is now given by The element stiffness matrix, Ke MIN3 = Ke
+e
+
+BT Db Bd
+
++
+e
+
+ST Ds Sd
+
+where xi = [xi yi ]T , i = 1, 2, 3, are coordinates of three ﬁeld nodes, respectively.
+
+123
+
+Author's personal copy
+Comput Mech
+
+1
+central point sub-triangle
+
+⎡ ⎤ d 1 1 1 1 ⎣ e1 ⎦ 1 1 γ 1 = s1 + s2 1 s1 + s3 1 s1 de2 = S 3 3 3 de3
+S
+1
+
+1
+
+de
+
+Δ1
+2
+
+(37)
+
+O
+
+Δ2
+
+Δ3
+3
+
+Fig. 4 Three sub-triangles ( 1 , 2 and 3 ) created from the triangle 1-2-3 in the CS-MIN3 by connecting the central point O with three ﬁeld nodes 1, 2 and 3
+
+In the CS-MIN3, we assume that the displacement vector deO at the central point O is the simple average of three displacement vectors de1 , de2 and de3 of three ﬁeld nodes 1 deO = (de1 + de2 + de3 ) (32) 3 On the ﬁrst sub-triangle 1 (triangle O-1-2), we now construct linear approximation ue 1 by ue = N1 (x)deO + N2 (x)de1 + N3 (x)de2 = N
+1 1 1 1 1
+
+Similarly, for the second sub-triangle 2 (triangle O-2-3) and third sub-triangle 3 (triangle O-3-1), the curvatures of the deﬂection κ j , the altered shear strains γ j and matrices B j , S j , j = 2, 3, respectively, can be obtained by cyclic permutation. Now, applying the cell-based strain smoothing operation in the CS-FEM [51,52], the bending strains κ 1 , κ 2 , κ 3 and shear strains γ 1 , γ 2 , γ 3 are, respectively, used to ˜ create a smoothed bending strain κe and a smoothed shear ˜ strain γe on the element e , such as: ˜ κe =
+e
+
+κ +κ
+
+h
+
+e
+
+(x) d
+
+=κ
+
+1 1
+
+e
+
+(x) d
+
+2 2
+
+e
+
+(x) d
+
++κ
+
+3 3
+
+e
+
+(x) d
+
+(38)
+
+d
+
+1
+
+(33) where d 1 = [deO de1 de2 ]T is the vector of nodal DOF of the sub-triangle 1 and N 1 = N1 1 N2 1 N3 1 is the vector containing the linear shape functions at nodes O, 1, 2 of the sub-triangle 1 . The curvatures of the deﬂection κ 1 and the altered shear strains γ 1 in the sub-triangle 1 are then obtained by ⎡ ⎤ deO (34) κ 1 = b1 1 b2 1 b3 1 ⎣ de1 ⎦ = b 1 d 1 de2
+b
+1
+
+˜ γe =
+e
+
+γh
+
+e
+
+(x) d
+
+=γ
+
+1 1
+
+e
+
+(x) d
+
++γ
+
+2 2
+
+e
+
+(x) d
+
++γ
+
+3 3
+
+e
+
+(x) d
+
+(39)
+
+⎡
+
+γ
+
+1
+
+= s1 1 s2 1 s3 1
+s
+1
+
+⎤ deO ⎣ de1 ⎦ = s de2
+
+where e (x) is a given smoothing function that satisﬁes at least unity property e e (x) d = 1. Using the follow1/Ae x ∈ e ing constant smoothing function e (x) = , 0 x∈ e / where Ae is the area of the triangular element, the smoothed ˜ bending strain κe and the smoothed shear strain γe in Eqs. ˜ (38) and (39) become ˜ κe = ˜ γe = A A
+1
+
+1
+
+d
+
+1
+
+(35)
+
+κ γ
+
+1
+
++A +A
+
+κ Ae
+2 2
+
+2
+
++A +A
+
+3
+
+κ γ
+
+3
+
+; (40)
+
+where b 1 and s 1 are, respectively, computed similarly as the matrices B and S of the MIN3 in Eqs. (27) and (28) but with one adjustment: the coordinates of three node xi = [xi yi ]T , i = 1, 2, 3 are replaced by x O , x1 and x2 , respectively. Substituting deO in Eq. (32) into Eqs. (34) and (35), and then rearranging we obtain ⎡ ⎤ d 1 1 1 1 1 1 ⎣ e1 ⎦ de2 = B 1 de κ 1 = b1 + b2 1 b1 + b3 1 b1 3 3 3 de3
+B
+1
+
+1
+
+1
+
+γ
+
+2
+
+3
+
+3
+
+Ae
+
+where A 1 , A 2 and A 3 are the areas of the sub-triangles 2 , 2 , and 3 , respectively. Substituting κ j and γ j , j = 1, 2, 3, into Eq. (40), the ˜ smoothed bending strain κe and the smoothed shear strain γ e are expressed by ˜ ˜ ˜ ˜ κe = Bde ; γe = Sde (41)
+
+(36)
+
+˜ where B is the smoothed bending strain gradient matrix given by
+
+123
+
+Author's personal copy
+Comput Mech
+
+(a)
+
+(b)
+
+(c)
+
+Fig. 5 Square plate models and their discretizations using triangular elements, a clamped plate, b simply supported plate, c four discretizations of a quarter of plate using triangular elements
+
+A ˜ B=
+
+1
+
+B
+
+1
+
++A
+
+B Ae
+2
+
+2
+
++A
+
+3
+
+B
+
+3
+
+(42)
+
+nodal unknowns in the CS-MIN3 are the same as those in the MIN3 of the same mesh.
+
+˜ and S is the smoothed shear strain gradient matrix given by A ˜ S=
+1
+
+S
+
+1
+
++A
+
+S Ae
+2
+
+2
+
++A
+
+3
+
+S
+
+3
+
+(43)
+
+5 Numerical results In this section, various numerical examples are performed to show the accuracy and stability of the proposed CS-MIN3 compared to the analysis solutions. For comparison, several other elements such as DSG3 [47], ES-DSG3 [14], MIN3 [48] and MITC4 [35] have also been implemented in our package. 5.1 Static analysis The patch test is performed and CS-MIN3 element passes the patch test within machine precision.
+
+Therefore the global stiffness matrix of the CS-MIN3 are assembled by ˜ K=
+Ne e=1
+
+˜ Ke
+
+(44)
+
+˜ where Ke is the smoothed element stiffness given by ˜ Ke =
+e
+
+˜ ˜ BT Db B d +
+e
+
+˜ ˆ ˜ ST Ds S d
+
+˜ ˜ = BT Db BAe
+
+˜ ˆ ˜ + ST Ds SAe (45) Note that the rank of the CS-MIN3 element is similar to that of the MIN3 element and hence the temporal stability of the CS-MIN3 element is ensured. Only three eigenvalues are always zero (corresponding to the rigid body modes of the element) for various element shapes of very thin and thick plates, and the CS-MIN3 element has no spurious zeroenergy modes as shown in various numerical examples in Sect. 5. Also note that the introduction of the central points in the triangular elements in the CS-MIN3 is only for the intermediate formulation of the element stiffness matrix. In the ﬁnal form of element stiffness matrix as shown in Eq. (45), the nodal displacement vectors of the central points will be replaced by those of three vertex nodes. Hence no extra DOF are associated with these central points. This means that the
+
+5.1.1 Square plate Figure 5a and b describe the models of a square plate (length L, thickness t) with clamped (w = βn = βs = 0) and simply supported (w = βs = 0) boundary conditions subjected to a uniform load q = 1, respectively. The material parameters are given by Young’s modulus E = 1.092.000 and Poisson’s ratio ν = 0.3. Five uniform discretizations N × N of plate with N =4, 8, 10, 12 and 16 are used and a quarter of these discretizations are plotted in Fig. 5c. The detailed expressions of analytical solutions can be found by Taylor and Auricchio [42]. First, a shear locking test using a coarse mesh (mesh 12 × 12) for the clamped plate is performed and the central deﬂection and central moment are shown in Fig. 6. The results show that similarly to DSG3, MIN3, ES-DSG3
+
+123
+
+Author's personal copy
+Comput Mech
+
+(a)
+
+(b)
+
+Fig. 6 Results of various methods in the shear locking test of the clamped square plate subjected to uniform load with mesh 12 × 12, a central deﬂection, b central moment
+
+(a)
+
+(b)
+
+Fig. 7 Convergence of results of clamped square plate with t/L = 0.001, a central deﬂection, b central moment
+
+(a)
+
+(b)
+
+Fig. 8 Convergence of results of clamped square plate with t/L = 0.1, a central deﬂection, b central moment
+
+123
+
+Author's personal copy
+Comput Mech
+
+Fig. 9 Comparison of the computational time of clamped square plate with t/L = 0.1
+
+and MITC4, the CS-MIN3 also provides a locking-free solution when the plate thickness becomes progressively small.
+
+For the clamped plate, the convergence of the central deﬂection and the central moment against the different mesh densities N × N for the thin plate (ratio t/L = 0.001) and thick plate (ratio t/L = 0.1) are plotted in Figs. 7 and 8, respectively. It is seen that with the same DOF, the CS-MIN3 is worse than the MITC4 but better than the DSG3 and MIN3 for both thin and thick plates. Compared to the ES-DSG3, the CS-MIN3 usually gives better results for thin plates, but a little worse results for thick plates. Figure 9 compares the computational time of methods for the clamped plate with t/L = 0.1. It is seen that with the same set of nodes, the CS-MIN3 takes a longer time to solve than the MIN3 and MITC4, but a little better than the ES-DSG3. For the simply supported plate (w = βs = 0), the convergence of the central deﬂection and the central moment against the different mesh densities N × N for the thin plate (ratio t/L = 0.001) and thick plate (ratio t/L = 0.1) are plotted in Figs. 10 and 11. It is again conﬁrmed the obtained comments as in the above clamped plate.
+
+(a)
+
+(b)
+
+Fig. 10 Convergence of results of simply supported square plate (w = βs = 0) with t/L = 0.001, a central deﬂection, b central moment
+
+(a)
+
+(b)
+
+Fig. 11 Convergence of results of simply supported square plate (w = βs = 0) with t/L = 0.1, a central deﬂection, b central moment
+
+123
+
+Author's personal copy
+Comput Mech
+
+(a)
+
+(b)
+
+Fig. 12 a A simply supported (w = 0) skew Morley’s model, b four discretizations of a quarter of plate using triangular elements
+
+discretizations N × N of plate with N = 4, 8, 10, 12 and 16 are used and a quarter of these discretizations are plotted in Fig. 12b. The convergence of the deﬂection and principal moments at the central point by various methods are plotted in Figs. 13 and 14. It is seen that the CS-MIN3 shows remarkably excellent performance compared to the DSG3, MIN3 and even MITC4, and is a good competitor to the ES-DSG3. These results hence imply that for problems with skew geometries, the CS-MIN3 can give high accurate solutions and is a strong competitor to many existing plate elements.
+
+Fig. 13 Convergence of deﬂection at the central point of Morley plate (with L/t = 1,000) by various methods
+
+5.2 Free vibration analysis of plates In this section, we investigate the accuracy and efﬁciency of the CS-MIN3 element for analyzing natural frequencies of plates. The plate may have free (F), simply (S) supported or clamped (C) edges. The symbol, CFSF, for instance, represents clamped, free, supported and free boundary conditions along the edges of rectangular plate. A non-dimensional frequency parameter is often used to stand for the frequencies and the obtained results use the regular meshes. The results of the CS-MIN3 are then compared to analytical solutions and other numerical results which are available in the literature.
+
+5.1.2 Skew plate We now consider a rhombic plate with simply supported (w = 0) boundary conditions subjected to a uniform load q = 1 as shown in Fig. 12a. This plate was originally studied by Morley [72]. Geometry and material parameters are given by length L = 100, thickness t = 0.1, Young’s modulus E = 10.92 and Poisson’s ratio ν = 0.3. Five uniform
+
+(a)
+
+(b)
+
+Fig. 14 Convergence of results of at the central point of Morley plate (with L/t = 1, 000), a max principal moment, b min principal moment
+
+123
+
+Author's personal copy
+Comput Mech
+
+than the consistent mass matrix. For the displacement-based plate elements, the stiffness matrix K is usually stiffer than the real stiffness matrix. Using the lumped mass matrix instead of consistent mass matrix in the displacement-based plate elements will hence soften the over-stiffness of the system and will help to give much more accurate eigen frequency prediction. 5.2.1 Square plate We now consider square plates of length L and thickness t. The material parameters are Young’s modulus E = 2.0 × 1011 , Poisson’s ratio ν = 0.3 and the density mass ρ = 8, 000. A non-dimensional frequency parameter = (ω2 ρa 4 t/D)1/4 is used, where D = Et 3 /(12(1 − ν 2 )) is the ﬂexural rigidity of the plate. First, we analyze two thin and thick SSSS plates corresponding to thickness-to-length t/L = 0.005 and t/L = 0.1. The geometry of the plate is shown in Fig. 5b, and four uniform discretizations N × N of plate with N = 4, 8, 16, and 24 are used and a quarter of these discretizations are plotted in Fig. 5c. Figure 15 shows the affection of using of the lumped mass matrix and the consistent mass matrix by Eq. (17) to the ﬁrst frequency of the CS-MIN3. It is seen that the results of
+
+Fig. 15 Affection of the lumped mass matrix and consistent mass matrix to the ﬁrst frequency of the CS-MIN3
+
+Also note that, in dynamic analysis using the CS-MIN3, we can use the usual consistent mass matrix deﬁned in Eq. (17) to compute. However, in this paper for computational efﬁciency [69], the well-known lumped mass matrix is used. The reason is that the lumped mass matrix is usually softer
+Table 2 Convergence of six lowest non-dimensional frequency parameters of a SSSS thin square plate (t/L = 0.005)
+
+Meshing
+
+Methods
+
+Mode sequence number 1 2 8.8148 8.6812 8.1996 8.0734 7.1241 7.4926 7.4049 7.2981 7.2519 7.0536 7.1502 7.1174 7.087 7.0792 7.031 7.0796 7.0653 7.0511 7.0440 7.0270 7.025 3 11.8281 10.0678 9.4593 8.0734 7.2503 8.2237 7.6488 7.4659 7.2519 7.0791 7.3169 7.1704 7.1193 7.0792 7.0367 7.1459 7.0879 7.0648 7.0440 7.0295 7.025 4 13.4126 12.9804 11.5035 10.305 9.0931 10.2755 9.9064 9.6486 9.2004 8.975 9.3628 9.1459 9.0582 8.9611 8.9051 9.1026 8.9998 8.9583 8.9094 8.8931 8.886 5 18.1948 17.2128 14.2016 15.0109 10.0933 11.6968 11.2774 10.8937 10.7796 10.0418 10.3772 10.2473 10.1444 10.1285 9.959 10.1256 10.0706 10.0231 10.0059 9.94400 9.935 6 19.2897 18.9643 15.0164 15.0109 10.1619 12.4915 11.4598 11.028 10.7796 10.0477 10.4461 10.257 10.1489 10.1285 9.9592 10.1371 10.0724 10.0238 10.0059 9.94400 9.935
+
+4×4
+
+DSG3 MIN3 ES-DSG3 MITC4 CS-MIN3
+
+5.5626 5.0409 4.9168 4.6009 4.4965 4.7327 4.5804 4.5376 4.4812 4.4543 4.5131 4.4759 4.4641 4.4522 4.4453 4.4718 4.4572 4.4519 4.4458 4.4438 4.443
+
+8×8
+
+DSG3 MIN3 ES-DSG3 MITC4 CS-MIN3
+
+16 × 16
+
+DSG3 MIN3 ES-DSG3 MITC4 CS-MIN3
+
+24 × 24
+
+DSG3 MIN3 ES-DSG3 MITC4 CS-MIN3 Exact [73]
+
+123
+
+Author's personal copy
+Comput Mech Table 3 Convergence of six lowest non-dimensional frequency parameters of a SSSS thick square plate (t/L = 0.1) Meshing Methods Mode sequence number 1 4×4 DSG3 MIN3 ES-DSG3 MITC4 CS-MIN3 8×8 DSG3 MIN3 ES-DSG3 MITC4 CS-MIN3 16 × 16 DSG3 MIN3 ES-DSG3 MITC4 CS-MIN3 24 × 24 DSG3 MIN3 ES-DSG3 MITC4 CS-MIN3 Exact [73] 4.997 4.9129 4.7376 4.5146 4.4032 4.4891 4.5114 4.4433 4.4025 4.3743 4.3943 4.4297 4.3846 4.3753 4.3683 4.3785 4.4157 4.3744 4.3694 4.3672 4.37 2 8.149 8.4029 7.658 7.6192 6.7790 7.0697 7.2165 6.9495 6.9402 6.7560 6.8227 6.9612 6.7922 6.7918 6.7470 6.7788 6.9163 6.7651 6.7618 6.7454 6.74 3 9.4311 9.3892 8.4524 7.6192 6.8435 7.253 7.3557 7.0727 6.9402 6.7712 6.8587 6.9892 6.8196 6.7918 6.7511 6.7940 6.9282 6.7770 6.7618 6.7472 6.74 4 11.354 12.1445 10.1882 9.4471 8.3901 9.1263 9.3924 8.8487 8.6082 8.3830 8.5447 8.7917 8.4744 8.4166 8.3623 8.4383 8.6873 8.4072 8.3757 8.3580 8.35 5 14.129 15.608 12.1227 12.2574 9.0714 10.2195 10.6582 9.8575 9.8582 9.2329 9.4557 9.8071 9.3666 9.3728 9.2256 9.3243 9.6642 9.2845 9.2800 9.2235 9.22 6 14.9353 16.9309 12.7533 12.2574 9.0889 10.3361 10.7313 9.9221 9.8582 9.2341 9.4616 9.8107 9.3698 9.3728 9.2257 9.3254 9.6648 9.2851 9.2800 9.2235 9.22
+
+(a)
+
+(b)
+
+Fig. 16 Six lowest frequencies of SSSS square plates discretized by a uniform mesh 4 × 4, a thin plate (t/L = 0.005), b thick plate (t/L = 0.1)
+
+the CS-MIN3 using the lumped mass matrix are much more accurate than those of the CS-MIN3 using the consistent mass matrix, and even better than those of the MITC4 (using the consistent mass matrix). In this paper, we hence use the lumped mass matrix for the CS-MIN3 in all free vibration analyses with the aim of increasing the accuracy of solutions and computational efﬁciency. Tables 2 and 3 give the convergence of six lowest frequencies of thin plate (t/L = 0.005) and thick plate (t/L = 0.1),
+
+respectively. In addition, Figs. 16 and 17 plot the values of six lowest frequencies of thin plate (t/L = 0.005) and thick plate (t/L = 0.1) for two uniform meshes 4 × 4 and 24 × 24, respectively. It is observed that the results of CS-MIN3 agree excellently with the analytical results [73] and are much more accurate than those of the others elements for both thin and thick plates, and for both coarse and ﬁne meshes. In particular, the CS-MIN3 can provide accurately the values of high frequencies of plates by using only coarse meshes.
+
+123
+
+Author's personal copy
+Comput Mech
+
+(a)
+
+(b)
+
+Fig. 17 Six normalized lowest frequencies (ωh /ωexact ) of SSSS square plates discretized by a uniform mesh 24 × 24, a thin plate (t/L = 0.005), b thick plate (t/L = 0.1)
+
+Table 4 Convergence of six lowest non-dimensional frequency parameters of a CCCC thin square plate (t/L = 0.005)
+Meshing Methods Mode sequence number 1
+4×4
+
+Table 5 Convergence of six lowest non-dimensional frequency parameters of a CCCC thick square plate (t/L = 0.1)
+Meshing Methods Mode sequence number 1
+4×4
+
+2
+
+3
+14.9652
+
+4
+17.2579 16.3547 13.0548 13.9505 10.3804 12.9981 12.1067 11.5616 11.0186 10.5863 11.2452 10.8435 10.6584 10.5443 10.4502 10.7808 10.5952 10.5029 10.4389 10.4215 10.407
+
+5
+21.389 20.979 15.4035 62.6046 11.0673 14.5306 13.632 12.795 12.9981 11.701 12.2182 11.9680 11.743 11.7989 11.5285 11.7863 11.6856 11.5795 11.5797 11.4936 11.472
+
+6
+21.76 21.9197 15.936 62.6054 11.2107 15.3143 13.8879 13.0357 13.0263 11.7459 12.2992 12.0010 11.772 11.8266 11.5556 11.8148 11.7114 11.6056 11.6077 11.5205 11.498 24 × 24 16 × 16 8×8
+
+2
+9.8938
+
+3
+11.0847 12.0792 9.6625 9.5753 8.0481 8.6293 9.0456 8.2701 8.2257 7.9111 8.0525 8.4288 7.9627 7.9601 7.8965 7.9537 8.3246 7.9133 7.9048 7.8856 7.88
+
+4
+12.6362 14.5388 10.9112 11.2543 9.2126 10.2985 11.0107 9.8397 9.731 9.3563 9.5772 10.1422 9.4499 9.423 9.3442 9.4376 9.9873 9.379 9.3559 9.334 9.33
+
+5
+15.1032 18.102 12.6101 14.0894 9.6233 11.3415 12.3554 10.76 10.9921 10.1380 10.4153 11.1503 10.2631 10.3257 10.1319 10.251 10.947 10.1815 10.1957 10.1263 10.13
+
+6
+15.6402 19.132 13.136 14.1377 9.7156 11.5397 12.5117 10.896 11.0457 10.1875 10.4697 11.193 10.3126 10.3752 10.1803 10.2992 10.9855 10.2289 10.2446 10.1744 10.18
+
+DSG3 MIN3 ES-DSG3 MITC4 CS-MIN3
+
+8.4197 12.772
+
+DSG3 MIN3 ES-DSG3 MITC4 CS-MIN3 DSG3 MIN3 ES-DSG3 MITC4 CS-MIN3 DSG3 MIN3 ES-DSG3 MITC4 CS-MIN3 DSG3 MIN3 ES-DSG3 MITC4 CS-MIN3 Exact [73]
+
+6.8748
+
+7.4097 11.7631 13.4014 6.9741 10.1934 11.4756 6.5638 11.5231 11.5231 6.1712 6.7161 6.346 6.1982 6.1235 6.0475 6.1786 6.0818 6.0355 6.0285 6.0101 6.0728 6.0346 6.0126 6.0057 6.0033 5.999 8.6783 8.9731
+
+6.9924 10.7891 6.2662 6.1612 5.8163 5.9547 6.114 5.8068 5.8079 5.7180 5.7616 5.9281 5.725 5.7288 5.7117 5.7288 5.8963 5.7123 5.7104 5.707 5.71 8.7952 9.5753 7.8647 8.3618 8.8097 8.0861 8.2257 7.8901 7.9935 8.3778 7.9211 7.9601 7.8846 7.9282 8.3026 7.8952 7.9048 7.8803 7.88
+
+8×8
+
+DSG3 MIN3 ES-DSG3 MITC4 CS-MIN3
+
+9.7867 10.5673 9.3326 9.0117 9.0602 8.6471 8.8759 8.7504 8.6535 8.6801 8.5862 8.6965 8.6464 8.5999 8.6013 8.5742 8.568 9.6896 9.2894 9.0602 8.7198 9.068 8.8301 8.7081 8.6801 8.603 8.7757 8.6806 8.623 8.6013 8.5816 8.568
+
+16 × 16
+
+DSG3 MIN3 ES-DSG3 MITC4 CS-MIN3
+
+24 × 24
+
+DSG3 MIN3 ES-DSG3 MITC4 CS-MIN3 Exact [73]
+
+Next, we analyze two thin and thick CCCC square plates shown in Fig. 5a. Four uniform meshes and two ratios of thickness-to-length t/L are similar to those of the SSSS plate case. Tables 4 and 5 give the convergence of six lowest frequencies of thin plate (t/L = 0.005) and thick plate (t/L = 0.1), respectively. In addition, Figs. 18 and 19 plot the values of six lowest frequencies of thin plate (t/L = 0.005) and thick plate (t/L = 0.1) for two uniform meshes 4×4 and 24×24, respectively. Again it is seen that the obtained
+
+comments in the SSSS plates are conﬁrmed for the CCCC plates. 5.2.2 Skew plate We now consider the thin (t/L = 0.001) and thick (t/L = 0.2) cantilever rhombic (CFFF) plates. The geometry of the ◦ plate is illustrated in Fig. 20a with skew angle α = 60 . The
+
+123
+
+Author's personal copy
+Comput Mech
+
+(a)
+
+(b)
+
+Fig. 18 Six lowest frequencies of CCCC square plates discretized by mesh 4 × 4, a thin plate (t/L = 0.005), b thick plate (t/L = 0.1)
+
+(a)
+
+(b)
+
+Fig. 19 Six normalized lowest frequencies (ωh /ωexact ) of CCCC square plates discretized by uniform mesh 24 × 24, a thin plate (t/L = 0.005), b thick plate (t/L = 0.1)
+
+(a)
+
+(b)
+
+Fig. 20 a A parallelogram rhombic plate with boundary condition CFFF, b four discretizations of a quarter of plate using triangular elements
+
+material parameters are Young’s modulus E = 2.0 × 1011 , Poisson’s ratio ν = 0.3 and the density mass ρ = 8, 000. A non-dimensional frequency parameter is used. Four uniform discretizations N × N of plate with N = 4, 8, 16 and 24 are used and a quarter of these discretizations are plotted in Fig. 20b. Figures 21 and 22 plot the values of six lowest frequencies of thin plate (t/L = 0.001) and thick plate (t/L = 0.2) for two uniform meshes 4 × 4 and 24 × 24, respectively. Again, it is conﬁrmed that the results of CSMIN3 agree excellently with those of the semi-analytical pb2 Ritz method [74], and are much more accurate than those
+
+DSG3, MIN3 and MITC4 for both coarse and ﬁne meshes, and is a good competitor of the ES-DSG3. In particular, the CS-MIN3 can provide accurately the values of high frequencies of plates by using only coarse meshes.
+
+6 Conclusions The cell-based strain smoothing technique is combined with the well-known MIN3 to give a so-called the CS-MIN3 for static and free vibration analyses of plates. Through
+
+123
+
+Author's personal copy
+Comput Mech
+
+(a)
+
+(b)
+
+Fig. 21 Six lowest frequencies of CFFF rhombic square plates discretized by mesh 4 × 4, a thin plate (t/L = 0.001), b thick plate (t/L = 0.2)
+
+(a)
+
+(b)
+
+Fig. 22 Six normalized lowest frequencies (ωh /ωexact ) of CFFF rhombic square plates discretized by mesh 24 × 24, a thin plate (t/L = 0.001), b thick plate (t/L = 0.2)
+
+the formulations and numerical examples, some concluding remarks can be drawn as follows: • The CS-MIN3 uses only three DOFs at each vertex node without additional DOF. The CS-MIN3 is free of shear locking and passes the patch test. • The CS-MIN3 only use the triangular elements which is a clear advantage compared to using four-node quadrilateral elements of MITC4. This advantage will be seen clearer when the geometry domain of plate is skew or complicated. • For static analysis, the results of the CS-MIN3 agree well with analytical solutions and results of several other published elements in the literature. The CS-MIN3 is much more accurate than DSG3, MIN3 and is a good competitor to ES-DSG3, MITC4 for some cases. • For free vibration analysis, the CS-MIN3 is stable temporally, agrees well with analytical solutions and shows some superior properties. The CS-MIN3 gives more accu-
+
+rate results than the DSG3, MIN3, MITC4 and ES-DSG3 and shows to be a strong competitor to existing complicated quadrilateral plate elements such as the Rayleigh– Ritz method, the pb-2 Ritz method. In particular, the CS-MIN3 can provide accurately the values of high frequencies of plates by using only coarse meshes. • For the problems with skew geometries, the CS-MIN3 shows to be a strong competitor to others methods. Note that, the performance of CS-MIN3 is also simple and only based on elements, the CS-MIN3 hence can be extended to geometrical nonlinear problems easily by adding to a non-linear membrane strain and using the total Lagrangian approach and arc-length technique as performed in the [53]. Furthermore, CS-MIN3 can be extended easily to the ﬂat shell element in which each node will have 6 DOF, and a transformation matrix of coordinates needs to be used to transform the global coordinate system to the local coordinate system as performed in [75]. This extension hence highlights
+
+123
+
+Author's personal copy
+Comput Mech
+
+the advantage of CS-MIN3 which uses only triangular elements, because the geometry of shell structures is often much more complicated than that of plate structures. In addition, the extension of CS-MIN3 for the implementation of material nonlinear behaviour in plate problems will be veriﬁed in coming time.
+Acknowledgements This work was supported by Vietnam National Foundation for Science and Technology Development (NAFOSTED), Ministry of Science and Technology, under the basic research program (Project no.: 107.02.2010.01).
+
+References
+1. Zienkiewicz OC, Taylor RL (2000) The ﬁnite element method, vol. 2. Solid mechanics. 5. Butterworth Heinemann, Oxford 2. Bathe KJ (1996) Finite element procedures. Prentice-Hall, Upper Saddle River 3. Henry Yang TY, Saigal S, Masud A, Kapania RK (2000) A survey of recent shell ﬁnite elements. Int J Numer Methods Eng 47:101– 127 4. Mackerle J (1997) Finite element linear and nonlinear, static and dynamic analysis of structural elements: a bibliography (1992– 1995). Eng Comput 14(4):347–440 5. Mackerle J (2002) Finite element linear and nonlinear, static and dynamic analysis of structural elements: a bibliography (1999– 2002). Eng Comput 19(5):520–594 6. Leissa AW (1969) Vibration of plates. NASA, SP-160, Washington, DC 7. Leissa AW (1987) A review of laminated composite plate buckling. Appl Mech Rev 40(5):575–591 8. Robert DB (1979) Formulas for natural frequency and mode shape. Van Nostrand Reinhold, New York 9. Liew KM, Xiang Y, Kitipornchai S (1995) Research on thick plate vibration: a literature survey. J Sound Vib 180(1):163–176 10. Reddy JN (2006) Theory and analysis of elastic plates and shells. CRC Press, Taylor and Francis Group, New York 11. Gruttmann F, Wagner W (2004) A stabilized one-point integrated quadrilateral Reissner–Mindlin plate element. Int J Numer Methods Eng 61:2273–2295 12. Brasile S (2008) An isostatic assumed stress triangular element for the Reissner–Mindlin plate-bending problem. Int J Numer Methods Eng 74:971–995 13. Cen S, Long YQ, Yao ZH, Chiew SP (2006) Application of the quadrilateral area co-ordinate method: a new element for Mindlin– Reissner plate. Int J Numer Methods Eng 66:1–45 14. Nguyen-Xuan H, Liu GR, Thai-Hoang C, Nguyen-Thoi T (2009) An edge-based smoothed ﬁnite element method with stabilized discrete shear gap technique for analysis of Reissner–Mindlin plates. Comput Methods Appl Mech Eng 199:471–489 15. Ayad R, Dhatt G, Batoz JL (1998) A new hybrid-mixed variational approach for Reissner–Mindlin plates. The MiSP model. Int J Numer Methods Eng 42:1149–1179 16. Ayad R, Rigolot A (2002) An improved four-node hybrid-mixed element based upon Mindlin’s plate theory. Int J Numer Methods Eng 55:705–731 17. Soh AK, Cen S, Long YQ, Long ZF (2001) A new twelve DOF quadrilateral element for analysis of thick and thin plate. Eur J Mech A 20(2):299–326 18. Cen S, Long YQ, Yao ZH (2002) A new hybrid-enhanced displacement-based element for the analysis of laminated composite plates. Comput Struct 80((9–10):819–833
+
+19. Cen S, Soh AK, Long YQ, Yao ZH (2002) A new 4-node quadrilateral FE model with variable electrical degrees of freedom for the analysis of piezoelectric laminated composite plates. Compos Struct 58(4):583–599 20. Zienkiewicz OC, Taylor RL, Too JM (1971) Reduced integration techniques in general of plates and shells. Int J Numer Methods Eng 3:275–290 21. Hughes TJR, Taylor RL, Kanoknukulchai W (1977) A simple and efﬁcient ﬁnite element for plate bending. Int J Numer Methods Eng 11:1529–1543 22. Hughes TJR, Cohen M, Haroun M (1978) Reduced and selective integration techniques in ﬁnite element method of plates. Nucl Eng Des 46:203–222 23. Belytschko T, Tsay CS, Liu WK (1981) A stabilization matrix for the bilinear Mindlin plate element. Comput Methods Appl Mech Eng 29:313–327 24. Belytschko T, Tsay CS (1983) A stabilization procedure for the quadrilateral plate element with one point quadrature. Int J Numer Methods Eng 19:405–419 25. Bergan PG, Wang X (1984) Quadrilateral plate bending elements with shear deformations. Comput Struct 19(1–2):25–34 26. Hinton E, Huang HC (1986) A family of quadrilateral Mindlin plate element with substitute shear strain ﬁelds. Comput Struct 23(3):409–431 27. Lee SW, Pian THH (1978) Finite elements based upon Mindlin plate theory with particular reference to the four-node isoparametric element. AIAA J 16:29–34 28. Lee SW, Wong C (1982) Mixed formulation ﬁnite elements for Mindlin theory plate bending. Int J Numer Methods Eng 18:1297– 1311 29. Lovadina C (1998) Analysis of a mixed ﬁnite element method for the Reissner–Mindlin plate problems. Comput Methods Appl Mech Eng 163:71–85 30. Miranda SD, Ubertini F (2006) A simple hybrid stress element for shear deformable plates. Int J Numer Methods Eng 65:808–833 31. Hughes TJR, Tezduzar TE (1981) Finite elements based upon Mindlin plate theory with particular reference to the four-node bilinear isoparametric element. J Appl Mech 48(3):587–596 32. Bathe KJ, Brezzi F (1985) On the convergence of a four-node plate bending element based on Mindlin–Reissner plate theory and a mixed interpolation. In: Whiteman J (ed) Proceedings of the conference on mathematics of ﬁnite elements and applications. Academic Press, New York pp 491–503 33. Bathe KJ, Brezzi F (1987) A simpliﬁed analysis of two plate bending elements—the MITC4 and MITC9 elements. Proceedings of the conference NUMETA, University College of Swansea, Wales 34. Brezzi F, Bathe KJ, Fortin M (1989) Mixed-interpolated elements for Reissner–Mindlin plates. Int J Numer Methods Eng 28:1787– 1801 35. Bathe KJ, Dvorkin EN (1985) A four-node plate bending element based on Mindlin–Reissner plate theory and a mixed interpolation. Int J Numer Methods Eng 21:367–383 36. Dvorkin EN, Bathe KJ (1984) A continuum mechanics based fournode shell element for general non-linear analysis. Eng Comput 1:77–78 37. Bathe KJ, Dvorkin EN (1986) A formulation of general shell elements—the use of mixed interpolation of tensorial components. Int J Numer Methods Eng 22:697–722 38. Bathe KJ, Cho SW, Buchalem ML (1989) On our MITC plate bending shell elements. In: Noor AK, Belytschko T, Simo JC (eds) Analytical and computational models for shells, CED. ASME, New York, pp 261–278 39. Onate E, Zienkiewicz OC, Suarez B, Taylor RL (1992) A general methodology for deriving shear constrained Reissner–Mindlin plate elements. Int J Numer Methods Eng 33:345–367
+
+123
+
+Author's personal copy
+Comput Mech 40. Onate E, Castro J (1992) Derivation of plate based on assumed shear strain_elds. In: Ladev_eze P, Zienkiewicz OC (eds) New Advances in computational structural mechanics. Elsevier, Amsterdam, pp 237–288 41. Zienkiewicz OC, Xu Z, Zeng LF, Samuelson A, Wiberg NE (1993) Linked interpolation for Reissner–Mindlin plate elements. Part I—a simple quadrilateral. Int J Numer Methods Eng 36:3043–3056 42. Taylor RL, Auricchio F (1993) Linked interpolation for Reissner– Mindlin plate element. Part II—a simple triangle. Int J Numer Methods Eng 36:3057–3066 43. Batoz JL, Bathe KJ, Ho LW (1980) A study of three-node triangular plate bending elements. Int J Numer Methods Eng 15:1771– 1812 44. Batoz JL, Tahar MB (1982) Evaluation of a new quadrilateral thin plate bending element. Int J Numer Methods Eng 18:1655–1677 45. Katili I (1993) A new discrete Kirchhoff–Mindlin element based on Mindlin–Reissner plate theory and assumed shear strain ﬁelds— Part I: an extended DKT element for thick-plate bending analysis. Int J Numer Methods Eng 36:1859–1883 46. Katili I (1993) A new discrete Kirchhoff–Mindlin element based on Mindlin–Reissner plate theory and assumed shear strain ﬁelds— Part II: an extended DKQ element for thick-plate bending analysis. Int J Numer Methods Eng 36:1885–1908 47. Bletzinger KU, Bischoff M, Ramm E (2000) A uniﬁed approach for shear-locking free triangular and rectangular shell ﬁnite elements. Comput Struct 75:321–334 48. Tessler A, Hughes TJR (1985) A three-node mindlin plate element with improved transverse shear. Comput Methods Appl Mech Eng 50:71–101 49. Liu GR, Nguyen-Thoi T (2010) Smoothed ﬁnite element methods. CRC Press, Taylor and Francis Group, NewYork 50. Chen JS, Wu CT, Yoon S, You Y (2001) A stabilized conforming nodal integration for Galerkin mesh-free methods. Int J Numer Methods Eng 50:435–466 51. Liu GR, Dai KY, Nguyen-Thoi T (2007) A smoothed ﬁnite element for mechanics problems. Comput Mech 39:859–877 52. Liu GR, Nguyen-Thoi T, Dai KY, Lam KY (2007) Theoretical aspects of the smoothed ﬁnite element method (SFEM). Int J Numer Methods Eng 71:902–930 53. Cui XY, Liu GR, Li GY, Zhao X, Nguyen-Thoi T, Sun GY (2008) A smoothed ﬁnite element method (SFEM) for linear and geometrically nonlinear analysis of plates and shells. Comput Model Eng Sci 28(2):109–125 54. Nguyen-Xuan H, Nguyen-Thoi T (2009) A stabilized smoothed ﬁnite element method for free vibration analysis of Mindlin– Reissner plates. Commun Numer Methods Eng 25:882–906 55. Dai KY, Liu GR, Nguyen-Thoi T (2007) An n-sided polygonal smoothed ﬁnite element method (nSFEM) for solid mechanics. Finite Elem Anal Des 43:847–860 56. Liu GR, Nguyen-Thoi T, Nguyen-Xuan H, Lam KY (2009) A node-based smoothed ﬁnite element method (NS-FEM) for upper bound solutions to solid mechanics problems. Comput Struct 87:14–26 57. Nguyen-Thoi T, Liu GR, Nguyen-Xuan H (2009) Additional properties of the node-based smoothed ﬁnite element method (NSFEM) for solid mechanics problems. Int J Comput Methods 6:633– 666 58. Nguyen-Thoi T, Liu GR, Nguyen-Xuan H, Nguyen-Tran C (2009) Adaptive analysis using the node-based smoothed ﬁnite element method (NS-FEM). Commun Numer Methods Eng 27(2):198–218 59. Nguyen-Thoi T, Vu-Do HC, Nguyen-Xuan H (2010) A node-based smoothed ﬁnite element method (NS-FEM) for upper bound solution to visco-elastoplastic analyses of solids using triangular and tetrahedral meshes. Comput Methods Appl Mech Eng 199:3005– 3027 60. Liu GR, Nguyen-Thoi T, Lam KY (2008) A novel Alpha Finite Element Method (αFEM) for exact solution to mechanics problems using triangular and tetrahedral elements. Comput Methods Appl Mech Eng 197:3883–3897 61. Liu GR, Nguyen-Thoi T, Lam KY (2009) An edge-based smoothed ﬁnite element method (ES-FEM) for static, free and forced vibration analyses of solids. J Sound Vib 320:1100–1130 62. Nguyen-Thoi T, Liu GR, Nguyen-Xuan H (2010) An n-sided polygonal edge-based smoothed ﬁnite element method (nES-FEM) for solid mechanics. Commun Numer Methods Eng. doi:10.1002/ cnm.1375 63. Nguyen-Thoi T, Liu GR, Vu-Do HC, Nguyen-Xuan H (2009) An edge-based smoothed ﬁnite element method (ES-FEM) for viscoelastoplastic analyses of 2D solids using triangular mesh. Comput Mech 45:23–44 64. Nguyen-Xuan H, Liu GR, Nguyen-Thoi T, Nguyen-Tran C (2009) An edge–based smoothed ﬁnite element method (ESFEM) for analysis of two–dimensional piezoelectric structures. Smart Mater Struct 18:065015 65. Nguyen-Xuan H, Liu GR, Thai-Hoang C, Nguyen-Thoi T (2009) An edge-based smoothed ﬁnite element method with stabilized discrete shear gap technique for analysis of Reissner–Mindlin plates. Comput Methods Appl Mech Eng 199:471–489 66. Tran Thanh N, Liu GR, Nguyen-Xuan H, Nguyen-Thoi T (2010) An edge-based smoothed ﬁnite element method for primal-dual shakedown analysis of structures. Int J Numer Methods Eng 82:917–938 67. Nguyen-Thoi T, Liu GR, Lam KY, Zhang GY (2009) A Facebased Smoothed Finite Element Method (FS-FEM) for 3D linear and nonlinear solid mechanics problems using 4-node tetrahedral elements. Int J Numer Methods Eng 78:324–353 68. Nguyen-Thoi T, Liu GR, Vu-Do HC, Nguyen-Xuan H (2009) A face-based smoothed ﬁnite element method (FS-FEM) for viscoelastoplastic analyses of 3D solids using tetrahedral mesh. Comput Methods Appl Mech Eng 198:3479–3498 69. Liu GR, Quek SS (2002) The ﬁnite element method: a practical course. Butterworth Heinemann, Oxford 70. Bischoff M, Bletzinger KU (2001) Stabilized DSG plate and shell elements, trends in computational structural mechanics. CIMNE, Barcelona 71. Lyly M, Stenberg R, Vihinen T (1993) A stable bilinear element for the Reissner–Mindlin plate model. Comput Methods Appl Mech Eng 110:343–357 72. Morley LSD (1963) Skew plates and structures. Pergamon Press, Oxford 73. Abbassian F, Dawswell DJ, Knowles NC (1987) Free vibration benchmarks softback. Atkins Engineering Sciences, Glasgow 74. Karunasena W, Liew KM, Al-Bermani FGA (1996) Natural frequencies of thick arbitrary quadrilateral plates using the pb-2 Ritz method. J Sound Vib 196:371–385 75. Nguyen-Thanh N, Timon R, Nguyen-Xuan H, Stéphane PAB (2008) A smoothed ﬁnite element method for shell analysis. Comput Methods Appl Mech Eng 198:165–177
+
+123
+

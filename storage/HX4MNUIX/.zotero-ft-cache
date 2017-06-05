@@ -1,0 +1,1004 @@
+Composite Structures 132 (2015) 166–174
+
+Contents lists available at ScienceDirect
+
+Composite Structures
+journal homepage: www.elsevier.com/locate/compstruct
+
+Application of DKMQ element for composite plate bending structures
+Irwan Katili a,⇑, Imam Jauhari Maknun a,b, Aziz Hamdouni b, Olivier Millet b
+a b
+
+Universitas Indonesia, Depok 16424, Indonesia Université de La Rochelle, La Rochelle 17000, France
+
+a r t i c l e
+
+i n f o
+
+a b s t r a c t
+This paper presents an application of DKMQ plate bending element to analyze composite structures. DKMQ element is an element proposed by Katili that passed the patch test and gives good results in many plate bending applications. It can be used to analyze thick and thin plate problem without shear locking. The application of DKMQ plate bending element for composite plate has been analyzed; the convergence of displacement is presented. As validation, the solution of Srinivas and Pagano are employed. Moreover, measuring the convergence using the s-norm is addressed. DKMQ plate bending element gives a good performance and can be used as one of tools in analyzing composite structure. Ó 2015 Elsevier Ltd. All rights reserved.
+
+Article history: Available online 6 May 2015 Keywords: DKMQ Composite structure Pagano Srinivas
+
+1. Introduction In civil, mechanical and aerospace engineering applications, the composite structures are widely used. They provide a maximum of stiffness with a minimum of weight. The researches in experimental and numerical analysis of composite structure are still conducted. The development of composite structure becomes a great interest in structural analysis. In numerical analysis, it is interesting to develop a formulation which can be used to analyze composite structures. DKMT and DKMQ elements which are able to analyze thick to thin plate bending problems have been proposed by Katili [1,2]. In the case of thin plate problem, the solution obtained with DKMT element converges to that given by DKT [3] element while the solution obtained with of DKMQ element converges to that given by DKQ [4]. It proved that DKMT and DKMQ elements are free of shear locking in thin plate problems. The formulation of DKMQ and DKMT plate elements are based on Reissner–Mindlin [5,6] hypothesis which only require C 0 continuity. They passed the patch test for thin to thick plate bending problems. The phenomenon of shear locking when the plate becomes progressively thinner is solved by using the Discrete Kirchhoff Mindlin method proposed by Katili [1,2]. The capability of DKMQ and DKMT plates elements has been tested in [1,2]. They give a good result for the problem of thin to thick plate. The development of DKMQ plate element to DKMQ24 shell element using Naghdi/Mindlin/Reissner shell theory which can take into account warping effects and coupling bending-membrane
+⇑ Corresponding author. Tel.: +62 811 8888876.
+E-mail address: irwan.katili@gmail.com (I. Katili). http://dx.doi.org/10.1016/j.compstruct.2015.04.051 0263-8223/Ó 2015 Elsevier Ltd. All rights reserved.
+
+energy has been presented in [7]. Therefore, there is a great interest to apply the formulation of DKMQ element for composite structure. Ayad et al. [8], have developed laminated composite structures by using modiﬁed discrete Mindlin hypothesis for plate structure. The formulation of DKMT plate element into facet shell element by using the optimal membrane triangular OPT element for the geometrically nonlinear analysis of laminated composite structures has been introduced by Khosravi et al. [9]. Botello et al. [10] proposed a new triangle ﬁnite element for analysis of composite plate and shells structures. They use quadratic interpolation for in-plane degrees of freedom whereas a linear-wise approximation used for the normal displacement. This element gave a good behavior for analysis of composite plate and shell structures. In this paper, we will analyze the application of DKMQ element for composite plate. The results proposed by Pagano [11,12] and Srinivas [13] will be used to validate this formulation. In general, the convergence of ﬁnite element formulation is measured using the displacement or stress at some point of the structures in function of mesh reﬁnement. It only gives the information of these points. To get the behavior of the whole structure, the s-norm is proposed in [14,15]. It was used for triangular family of MITC element [16–19]. Lee and Bathe [20] used the s-norm to evaluate the quadratic MITC plate and MITC shell elements in plate bending problems. Moreover, the application of s-norm for analyzing the shell element has been tested in [21]. 2. Formulation of DKMQ isotropic and orthotropic DKMQ (Discrete Kirchhoff–Mindlin Quadrilateral) element [2] was developed by Katili. It has four nodes and three d:o:f per node
+
+I. Katili et al. / Composite Structures 132 (2015) 166–174
+
+167
+
+only. DKMQ is a very good quadrilateral element which can take into account the transverse shear strain and it gives a good result in isotropic plate problems. It passed the patch test and gave good results in thin to thick plate problems. 2.1. Equilibrium equations
+
+2 6 ½H L  ¼ 4
+
+HLL sym
+
+HLT HTT
+
+7 0 5; GLT
+
+0
+
+3 ½GL  ¼ GLZ 0 0 GTZ
+
+! ð7Þ
+
+Mx;x þ M xy;y À T x ¼ 0 Mxy;x þ My;y À T y ¼ 0 T x;x þ T y;y þ f z ¼ 0
+where M x ; My ; Mxy are the bending moments per unit length, T x and T y are the shear forces per unit length and f z is a static distributed load. The resultants are related to the Cartesian stresses rx ; ry ; rxy ; rxz ¼ sx and ryz ¼ sy given by:
+
+ð1Þ
+
+EL ET ; HTT ¼ ; 1 À tLT tTL 1 À tLT tTL ET tLT EL tTL ¼ HLT ¼ 1 À tLT tTL 1 À tLT tTL  GLZ ¼ GLT ; GTZ or tTZ with GTZ ¼ HLL ¼
+
+ð8Þ ET 2ð1 þ tTZ Þ 
+
+Mx ¼ Tx ¼
+
+Z
+
+þh=2
+
+rx zdz; My ¼
+þh=2
+
+Z
+
+þh=2
+
+ry zdz; Mxy ¼
+
+Z
+
+þh=2
+
+rxy zdz
+
+Z
+
+Àh=2
+
+sx dz; T y ¼
+
+Z
+
+Àh=2 þh=2
+
+Àh=2
+
+sy dz
+ð2Þ
+
+EL is Young Modulus in the ﬁber direction and ET is Young Modulus in the direction transverse to the ﬁber. tLT and tTL are the poisons’s ratio in the L–T plane of orthotropy. The constitutive parameters in matrices [HL ] and [GL ] can be measured experimentally. The orthotropy direction L and T can vary for each layer and are represented by angle h between the global axis X and the directions Li of the i-th layer (Fig. 1). The matrix transformation from orthotropic to Cartesian coordinates:
+
+Àh=2
+
+Àh=2
+
+2
+
+with h is the thickness of plate. 2.2. Kinematic relations The bending strain hei and the curvature hvi are given by:
+
+6 ½RL1  ¼4 S2
+
+C2
+
+S2 C2
+
+À2CS 2CS C 2 À S2
+
+7 ÀCS 5 and : ½RL2  ¼ S ¼ sinh
+
+CS
+
+3 C S ÀS C
+
+! ð9Þ
+
+where : C ¼ cosh;
+
+Finally in Cartesian coordinate systems (X—Y), we can write the constitutive law’s as:
+
+hei ¼ h ex  hvi ¼ bx;x  hci ¼ cx
+
+ey 2exy i ¼ zhvi
+by;y  bx;y þ by;x 
+
+ 
+
+ð3Þ
+
+frg ¼ ½Hfeg fsg ¼ ½Gfcg
+where stresses and strains are:
+
+ð10Þ
+
+while the transverse shear strain are:
+
+cy ¼ w;x þ bx w;y þ by
+
+ð4Þ
+
+where bx and by are the rotations and w is the transverse displacement. 2.3. Constitutive law In the composite laminated plate structures the material is formed by orthotropic layers with orthotropic axes L–T–Z and isotropic in the plane TZ (see Fig. 1). The L axis deﬁnes the direction of the longitudinal ﬁbers which are embedded in a matrix of polymeric or metallic material. Each layer satisﬁes the plane stress assumption (rz = 0). In each layer, the constitutive relationships in the orthotropy axes (L–T–Z) are:
+
+frg ¼ h rx ry rxy i ;   and hci ¼ cx cy
+
+T
+
+feg ¼ h ex
+
+ey 2exy iT ; fsg ¼ h sx sy iT
+ð11Þ
+
+½H ¼ ½RL1 T ½HL ½RL1 ;
+
+½G ¼ ½RL2 T ½GL ½RL2 
+
+For the isotropic material:
+
+2 ½H  ¼
+
+E 6 4t 1 1 À t2 0 0
+
+1 t
+
+0
+1Àt 2
+
+3 ½G ¼ 1 0 E 2ð1 þ tÞ 0 1
+
+0 7; 5
+
+! ð12Þ
+
+E: Young modulus, t: poison ratio and G: shear modulus. The constitutive equation for the bending moments and the shear forces from Eq. (2) are given by:
+
+frL g ¼ ½HL feL g fsL g ¼ ½GL fcL g
+where:
+
+ð5Þ
+
+hrL i ¼ h rL heL i ¼ h eL
+
+rT rLT i ; hsL i ¼ h sLZ sTZ i eT 2eLT i ; hcL i ¼ h cLZ cTZ i
+
+ð6Þ
+
+9 8 9 8 9 8 9 8 bx;x > > Mx > > vx > > vx > > = < = < = < = < by;y My ¼ ½Hb  vy with : vy ¼ ; > > > > Á> ; : ; :v > ; :v > >À ; : M xy bx;y þ by;x xy xy ( ) & ' cx Tx ¼ ½H s  cy Ty
+
+ð13Þ
+
+Z
+
+L T
+
+Y
+
+T
+
+L Z
+Fig. 1. Layer orthotropic.
+
+θ X
+
+168
+
+I. Katili et al. / Composite Structures 132 (2015) 166–174
+
+For sandwich structures, [Hb ] and [Hs ] matrixes homogenized using the layering technique will be given by:
+
+2 6 ½H b  ¼ 4 "
+
+Hb11 Sym:
+
+Hb12 Hb22 #
+
+nl À Á 7 1X Hb23 5 ¼ ½Hi z3 À z3 iþ1 i 3 i¼1 Hb33 nl X i¼1
+
+Hb13
+
+3
+
+ð14Þ
+
+bxi and byi are the nodal values at the corner 1–4. Dbsk are the nodal values at the mid-nodes 5–8 (Fig. 2). While C k andSk are the direction cosines of side k (Fig. 3). The matrix transformation from s–n coordinate system to the Cartesian system (See Fig. 4): – The rotations of bn and bs at side k:
+
+Â
+
+Ã  Hs ¼
+
+ Hs12  Sym: Hs22
+
+ Hs11
+
+¼
+
+½Gi ðziþ1 À zi Þ
+
+ð15Þ
+
+(
+
+bx by
+
+)
+
+& ¼ ½Q 
+
+bn bs
+
+' and
+
+&
+
+bn bs
+
+' ¼ ½Q 
+
+(
+T
+
+bx by
+
+) ð22Þ
+
+where nl is the number of layer in the structures. ½Hi is the in-plane constitutive matrix for i-th layer and ½Gi is the out of plane constitutive matrix for i-th layer. They are given by Eq. (11) for orthotropic material and by Eq. (12) for isotropic material. Matrix [Hs ] is deﬁned so that the shear strain energy density obtained for an exact 3D distribution of the transverse shear stresses sx and sy is identical to the shear energy associated to the Reissner–Mindlin plate model (denoted as Ps in Eq. (57)). The aims is that the transverse shear int stiffness of the plate model corresponds as much as possible with that deduced from 3D analysis. We have [Hs ] for the constitutive equation for the shear forces in Eq. (13):
+
+– Shear deformations at side k:
+
+(
+
+cx cy
+Tx Ty
+
+)
+
+¼ ½Q 
+
+&
+
+cn cs
+Tn Ts 8
+
+'
+
+and
+
+&
+
+cn cs
+Tn Ts
+
+'
+
+( ¼ ½Q T
+
+cx cy
+
+) ð23Þ
+
+– Shear forces at side k:
+
+&
+
+'
+
+&
+
+'
+
+& and 9
+
+'
+
+¼ ½Q  9
+
+¼ ½Q T 9
+
+&
+
+Tx Ty
+
+' ð24Þ 8 9 ð25Þ
+
+– Curvature at side k:
+
+" ½H s  ¼
+where:
+
+ k11 :Hs11 Sym:
+
+ k12 :Hs12  k22 :Hs
+22
+
+# ð16Þ
+
+8 > <
+
+vx > > vs > > vs > > vx > < < < = = = = vy ¼ ½QE vn and vn ¼ ½QET vy > > > > > > :v > : : :v > ; ; vsn ; vsn ; xy xy
+– Moment resultants at side k:
+
+8
+
+– k11 ; k12 and k22 identiﬁes the transverse shear correction parameters. Â Ã  – ½Hb ; Hs and ½Hs  are symmetry. In the case of isotropic structures the matrix [Hb ] and [Hs ] are given by:
+
+8 9 8 9 8 9 8 9 > Mx > > Mn > > Mn > > Mx > < = < = < = < = My ¼ ½QE M s and Ms ¼ ½QET M y > > > > > > > > : ; : ; : ; : ; Mxy M xy Mns Mns nx ny 2 ! nx Àny ny nx !
+
+ð26Þ
+
+where:
+
+½Q  ¼
+
+Àny nx
+
+and ½Q T ¼ ½Q À1 ¼ n2 y n2 x Ànx ny 3
+
+ð27Þ
+
+1 t 6 ½H b  ¼ D b 4 t 1 0 0 ½H s  ¼ D s 1 0 ! ;
+
+2
+
+0
+1Àt 2
+
+3
+
+0 7; 5
+
+Db ¼
+
+Eh 12ð1 À t2 Þ
+
+3
+
+ð17Þ
+
+n2 x 6 2 ½QE ¼ 6 ny 4 2nx ny ½QET ¼ ½QEÀ1
+
+0 1
+
+Ds ¼ kGh
+
+ð18Þ
+
+for the isotropic material k = 5/6. The method for computing the transverse shear correction parameters of Eq. (16) and (18) based on considerations of static equivalences [22,23]. 2.4. Displacement function DKMQ plate element uses the linear interpolation for vertical displacement and quadratic interpolation for the rotations.
+
+À2nx ny 2 n2 x 6 6 n2 ¼4 y Ànx ny
+
+7 nx ny 7 ; 5 n2 À n2 x y n2 y n2 x nx ny 2nx ny
+
+3
+
+ð28Þ
+
+7 À2nx ny 7 5 n2 À n2 x y
+
+w4
+βx4 βy4 Δβs7
+
+w3
+βx3 βy3
+
+4 7
+Δβs8
+
+3 6
+Δβs6
+
+w¼ bx ¼ by ¼
+
+X
+
+Ni wi Ni bxi þ Ni byi þ X
+k¼5;8
+
+8 5
+
+i¼1;4
+
+X X
+
+Pk C k Dbsk Pk Sk Dbsk 1 N 2 ¼ ð1 þ nÞð1 À gÞ 4 1 N 4 ¼ ð1 À nÞð1 þ gÞ 4 À Á 1 ð1 þ nÞ 1 À g2 2 À Á 1 P8 ¼ ð1 À nÞ 1 À g2 2 P6 ¼
+
+i¼1;4
+
+ð19Þ
+
+w1
+βx1 βy1
+
+2
+
+1
+
+w2
+βx2 βy2
+
+X
+
+Δβs5
+
+i¼1;4
+
+k¼5;8
+
+1 N 1 ¼ ð1 À nÞð1 À gÞ; 4 1 N 3 ¼ ð1 þ nÞð1 þ gÞ; 4 P5 ¼ Á 1À 1 À n2 ð1 À gÞ; 2 Á 1À P 7 ¼ 1 À n2 ð1 þ gÞ; 2
+
+Fig. 2. Verticals displacement and rotations on side the elements.
+
+ð20Þ
+k S αk i=(xi, yi)
+
+s=Lk
+nx ny
+
+j=(xj, yj)
+
+ð21Þ
+
+s=0
+
+x n
+
+Ck = cos αk = xji /Lk Sk = sin αk = yji /Lk nx=Sk ny=-Ck Lk2= xji2+ yji2 xji= xj - xi yji= yj - yi
+
+Fig. 3. Geometry and local tangential Coordinates on side k.
+
+I. Katili et al. / Composite Structures 132 (2015) 166–174
+
+169
+
+z k s i=(xi, yi) s=0 sk nk
+βn βs
+
+j=(xj, yj) s=Lk k s i=(xi, yi) s=0
+Fig. 4. bs ; bn ; csk and cnk on side k.
+
+z
+
+j=(xj, yj) γsk s=Lk
+
+γnk
+
+– Constitutive laws: From Eq. (22)–(28) and Eq. (13), we have
+
+&
+
+Tn Ts
+
+'
+
+¼ ½Hsk 
+
+&
+
+cn cs
+
+'
+T
+
+with :
+
+&
+
+cn cs
+
+'
+
+&
+
+¼
+
+w;n þ bn w;s þ bs
+
+' ð29Þ
+
+and : ½Hsk  ¼ ½Q  ½Hs ½Q  9 8 9 8 9 8 9 8 bn;n > > Mn > > vn > > vn > > = < = < = < = < bs;s vs ¼ Ms ¼ ½Hbk  vs with : Á> > > > > > > >À : ; : : vns ; vns ; : bn;s þ bs;n ; M ns and : ½Hbk  ¼ ½QE ½Hb ½QE ð30Þ
+For isotropic material: ½Hsk  ¼ ½Hs  and ½Hbk  ¼ ½Hb  – The equilibrium equation at side k:
+T
+
+/k is the shear inﬂuence factor in orthotropic plate, Lk is the length of the side k; ½Hsk  and [Hbk ] are deﬁned in Eqs. (29) and (30). We will use this new factor for the application of DKMQ in plate bending composite structure. With these methods, we are able to compute the composite structure for thick and thin plate problems. Also, it will become a tool for the computation in modeling the structure with composite material. In case isotropic material, we have:
+
+cs ¼
+
+  Á Db 1 À tÀ bs;ss þ tbn;ns þ bs;nn þ bn;ns Ds 2
+
+ð37Þ
+
+From (34) we have: bs;nn ¼ bn;ns ¼ 0 So that:
+
+cs ¼
+ð31Þ
+
+Db b Ds s;ss
+
+2 and on side k : csk ¼ À /k Dbsk 3 !
+
+ð38Þ
+
+T s ¼ M s;s þ Msn;n T n ¼ M sn;s þ M n;n
+– Displacement and rotation at side k: From Eqs. (19)–(22) we have: And:
+
+with:
+
+Db 12 2 h /k ¼ ¼ Ds L2 kð1 À tÞ L2 k k
+
+2
+
+ð39Þ
+
+  s s wi þ wj w¼ 1À Lk Lk     s s s s bsi þ bsj þ 4 bs ¼ 1 À 1À Dbsk Lk Lk Lk Lk   s s b þ b bn ¼ 1 À Lk ni Lk nj
+
+ð32Þ
+
+/k is the shear inﬂuence factor in isotropic plate, k = 5/6 is the shear correction factor, t is the Poison’s ratio, h is the thickness of plate and Lk is the length of the side k. The factor /k (characterizing the inﬂuence of shear) maintains the consistency of element. The factor h /L2 , in that equation k explains why DKMQ element behaves as Reissner–Mindlin theory for thick plate and as Kirchhoff–Love theory for thin plate. In the latter case, the factor h /L2 is close to zero, so that the transversal k shear deformation is automatically ignored, as a result the shear locking resolved by this method. 2.6. The curvatures and shear deformations The computation of curvature from (3) and (19)–(21) is straightforward:
+2 2
+
+2.5. The assumed shear strain ﬁelds From Eq. (22)–(31), we can deﬁne the independent shear deformation cs :
+
+cs ¼
+
+Hbk31 bn;ns þ Hbk32 bs;ss þ Hbk33 bs;ns þ bn;ss À ÁÁ þHbk11 bn;nn þ Hbk12 bs;sn þ Hbk13 bs;nn þ bn;sn À À Á þ Hinv Hbk21 bn;ns þ Hbk22 bs;ss þ Hbk23 bs;ns þ bn;ss þ Hbk31 bn;nn sk22 À ÁÁ ð33Þ þHbk32 bs;sn þ Hbk33 bs;nn þ bn;sn
+
+Hinv sk21
+
+À
+
+À
+
+Á
+
+h i h i hvi ¼ Bbb fun g þ BbDb fDn g
+where the bending strain matrices are:
+
+ð40Þ 3 7 . . . 5 i ¼ 1; 4 ð41Þ
+
+Using Eq. (32) for the rotations of bs and bn and we assumed that:
+
+2 Â Ã
+
+0
+
+bs;nn ¼ bs;ns ¼ bn;ns ¼ bn;nn ¼ bn;ss ¼ 0
+From (33) we have:
+
+ð34Þ
+
+6 Bbb ¼ 4 . . . 0 0 0 Ni;y
+
+Ni;x
+
+0 Ni;y Ni;x
+
+cs ¼ Hinv Hbk32 þ Hinv Hbk22 bs;ss and on side k : cs ¼ À /k Dbsk sk21 sk22
+ð35Þ
+with:
+
+
+
+
+
+2 3
+
+Ni;x ¼ j11 Ni;n þ j12 N i;g ; h 6 BbDb ¼ 4 . . . i 2
+
+Ni;y ¼ j21 Ni;n þ j22 Ni;g 3 7 . . . 5 k ¼ 5; 8 ð42Þ
+
+Pk;x C k P k;y Sk Pk;y C k þ Pk;x Sk
+
+  12 /k ¼ Hinv Hbk32 þ Hinv Hbk22 sk21 sk22 L2 k
+
+! ð36Þ
+
+Pk;x ¼ j11 Pk;n þ j12 Pk;g ;
+
+Pk;y ¼ j21 Pk;n þ j22 Pk;g
+
+170
+
+I. Katili et al. / Composite Structures 132 (2015) 166–174
+
+hun i ¼ w1 bx1 by1 w2 bx2 by2 w3 bx3 by3 w4 bx4 by4 hDn i ¼ h Dbs5 Dbs6 Dbs7 Dbs8 i
+
+
+
+
+
+ð43Þ
+As in MITC4 Bathe and Dvorkin [24] element, the transverse shear n o strains c are interpolated independently, with:
+
+When (51) is applied to the four side of element, the independent parameters fDbn g can be related to the ﬁnal degree of freedom {un }, by:
+
+fDbn g ¼ ½An fun g with : ½An  ¼ ½AD À1 ½Au 
+where:
+
+ð52Þ
+
+n o
+
+(
+
+c ¼
+
+cx cy
+
+) ¼
+
+j11 j21
+
+j12 j22
+
+!(
+
+cn cg
+
+) ð44Þ 8 c 9 > > #> n5 > > < cg6 > = > cn7 > > > > > : ;
+
+2 26 6 ½ AD  ¼ À 6 34 2
+
+ð1 þ /5 Þ 0 0 0
+
+0 ð1 þ /6 Þ 0 0
+2 L5
+
+0 0 ð1 þ /7 Þ 0 C 5 S5 0 0 0 0 0
+2 L6
+
+0 0
+
+3 ð53Þ
+
+7 7 7 5 0 ð1 þ /8 Þ 0 0 0 0
+2 L7
+
+(
+
+cn cg
+
+) ¼
+
+"
+
+1 ð1 À 2
+
+gÞ
+
+0
+1 ð1 þ nÞ 2
+
+1 ð1 þ 2
+
+gÞ
+
+0
+1 ð1 À nÞ 2
+
+0
+
+0
+
+ð45Þ
+
+cg8
+
+where cn5 ; cg6 ; cn7 ; cg8 are the natural shear strain at sides 5–8. On the other hand, we have:
+
+6 16 0 6 ½ Au  ¼ 6 26 0 4
+2 L8
+
+À L2 C 5 S5 5 0 0 0 0
+
+0 0 C7 C8
+
+À L2 C 6 S6 6 0 0
+
+C 6 S6 0 0
+
+À L2 C 7 S7 7 0
+
+C 8 S8
+
+À L2 8
+
+7 07 7 7 S7 7 5 S8 ð54Þ
+
+0
+
+3
+
+8 > cn5 > > <
+
+cg6 0 1 6 0 L6 6 ¼ 6 > cn7 > 2 4 0 0 ÀL7 > > > > : ; cg8 0 0 0
+
+9 > > > =
+
+2
+
+L5
+
+0
+
+0
+
+9 38 0 > cs5 > > > > > 0 7< cs6 = 7 7 0 5> cs7 > > > > > : ; cs8 ÀL8
+
+Substitution of Eqs. (52)–(54) into the Eq. (40) we have:
+
+ð46Þ
+
+h i h i fvg ¼ ½Bb fun g with ½Bb  ¼ Bbb þ BbDb ½An 
+Substitution of Eqs. (52)–(54) into the Eq. (47) we have:
+
+ð55Þ
+
+From Eqs. (44)–(46) and by using Eq. (38) for isotropic plate and Eq. (35) for orthotropic plate, we obtain:
+
+n o
+
+c ¼ ½Bs fun g with ½Bs  ¼ BsDb ½An 
+
+Â
+
+Ã
+
+ð56Þ
+
+n o
+
+(
+
+c ¼
+
+cx cy
+
+)
+
+Â Ã ¼ BsDb fDbn g
+
+The internal energy of DKMQ element:
+
+ð47Þ
+
+Pint ¼ Pb þ Ps int int Pb ¼ int Ps int
+
+With the shear strain matrix:
+! Â Ã 1 Àj11 ð1 À gÞL5 /5 Àj12 ð1 þ nÞL6 /6 j11 ð1 þ gÞL7 /7 j12 ð1 À nÞL8 /8 BsDb ¼ 6 Àj21 ð1 À gÞL5 /5 Àj22 ð1 þ nÞL6 /6 j21 ð1 þ gÞL7 /7 j22 ð1 À nÞL8 /8 ð48Þ
+
+Z 1 1 hvi½Hb fvgdA ¼ hun i½kb fun g ðbending energyÞ 2 A 2 Z 1 1 ¼ ðhci½Hs fcgÞdA ¼ hun i½ks fun g ðshear energyÞ 2 A 2 ð57Þ
+
+We have:  Case isotropic: /k ¼ Db Ds  Case orthotropic:
+12 L2 k 2 ¼ kð1ÀtÞ
+
+ 
+h2 L2 k
+
+; k ¼ 5; 6; 7; 8
+
+   /k ¼ Hinv Hbk32 þ Hinv Hbk22 12 ; sk21 sk22 L2
+k
+
+Pint ¼ Pb þ Ps ¼ hun i½kfun g int int
+And:
+
+1 2
+
+ð58Þ
+
+k ¼ 5; 6; 7; 8 2.7. Discrete Kirchhoff Mindlin Based on Discrete Kirchhoff–Mindlin Method [1,2], we have:
+
+½k ¼ ½kb  þ ½ks  ðelement stiffnessÞ Z ½kb  ¼ ½Bb T ½Hb ½Bb dA ðbending stiffnessÞ ½ks  ¼ Z
+A
+
+ð59Þ
+
+½Bs T ½Hs ½Bs dA ðshear stiffnessÞ
+
+Z
+0
+
+Lk
+
+
+
+cs À cs ¼ 0
+
+
+
+A
+
+ð49Þ
+3. Numerical analysis
+
+On each side from (29) we have: cs ¼ w;s þ bs . From (32), (35) and (49) we have:
+
+3.1. Simply supported (SS) under uniform loading of a sandwich plate In this test, we will analyze simply supported square sandwich plate (hard support conditions: w ¼ bs = 0) under uniform loading f z . We can see the details of this test in Fig. 5. Because of symmetry, we will only analyze area ABCD. Data material (skin and hearth orthotropic): EL = 3.4156 MPa; ET = 1.7931 MPa; tLT = 0.44; GLT = 1 MPa; GLZ = 0.608 MPa; GTZ = 1.015 MPa; Stratiﬁcation: sandwich; 3 layers 0/0/0 symmetrical.
+
+Á 2 wj À wi 1 À þ C k bxi þ Sk byi þ C k bxj þ Sk byj þ ð1 þ /k ÞDbsk ¼ 0 2 3 Lk ð50Þ
+Finally, we have:
+
+Dbsk ¼
+
+Á 1À Á 3 wj À wi 1 À þ C k bxi þ Sk byi þ C k bxj þ Sk byj 2ð1 þ /k Þ 2 2 Lk
+
+! ð51Þ
+
+I. Katili et al. / Composite Structures 132 (2015) 166–174
+
+171
+
+Fig. 5. Simply supported square sandwich plate under uniform loading.
+
+Table 1 Convergence of central deﬂection wC . NÂN C=1 k11 ¼ k22 = 0.8333 k12 = 0 2Â2 4Â4 8Â8 16 Â 16 32 Â 32 64 Â 64 96 Â 96 Srinivas [13] 180.550 181.110 181.280 181.340 181.350 181.350 181.350 181.050 C = 10 k11 ¼ k22 = 0.3521 k12 = 0 42.181 42.041 42.008 41.826 41.999 41.998 41.998 41.910 C = 50 k11 ¼ k22 = 0.0938 k12 = 0 17.235 16.932 16.861 16.843 16.839 16.838 16.838 16.750
+
+The skin material (layer 1 and 3 in Fig. 5) and the core are formed by orthotropic material with the same axes of orthotropy. While the layer 2 (core) properties are proportional to those of layers 1 and 3. The E and G values of the core are C times weaker than those of the skin. In this test we will use C = 1, 10, and 50. For C = 1, the structure corresponds to the plate orthotropic, while for C = 10 and C = 50, it corresponds to the structure sandwich. The results of central deﬂection of point C are reported on the Table 1. An analytical solution using 3D elasticity theory was reported by Srinivas [13]. The central displacement is expressed in the form:
+
+wC ¼
+
+wC GLT ðCoreÞ hf z
+
+ð60Þ
+
+Fig. 6. Distribution of
+
+rx ¼ rzx at the plate center of SS (hard) sandwich square plate. f
+
+172
+
+I. Katili et al. / Composite Structures 132 (2015) 166–174
+
+C=1 0 -2 -0.5 -1 -1.5 -2 -2.5 -3 -3.5
+REF (Quadratic k=2)
+
+C = 10 0
+
+C = 50 0
+0
+
+-1.5
+
+-1
+
+-0.5
+
+0 -0.5 -1 -1.5 -2 -2.5 -3 -3.5
+
+-2
+
+-1.5
+
+-1
+
+-0.5
+
+-2 -0.5 -1 -1.5 -2 -2.5 -3 -3.5
+
+-1.5
+
+-1
+
+-0.5
+
+0
+
+Log (error relative )
+
+Log (error relative )
+
+REF (Quadratic k=2)
+
+Log (error relative )
+
+REF (Quadratic k=2)
+
+-4 -4.5 -5 -5.5
+
+REF (Linear k=1) h/L=1/10 h/L=1/100 h/L=1/1000 h/L=1/10000
+
+-4 -4.5 -5 -5.5
+
+REF (Linear k=1) h/L=1/10 h/L=1/100 h/L=1/1000 h/L=1/10000
+
+-4 -4.5 -5 -5.5
+
+REF (Linear k=1) h/L=1/10 h/L=1/100 h/L=1000 h/L=1/10000
+
+Log (t)
+
+Log (t)
+
+Log (t)
+
+Fig. 7. Convergence behavior of SS (hard) sandwich square plate by using s-norm.
+
+Fig. 8. Simply supported 3-layer (0/90/0) square plate under sinusoidal pressure load. Table 2 Convergence of the deﬂection at point C for 3-layer (0/90/0) square plate. L/h w Mesh 6 Â 6 Mesh 10 Â 10 4 4.761 4.752 4.491 10 1.741 1.739 1.709 50 1.029 1.029 1.031 100 1.005 1.005 1.008
+
+Table 1 present the central deﬂection of wC for C = 1, 10 and 50. We use N Â N = 2 Â 2, 4 Â 4, 8 Â 8, 16 Â 16, 32 Â 32, 64 Â 64 and 96 Â 96. We found an accordance results and they are very close to reference solution. Satisfactory results are also obtained for rx shown in Fig. 6. To get the behavior of the whole structure, the convergence is measured with respect to the s-norm deﬁned in [14,15] by:
+2 u u k~ref À ~h ks ¼
+
+Pagano and Hatﬁeld [12]
+
+Z
+X
+
+D~T D~dX e r
+
+ð61Þ
+
+For the comparison, we use the reference solution obtained with DKMQ element with 64 Â 64 elements (N = 64). For this test, we use a target mesh of N Â N elements with N = 4, 8, 16 and 32. Finally, the relative error is computed using:
+
+  ~Ref À ~h 2 u u s ES ¼   ~Ref 2 u
+s
+
+ð62Þ
+
+The theoretical convergence behavior is given by:
+
+ES ﬃ ct2k
+
+ð63Þ
+
+I. Katili et al. / Composite Structures 132 (2015) 166–174
+
+173
+
+Fig. 9. Simply supported 9-layer (0/90/0/90/0/90/0/90/0) square plate under sinusoidal pressure load.
+
+where c is a constant, t is the element size and k is the interpolation order. We use two reference lines for Eq. (63), k = 1 corresponding to a linear convergence and k = 2 to a quadratic convergence. We recall that for DKMQ element, we use bilinear interpolation functions for transverse displacement and quadratic incomplete interpolation functions for the rotations. Using h=L = 1/10, 1/100, 1/1000 and 1/10000, the convergence behavior of DKMQ element in composite application is presented in Fig. 7. We found that DKMQ converge to linear behavior for the problems tested. Moreover, the s-norm test shows that DKMQ element give uniform and optimal convergence for thin and thick composite problems. 3.2. A simply supported 3-layer square plate under sinusoidal pressure load In this test, we will analyze a simply supported 3-layer unidirectional square laminated with L = 1000 and the thickness varies (h = 250, 100, 20 and 10). We will use DKMQ plate element with 6 Â 6 and 10 Â 10 mesh size. This test is proposed by Pagano and Hatﬁeld [12]. The sum of thickness of 0° layer (h1 þ h3 ) is equal to the thickness of 90° layer (h2 ), where h1 is equal to h3 (see Fig. 8). Material properties: EL = 25 MPa; ET = 1 MPa; tLT = 0.25; GLT = 0.5 MPa; GTZ = 0.2 MPa k11 = 0.570; k22 = 0.882; k12 ¼ k21 = 0. We will use 3 layers 0/90/0 symmetrical; f z ¼ f 0 sin ðpx=LÞ sin ðpy=LÞ. The solution can be expressed with the following form:
+
+Table 3 Convergence of the deﬂection at point C for 9-layer (0/90/0/90/0/90/0/90/0) square plate. L/h w Mesh 6 Â 6 Mesh 10 Â 10 4 4.177 4.166 4.079 10 1.513 1.512 1.512 50 1.018 1.018 1.021 100 1.002 1.003 1.005
+
+Pagano and Hatﬁeld [12]
+
+6 Â 6 and 10 Â 10 mesh size. This test is proposed by Pagano & Hatﬁeld [12]. The sum of thickness of 0° layer (h1 þ h3 þ h5 þ h7 þ h9 ) is equal to the sum of thickness of 90° layer (h2 þ h4 þ h6 þ h8 ) whereas layer at the same direction have similar thicknesses (h1 ¼ h3 ¼ h5 ¼ h7 ¼ h9 ) and (h2 ¼ h4 ¼ h6 ¼ h8 ) (see Fig. 9). Material properties: EL = 25 MPa; ET = 1 MPa; tLT = 0.25; GLT = 0.5 MPa; GTZ = 0.2 MPa k11 = 0.670; k22 = 0.666; k12 ¼ k21 = 0. We will use 9 layers 0/90/0/90/0/90/0/90/0 symmetrical; f z ¼ f 0 sin ðpx=LÞ sinðpy=LÞ. The solution can be expressed with the following form:
+
+w¼
+
+p4 wQ
+12S4 hf z
+
+;
+
+Q ¼ 4GLT þ ½EL þ ET ð1 þ 2tTT Þ=ð1 À 2tLT tTL Þ ð65Þ
+
+w¼
+
+p4 wQ
+ð64Þ
+
+We can see in Table 3 the central displacement and stresses in point C compared with solution given by Pagano and Hatﬁeld [12]. We found a good correlation between DKMQ element and reference solution. 4. Conclusions The application of DKMQ plate bending element has been presented. We found a good correlation to reference solution for all test proposed to validate composite structure. Moreover, the s-norm test shows that DKMQ element give uniform and optimal convergence for thin and thick composite problems. Finally, DKMQ plate bending element can be used as a tools to analyze composite structure. Acknowledgment The ﬁnancial support from the Indonesian Ministry of Research, Technology and Higher Education (KEMENRISTEKDIKTI) is gratefully acknowledged.
+
+12S4 hf z Q ¼ 4GLT þ ½EL þ ET ð1 þ 2tTT Þ=ð1 À 2tLT tTL Þ
+
+We can see in Table 2 the central displacement and stresses in point C compared with solution given by Pagano and Hatﬁeld [12]. We found a good correlation between DKMQ element and reference solution. 3.3. A simply supported 9-layer square plate under sinusoidal pressure load In this test, we will analyze a simply supported 9-layer unidirectional square laminated with L = 1000 and the thickness varies (h = 250, 100, 20 and 10). We will use DKMQ plate element with
+
+174
+
+I. Katili et al. / Composite Structures 132 (2015) 166–174 [12] Pagano NJ, Hatﬁeld SJ. Elastic behaviour of multilayered bidirectional composites. AIAA J 1972;10:931–3. [13] Srinivas S. A reﬁned analysis of composite laminates. J Sound Vib 1973;30(4):495–507. [14] Chapelle D, Bathe KJ. The ﬁnite element analysis of shells – fundamentals. 2nd ed. Springer; 2011. [15] Hiller JF, Bathe KJ. Measuring convergence of mixed ﬁnite element discretizations: an application to shell structures. Comput Struct 2003;81: 639–54. [16] Lee PS, Bathe KJ. Development of MITC isotropic triangular shell ﬁnite elements. Comput Struct 2004;82:945–62. [17] Lee PS, Noh HC, Bathe KJ. Insight into 3-node triangular shell ﬁnite elements: the effects of element isotropy and mesh patterns. Comput Struct 2007;85: 404–18. [18] Kim DY, Bathe KJ. A triangular six-node shell elements. Comput Struct 2009;87:1451–60. [19] Bathe KJ, Lee PS, Hiller JF. Towards improving the MITC9 shell element. Comput Struct 2003;81:477–89. [20] Lee PS, Bathe KJ. The quadratique MITC plate and MITC shell elements in plate bending. Adv Eng Softw 2010;41:712–28. [21] Bathe KJ, Lee PS. Measuring the convergence behavior of shell analysis schemes. Comput Struct 2011;89:285–301. [22] Batoz JL, Dhatt G. Modélisation des structures par éléments ﬁnis. Poutres et Plaques, vol. 2. Hermes; 1990. [23] Oñate E. Structural analysis with the ﬁnite element method. Beams, plates and shells, vol. 2. Springer; 2012. [24] Bathe KJ, Dvorkin EN. A four-node plate bending element based on Mindlin– Reissner plate theory and a mixed interpolation. Int J Numer Meth Eng 1985;21:367–83.
+
+References
+[1] Katili I. A new discrete Kirchhoff–Mindlin element based on Mindlin–Reissner plate theory and assumed shear strain ﬁelds- part I: an extended DKT element for thick-plate bending analysis. Int J Numer Meth Eng 1993;36:1859–83. [2] Katili I. A new discrete Kirchhoff–Mindlin element based on Mindlin–Reissner plate theory and assumed shear strain ﬁelds- part II: an extended DKQ element for thick plate bending analysis. Int J Numer Meth Eng 1993;36:1885–908. [3] Batoz JL, Bathe KJ, Ho LW. A study of three-node triangular plate bending elements. Int J Numer Meth Eng 1980;15:1771–812. [4] Batoz JL, Ben Tahar M. Evaluation of a new thin plate quadrilateral element. Int J Numer Meth Eng 1982;18:1655–78. [5] Reissner E. The effect of transverse shear deformation on the bending of elastic plates. J Appl Mech Eng ASME 1943;12:A69–77. [6] Mindlin RD. Inﬂuence of rotator inertia and shear on ﬂexural motion of isotropic elastic plates. J Appl Mech 1951;18:31–8. [7] Katili I, Batoz JL, Maknun IJ, Hamdouni A, Millet O. The development of DKMQ plate bending element for thick to thin shell analysis based on Naghdi/ Reissner/Mindlin shell theory. Finite Elem Anal Des 2015;100:12–27. [8] Ayad R, Talbi N, Ghomari T. Modiﬁed discrete Mindlin hypothesises for laminated composite structures. Compos Sci Tech 2009;69:125–8. [9] Khosravi P, Ganesan R, Sedaghati R. An efﬁcient facet shell element for corotational nonlinear analysis of thin and moderately thick laminated composite structures. Comput Struct 2008;86:850–8. [10] Botella S, Onate E, Canet JM. A layer-wise triangle for analysis of laminated composite plates and shells. Comput Struct 1999;70:635–46. [11] Pagano NJ. Exact solutions for rectangular bidirectional composites and sandwich plates. J Compos Mater 1970;4:20–34.
+

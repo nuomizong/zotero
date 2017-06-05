@@ -1,0 +1,627 @@
+.
+
+Bubble Mesh: Automated Triangular Meshing of Non-Manifold Geometry by Sphere Packing
+Kenji Shimadat and David C. Gossard$
+
+tIBM Research, Tokyo Research Laboratory 1623-14, Shimo-tsuruma, Yamato-shi, Kanagawa-ken 242, Japan $Department of Mechanical Engineering Massachusetts Institute of Technology
+77 Massachusetts Avenue, Cambridge, MA 02139, U.S.A.
+
+Abstract
+This paper presents a new computational method for fully automated triangular mesh generation, consistently applicable to wire-frame, surface, solid, and nonmanifold geometries. The method, called bubble rrzeshthat a pattern of tightly ing, is based on the observation packed spheres mimics a Voronoi diagram, from which a set of well-shaped Delaunay triangles and tetrahedral can be created by connecting the centers of the spheres. Given a domain geometry and a node-spacing function, spheres are packed on geometric entities, namely, vertices, edges, faces, and volumes, in ascending order of dimension. Once the domain is filled with spheres, mesh nodes are placed at the centers of these spheres and are then connected by constrained Delaunay triangulation and tet rahedrizat ion. To obtain a closely packed configuration of spheres, the authors devised a technique for physically based mesh relaxation with adaptive population control, The process of mesh relaxation significantly reduces the number of ill-shaped triangles and tetrahedral.
+
+To be suitable for analysis software, the geometry of the shape that was created in the design phase must be transformed into a discretized model – a mesh – consisting of a collection of cells that must satisfy a number of geometric and topological conditions dictated by the method [1]. The operation of transforming a geometric model, especially a 3D model, into a valid mesh is highly labor-intensive. Thus a fully automated mesh generation scheme is desirable. Conversion of a C.4D model into a mesh is performed in two steps, shown in Figure 1: ( 1) simplification of the geometry, and (2) discretization of the geometry into a mesh. In the first step, to reduce the computational time and storage space, a geometry is simplified by means of the following two procedures: Dimensional thinning. Pipe-like or beam-like geometries are often modeled as one-dimensional curves, M shown in Figure l(a). Shell-like geometries in which the thickness is small in rmrnparison with the whole component size are approximated as two-dimensional shells, as shown in Figure 1(b). %Iany mechanical sheet-metal components and ship hulls have this type of geometry. Insignificant feature removal. If a geometric feature, such as a hole, protrusion, or groove, is not meaningful for analysis, it is removed from the model, as shown in Figure l(c). The criteria for determining which feat ures can be removed are not straightforward. For example, a very small groove can cause a fatal stress concentration in structural analysis, but may negligible in heat transfer analysis, After the original geometry has beerr simplified, it is usually represented as a wire-frame model, a surface model, or a solid model. In the most complicated case, however, the geometry is simplified to a non-manifold geometry, or a union of ID, 2D, and 3D geometries, as shown in Figure 1 (d), Non-manifold situations also arise when multiple materials are used in a single component; in this case, the material boundaries must be represented as internal faces or edges. The simplified geometry is then discretized into a
+
+1
+
+Introduction
+
+A great deal of design time in industry is devoted to analysis, especially when physical experiments are performed on real components. In order to reduce the whole product development time, it is therefore desirable to computerize analysis by using numerical methods such as the finite element method (FEM) and the boundary element method (BEM). Various kinds of commercial software based on these methods are available for structural, fluid, and heat transfer analysis.
+Permission to copy without fee all or part of this material is granted provided that the copies are not made or distributed for direct commercial advantage, the ACM copyright notice and the title of the publication and its date appear, and notice is given that copyin is by permission of the Association of Computing Machinery. ? o copy othetvuise, or to republish, requires a fee and/or specific permission. Solid Modelin ’95, Salt Lake City, Utah USA 0 1995 AC J 0-89791 -672 -7/95/0005 ...$3.50
+
+409
+
+three conditions
+
+below: G=ueA (1)
+
+Figure
+
+1: Conversion
+
+of a CAD model into a mesh
+
+mesh. A curve is meshed into a series of one-dimensional beam elements with nodes that lie on the curve. A surface is subdivided into two-dimensional shell elements, A volume is meshed into a collection of or triangles. tetrahedral elements. This paper presents a new triangular meshing procedure, called bubble meshing, that can handle various input geometries, including wire-frame, surface, solid, and non-manifold, in a consistent manner. In this method, node locations are obtained by closely packing spheres in the domain to be meshed and placing nodes at the centers of the packed spheres. Node connections are then decided for a complete mesh topology by using constrained Delaunay triangulation and tetrahedrization. This new scheme of node placement contributes to a significant reduction in the number of ill-shaped elements produced in Delaunay triangulation and tetrahedrization.
+
+where G and ex represent a cell complex and an n-cell, respectively, and dim(e~ ) and (e~) represent the dimension of e~ and the closure of e~, respectively. The first condition means that 3D cell complexes can be represented by a collection of O-cells, l-cells, 2-cells, and 3-celIs. In a geometric modeling system, these cells correspond to topological entities, namely, vertices, edges, faces, and volumes, respectively. The second condition specifies that the boundary of each entity consists of lower-dimensional entities, making a cell complex always closed. The third condition prohibits the mutual intersection of topological entities. According to this definition, an n-cell is a bounded subset of 3D Euclidean space that is homomorphic to an n-dimensional open sphere. As in most solid modeling systems with boundary representation, geometric information is stored under three categories of geometric entities: points, curves, and surfaces, which correspond to vertices, edges, and faces, respectively. A point is a coordinate triple in object space, (x, y, z) E R’. .4 curve is defined over a bounded R’ parametric space, which is then transformed into object space. In other words, a curve geometry is given as a mapping from parametric space to object space,
+
+c(9) = (Z(S),7J(S), z(s)),
+
+(4)
+
+2
+2.1
+
+Preliminaries
+Problem Statement
+
+where s represents a parameter value in parametric space. Similarly, a surface is defined over a rectangular region in R2 parametric space, which is then mapped into object space:
+
+S(IJ,’U) = (X(u, v), y(u,
+As mentioned above, possible geometric inputs to the meshing procedure include wire-frame, surface, solid, and non-manifold geometries. Because the nonmanifold model, by definition, can represent all types of geometry, we can simply say that the input to the mesher is a non-manifold model. There are various definitions of non-manifold geometry [23, 15, 7]; we adopt here the definition proposed by Masuda, Shimada, Kawabe, and Numao [9, 10]. Non-manifold geometries, G, are cell complexes that are subsets of 3D Euclidean space. Cell complexes are mathematically defined aa sets of n-ceffs that satisfy the The surface can be trimmed
+curwes.
+
+o),
+
+z(u,v)).
+
+(5)
+
+by means
+
+of trimming
+
+The actual curve and surface representations can be of any form, as long as they are continuous and a derivative vector can be calculated everywhere on the curves and surfaces. Also given to the mesher as input is a desired distribution of mesh element size. In this paper, the element size is ako referred to as the node spacing, since the size of a mesh element is measured by the distance between two adjacent nodes. We denote a desired node spacing
+
+410
+
+over the domain as d(x, y, z), given as a function node location in object space.
+
+of the
+
+2.3
+
+Delaunay
+
+Triangulation
+
+A mesh M is a set of mesh elements, defined as ncells: (1) nodes, which are O-cells in the non-manifold model; (2) line segments, which are l-cells; (3) triangles, which are 2-cells; and (4) tetrahedral, which are 3-cells. Thus, M = (MO, A41, M2, M3), (6)
+
+q
+
+where Mo, Ml, M2, and Ikf3 are sets of nodes, line segments, triangles, and tetrahedra, respectively. A mesh node is also referred to as the center of a bubble in this paper; we use the terms mesh node and bubble interchangeably in later sections. In summary, the mesh generation problem we are interested in can be stated as follows: Given: q a non-manifold geometric domain, G . a desired node spacing distribution, d(x, y, z) Generate: a graded, well-shaped, compatible, triangular mesh, M, of hybrid dimension.
+
+This section briefly reviews Delaunay triangulat ion/tet rahedrization and Voronoi tessellation, since they are closely related to the fundamentals of bubble meshing. Efficient algorithms for Delaunay triangulation have been intensively reviewed and studied in various textbooks [13, 4] and papers [2], Consider N distinct points p,, 1 s z s N, in the twodimensional space R2 or the three-dimensional space R3, and define the sets V,, 1 < i < N, as V,={* ll[x–p, ll<[l*–pJllfordli #j}, (7)
+
+2.2
+
+Previous
+
+Methods
+
+There have been several reviews of mesh generation methods [21, 17, 8]. Ho-Le, in his comprehensive survey paper [8], gives a systematic classification based on the temporal order in which nodes and elements are created. The resultant classification is well-accepted and haa been referred to by many other researchers, One problem, as he also acknowledges in the paper, is that placement of individual methods into categories is not easy because many proposed methods consist of several sub-processes representing different categories in the classification. Sub-processes commonly used in existing meshing methods include node placement and connection; coarse domain decomposition; mesh template mapping; element-level domain decomposition; grid-based spatial subdivision; and faceting of parametric surfaces in parametric space. Typically, one complete meshing scheme is characterized by a combination of these sub-processes, performed sequentially or merged into a single process. Node placement and con nect ion, however, can serve by themselves as a complete meshing process. In this process, a mesh is constructed in two stages: (1) node placement, and (2) node connection. Meshing algorithms of this type have recently become popular on account of their conceptual simplicity and the availability of a robust mathematical algorithm for node connection, called Delauna.y triangulation or tet rahedrization. The bubble method proposed in this paper also falls into the node placement and connection category.
+
+where II Ii denotes Euclidean distance in R2 or R3. The set Vi is considered to consist of Voronoi polygons in R2 and Voronoi polyhedra in R3. The collection of Voronoi polygons or polyhedra is called a Voronoi diagram or Dirichlet tessellation. The boundaries of the Voronoi polygon or polyhedron are portions of the perpendicular bisectors of the lines joining point p, to point p], when V, and V’ are contiguous. A vertex of a Voronoi polygon is shared by two other neighboring polygons, and a vertex of a Voronoi polyhedra is shared by three other neighboring polyhedra. We can, therefore, construct a triangle by connecting three points, defined above, in three adjacent polygons, and a tetrahedron by connecting four points, defined above, in four adjacent polyhedra. The set of such triangles is called the Delaunay triangulation, and the set of such tetrahedra the Delaunay tetrahedrization. Another Delaunay criterion is that a circumscribing circle or sphere of a Delaunay triangle or tetrahedron does not contain any other points inside. Delaunay triangulation is considered suitable for finite element analysis, because it maximizes the sum of the smallest angles of the triangles. It creates triangles as nearly equilateral as possible for the given set of points. The same property holds in three-dimensional Delaunay tetrahedrization; the triangular faces of the tetrahedral are as nearly equilateral w possible. One problem to be noted here is that since the union of Delaunay triangles or tetrahedra is a superset of the domain, some extraneous triangles or tetrahedral must be deleted. It is also necessary to ensure that pairs of adjacent points on boundaries are connected. Triangulation or tetrahedrization with such constraints is sometimes called constrained Delaunay triangulation or tetrahedrization. Algorithms for t his procedure have been proposed by several researchers, such as: Fang and Piegl [5]; Sapidis [16]; and Meshkat et. al. [1 1]. 2.4
+
+Bad Triangles
+
+and Tetrahedra
+
+During node placement, an appropriate number of nodes must be inserted in a well-distributed configu-
+
+411
+
+2.5
+
+Mesh Quality Measurement
+
+w-type
+
+ve-fype
+
+(a) Bad friangles
+
+For quantifying mesh quality in triangulation and tetrahedrization, we define two kinds of irregularit y: topological mesh irregularity and geometric mesh irregularity. For topological mesh irregularity, we define the following measure, similar to that defined by Frey and Field
+[6]:
+
+w-fype
+
+wv-fype
+
+w+w-type
+
+ee-type
+
+vf-type (b) Bad tetfalwdra
+
+ve-type
+
+Figure 2: Ill-shaped
+
+triangles
+
+and tetrahedral
+
+(8) where $i represents the degne, or the number of neighboring nodes, connected to the ith interior node, and n represents the total number of interior nodes in the domain. Thus, in general, as elements become more equilaterid, the mesh irregularity y approaches O, but vanishes only when all the nodes have D neighbors, a rare situation. Otherwise, it has a positive value that designates how much the mesh differs from a perfectly regular triangular lattice. For geometric mesh irregularity, we define the following me-&re, Eg, which is the aspect ratio of an inscribed circle or sphere to a circumscribing circle or sphere:
+
+ration, so that no badly distorted or skinny triangles or tet rahedra are created. Delaunay tessellation does “optimize” the element shapes, but the actual quality of these shapes depends totally on the given configuration of nodes. As Dey [3] and Meshkat [11] pointed out, bad triangles and tetrahedra are either thin (i.e. needle-like) or flat. Such ill-shaped elements must be avoided in analysis because they increase the analysis error and slow the solution convergence. Starting from an equilateral triangle and a tetrahedron, one could create bad elements by moving some vertices, edges, and faces close to each other. As Figure 2 indicates, there are two types of bad triangle: (1) uvtype, created by moving two vertices close together, and (2) ve-type, created by moving a vertex and an edge close together. Bad tetrahedral have more variety: (1) vu-type, (2) mm-type, (3) vv+vv-type, (4) ee-type, (5) vf-type, and (6) ve-type. Among these six types of ill-shaped tetrahedron, the vvv-type and the vv+w-type are thin, or needle-like, while the others are flat. Previous approaches resolve bad elements by postprocessing, either by moving nodes or by adding and deleting nodes. In bubble meshing, without using such post-processing, we can greatly reduce the possibility of creating these bad elements by defining proximity-based internode forces and finding a force-balancing configuration; node configurations of bad elements in Figure 2 cause large overlaps and gaps between bubbles, and thus cannot be stable.
+
+(9)
+
+where m represents the number of elements, and Ti and Ri are the radii of inscribed and circumscribing circles or spheres, respectively. The ratio r, Z?i is at maximum 0.5 for an equilateral triangle and & 2/11 for an equilateral tetrahedron. The smaller the value of &g, the more regular the mesh.
+
+3
+3.1
+
+Meshing via Bubble Packing
+Method Overview
+
+The bubble method can be summarized as a sequence oft wo steps: (1) pack spheres, or bubbles, closely in the domain, and (2) connect their centers by constrained Delaunay triangulation and tetrahedrization, which select the best topological connection for a set of nodes by avoiding small included angles while preserving the compatibility of the mesh with the domain. The novelty of the method is that the close packing of bubbles mimics a pattern of Voronoi tessellation, correspondhg to wellshaped Delaunay triangles or tetrahedral [18, 19, 20]. Figure 3(a) depicts this relationship in two dimensions. In packing bubbles, some gaps and overlaps are inevitable, so our aim is to minimize these gaps and overlaps as much as possible by injecting an appropriate number of bubbles and placing them at suitable locations. In implementation, this is realized by (1) mak-
+
+4LL
+
++++ ++++ t++++ ++++ @ +++
+
++++ +++ + ++++ + +++ @ +-t++
+
+Delaunaytrlan@s Voronolpolygons Packed bubbles (a) Uniiormnodaepaclng
+
+@+@+@’
+Delaunay mangles Vorono[ polygons node Packed bubbles (b) Non-urulorm spamng
+
+If&
+lorfmdl 2D mnh lonwdl consumed
+
+Q
+
+gwmetly
+
+hput
+
+Figure 3: Delaunay packed bubbles
+
+triangles,
+
+Voronoi
+
+polygons,
+
+and
+
+ing an initial guess, using hierarchical spatial subdivision (described in detail in Section 3.2); (2) defining
+
+00hnq
+tatdwdm 4.@-l 3Drn0sh 2DrIudI ID-
+
+proximity-based repulsive/attractive interbubble forces (described in detail in Section 3.3); and (3) performing dynamic simulation for a force-balancing configuration (described in detail in Section 3.4), while adaptively controlling the bubble population (described in detail in Section 3.5). As shown in Figure 4, bubbles, or mesh nodes, are placed in order of dimension: that is, (1) bubbles are placed on all vertices (O-cells) in the non-manifold model, (2) bubbles are placed on all curves ( l-cells), (3) all surfaces (2-cells) are filled in with bubbles, and (4) all volumes (3-cells) are filled in with bubbles. Once all the bubbles have been closely packed in the domain, a mesh node is placed at the center of each bubble. .4 triangular mesh is then created by using a constrained Delaunay triangulation to connect the nodes, The algorithm used is a modification of the Delaunay triangulation proposed by Watson [22].
+
+Figure 4: Non-manifold
+
+meshing
+
+procedures
+
+or an octree respectively. In this process, the domain is subdivided and bubbles are inserted until they cover the entire region without significant gaps or overlaps. For example, in order to place initial bubbles on a curve segment, C(s), .sl ~ s s Sl, bubbles are first placed on the two end points of the domain, C(sl ) and C(S2). The diameters of these bubbles in object space are calculated as dl = d(C(.sl )) and d2 = d(C(s2)) by using a node spacing function, d(x, y, z). The length of the curve between the end points is then calculated, and this length is compared to the sum of the two radii, all/2 + d2/2. If the curve length is longer than the sum of the radii, a new bubble is inserted at the midpoint, C((sl +s2)/2), and the curve segment is subdivided into and (sl +s2)/2? < two sub-segments, SI s (sl + s2)/2 S2. The same distance check is then performed on each sub-segment recursively. For a surface and a volume, initial bubbles are by similar hierarchical subdivision except that oblique cells instead of square cells in order to hexagonal arrangement of the bubbles. Details algorithm are given elsewhere [19]. placed we use realize of this
+
+3.2
+
+Initial Bubble
+
+Placement
+
+It is essential to obtain a good initial bubble configuration before physically based relaxation, for two reasons. First, when speed is most critical, the initial bubble configuration itself can serve as a quick triangulation or tetrahedrization solution, Second, a good initial guess will greatly reduce the convergence time of the lengthy relaxation process later. To handle general node spacing, we devised a bubble placement method based on hierarchical spatial subdivision. This method subdivides a curve, a surface, or a volume hierarchically by using a binary tree, a quadtree,
+
+413
+
+3.3
+
+Interbubble Forces
+
+A proximity-based interbubble force is defined so that a system of bubbles is in equilibrium when bubbles are closely packed, or “kissing” each other. As shown in Figure 5(a), a mesh element can be generated by connecting the centers of adjacent bubbles; for example, a two-dimensional mesh element (i.e. triangle) can be generated by connecting the centers of three adjacent bubbles. Similarly, a one-dimensional mesh element (i.e. line segment) and a three-dimensional mesh element (i.e. tetrahedron) can be generated by connecting two or four bubbles, respectively. As noted in Section 2.1, the size of a mesh element is measured by the distance between two nodes, that is, the length of a line segment, an edge of a triangle, or an edge of a tetrahedron. In an ideally tangential configuration as shown in Figure 5(a), this length is equal to the distance between the centers of two adjacent bubbles. Because we adjust bubble diameters to equal a given node-spacing function, d(x, y, z), the stable disas tance 10 between two bubbles z and j is calculated the sum of the radii of the bubbles,
+10= d(zi>vi>zi) z + d(~j,yj!zj).
+
+WAiiii
+10
+
+10
+
+(a) Packed
+
+bubbles
+
+and mesh
+
+elenwnts
+
+~(l)
+
+hterbubb!8iorce
+
+t
+
+“Q&
+Hepelling force QQ
+
+0
+
+K
+\\ /
+
+Stable diaSance
+
+1.54
+
+4/
+
+~~in~
+
+(b) Proximity-based
+
+interbubbla
+
+forces
+
+Figure
+
+5: Interbubble
+
+repulsive/attractive
+
+forces
+
+2
+
+(lo) 3.4
+
+Physically Based Relaxation
+
+We now define an interbubbie force f, much like the van der Waals force, such that a repulsive force is applied when two bubbles are located closer than the stable distance /0 (bubbles are overlapping), and an attractive force is applied when the bubbles lie farther apart than /0 (there is a gap). As shown in Figure 5(b), the implemented force -f is defined as a bounded cubic function of the distance 1 satisfying the following boundary conditions:
+0<1 ~ 1.510
+
+i(~)= j(io)
+
+{;f’+b~’+c~+d = f(l.51,) = o,
+
+1.5io <1
+
+f’(o) = o, j’(1,) = -Ill.
+
+(11) Note that k. represents the corresponding linear spring constant at the stable distance i.. It is one of the key physical parameters that govern the behavior of the bubble system. Also note that, unlike the van der Wads force, the force defined here has the following characteristics: (1) the saturation of the force near 1 = O, where 1 is the distance between the centers of the bubbles, prevents the force from growing infinitely large; and (2) the force is effective only within a specified range, 1<1.510. With this interbubble force, all the ill-shaped elements shown in Figure 2 are physically unstable because they all have some geometric entities located closer or further than the stable distance predicted by the node spacing function. Thus, the chance of creating such bad elements is significantly lowered.
+
+Given the interbubble forces defined in the previous section, we must now find a bubble configuration that yields a static force balance. This is not a straightforward task, for two reasons: ( 1) the defined force is not linear; and (2) strict geometric constraints are imposed on each d .o.f. to keep a bubble on a specific curve or surface. Therefore, a direct solution to the static forcebalance, such as the Newton-Raphson method of multidimensional root-finding, is not efficient. Instead, we use dynamic simulation, assuming a point mass at the center of each bubble and the effect of viscous damping. Another reason for using dynamics to solve the forcebalancing equation is to obtain continuous remeshing capability. Whenever the geometry and/or node spacing is slightly modified, dynamic simulation automatically produces a new stable configuration of bubbles close to the original configuration. This feature is useful in, for instance, structural analyses such as automobile crash analysis and sheet-metal forming analysis, where the geometry is continuously deformed. The governing equation of motion of the ith bubble is written as follows:
+d’xi(t) ‘i dtz + c, d~i(t) ‘T = fi(t)?
+
+i=l.
+
+..n,
+
+(12)
+
+where m, denotes the mass, G the damping coefficient, and xi the position of the ith d.o.f in object space. Given the initial locations of the bubbles, we integrate the differential equations through time at each
+
+414
+
+time step,
+
+using
+
+the standard
+
+fourth-order
+
+Runge-Kutta
+
+method [14]. The integration process is repeated a fixed number of times specified by the user, or until the system reaches equilibrium, a state in which the distance moved by the bubbles during one time-step in any d.o. f becomes less than a given small value. With the above equation of motion, one of the remaining tasks is to “design” a combination of physical parameters, namely, the mass, the damping, and the strength of the interbubble force. Though this requirement is not often mentioned in publications on physically based approaches, it clearly constitutes a very important issue, because the characteristics of the system are all cieterminerl by the above parameters: if the parameters are not appropriate the system may be very slow or oscillatory, or. in the worst case, totally unstable, It is thus vital to select the parameters so that the system strikes a balance between stability and quick response, For this purpose, we first find the representative linear spring constant, k. for the non-linear interbubble forces and then apply knowledge about the standard second-order system consisting of a mass, a damper, and a linear spring. one degree of freedom of bubble motion is approximated by the following equation of motion with the equivalent spring constqrrt k, calculated from k. given in the previous section:
+
+and s(t) in parametric space, and an unconstrained displacement from time t to time t + At as Ax, in object space, calculated simply by integrating the equation of motion. The correct, confined location of the bubble on a curve is obtained as follows: the unconstrained 1. Calculate Ax, in object space. displacement vector
+
+2. Calculate the normalized tangent vector at the bubble location at time t,&, where C’ = ~. 3. Take the dot product of the unconstrained displacement vector and the normalized tangent vector, and divide it by the length of the tangent vertor: ~, ,’ = A=, (;”
+(13)
+
+IC’12
+
+This value gives the corresponding parametric space.
+
+displacement
+
+in
+
+in parametric space, the 4. Using the displacement constrained bubbie location on a curve at time t + At is recalculated as ml(t+ At) = C(s(t)+ As). Bubbles are constrained to a surface in a similar and way, using two tangent vectors, S“ = v s,’ _ ~sgj~) , instead of C’ as in the case of a curve.
+
+Although stability and a quick response time are conflicting requirements for this second-order system, we can strike a good balance between them if the damping ratio is set around 0,7 [12]. Consequently, the physical parameters of the bubble system should be chosen to satisfy the following relationship: <=-!--.0.7.
+2& Note that the linear spring approximation mentioned above is used only to determine good physical parameter values, and not to calculate the force in dynamic simulation. Having defined an equation of motion with a good combination of physical parameters, we consider how to confine bubbles to curves and surfaces. This is necessary because bubble locations calculated by numerically integrating the equation of motion are not geometrically compatible; that is, bubbles do not lie on the target curves and surfaces. Hence, the movement of bubbles must be corrected in each time step. so that all the bubbles lie exactly on the target geometries. To explain how to confine bubbles to a curve, let us denote a geometrically compatible location of the itb bubble on a curve as x,(t) object space in (14)
+
+3.5
+
+Adaptive Population Control
+
+In order to pack a necessary and sufficient number of bubbles within a domain, we devised an automatic method for adaptively controlling bubble population. This method examines a local bubble population, removes ezcess bubbles which significantly overlap their neighbors, and adds bubbles around open bubbles which lack an appropriate number of neighboring bubbles. In order to determine whether a bubble is excess or open, the following overluppzng ratio, ~,. for the ~th bubble is defined:
+
+where x, is the location of the ith bubble in object space, xl is the location of the jth adjacent bubble, and n is the number of adjacent bubbles. This equation adds the distances to which the double-sized ith bubble penetrates or is separated from its neighboring bubbles. and then divides the result by the original bubble radius. In an ideal situation where uniformly sized bubbles are tightly packed, the standard overlapping ratio of a bubble on an edge is o = 2.0. that of a bubble on a face is a = 6.0, and that of a bubble in a volume is
+
+415
+
+...... ,.: .,,.’ . ,:
+,. d[x, ) & — 2 0 iterations &=l.03
+
+%
+
+@@ a --
+
+=5.0
+
+a. =6.0 !ded
+
+-
+
+a, =&O
+Exmss
+
+1 iteratbn E= O.77
+
+Open
+
+Figure
+
+6: Overlapping
+
+ratio
+
+~ = 12.o; these values correspond to the numbers of neighboring bubbles. When the overlapping ratio for the ith bubble is close to the above standard values, the local bubble population there is appropriate. Too small a ratio indicates that the bubble has significant gaps around it, so that one or more bubble must be added in the vicinity. Too large a ratio indicates that the bubble population there is too high, and that the bubble must be deleted. Figure 6 illustrates the relationship between the overlapping ratio and the bubble population. The adaptive population control mechanism recognizes and eliminates the danger of deleting or adding too many bubbles. For example, if two bubbles overlap each other, each one is considered to have an overlapping neighbor that should, theoretically, be deleted. If this were done, however, both bubbles would be deleted, leaving a gap. On the other hand, adding too many bubbles between two open bubbles could be dangerous. The algorithm takes this “double-counting” into account, however, and deletes or adds just the appropriate number of bubbles, usually only one out of every few that would theoretically be required. It is also important to note that the bubble population check is performed automatically only when the system of bubbles is relatively stable, that is, when the maximum velocity of all bubbles is within a small vaiue. With this adaptive population control mechanism, none of the ill-shaped elements shown in Figure 2 are likely to emerge because they are caused by significant gaps and overlaps between bubbles.
+
+5 iterations &= O.69
+
+50 iterations E= O.38
+
+Figure
+
+7: Physically-based
+
+mesh relaxation
+
+out using hierarchical spatiaJ subdivision. As shown at the top of Figure 7, such a random node configuration produces many thin or flat triangles. The number of illshaped elements is reduced as the bubbles move into a force-balancing, or tightly packed, configuration. Given a random initial configuration with topological irregularity Et = 1.03, the irregularity is reduced to Et = 0.38 after 50 iterations of numerical integration of the equation of motion, Figures 8 and 9 illustrate the result of surfacemeshing. Figure 8(a) shows a complicated node-spacing function,
+d(z, y, Z) =
+
+1 c1 + sin(cz + xy)”
+
+(17)
+
+4
+
+Results and Discussion
+
+Figure 7 shows an example of 2D mesh relaxation. In this example, to show the effect of dynamic simulation more clearly, initial bubbles are placed randomly with-
+
+The initial bubble configuration in Figure 8 (b) was created by hierarchical spatial subdivision, causing some gaps and overlaps between bubbles. On account of these gaps and overlaps, triangulation of the initial bubble placement produces thin elements and flat elements in the regions where the node spacing changes, as shown in Figure 8(c). In dynamic simulation, however, as the bubbles move into a force-balancing configuration
+
+416
+
+(a) Force-balancing
+
+node placement
+
+(a) Node-spacing
+
+function
+
+(b) Initial hierarchical
+
+bubble
+
+placement
+
+using (b) Constrained Delaunay triangulation of
+
+spatial
+
+subdivision
+
+a force-balancing
+
+node placement
+
+Figure 9: Improved bubble configuration and mesh obtained by using physically based mesh relaxation
+
+Table I: Mesh irregularity r No. of iterations
+Et (topological) Eg (geometrical) (c) Constrained Delaunay triangulation the initial node configuration of
+
+minimization
+10 50 0.53 0.11 100 0.42 0.04
+
+(1 0.96 0,31
+
+0.67 0.24
+
+ing packed bubbles Figure 8: Initial bubble configuration and mesh
+
+of a uniform
+
+size.
+
+and their population is adaptively controlled, these illshaped elements are smoothed out, as shown in Figures 9(a) and 9(b). Table 1 summarizes how the mesh irregularity is reduced in physically based mesh relaxation. Figures 10(a) and 10(b) illustrate the close packing of bubbles on a solid geometry and the resulting 3D mesh created by constrained Delaunay tetrahedrization. In this example, a constant node spacing is defined, yield-
+
+Figure 11 shows meshing of a simple non-manifold geometry consisting of seven vertices, nine edges, five faces, and one volume. After bubbles have been tightly packed on these geometric entities, as shown in Figure 1l(a), their centers are connected to give a set of line segments, triangles, and tetrahedral. Note that geometric compatibility is satisfied on ( 1) the joint-edge shared by the volume and the dangling face, and (2) the jointvertex shared by the dangling face and the dangling edge. A rough estimate of the actual computational time may be obtained from the fact that the initial bubble
+
+417
+
+u
+
+(a) Close packing of bubbles
+(a) Close packing of uniformly sized bubbles
+
+(b) Mesh consisting
+
+of line segments,
+
+(b)
+Figure 10:
+
+3D mesh Uniform
+
+consisting
+
+of tetrahedral of a 3D
+
+triangles,
+
+and tetrahedral
+
+tetrahedrization
+
+solid
+
+Figure
+
+11: Meshing
+
+non-manifold
+
+geometry
+
+5
+placement obtained by hierarchical spatial subdivision is completed with in a few seconds for a system of up to 1000 bubbles on a typical engineering workstation such as the IBM RS/6000, while the physically based mesh relaxation for the same system requires 20 to 40 seconds to converge. The mesh relaxation stage is more timeconsuming, because of the need to calculate interbubble forces and overlapping ratios. While a naive pairwise calculation of these costs 0(n2), where n is the number of bubbles, it can be reduced to O(n log(n)) by (1) using constrained Delaunay triangulation or tetrahedrization to find adjacent bubbles, and (2) calculating forces and overlapping ratios only between adjacent pairs of bubbles.
+
+Conclusion
+
+We developed a new computational method for physically based mesh generation. The novelty of the proposed bubble method is that the close packing of bubbles mimics a Voronoi diagram pattern, corresponding to well-shaped Delaunay triangles and tetrahedral. In order to find a configuration of closely packed ID, 2D, and 3D bubbles, two critical problems must to be solved: (1) where to place bubbles for regular element shapes, and (2) how many bubbles to inject to fill a region. Our proposed solution to the first problem is dynamic simulation with attractive or repulsive interbubble forces, a mass, and viscous damping effects. For the second problem of finding the right number of bubbles, we proposed an adaptive population control mechanism, In actual implementation, the bubble method gen-
+
+418
+
+mated node configurations that shaped triangles or tetrahedral.
+
+yield virtually
+
+no ill-
+
+[12] Ogata, K. Modern Hall, 1970. [13] Preparata,
+omety
+
+Control
+
+Engineering,
+
+Prentice-
+
+Acknowledgments
+The authors would like to thank Professor Nicholas Patrikalakis and Professor Alex Pentland for their intensive feedback on this work. Thanks also go to Barbara Balents, Ashok Kumar, and Lian Fang for useful technical discussions during the development of the proposed method.
+
+- An Introduction,
+
+F. and M. Shames, Computational GeSpringer- Verlag, 1985.
+
+[14] Press, Press,
+
+Art of Scientific
+
+W. H., et al., Numerical Reci es in C: the Computing, Cambn “J’ge University 1988. O’Connor, SGC: A Model for Pointsets with and Incomplete Boundaries, in Engineering, ElM.A.
+
+J. R., and [15] Rossignac, Dimension-Independent
+Internal Structures
+
+Geometric Modeling for Product sevier, pp. 145–180, 1990.
+
+References
+[1] Bat he, K.- J., Finite Element Procedures neering Analysis, Prentice-Hall, 1982. [2] Cavendish, Dime@onal in Engi-
+
+Classifi[16] Sapidis, N. and R. Perucchio, Solid/Solid cation Opemtions for Recursive Spatial Decomposition and Domain Triangulation of Solid Models,
+
+Computer-Aided 528, 1992. [17] Shephard, & Structures, [18] Shimada,
+Methods
+
+Design, et al.,
+
+vol. 24, no, 10, pp. 517Trends in Automatic Computers Generation,
+
+J .C., An Approach
+Finite Element
+
+to Automatic ThreeMesh Generation, ~nin En-
+
+M. S.,
+
+Three-Dimensional
+
+Mesh
+
+ternatlonal .Journal for Numerical Methods gineering, vol. 21, pp. 329-347, 1985.
+
+vol. 30, no. 1/2, pp. 421-429,
+
+1988.
+
+[3] Dey, T. K., C.L. Bajaj, and K. Sugihara, On Good International Triangulations in Three Dimensions,
+
+.Journal of Computational Geometry tions, vol. 2, no. 1, pp. 75-95, 1992.
+[4] Edelsbrunner, H., Algorithms in 1987. Geometry, Springer-Verlag,
+
+& ApplicaCombinatorial
+
+K, and D.C. Gossard, Computational for Physically-Based FE Mesh Genemtion, Proc. of the IFIP TC5/WG5.3 Eight International PROLAMAT Conference, edited by G.J. Oiling and F. Kimura, pp. 411420, 1992. K., Physically-Based Mesh Generation: Automated Tn”angulation of Surfaces and Volumes via Bubble Packing, Ph.D. thesis, Massachusetts Institute of Technology, Cambridge, MA, 1993.
+
+[19] Shimada,
+
+[5] Fang, T.-P. and L.A. Pie 1, Algorithm for Constrained Delaunay Triangu f ation, The Visual Computer, vol. 10, pp. 255-265, 1994. [6] Frey, W.H. and D.A. Fieldt lkfesh Rekuzation: A New Technique for Improvzng Triangulations, In-
+
+K., B. Balents, and D.C. Gossard, Au[20] Shimada, tomatic Mesh Reconstruction for Feature-Based Sctdpting of Deformable Surfaces, IFIP Transac-
+
+ternationzd Journal for Numerical gineering, vol. 31, pp. 1121-1133,
+
+Methods 1991.
+
+in En-
+
+tion B-8, Geometric Modeling for Product Realization, edited by P.R. Wilson, M.J. Wozny, and M..l. Pratt, pp. 165-188, 1993.
+[21] Thacker, W. C., A Brief Review of Techniques for Grids, InterGenerating Irregular Computational
+
+[7] Gursoz, E. L., Y’. Choi, and F.B. Prinz, VertexBased Representation of Non-manifold Boundaries,
+
+in Geometric Modeling for Product Elsevier, pp. 107-130, 1990.
+
+Engineering,
+
+national neering, [22] Watson,
+launay
+Polytopes,
+
+Journal for Numerical vol. 15, pp. 1335–1341,
+
+Methods
+1980.
+
+in Engi-
+
+[8] Ho-Le, K., Finite Element Mesh Generation MethComputer-Aided ods: A Review and Classification,
+
+D. F., Computing the n-Dimensional DeTessellation with Applications to Voronoi
+
+Design, vol. 20, no. 1, pp. 27-38,
+
+1988.
+
+Computer
+
+Journal,
+
+vol. 24, pp. 167-172, for Geometric Polytechnic In-
+
+1981.
+[9] Kawabe, S., K. Shimada, and H. Maauda, A Fmmework for 3D Modeling: Constraint-Based Description and Non-Manifold Geometric Model-
+
+ing, in Organization of Engineerin Knowled e for Product Modelling in Computer f ntegrated l.lanufacturing, Elsevier, pp. 325-354, 1988. (and IBM Research Report TR87- 1024, 1988.)
+
+[23] Weiler, K., Topological Structures Modeling, Ph.D. thesis, Rensselaer stitute, NY, 1986.
+
+[10] Maauda,
+Kawabe,
+
+H.,
+
+K.
+
+Shimada,
+
+M. Numao,
+
+and
+
+S.
+
+A Mathematical Theory and Applications of Non-Manifold Geometric Modeling, in Advanced
+
+Geometric Modeling for Engineering North-Holland, pp. 89-103, 1989. [11] Meshkat, S., J. Ruppert, and
+
+Applications, VT. Rajan,
+
+CDSmesh: An Automatic Three-Dimensional Mesh Generator, IBM Research Report.
+
+419
+

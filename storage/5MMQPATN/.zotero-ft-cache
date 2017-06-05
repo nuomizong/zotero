@@ -1,0 +1,1120 @@
+Computers and Structures 82 (2004) 945–962 www.elsevier.com/locate/compstruc
+
+Development of MITC isotropic triangular shell ﬁnite elements
+Phill-Seung Lee, Klaus-J€rgen Bathe u
+Received 11 October 2003; accepted 28 January 2004
+
+*
+
+Massachusetts Institute of Technology, Cambridge, MA 02139, USA
+
+Abstract We present a simple methodology to design isotropic triangular shell ﬁnite elements based on the Mixed Interpolation of Tensorial Components (MITC) approach. Several mixed-interpolated isotropic triangular shell ﬁnite elements are proposed. We perform well-established numerical tests and show the performance of the new elements. Ó 2004 Published by Elsevier Ltd.
+Keywords: Shell structures; Finite elements; Triangular elements; MITC shell elements
+
+1. Introduction It is well known that a shell structure is one of the most eﬀective structures which exist in nature. Also, there exist countless man-made shell structures, which have been constructed in the human’s history. To analyze shell structures, shell ﬁnite elements have been developed for several decades and have been used abundantly [1,2]. Shell structures can show diﬀerent sensitivities with decreasing thickness, depending on the shell geometry and boundary conditions. As the thickness becomes small, the behavior of a shell structure belongs to one of three diﬀerent asymptotic categories: the membranedominated, bending-dominated, or mixed shell problems [2–5]. An ideal ﬁnite element formulation should uniformly converge to the exact solution of the mathematical model irrespective of the shell geometry, asymptotic category and thickness. In addition, the convergence rate should be optimal. As is well known, displacement-based shell ﬁnite elements are too stiﬀ for bending-dominated shell structures when the shell is thin, regardless of the displacement interpolation order. In other words, the convergence of the element formulation in bending-
+
+Corresponding author. Tel.: +1-617-253-6645; fax: +1-617253-2275. E-mail address: kjb@mit.edu (K.J. Bathe). 0045-7949/$ - see front matter Ó 2004 Published by Elsevier Ltd. doi:10.1016/j.compstruc.2004.02.004
+
+*
+
+dominated problems deteriorates signiﬁcantly as the ratio of the shell thickness to characteristic length (t=L) decreases. This dependency of the element behavior on the thickness parameter is called ‘‘shear and membrane locking’’, which is the main obstacle in the ﬁnite element analysis of shell structures. The ‘‘mixed interpolation of tensorial components’’ (MITC) approach has been used as a very successful locking removal technique for quadrilateral plate/shell ﬁnite elements. The technique was originally proposed for 4-node and 8-node shell elements (the MITC4 and MITC8 elements) by Dvorkin and Bathe [6,7] and was later extended to 9 and 16-node elements (the MITC9 and MITC16 elements) by Bucalem and Bathe, see Ref. [8]. The technique was also used for triangular plate and shell elements [9–12] and in particular regarding shell analyses shows further potential. The main topic in shell ﬁnite element analyses is focused on answering the question ‘‘Is a given shell ﬁnite element uniformly optimal for general shell structures?’’. The recent studies [11–14] showed how to evaluate the optimality of shell ﬁnite elements and the studies reported that the mixed shell ﬁnite elements using the MITC technique are close to optimal in discretizations using quadrilateral shell ﬁnite elements. When modeling general engineering structures, some triangular elements are invariably used. Indeed, triangular elements are most eﬃcient to discretize arbitrary shell geometries. However, for quadrilateral shell ﬁnite element discretizations more research eﬀort has been
+
+946
+
+P.S. Lee, K.J. Bathe / Computers and Structures 82 (2004) 945–962
+
+undertaken and more progress has also been achieved. Consequently, in shell ﬁnite element analyses, quadrilateral elements are usually used due to their better performance than observed using triangular elements. Indeed, there does not exist yet a ‘‘uniformly optimal’’ triangular shell element, and not even an element close to optimal. The motivation of this research comes from the fact that the development of optimal triangular shell elements is still a great challenge [10,12,15–19]. It is extremely diﬃcult to obtain a shell ﬁnite element method that is uniformly optimal and a mixed formulation must be used. In the formulation we should aim to satisfy [1,2]: • Ellipticity. This condition ensures that the ﬁnite element discretization is solvable and physically means that there is no spurious zero energy mode. Without supports, a single shell ﬁnite element should have–– for any geometry––exactly six zero energy modes corresponding to the physical rigid body modes. This condition can be easily veriﬁed by counting the number of zero eigenvalues (and studying the corresponding eigenvectors) of the stiﬀness matrix of single unsupported shell ﬁnite elements. • Consistency. Since the ﬁnite element discretization is based on a mathematical model, the ﬁnite element solutions must converge to the solution of the mathematical model as the element size h goes to zero. In other words, the bilinear forms used in the ﬁnite element discretization, which may be a function of the element size h, must approach the exact bilinear forms of the mathematical model as h approaches zero. • Inf–sup condition. Ideally, a mixed ﬁnite element discretization should satisfy the inf–sup condition [2,11,13]. For shell ﬁnite elements, satisfying this condition implies uniform optimal convergence in bending-dominated shell problems. Then, the shell ﬁnite element is free from shear and membrane locking with solution accuracy being independent of the shell thickness parameter. However, it is generally not possible to analytically prove whether a shell ﬁnite element satisﬁes this condition and numerical tests have been employed. For triangular shell elements, one more requirement exists; namely, ‘‘spatial isotropy’’. The requirement of ‘‘spatial isotropy’’ means that the element stiﬀness matrices of triangular elements should not depend on the sequence of node numbering, i.e. the element orientation. Speciﬁcally, when a spatially isotropic triangular element has sides of equal length, the internal element quantities should vary in the same manner for each corner nodal displacement/rotation and each midside nodal displacement/rotation, respectively. If the behavior of an element depends on its orientation, spe-
+
+cial attention must be given to the direction of each element in the model. In fact, this condition is a major obstacle in the construction of locking-free triangular shell elements. Usually, some ‘‘averaging’’ or ‘‘cyclic’’ treatments are employed to construct isotropic triangular elements [18,19]. A simple systematic way, which is mechanically clear, to construct isotropic triangular shell elements is desirable. If a triangular shell element satisﬁes all the above conditions, it is an optimal and ideal triangular shell ﬁnite element. Such an element is very diﬃcult to reach and we can ‘‘soften’’ the requirements somewhat for practical purposes. We summarize the practical requirements on triangular shell ﬁnite elements as follows: spatially isotropic behavior; no spurious zero energy mode (ellipticity condition); no shear locking in plate bending problems; reliable, ideally optimal results for membrane dominated shell problems; • reliable, ideally optimal results for bending dominated shell problems ‘‘in the practical range of t=L’’; • easy extension of the formulation to nonlinear analyses (simple formulation). Hence only a practical range t=L is considered in bending dominated shell problems (but, of course, we shall not abolish the aim to ultimately reach a triangular element that is optimal for all analyses and for all values of t=L). The objective of this paper is to develop MITC isotropic triangular shell ﬁnite elements which can be practically used for general shell structures. In the following sections of the paper, we ﬁrst review the MITC formulation of continuum mechanics based shell ﬁnite elements. We then propose a simple methodology to design isotropic triangular shell elements using the MITC technique, and demonstrate this methodology with some examples. A large number of elements can be constructed using our methodology. We introduce some selected MITC triangular shell ﬁnite elements and give the numerical test results of these elements. • • • •
+
+2. MITC formulation of continuum mechanics based shell ﬁnite elements The continuum mechanics displacement-based shell ﬁnite elements have been proposed as general curved shell ﬁnite elements [20]. While these elements oﬀer signiﬁcant advantages in the modeling of arbitrary complex shell geometries, they exhibit severe locking in bending dominated cases [1,2].
+
+P.S. Lee, K.J. Bathe / Computers and Structures 82 (2004) 945–962
+
+947
+
+The basic idea of the MITC technique is to interpolate displacements and strains separately and ‘‘connect’’ these interpolations at ‘‘tying points’’. The displacement and strain interpolations are chosen so as to satisfy the ellipticity and consistency conditions, and as closely as possible the inf–sup condition. The geometry of the q-node continuum mechanics displacement-based shell element is described by [1,2] ~ s; tÞ ¼ xðr;
+q X i¼1 q t X ~ hi ðr; sÞ~i þ x ai hi ðr; sÞV in ; 2 i¼1
+
+the displacement-based covariant strain components in terms of the nodal displacements and rotations eij ¼ Bij U; ð7Þ
+
+where B is the strain–displacement matrix and U is the nodal displacement/rotation vector, we obtain " n # ij X k e ~ij ¼ e hij ðr; sÞBij jðrk ;sk ;tÞ U ¼ B ij U: ð8Þ
+k¼1
+ij ij
+
+ð1Þ
+
+where hi is the 2D shape function of the standard isoparametric procedure corresponding to node i, ~i is the x position vector at node i in the global Cartesian coor~ dinate system, and ai and V in denote the shell thickness and the director vector at node i, respectively. Note that ~ in this geometric description the vector V in is not necessarily normal to the shell midsurface. The displacement of the element is given by ~ s; tÞ ¼ uðr;
+q X i¼1
+
+Then using the proper stress–strain matrix, the element stiﬀness matrix is constructed in the same manner as for the displacement-based element.
+
+3. Strain interpolation technique for isotropic triangular shell elements Two important points of the successful MITC technique are to use appropriate assumed strain interpolations in Eq. (5) and to carefully choose the tying points. In recent research [21], it was observed that a seemingly small change in the tying positions can result in signiﬁcant diﬀerences in the predictive capability of the MITC9 shell element. While the interpolation of the covariant strain components is quite easily achieved for quadrilateral elements, the interpolation is more diﬃcult for triangular elements due to their shape and coordinate system. In this section we provide a systematic way to interpolate the strain components to reach isotropic MITC triangular shell elements. 3.1. Strain interpolation methods Let us consider a three node isoparametric beam element. As shown in Fig. 1(a), the displacement-based element has a quadratic variation of transverse shear strain. In order to remove shear locking, we need to linearly interpolate the transverse shear strain in the beam element [1,2]. The linear transverse shear strain ﬁeld can be determined by the two transverse shear strains sampled at two diﬀerent tying points (r ¼ r1 and r ¼ r2 ¼ Àr1 ). Three kind of approaches shown in Fig. 1(b)–(d) can be employed to determine the interpolation. Method-i Since we know that the resulting polynomial for ~rt is e linear, we assume ~rt ¼ a þ br: e Using the two conditions ~rt ðr1 Þ ¼ eð1Þ ; e rt ~rt ðr2 Þ ¼ eð2Þ ; e rt ð10Þ ð9Þ
+
+hi ðr; sÞ~i þ u
+
+q t X ~ ~ ai hi ðr; sÞðÀV i2 ai þ V i1 bi Þ; 2 i¼1
+
+ð2Þ in which ~i is the nodal displacement vector in the global u ~ ~ Cartesian coordinate system, V i1 and V i2 are unit vectors ~ orthogonal to V in and to each other, and ai and bi are the ~ ~ ~ rotations of the director vector V in about V i1 and V i2 at node i. The covariant strain components are directly calculated by 1 g u eij ¼ ð~i Á ~;j þ ~j Á ~;i Þ; g u 2 where ~i ¼ g @~ x ; @ri ~;i ¼ u @~ u @ri with r1 ¼ r; r2 ¼ s; r3 ¼ t: ð4Þ Now we deﬁne a set of so-called tying points k ¼ k 1; . . . ; nij on the shell midsurface with coordinates (rij , sk ), and deﬁne the assumed covariant strain components ij ~ij as e ~ij ðr; s; tÞ ¼ e
+nij X k¼1
+
+ð3Þ
+
+hk ðr; sÞeij jðrk ;sk ;tÞ ; ij
+ij ij
+
+ð5Þ
+
+where nij is the number of tying points for the covariant strain component ~ij and hk are the assumed interpolae ij tion functions satisfying
+l hk ðrij ; sl Þ ¼ dkl ; ij ij
+
+l ¼ 1; . . . ; nij :
+
+ð6Þ
+
+Note that this tying procedure is carried out on the elemental level for each individual element. Expressing
+
+948
+
+P.S. Lee, K.J. Bathe / Computers and Structures 82 (2004) 945–962
+
+(a)
+
+( ert2 )
+
+(b)
+
+~ ert
+e
+(1) rt
+
+( ert2 )
+
+e
+
+(1) rt
+
+r
+–1
+(c)
+
+r
+–1
+
+r1
+
+0
+
+r2
+
+1
+( h2 ert2 )
+
+r1
+
+0
+
+r2
+
+1
+
+he
+
+(1) 1 rt
+
+~ ert
+( ert1)
+
+(d)
+
+e
+
+( 2) rt
+
+~ lrt
+( ert1)
+
+~ ert
+r
+
+~ mrt
+
+e
+
+( 2) rt
+
+r
+–1
+
+–1
+
+r1
+
+0
+
+r2
+
+1
+
+r1
+
+0
+
+r2
+
+1
+
+Fig. 1. Derivation of the interpolation functions from given tying points.
+
+the unique pair of the coeﬃcients, a and b, can be determined, see Fig. 1(b). Method-ii In this method, shown in Fig. 1(c), we use the shape functions of the standard isoparametric procedure ~rt ¼ e
+2 X i¼1
+
+~rt ðÀ1Þ ¼ mrt À ~rt ; e ~ l ~rt ð0Þ ¼ mrt ; ~ e ~rt ð1Þ ¼ mrt þ ~rt ; ~ e l
+
+ð16Þ
+
+where mrt is the mean value of the two tying strains and ~ ~rt is the diﬀerence between the value at the center (r ¼ 0) l and the edge (r ¼ 1), that is, 1 ~ mrt ¼ ðeð1Þ þ eð2Þ Þ; rt 2 rt ~rt ¼ ert À ert : l r2 À r1
+ð2Þ ð1Þ
+
+hi eðiÞ ¼ h1 eð1Þ þ h2 eð2Þ ; rt rt rt
+
+ð11Þ
+
+ð17Þ
+
+where h1 and h2 are the linear functions satisfying hi ðrj Þ ¼ dij : Therefore, if we assume h1 ¼ a1 þ b1 r; h2 ¼ a2 þ b2 r ð13Þ ð12Þ
+
+Solving Eq. (16), we obtain ~rt ¼ mrt þ ~rt r: ~ e l ð18Þ
+
+Here, the coeﬃcient of the second-order term, c, automatically vanishes. Note that while we tie the strains at r ¼ r1 and r ¼ r2 , Eq. (16) considers the strains at nontying positions. The three methods give exactly the same interpolation for this example. To use ‘‘method-i’’ and ‘‘method-ii’’, the interpolations start from linear polynomials, while, in the new method, the interpolation starts from the quadratic polynomial and the coeﬃcient of the quadratic term automatically vanishes by imposition of the linear variation. Due to this property, the method can be used even when the exact space of functions for a 2D or 3D element is not known (see sections below). Note that, for the example considered here, two unknown coeﬃcients and two linear equations are considered by ‘‘method-i’’, four unknown coeﬃcients and four linear equations are considered by ‘‘method-ii’’ and three unknown coeﬃcients and three linear equations are considered by the proposed method. The proposed method is powerful, speciﬁcally when we construct the transverse shear strain ﬁelds for isotropic MITC triangular shell elements.
+
+with four conditions h1 ðr1 Þ ¼ 1; h2 ðr1 Þ ¼ 0; h1 ðr2 Þ ¼ 0; h2 ðr2 Þ ¼ 1; ð14Þ
+
+we can obtain the four coeﬃcients (a1 , b1 , a2 , b2 ). New method We here propose a simple new method, described in Fig. 1(d). Since the order of the transverse shear strain of the displacement-based three node isoparametric beam element is quadratic, we start from ~rt ¼ a þ br þ cr2 : e ð15Þ
+
+The following three conditions (imposing a linear variation) given at the nodes can be applied to evaluate a, b and c:
+
+P.S. Lee, K.J. Bathe / Computers and Structures 82 (2004) 945–962
+
+949
+
+3.2. Interpolation of transverse shear strain ﬁeld We have two independent covariant transverse shear strains from which the complete transverse shear strain ﬁeld of the element can be determined. To construct isotropic transverse shear strain ﬁelds for MITC quadrilateral shell elements, we can separately interpolate the two transverse shear strains (ert and est ) corresponding to the two directions r and s. Namely, in the natural coordinate system, each edge of a quadrilateral element is parallel to the corresponding opposite edge. Then, the elements automatically have isotropic transverse shear strain ﬁelds and behave isotropically. However, to obtain isotropic transverse shear strain ﬁelds for an MITC triangular element, we need to have that the strain variations corresponding to the three edge directions of the element are identical. The main obstacle then comes from the fact that, although there are only two independent transverse shear strains ert and est , the additional transverse shear strain eqt corresponding to the hypotenuse of the right-angled triangle, see Fig. 2, in the natural coordinate system must be considered. Fig. 2 shows how to ﬁnd the transverse shear strain eqt from ert and est at the point considered in the triangular element. The shear strain eqt is given by the tensor transformation 1 eqt ¼ pﬃﬃﬃ ðest À ert Þ: 2 ð19Þ
+
+s
+
+q
+
+~ eqt
+
+1 ~ ~ (est – ert ) 2
+
+~ est
+(ri , s i )
+
+r
+
+~ ert
+Fig. 3. Transverse shear strain relation and typical point used in strain evaluations.
+
+The second step is to choose the strain tying positions. These positions should be located isotropically in the element. The displacement-based strains at these positions are tied to the assumed strain variations. This tying is achieved by evaluating the assumed strains at judiciously chosen points (ri , si ), i ¼ 1; 2; . . . from the displacement-based strains, see Fig. 3, ~rt ðri ; si Þ ¼ . . . ; e ~st ðri ; si Þ ¼ . . . ; e ~qt ðri ; si Þ ¼ . . . e ð21Þ
+
+The ﬁrst step is to choose the polynomial space of the assumed transverse shear strains, ~rt and ~st . The ase e sumed transverse shear strain ~qt is immediately given e from Eq. (19). The following equations express this step: ~rt ¼ a1 þ b1 r þ c1 s . . . ; e ~st ¼ a2 þ b2 r þ c2 s . . . ; e 1 1 ~qt ¼ pﬃﬃﬃ ð~st À ~rt Þ ¼ pﬃﬃﬃ fða2 þ b2 r þ c2 s . . .Þ e e e 2 2 À ða1 þ b1 r þ c1 s . . .Þg;
+
+ð20Þ
+
+where the a1 ; b1 ; . . . and a2 ; b2 ; . . . denote the unknown coeﬃcients of the strain interpolation polynomials.
+
+Note that as in Eq. (16) these points do not need to be the tying points. The last step is to solve the resulting linear equations for the unknown coeﬃcients in the assumed strain variations. The number of linearly independent equations should be equal to the number of unknowns. This simple systematic procedure ensures the construction of isotropic transverse shear strain ﬁelds for MITC triangular shell elements. Here we discussed the construction of the isotropic transverse shear strain ﬁeld by the new method proposed in the previous section. Note that ‘‘method-i’’ and ‘‘method-ii’’ are not generally applicable. Of course, we should note that the assumed strain variations should be of lower order than the strains obtained by the assumed displacements. To exemplify the procedure, consider a 3-node triangular shell element with constant transverse shear strain along its edges, see Fig. 4. The tying points are chosen at the center of the edges. Step 1. The interpolation starts from ~rt ¼ a1 þ b1 r þ c1 s; e ~st ¼ a2 þ b2 r þ c2 s; e 1 ~qt ¼ pﬃﬃﬃ ð~st À ~rt Þ e e e 2 1 ¼ pﬃﬃﬃ fða2 þ b2 r þ c2 sÞ À ða1 þ b1 r þ c1 sÞg: 2
+
+ð22Þ
+
+Fig. 2. Calculation of the transverse shear strain eqt .
+
+950
+
+P.S. Lee, K.J. Bathe / Computers and Structures 82 (2004) 945–962
+
+Fig. 4. Transverse shear strain tying positions for the 3-node triangular shell element with the constant transverse shear strain along its edges.
+
+Step 2. The conditions are ~rt ð0; 0Þ ¼ eð1Þ ; e rt ~st ð0; 0Þ ¼ eð2Þ ; e st ~qt ð1; 0Þ ¼ eð3Þ e qt ~qt ð0; 1Þ ¼ eð3Þ e qt ~rt ð1; 0Þ ¼ eð1Þ ; e rt ~st ð0; 1Þ ¼ eð2Þ ; e st 1 ð3Þ ¼ pﬃﬃﬃ ðest À eð3Þ Þ; rt 2 1 ¼ pﬃﬃﬃ ðeð3Þ À eð3Þ Þ st rt 2 ð23Þ
+
+direction of the right-angled triangle in the natural coordinate system eqq ¼ err þ ess err À ess þ cosð2hÞ þ ers sinð2hÞ 2 2 ð26Þ
+
+and we obtain six linearly independent equations for the unknown coeﬃcients a1 ; b1 ; . . . ; c2 . Step 3. We solve the linear equations and obtain a1 ¼ eð1Þ ; rt a2 ¼ eð2Þ ; st b1 ¼ 0; b2 ¼ Àc1 ; c1 ¼ eð2Þ À eð1Þ À eð3Þ þ eð3Þ ; st rt st rt c2 ¼ 0; ð24Þ which gives the isotropic transverse shear strain ﬁeld ~rt ¼ eð1Þ þ cs; e rt ~st ¼ eð2Þ À cr; e st where c ¼ est À ert À est þ ert . 3.3. Interpolation of in-plane strain ﬁeld In the formulation of the quadrilateral MITC shell elements, the covariant in-plane strains are independently treated in a straight-forward manner. However, to reach MITC isotropic triangular elements, additional considerations arise. The interpolation of the in-plane strain ﬁeld starts from well known basic facts of mechanics. The complete in-plane strain ﬁeld is usually given by three strains, that is, two normal strains (usually, err and ess ) and one inplane shear strain (ers ). However, three independent normal strains can also give the complete in-plane strain ﬁeld. To construct the isotropic in-plane strain ﬁeld, we introduce the normal strain, eqq , in the hypotenuse
+ð2Þ ð1Þ ð3Þ ð3Þ
+
+with h ¼ 135° (cosð2hÞ ¼ 0 and sinð2hÞ ¼ À1), see Figs. 2 and 5. The ﬁrst step for the construction of the isotropic inplane strain ﬁeld is to independently interpolate the three in-plane strains err , ess and eqq with the same order of polynomials ~rr ¼ a1 þ b1 r þ c1 s . . . ; e ~ss ¼ a2 þ b2 r þ c2 s . . . ; e ~qq ¼ a3 þ b3 r þ c3 s . . . ; e
+
+ð27Þ
+
+ð25Þ
+
+where a1 ; b1 ; . . ., a2 ; b2 ; . . ., and a3 ; b3 ; . . . denote the unknown coeﬃcients of the strain polynomials. Of course, polynomials of lower order than implied by the assumed displacements should be used. In the second step, we select isotropic tying positions in the triangular element and evaluate the assumed strains from the displacement-based strains at
+
+s
+
+q
+
+~ eqq
+
+~ ess
+(ri , s i )
+
+1 ~ ~ ~ (err + ess ) – ers 2
+θ = 135
+°
+
+r
+~ err
+Fig. 5. In-plane strain relation and typical point used in strain evaluations.
+
+P.S. Lee, K.J. Bathe / Computers and Structures 82 (2004) 945–962
+
+951
+
+judiciously chosen points (ri , si ) in the element, i ¼ 1; 2; . . . ~rr ðri ; si Þ ¼ . . . ; e ~ss ðri ; si Þ ¼ . . . ; e ~qq ðri ; si Þ ¼ . . . e
+
+Step 1. We assume the starting polynomials ~rr ¼ a1 þ b1 r þ c1 s; e ~ss ¼ a2 þ b2 r þ c2 s; e ð30Þ
+
+ð28Þ
+
+~qq ¼ a3 þ b3 r þ c3 ð1 À r À sÞ; e where, of course, ~qq ¼ a3 þ b3 r þ c3 s can be used e instead of ~qq ¼ a3 þ b3 r þ c3 ð1 À r À sÞ. e Step 2. The conditions used are ~ rr ~rr ð0; 0Þ ¼ mð1Þ À ~ð1Þ ; lrr e ~ rr ~rr ð1; 0Þ ¼ mð1Þ þ ~ð1Þ ; lrr e ~ss ð0; 1=2Þ ¼ mð2Þ ; ~ ss e ~rr ð1=2; 0Þ ¼ mð1Þ ; ~ rr e ~ss ð0; 0Þ ¼ mð2Þ À ~ð2Þ ; ~ ss e lss ð31Þ
+
+As for the transverse shear strain interpolations, the ðri ; si Þ do not need to be tying positions. The number of linearly independent equations reached should be equal to the number of unknown coeﬃcients in Eq. (27). The last step is to solve the resulting linear equations for the unknown coeﬃcients in Eq. (27). The strain ~rs , e which is needed for the ﬁnite element formulation, is directly obtained as 1 ~rs ðr; sÞ ¼ f~rr ðr; sÞ þ ~ss ðr; sÞg À ~qq ðr; sÞ: e e e e 2 ð29Þ
+
+~ss ð0; 1Þ ¼ mð2Þ þ ~ð2Þ ; ~ ss e lss ~qq ð1=2; 1=2Þ ¼ mð3Þ ; ~ qq e pﬃﬃﬃ ~rr ðr1 ; 1= 3Þ ¼ eð1Þ ; e crr
+
+~qq ð1; 0Þ ¼ mð3Þ À ~ð3Þ ; ~ qq lqq e
+
+As an example, consider a 6-node triangular shell element with linear normal strain variations along its edges. Fig. 6 shows the tying points corresponding to each normal strain. Note that this tying is just one of the possible schemes for triangular shell elements with linearly varying normal strains along the edges, that is, various tying schemes could be used.
+
+~qq ð0; 1Þ ¼ mð3Þ þ ~ð3Þ ; ~ qq lqq e pﬃﬃﬃ ~ss ð1= 3; s1 Þ ¼ eð2Þ ; ~qq ðr1 ; s1 Þ ¼ eð3Þ ; e e css cqq where
+
+pﬃﬃﬃ 1 ðiÞ 3 ðiÞ ðiÞ ðiÞ ðiÞ ðiÞ ~ ðe À e1jj Þ l mjj ¼ ðe1jj þ e2jj Þ; ~jj ¼ 2 2jj 2 with j ¼ r; s; q for i ¼ 1; 2; 3
+
+ð32Þ
+
+s
+
+s
+
+1
+
+1
+
+s2
+(1 ecrr)
+
+s1
+r r
+
+0
+
+r1
+
+r2
+
+1
+
+0
+
+e
+
+(1) 1rr
+
+e
+
+(1) 2rr
+
+1
+
+~ err
+s s
+
+1
+
+1
+
+e
+
+( 2) 2ss
+
+( 3) e2qq
+
+( 3) ecqq
+
+( 3) e1qq
+
+e
+
+( 2) 1ss
+
+e
+
+( 2) css
+
+r
+
+r
+
+0
+
+~ ess
+
+1
+
+0
+
+~ eqq
+
+1
+
+1 Fig. 6. Strain tying positions for the 6-node triangular shell element with linear normal strain along edges; r1 ¼ s1 ¼ 1 À 2pﬃﬃ and 2 3 1 r2 ¼ s2 ¼ 1 þ 2pﬃﬃ. 2 3
+
+952
+
+P.S. Lee, K.J. Bathe / Computers and Structures 82 (2004) 945–962
+
+and r1 ¼ s1 ¼ 1 1 À pﬃﬃﬃ ; 2 2 3 r2 ¼ s2 ¼ 1 1 þ pﬃﬃﬃ : 2 2 3 ð33Þ
+
+Here, we focus on the behavior of relatively competitive elements among possible elements, which are proposed as follows: MITC3 Since the geometry of the 3-node triangular shell element is always ﬂat, we only use, like for the MITC4 element, the mixed interpolation for the transverse shear strains. We assume that the transverse shear strains of the element are constant along edges. The tying and interpolation schemes are shown in Fig. 4 and in Eq. (25), respectively. MITC6-a For this 6-node MITC triangular shell element, linear transverse shear strains along edges are assumed and therefore two tying points at each edge are chosen. We have one tying point (r ¼ 1=3, s ¼ 1=3) to express quadratic variations of strains inside the element. Fig. 7(a) shows the tying positions for this scheme, in which 1 1 À pﬃﬃﬃ ; 2 2 3 1 r3 ¼ s3 ¼ : 3 r1 ¼ s 1 ¼ r2 ¼ s2 ¼ 1 1 þ pﬃﬃﬃ ; 2 2 3 ð35Þ
+
+Step 3. The solution of the equations gives ~ rr lrr a1 ¼ mð1Þ À ~ð1Þ ; ð2Þ ~ a2 ¼ m À ~ð2Þ ; l
+ss ss
+
+b1 ¼ 2~ð1Þ ; lrr c2 ¼ 2~ð2Þ ; l
+ss
+
+~ qq lqq lqq a3 ¼ mð3Þ þ ~ð3Þ ; b3 ¼ À2~ð3Þ ; pﬃﬃﬃ ð1Þ c1 ¼ 3ðecrr À a1 À b1 r1 Þ; pﬃﬃﬃ b2 ¼ 3ðeð2Þ À a2 À c2 s1 Þ; css pﬃﬃﬃ ð3Þ c3 ¼ 3ðecqq À a3 À b3 r1 Þ:
+
+ð34Þ
+
+As a result, we obtain the isotropic in-plane strain ﬁeld and the interpolation function for the in-plane shear strain ~rs is immediately given by Eq. (29). e
+
+4. MITC isotropic triangular shell elements A successful MITC shell element is based on strain interpolations that result in good behavior in both bending and membrane dominated problems. However, in many cases, if the interpolation of assumed strains induces good behavior of the element in bending dominated shell problems, the element is too ﬂexible (or unstable in the worst case) in membrane dominated shell problems. On the other hand, the element might be too stiﬀ or lock in bending dominated problems. Therefore, the success is in using well balanced strain interpolations in the formulation. When developing MITC triangular shell ﬁnite elements, the goal is to eliminate shear and membrane locking in bending dominated shell problems and to keep the consistency of the element in membrane dominated shell problems. The optimal strain interpolations and tying scheme/ points for the MITC technique depend on the displacement interpolations used, that is, the polynomial space of the element displacement interpolation. In the previous section, we discussed how to obtain isotropic strain ﬁelds for the MITC technique. Given a displacement interpolation, there exist a number of possible interpolation schemes for the transverse shear strains and the in-plane strains. To construct the MITC triangular shell ﬁnite elements, each transverse shear strain interpolation scheme can be combined with various inplane strain interpolation schemes. As a result, we can develop many new shell ﬁnite elements, but only few elements will be eﬀective for practical purposes and, of course, we are searching the ‘‘optimal’’ element for a given displacement interpolation.
+
+Note that, if we change the values of r1 , s1 and r2 , s2 , the element will behave diﬀerently but a good predictive capability of the element is obtained with the values in Eq. (35). We assume the strains to be given by ~rt ¼ a1 þ b1 r þ c1 s þ d1 rs þ e1 r2 þ f1 s2 ; e ~st ¼ a2 þ b2 r þ c2 s þ d2 rs þ e2 r2 þ f2 s2 e and have ~ rt lrt a1 ¼ mð1Þ À ~ð1Þ ; ~ st lst a2 ¼ mð2Þ À ~ð2Þ ; b1 ¼ 2~ð1Þ ; lrt c2 ¼ 2~ð2Þ ; lst e1 ¼ 0; f2 ¼ 0;
+
+ð36Þ
+
+~ st ~ rt c1 ¼ 6ecrt À 3ecst þ 2mð3Þ À 2mð3Þ À 4a1 À b1 þ a2 ; ~ st ~ rt b2 ¼ À 3ecrt þ 6ecst À 2mð3Þ þ 2mð3Þ þ a1 À 4a2 À c2 ; ~ st ~ rt lst lrt e2 ¼ 3ecrt À 6ecst þ 3mð3Þ À ~ð3Þ À 3mð3Þ þ ~ð3Þ þ b1 þ 3a2 þ c2 ; ~ st lst ~ rt f1 ¼ À 6ecrt þ 3ecst À 3mð3Þ À ~ð3Þ þ 3mð3Þ þ ~ð3Þ þ 3a1 þ b1 þ c2 ; lrt d1 ¼ À e2 ; d2 ¼ Àf1 ; ð37Þ
+
+P.S. Lee, K.J. Bathe / Computers and Structures 82 (2004) 945–962
+
+953
+
+(a)
+
+s
+
+s
+
+1
+
+s2
+
+1 (2 e2st)
+
+( 3) e2qt
+
+s3 s1
+r
+
+(2 e1st)
+
+ecrt , ecst
+(1 e1rt)
+
+(3 e1qt)
+
+r
+(1) e2rt 1
+
+0
+s
+
+r1 r3
+
+r2
+
+1
+
+0
+s
+
+(b)
+
+1
+
+s2
+
+1 (2 e2st)
+
+( 3) e2qt
+
+s1
+r
+
+(2 e1st)
+
+(3 e1qt)
+
+r
+(1 e1rt) (1) e2rt 1
+
+0
+
+r1
+
+r2
+
+1
+
+0
+
+Fig. 7. Tying points for the transverse shear strain interpolation of the 6-node MITC triangular shell elements: (a) for MITC6-a and (b) for MITC6-b.
+
+pﬃﬃﬃ 1 ðiÞ ðiÞ ðiÞ ~ðiÞ ¼ 3 ðeðiÞ À eðiÞ Þ ~ mjt ¼ ðe1jt þ e2jt Þ; ljt 1jt 2 2 2jt with j ¼ r; s for i ¼ 1; 2; 3:
+
+where
+
+~ rt a1 ¼ mð1Þ À ~ð1Þ ; lrt ~ st lst a2 ¼ mð2Þ À ~ð2Þ ; ð38Þ
+
+b1 ¼ 2~ð1Þ ; lrt c2 ¼ 2~ð2Þ ; lst ð41Þ
+
+~ st ~ rt lst lrt c1 ¼ ða2 þ c2 À a1 Þ À ðmð3Þ þ ~ð3Þ À mð3Þ À ~ð3Þ Þ; ~ st ~ rt lst lrt b2 ¼ ða1 þ b1 À a2 Þ þ ðmð3Þ À ~ð3Þ À mð3Þ þ ~ð3Þ Þ:
+
+It is interesting to note that this scheme is very similar to the interpolation scheme of the MITC7 plate bending element in reference [9]. For this element similar tying points are used and the interpolation functions, which belong to a ‘‘rotated Raviart-Thomas space’’, are given as ~rt ¼ a1 þ b1 r þ c1 s þ sðdr þ esÞ; e ~st ¼ a2 þ b2 r þ c2 s À rðdr þ esÞ: e ð39Þ
+
+The same in-plane strain interpolation scheme as for the MITC6-a element is employed. Fig. 8 summarizes the strain interpolation schemes of the selected MITC triangular shell elements. We may note the geometric relationships between the tying points used for the triangular MITC3 and MITC6 elements and the MITC4 [6] and MITC9 quadrilateral elements [21]. Fig. 9 shows these relationships.
+
+We use the in-plane strain interpolation scheme given by Eqs. (30)–(34). MITC6-b Considering the transverse shear strains, this 6-node MITC triangular shell element has the same edge tying points as the MITC6-a element. Also ‘‘linear transverse shear strains along edges’’ are assumed. However, we do not have any internal tying point and the strain variations are linear inside the element. Fig. 7(b) shows the tying positions. The transverse shear strain interpolations used are ~rt ¼ a1 þ b1 r þ c1 s; e ~st ¼ a2 þ b2 r þ c2 s; e where using Eq. (38), ð40Þ
+
+5. Numerical results In this section, we report upon various numerical tests of the MITC triangular shell ﬁnite elements, MITC3, MITC6-a and MITC6-b. Selected basic tests show whether the elements satisfy the minimum requirements, see Section 5.1. To investigate in detail the predictive capability of the proposed elements, we performed convergence studies for various shell problems [2], see Sections 5.2–5.4. For convergence studies, we use the s-norm [14] deﬁned as
+
+954
+
+P.S. Lee, K.J. Bathe / Computers and Structures 82 (2004) 945–962
+
+Fig. 8. Strain interpolation schemes and tying points of the MITC triangular shell ﬁnite elements.
+
+k~ À ~h k2 ¼ u u s
+
+Z
+X
+
+D~T D~ dX;  r
+
+ð42Þ
+
+discretized domain, respectively, and the relationship between them is ~ ¼ Pð~h Þ; x x ð45Þ
+
+where ~ denotes the exact solution and ~h denotes the u u solution of the ﬁnite element discretization. Here, ~ and  ~ are the strain vector and the stress vector in the global r Cartesian coordinate system, respectively, deﬁned by ~ ¼ ½xx ; yy ; zz ; 2xy ; 2yz ; 2zx T ;  ~ ¼ ½rxx ; ryy ; rzz ; rxy ; ryz ; rzx T r and xÞU x D~ ¼ ~ À~h ¼ Bð~ À Bh ð~h ÞUh ;    D~ ¼ ~ À ~h ¼ Cð~ xÞU À Ch ð~h ÞBh ð~h ÞUh ; r r r xÞBð~ x x ð44Þ ð43Þ
+
+where P deﬁnes a one-to-one mapping. In the practical use of this norm, the ﬁnite element solution using a very ﬁne mesh is adopted instead of the exact solution. Using the reference solution, the s-norm in Eq. (42) can be approximated by k~ref À ~h k2 ¼ u u s with  xÞU x D~ ¼ ~ref À~h ¼ Bref ð~ ref À Bh ð~h ÞUh ;   D~ ¼ ~ref À ~h ¼ Cref ð~ ref ð~ ref r r r xÞB xÞU À Ch ð~h ÞBh ð~h ÞUh : x x Z
+Xref
+
+D~T D~ dXref  r
+
+ð46Þ
+
+where C denotes the material stress–strain matrix and B is the strain–displacement operator. The position vectors ~ and ~h correspond to the continuum domain and the x x
+
+ð47Þ
+
+P.S. Lee, K.J. Bathe / Computers and Structures 82 (2004) 945–962
+
+955
+
+(a)
+
+(b)
+
+(c)
+
+Fig. 9. Geometric relationships between tying points used for triangular and quadrilateral MITC shell elements. For the MITC9 element, see Ref. [21]: (a) selection of tying points for the transverse shear strains of the MITC3 element; (b) selection of edge tying points for the transverse shear strains of the MITC6 element and (c) selection of tying points for the in-plane strains of the MITC6 element.
+
+To consider the convergence of the discretization schemes with various thicknesses, we use the relative error given by relative error ¼ k~ref À ~h k2 u u s k~ref k2 u s : ð48Þ
+
+5.1. Basic tests The following basic tests are performed as basic requirements for the triangular shell elements. • Isotropic element test. Although the theory shows that the proposed elements are isotropic, we include this numerical test to illustrate the isotropy that triangular elements, in general, should satisfy. Considering any geometrical triangular element, this test should be passed. The test is performed by analyzing the three same triangular elements with diﬀerent no-
+
+dal numbering sequences as shown in Fig. 10. The raxis and s-axis always run from nodes 1 to 2 and nodes 1 to 3, respectively. To pass the test, exactly the same response should be obtained for all possible (three-dimensional) tip forces and moments. • Zero energy mode test. This test is performed by counting the number of zero eigenvalues of the stiﬀness matrix of one unsupported shell ﬁnite element, which should be exactly six, and the corresponding eigenvectors should of course be physical rigid body modes. We recommend that, when performing this test, various possible geometries be taken because an element might pass the test for a certain geometry but not for other geometries. • Patch test. The patch test has been widely used to test elements, despite its limitations for mixed formulations, see Ref. [1]. We use the test here in numerical form to merely assess the sensitivity of our elements to geometric distortions. The mesh used for the patch test is taken from Ref. [1] and shown in Fig. 11. The
+
+956
+
+P.S. Lee, K.J. Bathe / Computers and Structures 82 (2004) 945–962
+
+Fig. 10. Isotropic element test of the 6-node triangular shell element. ~i ¼ ffx ; fy ; fz ; ma ; mb gT . P
+
+y
+
+point forces which should result in constant stress conditions are applied. The patch test is passed if indeed constant stress ﬁelds are calculated.
+(0,10) (10,10)
+
+(4,7)
+(8,7)
+
+The results of the basic tests are reported in Table 1. We notice that all elements proposed here pass all basic tests. 5.2. Clamped plate problem We consider the plate bending problem shown in Fig. 12. The square plate of dimension 2L Â 2L with uniform thickness is subjected to a uniform pressure normal to the ﬂat surface and all edges are fully clamped. Due to symmetry, only one quarter model is considered (region ABCD shown in Fig. 12) with the following symmetry and boundary conditions imposed: ux ¼ hy ¼ 0 along BC; uy ¼ hx ¼ 0 along DC; and ux ¼ uy ¼ uz ¼ hx ¼ hy ¼ 0 along AB and AD:
+
+(8,3)
+
+(2,2)
+
+x
+(10,0)
+
+(0,0)
+
+Fig. 11. Mesh used for the patch tests.
+
+minimum number of degrees of freedom is constrained to prevent rigid body motion and the nodal
+Table 1 Basic test results of the MITC triangular shell ﬁnite elements Element MITC3 MITC6-a MITC6-b Isotropic element test Pass Pass Pass
+
+ð49Þ
+
+Zero energy mode test Pass Pass Pass
+
+Membrane patch test Pass Pass Pass
+
+Bending patch test Pass Pass Pass
+
+P.S. Lee, K.J. Bathe / Computers and Structures 82 (2004) 945–962
+z
+
+957
+
+q
+
+t
+
+x
+
+y 2L
+
+y 2L
+
+D
+
+C
+
+2L
+
+D
+
+C
+
+2L
+
+x
+A B A B
+
+x
+
+(a)
+
+(b)
+
+Fig. 12. Clamped plate under uniform pressure load with uniform 4 · 4 meshes of triangular elements (L ¼ 1:0, E ¼ 1:7472 Â 107 and m ¼ 0:3).
+
+0
+
+MITC3
+
+0
+
+MITC6-a
+
+0
+
+MITC6-b
+
+-0.6
+
+-0.6
+
+-0.6
+
+log( relative error )
+
+log( relative error )
+
+-1.8
+
+-1.8
+
+log( relative error )
+-1.2 -0.6
+
+-1.2
+
+-1.2
+
+-1.2
+
+-1.8
+
+-2.4
+
+-2.4
+
+-2.4
+
+-3
+
+-3
+
+-3
+
+-3.6 -1.8
+
+-1.2
+
+-0.6
+
+-3.6 -1.8
+
+-3.6 -1.8
+
+-1.2
+
+-0.6
+
+log(2h)
+
+log(h)
+
+log(h)
+t/L = 1/100 t/L = 1/1000 t/L = 1/10000
+
+Fig. 13. Convergence curves for the clamped plate problem. The bold line shows the optimal convergence rate, which is 2.0 for linear elements and 4.0 for quadratic elements. For the MITC3 element, the solid and dotted lines correspond, respectively, to the results obtained using the meshes in Fig. 12(a) (solid line results) and (b) (dotted line results).
+
+Fig. 13 reports the convergence of the MITC triangular shell elements in the relative error of Eq. (48). We
+
+use the solution using the MITC9 element with a mesh of 96 · 96 elements as reference. As the plate thickness
+
+958
+
+P.S. Lee, K.J. Bathe / Computers and Structures 82 (2004) 945–962
+
+decreases, the MITC3 element locks but still good accuracy characteristics are seen for t=L up to about 1/1000. The MITC6-a element shows almost optimal convergence.
+
+ux ¼ b ¼ 0 along BC; uy ¼ a ¼ 0 along DC; uz ¼ a ¼ 0 along AB:
+
+and
+
+ð51Þ
+
+For the clamped case, the boundary conditions are 5.3. Cylindrical shell problems We consider a cylindrical shell of uniform thickness t, length 2L and radius R, see Fig. 14. The shell is loaded by the pressure distribution pðhÞ normal to the shell surface, pðhÞ ¼ p0 cosð2hÞ: ð50Þ ux ¼ b ¼ 0 along BC; uy ¼ a ¼ 0 along DC; uz ¼ a ¼ 0 along AB; and ux ¼ uy ¼ uz ¼ a ¼ b ¼ 0 along AD:
+
+ð52Þ
+
+This shell shows two diﬀerent asymptotic behaviors depending on the boundary conditions at its ends: bending dominated behavior when the ends are free and membrane dominated behavior when the ends are clamped. By symmetry, we can limit calculations to the region ABCD. For the free edge case, the following boundary conditions are imposed:
+
+A detailed study of this shell problem is presented in Ref. [12]. The relative error used here is based on the reference solution obtained with a mesh of 96 · 96 MITC9 shell elements. Fig. 15 displays the convergence curves of the triangular shell elements for the clamped case. We note that the MITC3, MITC6-a and MITC6-b elements show good convergence behavior. Fig. 16 presents the convergence curves for the free case. The MITC6-a element shows here as well good convergence. 5.4. Hyperboloid shell problems The following two test problems use the same geometry given in Fig. 17 and the same loading. The midsurface of this shell structure is described by [2] x 2 þ z2 ¼ 1 þ y 2 ; y 2 ½À1; 1: ð53Þ
+
+z
+
+C
+
+β
+D
+
+θ
+
+B
+
+The loading imposed is the smoothly varying periodic pressure normal to the surface,
+y
+
+pðhÞ ¼ p0 cosð2hÞ;
+
+ð54Þ
+
+x
+
+A
+R
+2L
+
+α
+
+1
+
+0.5
+
+which is the same distribution as shown in Fig. 14. A bending dominated problem is obtained when both ends are free and a membrane dominated problem is obtained when the ends are clamped. Using symmetry, the analyses are performed using one eighth of the structure, the shaded region ABCD in Fig. 17(a). Considering the boundary conditions, we have for the free case uz ¼ b ¼ 0 along BC; ux ¼ b ¼ 0 along AD; uy ¼ a ¼ 0 along DC and, for the clamped case and ð55Þ
+
+p ( θ ) / p0
+
+0
+
+-0.5
+
+-1
+
+0
+
+30
+
+60
+
+90
+
+θ
+Fig. 14. Cylindrical shell problem with a 4 · 4 mesh of triangular elements (L ¼ R ¼ 1:0, E ¼ 2:0 Â 105 , m ¼ 1=3 and p0 ¼ 1:0).
+
+uz ¼ b ¼ 0 along BC; ux ¼ b ¼ 0 along AD; uy ¼ a ¼ 0 along DC; and ux ¼ uy ¼ uz ¼ a ¼ b ¼ 0 along AB:
+
+ð56Þ
+
+P.S. Lee, K.J. Bathe / Computers and Structures 82 (2004) 945–962
+
+959
+
+0
+
+MITC3
+
+0
+
+MITC6-a
+
+0
+
+MITC6-b
+
+-0.6
+
+-0.6
+
+-0.6
+
+log ( relative error )
+
+log ( relativeerror )
+
+-1.2
+
+-1.2
+
+log (relative error )
+-1.2 -0.6
+
+-1.2
+
+-1.8
+
+-1.8
+
+-1.8
+
+-2.4
+
+-2.4
+
+-2.4
+
+-3
+
+-3
+
+-3
+
+-3.6 -1.8
+
+-1.2
+
+-0.6
+
+-3.6 -1.8
+
+-3.6 -1.8
+
+-1.2
+
+-0.6
+
+log (2h)
+
+log (h)
+
+log (h)
+t/L =1/100 t/L =1/1000 t/L =1/10000
+
+Fig. 15. Convergence curves for the clamped cylindrical shell problem. The bold line shows the optimal convergence rate, which is 2.0 for linear elements and 4.0 for quadratic elements.
+
+0
+
+MITC3
+
+0
+
+MITC6-a
+0 -0.6
+
+MITC6-b
+
+-0.6
+
+-0.6
+
+log (relative error )
+
+log (relative error )
+
+-1.8
+
+-1.8
+
+log (relative error )
+-1.2 -0.6
+
+-1.2
+
+-1.2
+
+-1.2
+
+-1.8
+
+-2.4
+
+-2.4
+
+-2.4
+
+-3
+
+-3
+
+-3
+
+-3.6 -1.8
+
+-1.2
+
+-0.6
+
+-3.6 -1.8
+
+-3.6 -1.8
+
+-1.2
+
+-0.6
+
+log( 2h )
+
+log( h )
+
+log( h )
+
+t/L = 1/100 t/L = 1/1000 t/L = 1/10000
+
+Fig. 16. Convergence curves for the free cylindrical shell problem. The bold line shows the optimal convergence rate, which is 2.0 for linear elements and 4.0 for quadratic elements.
+
+960
+
+P.S. Lee, K.J. Bathe / Computers and Structures 82 (2004) 945–962
+
+z
+0 1 1 0.5
+
+y
+D
+
+y
+
+0
+
+α
+
+C
+
+2L
+
+x
+
+-0.5 -1 -1
+
+β
+A 0 B
+1
+
+θ
+
+(a)
+
+x
+
+z
+
+(b)
+
+Fig. 17. (a) Hyperboloid shell problem (E ¼ 2:0 Â 1011 , m ¼ 1=3 and p0 ¼ 1:0) and (b) graded mesh (8 · 8, t=L ¼ 1=1000, clamped case).
+
+0
+
+MITC3
+
+0
+
+MITC6-a
+
+0
+
+MITC6-b
+
+-0.6
+
+-0.6
+
+-0.6
+
+log( relative error )
+
+log( relative error )
+
+-1.2
+
+-1.2
+
+log( relative error )
+-1.2 -0.6
+
+-1.2
+
+-1.8
+
+-1.8
+
+-1.8
+
+-2.4
+
+-2.4
+
+-2.4
+
+-3
+
+-3
+
+-3
+
+-3.6 -1.8
+
+-1.2
+
+-0.6
+
+-3.6 -1.8
+
+-3.6 -1.8
+
+-1.2
+
+-0.6
+
+log(2h)
+
+log(h)
+
+log(h)
+t/L = 1/100 t/L = 1/1000 t/L = 1/10000
+
+Fig. 18. Convergence curves for the clamped hyperboloid shell problem. The bold line shows the optimal convergence rate, which is 2.0 for linear elements and 4.0 for quadratic elements.
+
+For both cases, we use the reference solution calculated using a mesh of 96 · 96 MITC9 shell elements. For the clamped case, half ﬃ the mesh is used in the p boundary layer of width 6 t, see Fig. 17(b). For the
+
+free case, the very thin boundary layer was not specially meshed. Fig. 18 shows the convergence curves of the MITC triangular shell elements in the clamped case.
+
+P.S. Lee, K.J. Bathe / Computers and Structures 82 (2004) 945–962
+
+961
+
+0
+
+MITC3
+
+0
+
+MITC6-a
+
+0
+
+MITC6-b
+
+-0.6
+
+-0.6
+
+-0.6
+
+log( relative error )
+
+-1.2
+
+-1.2
+
+log( relative error )
+-1.2 -0.6
+
+log( relative error )
+
+-1.2
+
+-1.8
+
+-1.8
+
+-1.8
+
+-2.4
+
+-2.4
+
+-2.4
+
+-3
+
+-3
+
+-3
+
+-3.6 -1.8
+
+-1.2
+
+-0.6
+
+-3.6 -1.8
+
+-3.6 -1.8
+
+-1.2
+
+-0.6
+
+log(2h)
+
+log(h)
+
+log(h)
+t/L = 1/100 t/L = 1/1000 t/L = 1/10000
+
+Fig. 19. Convergence curves for the free hyperboloid shell problem. The bold line shows the optimal convergence rate, which is 2.0 for linear elements and 4.0 for quadratic elements.
+
+The MITC3 and MITC6-a elements show quite good convergence for this membrane dominated shell problem. The convergence curves when the edges of the structure are free are shown in Fig. 19. This is a diﬃcult problem to solve when the thickness is small [21], but the problem is an excellent test case because of the negative Gaussian curvature of the shell surface. The elements show all some locking but in fact good accuracy characteristics for the practical range of t=L up to about 1/ 1000.
+
+Chapelle and Bathe [2,22]), the same interpolation approach is of course also applicable to 3D-shell elements [23]. The three elements considered are good candidates for the analysis of general shell structures in engineering practice in which the range of t=L is usually from 1/10 to about 1/1000. The elements show good behavior in the chosen test problems for that range of thickness values. However, it is still necessary to study these elements further and to obtain uniformly optimal triangular shell ﬁnite elements that behave equally well in all types of shell problems.
+
+6. Conclusions In this paper, we proposed a systematic procedure to construct spatially isotropic MITC triangular shell ﬁnite elements. The method is mechanically clear as well as simple and eﬀective. We then constructed 3-node and 6node MITC shell ﬁnite elements. For the selected elements (the MITC3, MITC6-a and MITC6-b elements), we performed well-chosen numerical tests and showed convergence curves. While the elements have been developed and tested using the continuum-mechanics based approach with the Reissner–Mindlin kinematics (with the underlying basic shell model identiﬁed by References
+[1] Bathe KJ. Finite element procedures. New York: Prentice Hall; 1996. [2] Chapelle D, Bathe KJ. The ﬁnite element analysis of shells––fundamentals. Berlin: Springer-Verlag; 2003. [3] Chapelle D, Bathe KJ. Fundamental considerations for the ﬁnite element analysis of shell structures. Comput Struct 1998;66:19–36, 711–712. [4] Lee PS, Bathe KJ. On the asymptotic behavior of shell structures and the evaluation in ﬁnite element solutions. Comput Struct 2002;80:235–55.
+
+962
+
+P.S. Lee, K.J. Bathe / Computers and Structures 82 (2004) 945–962 [15] Bletzinger KU, Bischoﬀ M, Ramm E. A uniﬁed approach for shear-locking-free triangular and rectangular shell ﬁnite elements. Comput Struct 2000;75:321–34. [16] Argyris JH, Papadrakakis M, Apostolopoulou C, Koutsourelakis S. The TRIC shell element: theoretical and numerical investigation. Comput Methods Appl Mech Eng 2000;182:217–45. [17] Bernadou M, Eiroa PM, Trouv P. On the convergence of e a discrete Kirchhoﬀ triangle method valid for shells of arbitrary shape. Comput Methods Appl Mech Eng 1994; 118:373–91. [18] Sze KY, Zhu D. A quadratic assumed natural strain curved triangular shell element. Comput Methods Appl Mech Eng 1999;174:57–71. [19] Kim JH, Kim YH. Three-node macro triangular shell element based on the assumed natural strains. Comput Mech 2002;29:441–58. [20] Ahmad S, Irons BM, Zienkiewicz OC. Analysis of thick and thin shell structures by curved ﬁnite elements. Int J Numer Methods Eng 1970;2:419–51. [21] Bathe KJ, Lee PS, Hiller JF. Towards improving the MITC9 shell element. Comput Struct 2003;81:477–89. [22] Chapelle D, Bathe KJ. The mathematical shell model underlying general shell elements. Int J Numer Methods Eng 2000;48:289–313. [23] Chapelle D, Ferent A, Bathe KJ. 3D-shell elements and their underlying mathematical model. Math Models Methods Appl Sci 2004;14:105–42.
+
+[5] Bathe KJ, Chapelle D, Lee PS. A shell problem ‘highly sensitive’ to thickness changes. Int J Numer Methods Eng 2003;57:1039–52. [6] Dvorkin EN, Bathe KJ. A continuum mechanics based four-node shell element for general nonlinear analysis. Eng Comput 1984;1:77–88. [7] Bathe KJ, Dvorkin EN. A formulation of general shell elements––the use of mixed interpolation of tensorial components. Int J Numer Methods Eng 1986;22:697– 722. [8] Bucalem ML, Bathe KJ. Higher-order MITC general shell elements. Int J Numer Methods Eng 1993;36:3729–54. [9] Bathe KJ, Brezzi F, Cho SW. The MITC7 and MITC9 plate bending elements. Comput Struct 1989;32:797–814. [10] Bucalem ML, Nbrega SHS. A mixed formulation for o general triangular isoparametric shell elements based on the degenerated solid approach. Comput Struct 2000;78: 35–44. [11] Bathe KJ, Iosilevich A, Chapelle D. An inf–sup test for shell ﬁnite elements. Comput Struct 2000;75:439–56. [12] Bathe KJ, Iosilevich A, Chapelle D. An evaluation of the MITC shell elements. Comput Struct 2000;75:1–30. [13] Bathe KJ. The inf–sup condition and its evaluation for mixed ﬁnite element methods. Comput Struct 2001;79:243– 52, 971. [14] Hiller JF, Bathe KJ. Measuring convergence of mixed ﬁnite element discretizations: an application to shell structures. Comput Struct 2003;81:639–54.
+

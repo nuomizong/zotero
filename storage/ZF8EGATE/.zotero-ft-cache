@@ -1,0 +1,502 @@
+A unified method for stresses in FGM sphere with exponentiallyvarying properties
+Kerimcan Celebi*1, Durmus Yarimpabuc2, Ibrahim Keles3
+1
+
+Department of Mechanical Engineering, Osmaniye Korkut Ata University, Osmaniye, Turkey 2 Department of Mathematics, Osmaniye Korkut Ata University, Osmaniye, Turkey 3 Department of Mechanical Engineering, Ondokuz Mayis University, Samsun, Turkey
+
+Abstract. Using the Complementary Functions Method (CFM), a general solution for the one-dimensional steady-
+
+state thermal and mechanical stresses in a hollow thick sphere made of functionally graded material (FGM) is presented. The mechanical properties are assumed to obey the exponential variations in the radial direction, and the Poisson’s ratio is assumed to be constant, with general thermal and mechanical boundary conditions on the inside and outside surfaces of the sphere. In the present paper, a semi-analytical iterative technique, one of the most efficient unified method, is employed to solve the heat conduction equation and the Navier equation. For different values of inhomogeneity constant, distributions of radial displacement, radial stress, circumferential stress, and effective stress, as a function of radial direction, are obtained. Various material models from the literature are used and corresponding temperature distributions and stress distributions are computed. Verification of the proposed method is done using benchmark solutions available in the literature for some special cases and virtually exact results are obtained.
+Keywords: complementary functions method; thick sphere; functionally graded materials (FGMs);
+
+exponentially varying properties
+
+1. Introduction The analysis of spherical structural members (shafts, pipes, tubes, etc.) is quite important especially in engineering design. These members are widely used in different areas of engineering practice. Thick sphere and thick-walled spherical shell are common components in structural applications and device systems involving aerospace and submarine structures, civil engineering structures, machines, pipes, sensors and actuators, etc. These structures are often exposed to temperature environment and the thermal stresses are then induced. For many cases, thermal stresses will significantly depress the strength and also affect the functionality of the structures. Thus, the exact analysis of the thermal stresses is really important.
+
+*
+
+Corresponding author, Assist.Prof.Dr., E-mail: kcancelebi@osmaniye.edu.tr
+
+FGMs are being used as interfacial zone to improve the bonding strength of layered composites to reduce the stresses in bonded dissimilar materials and as wear resistant layers in machine and engine components. They are used in modern technologies as advanced structures. Mechanical and thermal stresses for FGM thick hollow spheres are the subject in the theory of elasticity and thermoelasticity. Lutz and Zimmerman (1996) solved the problem of an isotropic sphere under thermal stresses; in this problem the material properties of the sphere vary linearly with radius. Obata and Noda (1994) studied the steady thermal stresses in a hollow circular cylinder and a hollow sphere made of FGMs. The aim of this research was to understand the effect of composition on stresses and to design the optimum FGM hollow circular cylinder and hollow sphere. Eslami et al. (2005) presented the analytical solution for thermal and mechanical behavior in a functionally graded thick hollow sphere under one-dimensional steady-state temperature distribution with thermal and mechanical boundary conditions. They assumed the material properties are expressed as power functions of radius direction. In addition, Poultangari et al. (2008) studied the thermal and mechanical stresses in a FGM sphere under non-axisymmetric thermo-mechanical loads. An alternate analytical method to carry out the elastic analysis of thickwalled spherical pressure vessels subjected to internal pressure was presented by You et al. (2004). Güven and Baykara (2001) are investigated functionally graded isotropic spheres subjected to internal pressure. The objective of the study is to understand the acceptable stress distributions in a hollow sphere under internal pressure for ductile and brittle material behaviors. It is stated that in a functionally graded isotropic hollow sphere designed according to the maximum shear stress failure theory, the material usage can be improved efficiently. Uncoupled steady-state thermoelasticity problem of an FGM hollow sphere was investigated numerically by Alavi et al. (2008). Atefi and Moghimi (2006) obtained a closed-form solution for the two dimensional temperature distribution in a hollow sphere subjected to periodic boundary conditions. Bagri and Eslami (2007) proposed a new unified formulation for the generalized theories of the coupled thermo-elasticity on the basis of the Lord-Shulman, Green-Lindsay and Green-Naghdi models. Using Laplace transform, the governing equations have been analytically solved in the Laplace space domain for a hollow sphere and cylinder. Jabbari et al. (2010) solved the classical coupled thermo-elasticity problem for hollow and solid spheres. Their approach was based on resolving the coupled equations into two groups: coupled equations with homogeneous and nonhomogeneous boundary conditions. Ding et al. (2002) formulated the spherically dynamic thermoelastic problem for a special non-homogeneous transversely isotropic hollow sphere by introduction of a dependent variable and separation of variables technique. The transient thermal stress problem in a hollow sphere was studied by Tanigawa and Takeuti (1982). Wang et al. (2003) presented numerical results to show the dynamic stress responses in the uniformly heated hollow spheres. They resolved radial displacement into two functions, one of which satisfies inhomogeneous mechanical boundary conditions while the other one fulfills homogeneous mechanical boundary conditions. Bayat et al. (2012), assuming a power-law based variation in material properties, presented analytical results for a FG hollow sphere under spherically symmetric steady-state thermomechanical loadings and compared them with numerical results obtained from finite element simulations. Nejad et al. (2012) performed an analytical solution for FGM thick-walled spherical shells subjected to internal and/or external pressure, assuming an exponential law variation in material properties. Dai and Rao (2011) are investigated electromagnetothermoelastic behaviors of a hollow sphere composed of functionally graded piezoelectric material. Boroujerdy and Eslami (2013) studied thermal instability of shallow spherical shells made of FGM and surface-bonded piezoelectric actuators. They assumed that the property of the FGM varies continuously through
+
+the thickness of the shell according to a power law distribution of the volume fraction of the constituent materials. They obtained the equilibrium equations based on the first-order theory of shells and the Sanders nonlinear kinematics equation. The conventional approach of modeling FGM structural elements includes shell theories or dividing the material into homogeneous sub elements of different properties emulating the graded behavior. Series expansion methods and finite element analysis are first solution methods used in the literature. Mechanical and thermal stresses for FGMs in axisymmetric cylindrical coordinates are of interesting subjects in the theory of elasticity and thermoelasticity. The classical method of analysis is to combine the equilibrium equations with the stress-strain and strain-displacement relations to arrive at the governing equations in term of the displacement components, called the Navier equations. The material is assumed to be functionally graded in the radial direction with the grading function, in the most general sense, being an arbitrary continuous function of the radial coordinate. Forcing functions applied on the inner or outer boundaries are internal pressures. These assumptions yield governing differential equations with variable coefficients. Under these conditions analytical solutions cannot be obtained except for certain simple grading functions and pressures. The present paper uses a novel and efficient method CFM is employed in the analysis of axisymmetric elastic responses of functionally graded sphere subject to internal pressures applied on the inner boundary. It is also used for FGM cylinders with simple power-law properties which is easily analyzed by a simple direct method (Eslami et al. 2005). Governing differential equations thus obtained in spatial coordinates, in general, have variable coefficients. They form a two-point boundary value problem. CFM allows treating such problems as a system of initial-value problems which can readily be solved by any one of the standard methods available in the literature. The fifth-order Runga-Kutta method is employed in the present study. The theoretical background for the method is available in the literature (Aktas 1972, Roberts and Shipman 1979, Agarwal 1982). The method is also successfully applied in other structural mechanics problems such as those involving curved bars (Yildirim 1997) and beams (Calim 2009). The present paper uses a novel and efficient method which combines CFM is employed a thick hollow sphere of FGM under a one-dimensional steady- state temperature distribution with general types of thermal and mechanical boundary conditions. Two material models will be used: (a) simple power law with constant Poisson’s ratio (Eslami et al. 2005) for which case analytical benchmark solutions are available, (b) exponentially-varying properties. It should be emphasized once again that the solution procedure is not confined to any particular choice of material model; it is equally suitable for arbitrary functions defining the gradient variation of material properties.
+
+2. Solutions by the complementary functions method The CFM transforms two-point boundary-value problems to system of initial-value problems. It reduces to a particularly simple solution scheme when applied to the present class of problems. For an annular sphere of inner radius and outer radius . As it will be shown in the proceeding sections, under axisymmetric conditions, the governing differential equation of the dependent variable u(r) in its most general form is
++ ( ) + ( ) = ( )	
+
+(1)
+
+subject to boundary conditions on the inner (r= ri) and outer (r= ro) surfaces. Here ()′ denotes the derivative with respect to r. General closed-form solution of the above equation cannot be obtained. The complete solution of Eq. (1) is
+= + 					,								 = 1,2	
+() ′ ()
+
+(2) = and = , which (3a)
+
+where
+
+and
+
+are, respectively, homogenous and particular solutions. The coefficients b are
+
+determined via the boundary conditions. CFM begins by assuming means:
+(
+()
+
+) =
+
+()
+
+	
+
+Here, the index i=1,2 refers to homogeneous solutions and i=p will mean the particular solution. To determine the homogeneous solutions, the right-hand side of Eq. (1) is set equal to zero and the following is obtained:
+(
+()
+
+) =− ( )
+
+()
+
+− ( )
+
+()
+
+	
+
+(3b)
+
+The system of Eqs.(3a) and (3b) can be solved numerically for each homogeneous solution. Kronecker delta initial conditions given below will be used to assure the linear independence of the solutions (Roberts and Shipman 1979):
+()
+
+=
+
+					,			j,i	=	1,2	
+
+(4)
+
+To obtain the particular solution, Eq. (3b) is modified as:
+(
+( )
+
+) =− ( )
+
+( )
+
+− ( )
+
+( )
+
++ ( )	
+
+(5)
+
+A particular solution needs only to satisfy the differential equation and homogeneous initial conditions:
+( )
+
+= 0					,						 = 1,2	
+
+(6)
+
+are to be imposed. Equations (3a), (5), (6) constitute the system of equations for the particular solution along with the initial conditions. The fifth-order Runge-Kutta method (RK5) will be used for all cases considered. Note that by this procedure not only the solution u(r) itself but also its first derivative are readily calculated. Applying the boundary conditions prescribed for the particular problem on hand results in the following system of algebraic equations for the coefficients b1 and b2:
+	
+
+=
+
+1 	 2
+
+(7)
+
+Here, Aij includes the values of the homogeneous solutions at the boundary points. RHS1 and RHS2 contain values of the particular solutions. If the sphere is subjected to internal and external pressures, they will also be included in the right hand-side terms. On the other hand, implementing CFM in the heat conduction problem will yield RHS1 and RHS2 as the prescribed temperatures along the boundaries. These points will be illustrated in the following sections.
+
+3. Heat conduction in radial direction The heat conduction equation in the steady-state condition for the one-dimensional problem in polar coordinates and thermal boundary conditions for a FGM hollow sphere are given, respectively, as
+1 ( ) ( ) ( )+ ( )+ = 0			,				 ≤ ( )= ( )= 		,	 ≤
+
+	
+
+(8)
+
+	
+
+where k=k(r) is the thermal conduction coefficient, and	 are the inner and outer radii of the hollow sphere Cij are the constant thermal parameters related to the conduction and convection coefficients. The constants f1 and f2 are known constants on inside and outside radii. It is assumed that the nonhomogeneous thermal conduction coefficient k(r) is exponential function of r as
+( )=
+
+	
+
+(9)
+
+where k0 and  are the material parameters. Using Eq.(9), the heat conduction equation becomes
+1 ( ( )) = 0	
+
+(10)
+
+Steady-state axisymmetric heat conduction without heat generation will be considered. The heat balance equation in the radial direction for a nonuniform disk yields:
++ ( ) = 0	
+
+(11)
+
+where ( ) = + with being the thermal conduction coefficient and it is varying as a function of the radial coordinate r. The boundary conductions are temperatures prescribed on the inner and outer surfaces as:
+( )=
+
+	and	 ( ) =
+
+	
+
+	
+
+(12) (13a)
+
+The complete solution is the homogeneous solution,
+= 			,				j=1,2	
+
+with
+= 		,				j=1,2	
+
+(13b)
+
+Following the steps outlined in previous section, the temperature change distribution is obtained at the collocation points. The constants bj can now be found by imposing the boundary conditions. This process results in the system given by Eq. (7) were A11 = T1( ) A21 = T1( ) RHS1 = Ti A12 = T2( ), A22 = T2( ), RHS2 = To
+
+4. Governing equation Consider a thick walled sphere of inside radius and outside radius made of FGM. The material is graded through the r-direction. Let u be displacement component in the radial direction. Then the strain-displacement relations are
+= 											 = 	
+
+(14)
+
+The stress-strain relations are
+					σ = (λ + 2μ)ε + λε 	 	σ = (λ + 2μ)ε + λε − (3λ + 2μ)αT(r)	 − (3λ + 2μ)αT(r)	
+
+(15)
+
+where and (i,j=r,) are stress and strain tensors, T(r) is the temperature distribution determined from the heat conduction equation,  is the coefficient of thermal expansion, and and are Lame coefficients related to the modulus of elasticity and Poisson’s ratio as
+= 	 ( ) ( ) 			,							 = 	 (1 + )(1 − 2 ) 2(1 + )
+
+(16)
+
+The equilibrium equation in the radial direction, disregarding the body force and inertia term, is
++ 2	( − ) = 0	
+
+(17)
+
+To obtain the equilibrium equation in terms of the displacement component for the FGM cylinder, the functional relationship of the material properties must be known. To ascertain the effect of the inhomogeneity, the properties are considered to vary exponentially across the thickness,
+( )=
+
+	,		 ( ) =
+
+	
+
+(18)
+
+where	 and are material constants and  is the inhomogeneity parameter. We may further assume that Poisson’s ratio is constant. Using relations (14)-(18), Navier equation in term of the displacement is
++ ( ) ( )=( 1 + 2) 				, ( )= + ( ) = ( )	 ( )= 2( (1 + ) − 1 1 				,	 1− + )	
+
+(19)
+
+(1 + ) (2 1−
+
+(20)
+
+Following the steps outlined in Solutions by the CFM section, the complete displacement is obtained at the collocation points as:
+= + + ,		
+
+(21) (22)
+
+with
+= + +
+
+The coefficients b1, b2 will be determined using the stress free conditions on inner ( ( ) = − ) and outer ( ( ) = − ) boundaries. This step is particularly simple since during the solution process the first derivative of the radial displacement has already been calculated.
+
+5. Results and discussions Consider a thick hollow sphere of inner radius ri= 1 m and outer radius ro= 1.2 m. Poisson’s ratio is taken to be 0.3, and the modulus of elasticity and the thermal coefficient of expansion at the inner radius are Eo = 200 GPa and o=1.2x10-6/oC, respectively. The properties are considered to vary exponentially across the thickness. The boundary conditions for temperature are taken as T(ri)=10 oC and T(ro)=0 oC. The hollow sphere has pressure on its inner surface so the boundary ( ) = −50 MPa and ( ) = 0 MPa. conditions for stresses are assumed as The efficiency and accuracy of the present method are first compared to analytical results presented for a simple power-law material model and a step-type inside pressure (Eslami et al. 2005). The comparing will be illustrated in the Tables 1-3. It can be observed form Tables, the results are in good agreement with the same results from Eslami et al. (2005). Examining these results reveals the great accuracy and efficiency achieved by CFM; calculations performed at only 21 points through the thickness yielded exact numerical results. Figure 1 shows the variations of the temperature along the radial direction for different values inhomogeneity parameter (). The figure shows that as the inhomogeneity parameter  increases, the temperature decreased. Fig. 2 shows the plot of the radial displacement along the radius. The magnitude of the radial displacement is decreased as the inhomogeneity parameter  is increased. The radial and circumferential stresses are plotted along the radial direction and shown in Figs. 3 and 4. The magnitude of the radial stress is decreased as  is increased. It is seen that for < 1 the circumferential stress decreases along the radial direction. For m>1, the circumferential stress increases as the radius increases, since the modulus of elasticity is an increasing function of the radius, see Eq. (5). Physically, this means that the outer layers of the sphere are biased to maintain the stress due to their higher stiffness. There is a limiting value for , where the circumferential stress remains almost constant along the radius. The curve associated with  =1 shows that the variation of circumferential stress along the radial direction is minor, and is almost uniform across the radius. To investigate the pattern of the stress distribution along the sphere radius, the effective stress ∗ = √2| − | is plotted along the radial direction for different values of ro /ri and the inhomogeneity parameter . Figure 5 is plotted for ro /ri=1.2. It is interesting to note from Figure 5 that for  =1 the effective stress is almost uniform along the radius of sphere. It should be pointed out once again that the purpose of the present work has been the introduction of CFM to the solution procedure of the class of problems on hand. Converting the two-point boundary value problem to a system of initial-value problem gave way to the implementation of well-established numerical schemes. Runge–Kutta method of fifth-order (RK5) has been used to solve the system of equations. The procedure is simple, efficiently implemented and accurate to the extent that exact numerical results have been obtained to six-digit accuracy by picking only 11 collocation points in RK5.
+
+6. Conclusions This paper presents an analytical solution for the calculation of the axisymmetric thermal and mechanical stresses in a thick hollow sphere made of FGM. The material properties through the graded direction are assumed to be nonlinear with a power law distribution and exponentiallyvarying properties. The mechanical and thermal stresses are obtained through the CFM of solution of the Navier equation. The comparisons of temperature distributions and stress distributions are presented in the form of tables. The numerical results for all cases are shown to exactly match this reported in Eslami et al. (2005). At the result, we can say that:  With the unified approach presented in the present study, one would not have to compromise on the functional continuity of the material properties. Analysis of any material model in the form of an arbitrary function subject to an internal pressure has been analyzed efficiently and accurately by employing CFM.  The unified method used is accurate and more efficient than the conventional methods.  The method used allows the presence of continuous as well as discrete functions.  The CFM of solving the differential equation provides a complete solution, yielding both thermal stresses and temperature distributions.
+
+References
+Agarwal, R.P. (1982), "On the method of complementary functions for nonlinear boundary-value problems". J. Optimiz. Theory Appl., 36(1), 139–144. Aktas Z. (1972), Numerical solutions of two-point boundary value problems, METU, Dept of Computer Eng , Ankara, Turkey. Alavi, F., Karimi, D. and Bagri, A. (2008), "An investigation on thermoelastic behavior of functionally graded thick spherical vessels under combined thermal and mechanical loads", J. Achiev. Mater. Manuf. Eng., 31, 422–428. Atefi, G. and Moghimi, M. (2006), "A temperature fourier series solution for a hollow sphere", J. Heat Trans., 128, 963–968. Bagri, A. and Eslami, M.R. (2007), "A unified generalized thermoelasticity; solution for cylinders and spheres", Int. J. Mech. Sci., 49, 1325–1335. Bayat, Y., Ghannad, M., Torabi, H. (2012), "Analytical and numerical analysis for the FGM thick sphere under combined pressure and temperature loading", Arch. Appl. Mech., 82, 229–242. Boroujerdy, S., Eslami, M.R. (2013), "Thermal buckling of piezo-FGM shallow shells", Meccanica, 48, 887-899. Calim, F.F. (2009), "Free and forced vibrations of non-uniform composite beams", Compos. Struct., 88, 413–423. Dai, H.-L., Rao, Y.-N. (2011),"Investigation on electromagnetothermoelastic interaction of functionally graded piezoelectric hollow spheres", Struc. Eng. Mech., 40(1), 49-64. Ding, H.J., Wang, H.M., Chen, W.Q. (2002), "Analytical thermo-elastodynamic solutions for a nonhomogeneous transversely isotropic hollow sphere", Arch. Appl. Mech., 72, 545–553. Eslami, M.R., Babaei, M.H., Poultangari, R. (2005), "Thermal and mechanical stresses in a functionally graded thick sphere", Int. J. Pressure Vessel Piping, 82(7) 452–457. Güven, U., Baykara, C. (2001), "On stress distributions in functionally graded isotropic spheres subjected to internal pressure", Mechanics Research Communications, 28, 277-281.
+
+Jabbari, M., Dehbani, H., Eslami, M.R. (2010), "An exact solution for classic coupled thermoelasticity in spherical coordinates", J. Pres. Ves. Tech.,132, 1–11. Lutz, M.P., Zimmerman, R.W. (1996), "Thermal stresses and effective thermal expansion coefficient of a functionally graded sphere", J. Thermal Stress., 19, 39–54. Nejad, M.Z., Abedi, M., Lotfian, M.H., Ghannad, M. (2012), "An exact solution for stresses and displacements of pressurized FGM thick-walled spherical shells with exponential-varying properties", J. Mech. Sci. Technol., 26, 4081–4087. Obata, Y., Noda, N. (1994), "Steady Thermal stress in a hollow circular cylinder and a hollow sphere of a functionally gradient materials", J. Thermal Stresses, 14, 471–487. Poultangari, R., Jabbari, M., Eslami, M.R. (2008), "Functionally graded hollow spheres under nonaxisymmetric thermo-mechanical loads", Int. J. Pressure Vessel Piping, 85, 295–305. Roberts, S.M., Shipman, J.S. (1979), "Fundamental matrix and two-point boundary-value problems", J. Optimiz. Theory Appl., 28(1), 77–78. Tanigawa, Y., Takeuti, Y. (1982), "Coupled thermal stress problem in a hollow sphere under partial heating", Int. J. Eng. Sci., 20 41–48. Wang, H.M., Ding H.J. and Chen, W.Q. (2003), "Theoretical solution of a spherically isotropic hollow sphere for dynamic thermoelastic problems", J. Zhejiang Univ. Sci., 4, 8–12. Yildirim, V. (1997), "Free vibration analysis of non-cylindrical coil springs by combined use of the transfer matrix and the complementary functions methods", Commun. Numer. Methods Eng., 13, 487–494. You, L.H., Zhang, J.J., You, X.Y. (2004), "Elastic analysis of internally pressurized thick-walled spherical pressure vessels of functionally graded materials", Int. J. Pressure Vessel Piping, 82, 347–354.
+
+Table captions Table 1 Comparison of CFM with Eslami et al. (2005) results for homogenous sphere (m=0 and =0) Table 2 Comparison of FGM results with Eslami et al. (2005) results for FGM spheres with constant Poisson’s ratio and elastic modulus obeying a simple power law (m=-2 and =-2) Table 3 Comparison of FGM results with Eslami et al. (2005) results for FGM spheres with constant Poisson’s ratio and elastic modulus obeying a simple power law (m=2 and =2)
+
+Figure captions Fig. 1. Radial distribution of temperature for sphere. Fig. 2. Radial distribution of radial displacement for sphere. Fig. 3. Radial distribution of radial stress for sphere. Fig. 4. Radial distribution of hoop stress for sphere. Fig. 5. Effective stress distribution for r0/ri =1.2 for sphere.
+
+Table 1 Comparison of CFM with Eslami et al. (2005) results for homogenous sphere (m=0 and =0).
+
+r/ri
+1 1.01 1.02 1.03 1.04 1.05 1.06 1.07 1.08 1.09 1.1 1.11 1.12 1.13 1.14 1.15 1.16 1.17 1.18 1.19 1.2 1
+
+T/T(ri)
+CFM Jabbari
+1 0.940594 0.882353 0.825243 0.769231 0.714286 0.660377 0.607477 0.555556 0.504587 0.454545 0.405405 0.357143 0.309735 0.263158 0.217391 0.172414 0.128205 0.084746 0.042017 0
+
+u/ ri
+CFM
+0.000528 0.000522 0.000516 0.000511 0.000505 0.0005 0.000495 0.00049 0.000485 0.000481 0.000476 0.000472 0.000468 0.000464 0.00046 0.000456 0.000452 0.000449 0.000446 0.000442 0.000439
+
+rr/Pi
+Jabbari
+0.000528 0.000522 0.000516 0.000511 0.000505 0.0005 0.000495 0.00049 0.000485 0.000481 0.000476 0.000472 0.000468 0.000464 0.00046 0.000456 0.000452 0.000449 0.000446 0.000442 0.000439
+
+/Pi
+CFM
+2.522017 2.491538 2.462292 2.434198 2.407214 2.381289 2.356368 2.332403 2.309347 2.287161 2.265813 2.245248 2.225446 2.206369 2.187978 2.170254 2.153161 2.136668 2.120758 2.105405 2.090585
+
+CFM
+-1 -0.93091 -0.86441 -0.8004 -0.73876 -0.67937 -0.62213 -0.56694 -0.51371 -0.46236 -0.41278 -0.36493 -0.3187 -0.27404 -0.23088 -0.18915 -0.14879 -0.10975 -0.07198 -0.03541 3.7E-06
+
+Jabbari
+-1 -0.93091 -0.86441 -0.8004 -0.73876 -0.67937 -0.62213 -0.56694 -0.51371 -0.46236 -0.41278 -0.36493 -0.3187 -0.27404 -0.23088 -0.18915 -0.14879 -0.10975 -0.07198 -0.03541 3.7E-06
+
+Jabbari
+2.522017 2.491538 2.462292 2.434198 2.407214 2.381289 2.356368 2.332403 2.309347 2.287161 2.265813 2.245248 2.225446 2.206369 2.187978 2.170254 2.153161 2.136668 2.120758 2.105405 2.090585
+
+0.940594 0.882353 0.825243 0.769231 0.714286 0.660377 0.607477 0.555556 0.504587 0.454545 0.405405 0.357143 0.309735 0.263158 0.217391 0.172414 0.128205 0.084746 0.042017 0
+
+Table 2 Comparison of FGM results with Eslami et al. (2005) results for FGM spheres with constant Poisson’s ratio and elastic modulus obeying a simple power law (m=-2 and  =-2).
+
+r/ri
+CFM
+1 1.01 1.02 1.03 1.04 1.05 1.06 1.07 1.08 1.09 1.1 1.11 1.12 1.13 1.14 1.15 1.16 1.17 1.18 1.19 1.2 1 0.95 0.9 0.85 0.8 0.75 0.7 0.65 0.6 0.55 0.5 0.45 0.4 0.35 0.3 0.25 0.2 0.15 0.1 0.05 0
+
+T/T(ri)
+Jabbari
+1 0.95 0.9 0.85 0.8 0.75 0.7 0.65 0.6 0.55 0.5 0.45 0.4 0.35 0.3 0.25 0.2 0.15 0.1 0.05 0
+
+u/ ri
+CFM
+0.000625 0.000618 0.000611 0.000605 0.000599 0.000593 0.000587 0.000581 0.000575 0.00057 0.000565 0.00056 0.000555 0.00055 0.000545 0.000541 0.000537 0.000532 0.000528 0.000524 0.000521
+
+rr/Pi
+Jabbari
+0.000625 0.000618 0.000611 0.000605 0.000599 0.000593 0.000587 0.000581 0.000575 0.00057 0.000565 0.00056 0.000555 0.00055 0.000545 0.000541 0.000537 0.000532 0.000528 0.000524 0.000521
+
+/Pi
+CFM
+3.07393 2.970641 2.872551 2.779339 2.690724 2.606408 2.526168 2.449749 2.376949 2.307546 2.241353 2.178194 2.117902 2.060317 2.005291 1.952685 1.902372 1.85423 1.80815 1.764018 1.721733
+
+CFM
+-1 -0.92076 -0.8458 -0.77485 -0.70768 -0.64407 -0.58379 -0.52666 -0.47246 -0.42106 -0.37228 -0.32598 -0.282 -0.24022 -0.20052 -0.16278 -0.12691 -0.09278 -0.06031 -0.02941 1.07E-06
+
+Jabbari
+-1 -0.92076 -0.8458 -0.77485 -0.70768 -0.64407 -0.58379 -0.52666 -0.47246 -0.42106 -0.37228 -0.32598 -0.282 -0.24022 -0.20052 -0.16278 -0.12691 -0.09278 -0.06031 -0.02941 1.07E-06
+
+Jabbari
+3.07393 2.970641 2.872551 2.779339 2.690724 2.606408 2.526168 2.449749 2.376949 2.307546 2.241353 2.178194 2.117902 2.060317 2.005291 1.952685 1.902372 1.85423 1.80815 1.764018 1.721733
+
+Table 3 Comparison of FGM results with Eslami et al. (2005) results for FGM spheres with constant Poisson’s ratio and elastic modulus obeying a simple power law (m=2 and  =2).
+
+r/ri
+1 1.01 1.02 1.03 1.04 1.05 1.06 1.07 1.08 1.09 1.1 1.11 1.12 1.13 1.14 1.15 1.16 1.17 1.18 1.19 1.2 1
+
+T/T(ri)
+CFM Jabbari
+1 0.930192 0.863095 0.798578 0.736519 0.676801 0.619316 0.56396 0.510635 0.459249 0.409714 0.361949 0.315874 0.271416 0.228504 0.187071 0.147056 0.108396 0.071036 0.034921 0
+
+u/ ri
+CFM
+0.000442 0.000437 0.000432 0.000427 0.000422 0.000418 0.000413 0.000409 0.000405 0.000401 0.000397 0.000394 0.00039 0.000387 0.000384 0.000381 0.000378 0.000375 0.000372 0.000369 0.000366
+
+rr/Pi
+Jabbari
+0.000442 0.000437 0.000432 0.000427 0.000422 0.000418 0.000413 0.000409 0.000405 0.000401 0.000397 0.000394 0.00039 0.000387 0.000384 0.000381 0.000378 0.000375 0.000372 0.000369 0.000366
+
+/Pi
+CFM
+2.030027 2.052493 2.075142 2.097975 2.12097 2.144144 2.167485 2.191004 2.21469 2.238545 2.262578 2.286778 2.31114 2.335689 2.360397 2.385274 2.41033 2.435548 2.460937 2.486489 2.512222
+
+CFM
+-1 -0.94007 -0.88147 -0.82411 -0.76797 -0.71298 -0.65911 -0.6063 -0.55452 -0.50373 -0.45388 -0.40493 -0.35687 -0.30964 -0.26322 -0.21758 -0.17267 -0.12849 -0.08501 -0.04219 3.49E-06
+
+Jabbari
+-1 -0.94007 -0.88147 -0.82411 -0.76797 -0.71298 -0.65911 -0.6063 -0.55452 -0.50373 -0.45388 -0.40493 -0.35687 -0.30964 -0.26322 -0.21758 -0.17267 -0.12849 -0.08501 -0.04219 3.49E-06
+
+Jabbari
+2.030027 2.052493 2.075142 2.097975 2.12097 2.144144 2.167485 2.191004 2.21469 2.238545 2.262578 2.286778 2.31114 2.335689 2.360397 2.385274 2.41033 2.435548 2.460937 2.486489 2.512222
+
+0.930192 0.863095 0.798578 0.736519 0.676801 0.619316 0.56396 0.510635 0.459249 0.409714 0.361949 0.315874 0.271416 0.228504 0.187071 0.147056 0.108396 0.071036 0.034921 0
+
+1,2
+
+
+1,0
+
+0,8
+
+T/T(ri )
+
+0,6
+
+0,4
+
+0,2
+
+0,0 1,00
+
+1,02
+
+1,04
+
+1,06
+
+1,08
+
+1,10
+
+1,12
+
+1,14
+
+1,16
+
+1,18
+
+1,20
+
+r/ri
+
+Fig. 1. Radial distribution of temperature for sphere
+
+0,0050 0,0045 0,0040 0,0035 0,0030
+
+ = -2 = -1 = 0
+
+= 1 = 2
+
+u/ri
+
+0,0025 0,0020 0,0015 0,0010 0,0005 0,0000 1,00
+
+1,02
+
+1,04
+
+1,06
+
+1,08
+
+1,10
+
+1,12
+
+1,14
+
+1,16
+
+1,18
+
+1,20
+
+r/ri
+
+Fig. 2. Radial distribution of radial displacement for sphere
+
+0,0
+
+ = -2 = -1 = 0
+-0,2
+
+= 1 = 2
+
+-0,4
+
+r / Pi
+
+-0,6
+
+-0,8
+
+-1,0 1,00
+
+1,02
+
+1,04
+
+1,06
+
+1,08
+
+1,10
+
+1,12
+
+1,14
+
+1,16
+
+1,18
+
+1,20
+
+r/ri
+
+Fig. 3. Radial distribution of radial stress for sphere.
+
+6
+
+5
+
+= -2 = -1 = 0
+
+= 1 = 2
+
+4
+
+3
+
+ Pi
+
+2
+
+1
+
+0
+
+-1 1,00
+
+1,02
+
+1,04
+
+1,06
+
+1,08
+
+1,10
+
+1,12
+
+1,14
+
+1,16
+
+1,18
+
+1,20
+
+r/ri
+
+Fig. 4. Radial distribution of hoop stress for sphere
+
+0,40
+
+0,35
+
+ = -2 = -1 = 0
+
+= 1 = 2
+
+0,30
+
+0,25
+
+ GPa)
+
+0,20
+
+
+
+0,15
+
+0,10
+
+0,05 1,00 1,02 1,04 1,06 1,08 1,10 1,12 1,14 1,16 1,18 1,20
+
+r/ri
+
+Fig. 5. Effective stress distribution for b/a=1.2 for sphere
+

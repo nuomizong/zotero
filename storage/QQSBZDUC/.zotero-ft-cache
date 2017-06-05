@@ -1,0 +1,887 @@
+Struct Multidisc Optim (2009) 38:469–489 DOI 10.1007/s00158-008-0300-1
+
+RESEARCH PAPER
+
+Optimal design of periodic functionally graded composites with prescribed properties
+Glaucio H. Paulino · Emílio Carlos Nelli Silva · Chau H. Le
+
+Received: 6 July 2007 / Revised: 10 May 2008 / Accepted: 5 July 2008 / Published online: 23 September 2008 © Springer-Verlag 2008
+
+Abstract The computational design of a composite where the properties of its constituents change gradually within a unit cell can be successfully achieved by means of a material design method that combines topology optimization with homogenization. This is an iterative numerical method, which leads to changes in the composite material unit cell until desired properties (or performance) are obtained. Such method has been applied to several types of materials in the last few years. In this work, the objective is to extend the material design method to obtain functionally graded material architectures, i.e. materials that are graded at the local level (e.g. microstructural level). Consistent with this goal, a continuum distribution of the design variable inside the ﬁnite element domain is considered to represent a fully continuous material variation during the design process. Thus the topology optimization naturally leads to a smoothly graded material system. To illustrate the theoretical and numerical approaches, numerical examples are provided. The homogenization method is veriﬁed by considering one-dimensional material gradation proﬁles for which analytical solutions for the effective elastic properties are available. The
+
+veriﬁcation of the homogenization method is extended to two dimensions considering a trigonometric material gradation, and a material variation with discontinuous derivatives. These are also used as benchmark examples to verify the optimization method for functionally graded material cell design. Finally the inﬂuence of material gradation on extreme materials is investigated, which includes materials with near-zero shear modulus, and materials with negative Poisson’s ratio. Keywords Material design · Functionally graded materials · Optimization · Homogenization · Extreme materials · Zero shear-modulus materials · Negative Poisson’s ratio materials
+
+Nomenclature List of Symbols: A D Dijkl ∗ Dijkl DH H Drspq
+H Dij
+
+G. H. Paulino · C. H. Le Department of Civil and Environmental Engineering, University of Illinois at Urbana-Champaign, Newmark Laboratory, 205 North Mathews Avenue, Urbana, IL 61801, USA E. C. N. Silva (B) Department of Mechatronics and Mechanical Systems, Escola Politécnica da Universidade de São Paulo, Av. Professor Mello Moraes, 2231, São Paulo, São Paulo 05508-900, Brazil e-mail: ecnsilva@usp.br
+
+Dm dn Em E+ , E−
+
+assembling operator elasticity tensor index notation for elasticity tensor index notation for desired tensor properties homogenized tensor properties index notation for homogenized tensor properties matrix notation for homogenized tensor properties elasticity tensor of the mixture design variables associated with nodes Young’s modulus of mixture Young’s modulus of materials + and −
+
+470
+
+G.H. Paulino et al.
+
+e f F(mn) e(mn) FiI Fe(mn) G Gmax , Gmin Gm G+ , G− H per i, j, k, l I I K Ke e K(iI jJ) K Kmax , Kmin Km K+ , K− mI mn NI N nd N DV N EXCL rmin rij R3 Si u u0 u1 v Vi vi x xj x, y y Y Y Yi W
+
+element e projection function nodal force vector for load case mn component of nodal force vector for load case mn ﬁnite element nodal force vector for load case mn shear modulus upper and lower limits of shear modulus shear modulus of the mixture shear modulus of materials + and − set of Y-periodic functions indices identity tensor index stiffness matrix ﬁnite element stiffness matrix term of ﬁnite element stiffness matrix bulk modulus upper and lower limits of bulk modulus bulk modulus of the mixture bulk modulus of materials + and − elements associated with I-th node load case number ﬁnite element shape function number of ﬁnite elements number of nodes per ﬁnite element number of design variables number of elements explicitly excluded from the optimization radius of circle distance between nodes j and i 3D space of real numbers set of nodes in the domain of inﬂuence of node i displacement inside the unit cell zero order term of displacement ﬁrst-order variation of displacement displacement vector relative volume of each ﬁnite element component of vector v coordinates associated with the composite macro-dimensions position vector of node j cartesian coordinates coordinates associated with the composite micro-dimensions unit cell domain unit cell volume maximum value of coordinate i of unit cell domain objective function
+
+wijkl w ∂ ∂x (∂x )ij (.) ∂y ∂y χ χi(mn) χ (mn) δ δim ε ε εkl κ vm ν+, ν− ρ ρI ρlow σij
+e ij
+
+(.)
+
+∪
+
+weight coefﬁcient weight function differential operator differential operator for macro coordinates index notation for differential operator for macro coordinates differential operator for micro coordinates index notation for differential operator for micro coordinates characteristic displacement function of the unit cell component of characteristic displacement function for load case mn nodal values of the characteristic function χ for load case mn variational operator kronecker delta strain strain inside unit cell index notation for strain parameter function of interest interpolation factor Poisson’s ratio of mixture Poisson’s ratio of materials + and − averaged volume fraction pseudo-density distribution function (design variable) nodal pseudo-density function (design variable) lower bound for design variables ρ I index notation for stress domain volume ﬁnite element volume union operator
+
+1 Introduction Functionally Graded Materials (FGMs) possess continuously graded properties and are characterized by spatially varying microstructures created by nonuniform distributions of the reinforcement phase as well as by interchanging the role of reinforcement and matrix (base) materials in a continuous manner. The smooth variation of properties may offer advantages such as local reduction of stress concentration and increased bonding strength (see, for example, Miyamoto et al. 1999; Suresh and Mortensen 1988; Paulino et al. 2003).
+
+Optimal design of periodic functionally graded composites with prescribed properties
+
+471
+
+Standard composites result from the combination of two or more materials, usually resulting in materials that offer advantages over conventional materials. The unit cell is the smallest structure that is periodic in the composite matrix. By changing the volume fraction of the constituents, the shape of the inclusions, or even the topology of the unit cell, we can obtain different effective properties for the composite material (Torquato 2002). Therefore, when designing composites, we can tailor the properties to a speciﬁc application (which, in general, cannot be done with a single material). At the macroscale observation, traditional composites (e.g. laminated) exhibit a sharp interface among the constituent phases which may cause problems such as stress concentration, and scattering (if a wave is propagating inside the material), among others. However, a material made using the FGM concept would maintain some of the advantages of traditional composites and alleviate problems related to the presence of sharp interfaces at the macroscale. The design of the composite material itself is a difﬁcult task, and the design of a composite where the properties of its constituent materials change gradually in the unit cell domain is even more complex. Meanwhile, this design can be successfully achieved by using a material design method, as described below. The overall objective of material design is to generate composite materials with prescribed or improved properties not found in common materials. This can be achieved by modifying the microstructure of the composite material (Torquato 2002). In traditional composite designs, such as ﬁber- or sphere-reinforced and laminated materials, the change in the properties is obtained by modifying the location, orientation, material constituents, or volume fraction of the ﬁber, sphere, or laminar inclusion, respectively (Cherkaev and Kohn 1997). This allows some control of the composite properties. A more systematic approach to design composite materials has been developed in recent years, which combines topology optimization with homogenization to change the composite material unit cell topology until desired properties or performance are obtained. The approach consists of ﬁnding the distribution of different material phases in a periodic unit cell that optimizes the properties or performance characteristics of the resulting composite system (Cherkaev and Kohn 1997; Cherkaev 2000). In the process of designing materials with prescribed and improved properties, a natural question related to the achievable properties in the material design process arises. Based on the fact that the constitutive elasticity matrix must be positive deﬁnite for elastic materials, Milton and Cherkaev (1995) have shown the existence
+
+of materials for thermodynamically admissible sets by layering and combining an inﬁnitely rigid material with voids (inﬁnite compliance). However, the extreme condition of this admissible set, such as isotropic material with Poisson’s ratio equal to −1 (ν = −1), cannot be reached in practice because an inﬁnitely rigid material does not exist. Other bounds were derived in the past. Considering materials with ﬁnite properties, we can cite, for example, the work of Hashin and Shtrikman (1963) for bounds of an isotropic mixture of classical materials using energy analyses, the work of Lipton and Northrup (1994) (among others) that deﬁned the bounds for orthotropic mixtures of isotropic materials, and the work of Cherkaev and Gibiansky (1993) that improved the classical Hashin and Shtrikman (1963) estimates of the effective properties for an isotropic mixture assembled from two isotropic elastic materials. Bounds for elasticity and conductivity properties of mixtures of two materials (not necessarily isotropic) were developed by Gibiansky and Torquato (1995) and Cherkaev and Gibiansky (1996). Attainable properties for piezoelectric materials were discussed by Smith (1992) considering the positive deﬁniteness of a tensor involving elastic, piezoelectric, and dielectric properties, however, no bounds were obtained. Gibiansky and Torquato (1999) also discussed optimal bounds for piezoelectric matrix laminate composites. However, the extremal properties that can be achievable by composite designs is limited, and has been explored mainly for elasticity and conductivity (Sigmund 2000; Cherkaev and Gibiansky 1993; Gibiansky and Sigmund 2000; Larsen et al. 1997). In the past few years, the material design concept based on topology optimization and homogenization has been applied to design elastic (Sigmund 1994, 1995; Neves et al. 2002; Diaz and Benard 2003; Guedes et al. 2003; Neves et al. 2000), thermoelastic (Sigmund and Torquato 1996, 1997; Chen et al. 2001; Torquato et al. 2003), piezoelectric (Silva et al. 1998, 1999a, b; Sigmund et al. 1998; Sigmund and Torquato 1999), phononic (Sigmund and Jensen 2003), and photonic (Cox and Dobson 1999, 2000) composite materials, among others. In addition, manufacturing techniques have also been studied to build such materials (Qi and Halloran 2004; Van Hoy et al. 1998; Crumm and Halloran 1998; Qi et al. 2004; Mazumder et al. 1999, 2000; Crumm et al. 2007). However, processing techniques have not been explored when material gradation is considered inside the unit cell, and have concentrated in the traditional (1–0) design (Qi et al. 2004; Mazumder et al. 2000). This paper explores the computational design of periodic
+
+472
+
+G.H. Paulino et al.
+
+functionally graded microstructures. The manufacturing of such materials is beyond the scope of the present work and is a subject of future research. This paper is organized as follows. In Section 2, a brief introduction about topology optimization for FGM structures is given. In Section 3, the theoretical formulation of homogenization for FGM composite materials is addressed. In Section 4, the formulation of the composite material design problem based on continuous topology optimization is presented, and in Section 5 the material model applied is described. The numerical implementation, including an applied gradient control for material gradation, is discussed in Section 6. The sensitivity analysis is brieﬂy described in Section 7. In Section 8, some representative results are presented to illustrate homogenization and material design concepts. The inﬂuence of FGM gradation in the design of extreme materials such as minimum shear stiffness and negative Poisson’s ratio materials is discussed. Finally, in Section 9, concluding remarks are provided.
+
+2 Topology optimization A major concept in topology optimization is the extended design domain, which is a large ﬁxed domain that must contain the whole structure to be determined by the optimization procedure. The objective is to determine the holes and connectivities of the structure by adding and removing material in this domain. Because the extended domain is ﬁxed, the ﬁnite element model is not changed during the optimization process, which simpliﬁes the calculation of derivatives of functions deﬁned over the extended domain (Bendsøe and Kikuchi 1988; Allaire 2002). In the case of material design, the extended design domain is the unit cell domain. The discrete problem, where the amount of material at each element can assume only values equal to either one or zero (i.e. void or solid material, respectively), is an ill-posed problem. A typical way to seek a solution for topology optimization problems is to relax the problem by allowing the material to assume intermediate property values during the optimization procedure, which can be achieved by deﬁning a special material model (Cherkaev 2000; Allaire 2002; Kohn and Strang 1986a, b, c; Murat and Tartar 1985). Essentially, the material model approximates the material distribution by deﬁning a function of a continuous parameter (design variable) that determines the mixture of basic materials throughout the domain. In this sense, the relaxation yields a continuous material design problem that no longer involves a discernible connectivity. A topology solution can be obtained by applying penalization
+
+coefﬁcients to the material model to recover the 0–1 design (and thus, a discernible connectivity), and some gradient control on material distribution, such as a ﬁlter or projection (Bendsøe and Sigmund 2003). It turns out that this relaxed problem is strongly related to the FGM design problem, which essentially seeks a continuous transition of material properties (Paulino and Silva 2005; Silva and Paulino 2004). Thus, while the 0–1 design problem (needs complexity control, such as ﬁlter) does not admit intermediate values of design variables, the FGM design problem admit solutions with intermediate values of the material ﬁeld. Early work on material design followed a traditional topology optimization formulation, where the design variables are deﬁned in a piecewise fashion in the discretized domain, which means that continuity of the material distribution is not realized between ﬁnite elements. However, considering that the topology optimization results in a smoothly graded material, a more natural way of representing the material distribution emerges by considering a continuous representation of material properties (Matsui and Terada 2004; Rahmatalla and Swan 2004), which is achieved by interpolating the properties inside the ﬁnite element using shape functions (Matsui and Terada 2004; Rahmatalla and Swan 2003; Guest et al. 2004). The concept of employing continuum interpolation of material distribution inside the ﬁnite element has been implemented to model FGMs, originating the so-called “graded ﬁnite element” (Kim and Paulino 2002) . Thus, nodal design variables are deﬁned rather than the usual element based design variables. The objective of the present work is to design FGM composites using the concept of the relaxed problem in continuum topology optimization. Thus, the design of elastic FGM composites to achieve desired properties is addressed. The problem is posed by minimizing the square difference between homogenized and desired properties. A continuum distribution of the design variable inside the ﬁnite element domain is considered allowing representation of a continuous material variation during the design process. Since we are interested in solutions with a continuous distribution of material, we allow for intermediate materials (no penalization). A material model based on the Hashin and Shtrikman bounds is employed to guarantee that the ﬁnal composite can be achieved by a mixture of basic materials used in the design. A gradient control constraint in the unit cell domain is implemented based on projection techniques (Guest et al. 2004; Carbonari et al. 2007). This gradient control capability permits to address the inﬂuence of FGM gradation in the design of extreme materials. It also avoids the problem of
+
+Optimal design of periodic functionally graded composites with prescribed properties
+
+473
+
+mesh dependency in the topology optimization implementation (Bendsøe and Sigmund 2003). The actual optimization problem is solved by the MMA (“Method of Moving Assymptotes”) algorithm (Svanberg 1987; Bruyneel et al. 2002).
+
+as (Allaire 2002; Guedes and Kikuchi 1990; SanchezPalencia 1980): ε = ∂ x u = ∂ x u0 (x) + ∂ x u1 x, y + ∂ y u1 x, y , where ε is the mechanical strain and, by deﬁnition (3)
+
+3 Homogenization method Homogenization allows the calculation of the effective properties of a complex periodic composite material from its unit cell topology. It is a general method for calculating effective properties and has no limitations regarding volume fraction or shape of the composite constituents. The main assumptions are that the unit cell is periodic and that the scale of the composite part is much larger than the microstructure dimensions (Cherkaev and Kohn 1997; Allaire 2002; Guedes and Kikuchi 1990). This section addresses details of the theoretical and computational aspects of the homogenization method applied to FGM composites. Considering the standard homogenization procedure for elastic materials, the unit cell is deﬁned as Y = [0, Y1 ] × [0, Y2 ] × [0, Y3 ] and the elastic property function Dijkl is considered to be a Y-periodic function: D (x) = D(x, y); and y = x/ , D(x, y) = D(x, y+Y) (1)
+
+(∂x )ij (.) =
+
+1 2 1 ∂ y ij (.) = 2
+
+∂(.) j ∂(.)i + ∂xj ∂ xi ∂(.) j ∂(.)i + . ∂yj ∂ yi
+
+(4)
+
+Equations (2) and (3), together with properties (1), must be substituted into the energy functional for the elastic medium, and the variation of this functional taken in relation to u . Considering the limit → 0, we have that (Allaire 2002; Sanchez-Palencia 1980), lim x, x d = 1 |Y| x,
+Y
+
+x
+
+→0
+
+dYd ,
+
+(5)
+
+where denotes the function of interest. By means of the terms related to δu1 (x, y) and δu0 (x), we obtain the microscopic and macroscopic equations, respectively. Due to the linearity of the problem, and assuming the separation of variables for u1 (x, y), we obtain: u1 = χ x, y ε (u0 (x)) and ∂ y u1 x, y = ∂ y χ x, y ∂ x (u0 (x)) , (6)
+
+> 0,
+
+where is a parameter of small magnitude representing the microscale in which the properties are changing (composite microstructure scale), x and y are the coordinates associated with the composite macro- and micro-dimensions, respectively (see Fig. 1). Expanding the displacement u inside the unit cell, we get (Allaire 2002; Sanchez-Palencia 1980): u = u0 (x) + u1 (x, y), (2)
+
+where χ x, y are the characteristic displacements of the unit cell due to each possible initial strain, which is also Y-periodic, belonging to H per (Y, R3 ): H per (Y, R3 ) = v = (vi ) |vi ∈ H per (Y), i = 1, 2, 3 H per (Y) = v ∈ H 1 (Y) v takes equal values on opposite sides of Y } , (7)
+
+where only the ﬁrst-order variation terms (u1 (x, y)) are taken into account because dispersive behavior is not considered, and u1 is Y-periodic. The strain is written
+Fig. 1 Multiscale concept illustrating the macro (x) and micro (y) dimensions
+
+which corresponds to the periodicity condition in the unit cell (see Fig. 2).
+
+y=x/ε x2
+
+uε(x) x1 Component Periodic Microstructure
+
+y2 u1(x,y) y1 Unit Cell (Microscale)
+
+474
+
+G.H. Paulino et al. Table 1 Boundary conditions for faces (2D plane-stress) Load cases m = n (1 or 2) mn = 12 (or 21) b.c. at y1 = 0, y1 = Y1 b.c. at y2 = 0, y2 = Y2
+(12) χ2 (mn) χ1 = 0; σ21 = 0 (mn) χ2 = 0; σ21 = 0
+
+= 0; σ11 = 0
+
+(12) χ1 = 0; σ22 = 0
+
+Periodicity Conditions Unit Cell
+Fig. 2 Periodicity conditions in the unit cell
+
+Therefore, substituting (6) into the microscopic equations, we obtain (Allaire 2002; Guedes and Kikuchi 1990; Sanchez-Palencia 1980): 1 |Y| I + ∂ y χ x, y
+Y
+
+: D x, y : ∂ y δu1 (x, y) dY = 0, (8)
+
+The calculation of effective properties can become computationally efﬁcient by taking advantage of symmetry boundary conditions. An isotropic unit cell has symmetry relative to all axes; and an orthotropic unit cell has symmetry relative to either both axes or only one axis. In this case, we can take advantage of these properties to reduce the computational cost and to conduct the optimization and homogenization in only one part of the domain. However, the appropriate boundary conditions must be considered for the displacement characteristic function χ. For a 2D plane-strain case, Table 1 describes the boundary conditions that must be speciﬁed when only one fourth or half of the unit cell is considered (Silva et al. 1998), as described in Figs. 3 and 4, respectively. For the half symmetry case, the actual conditions to be employed must be taken according to the type of symmetry (along x-axis as in Fig. 4 or along the y-axis).
+
+∀δu1 ∈ H per (Y, R3 ), which can be rewritten using the index notation: 1 |Y| Dijkl x, y
+Y
+
+∂χ (mn) δim δ jn + i ∂yj
+
+4 Material design method The material design optimization problem consists of ﬁnding a distribution of material inside the unit cell that will achieve speciﬁed homogenized properties. This problem is also known as the inverse homogenization problem (Cherkaev 2000; Sigmund 1994; Bendsøe and Sigmund 2003). The optimization problem consists of minimizing a cost function related to the density distribution inside the unit cell subjected to equality constraints on the elastic properties. Thus, the optimization problem can be stated in continuous form as follows (Sigmund 1994, 1995):
+2
+
+εkl (v) dY = 0, (9)
+
+∀v ∈ H per (Y, R3 ).
+
+Substituting (6) into the macroscopic equations, we obtain the deﬁnition of the effective properties (Allaire 2002; Guedes and Kikuchi 1990; SanchezPalencia 1980): DH = 1 |Y| D x, y : I + ∂ y χ x, y
+Y
+
+dY.
+
+(10)
+
+By using (8), one can easily show that (10) can also be written in the form: 1 DH = I + ∂ y χ x, y : D x, y |Y| Y : I + ∂ y χ x, y or using the index notation: 1 H Drspq (x) = |Y| Dijkl x, y
+Y (rs) ∂χk
+
+Minimize :
+ρ(x)
+
+W (ρ) =
+i, j,k,l=1
+
+∗ H wijkl Dijkl − Dijkl
+
+2
+
+dY,
+
+(11)
+
+Subjected to :
+
+1 |Y|
+
+I + ∂ y χ x, y
+Y
+
+: D x, y :
+
+∂χ δip δ jq + i ∂yj dY,
+
+( pq)
+
+∂ y δu1 (x, y) dY = 0 ∀δu1 ∈ H per (Y, R3 ) 0 ≤ ρ(x) ≤ 1 (12) gradation control, (13)
+
+× δkr δls +
+
+∂ yl
+
+H H where Dijkl = Dklij = D H . jikl
+
+where ρ(x) is the pseudo-density distribution function along the unit cell domain, W(ρ) is a cost function to
+
+Optimal design of periodic functionally graded composites with prescribed properties Fig. 3 Illustration of 1/4 symmetry boundary conditions for unit cell
+
+475
+
+1/4 Symmetry Conditions
+
+y
+Normal Load Cases (X and Y) Shear Load Case
+
+x
+be minimized, W is the square difference between de∗ sired and homogenized tensor properties, Dijkl are the H desired tensor properties, Dijkl are the homogenized tensor properties, and wijkl are weight coefﬁcients to control the proximity between desired and homogenized tensor property. Here emphasis is placed in 2D problems, thus the indices i, j, k, and l range from 1 to 2. The gradation control constraint is used to adjust the material gradation, which is a key point in this work. The gradation control constraint also improves aspects associated to mesh dependency and numerical instabilities of the Continuous Approximation of Material Distribution (CAMD) approach such as the “islands” phenomenon (Matsui and Terada 2004). The implementation of the gradation control constraint is described in the Subsection 6.3. achieve this, we will allow for intermediate materials (no penalization), and to guarantee that the ﬁnal composite can be achieved by a mixture of the chosen basic materials, a material model based on the Hashin and Shtrikman (H–S) bounds is employed (Hashin and Shtrikman 1963; Cherkaev and Gibiansky 1993; Bendsøe and Sigmund 2003). These bounds provide the range of effective properties achievable for a certain volume fraction of the mixture of two isotropic materials. Thus, considering the upper and lower limits of bulk modulus (K) and shear modulus (G) properties, the material model is deﬁned as (Bendsøe and Sigmund 2003): Km (ρ) = κ Kmax (ρ) + (1 − κ)Kmin (ρ) Gm (ρ) = κGmax (ρ) + (1 − κ)Gmin (ρ), 5 A material model This work is concerned with FGMs represented by the transition between two basic materials. The objective is to ﬁnd the optimal volume fraction of this mixture at each point of the domain, so that the FGM property gradation inside the unit cell can also be found. To
+Fig. 4 Illustration of 1/2 symmetry boundary conditions for unit cell
+
+(14) (15)
+
+where ρ is the pseudo-density describing the amount of material at each point of the domain, which can assume values between 0 and 1. The parameters Km and Gm are the bulk and shear modulus of the mixture, respectively; Kmax , Gmax and Kmin , Gmin are the upper and lower limits of these moduli, and they are given by (53) through (56) in the Appendix A. The parameter κ
+
+y Normal Load Cases (X and Y) x Shear Load Case
+
+476
+
+G.H. Paulino et al.
+
+is an interpolation factor to deﬁne a curve interpolating the upper and lower limits of bulk and shear modulus. In this work, κ = 0.5. The basic materials of the mixture will be designated by the symbols (+) and (−). They have bulk and shear modulus equal to K+ , K− and G+ , G− , respectively, such that K+ > K− and G+ > G− . The values of Kmax , Kmin , Gmax , and Gmin are functions of those properties (Appendix A). For ρ equal to 0 the material is equal to material (−) and for ρ equal to 1 it is equal to material (+). The Young’s modulus (Em ) and Poisson’s ratio (ν m ) of the mixture can be written as a function of Km and Gm through the expressions: E (ρ) =
+m
+
+and nd is the number of nodes at each element (for example, four in the 2D case). This formulation allows a continuous distribution of material along the design domain instead of the traditional piecewise constant material distribution applied by previous formulations of topology optimization (Bendsøe and Sigmund 2003). 6.1 Homogenization The numerical implementation of homogenization is presented considering the CAMD concept. Equation (8) is solved using FEM. The unit cell is discretized by N ﬁnite elements, thus:
+N Y = ∪e=1 e
+
+9Km (ρ)
+K (ρ) 1 + 3 Gm (ρ)
+m
+
+; ν (ρ) =
+m
+
+1 − 2/3 Gm (ρ) K (ρ)
+m
+
+2 + 2/3 Gm (ρ) K (ρ)
+m
+
+.
+
+(16)
+
+,
+
+(18)
+
+Regarding the capability of traditional micromechanical models to evaluate effective properties, Reiter et al. (1997) have investigated the Mori-Tanaka and Self-consistent models to estimate these properties. Their main conclusion is that these models can be applied to the regions where the inclusion and the matrix phases can be easily distinguished. For the transition region, these models may be valid depending on the ratio of phase properties. The use of traditional micromechanical models for FGMs has been questioned in the literature because the continuous transition of microstructure causes a nonuniform macroscopic distribution of properties. Thus traditional approaches have limitations, and the reader is referred to the technical literature in the subject (Pindera et al. 1995; Yin et al. 2004). The computational framework presented here is general, and thus other material models can easily replace the present one based on H-S bounds (which assumes that the FGM gradation law is smooth enough for its application).
+
+where e is the domain of each element. A fournode bilinear element with two displacements degrees of freedom per node that uses bilinear interpolation functions was applied. Thus, the characteristic functions previously deﬁned are expressed at each element using the shape functions (N I ): χi(mn) ∼ =
+nd (mn) N I χiI ,
+
+(19)
+
+I=1
+
+Similar relations hold for the virtual displacement v. Substituting (19) in (8), and assembling the individual matrices for each element, we obtain the following global matrix system for each load case mn: Kχ (mn) = F(mn) , (20)
+
+6 Numerical implementation The concept of the continuum distribution of design variable based on the CAMD method (Matsui and Terada 2004; Rahmatalla and Swan 2004) discussed above is considered. Thus, (14) and (15) are considered for each node, and the pseudo-density (ρ) inside each ﬁnite element is given by
+nd
+
+where χ (mn) are the corresponding nodal values of the characteristic function χ , respectively. The global stiffness is the assembly of each element’s individual matrix, and the global force (F) is the assembly of the individual force vectors for all elements.
+N N K = Ae=1 Ke ; F(mn) = Ae=1 Fe(mn) .
+
+(21)
+
+The element matrices and vectors are given by the expressions:
+e K(iI jJ) = e(mn) FiI =
+
+Dipjq
+e
+
+∂ NI ∂ N J d ∂ y p ∂ yq ∂ NI d ∂yj
+e
+
+e
+
+; (22)
+
+ρ (x) =
+I=1
+
+ρI NI ,
+
+(17)
+
+Dijmn
+e
+
+.
+
+where ρ I is the nodal design variable, N I is the ﬁnite element shape function that must be selected to provide non-negative values of the design variables,
+
+Thus, for the 2D problem, there are three load cases to be solved independently as illustrated in Fig. 5. They
+
+Optimal design of periodic functionally graded composites with prescribed properties Fig. 5 Schematic illustration of applied load cases to the unit cell with associated material forces
+
+477
+
+Normal X
+
+Normal Y
+
+Shear
+
+come from (20), where the indices m and n can be 1 or 2, resulting in the combinations “11”, “22”, and “12” or “21”. All load cases must be solved by enforcing periodic boundary conditions in the unit cell for the displacements (see Fig. 2). The unit cell is made of an FGM material. The material properties change gradually inside the element domain, and thus, the material property must be kept inside of the integral during integration using the graded ﬁnite element concept (Kim and Paulino 2002) (see Fig. 6). An order 2 Gaussian rule in each direction is applied to calculate integrals (22) and (11) for computing the effective properties. Regarding the numerical solution of the matrix system (20), the total matrix bandwidth is spoiled due to enforcement of periodicity conditions. This increases the amount of memory storage necessary for the matrix. This problem can be avoided when the unit cell is symmetric. In this case, we consider the symmetry boundary conditions described in Table 1, instead of the periodicity conditions. The displacements at some point of the unit cell must be prescribed to overcome the non-unique solution of the problem, otherwise the FEM problem will be illposed. The choice of this point with prescribed values does not affect the homogenized coefﬁcients because only the derivatives of the characteristic functions are used in their computation.
+
+6.2 Material design problem The material design problem can be stated in a discrete form considering a two dimensional (2D) ﬁnite element domain: Minimize :
+ρI
+
+W (ρ I ) =
+
+2 m,n=1
+
+wmn D∗ (ρ I ) mn
+2
+
+H − Dmn (ρ I )
+
+Subjected to :
+
+Kχ (mn) = F(mn) 0 ≤ ρI ≤ 1 gradation control, (23) I = 1..N DV
+
+Design Domain (Unit Cell)
+
+E(x,y),υ(x,y)
+
+z y x
+
+Phase 1 material Intermediate material
+Finite Element Domain
+
+Phase 2 material
+Fig. 7 Design domain—note that pseudo-densities are deﬁned for each node
+
+Fig. 6 Continuous material distribution using a graded ﬁnite element
+
+478
+
+G.H. Paulino et al.
+
+where ρ I is the design variable (pseudo-density) that represents the fraction of material at each ﬁnite element node of the design domain (see Fig. 7). There are N DV design variables, N DV being equal to the total number of ﬁnite elements N less the number of elements that are explicitly excluded from the optimization (N EXCL). If the basic isotropic material (−) is void (E− = 0) than a lower bound ρlow must be speciﬁed for design variables ρ I , to avoid numerical problems (singularity of the stiffness matrix in the ﬁnite element formulation). Numerically, regions with ρ I = ρlow , have practically no structural signiﬁcance and can be considered void regions. In this work, the value for ρlow is equal to 10−7 . Regarding the constraint related to the symmetry conditions, and considering the design domain a rectangular (2D problem) unit cell, we can deﬁne many kinds of symmetries relative to the symmetry axes of the rectangular domain. In this work, two symmetry axes are considered to reduce the computational cost as only one-quarter of the unit cell is used as a design domain. The symmetry conditions are
+
+implicitly expressed in the boundary conditions during the homogenization, as described in Section 3. A ﬂow-chart of the optimization algorithm is shown in Fig. 8. The design variables are the pseudo-densities, which can assume different values at each ﬁnite element node. Four node bilinear isoparametric elements considering plane stress formulation are used in the ﬁnite element formulation (e.g. Kim and Paulino 2002). The optimization problem is solved by using the MMA algorithm which handles a relatively large number of design variables (Svanberg 1987; Bruyneel et al. 2002). The algorithm requires the sensitivities which are derived in Section 7. The iteration must start with a random initial guess of ρ I distribution. The initial values for the design variables cannot be uniform (homogeneous material) because they would generate equal values of gradients in relation to all design variables, and thus, the optimization method would not have a preferential direction for starting the search. As expected, the problem is highly dependent on the initial guess (Sigmund 1994, 1995; Sigmund and Torquato 1997). 6.3 Material gradation control The CAMD approach ensures a continuous material distribution across elements. However, it does not provide a general control of the gradient of material distribution. To achieve a mesh-independent control of the gradient of material distribution, we introduce a new layer of design variables and use a projection function to obtain the material densities at nodes. The use of nodal design variables and projection functions (Guest et al. 2004) will be applied on top of the CAMD in this paper (Carbonari et al. 2007). Let dn denote all design variables associated with nodes, and ρn , all values of material density at nodes. Assume that the required change of material density must occur over a minimum length of rmin . By means of the projection function ( f ), ρn can be obtained from dn as follows (assuming that four-node element is used) ρn = f (dn ) , where f is the projection function ρi = f d j =
+j∈Si
+
+(24)
+
+d j w rij w rij
+
+,
+
+(25)
+
+j∈Si
+
+and rij is the distance between nodes j and i
+Fig. 8 Flow-chart of the optimization procedure
+
+rij = x j − xi .
+
+(26)
+
+Optimal design of periodic functionally graded composites with prescribed properties
+
+479
+
+and Si is the set of nodes in the domain under inﬂuence of node i, which consists of a circle of radius rmin and center at node i. The weight function w is deﬁned as follows. w rij =
+rmin −rij rmin
+
+7 Sensitivity analysis To solve the optimization problem deﬁned above, it is necessary to calculate the sensitivity of objective function and constraints in relation to the design variables. The sensitivities of the homogenized properties are well-known in the literature (Sigmund 1994, 1995), however, here the formulation is described considering the CAMD concept. Differentiating (11) in relation to the design variable and considering (8), after some algebraic manipulation, we get (Sigmund 1994; Sigmund and Torquato 1997): ∂D H 1 = |Y| ∂ρ I I + ∂ y χ x, y
+Y
+
+if x j ∈ Si otherwise
+
+0
+
+,
+
+(27)
+
+Figure 9 illustrates the idea of the projection technique. The topology optimization problem deﬁnition is revised as follows. Minimize :
+dI
+
+W (d I ) =
+
+2 m,n=1
+
+wmn D∗ (d I ) mn
+2
+
+:
+
+H −Dmn (d I )
+
+∂Dm x, y ∂ρ I dY. (31)
+
+Subjected to :
+
+Kχ (mn) = F(mn) 0 ≤ f (d I ) ≤ 1 I = 1..N DV gradation control. (28)
+
+: I + ∂ y χ x, y
+
+However, considering the material models, given by (14) and (15), ∂Dm x, y ∂Dm x, y ∂ρ = , ∂ρ I ∂ρ ∂ρ I
+
+Sensitivities with respect to design variables are obtained based on those with respect to nodal densities using chain-rule ∂ (.) = ∂di ∂ (.) ∂ρ j , ∂ρ j ∂di (29)
+
+(32)
+
+and the continuous distribution of the design variable given by (17) inside each ﬁnite element is
+nd
+
+j∈
+
+where is the entire domain, but ∂ρ j/∂di is non-zero only at nodes j whose inﬂuence domain (S j) contains node i. Moreover ∂ρ j = ∂di w(rij) . k∈S j w(rkj ) (30)
+
+ρ (x) =
+I=1
+
+ρ I N I =⇒
+
+∂ρ = N I (x). ∂ρ I
+
+(33)
+
+By discretizing the domain into ﬁnite elements, the above integral will include all m I elements associated with I-th node, thus: ∂D H 1 = |Y| ∂ρ I
+mI
+e
+
+where ∂ (.) /∂ρ j is obtained by using traditional methods such as the adjoint method, as described in the next section.
+
+I+∂ y χ x, y : N I (x) : I + ∂ y χ x, y d
+
+e=1
+
+∂Dm x, y ∂ρ
+e
+
+.
+
+(34)
+
+1 w(r)
+
+rmin i
+rmin r rmin
+
+The calculation of gradients is straightforward and fast (low computational cost) which contributes to the efﬁciency of the optimization. The calculation of sensitivity ∂Dm x, y /∂ρ is described in Appendix B. In the case of plane stress, the tensor properties Dm for a twodimensional problem is given by ⎡ 1 vm Em m ⎣ vm 1 D = 1 − (v m )2 0 0 ⎤ 0 0 ⎦.
+
+(35)
+
+Fig. 9 Projection technique concept
+
+1−v m 2
+
+480
+
+G.H. Paulino et al.
+
+8 Results To illustrate the theoretical and numerical approaches, numerical examples are provided. The homogenization method is veriﬁed by considering one-dimensional material gradation proﬁles for which analytical solutions for the effective elastic properties are available. The veriﬁcation of the homogenization method is also extended to two dimensions considering a trigonometric material gradation, and a material variation with discontinuous derivatives. These are also used as benchmark examples to verify the optimization method for FGM cell design. Finally the inﬂuence of material gradation on extreme materials is investigated, which includes materials with near-zero shear modulus, and materials with negative Poisson’s ratio. The examples provided are listed below: • • Veriﬁcation of homogenization for one-dimensional gradation Homogenization of two-dimensional FGM unit cells 1. 2. • Trigonometric material gradation Material with discontinuous derivatives
+
+pseudo-density (ρ) and the properties at each point of the domain are obtained using the H-S bounds (see Appendix A). The (idealized) gradation is given by ρ (x) = (cos 2π x + 1) /2 and 0 ≤ x ≤ 1, (37)
+
+with E+ = 8, ν + = 0.3, and E− = 1, ν − = 0.3. From reference (Bendsøe and Sigmund 2003), the effective elastic properties for this type of composite can be obtained by solving the analytical expressions:
+H D11
+
+=
+
+1
+1 1 0 D11 dx 1 0
+
+;
+
+H D12
+
+=
+
+1 D12 0 D11 dx 1 1 0 D11 dx 2 1 D12 0 D11 dx 1 1 0 D11 dx
+
+H D22 =
+
+D22 dx −
+0
+
+1
+
+D2 12 dx + D11
+
+; (38)
+
+H D33 =
+
+1
+1 1 0 D33 dx
+
+.
+
+Thus, by computing the above integrals, the following effective properties are readily obtained: ⎡ ⎤ 1.817 0.554 0 D H = ⎣ 0.554 2.460 0 ⎦. (39) 0 0 0.632 To solve the homogenization equations by the FEM, a mesh convergence analysis was performed. The results of Fig. 10 show that a mesh of 22 × 22 provides converged values for the material property values: ⎡ ⎤ 1.818 0.555 0 0 ⎦. (40) D H = ⎣ 0.555 2.462 0 0 0.632 with accuracy less than 0.1%.
+
+Optimized FGM cell design 1. 2. 3. 4. Trigonometric material gradation Material with discontinuous derivatives Near-zero shear modulus materials Negative Poisson’s ratio materials
+
+The material design requires the volume fraction of material in the optimization process. The averaged volume fraction is deﬁned by the expression: = ρd =⇒ ∼ =
+N DV
+
+3.5
+
+ρi Vi ,
+i=1
+
+(36)
+3
+
+where Vi is the relative volume of each ﬁnite element in the unit cell. 8.1 Veriﬁcation for one-dimensional gradation To verify the numerical implementation of the homogenization method for FGM composites, a twodimensional (2-D) problem with one-dimensional gradation will be considered (Y = [0, 1]), so that analytical results of the effective properties can be obtained. To ensure that the FGM can be obtained by a mixture of two materials, the FGM gradation is deﬁned for the
+
+Coefficient values
+
+E(1,1) E(1,2) E(2,2) E(3,3)
+
+2.5 2 1.5 1 0.5 2 4 6 10 16 22
+
+34
+
+52
+
+76
+
+Number of elements in x direction
+Fig. 10 Convergence analysis for homogenized properties
+
+Optimal design of periodic functionally graded composites with prescribed properties
+
+481
+
+Fig. 11 a Trigonometric material gradation; b material with discontinuous derivatives
+
+8.2 Homogenization of FGM unit cells To illustrate the potentiality of the method, some twodimensional (2-D) FGM composite unit cells (Y = [0, 1] × [0, 1]) with two-dimensional gradation were homogenized. The same homogenized properties were used as input for the material design problem in Section 4 to check its capability to recover the material distribution. 8.2.1 Example 1 – trigonometric material gradation The ﬁrst gradation law considered (for the pseudodensity) is given by: ρ (x, y) = (sin 2π x sin 2π y + 1) /2 and 0 ≤ x ≤ 1; 0 ≤ y ≤ 1. as shown in Fig. 11a. (41)
+
+Figure 12a and b describe the pseudo-density distribution in the unit cell and the corresponding composite material matrix. The calculated effective property values using a 40 × 40 mesh are ⎤ 2.7148 0.9180 0 D H = ⎣ 0.9180 2.7148 0 ⎦. 0 0 1.0266 8.2.2 Example 2—material with discontinuous derivatives The second gradation law considered (for the pseudodensity) is given by: ⎧ ⎪ 1 − 2x ⎪ ⎨ 2x − 1 ρ (x, y) = ⎪ 1 − 2y ⎪ ⎩ 2y − 1 and 0 ≤ x ≤ 1/2; and 1/2 ≤ x ≤ 1; and 0 ≤ y ≤ 1/2; and 1/2 ≤ y ≤ 1; x≤ y≤1−x 1−x≤ y≤ x . y≤ x≤1−y 1−y≤ x≤ y (43) as shown in Fig. 11b. Notice that this gradation does not have continuous derivatives. Figure 13a and b describe the pseudodensity distribution in the unit cell and the corresponding composite material matrix. The calculated effective property values using a 40 × 40 mesh are ⎡
+
+(42)
+
+(a)
+
+(b)
+
+Fig. 12 Benchmark material with trigonometric gradation. a Pseudo-density distribution in the unit cell; b corresponding composite material matrix
+
+⎤ 4.0457 1.1507 0 D H = ⎣ 1.1507 4.0457 0 ⎦. 0 0 1.2954
+
+⎡
+
+(44)
+
+482
+
+G.H. Paulino et al.
+
+(a)
+
+(b)
+
+(a)
+
+(b)
+
+Fig. 13 Benchmark material with discontinuous derivative. a Pseudo-density distribution in the unit cell; b corresponding composite material matrix
+
+Fig. 15 Topology optimization result (trigonometric gradation) without gradient control. a Unit cell pseudo-density distribution; b corresponding composite material matrix. Notice that the lack of gradient control leads to undesirable results (e.g. local minimum)
+
+8.3 Optimized FGM cell design 8.3.1 Example 1—trigonometric material gradation Material design examples, using the implemented software, are presented. Unless otherwise speciﬁed, a square design domain with four symmetry axes (horizontal, vertical, and both diagonals) is adopted (see Fig. 3). The symmetry ensures that the obtained composite material will be orthotropic with equal values for properties D11 and D22 . The same property values for the basic materials (+) and (−), adopted in Section 8.2, are used here. The coefﬁcients w11 , w22 , w12 , and w33 adopted for the objective function in problem (23) are equal to 1, 1, 5, and 15, respectively. These values were chosen after some numerical experiments. A large value was chosen for the shear coefﬁcient because it is the most difﬁcult one to match in the problem (13). In traditional material design for composites, some discussion about the inﬂuence of weight coefﬁcients can be found in references (Sigmund 2000; Gibiansky and Sigmund 2000). The ﬁrst material design example consists of trying to recover the unit cell pattern presented in Example 1 of Section 8.2. Thus, the effective properties in (42) are speciﬁed as desired properties in the objective function of problem (23). The unit cell design domain is discretized into 20 × 20 ﬁnite elements. Initially, the gradient control with rmin equal to 0.318 was applied. This value is based on the pseudo-density distribution of (41). Figure 14a and b show the obtained pseudodensity distribution in the unit cell and the corresponding composite material matrix. The following property values were obtained from the optimization problem: ⎡ ⎤ 2.7147 0.9192 0 D H = ⎣ 0.9192 2.7147 0 ⎦. (45) 0 0 1.0262 which are similar to the ones in expression (42).
+
+(a)
+
+(b)
+
+(a)
+
+(b)
+
+Fig. 14 Topology optimization result (trigonometric gradation) with gradient control; a Unit cell pseudo-density distribution; b corresponding composite material matrix
+
+Fig. 16 Topology optimization result (benchmark material with discontinuous derivative) with gradient control. a Unit cell pseudo-density distribution; b corresponding composite material matrix
+
+Optimal design of periodic functionally graded composites with prescribed properties
+
+483
+
+Notice that the recovered pattern shown in Fig. 14b is similar to the original one shown in Fig. 12b. Quantitavely, the averaged volume fraction ( ) of the recovered pattern for material (+) is equal to 0.5, exactly the same value for the original pattern. If no gradient control is used, the results shown in Figs. 15a and b are obtained, which are different from the original pattern shown in Fig. 12a and b, and the following property values are obtained: ⎤ 2.7147 0.9173 0 D H = ⎣ 0.9173 2.7147 0 ⎦. 0 0 1.0267 ⎡
+
+distribution in the unit cell and the corresponding composite material matrix. The following properties were obtained from the optimization problem: ⎡ ⎤ 3.9669 1.1735 0 D H = ⎣ 1.1735 3.9669 0 ⎦. (47) 0 0 1.3204 which are similar to the ones in expression (44). In the original pattern, the material gradation derivatives are not continuous. Thus, by using gradient control we cannot expect to recover the same pattern as shown in Fig. 13a and b. However, the method provides the best solution close to the desired one in the minimum square sense. Quantitatively, the averaged
+
+(46)
+
+These results are similar to the ones in expressions (42) and (45). However, in this case, the averaged volume fraction of the recovered pattern is equal to 0.483, which is different from the original pattern. This example shows that the use of gradient control is quite signiﬁcant for designing FGM microstructures.
+
+8.3.2 Example 2—material with discontinuous derivatives This example consists of recovering the unit cell pattern of Example 2 presented in Section 8.2. Thus, the effective properties in (44) are speciﬁed as desired properties in the objective function of problem (23). The same design domain as the previous example is adopted. Initially, the gradient control with rmin equal to 0.5 was applied. Figure 16a and b show the pseudo-density
+
+(a)
+
+(b)
+
+(a)
+
+(b)
+
+(c)
+Fig. 18 Unit cell pseudo-density distribution and corresponding composite material matrix for a material with near zero shear modulus: a rmin = 1 , = 43.4%; b rmin = 2, = 36.1%; c rmin = 4, = 25.4%
+
+Fig. 17 Topology optimization result (benchmark material with discontinuous derivative) without gradient control. a Unit cell pseudo-density distribution; b corresponding composite material matrix. Again, the lack of gradient control leads to undesirable results (e.g. local minimum)
+
+484
+
+G.H. Paulino et al.
+
+volume fraction of the recovered pattern for material (+) is equal to 0.658, while for the original pattern is 0.666. If no gradient control is used, the results in Fig. 17a and b are obtained, which are different from the original pattern shown in Fig. 13a and b, however, it recovers the property values ( (44) and (47)): ⎡ ⎤ 4.045 1.1510 0 D H = ⎣ 1.1510 4.045 0 ⎦. (48) 0 0 1.2951 The average volume fraction of the recovered pattern is equal to 0.649, which is different from the original pattern (0.666). As expected, the FGM gradation imposes
+
+additional constraints in the material design process, which means that not all property values that could be feasible in a unit cell design without this constraint, can be obtained.
+
+8.3.3 Example 3—near zero shear modulus The objective of this example is to analyze the inﬂuence of FGM gradation in the design of extreme materials. It is known that extreme materials can only be obtained with solid-void (0–1) designs and steep material variation (Sigmund 2000). However, usually, some gradation is obtained in the manufacturing processes of such materials. Thus, the question is how this gradation inﬂuences the behavior of a designed extreme material. To illustrate this point, we consider the design of materials with zero shear modulus and negative Poisson’s ratio. First, the design of a material with zero shear modulus is considered. Such material consists essentially of a mechanism, thus in the case of material design there will be always a minimum value for the shear modulus. The prescribed properties are ⎤ 1.0 1.0 0 D = ⎣ 1.0 1.0 0 ⎦ . 0 0 0.0 ⎡
+
+(a)
+
+(49)
+
+(b)
+
+In this problem, Young’s modulus, E+ and E− , and Poisson’s ratio, ν + and ν − , of basic materials are equal to 27.3, 0.0, 0.3, and 0.0, respectively. The unit cell design domain is discretized into 40 × 40 ﬁnite elements. The unit cell designs for rmin equal to 1 (no gradation), 2, 4; 6, 10, and 20 are shown in Figs. 18 and 19. The corresponding computed property values are described below: 1.0356 = ⎣ 0.9662 0 ⎡ 1.0549 = ⎣ 0.9412 0 ⎡ 1.0064 = ⎣ 0.8593 0 ⎡ 1.0357 = ⎣ 0.7493 0 ⎡ ⎤ 0.9662 0 1.0356 0 ⎦ 0 0.0324 ⎤ 0.9412 0 1.0549 0 ⎦ 0 0.0602 ⎤ 0.8593 0 1.0064 0 ⎦ 0 0.1463 ⎤ 0.7493 0 1.0357 0 ⎦ 0 0.1688
+
+DH
+
+rmin =1
+
+DH
+
+rmin =2
+
+(c)
+Fig. 19 Unit cell pseudo-density distribution and corresponding composite material matrix for a material with near zero shear modulus: a rmin = 6, = 19.5%; b rmin = 10, = 11.3%; c rmin = 20, = 13.4%
+
+DH
+
+rmin =4
+
+DH
+
+rmin =6
+
+Optimal design of periodic functionally graded composites with prescribed properties
+0.35 0.3 0.25
+
+485
+
+Shear modulus
+
+0.2 0.15 0.1 0.05 0
+
+(a)
+
+0
+
+5
+
+10
+
+15
+
+20
+
+Gradient length (elements)
+Fig. 20 Shear modulus as a function of rmin (gradient length)
+
+DH
+
+rmin =10
+
+DH
+
+rmin =20
+
+0.9453 = ⎣ 0.5210 0 ⎡ 0.8505 = ⎣ 0.2903 0
+
+⎡
+
+⎤ 0.5210 0 1.0255 0 ⎦ 0 0.2621 ⎤ 0.2903 0 0.9960 0 ⎦. 0 0.2732
+
+(b)
+
+(50)
+
+As rmin increases, the recovered properties differ from the speciﬁed ones in (49). The plot of the shear modulus value as a function of rmin (gradient length) is shown in Fig. 20. It is noticed that the shear modulus does not change signiﬁcantly after rmin =10. The difference between each of the above cases and the reference property of (49) in the max norm is 3.4%, 6%, 14.6%, 25.1%, 47.9%, 71%, respectively. Moreover, one observes that the solution degrades when imposing gradient control.
+
+(c)
+Fig. 21 Unit cell pseudo-density distribution and corresponding composite material matrix for a material intended to have = 40.2%; b rmin = 2, negative Poisson’s ratio: a rmin = 1, = 32.0%; c rmin = 4, = 18.9%
+
+8.3.4 Example 4—negative Poisson’s ratio The second example considers the design of a material with negative Poisson’s ratio. In this case, the prescribed properties are 1.0 D = ⎣ −1.0 0 ⎡ ⎤ −1.0 0 1.0 0 ⎦ . 0 0.0 shown in Figs. 21 and 22. The corresponding obtained property values are described below: ⎡ ⎤ −0.6732 0 1.1366 0 ⎦ 0 0.0577 ⎤ −0.5445 0 1.1180 0 ⎦ 0 0.0757 ⎤ −0.2464 0 0.9571 0 ⎦ 0 0.1136
+
+DH (51) DH
+
+rmin =1
+
+rmin =2
+
+The same property values for basic materials (+) and (−) and the same unit cell design domain, like in the previous example, are adopted. Unit cell designs for rmin equal to 1 (no gradation), 2, 4; 6, 10, and 20 are
+
+DH
+
+rmin =4
+
+1.1366 = ⎣ −0.6732 0 ⎡ 1.1180 = ⎣ −0.5445 0 ⎡ 0.9571 = ⎣ −0.2464 0
+
+486
+0.1 0 -0.1
+
+G.H. Paulino et al.
+
+Poison's ratio
+
+-0.2 -0.3 -0.4 -0.5 -0.6 -0.7
+
+(a)
+
+0
+
+5
+
+10
+
+15
+
+20
+
+Gradient length (elements)
+Fig. 23 Poisson’s ratio as a function of rmin (gradient length)
+
+(b)
+
+tion of rmin (gradient length) is shown in Fig. 23. Like in the previous example, it is noticed that the Poisson’s ratio value does not change signiﬁcantly after rmin =10. The difference between each of the above cases and the reference property of (51) in the max norm is 32.7%, 45.6%, 75.4%, 95.9%, 103.6%, 104.7%, respectively. As in the previous section, one observes that the solution degrades when imposing gradient control. Moreover, at the end (largermin ), the Poisson’s ratio is not negative.
+
+9 Conclusions
+
+(c)
+Fig. 22 Unit cell pseudo-density distribution and corresponding composite material matrix for a material intended to have negative Poisson’s ratio: a rmin = 6, = 8.8%; b rmin = 10, = 4.3%; c rmin = 20, = 10.3%
+
+DH
+
+rmin =6
+
+DH
+
+rmin =10
+
+DH
+
+rmin =20
+
+⎤ 0.7399 − 0.0408 0 = ⎣ −0.0408 0.7399 0 ⎦ 0 0 0.1141 ⎡ ⎤ 0.4792 0.0363 0 = ⎣ 0.0363 0.4792 0 ⎦ 0 0 0.0553 ⎡ ⎤ 0.2830 0.0467 0 = ⎣ 0.0467 0.2830 0 ⎦. 0 0 0.0624
+
+⎡
+
+(52)
+
+For the 0–1 problem a Poisson’s ratio close to −1 could not be obtained. The reason is that the method did not allow for ﬂexible hinges, thus, the lower value for the Poisson’s ratio that could be obtained was −0.6732 . The plot of the Poisson’s ratio value as a func-
+
+This work shows that the material design method based on the continuum topology optimization together with a gradient control technique is applicable to the design of FGM microstructures. The continuous material distribution leads to a natural representation of the change of material properties inside the design domain in a continuous fashion, which is closely related to the FGM concept. The gradient control introduces a length scale in the process, which allows local control of the FGM gradation, and thus leads to feasible results. As expected, in the case of extreme materials, the presence of gradation moves the property values far from the extreme material property values. After a certain gradation control magnitude, the material behavior does not seem to be affected signiﬁcantly. The present work offers room for further extensions such as exploring graded three-dimensional architectures. Moreover, as indicated in the introduction, the present simulation framework can be used in conjunction with manufacturing techniques to achieve composites with locally graded microstructures. We notice that the resulting architecture has an additional
+
+Optimal design of periodic functionally graded composites with prescribed properties
+
+487
+
+length scale associated with the material gradation. This poses a challenge for material processing, but also offers opportunities for developing new material microstructures with tailored functionality. In addition, the material design methodology adopted here can be used by material engineers who want to explore different microstructural architectures, including locally graded material systems. In fact, the development of novel techniques such as spark plasma sintering, coextrusion, selective laser melting, and solid free-form fabrication, e.g. 3D printing, may allow the fabrication of graded microstructures (e.g. printwise and layerwise) in conjunction with a computer model such as the one presented in this work.
+Acknowledgements We acknowledge the USA NSF through the project CMS#0303492 “Inter-Americas Collaboration in Materials Research and Education” (PI, Prof. W. Soboyejo, Princeton University). The ﬁrst author acknowledges FAPESP — “Fundação de Amparo à Pesquisa do Estado de São Paulo” (Research Foundation of São Paulo State, Brazil), for providing him the Visiting Scientist award at the University of São Paulo (USP) through project number 2008/51070-0. The second author also thanks FAPESP and CNPq – “Conselho Nacional de Desenvolvimento Cientíﬁco e Tecnológico” (National Council for Scientiﬁcal and Technological Development), both from Brazil, for ﬁnancial support. The third author acknowledges the fellowship provided by Vietnam Education Foundation (VEF). Finally, we are grateful to Prof. Svanberg for providing the source code for the method of Moving Asymptotes (MMA).
+
+and the upper and lower limits, Gmax and Gmin , respectively, are given by: Gmax = (1−ρ) G− +ρG+ − (1−ρ) ρ G+ −G−
+2
++ +
+
+G (1−ρ) G+ +ρG− + KK+2 G+ +
+
+(55) (1−ρ) ρ G+ −G− (1−ρ) G+ +ρG− +
+2
+
+Gmin = (1−ρ) G− +ρG+ −
+
+K − G− K−+2G−
+
+.
+
+(56)
+
+Appendix B: Sensitivity of material model based on H-S bounds The derivative ∂Dm /∂ρ can be obtained through the expression ∂Dm ∂Dm = ∂ρ ∂ Em + ∂Dm ∂ν m ∂ Em ∂ K m ∂ Em ∂Gm + ∂ Km ∂ρ ∂Gm ∂ρ ∂ν m ∂Gm ∂ν m ∂ Km + ∂ Km ∂ρ ∂Gm ∂ρ . (57)
+
+By differentiating (16), we obtain ∂ Em 9 27Km = − m K Km ∂ Km 1 + 3 Gm G m 1 + 3 Gm ∂ Em = ∂Gm and ∂ν m (2/3) Gm = 2 ∂ Km (Km ) 2+(2/3) + (2/3) 1 − (2/3) 2 + (2/3)
+Gm Km Gm Km 2
+
+(58)
+
+Appendix A: H-S upper and lower limits For isotropic materials, the upper and lower limits of H-S are given as a function of the bulk modulus (K) and shear modulus (G). Thus, considering two isotropic materials indicated by superscripts (+) and (−), whose properties follow the relation K+ > K− and G+ > G− , the upper and lower limits for the bulk modulus, Kmax and Kmin , respectively, are given by (Hashin and Shtrikman 1963; Bendsøe and Sigmund 2003): (1 − ρ) ρ K+ − K− Kmax = (1−ρ) K +ρ K − (1 − ρ) K+ + ρ K− + G+
+− + 2
+
+27 (Km )2
+K 1 + 3 Gm G m
+m
+
+2
+
+,
+
+(59)
+
+Gm
+2
+
+Gm Km
+
+Km
+
+(60) 2/3 ∂ν m =− ∂Gm Km 2 + (2/3) 2/3 1 − (2/3) 2 + (2/3)
+Gm Km Gm Km . 2 m
+
+Gm Km
+
+−
+
+K
+
+(61) The derivatives ∂ Km /∂ρ and ∂Gm /∂ρ can be obtained by differentiating (14) and (15): ∂ Kmax (ρ) ∂ Kmin (ρ) ∂ Km =κ + (1 − κ) ∂ρ ∂ρ ∂ρ ∂Gm ∂Gmax (ρ) ∂Gmin (ρ) =κ + (1 − κ) . ∂ρ ∂ρ ∂ρ (62)
+
+(53)
+
+(1 − ρ) ρ K+ − K− Kmin = (1−ρ) K +ρ K − , (1 − ρ) K+ + ρ K− + G−
+− +
+
+2
+
+(54)
+
+(63)
+
+488
+
+G.H. Paulino et al. Bruyneel M, Duysinx P, Fleury C (2002) A family of MMA approximations for structural optimization. Struct Multidisc Optim 24(4):263–276 Carbonari RC, Silva ECN, Paulino GH (2007) Topology optimization design of functionally graded bimorph-type piezoelectric actuators. Smart Mater Struct 16(6):2605–2620 Chen BC, Silva ECN, Kikuchi N (2001) Advances in computational design and optimization with application to MEMS. Int J Numer Methods Eng 52(1–2):23–62 Cherkaev A (2000) Variational methods for structural optimization. Applied mathematical sciences, vol 140. ISBN-10: 0387984623. Springer, New York Cherkaev A, Gibiansky LV (1993) Coupled estimates for the bulk and shear moduli of a 2-dimensional isotropic elastic composite. J Mech Phys Solids 41(5):937–980 Cherkaev A, Gibiansky LV (1996) Extremal structures of multiphase heat conducting composites. Int J Solids Struct 33(18):2609–2623 Cherkaev A, Kohn R (1997) Topics in the mathematical modelling of composite materials. ISBN-10: 3764336625. Birkhauser, Boston Cox SJ, Dobson DC (1999) Maximizing band gaps in two-dimensional photonic crystals. SIAM J Appl Math 59(6):2108–2120 Cox SJ, Dobson DC (2000) Band structure optimization of twodimensional photonic crystals in H-polarization. J Comput Phys 158(2):214–224 Crumm AT, Halloran JW (1998) Fabrication of microconﬁgured multicomponent ceramics. J Am Ceram Soc 81(4):1053– 1057 Crumm AT, Halloran JW, Silva ECN, de Espinosa FM (2007) Microconﬁgured piezoelectric artiﬁcial materials for hydrophones. J Mater Sci 42(11):3944–3950 Diaz AR, Benard A (2003) Designing materials with prescribed elastic properties using polygonal cells. Int J Numer Methods Eng 57(3):301–314 Gibiansky LV, Sigmund O (2000) Multiphase composites with extremal bulk modulus. J Mech Phys Solids 48(3):461–498 Gibiansky LV, Torquato S (1995) Rigorous link between the conductivity and elastic-moduli of ﬁber-reinforced compositematerials. Philos Trans R Soc Lond Ser A Math Phys Sci 353(1702):243–278 Gibiansky LV, Torquato S (1999) Matrix laminate composites: realizable approximations for the effective moduli of piezoelectric dispersions. J Mater Res 14(1):49–63 Guedes JM, Kikuchi N (1990) Preprocessing and postprocessing for materials based on the homogenization method with adaptive ﬁnite-element methods. Comput Methods Appl Mech Eng 83(2):143–198 Guedes JM, Rodrigues HC, Bendsøe MP (2003) A material optimization model to approximate energy bounds for cellular materials under multiload conditions. Struct Multidisc Optim 25(5–6):446–452 Guest JK, Prévost JH, Belytschko T (2004) Achieving minimum length scale in topology optimization using nodal design variables and projection functions. Int J Numer Methods Eng 61:238–254 Hashin Z, Shtrikman S (1963) A variational approach of the theory of elastic behavior of multiphase materials. J Mech Phys Solids 11:127–140 Kim JH, Paulino GH (2002) Isoparametric graded ﬁnite elements for nonhomogeneous isotropic and orthotropic materials. ASME J Appl Mech 69(4):502–514 Kohn RV, Strang G (1986a) Optimal design and relaxation of variational problems, part I. Commun Pure Appl Math 39(1):113–137
+
+Finally, considering Kmax (ρ), Kmin (ρ), Gmax (ρ), and Gmin (ρ) given by (53), (54), (55), and (56), we obtain ρ K+ − K− ∂ Kmax = −K− + K+ + ∂ρ (1 − ρ) K+ + ρ K− + G+ − + (1 − ρ) K+ − K− (1 − ρ) K+ + ρ K− + G+ (1 − ρ) ρ K+ − K−
+2 2 2
+
+K− − K+
+
+((1 − ρ) K+ + ρ K− + G+ )2
+2
+
+(64)
+
+ρ K+ − K− ∂ Kmin = −K− + K+ + ∂ρ (1 − ρ) K+ + ρ K− + G− − + (1 − ρ) K+ − K− (1 − ρ) K+ + ρ K− + G− (1 − ρ) ρ K+ − K−
+2 2
+
+K− − K+
+
+((1 − ρ) K+ + ρ K− + G− )2
+2
+
+(65)
+
+ρ G+ − G− ∂Gmax = −G− + G+ + ∂ρ (1 − ρ) G+ + ρG− + − + (1 − ρ) G+ − G− (1 − ρ) G+ + ρG− + (1 − ρ) ρ G+ − G−
+2 2 K + G+ K+ +2G+
+
+K + G+ K+ +2G+
+
+G− − G+
+K + G+ 2 K+ +2G+ 2
+
+(1 − ρ) G+ + ρG− +
+
+(66)
+
+ρ G+ − G− ∂Gmin = −G− + G+ + ∂ρ (1 − ρ) G+ + ρG− + − + (1 − ρ) G+ − G− (1 − ρ) G+ + ρG− + (1 − ρ) ρ G+ − G−
+2 2 K − G− K− +2G−
+
+K − G− K− +2G−
+
+G− − G+
+K − G− 2 K− +2G−
+
+(1 − ρ) G+ + ρG− +
+
+.
+
+(67)
+
+Thus, the sensitivity for the material model based on the H-S bounds can be obtained.
+
+References
+Allaire G (2002) Shape optimization by the homogenization method. Applied mathematical sciences, vol 146. ISBN-10: 0387952985. Springer, New York Bendsøe MP, Kikuchi N (1988) Generating optimal topologies in structural design using a homogenization method. Comput Methods Appl Mech Eng 71(2):197–224 Bendsøe MP, Sigmund O (2003) Topology optimization: theory, methods and application. Springer, Berlin
+
+Optimal design of periodic functionally graded composites with prescribed properties Kohn RV, Strang G (1986b) Optimal design and relaxation of variational problems, part II. Commun Pure Appl Math 39(2):139–182 Kohn RV, Strang G (1986c) Optimal design and relaxation of variational problems, part III. Commun Pure Appl Math 39(3):353–377 Larsen UD, Sigmund O, Bouwstra S (1997) Design and fabrication of compliant micromechanisms and structures with negative Poisson’s ratio. J Microelectromechanical Syst 6(2): 99–106 Lipton R, Northrup J (1994) Optimal bounds on the inplane shear moduli for orthotropic elastic composites. SIAM J Appl Math 54(2):428–442 Matsui K, Terada K (2004) Continuous approximation of material distribution for topology optimization. Int J Numer Methods Eng 59:1925–1944 Mazumder J, Schifferer A, Choi J (1999) Direct materials deposition: designed macro and microstructure. Mater Res Innov 3(3):118–131 Mazumder J, Dutta D, Kikuchi N, Ghosh A (2000) Closed loop direct metal deposition: art to part. Opt Lasers Eng 34 (4–6):397–414 Milton GW, Cherkaev AV (1995) Which elasticity tensors are realizable? J Eng Mater Technol Trans ASME 117(4): 483–493 Miyamoto Y, Kaysser WA, Rabin BH, Kawasaki A, Ford RG (1999) Functionally graded materials: design, processing and applications. Kluwer Academic, Dordrecht Murat F, Tartar L (1985) Optimality conditions and homogenization. In: Mario A, Modica L, Spagnolo S (eds) Nonlinear variational problems. Pitman, Boston, pp 1–8 Neves MM, Rodrigues H, Guedes JM (2000) Optimal design of periodic linear elastic microstructures. Comput Struct 76 (1–3):421–429 Neves MM, Sigmund O, Bendsøe MP (2002) Topology optimization of periodic microstructures with a penalization of highly localized buckling modes. Int J Numer Methods Eng 54(6):809–834 Paulino GH, Jin Z-H, Dodds Jr RH (2003) Failure of functionally graded materials. In: Karihaloo B, Knauss WG (eds) Comprehensive structural integrity, vol 2, chapter 13. Elsevier Science, Oxford, pp 607–644 Paulino GH, Silva ECN (2005) Design of functionally graded structures using topology optimization. Mat Sci Forum 492– 493:435–440 Pindera M-J, Aboudi J, Arnold SM (1995) Limitations of the uncoupled, RVE-based micromechanical approach in the analysis of functionally graded composites. Mech Mater 20(1):77–94 Qi H, Kikuchi N, Mazumder J (2004) Interface study and boundary smoothing on designed composite material microstructures for manufacturing purposes. Struct Multidisc Optim 26(5):326–332 Qi J, Halloran JW (2004) Negative thermal expansion artiﬁcial material from iron-nickel alloys by oxide co-extrusion with reductive sintering. J Mater Sci 39(13):4113–4118 Rahmatalla S, Swan CC (2003) Form ﬁnding of sparse structures with continuum topology optimization. ASCE J Struct Eng 129(12):1707–1716 Rahmatalla SF, Swan CC (2004) A Q4/Q4 continuum topology optimization implementation. Struct Multidisc Optim 27:130–135 Reiter T, Dvorak GJ, Tvergaard V (1997) Micromechanical models for graded composite materials. J Mech Phys Solids 45(8):1281–1302
+
+489
+
+Sanchez-Palencia E (1980) Non-homogeneous media and vibration theory. Lectures notes in physics 127. Springer, Berlin Sigmund O (1994) Materials with prescribed constitutive parameters—an inverse homogenization problem. Int J Solids Struct 31(17):2313–2329 Sigmund O (1995) Tailoring materials with prescribed elastic properties. Mech Mater 20(4):351–368 Sigmund O (2000) A new class of extremal composites. J Mech Phys Solids 48(2):397–428 Sigmund O, Jensen JS (2003) Systematic design of phononic band-gap materials and structures by topology optimization. Philos Trans R Soc Lond Ser A Math Phys Sci 361(1806):1001–1019 Sigmund O, Torquato S (1996) Composites with extremal thermal expansion coefﬁcients. Appl Phys Lett 69(21): 3203–3205 Sigmund O, Torquato S (1997) Design of materials with extreme thermal expansion using a three-phase topology optimization method. J Mech Phys Solids 45(6):1037– 1067 Sigmund O, Torquato S (1999) Design of smart composite materials using topology optimization. Smart Mater Struc 8(3):365–379 Sigmund O, Torquato S, Aksay IA (1998) On the design of 1–3 piezocomposites using topology optimization. J Mater Res 13(4):1038–1048 Silva ECN, Fonseca JSO, Kikuchi N (1998) Optimal design of periodic piezocomposites. Comput Methods Appl Mech Eng 159(1–2):49–77 Silva ECN, Fonseca JSO, de Espinosa FM, Crumm AT, Brady GA, Halloran JW, Kikuchi N (1999a) Design of piezocomposite materials and piezoelectric transducers using topology optimization - Part I. Arch Comput Methods Eng 6(2): 117–182 Silva ECN, Nishiwaki S, Fonseca JSO, Kikuchi N (1999b) Optimization methods applied to material and ﬂextensional actuator design using the homogenization method. Comput Methods Appl Mech Eng 172(1–4): 241–271 Silva ECN, Paulino GH (2004) Topology optimization applied to the design of functionally graded material (FGM) structures. In: Proceedings of 21st international congress of theoretical and applied mechanics (ICTAM) 2004, 15–21 August 2004, Warsaw Smith WA (1992) Limits to the enhancement of piezoelectric transducers achievable by materials engineering. Proc IEEE Ultrason Symp 1:697–702 Suresh S, Mortensen A (1988) Fundamentals of functionally graded materials. IOM Communications, London Svanberg K (1987) The method of moving asymptotes—a new method for structural optimization. Int J Numer Methods Eng 24:359–373 Torquato S (2002) Random heterogeneous materials— microstructure and macroscopic properties. ISBN-10: 0387951679. Springer, New York Torquato S, Hyun S, Donev A (2003) Optimal design of manufacturable three-dimensional composites with multifunctional characteristics. J Appl Phys 94(9):5748–5755 Van Hoy C, Barda A, Grifﬁth M, Halloran JW (1998) Microfabrication of ceramics by co-extrusion. J Am Ceram Soc 81(1):152–158 Yin HM, Sun LZ, Paulino GH (2004) Micromechanics-based elastic model for functionally graded materials with particle interactions. Acta Mater 52(12):3535–3543
+

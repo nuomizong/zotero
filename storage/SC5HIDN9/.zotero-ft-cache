@@ -1,0 +1,1112 @@
+Finite Elements in Analysis and Design 100 (2015) 12–27
+
+Contents lists available at ScienceDirect
+
+Finite Elements in Analysis and Design
+journal homepage: www.elsevier.com/locate/ﬁnel
+
+The development of DKMQ plate bending element for thick to thin shell analysis based on the Naghdi/Reissner/Mindlin shell theory
+Irwan Katili a,n, Jean-Louis Batoz b, Imam Jauhari Maknun a,c, Aziz Hamdouni c, Olivier Millet c
+a
+
+Universitas Indonesia, Depok 16424, Indonesia Université de Technologie de Compiègne, Compiègne Cedex 60206, France c Université de La Rochelle, La Rochelle 17000, France
+b
+
+art ic l e i nf o
+Article history: Received 5 February 2014 Received in revised form 16 February 2015 Accepted 19 February 2015 Available online 13 March 2015 Keywords: DKMQ24 Quadrilateral Thick and thin shell Warping effect Bending-Membrane Energy
+
+a b s t r a c t
+This paper presents a new simple four-node quadrilateral shell element with 24-dof which can be used to analyze thick and thin shell problems. This element which is developed from DKMQ plate element using the Naghdi/Mindlin/Reissner shell theory can take into account warping effects and coupling bending-membrane energy. This element, called DKMQ24, passed patch tests for membrane, bending and shear problems. It has also successfully passed benchmark tests in the case of thick and thin shells without shear locking. Moreover, the numerical results obtained with DKMQ24 converge toward the reference solution. & 2015 Elsevier B.V. All rights reserved.
+
+1. Introduction Researches on the ﬁnite element method are still being conducted, speciﬁcally to obtain better elements. The formulation of a simple and efﬁcient shell element which has a good accuracy in numerical analysis is highly desirable. Furthermore, the development of low-order shell ﬁnite elements is very interesting, because it enables to reduce in an important way the associated numerical costs especially for large scale non-linear analysis. A compromise between cost and accuracy must be found. Generally, the developments of shell element are based on 3-nodal (triangular) and 4-nodal (quadrilateral) elements. The associated formulations allow to take into account a wide variety of thicknesses, irregular geometry, different boundary conditions and rough discretization. MITC elements [1,2] are commonly used in engineering analysis and revealed to be effective in membrane-dominated and bendingdominated shell problems [3,4]. Briassoulis [5] has introduced an analytical approach to study the asymptotic behavior of shell elements. The asymptotic behavior of ﬁnite shell elements in membrane-dominated, bendingdominated and mixed membrane-bending shell problems were
+
+n
+
+Corresponding author. Tel.: þ 62 811 888 8876; fax: þ62 21 727 0028. E-mail address: irwan.katili@gmail.com (I. Katili).
+
+evaluated using the explicit expressions for the characteristic asymptotic displacement. By using the Assumed Natural Strains (ANS) and Discrete Shear method to deﬁne the shear strains, the development of three nodes DKT [6] and four nodes DKQ [7] elements for thick plate bending has been proposed by Batoz and Lardeur [8,9]. These two elements rely on plate equilibrium equations including shear (Reissner–Mindlin model). The ﬁrst one, called Discrete Shear Triangular (DST) has 9 d.o. f and the second one, called Discrete Shear Quadrilateral (DSQ), has 12 d.o.f. DST and DSQ elements converge towards to DKT and DKQ plate elements for thin plate problems. A modiﬁed DST element, called DST-BK element, based on the formulation proposed by Bergan and Nygard [10], has been proposed by Batoz and Katili [11]. This element is free of shear locking and the numerical results obtained converge towards the reference solutions for all benchmark tests. Katili [12,13] has introduced DKMT and DKMQ element to analyze thick and thin plate problems. These elements are based on Reissner–Mindlin [14,15] hypothesis which require only C0 continuity. In the case of thin plate problem, the solution obtained with DKMT element converges to DKT [6] element, while the solution obtained with DKMQ element converges to DKQ [7] element. DKMT and DKMQ elements revealed to be free of shear locking and passed the classical patch tests associated. The problem of shear locking, when the thickness of the plate decreases, is resolved using the Discrete Kirchhoff Mindlin method proposed by Katili [12,13]. The capability of DKMQ and DKMT
+
+http://dx.doi.org/10.1016/j.ﬁnel.2015.02.005 0168-874X/& 2015 Elsevier B.V. All rights reserved.
+
+I. Katili et al. / Finite Elements in Analysis and Design 100 (2015) 12–27
+
+13
+
+plate element has been tested in [12,13] for thin and thick plate problems. The adaptation of DKMT and DKMQ elements to hybrid-mixed formulations has been introduced by Thermanto [16] and Ayad et al. [17,18]. This hybrid-mixed formulation is free of shear locking and passed all patch test from thick to thin plate analysis. Ayad et al. [19] has extended the formulation of DKMT element to laminated composite plate structures. Another ANS method, called DRM, based on the additional degrees of freedom on the middle edges, has been proposed by Onate et al. [20,21]. Although the triangular DRM element uses additional degrees of freedom in each sides of the element, the results are similar as those obtained with DMT element [22]. The formulation of DKMT plate element with facet shell element using the optimal membrane triangular OPT element for the geometrically nonlinear analysis of laminated composite structures has been introduced by Khosravi et al. [23]. Regarding the good results of DKMQ plate element, it is interesting to develop a shell element based on the generalization of DKMQ. In this paper, we will introduce a new quadrilateral shell element constituted of 4 nodes and 6 degrees of freedom per node (Section 2). This element has 24 d.o.f, is called Discrete KirchoffMindlin Quadrilateral 24 (DKMQ24). Using the Naghdi shell theory [24–27] and the formulation of shell element of [28], we have extended DKMQ plate element to DKMQ24 shell element. Its formulation is based on a generalization of the Discrete Kirchhoff Mindlin method including the transverse shear effects, and is valid for thin and thick shells. The incomplete quadratic interpolation functions for the rotation used in DKMQ24 element constitute one of the originality of the approach proposed and give the better performance in bending behavior. Warping effects are taken into account by computing the coupling bending-membrane in the curvature equations. This DKMQ24 element passed the classical patch tests in several thick and thin shell conﬁgurations and converged without shear locking towards the reference solution for benchmarks tested.
+
+f. The formulation uses the Modiﬁed Functional elements of Hu-Washizu [31]. g. DKMQ24 element behaves in accordance with the theory of Kirchhoff and Reissner–Mindlin, due to the use of a shear inﬂuence factor ϕk which is a function of shell thickness ratio (L/h).
+
+2.1. Geometry of shell element The interpolation of a vector position x~q at an arbitrary point q, when expressed as functions of the parametric coordinate ξ, η, z on the reference element: À Á x ξ; η; z ¼ x ðξ; ηÞ þz n ðξ; ηÞ ð1Þ
+~q ~p ~ 4 4 X À Á X N i ðξ; ηÞx þ z N i ðξ; ηÞn x ξ; η ; z ¼ ~q i¼1 ~i i¼1
+
+~i
+
+ð2Þ
+
+The notations used are the following: x : the coordinates of point p (X, Y, Z) in the global coordinate
+~p
+
+system which is deﬁned in (ξ,η, z ¼0). x : the coordinates of point q (Xq, Yq, Zq) in the global
+~q
+
+coordinate system (ξ,η,z). x : the nodal coordinates i (Xi, Yi, Zi) is the Cartesian global coordinate system i; j; k. ~ ~ ~ Ni (ξ,η) is the shape function of the quadrilateral element, depending on the parametric coordinates (ξ,η) in the reference element (see Table 1).   n : nXi nYi nZi denotes the normal direction at the surface
+~i ~i
+
+of the element in the nodal i (see Fig. 1). Relation differential element in Cartesian and natural coordinate systems at point p can be written as: 9 8 ( ) > dX > = Â < Ã dξ ð3Þ dx ¼ dY ¼ a~1 a~2 ~p dη > > ; : dZ where a~1 and a~2 are tangential vectors in direction ξ (η ¼constant) and η (ξ ¼constant). a~1 and a~2 are called the covariant base. Vector a~1 and a~2 (see Fig. 2) are given by: a ¼x
+~1 ~ p;ξ
+
+2. DKMQ24 shell element The main characteristics of DKMQ24 shell element are as follows: a. The geometry of the shell is represented by a set of quadrilateral elements with bilinear approach in which four of these nodes are non-coplanar [29,30]. b. Vector position x~p in the middle surface is continuous, but the direction of normal vector n~ maybe discontinuous between two elements adjacent. c. The approximation of displacement function or translation in À Á the middle surface up ξ; η À uses a linear function, while the Á interpolation of rotations β~ ξ; η uses an incomplete quadratic function [29,30]. d. Shear deformation vector is approximated independently (Assumed Strain Shear Displacement Field). e. There are 24 degrees of freedom on each element, six degrees À Á of freedom for each node i U i ; V i ; W i ; θX i ; θY i ; θZ i following the global coordinates system.
+Table 1 Linear function Ni and quadratic function Pk. N 1 ¼ 1ð1 À ξÞð1 À ηÞ 4 N2 ¼ N3 ¼ N4 ¼
+1 4ð1 þ ξÞð1 À ηÞ 1 4ð1 þ ξÞð1 þ ηÞ 1 4ð1 À ξÞð1 þ ηÞ
+
+¼
+
+4 X i¼1
+
+N i;ξ x
+
+~i
+
+;
+
+a ¼x
+~2
+
+~ p;η
+
+¼
+
+4 X i¼1
+
+N i;η x
+
+~i
+
+ð4Þ
+
+where Ni;ξ and N i;η are the ﬁrst derivatives of shape functions Ni with respect to ξ and η. In all this paper f ;ξ will denote the partial derivative of f with respect to ξ. Local basis at z¼ 0:
+
+À Á P 5 ¼ 1 1 À ξ2 ð1 À ηÞ 2 À Á 1 P 6 ¼ 2ð1þ ξÞ 1 À η2 À Á P 7 ¼ 1 1 À ξ2 ð1 þ ηÞ 2 À Á P 8 ¼ 1ð1À ξÞ 1 À η2 2
+
+Fig. 1. Shell geometry represented by a set of quadrilateral elements.
+
+14
+
+I. Katili et al. / Finite Elements in Analysis and Design 100 (2015) 12–27
+
+(
+
+Relation (3) can be written as: 8 9 ) "  1  #> dX > < = a dξ dY ¼  2 dη > > a : ; dZ
+
+ð12Þ
+
+The relation of differential calculation between global cartesian coordinate X, Y, Z and local coordinate system x,y,z can be written (see Fig. 4) as: 8 9 8 9 > dX > > dx > ! < = < = dY ¼ ½Q  dy with : ½Q  ¼ t t n ;t ¼n ~1 ~2 ~ ~1 ~ > > > > : ; : ; dz dZ Âk
+~
+
+; ;
+
+t ¼n
+~2 ~
+
+Ât
+
+~1
+
+t ¼i
+~1 ~
+
+if
+
+n ¼ 7k
+~ ~
+
+ð13Þ #
+
+Relation (12) and (13) becomes [28–30]: ( ) " o # " ( ) C 11 C o dξ Â o Ã dx Â oÃ a~1 :t~1 12 ¼ C ¼ ; C ¼ o o dη C 21 C 22 dy a~2 :t~1
+
+a~1 :t~2 a~2 :t~2
+
+ð14Þ Local Basis at z a0: The local basis [Fz] at za0 at an arbitrary point q can be written as: ! ! ½F z  ¼ a a n ¼ ½F 0  þ z ½F n  ; ½F n  ¼ n n 0 ; ~ 1z ~ 2z ~ ~ ;ξ ~ ;η ~ À Â ÃÁ ½F z  ¼ ½F 0  ½I  þ z bn ð15Þ where ½I  is the identity matrix and [28–30]: 2 3 bn bn12 0 Â Ã Â Ã 6 11 7 bn ¼ 4 bn21 bn22 0 5 bn ¼ ½F 0  À 1 ½F n  ; 0 0 0 2 1 a~ U n~;ξ a~1 Un~;η 6 ¼ 4 a~2 U n~;ξ a~2 Un~;η 0 0
+
+Fig. 2. Geometry of DKMQ24 shell element.
+
+The local basis at z ¼0, noted [F0], written as: !   a~1 Â a~2 ; det½F o  ¼ a Â a :n ; n ¼ a n ½F o  ¼ a ~1 ~2 ~ ~1 ~2 ~ ~ ja~1 Â a~2 j ð5Þ The length ds on the surface classically given by: ( ) dξ   2 ðdsÞ ¼ dx:dx ¼ dξ dη ½a ~ ~ dη where [a] symmetric " a11 ½a ¼ a21
+
+0 0
+
+3 ð16Þ
+3Â3
+
+7 05
+
+ð6Þ
+
+is the metric tensor of the middle surface. It is a positive-deﬁnite matrix (a12 ¼a21) deﬁned as: # " # a~1 :a~1 a~1 :a~2 a12 ¼ ; a ¼ det½a ; a11 4 0 ; a~2 :a~1 a~2 :a~2 a22 ; det½a 4 0 ð7Þ
+
+If the four nodes in an element are coplanar, then the matrix [bn] has a zero column because n~ is constant in this element. 2.2. Representation of displacement u~q The displacement of u~q is [29,30]: À Á À Á À Á with β Un ¼ 0 u ξ; η; z ¼ u ξ; η þ z β ξ; η
+~q ~p ~ ~ ~
+
+a22 4 0
+
+ð17Þ
+
+The area of element dA~ expressed as:     pﬃﬃﬃ dA ¼ a dξ Â a dη ¼ a Â a dξ dη n ¼ a dξ dη n ¼ dA n  
+~ ~1 ~2 ~1 ~2 ~ ~ ~
+
+where: ð8Þ ð9Þ À
+
+pﬃﬃﬃ dA ¼ a dξ dη a~1
+
+8 9 > Ui > = Á< Vi u ξ; η ¼ N i ξ; η ~p > :W > ; i¼1 i Á
+4 X
+
+À
+
+ð18Þ
+
+and a~2 To simplify the calculations, we introduce the vectors which are the classical contravariant vectors1 (Fig. 3). The matrix ½F o  À 1 is: ! ½F o  À 1 ½F o  ¼ ½I  where : ½F o  À T ¼ a1 a2 n and ! : a~1 a~2 a
+~ 1 ~ ~
+
+β ξ; η ¼
+~ 4 X i¼1
+
+À
+
+Á
+
+4 X i¼1
+
+8 X À À Á Á N i ξ; η β þ P k ξ; η Δβsk t ; β ¼ θ Â n ~i k¼5 ~ sk ~i ~i
+
+~i
+
+ð19Þ
+
+a
+~
+
+2
+
+¼ a
+
+~1
+
+! a ½a À 1
+~2
+
+~
+
+β¼
+~
+
+N i ½RN i
+
+8 9 > θXi > < =
+
+ð10Þ ½RN i ¼ fRN1gi ð11Þ Â
+
+θYi þ P k t sk Δβsk > :θ > k¼5 ; Zi
+2 fRN2gi Ã fRN3gi ¼ 6 À nZi 4 nYi 0 nZi 0 À nXi À nYi nXi 0 3 7 5
+
+8 X
+
+È
+
+É
+
+ð20Þ
+
+The vectors and are given by:     1 1 a22 a À a12 a À a21 a þ a11 a ; a2 ¼ a1 ¼ ~ ~1 ~2 ~ ~1 ~2 a a
+
+ð21Þ
+
+1 We recall that contravariant vectors satisfy: a~1 : a~1 ¼ a~2 : a~2 ¼ 1 ¼ a~2 : a~1 ¼ 0.
+
+;
+
+a~1 : a~2
+
+where Ni is a linear function and Pk is a quadratic function (see Table 1). Δβsk (k¼5,6,7,8) is a supplementary degree of freedom on each side of the element. It represents the increment from the average
+
+I. Katili et al. / Finite Elements in Analysis and Design 100 (2015) 12–27
+
+15
+
+of βsi and βsj in the middle side (Fig. 5). t~sk ¼ x~ji =Lk (k ¼5,6,7,8) is a unit vector tangential on the side of k (Figs. 6 and 7). Rotations βs and βm are:
+
+of i À j (see Fig. 5), we have [6–9,12,13]:
+
+βs ¼ 1 À
+
+
+
+βs ¼ β Ut
+~
+
+~s
+
+;
+
+βm ¼ β U t
+~
+
+~m
+
+ð22Þ
+
+     s s s s s s βsi þ βsj þ 4 1 À Δβsk ; βm ¼ 1 À βmi þ βmj Lk Lk Lk Lk Lk Lk ð23Þ
+
+Rotation βs (in the plane s–z where s is the tangential coordinate on the considered side) is a quadratic function with respect to s. Rotation βm (in the plane m-z where m is perpendicular to s and n~) is a linear function to s. For an example, in the side
+
+Fig. 6. Tangential unit vector on side k.
+
+Fig. 3. Covariant and contravariant basis.
+
+Fig. 4. Local coordinate system x, y, z and global cartesian coordinate system X, Y, Z.
+
+Fig. 7. Nodal degrees freedom of DKMQ24 shell element.
+
+Fig. 5. Variation of rotation along the sides of element.
+
+16
+
+I. Katili et al. / Finite Elements in Analysis and Design 100 (2015) 12–27
+
+2.3. Representation of membrane deformation feg and curvature È É deformation χ From [28–30] the membrane deformation is: 8 9 2 3 ( ) t~1 0 > ex > < = 6 0 t 7Â o ÃT u~p;ξ feg ¼ ey C ¼4 ~2 5 u~p;η > :e > ; t~2 t~1 xy By introducing (18) into (24), we get: feg ¼ ½Bm fun g fun gT ¼ hun i ¼ D ::: Ui Vi Wi ð25Þ E ::: i ¼ 1; 4
+
+P k;x ¼ P k;ξ :C o þ P k;η :C o 11 21
+
+;
+
+P k;y ¼ P k;ξ :C o þ P k;η :C o 12 22
+
+ð35Þ
+
+2.4. Assumed shear strain ﬁelds ð24Þ n o The transversal shear strain γ is interpolated independently by [28–30]: ( ) ( ) " o #( ) γx γξ C 11 C o Â o ÃT γ ξ 12 ð36Þ γy ¼ C γ η ¼ Co Co γη 21 22 From Refs. [1,2,13,28–30], we have:
+( 9 8 > γ ξ5 > > > #> >γ > = < η6 >
+η8
+
+θX i θY i θZi
+
+(see Fig. 7) From [28–30] we have: 2 ht 1 iN i;x 6 ½Bm  ¼ 4 U U U ht 2 iN i;y
+
+γξ γη
+
+) ¼
+
+Á " 1À 2 1Àη 0
+
+0 À Á 1 2 1þξ
+
+1 2
+
+À Á 1þη
+
+0
+
+1 2
+
+0 0 0
+
+0 0 0
+
+0 0 0
+
+3 UUU 7 5
+ð3Â24Þ
+
+h i 0 À Á ¼ ½N γ  γ ξn 1 À ξ > γ ξ7 > > > > > >γ > ; :
+
+i ¼ 1; 4 ð26Þ
+
+ð37Þ where γ ξ5 ; γ η6 ; γ ξ7 ; γ η8 denote natural shear strains on the sides 5,6,7,8. On the other hand, we have: 9 8 2 38 γ 9 L5 0 0 0 > γ ξ5 > > s5 > > > > > > > > > >γ > = < η6 = 16 0 L6 0 < 7> γ s6 > Â Ãn o 0 6 7 ¼ 6 ¼ Aγ γ sn ð38Þ 7 γ À L7 0 > γ ξ7 > 2 4 0 0 5> s7 > > > > > > > > > >γ > >γ > : η8 ; 0 0 0 À L8 : s8 ; Finally, from (36)–(38) we obtain: ( ) n o γx Â Ã È É γ ¼ γ ¼ Bsγ ð2Â4Þ γ sn ð4Â1Þ
+y
+
+ht 1 iN i;y þ ht 2 iNi;x
+
+N i;x ¼ Ni;ξ C o þ Ni;η C o 11 21
+
+;
+
+N i;y ¼ N i;ξ C o þ N i;η C o 12 22
+
+ð27Þ
+
+The components of the curvature tensor are given by [28–30]: 8 9 2 3 ( ) ( )# t~1 0 " > χx > < = β u χ y ¼ 6 0 t~2 7 ÂbcÃT ~p;ξ þ ÂC o ÃT ~;ξ ð28Þ 4 5 u~p;η β~;η > :χ > ; t t
+xy ~2 ~1
+
+By introducing (18) and (20) into (28), we have [29,30]: h iÈ È É h i É χ ¼ Bbβ fun g þ BbΔβ Δβn with:   and 2 h i 6 Bb β ¼ 4 U U U ht 1 iNbc1i ht 2 iNbc2i ht 1 iNbc2i þ ht 2 iNbc1i hV1i iN i;x hV2i iN i;y hV1i iN i;y þ hV2i iNi;x D E
+
+ð29Þ where: Â Ã Â o ÃT Â ÃÂ Ã N γ Aγ Bsγ ¼ C ð39Þ
+
+Δβn ¼ Δβs5 Δβs6 Δβs7 Δβs8
+
+3 UUU 7 5 ð30Þ
+
+Stating that m–s is the local coordinate system on the side of the considered element, (see Fig. 6), the tangential shear strain on the side k based on the constitutive law can be deﬁned as:
+
+γs ¼
+
+Ts Ds
+
+;
+
+Ds ¼
+
+KEh 2ð1 þ υÞ
+
+ð40Þ
+
+Â i ¼ 1; 4 Nbc1i ¼ N i;ξ bc11 þ N i;η bc21 ( ; Nbc2i ¼ N i;ξ bc12 þN i;η bc22 ;
+
+ð31Þ
+
+  ) hV 1i i ¼ t U RN 1i t U RN 2i t U RN 3i ~1 ~1 ~1 (   ) hV 2i i ¼ t U RN 1i t U RN 2i t U RN 3i
+~2 ~2 ~2
+
+where E is the Young Modulus of Elasticity, υ the Poisson ratio, h the thickness of shell. K ¼5/6 is the shear correction factor of Reissner–Mindlin. The equilibrium equation of the each side must be added to Eq. (40): T s ¼ M s;s þ M ms;m ð41Þ
+
+ð32Þ
+
+From [28–30] we have: " # " # h iÂ Ã h i bn22 Àbn12 bc11 bc12 Â Ã ^ ^ ¼ b Co ; b ¼ bc ¼ bc21 bc22 À bn21 bn11 " 2 # a~ :n~;η À a~1 :n~;η ¼ À a~2 :n~;ξ a~1 :n~;ξ
+
+The constitutive law for the bending moment on each side:    ð1 À υÞ ; M ms ¼ Db βs;m þ υ βm;s ; M s ¼ Db βs;s þ υ βm;m 2 3 Eh Á Db ¼ À ð42Þ 12 1 À υ2 The kinematic relationship between tangential shear strain and the rotation at normal direction on each side obtained from (40)– (42) is as follows [12,13]: ! D ð1 À υÞ ð43Þ γ s ¼ b βs;ss þ υ βm;ms þ βs;mm þ υ βm;ms 2 Ds The rotation β s ðsÞ and βm ðsÞ had been stated in (23). We get:
+
+ð33Þ
+
+We can see there is a coupling between bending and membrane for the curvature equations in (30). This happens if the four nodes Â Ã in the element are not coplanar bc a ½0. If the four nodes in an Â Ã element are coplanar, then the matrix bc ¼ ½0 (becausen~is constant for this element). In this situation the formulation will give the same results with the facet shell model. 2 3 t~1 :t~sk P k;x h i 6 7 ⋯k ¼ 5; 85 ð34Þ BbΔβ ¼ 4⋯ t~2 :t~sk P k;y t~1 :t~sk P k;y þ t~2 :t~sk P k;x
+
+βs;mm ¼ υ βm;ms ¼ 0
+We get on side k with quadratic function of 2 3 Db 12 2 h ¼ Ds L2 K ð1 À υÞ L2 k k
+2
+
+ð44Þ
+
+βs in s direction (23):
+! ð45Þ
+
+γ sk ¼ À ϕk Δβsk With : ϕk ¼
+
+I. Katili et al. / Finite Elements in Analysis and Design 100 (2015) 12–27
+
+17
+
+The factor ϕk (characterizing the inﬂuence of shear) maintains the consistency of element. The factor h2/L2, in that equation explains k why DKMQ24 element behaves as the Reissner–Mindlin theory for thick shell and as the Kirchhoff–Love theory for thin shell. In the thin shell problems, the factor h2/L2 is close to zero, so that the k transversal shear deformation is automatically ignored, as a result the shear locking resolved by this Discrete Kirchhoff Mindlin method. From Eq. (45), we get [13]: 9 9 8 2 38 ϕ5 0 0 0 > Δβs5 > > > > γ s5 > > > > > > > > > >γ > 6 = < s6 = ϕ6 0 0 7> Δβs6 > 7< 26 0 7 or ¼À 6 60 ϕ7 0 7> Δβs7 > 0 > γ s7 > 34 > > > 5> > > > > > > >γ > : s8 ; ; : ϕ > Δβ > 0 0 0
+8
+
+where n~ is a unit normal vector from one point s on the side k of element. On the each side k, we have: !     1 s s u ¼ u Àu 1À βi þ β t ; β:t ¼ ~ p;s Lk ~ j ~ i Lk ~ Lk ~ j ~ sk ~ ~ sk    s s þ 4 1À Δβsk ð55Þ Lk Lk On each side, the value n~k :   1 ni þ nj nk ¼ ~ ~ 2 ~ Equivalently, we have: !   Á 1 1 2À u Àu n þ β i þ β t þ 1 þ ϕk Δβsk ¼ 0 Lk ~ j ~ i ~ k 2 ~ 3 ~ j ~ sk Finally, we get: ( )& ' Á 2À 1 1 þ ϕk Δβsk ¼ n u ~ ji 3 Lk ~ k ( 1 t :RN 1 ⋮ ~sk ~ i þ 2 ( 1 t :RN 1 ⋮ ~sk ~ j þ 2
+
+ð56Þ
+
+n o h iÈ É : γ sn ¼ Aϕ Δβn
+
+s8
+
+ð46Þ
+
+ð57Þ
+
+Finally, from (39) and (46) we obtain: ( ) n o h i γx Â Ã È É γ ¼ γ Δβn ð4Â1Þ ¼ Bsγ ð2Â4Þ Aϕ
+y ð4Â4Þ
+
+ð47Þ
+
+À
+
+t~sk U RN~2 i t~sk U RN~2 j
+
+⋮ ⋮
+
+) t~sk U RN 3 i
+~
+
+È
+
+θxi
+
+É
+
+2.5. Modiﬁed Hu-Washizu functional The modiﬁed Hu-Washizu functional used to develop our DKMQ24 shell element is classical. We only recall here the modiﬁed Hu-Washizu principle, whose details can be found in reference [31]. Hu-Washizu principle reads:
+
+t~sk :RN 3 j
+~
+
+)n
+
+θ xj
+
+o
+
+ð58Þ If (58) is applied on all four sides, then the independent parameter È É Δβn is a function of degrees of freedom {un}, namely: È É À1 Δβn ð4x1Þ ¼ ½AΔ ð4Â4Þ ½Au ð4Â24Þ fun gð24Â1Þ ð59Þ where: 2À 1 þ ϕ5 Á 3 7 7 7 7 Á5 ð60Þ
+
+Π ¼ Π int À Π ext Π int ¼ Π m þ Π b þ Π s ; int int int Π ext ¼
+Z
+A
+
+wf z dAþ
+m b
+
+Z 
+s
+
+ wf z þ β x mx þ β y my ds
+s
+
+ð48Þ
+
+where Π int ; Π int and Π int respectively membrane, bending and shear strain energy. fz is the distributed load in the z direction and Z Z n o  È É n o 1 D E ð49Þ Πs ¼ γ ½Hs  γ dA þ hTi γ À γ dA int 2 A A By stating the variation Π with respect to T (shear force), we get the condition: Z  È É n o ð50Þ δT γ À γ dA ¼ 0
+A
+
+6 26 0 ½AΔ  ¼ À 6 36 0 4 0
+
+0 À Á 1 þ ϕ6 0 0
+
+0 0 À Á 1 þ ϕ7 0
+
+0 0 0 À 1 þ ϕ8
+
+2.7. Element stiffness matrix
+
+Â À ÁÃ The membrane deformation is : feg ¼ Bm ξ; η fun g
+
+ð61Þ
+
+This equation which can be viewed as a constraint equation and is equivalent to: Z Lk   ð51Þ δT sk γ sk À γ sk ds ¼ 0 ; k ¼ 5; 6; 7; 8
+0
+
+By substituting (59) into (29) we ﬁnally obtain the expression of the curvature deformation: È É Â À ÁÃ χ ¼ Bb ξ; η fun g where: Â À ÁÃ h À Ái h À Ái Bb ξ; η ¼ Bbβ ξ; η þ BbΔβ ξ; η ½AΔ  À 1 ½Au 
+
+2.6. Application of discrete Kirchhoff–Mindlin method on the side of elements Using the kinematic relationships for transversal shear deformation, the Discrete Kirchhoff–Mindlin method [12,13] can be stated on element for getting {χ} and {γ} as function of nodal degrees of freedom. From (51), we have: Z Lk   ð52Þ γ sk À γ sk ds ¼ 0
+0
+
+ð62Þ
+
+Substituting (59) into the expression of transversal shear strain deformation (47), we obtain [30]: n o Â À ÁÃ γ ¼ Bs ξ; η fun g where Â À ÁÃ Â À ÁÃh i Bs ξ; η ¼ Bsγ ξ; η Aϕ ½AΔ  À 1 ½Au 
+
+ð63Þ
+
+with
+
+γ sk ¼ u :n þ β U t
+~ p;s ~ k ~
+
+~ sk
+
+;
+
+γ sk ¼ À ϕk Δβsk
+
+2 3
+
+ð53Þ
+
+On the other hand, membrane deformation energy for an element with the area A: Z Â Ã 1 1 hei½H m fegdA ¼ hun i km fun g Πm ¼ ð64Þ int 2 A 2 where Â Ã km ¼ Z ½Bm T ½H m ½Bm dA
+A
+
+Therefore  Z Lk  2 u U n þ β U t þ ϕk Δβsk ds ¼ 0 ~ p;s ~ 3 ~ ~ sk 0
+
+ð54Þ
+
+ð65Þ
+
+18
+
+I. Katili et al. / Finite Elements in Analysis and Design 100 (2015) 12–27
+
+and
+
+2
+
+6 ½H m  ¼ Dm 4
+
+1 sym
+
+υ 0
+1 0 ð1 À υÞ=2
+
+3 7 5 ; Dm ¼ Eh 1 À υ2 ð66Þ
+
+Table 2 Deﬂection UA (UA ¼ UA Â 103) Pinched hemispherical shell. NÂN 4Â4 6Â6 8Â8 10 Â 10 12 Â 12 14 Â 14 16 Â 16 18 Â 18 20 Â 20 Ref. [35] DKMQ24 78.721 93.963 93.624 92.996 92.601 92.371 92.246 92.184 92.158 92.400 Q4γ24 75.053 90.574 91.394 91.401 91.459 91.545 91.637 91.726 91.807
+
+In the similar way, bending deformation energy for an element with the area A is given by: Z È É Â Ã 1   1 Πb ¼ χ ½H b  χ dA ¼ hun i kb fun g ð67Þ int 2 A 2 where Â Ã kb ¼ Z
+A
+
+2 6 ½Bb T ½H b ½Bb dA and : ½H b  ¼ Db 4
+
+1 sym
+
+υ 0
+1 0 ð1 À υÞ=2
+
+3 7 5 ð68Þ
+
+UA FEM / U A REF
+
+Finally, transversal shear deformation energy for an element with the area A: Z n o Â Ã 1 D E 1 Πs ¼ γ ½Hs  γ dA ¼ hun i ks fun g ð69Þ int 2 A 2 With Â Ã ks ¼ Z
+A
+
+1.100 1.050 1.000 0.950 0.900 0.850 0.800 0.750 0 2
+
+Convergence of deflection UA
+
+DKMQ24 Q4γ24 Ref.[35]
+
+½Bs  ½H s ½Bs  dA and : ½H s  ¼ Ds
+
+T
+
+1 0
+
+0 1
+
+! ð70Þ
+
+Accordingly, the stiffness matrix [k] is the sum of the stiffness matrices due to membrane, bending and transversal shear. Â Ã Â Ã Â Ã Â Ã k ¼ km þ kb þ ks ð71Þ Stiffness matrix is determined using numerical integration with Gauss integration point. Standard Gauss integration 2 Â 2 point is enough to integrate the stiffness matrix (65), (68) and (70). Shear strain deformation energy depends on the value of factor ϕk and this energy becomes zero if ϕk % 0. In thin shell problem (ϕk % 0), the DKMQ24 element converges to DKQ24 element in reference [29]. Therefore, shear stiffness becomes zero and there is no shear locking for thin shell with the element DKMQ24. 2.8. Fictitious stiffness for θz and MacNeal stabilization In the ﬁeld of real kinematic, there is no rotation around the normal axis (θz ). Then the stiffness matrix [k] (71) will contain the value zero at the nodal variables θzi . As a result, it will arise four spurious modes at elements. If all elements are combined into a plane that is coplanar, then the sum of rigidity matrix (rigidity assemblage matrix) will become singular. Therefore, to avoid the difﬁculties of numerical operations (spurious modes), we used a
+Z,W
+
+4
+
+6
+
+8
+
+10 N
+
+12
+
+14
+
+16
+
+18
+
+20
+
+Fig. 9. Convergence of Deﬂection UA for the pinched hemispherical shell.
+
+ﬁctitious stiffness. With the addition of ﬁctitious stiffness, three spurious modes will vanish, while the other spurious mode will be eliminated by MacNeal stabilization [32–34].
+θz Π int ¼ Π int þ Π int þ Π θz int
+
+ð72Þ
+
+a. We deﬁne a ﬁctitious stiffness such as: Z 3 À Á 1 Eh 1 Â ÃÈ É 10 À 3 Π θz ¼ θz;x θz;x þ θz;y θz;y dA ¼ θn kθz θn int 2 12 2 A 8 > θX i < È É θz ξ; η ¼ N i ξ; η θ z i ¼ N i ξ; η hni i θn ¼ hN ihni i θY i > :θ i¼1 i¼1 À Á
+4 X
+
+ð73Þ 9 > = > ; ð74Þ
+
+À
+
+Á
+
+4 X
+
+À
+
+Á
+
+Zi
+
+where: D E hni i ¼ nX i nY i nZ i ;   D θn ¼ θX 1 θY 1 θZ1 U U U and ( ) ( )
+
+θ X 4 θY 4 θ Z 4
+
+E
+
+C
+
+θz;x θz;y
+
+Â ÃT ¼ Co
+
+θz;ξ θz;η
+
+ð75Þ
+
+Symmetry
+
+Symmetry
+
+B A P Free X,U
+Fig. 8. Hemispherical Shell.
+
+P Y,V
+
+Â Ã Â Ã Matrix kθz 12Â12 is expanded into matrix kθz 24Â24 to adjust the nodal variables in the element stiffness matrix. b. According to Mac Neal Stabilization, we deﬁned also: Z   h i 1 Eh 1 À 10 À 3 Π θz ¼ : θ z U θ z dA ¼ hun i kθz fun g ð76Þ int 2 2ð1 þ υÞ 2 A Thus the final form of stiffness matrix is Â Ã Â Ã Â Ã Â Ã Â Ã h Ài : k ¼ km þ kb þ ks þ kθz þ kθz In this example, it is important to notice that:
+
+ð77Þ
+
+I. Katili et al. / Finite Elements in Analysis and Design 100 (2015) 12–27
+
+19
+
+C B D
+free
+
+free
+
+L
+Meshing 2 x 2
+
+A
+
+R
+Diaphragms
+
+Z,W
+φ
+
+Y,V X,U
+
+Fig. 10. Scordelis–Lo roof problem.
+
+Table 3 Deﬂection WB for the Scordelis–Lo roof problem. NÂN 2Â2 4Â4 6Â6 8Â8 10 Â 10 12 Â 12 14 Â 14 16 Â 16 18 Â 18 20 Â 20 Deep Shell Ref. [36] Shallow Shell Ref. [36] DKMQ24 À 4.392 À 3.425 À 3.484 À 3.528 À 3.554 À 3.569 À 3.579 À 3.585 À 3.590 À 3.593 À 3.610 À 3.703 Q4γ24 À 4.285 À 3.418 À 3.488 À 3.539 À 3.570 À 3.590 À 3.604 À 3.613 À 3.620 À 3.625
+
+Table 5 Convergence of NYB and MXC for the Scordelis–Lo roof problem. NÂN DKMQ24 NYB 2Â2 4Â4 8Â8 16 Â 16 32 Â 32 64 Â 64 Shallow Shell Ref. [36] 269.440 498.430 592.680 620.750 628.280 631.110 641.000 MXC 1.782 1.874 1.998 2.041 2.054 2.061 2.056 Q4γ24 NYB 272.880 496.730 593.170 623.120 631.550 633.900 641.000 MXC 1.923 1.808 1.979 2.047 2.068 2.075 2.056
+
+WB
+
+Table 4 Deﬂection WC for the Scordelis–Lo roof problem. NÂN 2Â2 4Â4 6Â6 8Â8 10 Â 10 12 Â 12 14 Â 14 16 Â 16 18 Â 18 20 Â 20 Deep Shell Ref. [36] Shallow Shell Ref. [36] DKMQ24 0.593 0.513 0.523 0.529 0.533 0.535 0.537 0.538 0.539 0.539 0.541 0.525 Q4γ24 0.629 0.508 0.521 0.530 0.536 0.539 0.542 0.543 0.545 0.546
+
+-3 -3.2 -3.4 -3.6 -3.8 -4 -4.2 -4.4 -4.6
+
+Convergence of deflection WB
+
+DKMQ24 Q4γ24 Deep shell [36] Shallow Shell [36] 0 2 4 6 8 10 12 14 16 18 20 N
+
+Fig. 11. Convergence of deﬂection WB for the Scordelis–Lo roof problem.
+
+0.7 0.65 0.6
+
+Convergence of deflection WC
+
+Â Ã The 1. h inumber of rank matrix kθz is three and rank of matrix À kθz is one. h i Â Ã À 2. The addition of small ﬁctitious stiffness kθz and kθz will not affect the precision and the convergence speed. In Eqs. (73) and (76), we used a small arbitrary factor of stabilization of 10 À 3 that we found empirically. This small factor will not affect the results but enable to avoid singularities. Â Ã 3. The matrix kθz eliminates the numerical singularity in the element when the four nodes are coplanar, and eliminates
+
+WC
+
+0.55 0.5 0.45 0.4 0 2 4 6 8 10 12 14 16 18 20 N
+
+DKMQ24 Q4γ24 Deep shell [36] Shallow Shell [36]
+
+Fig. 12. Convergence of deﬂection WC for the Scordelis–Lo roof problem.
+
+20
+
+I. Katili et al. / Finite Elements in Analysis and Design 100 (2015) 12–27
+
+1.2 1
+
+NYB
+
+NYB FEM/NYB REF
+
+0.8 0.6 0.4 0.2 0 0 8 16 24 32 N
+Fig. 13. Convergence of NYB for the Scordelis–Lo roof problem.
+
+Finally for shear stiffness, Q4γ24 element uses modiﬁed functional of Hellinger-Reissner, where the shear deformation is given by  Z Z  1 Lk 1 Lk γs ¼ γ s ds ¼ u Un þ β Ut ds ð82Þ ~ p;s ~ Lk 0 Lk 0 ~ ~s
+DKMQ24 Q4γ24 Shallow Shell [36]
+
+40
+
+48
+
+56
+
+64
+
+where n~ is a unit normal vector from one point s in the side k of the element. We have: ( )& ' 1 1D t :RN 1 ⋮ t :RN 2 ⋮ t :RN 3 EÈ É ~sk ~ i ~sk ~ i ~sk ~ i u ji þ γs ¼ n θxi ~ k Lk ~ k 2 ( )n o 1 t :RN 1 ⋮ t :RN 2 ⋮ t ~sk ~ j ~sk ~ j ~sk :RN 3j ð83Þ θxj þ ~ 2 If (83) is applied on all four sides, then the independent parameter È É γ sn is a function of degrees of freedom {un}, and we obtain: È É γ sn ð4x1Þ ¼ ½Au ð4Â24Þ fun gð24Â1Þ ð84Þ From (39) and (84) we get: ( ) n o γx γ ¼ γ ¼ ½Bs fun g with :
+y
+
+1.02 1
+
+MXC
+
+M XC FEM/M XC REF
+
+0.98 0.96 0.94 0.92 0.9 0.88 0.86 0.84 0 8 16 24 32 N 40 48 56 64 DKMQ24 Q4γ24 Shallow Shell [36]
+
+Â Ã ½Bs  ¼ Bsγ ½Au 
+
+ð85Þ
+
+For shear stiffness, we can obtain an equation similar to (70) with ½Bs  given from (85).
+
+4. Convergence test The convergence test introduced here includes benchmark test suggested by Mac Neal and Harder [35], are: the hemispherical shell, the Scordelis–Lo roof problem, the pinched cylindrical shell with end diaphragms, the hyperbolic paraboloid shell and the twisted beam. We will present also the results for plate problems in the two last examples. In all cases, the shells are analyzed with a constant thickness. The boundary conditions are known, and there is no initial deformation. 4.1. The hemispherical shell A case which is often used to evaluate the performance of a thin hemispherical shell element (R/h¼250) is presented in Fig. 8. We have free boundary conditions and 4 pieces point load. This case is introduced to prove the absence of membrane locking. The structure is divided into four sections due to the symmetry. The deﬂection UA ¼ À VB which is a results of numerical test is presented in Table 2 and Fig. 9. Data: R ¼10 m; h¼0.04 m; R/h¼250; P ¼1 N; E¼ 6.825 Â 107 Pa; υ ¼ 0.3 Symmetry condition: V ¼ θX ¼ θZ ¼0 on the side AC; U¼ θY ¼ θZ ¼ 0 on the side BC Boundary condition: W¼0 at the point C: Reference value [35]: UA ¼ À VB ¼0.0924 m The reference value of calculations based on classical theory is UA ¼0.0924 m. We can see in Table 2 and Fig. 9 that DKMQ24 element converges faster than Q4γ24 element and gives better results, closer to the reference value. 4.2. Scordelis–Lo roof problem Data: L ¼6 m; R¼3 m; h ¼0.03 m; ϕ ¼ 401; E ¼3 Â 1010 Pa; υ ¼0; fz ¼ À 0.625 Â 104 Pa Boundary condition: U¼ W¼ θY ¼0 on the side AD Symmetry condition: U¼ θY ¼ θZ ¼0 on the side CD; V¼ θX ¼ θZ ¼0 on the side CB Reference value (theory of deep shell) [36]: WB ¼ À 3.61 cm and WC ¼0.541 cm
+
+Fig. 14. Convergence of MXC for the Scordelis–Lo roof problem.
+
+h i À three Spurious Modes, whereas the matrix kθz eliminates one spurious mode. 4. Finally the DKMQ24 element has rank ¼18, with 6 RBM (Rigid Body Motion) without any spurious modes and without any spurious constrains when the four nodes are coplanar.
+
+2.9. Load vector The equivalent nodal force to average distributed load f z leads to: Z Π ext ¼ f z wdA ¼ hF n i fun g ð78Þ
+A
+
+where: D hF n i ¼ :::
+
+0
+
+0
+
+F Zi
+
+0
+
+0
+
+0
+
+:::
+
+E
+
+Z i ¼ 1; 4; F Zi ¼ f z N i dA
+A
+
+ð79Þ
+
+3. Q4γ24 shell element In this paper, we will compare the performance of DKMQ24 element with Q4γ24 element inspired by [1,2]. We can ﬁnd de detail of formulation Q4γ24 in [28]. We can see that there are some similarities in both elements and we need only to explain the differences. The Q4γ24 element uses bi-linear function for both u~p and β~. The displacement of u~q is given by: 8 9 8 9 > Ui > > θX i > 4 4 = < = X À À Á X À Á< Á Vi þz u ξ; η; z ¼ ð80Þ N i ξ; η N i ξ; η ½RN  i θY i ~q > > :W > ; :θ > ; i¼1 i¼1
+i Zi
+
+For membrane stiffness, Q4γ24 uses the same membrane element stiffness as DKMQ24 in the (65). While, for bending stiffness, we have the same equation as in (68) with Â À ÁÃ h À Ái ð81Þ Bb ξ; η ¼ Bbβ ξ; η
+
+I. Katili et al. / Finite Elements in Analysis and Design 100 (2015) 12–27
+
+21
+
+P =1
+
+Z,W
+C
+
+D
+
+Y,V
+
+A R B
+
+O
+
+X,U
+
+L Diaphragms P =1 D
+
+D
+
+C
+
+C
+
+A
+
+A
+
+B
+
+Meshing 4 × 4
+
+B
+
+Fig. 15. Pinched cylindrical shell with end diaphragms.
+
+Table 6 Deﬂection WC (R/h ¼100) for the thin pinched cylindrical shell with uniform mesh. NÂN 2Â2 4Â4 6Â6 8Â8 10 Â 10 12 Â 12 14 Â 14 16 Â 16 18 Â 18 20 Â 20 Ref. [37] DKMQ24 À 14.070 À 101.295 À 138.213 À 155.214 À 162.576 À 165.636 À 166.896 À 167.391 À 167.571 À 167.589 À 164.240 Q4γ24 À 6.157 À 60.957 À 99.738 À 122.094 À 135.324 À 143.532 À 148.905 À 152.586 À 155.214 À 157.158
+
+Table 7 Deﬂection WC (R/h ¼100) for the thin pinched cylindrical shell with distorted mesh. NÂN 4Â4 6Â6 8Â8 10 Â 10 12 Â 12 14 Â 14 16 Â 16 18 Â 18 20 Â 20 Ref. [37] DKMQ24 À 21.571 À 72.599 À 110.934 À 131.058 À 142.812 À 149.868 À 154.296 À 157.203 À 159.201 À 164.240 Q4γ24 À 17.066 À 45.015 À 77.401 À 102.375 À 119.214 À 130.491 À 138.258 À 143.775 À 147.834
+
+Analytical solution (theory of shallow shell) [36]: WB ¼ À3.703 cm and WC ¼0.525 cm The case presented in Fig. 10 is a problem which is used to compare the performance of ﬂat facet approach, curved, and isoparametric. This structure has a cylindrical panel with free boundary conditions along the cylinder and on the other transverse direction ﬁeld of the panel. Geometry and mechanical characteristics can be seen in Fig. 10. This shell has its own load (vertical distributed load) fZ ¼ À 0.625 Â 104 Pa across the surface. Transversal shear deformations are very small, so they can be ignored, and the membrane deformation is more dominant
+
+than the bending deformation. We analyzed only a quarter of the structure because of the symmetry. In this example, membrane effect is more dominant. The results of numerical test for Q4γ24 and DKMQ24 elements are presented in Tables 3–5, and in Figs. 11–14. We observed that these elements converge to the deep shell theory solution. The results are quite similar. However, we can see once again in Tables 3 and 4 that DKMQ24 element gives better results, closer to the theoretical solution of deep shell. Table 5 and Figs. 13 and 14 present the convergence of membrane force in point B and bending moment in point C compared to the theoretical solution of shallow shell [36].
+
+22
+
+I. Katili et al. / Finite Elements in Analysis and Design 100 (2015) 12–27
+
+Table 8 Deﬂection WC (R/h ¼ 10) for the thick pinched cylindrical shell with uniform mesh. NÂN 2Â2 4Â4 6Â6 8Â8 10 Â 10 12 Â 12 14 Â 14 16 Â 16 18 Â 18 20 Â 20 Ref. [39] DKQ24 À 7.153 À 9.616 À 9.713 À 9.679 À 9.642 À 9.613 À 9.592 À 9.576 À 9.564 À 9.555 À 11.351 DKMQ24 À 7.284 À 10.301 À 10.740 À 10.962 À 11.138 À 11.291 À 11.425 À 11.540 À 11.640 À 11.727 Q4γ24 À 4.951 À 8.628 À 9.827 À 10.408 À 10.767 À 11.024 À 11.221 À 11.380 À 11.509 À 11.617
+
+0 -20 -40 -60 -80 -100 -120 -140 -160 -180
+
+Convergence of deflection WC (thin shell R/h=100)
+
+E h WC / P
+
+DKMQ24 Q4γ24 Ref.[37]
+
+0
+
+2
+
+4
+
+6
+
+8
+
+10 N
+
+12
+
+14
+
+16
+
+18
+
+20
+
+Fig. 18. Convergence of deﬂection WC (R/h ¼ 100) thin pinched cylindrical shell with distorted mesh. Table 9 Deﬂection WC (R/h ¼10) for the thick pinched cylindrical shell with distorted mesh. NÂN 4Â4 6Â6 8Â8 10 Â 10 12 Â 12 14 Â 14 16 Â 16 18 Â 18 20 Â 20 Ref. [39] DKQ24 À 7.225 À 8.689 À 9.124 À 9.292 À 9.367 À 9.406 À 9.428 À 9.441 À 9.449 À 11.351 DKMQ24 À 7.755 À 9.611 À 10.299 À 10.668 À 10.915 À 11.104 À 11.257 À 11.386 À 11.497 Q4γ24 À 6.337 À 8.643 À 9.702 À 10.270 À 10.633 À 10.892 À 11.092 À 11.253 À 11.387
+
+Convergence of deflection WC (thick shell R/h=10) 0
+
+-2 -4 E h WC /P -6 -8 -10 -12 -14 0 2 4 6 8 10 12 14 16 18 20 N DKMQ24 Q4γ24 DKQ24 Ref. [39]
+
+Fig. 19. Convergence of deﬂection WC (R/h ¼10) thick pinched cylindrical Shell with uniform mesh.
+
+Convergence of decflection WC (thin shell R/h=100) 0 -20 -40 -60 -80 -100 -120 -140 -160 -180 0 2 4 6 8 10 12 14 16 18 20 N
+
+0 -2 -4
+
+Convergence of deflection WC (thick shell R/h=10)
+
+E h WC /P
+
+E h WC / P
+
+DKMQ24 Q4γ24 Ref. [37]
+
+-6 -8 -10 -12 -14 0 2 4 6 8 10 N 12 14 16 18 20
+
+DKMQ24 Q4γ24 DKQ24 Ref.[39]
+
+Fig. 16. Convergence of deﬂection WC (R/h ¼ 100) thin pinched cylindrical shell with uniform mesh.
+
+Fig. 20. Convergence of deﬂection WC (R/h ¼10) thick pinched cylindrical Shell with distorted mesh.
+
+4.3. Pinched cylindrical shell with end diaphragms
+
+MX
+0.05 0.00 -0.05 DKMQ24 Q4γ24 Ref. [37] 0 0.5 1 1.5 2 2.5 3
+
+MX/P
+
+-0.10 -0.15 -0.20 -0.25 -0.30 X
+
+Data: L ¼6 m; R¼ 3 m; h¼0.03 m and 0.3 m; υ ¼ 0,3; E ¼3 Â 1010 Pa Boundary condition: U¼ W¼ θY ¼0 on the side AD Symmetry conditions: W ¼ θY ¼ θX ¼ 0 on the side AB; V¼ θX ¼ θZ ¼ 0 on the side BC; U¼ θY ¼ θZ ¼ 0 on the side CD We consider two cases: Case 1. Reference value (R/h¼100); WC ¼Eh WC/P ¼ À164.24 Case 2. Reference value (R/h¼10); WC ¼Eh WC/P ¼ À 11.351 The shell presented in Fig.15 is a pinched cylinder with two concentrated loads located in opposite direction. At both ends, there is a rigid diaphragm. This example is difﬁcult test for the shell element which is indicating the complex deformation of the
+
+Fig. 17. Bending moment MX along DC (R/h¼ 100) thin pinched cylindrical shell with uniform mesh.
+
+I. Katili et al. / Finite Elements in Analysis and Design 100 (2015) 12–27
+
+23
+
+Z,W
+
+Y,V
+
+C b
+
+Table 11 Deﬂection UA for h ¼0.0032 of Twisted beam. Load Px ¼ 0.001 Pz ¼0 N Â N ¼NELT 2 Â 12¼ 24 4 Â 24¼ 96 6 Â 36¼ 216 8 Â 48 ¼ 384 Ref. [29] DKMQ24 5.200 5.217 5.235 5.238 UA ¼5.316 Q4γ24 5.143 5.205 5.229 5.234 DKQ24FP 2.72 9.39 20.60 –
+
+a E O A X,U
+
+Table 12 Deﬂection WA for h ¼ 0.0032 of Twisted beam. Load Px ¼ 0 Pz ¼0.001 N Â N¼ NELT 2 Â 12 ¼24 4 Â 24¼ 96 6 Â 36¼ 216 8 Â 48 ¼384 Ref. [29] DKMQ24 1.274 1.285 1.290 1.290 WA ¼ 1.296 Q4γ24 1.260 1.282 1.288 1.289 DKQ24FP 0.97 2.66 5.33 –
+
+B
+Fig. 21. Hyperbolic paraboloid shells.
+
+Table 10 Deﬂection WO (Wo¼ Wo Â 103) Hyperbolic paraboloid shell. NÂN 2Â2 4Â4 6Â6 8Â8 10 Â 10 12 Â 12 14 Â 14 16 Â 16 18 Â 18 20 Â 20 Ref. [40] DKMQ24 35.900 27.074 25.337 25.023 24.929 24.892 24.874 24.864 24.859 24.854 24.600 Q4γ24 13.637 50.409 31.432 27.582 26.381 25.842 25.550 25.371 25.253 25.171 DKQ24FP 18.88 23.4 23.48 23.25 23.06 22.9 22.65 18.88 – –
+
+Table 13 Deﬂection UA for h ¼0.32 of Twisted beam. Load Px ¼ 1000 Pz ¼0 N Â N ¼NELT 2 Â 12¼ 24 4 Â 24¼ 96 6 Â 36¼ 216 8 Â 48 ¼ 384 Ref. [35] DKMQ24 5.393 5.403 5.408 5.410 UA ¼ 5.424 Q4γ24 5.364 5.397 5.405 5.409 DKQ24FP 2.077 6.328 12.312 –
+
+Table 14 Deﬂection WA for h ¼ 0.32 of Twisted beam. Load Px ¼ 0 Pz ¼1000 N Â N ¼ NELT 2 Â 12 ¼24 4 Â 24¼ 96 6 Â 36¼ 216 8 Â 48 ¼384 Ref. [35] DKMQ24 1.624 1.711 1.733 1.740 WA ¼1.754 Q4γ24 1.611 1.708 1.731 1.740 DKQ24FP 0.920 2.049 3.945 –
+
+55 50 45
+Wo × 1000
+
+Convergence of Deflection Wo
+
+40 35 30 25 20 15 0 2 4 6 8 10 N
+Fig. 22. Convergence of deﬂection WO – Hyperbolic paraboloid shell.
+
+DKMQ24
+
+5
+
+Convergence of deflection UA
+
+UA FEM / UA REF
+
+Q4γ24 DKQ24FP Ref. [40] 12 14 16 18 20
+
+4 3 2 1 0 0 100 200 NELT 300 400 DKMQ24 Q4γ24 DKQ24FP Ref. [29]
+
+Z,W
+
+Fig. 24. Convergence of deﬂection UA-Twisted beam h ¼ 0.0032.
+
+O
+
+L X,U
+Mesh 2 × 12
+
+PZ
+
+PX
+Fig. 23. Twisted beam.
+
+A b
+
+Y,V
+
+membrane where most of the structure (under concentrated load) is dominated by bending effect 770%. In this case, DKMQ24 element gives better results than Q4γ24 element. This is due to the quadratic interpolation functions for the rotation used in DKMQ24, while Q4γ24 element used linear interpolation functions. Presented in two thickness ratio, R/h¼100 (thin shell) and R/h ¼10 (thick shell). For R/h¼100, an analytical solution (Kirchhoff) theory was proposed by Lindberg et al. [37] with respect to the solution of Flügge [38] using Fourier series. For R/h¼10, the analytical solutions (the Mindlin theory) takes into account the transversal shear effects and is
+
+24
+
+I. Katili et al. / Finite Elements in Analysis and Design 100 (2015) 12–27
+
+5
+WA FEM / WA REF
+
+Convergence of deflection WA
+
+4 3 2 1 0 0 100 200 NELT 300 400 DKMQ24 Q4γ24 DKQ24FP Ref. [29]
+
+The numerical solution does not converge at all toward the reference one. DKMQ24 and Q4γ24 elements give similar results for convergence in uniform and distorted meshes. 4.4. Hyperbolic paraboloid shell Another classic problem is the problem of a hyperbolic paraboloid shell with a distributed load in the normal direction fz. Geometry and mechanical characteristics can be viewed in Fig. 21. This particular shell has a negative Gaussian curvature with boundary conditions in the straight line. The projection on to the Z-axis is a rectangular-shaped, with bases 2a Â 2a, and clamped on the sides. This shell geometry corresponds to a shallow shell. Table 10 and Fig. 22 present the convergence of the deﬂection versus the number of elements. Data: a ¼50 cm; b¼10 cm; h¼ 0.8 cm; E ¼28500 kg/cm2; υ ¼ 0.4 fz ¼ 0.01 kg/cm2: distributed load in the normal direction; Z¼ (b/a2) XY Boundary conditions: U¼ V¼W¼ θX ¼ θY ¼ θZ ¼0 along sides ABCD Reference solution [40]: Wo ¼2.460 Â 10 À 2 cm We observe that the results given by Q4γ24 and DKMQ24 elements converge to the given reference value [40]. However, the convergence with DKMQ24 element is much faster. We present in Table 10 and Fig. 22 the results given by facet shell approach with the element we called DKQ24FP in reference [29] as a superposition DKQ plate element [7] and Q4 standard quadrilateral membrane element with 4 nodes and degree of freedom ui, vi in each node i. The ﬁctitious stiffness for θz and MacNeal stabilization is added into DKQ24FP element stiffness to avoid rigid body motion. We can see clearly the facet shell DKQ24FP element gives the different results with DKMQ24 shell element proposed in this paper. In this example DKMQ24 gives the same results with DKQ24 in reference [29] since the shear deformations are very small. 4.5. Twisted beam Data: Rotation ¼901 between O and A L ¼12 m; b¼1.1 m; h¼ 0.0032 m and 0.32 m; E¼ 29 Â 106 Pa; υ ¼ 0.22 Boundary condition: U¼ V¼W ¼ θX ¼ θY ¼ θZ ¼ 0 on the support Geometry of the middle surface with respect to s and θ: X ¼s cos θ; Y ¼2θL/π; Z ¼s sin θ; 0 r θ r π/2; À 0.5b r s r þ0.5b This example addressed is a shell with helicoidal shaped with one side clamped. A concentrated load is applied on the other side (Fig. 23). This test was introduced by MacNeal and Harder [35] and became one of major tests to validate a new shell element. This case presents important difﬁculties for the elements resulting from the ﬂat facet shell approach in quadrilateral shaped. The element facet shell DKQ24FP in [29] (superposition of membrane and ﬂexural/transversal shear, without the curved side) gives the same difﬁculties. We can see in Tables 11–14 and Figs. 24–27 the results given by DKQ24FP are divergent from reference values. The reference solution is based on the beam theory (which ignores the deformation in transverse direction), and with or without taking into account the transverse shear deformation. For this example we can see that the DKMQ24 proposed in this paper gives the same results with DKQ24 element in reference [29]. The results obtained for h ¼0.0032 m and 0.32 m are presented in Figs. 24–27 and Tables 11–14 with meshing 2 Â 12, 4 Â 24, 6 Â 36 and 8 Â 48 respectively. DKMQ24 and Q4γ24 elements give satisfactory and similar results converging towards the reference solution.
+
+Fig. 25. Convergence of deﬂection WA-Twisted beam h ¼0.0032.
+
+2.5
+
+Convergence of deflection UA
+
+UA FEM / UA REF
+
+2 1.5 1 0.5 0 0 100 200 NELT 300 400 DKMQ24 Q4γ24 DKQ24FP Ref. [35]
+
+Fig. 26. Convergence of deﬂection UA-Twisted beam h ¼0.32.
+
+2.5
+
+Convergence of deflection WA
+
+WA FEM / WA REF
+
+2 1.5 1 0.5 0 0 100 200 NELT 300 400 DKMQ24 Q4γ24 DKQ24FP Ref. [35]
+
+Fig. 27. Convergence of deﬂection WA-Twisted beam h ¼ 0.32.
+
+presented in Bhaskar and Varadan [39]. In the 2 cases, only 1/8 of the cylinder may be analyzed accounting for the symmetries. Moreover, the uniform and distorted meshes are analyzed. A bias factor of 10 was used for distorted mesh. The numerical results (WC versus the number the elements) obtained with the different elements for R/h¼100 and 10 are presented in Tables 6–9 and in Figs. 16–20. We can see, in particular in Fig. 16, that DKMQ24 element converges much faster than Q4γ24 element. For N ¼10 (NELT ¼100), DKMQ24 has nearly converged, whereas Q4γ24 gives results far from the reference value. Fig. 17 presents the comparison of bending moment MX along DC with [37] using 16 Â 16 elements. The results obtained with DKMQ24 element are closer to the reference solution than those obtained with Q4γ24 element. The same results are also obtained with distorted mesh in Fig. 18. In Case 2 for R/h¼ 10 (thick shell), results presented in Figs. 19 and 20, reveal the effects of transversal shear. Indeed, the elements DKQ24 [29] (similar to DKMQ24 element which does not take into account the effect of transversal shearϕk ¼ 0) gives less satisfactory results than the Q4γ24 and DKMQ24 elements.
+
+I. Katili et al. / Finite Elements in Analysis and Design 100 (2015) 12–27
+
+25
+
+Y L
+
+Z h q D X C L
+
+A Y L/2 D C D Y L/3
+
+B
+
+X
+
+L/6 C L/6
+
+L/2 L/3
+
+A
+
+X 4×4 B
+
+A
+
+X 8×8 B
+
+Fig. 28. Square clamped plate under uniform loading.
+
+Table 15 Deﬂection WC Square clamped plate under uniform loading. NÂN 2Â2 4Â4 6Â6 8Â8 10 Â 10 12 Â 12 14 Â 14 16 Â 16 18 Â 18 20 Â 20 Ref. [41] DKMQ24 80.653 67.876 65.436 64.596 64.210 64.004 63.878 63.798 63.739 63.701 62.830 Q4γ24
+
+D
+
+Mesh 4 × 4
+
+C O
+L=100 30°
+
+Y
+67.570 64.907 64.142 63.874 63.748 63.685 63.643 63.617 63.601 63.588
+
+A
+
+X
+L=100
+
+B
+
+Fig. 30. Morley skew plate.
+
+Table 16 Deﬂection WO (Wo ¼Wo Â 103 Â Db/q L4) Morley0 s skew plate. NÂN DKMQ24 0.760 0.572 0.507 0.476 0.460 0.450 0.443 0.438 0.435 0.408 Q4γ24 0.358 0.351 0.343 0.340 0.340 0.341 0.343 0.345 0.348
+
+1.400 1.350 1.300 1.250 1.200 1.150 1.100 1.050 1.000 0.950 0.900 0.850
+
+Convergence of deflection WC (L/h=10)
+
+WC FEM/WC REF
+
+DKMQ24 Q4γ24 Ref.[41]
+
+4Â4 6Â6 8Â8 10 Â 10 12 Â 12 14 Â 14 16 Â 16 18 Â 18 20 Â 20 Ref. [42]
+
+0
+
+2
+
+4
+
+6
+
+8
+
+10 N
+
+12
+
+14
+
+16
+
+18
+
+20
+
+4.6. Square clamped plate under uniform loading with distorted mesh Fig. 28 shows square clamped plate under uniform loading. We will analyze only the section ABCD due to the symmetry. The
+
+Fig. 29. Convergence of deﬂection WC square clamped plate under uniform loading.
+
+26
+
+I. Katili et al. / Finite Elements in Analysis and Design 100 (2015) 12–27
+
+2.000 1.800
+W O FEM/W O REF
+
+Convergence of deflection WO (L/h=1000)
+
+1.600 1.400 1.200 1.000 0.800 0.600 0 2 4 6 8 10 N 12 14 16 18 20 DKMQ24 Q4γ24 Ref.[42]
+
+Gaussian curvature presents in the examples 4.4 and 4.5, we can show the element DKMQ24 proposed in this paper is not a facet shell model and the element gives the different results with DKQ24FP facet shell model.
+
+Acknowledgments The ﬁnancial support from the Indonesian Ministry of Research, Technology and Higher Education (KEMENRISTEKDIKTI) and Institut Français d’Indonésie (IFI), French Embassy in Jakarta are gratefully acknowledged.
+
+Fig. 31. Convergence of deﬂection WO – Morley0 s skew plate.
+
+References rapport L/h¼10 and distorted mesh are employed. The numerical results obtained with DKMQ24 and Q4γ24 elements are presented in Table 15 and Fig. 29. Note that for plate problems, Q4γ24 element has been developed following [1,2] and is therefore similar to MITC4 element for plate. DKMQ24 and Q4γ24 elements give satisfactory and similar results converging towards the reference solution. Moreover, the results reveal that DKMQ24 and Q4γ24 are not sensitive to distortion. Data: L¼ 1000; h¼ 100; E ¼10.92; υ ¼0.3; q ¼1 Boundary conditions: W¼ βY ¼0 along sides AB and W¼ βX ¼ 0 along sides AD Symmetry conditions: βX ¼0 along sides BC and βY ¼ 0 along sides CD Reference solution [41]: WC ¼62.830 4.7. Morley0 s skew plate The problem considered in Fig. 30 is a Morley0 s skew plate which sometimes poses severe difﬁculties for numerical methods since bending moments possess a singularity at the obtuse corner. This case has been already analyzed in [13]. The numerical results for vertical displacement at plate center obtained with DKMQ24 and Q4γ24 elements for L/h¼1000 are reported in Table 16 and Fig. 31. DKMQ24 elements give satisfactory results and converge towards the reference solution. Data: L¼ 100; h¼0.1; E ¼10.92; υ ¼0.3; q¼ 1 Boundary conditions: W¼0 on ABCD Reference solution [42]: WO ¼0.408
+[1] K.J. Bathe, E.N. Dvorkin, A formulation of general shell elements – the use of mixed interpolation of tensorial components, Int. J. Numer. Methods Eng. 22 (1986) 697–722. [2] K.J. Bathe, E.N. Dvorkin, A four-node plate bending element based on Mindlin– Reissner plate theory and a mixed interpolation, Int. J. Numer. Methods Eng. 21 (1985) 367–383. [3] K.J. Bathe, A. Iosilevich, D. Chapelle, An evaluation of the MITC shell elements, Comput. Struct. 75 (2000) 1–30. [4] P.S. Lee, K.J. Bathe, On the asymptotic behavior of shell structures and the evaluation in ﬁnite element solutions, Comput. Struct. 80 (2002) 235–255. [5] D. Briassoulis, Asymptotic deformation modes of benchmark problems suitable for evaluating shell elements, Comput. Methods Appl. Mech. Eng. 194 (2005) 2385–2405. [6] J.L. Batoz, K.J. Bathe, L.W. Ho, A study of three-node triangular plate bending elements, Int. J. Numer. Methods Eng. 15 (1980) 1771–1812. [7] J.L. Batoz, M. Ben Tahar, Evaluation of a new thin plate quadrilateral element, Int. J. Numer. Methods Eng. 18 (1982) 1655–1678. [8] J.L. Batoz, P. Lardeur, A discrete shear triangular nine dof element for the analysis of thick to very thin plates, Int. J. Numer. Methods Eng. 28 (1989) 533–560. [9] P. Lardeur, Développmentet Evaluation de Deux Nouveaux Eléments Finis de Plaques et Coques Composites avec Inﬂuences du Cisaillement Transverse Thèse de Doctorat, Université de Technologie Compiègne, France, 1990. [10] P.G. Bergan, M.K. Nygard, Finite elements with increased freedom in choosing shape functions, Int. J. Numer. Methods Eng. 20 (1984) 643–663. [11] J.L. Batoz, I. Katili, A. On, Simple triangular Reissner/Mindlin plate element based on incompatible modes and discrete constraints, Int. J. Numer. Methods Eng. 35 (1992) 1603–1632. [12] I. Katili, A new discrete Kirchhoff–Mindlin element based on Mindlin–Reissner plate theory and assumed shear strain ﬁelds – part I: an extended DKT element for thick-plate bending analysis, Int. J. Numer. Methods Eng. 36 (1993) 1859–1883. [13] I. Katili, A new discrete Kirchhoff–Mindlin element based on Mindlin–Reissner plate theory and assumed shear strain ﬁelds – part II: An extended DKQ element for thick plate bending analysis, Int. J. Numer. Methods Eng. 36 (1993) 1885–1908. [14] E. Reissner, The effect of transverse shear deformation on the bending of elastic plates, J. Appl. Mech. Eng. ASME 12 (1943) A69–A77. [15] R.D. Mindlin, Inﬂuence of rotator inertia and shear on ﬂexural motion of isotropic elastic plates, J. Appl. Mech. 18 (1951) 31–38. [16] Thermanto DSS, Formulasi Elemen Hibrida DKMQ, Master Thesis, Universitas Indonesia, Indonesia 1999. [17] R. Ayad, A. Rigolot, N. Talbi, An improved three-node hybrid-mixed element for Mindlin/Reissner plates, Int. J. Numer. Methods Eng. 51 (2001) 919–942. [18] R. Ayad, A. Rigolot, An improved four-node hybrid-mixed element based upon Mindlin0 s plate theory, Int. J. Numer. Methods Eng. 55 (2002) 705–731. [19] R. Ayad, N. Talbi, T. Ghomari, Modiﬁed discrete Mindlin hypothesises for laminated composite structures, Compos. Sci. Technol. 69 (2009) 125–128. [20] E. Onate, O.C. Zienkiewicz, B. Suarez, R.L. Taylor, A general methodology for deriving shear constrained Reissner–Mindlin plate elements, Int. J. Numer. Methods Eng. 33 (1992) 345–367. [21] E. Onate, J. Castro, Derivation of plate based on assumed shear strain ﬁelds, in: P. Ladevese, O.C. Zienkiewicz (Eds.), New Advances in Computational Structural Mechanics, Elsevier, Amsterdam, 1992, pp. 237–288. [22] J. Aalto, From Kirchhoff to mindlin plate element, Commun. Appl. Numer. Methods 4 (1988) 231–241. [23] P. Khosravi, R. Ganesan, R. Sedaghati, An efﬁcient facet shell element for corotational nonlinear analysis of thin and moderately thick laminated composite structures, Comput. Struct. 86 (2008) 850–858. [24] P.M. Naghdi, On the theory of thin elastic shells, Q. Appl. Math. 14 (1957) 369–380. [25] P.M. Naghdi, Foundations of elastic shells theory, in: I.N. Sneddon, R. Hill (Eds.), Progress in Solid Mechanics IV, North-Holland, 1963, Chapter 1. [26] P.M. Naghdi, On a variational theorem in elasticity and its application to shell theory, J. Appl. Mech. (ASME), 31, 1964647–653.
+
+5. Conclusions The new four nodes and 24 dof quadrilateral shell element DKMQ24, using incomplete quadratic interpolation functions for the rotation, has been evaluated and presented in thick and thin shell problems. The results of the analysis show that this element passed all convergence test presented, without membrane locking. It is also free of shear-locking, as for the DKMQ plate element [13]. In membrane dominated problems (Scordelis–Lo roof for instance), the results are quite similar because both elements use the same membrane stiffness matrix. In bending dominated problems (pinched cylindrical shell), results obtained with DKMQ24 element are much better, in particular the convergence is faster than with Q4γ24 element. This is due to the quadratic interpolation functions for the rotation used in DKMQ24. For thick pinched cylindrical shell, DKMQ24 and Q4γ24 elements give similar results for convergence while DKQ24 element [29] gives less satisfactory results because it does not take into account the effect of transversal shear. For shell analysis which has a negative
+
+I. Katili et al. / Finite Elements in Analysis and Design 100 (2015) 12–27
+
+27
+
+[27] P.M. Naghdi, The theory of shells and plate, in: Flugge (Ed.), Handbuch der Physik VI, A2, Springer Verlag, Berlin, 1972. [28] J.L. Batoz, G. Dhatt, Modélisation des Structures par Eléments Finis, vol. 3, Coques. Editions Hermes, Paris, 1992. [29] I. Katili, Formulation et évaluation des Nouveaux éléments ﬁnis pour l0 analyse linéaire des plaques et coques de forme quelconque Thèse Doctorat, Université de Technologie de Compiègne, 1993. [30] I. Katili, Rancang Bangun Elemen Unggulan dan Pengembangannya pada Analisa Struktur Pelat dan Cangkang dengan Metode Elemen Hingga, Internal Repport, Universitas Indonesia, Indonesia, 1995. [31] K. Washizu, Variational methods in elasticity and plasticity, 3rd ed., Pergamon Press, 1982. [32] R.H. Mac Neal, A simple quadrilateral shell element, Comput. Struct. 8 (1978) 175–183. [33] R.H. Mac Neal, Derivation of element stiffness matrices by assumed strain distributions, Nuclear Eng. Des. 70 (1982) 3–12. [34] R.H. Mac Neal, The evolution of lower order plate and shell elements in Msc/ Nastran, in: Hughes, Hinton (Eds.), FEM for plate and shell structures, 1, 1986, pp. 85–127.
+
+[35] R. Mac Neal, R.L. Harder, A proposed standard set of problems to test ﬁnite element accuracy, Finite Elem. Anal. Des. 1 (1985) 3–20. [36] A.C. Scordelis, K.S. Lo, Computer analysis of cylindrical shells, J. Am. Concr. Inst. 61 (1969) 539–562. [37] G.M. Lindberg, M.D. Olson, G.R. Cowper New developments in ﬁnite element analysis of shells. Quarterly Bulletin of the Division of Mechanical Engineering and the National Aeronautical Establishment, National Research Council of Canada, vol. 4, 1969. [38] W. Flügge, Stresses in Shells, Springer Verlag, Berlin, 1960. [39] K. Bhaskar, T.K. Varadan, Analytical solution for a pinched laminated cylinder, J. Appl. Mech. (ASME) 57 (1990) 1082–1083. [40] C.A. Brebia, J.J. Connor, Fundamentals of Finite Element Techniques for Structural Engineers, John Wiley and Sons, N.Y., 1974. [41] L.S.D. Srinivas, A.K. Rao, Flexure of thick rectangular plates, J. Appl. Mech. Trans. ASME (1973) 298–299. [42] L.S.D. Morley, Skew Plates and Structures, Pergamon, Press, Oxford, 1963.
+

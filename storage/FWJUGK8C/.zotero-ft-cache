@@ -1,0 +1,2049 @@
+Mathematical Models and Methods in Applied Sciences Vol. 14, No. 1 (2004) 105–142 c World Scientiﬁc Publishing Company
+
+3D-SHELL ELEMENTS AND THEIR UNDERLYING MATHEMATICAL MODEL
+
+D. CHAPELLE∗ and A. FERENT INRIA-Rocquencourt, B.P. 105, 78153 Le Chesnay Cedex, France ∗ dominique.chapelle@inria.fr K. J. BATHE Massachusetts Institute of Technology, Cambridge MA 02139, USA Received 23 January 2003 Revised 23 July 2003 Communicated by F. Brezzi We focus on a family of shell elements which are a direct generalization of the shell elements most commonly used in engineering practice. The elements in the family include the eﬀects of the through-the-thickness normal stress and can be employed to couple directly with surrounding media on either surfaces of the shell. We establish the “underlying” mathematical model of the shell discretization scheme, and we show that this mathematical model features the same asymptotic behaviors — when the shell thickness becomes increasingly smaller — as classical shell models. The question of “locking” of the ﬁnite element discretization is also brieﬂy addressed and we point out that, for an eﬀective ﬁnite element scheme, the MITC approach of interpolation is available. Keywords: Shells; general shell elements; asymptotic behaviors; locking.
+
+1. Introduction During the recent years, considerable focus has been given on establishing, for certain applications, reﬁned shell ﬁnite element analysis capabilities. For this purpose, in particular, shell ﬁnite element procedures that include higher-order kinematic eﬀects through the shell thickness have been proposed, see Refs. 8, 13 and 28 and references therein. The objective in this paper is to present and mathematically analyze a family of such elements which we call “3D-shell elements”. These elements are designed to include the eﬀects of the through-the-thickness normal stress and to couple eﬃciently to surrounding media that are in contact with the shell inner and outer surfaces. In engineeering practice, most commonly the “general shell elements” described for example in Refs. 2 and 13 and analyzed in Refs. 11 and 13 are employed. These elements are based on 3D continuum mechanics, the Reissner–Mindlin kinematic
+∗ Corresponding
+
+author 105
+
+106
+
+D. Chapelle, A. Ferent & K. J. Bathe
+
+assumption and the plane stress assumption in the tangential plane of the shell. The underlying mathematical model was identiﬁed in Ref. 11. This model is important because a ﬁnite element solution must converge to the exact solution of the model. Furthermore, the analysis of the mathematical model showed that the same asymptotic behavior is displayed as seen with the classical shell models. The identiﬁcation of this underlying model has been followed by further works directed towards the numerical analysis of general shell elements as regards their robustness when the thickness of the structure is very small, i.e. when numerical locking — in particular — may appear.20,24 A key ingredient in general shell elements — and also in their underlying shell model — is that a plane stress assumption must be used, somehow to compensate for the low order of the Reissner–Mindlin kinematical assumption, namely linear tangential displacements and constant transverse displacements across the thickness. This assumption can be implemented with ease for small strains but is less practical when large strains are present (and indeed may correspond to quite a deﬁcient model13 ). In this paper, we consider a shell model obtained by assuming a quadratic expansion of the 3D displacements across the thickness, without any assumption on the stress tensor. This model is asymptotically consistent with classical shell models, and can be used with ease for general constitutive laws. Furthermore, the model leads to natural discretizations in the form of “3D-shell elements”, which can be made as reliable as other existing shell elements, in particular as regards numerical locking. In addition, the elements render the practical modeling of coupled problems involving shells very easy, e.g. in sandwich shells or in ﬂuid structure interaction. An outline of this article is as follows. In Sec. 2 we introduce the geometric concepts and the notation. In Sec. 3 we give the rationale and detailed presentation of the proposed elements. We then obtain — in Sec. 4 — the equations of the corresponding underlying model, and we analyze the asymptotic behavior of this model, compared to classical shell models. Next, in Sec. 5 we analyze the 3D-shell ﬁnite element solutions. More speciﬁcally we show that the ﬁnite element solutions converge to the solution of the underlying model when the mesh is being reﬁned, and we also discuss the reliability of 3D-shell ﬁnite element solutions, in particular as regards numerical locking phenomena. Finally we present our concluding remarks in Sec. 6. 2. Geometry and Notation The objective of this section is to recall the geometric concepts needed in the paper, and to introduce the corresponding notation. For more details regarding diﬀerential geometry we refer to Ref. 13 from which most of the related notation used here is taken, see also Refs. 16 and 19. Throughout the paper, we assume that all indices denoted by Greek symbols vary in {1, 2} while indices denoted by Roman symbols vary in {1, 2, 3}, and we use the Einstein convention pertaining to implicit summation of repeated indices.
+
+form a basis—called the covariant basis—for the tangential plane to the midsurface at any point with coordinates in ω , the unit normal vector a3 is given ¯ by a3 = a1 × a 2 , a1 × a2
+
+3D-shell Elements and Their Underlying Mathematical Model
+
+107
+
+see Figure 1. We also introduce the contravariant basis of the tangential plane
+
+a3
+
+a2 a 1
+
+φ ξ2 S x3 x2 x1 ω
+
+ξ1
+Fig. 1: Description of the shell geometry Figure1. Description of the shell geometry.
+
+The midsurface of the shell is described by a mapping φ deﬁned over ω, a domain of R2 , and with values in the three-dimensional Euclidean space E. In this paper we 3 assume that φ is “smooth”, namely as regular as needed in our analyses. We denote by t the thickness — considered to be uniform — and by ε the scaled thickness ε= t , L
+
+where L is a global characteristic dimension of the shell. Denoting by (ξ 1 , ξ 2 ) the coordinates used in R2 (hence in ω) and assuming that φ is such that the vectors aα = ∂φ(ξ 1 , ξ 2 ) , ∂ξ α α = 1, 2
+
+form a basis — called the covariant basis — for the tangential plane to the midsurface at any point with coordinates in ω , the unit normal vector a3 is given by ¯ a3 = a1 × a 2 , a1 × a2
+
+see Fig. 1. We also introduce the contravariant basis of the tangential plane (a 1 , a2 ), such that
+β aα · a β = δ α ,
+
+α = 1, 2 ,
+
+where δ represents the Kronecker symbol. The ﬁrst fundamental form — also referred to as the metric tensor — is given by aαβ = aα · aβ ,
+
+108
+
+D. Chapelle, A. Ferent & K. J. Bathe
+
+or in contravariant components aαβ = aα · aβ . The following quantity appears in surface measures a = a 1 × a2 and we have dS = √ a dξ 1 dξ 2 . (1)
+2
+
+= a11 a22 − (a12 )2 ,
+
+The second fundamental form — also known as the curvature tensor — is denoted by b (we denote surface tensors with a number of lower bars corresponding to their orders) and deﬁned by bαβ = a3 · aα,β = −a3,β · aα , and the third fundamental form is given by cαβ = bλ bλβ , α where bβ = aβλ bλα . α Deﬁning t t , Ωt = ω × − , 2 2 the 3D geometry of the shell structure is described by the mapping ¯ Φ : Ωt → E , Φ(ξ 1 , ξ 2 , ξ 3 ) = φ(ξ 1 , ξ 2 ) + ξ 3 a3 (ξ 1 , ξ 2 ) , Bt = Φ(Ωt ) . We now introduce the 3D covariant base vectors ∂Φ gi = i , ∂ξ and the contravariant base vectors, such that
+j gi · g j = δ i . λ gα = (δα − ξ 3 bλ )aλ , α
+
+(2)
+
+(3)
+
+so that the 3D geometric domain occupied by the shell, denoted by Bt , is given by (4)
+
+(5)
+
+(6)
+
+Using (3), we obtain13
+
+g3 = a 3 , and the following components for the 3D metric tensor gαβ = gα · gβ = aαβ − 2ξ 3 bαβ + (ξ 3 )2 cαβ , gα3 = gα · g3 = 0 , g33 = g3 · g3 = 1 .
+
+(7)
+
+(8) (9) (10)
+
+3D-shell Elements and Their Underlying Mathematical Model
+
+109
+
+We will also use the twice-contravariant metric tensor, with components g ij = gi · gj . The volume measure is expressed as √ dV = g dξ 1 dξ 2 dξ 3 , with g = [(g1 × g2 ) · g3 ]2 = a(1 − 2Hξ 3 + K(ξ 3 )2 )2 , (12) (11)
+
+where H and K respectively denote the mean and Gaussian curvatures of the surface. We note that the mapping Φ is well-deﬁned provided that the expression 1 − 2Hξ 3 + K(ξ 3 )2 is always strictly positive. This is equivalent to requiring that t<2
+(ξ 1 ,ξ 2 )∈¯ ω
+
+inf
+
+|Rmin (ξ 1 , ξ 2 )| ,
+
+(13)
+
+where Rmin (ξ 1 , ξ 2 ) denotes the radius of curvature of smallest absolute value at point φ(ξ 1 , ξ 2 ). We henceforth assume that Condition (13) is satisﬁed. Throughout the paper we use the symbols C and γ in inequalities in order to denote positive (strictly for γ) constants that are allowed to take diﬀerent values at successive occurrences. 3. Rationale of 3D-Shell Elements We brieﬂy review in this section some results regarding the general shell elements analyzed in Ref. 11, and then introduce the family of shell elements which are the focus of this paper. 3.1. Overview of general shell elements and their underlying model The geometry of a general shell element is a 3D brick deﬁned by data provided at nodes that are assumed to lie on the midsurface of the shell. More speciﬁcally, the position of a point inside an element is described by the interpolation equation x= t (i) λi (r, s) x(i) + z a3 , 2 i=1
+k
+
+(14)
+
+where the functions λi denote the 2D ﬁnite element shape functions associated with each of the k nodes, (r, s) are the local coordinates corresponding to directions (approximately) tangential to the midsurface while z denotes the transverse coordinate, see the example in Fig. 2. The nodal data consists of the position vector (i) x(i) and the unit normal vector a3 . We note that a non-constant thickness can be considered by substituting nodal thickness values t(i) for t in the above equation. The corresponding kinematics is obtained — as is standard in isoparametric formulations — by taking variations of nodal position data, namely V= t λi (r, s) v(i) + z η (i) , 2 i=1
+k
+
+(15)
+
+110
+
+D. Chapelle, A. Ferent & K. J. Bathe
+
+Fig. 2.
+
+Example: the Q2 general shell element.
+
+in which η(i) is constrained to satisfy η (i) · a3 = 0 ,
+(i)
+
+which means that the unit normal vector undergoes a rotation motion without stretching or contracting. Note that the material ﬁbers normal to the midsurface at the nodes thus behave according to Reissner–Mindlin kinematics. The above geometry and kinematics are then used with a 3D variational formulation in which the constitutive law can be chosen arbitrarily (according to the speciﬁc material considered), provided that it incorporates the assumption σ zz ≡ 0 , (17)
+
+namely, the stress component in the transverse direction is assumed to vanish. Although there is no mathematical shell model explicitly used in the formulation of general shell elements, it can be shown that there exists a shell model “underlying” these ﬁnite element procedures.11,13 By this we mean that ﬁnite element solutions can be shown to converge — under certain standard assumptions — to the solution of this mathematical model, also called the “basic shell model” in Ref. 13. Considering the 3D variational formulation for linear isotropic elasticity, the solution of the basic shell model is obtained by minimizing the total potential energy over the subspace of displacements of the form V(ξ 1 , ξ 2 , ξ 3 ) = v(ξ 1 , ξ 2 ) + ξ 3 η(ξ 1 , ξ 2 ) , under the plane stress assumption σ 33 ≡ 0 . (19) η · a3 ≡ 0 , (18)
+
+Note that (18) corresponds to Reissner–Mindlin kinematics. We denote the solution by U = u(ξ 1 , ξ 2 ) + ξ 3 θ(ξ 1 , ξ 2 ) , θ · a3 ≡ 0 . (20)
+
+
+
+¨©
+
+ ¦ §  ¦ § ¤¥ ¤   ¢ £ ¢ £    ¡   !
+
+(16)
+
+3D-shell Elements and Their Underlying Mathematical Model
+
+111
+
+We point out that, for any ﬁnite element function of the type V= t λi (r, s) v(i) + z η (i) , 2 i=1
+k
+
+(21)
+
+with ﬁve degrees of freedom per node (three translations and two rotations), we also have V = v(ξ 1 , ξ 2 ) + ξ 3 η(ξ 1 , ξ 2 ) , with v and η deﬁned through the change of variables (within each element) ξ1 ξ
+2 k
+
+(22)
+
+=
+i=1
+
+λi (r, s)
+
+1 ξ(i) 2 ξ(i)
+
+,
+
+t ξ3 = z , 2
+
+(23)
+
+1 2 where (ξ(i) , ξ(i) ) denote the nodal coordinates in ω. Note that, however, we only have
+
+η · a3 = 0 at the nodes of the mesh. We can then compare the ﬁnite element solution Uh = uh (ξ 1 , ξ 2 ) + ξ 3 θh (ξ 1 , ξ 2 ) ,
+
+(24)
+
+(25)
+
+with the solution of the basic shell model U, and it can be shown — under regularity assumptions for u, θ and φ — that11,12 u − uh , θ − θ h
+H 1 (ω)
+
+≤ Chmin(2,p) ,
+
+(26)
+
+where p denotes the order of approximation of the ﬁnite element shape functions in H 1 , and C is a constant independent of h. Hence the convergence order in this estimate is no better than quadratic (due to a consistency error arising from the interpolation of rotation vectors), but the optimal order can be recovered. 11,12 Furthermore, an important property of the basic shell model is that it is asymptotically consistent with classical shell models.11 This means that, when considering sequences of problems obtained by varying the thickness of the shell with a ﬁxed midsurface, as the thickness tends to zero the sequence of solutions of the basic shell model converges to the same limit solutions as the classical models, under similar assumptions. In particular, when the subspace of pure bending (or inextensional) displacements V0 is not reduced to the trivial zero ﬁeld, the sequence of solutions converges to the solution of the pure bending problem posed in V0 , see Ref. 10 and references therein. By contrast, when V0 is reduced to the zero ﬁeld, the sequence of solutions converges to the solution of the membrane problem, provided that the loading satisﬁes some admissibility requirements.
+
+112
+
+D. Chapelle, A. Ferent & K. J. Bathe
+
+3.2. Principles of 3D-shell elements A limitation of the above brieﬂy reviewed shell theory is that transverse normal strain and stress eﬀects are not included. This is not a serious limitation in many small strain analyses but may not be acceptable in large strain solutions; for example, in metal forming problems when the through-the-thickness stress is considerable. While eﬀective in many applications, the use of the above kinematic assumption (with only ﬁve degrees of freedom at each shell node) can also result into practical modeling diﬃculties. If the deformations at a shell surface need to be coupled to an outer (or inner) medium, it is necessary to use displacement constraints that result from the kinematic assumptions (including the Reissner–Mindlin assumption) used for the shell structure. Typical applications are found in contact problems in which shell surfaces come into contact with other media, each other (self-contact may also be seen), and in ﬂuid-structure or soil-structure interactions where a shell surface is coupled to another medium. A more direct and eﬀective way to model contact on shell surfaces and to couple a shell surface to a surrounding medium would be to use top and bottom nodes (even when ﬁctitious) with completely independent degrees of freedom. We shall now introduce a family of shell elements that remove the two diﬃculties mentioned above. They are the lowest-order general shell elements that include the transverse normal strain and stress eﬀects appropriately and that can directly be coupled (without special constraint equations) to surrounding media. Let us assume that, instead of the mid-surface nodes, we were to use top and bottom nodes to describe the geometry and kinematics of the shell structure. Hence, each mid-surface node is replaced by a top surface node and a bottom surface node. Of course, each of these nodes would carry three displacement degrees of freedom. The displacement interpolation would then be
+2k
+
+V=
+j=1
+
+λ3D (r, s, z)V(j) , j
+
+(27)
+
+where the λ3D functions are 3D shape functions linear in the z-variable, and we i would have six degrees of freedom at each shell-section with two nodes. This is equivalent to
+k
+
+V=
+i=1
+
+λi (r, s) v(i) + z
+
+t(i) (i) η , 2
+
+(28)
+
+in which the vectors η (i) are now arbitrary, namely we dispense with the Reissner– Mindlin assumption (16). In order to analyze the convergence of such ﬁnite element procedures, we then need to consider a continuous model with full P1 (ξ 3 ) kinematics, namely V = v(ξ 1 , ξ 2 ) + ξ 3 η(ξ 1 , ξ 2 ) , (29)
+
+3D-shell Elements and Their Underlying Mathematical Model
+
+113
+
+without any particular assumption on η. However, if we use an elastic energy in which the assumption (19) is incorporated (which of course corresponds to the assumption (17) in the ﬁnite element discretization) and pursue the minimization of this energy over the subspace of displacements given by (29), it is clear that the formulation is not coercive for the displacement component η3 = η · a 3 , (30)
+
+namely the “pinching” component that is not present in Reissner–Mindlin displacements. On the other hand, if we do not use the plane stress assumption, the problem is well-posed but it is no longer asymptotically consistent with classical shell models, see Remark 4.5 below. Therefore, the P1 (ξ 3 ) kinematics is not suitable for constructing a well-posed mathematical shell model and the corresponding ﬁnite element schemes. Remark 3.1. This observation was already reported and attributed to a “locking” phenomenon (called “thickness locking”), see Ref. 7 and references therein. However, locking is a numerical phenomenon that arises when discretizing a mathematical model and is, for example, not present if the relevant inf–sup condition is satisﬁed by the selected ﬁnite element spaces.3,9,13 The fact that the P1 kinematics is not appropriate in shell solutions is not a numerical phenomenon and therefore there is here no locking phenomenon. Instead, the mathematical (and physical) model used is not consistent with classical shell (and of course plate) theories. We therefore consider displacements quadratic in ξ 3 , viz. V = v + ξ 3 η + (ξ 3 )2 ρ . (31)
+
+With this choice, we will show that the minimization of the original 3D elastic energy (i.e. without the assumption (19)) over the given subspace yields a wellposed shell model which is asymptotically consistent with classical shell models, see Sec. 4. Corresponding ﬁnite element procedures have quadratic displacements across the thickness, namely V= t t λi (r, s) v(i) + z η (i) + z 2 2 i=1
+k 2
+
+ρ(i)
+
+.
+
+(32)
+
+This can also be written as
+k
+
+V=
+i=1
+
+λi (r, s)
+
+(z + 1)z (i) (z − 1)z (i) (i) Vlower + (1 − z 2 )Vmid + Vupper , 2 2 v(i) = Vmid , η (i) = ρ(i) = 1 (i) (i) (Vupper − Vlower ) , t
+(i)
+
+(33)
+
+with (34) (35) (36)
+
+4 1 (i) (i) (i) (Vupper + Vlower ) − Vmid , t2 2
+
+114
+
+D. Chapelle, A. Ferent & K. J. Bathe
+(i) (i) (i)
+
+where Vlower , Vmid and Vupper denote the corresponding displacements at the points lying on the lower, middle and upper surfaces on the same transverse material ﬁber as node i. This is obviously equivalent to the expression
+3k
+
+V=
+j=1
+
+λ3D (r, s, z)V(j) , j
+
+(37)
+
+in which the functions λ3D are quadratic in z and represent the Lagrange shape j functions associated to 3D nodes laid out on the two outer surfaces and on the midsurface. Therefore, the proposed shell elements can be formulated in the form of brick elements that have the same essential features as 3D elements, namely the same node layouts, shape functions and unknowns (nodal displacements). This is the reason why we call these elements 3D-shell elements. Note that, in particular, when the shape functions are also quadratic in the (r, s) variables they correspond to standard Q2 3D shape functions, hence the practical implementation of these elements is straightforward. Clearly, 3D-shell elements are very easy to couple with surrounding media. In addition, we will show in the next section — by analyzing their underlying mathematical model — that they can (and indeed should) be used without the plane stress assumption. Remark 3.2. The above kinematic description with nine degrees of freedom per shell-section results into a fully compatible ﬁnite element model and the shell surfaces can directly be coupled to surrounding media. This means that we have about twice as many degrees of freedom per shell-section as in the case of the usual shell elements (with ﬁve degrees of freedom per shell mid-surface node). It is of course possible to introduce the transverse normal strain/stress eﬀect into the usual shell elements as incompatible modes and then condense these modes out on the element level.2 In this case, fewer degrees of freedom are processed but the normal strain between elements is discontinuous and the possibility to couple directly to surrounding media is lost. Remark 3.3. It is of course also possible to kinematically constrain in the above model the tangential mid-surface nodal displacements to be equal to the mean of the tangential top and bottom nodal displacements (the tangential displacements are then assumed to vary linearly through the shell thickness). In this case, we would have only seven degrees of freedom per shell-section (instead of the nine degrees of freedom in our above model) and the displacement compatibility between elements would be maintained. Also, the modeling feature of including the transverse normal stress eﬀects (with continuity in the normal strain between elements) and the feature to couple directly to surrounding media would both still be present. We conjecture that the resulting mathematical model behaves essentially as the model we consider herein.
+
+3D-shell Elements and Their Underlying Mathematical Model
+
+115
+
+4. Behavior of the Underlying Model We present in this section the mathematical shell model underlying the 3D-shell elements and mathematically analyze the model for the asymptotic behavior as the shell thickness decreases. 4.1. Model formulation We consider a linear isotropic elastic material, and we start from the 3D variational formulation, viz. Find U ∈ V 3D such that A3D (U, V) = F 3D (V) , ∀ V ∈ V 3D . (38) In this formulation, A3D represents the 3D internal virtual work A3D (U, V) =
+Bt
+
+√ H ijkl eij (U)ekl (V) g dξ 1 dξ 2 dξ 3 ,
+
+(39)
+
+with eij denoting the components of the strain tensor eij (V) = and H ijkl = E Eν g ij g kl + (g ik g jl + g il g jk ) , (1 + ν)(1 − 2ν) 2(1 + ν) (41) 1 (Vi · gj + Vj · gi ) 2 (40)
+
+where we denote, as usual, Young’s modulus by E and Poisson’s ratio by ν. In the speciﬁc coordinate system considered we have, taking into account (9) and (10), H αβγ3 (= H αβ3γ = H γ3αβ = H 3γαβ ) = 0 , H α333 (= H 3α33 = H 33α3 = H 333α ) = 0 , H αβ33 (= H 33αβ ) = Eν g αβ , (1 + ν)(1 − 2ν) E g αβ , 2(1 + ν) α, β, γ = 1, 2 , α = 1, 2 , α, β = 1, 2 , (42) (43) (44) (45) (46)
+
+H α3β3 (= H 3α3β ) = H 3333 = The external virtual work reads F 3D (V) =
+
+α, β = 1, 2 ,
+
+E(1 − ν) . (1 + ν)(1 − 2ν) F · V dV ,
+
+(47)
+
+Bt
+
+where F represents the applied 3D-body forces. The solution U and the test functions V satisfy adequate Dirichlet boundary conditions — included in the deﬁnition of V 3D — so that, in particular, no rigid body motion is allowed.
+
+116
+
+D. Chapelle, A. Ferent & K. J. Bathe
+
+We now use kinematical assumptions corresponding to those considered in the formulation of the above 3D-shell elements, namely quadratic displacements in the transverse coordinate, i.e. U(ξ 1 , ξ 2 , ξ 3 ) = u(ξ 1 , ξ 2 ) + ξ 3 θ(ξ 1 , ξ 2 ) + (ξ 3 )2 τ (ξ 1 , ξ 2 ) , V(ξ 1 , ξ 2 , ξ 3 ) = v(ξ 1 , ξ 2 ) + ξ 3 η(ξ 1 , ξ 2 ) + (ξ 3 )2 ρ(ξ 1 , ξ 2 ) . (48) (49)
+
+We thus obtain a shell model — all unknowns and test functions being given on the midsurface — described by the following problem: Find (u, θ, ρ) such that A(u, θ, ρ; v, η, ρ) = F (v, η, ρ) , where A(u, θ, τ ; u, η, ρ) = A3D (u + ξ 3 θ + (ξ 3 )2 τ , v + ξ 3 η + (ξ 3 )2 ρ) , F (v, η, ρ) = F 3D (v + ξ 3 η + (ξ 3 )2 ρ) . (51) (52) ∀ (v, η, ρ) ∈ V , (50)
+
+The boundary conditions considered in V are directly inherited from those given in V 3D . The expressions of the strain components with respect to ξ 3 are: eαβ (V) = γαβ (v) + ξ 3 χαβ (v, η) + (ξ 3 )2 kαβ (η, ρ) + (ξ 3 )3 lαβ (ρ) , eα3 (V) = ζα (v, η) + ξ 3 mα (η, ρ) + (ξ 3 )2 nα (ρ) , e33 (V) = δ(η) + ξ 3 p(ρ) , where γαβ (v) = χαβ (v, η) = kαβ (η, ρ) = 1 (vα|β + vβ|α ) − bαβ v3 , 2 (56) (57) (58) (59) (60) (61) (62) (63) (64) (53) (54) (55)
+
+1 (ηα|β + ηβ|α − bλ vλ|β − bλ vλ|α ) − bαβ η3 + cαβ v3 , α β 2 1 (ρ + ρβ|α − bλ ηλ|β − bλ ηλ|α ) − bαβ ρ3 + cαβ η3 , α β 2 α|β
+
+1 lαβ (ρ) = − (bλ ρλ|β + bλ ρλ|α ) + cαβ ρ3 , β 2 α ζα (v, η) = 1 (ηα + bλ vλ + v3,α ) , α 2 1 (2ρα + η3,α ) , 2
+
+mα (η, ρ) = nα (ρ) =
+
+1 (−bλ ρλ + ρ3,α ) , α 2
+
+δ(η) = η3 , p(ρ) = 2ρ3 .
+
+3D-shell Elements and Their Underlying Mathematical Model
+
+117
+
+We point out that the tensors γ and ζ respectively correspond to the membrane and shear strain tensors of classical shell models, see e.g. Refs. 6, 13, 16 and χ is a generalization of the bending strain tensor (since η3 appears in the expression), for which we therefore use the same terminology and notation. Note also that, despite similar expressions for χ and k, we use a diﬀerent notation to distinguish the two tensors since they appear with diﬀerent orders in ξ 3 . In addition, we emphasize that — unlike with classical shell models — we have the nonzero transverse strain e33 . The ﬁrst term in the expression of these strains (δ) plays a distinctive role in the formulation — as will become clear in the forthcoming discussion. We call this quantity the “pinching strain”. Specifying the displacement space V = [H 1 (ω)]9 ∩ BC , (65)
+
+where BC symbolically denotes the essential boundary conditions, the variational problem (50) is clearly well-posed since it corresponds to a restriction of the variational space used in the original 3D problem (well-posed in H 1 ), and we have the following result, proven in the Appendix. Proposition 4.1. Assuming that F ∈ L2 (Bt )3 and that essential boundary conditions are enforced in V so that no rigid body motion is allowed, then there exists a unique (u, θ, τ ) ∈ V solution of (50). Furthermore, we have u, θ, τ
+1
+
+≤C F
+
+L2 (Bt )
+
+.
+
+(66)
+
+with C being a constant independent of F (but dependent on the thickness parameter). Therefore, we have obtained a well-posed mathematical shell model. Furthermore, we expect this shell model to be the model underlying the above-presented 3D-shell elements, meaning that the ﬁnite element solutions should converge to the exact solution of the mathematical model when the mesh is made increasingly ﬁner. This natural conjecture is proven in Sec. 5.1. 4.2. Asymptotic behavior We now study the asymptotic behavior of the solution of Problem (50), namely when the thickness parameter ε goes to 0. The primary objective here is to compare the mathematical model underlying 3D-shell elements with classical shell models by means of the asymptotic behavior. We introduce the space of pure bending displacements, deﬁned in this case by V0 = {(v, η, ρ) ∈ V, such that γαβ (v) = 0, ζα (v, η) = 0, δ(η) = 0 , ∀ α, β = 1, 2} . (67) Comparing with classical shell models, V0 contains displacements for which pinching strains vanish, in addition to membrane and shear strains, see e.g. Refs. 13, 16
+
+118
+
+D. Chapelle, A. Ferent & K. J. Bathe
+
+and 26. Note that this can be seen as an “asymptotic justiﬁcation” of the Reissner– Mindlin kinematical assumption. Remark 4.1. We might note here that the pinching strain is a strain embedded in the shell model not dependent on the other strains (and stresses). It is a result of the kinematic assumptions employed. Using the Reissner–Mindlin kinematic assumption this strain is zero. Of course, in an actual shell solution using the Reissner–Mindlin kinematics, once all stress components have been calculated, also the transverse normal strain as a result of the Poisson eﬀect can be established in a post-processing procedure. Depending on the geometry and boundary conditions, the shell may or may not have nonzero pure-bending displacements. We then distinguish between the two situations; that is, when V0 ∩ {(v, η, 0) ∈ V} = {(0, 0, 0)} , we say that pure bending is inhibited, and when V0 ∩ {(v, η, 0) ∈ V} = {(0, 0, 0)} , that pure bending is non-inhibited. The asymptotic behavior of a shell is strongly inﬂuenced by whether or not pure bending is inhibited.10 The asymptotic analysis consists in seeking a scaling of the loading in the form F = ερ−1 G ,
+ε
+
+(68)
+
+so that a converging solution sequence (uε , θ , τ ε ) is obtained with G independent of ε.1,13 We also assume in our analysis that we take G in the form G(ξ 1 , ξ 2 , ξ 3 ) = G0 (ξ 1 , ξ 2 ) + ξ 3 B(ξ 1 , ξ 2 , ξ 3 ) , (69)
+
+where G0 is in L2 (ω) and B is a bounded function over Bt (uniformly in t) . Let us introduce some speciﬁc bilinear and linear forms that will be needed in the forthcoming discussion. We deﬁne Am (u, θ; v, η) = L
+ω
+
+˜ ˜ [H αβλµ γαβ (u)γλµ (v) + H αβ33 (γαβ (u)δ(η) + γαβ (v)δ(θ)) (70)
+
+˜ ˜ + 4H α3β3 ζα (u, θ)ζβ (v, η) + H 3333 δ(θ)δ(η)] dS , Ab (u, θ, τ ; v, η, ρ) = L3 12 ˜ [H αβλµ χαβ (u, θ)χλµ (v, η)
+ω
+
+˜ + H αβ33 (χαβ (u, θ)p(ρ) + χαβ (v, η)p(τ )) ˜ ˜ + 4H α3β3 mα (θ, τ )mβ (η, ρ) + H 3333 p(τ )p(ρ)] dS , ˜ where the tensor H is deﬁned by ˜ H ijkl = H ijkl |ξ3 =0 , (72) (71)
+
+3D-shell Elements and Their Underlying Mathematical Model
+
+119
+
+and we also deﬁne G(v) =
+ω
+
+LG0 · v dS .
+
+(73)
+
+We henceforth denote — in the framework of the asymptotic analysis — the solution of Problem (50) for a given thickness parameter ε by (uε , θε , τ ε ) and we now discuss the cases of non-inhibited versus inhibited pure bending separately. 4.2.1. Non-inhibited pure bending Assuming that V0 contains some nonzero elements, we have a model that can be directly compared to the basic shell model with non-inhibited pure bending.11,13 Namely, the terms of order zero in ξ 3 in the strain expressions (53)–(55) tend to vanish (via a penalization mechanism) and the appropriate scaling factor is then ρ = 3. We introduce the norm v, η, ρ
+b
+
+=
+
+v
+
+2 1
+
++ η
+
+2 1
+
++
+
+η3 2 0
+
++
+
+ρ3 2 0
+
+1 + ρ+ 2
+
+1 2
+
+η3 2 0
+
+,
+
+(74)
+
+where η and ρ represent the tangential parts of η and ρ, respectively, and denotes the surface gradient (the covariant components of which correspond to covariant derivatives, see Ref. 13). This is the norm for which we expect the convergence to occur. This norm is not equivalent to the original norm of the displacement space (namely, the H 1 -norm, recall Proposition 4.1), since we — in essence — loose in the energy all the strain terms of degree higher than 1 in the ξ 3 -expansions (53)–(55) when ε goes to zero. This norm is, indeed, weaker than the H 1 norm, hence V is not complete with respect to · b . We deﬁne Vb as the completion of V for this b new norm. We will also use the space V0 , deﬁned as the completion of V0 for · b , which is identiﬁed as
+b V0 = {(v, η, ρ) ∈ Vb such that γαβ (v) = 0 ,
+
+ζα (v, η) = 0, δ(η) = 0, ∀ α, β = 1, 2} . Using the proposed scaling ρ = 3, the tentative limit problem reads
+b Find (ub , θ b , τ b ) ∈ V0 such that
+
+(75)
+
+Ab (ub , θb , τ b ; v, η, ρ) =
+ω
+
+LG0 · v dS ,
+
+b ∀ (v, η, ρ) ∈ V0 .
+
+(76)
+
+Note that the right-hand side of this variational formulation deﬁnes a linear form b in V0 (although this completed space may contain elements that do not belong to V) since
+ω
+
+G0 · v dS ≤ C G0
+
+0
+
+v
+
+0
+
+≤ C G0
+
+0
+
+v, η, ρ
+
+b
+
+,
+
+∀ (v, η, ρ) ∈ Vb .
+
+(77)
+
+We then have the following convergence result, proven in the Appendix.
+
+120
+
+D. Chapelle, A. Ferent & K. J. Bathe
+
+Proposition 4.2. The solution (uε , θε , τ ε ) of Problem (50) converges weakly in Vb , as ε goes to 0, to (ub , θb , τ b ) solution of (76). Remark 4.2. Unlike for classical shell models or for the basic shell model,13 in the present case we also have a singular perturbation problem arising from the higher order terms in the bilinear form A, in addition to the penalization mechanism. Strong convergence cannot be established under these circumstances, because the terms corresponding to penalization and singular perturbation are coupled (see Appendix, Eqs. (A.45)–(A.50)) in the expression of the total strain energy, see also Theorem 10.3 of Ref. 22 for a similar problem. Remark 4.3. Even though we have a very weak control on τ ε in · b (since we ε only prove a convergence result for the quantity (τ ε + 1 θ3 ) in the L2 -norm), the 2 2 ε scaled vector ε τ — arising in the expression of the 3D displacements — converges to zero in the norm · 1 when ε tends to zero, see the Appendix. 4.2.2. Inhibited pure bending Assuming that pure bending is inhibited we deﬁne v, η and V = {(v, η) such that (v, η, 0) ∈ V} . (79)
+m
+1
+
+= Am (v, η; v, η) 2 ,
+
+(78)
+
+Since pure bending is inhibited · m provides a norm in V and — according to Lemma A.5 (see the Appendix) — this norm is equivalent to γ(v)
+0
+
++ ζ(v, η)
+
+0
+
++ δ(η)
+
+0
+
+.
+
+(80)
+
+Comparing with the similar norms used for classical shell models and for the basic shell model (see in particular Ref. 13), we note that in this case the norm · m additionally contains the pinching strain terms. Proceeding like for the basic shell model,13 we introduce Vm as the completion of V with respect to the norm · m . The converging behavior is then obtained in this space for the scaling ρ = 1, and the limit problem reads Find (um , θm ) ∈ Vm such that Am (um , θm v, η) =
+ω
+
+LG0 · v dS ,
+
+∀ (v, η) ∈ Vm .
+
+(81)
+
+We point out that, since Vm ⊃ V , in order to obtain a well-posed limit problem we need to enforce that G0 ∈ (Vm ) , namely that
+ω
+
+G0 · v dS ≤ C v, η
+
+m,
+
+∀ (v, η) ∈ Vm ,
+
+(82)
+
+which is a standard condition for inhibited pure bending situations, see Refs. 10, 13 and 27. We can then prove the following convergence result (see the Appendix).
+
+3D-shell Elements and Their Underlying Mathematical Model
+
+121
+
+Proposition 4.3. Assuming that G0 ∈ (Vm ) , we have that (uε + verges weakly in Vm , as ε goes to 0, to (um , θm ) solution of (81).
+2
+
+ε t2 ε 12 τ , θ )
+
+con-
+
+t Remark 4.4. The term uε + 12 τ ε is the mean value of the displacement vector across the thickness, hence this convergence result is consistent with the asymptotic analysis performed on the 3D problem in Ref. 16. In fact, we cannot prove the convergence of uε by itself, since we only show that ε2 τ ε is bounded in the H 1 ε norm and that ε2 τ3 0 vanishes when ε tends to zero (see the Appendix).
+
+4.3. Conclusions on the asymptotic analysis We can further analyze the variational formulations of the limit problems for both asymptotic behaviors. When pure bending is not inhibited, using in Problem (76) a test function with v = 0, η = 0, ρ = 0 and ρ3 arbitrary, we have ˜ ˜ H αβ33 χαβ (ub , θ b ) + H 3333 p(τ b ) = 0 , (83)
+
+b and this can be used to eliminate p(τ b ) = 2τ3 in the variational formulation. Similarly, taking ρ such that ρ3 = 0 with v = η = 0 we obtain
+
+mα (θ b , τ b ) = 0 ,
+
+α = 1, 2 .
+b V0
+
+(84)
+
+Furthermore, the transverse component of η for (v, η, ρ) ∈ is zero by deﬁnition b of V0 . Finally, the variational formulation (76) is equivalent to L3 12 ˜ C αβλµ χαβ (ub , θb )χλµ (v, η) dS = G(v) ,
+ω b ∀ (v, η) ∈ V0 ,
+
+(85)
+
+with ˜ ˜ H αβ33 H λµ33 ˜ ˜ C αβλµ = H αβλµ − ˜ H 3333 = E 2(1 + ν) aαλ aβµ + aαµ aβλ + 2ν αβ λµ a a . 1−ν (86)
+
+We note that this is the same limit problem as for classical shell models (and also for the shell model underlying general shell elements) when pure bending is not inhibited, see Refs. 10 and 13. Remark 4.5. This argument shows why the quadratic kinematical assumption provides a consistent asymptotic behavior with non-inhibited pure bending, whereas the linear assumption does not. In fact, with a linear kinematical assumption we do not have (83), hence the asymptotic behavior (without plane stress assumption) directly yields (85) with ˜ ˜ C αβλµ = H αβλµ = E Eν aαβ aλµ + (aαλ aβµ + aαµ aβλ ) , (1 + ν)(1 − 2ν) 2(1 + ν)
+
+(87)
+
+122
+
+D. Chapelle, A. Ferent & K. J. Bathe
+
+instead of (86), which — of course — gives a diﬀerent limit solution (note that, in particular, the behavior of these coeﬃcients in the incompressible limit ν → 0.5 is dramatically diﬀerent). Similarly, when pure bending is inhibited, choosing test functions such that v = 0, η = 0 with η3 arbitrary in the limit problem (81), we obtain ˜ ˜ H αβ33 γαβ (um ) + H 3333 δ(θ m ) = 0 .
+m Using this equation to substitute δ(θ m ) = θ3 in (81), we have
+
+(88)
+
+L
+ω
+
+˜ [C αβλµ γαβ (um )γλµ (v) ˜ + Dαβ ζα (um , θm )ζβ (v, η)]dS = G(v) , ∀ (v, η) ∈ Vm (89)
+
+with (86) and ˜ ˜ Dαβ = 4H α3β3 . (90)
+
+In this case, we also note that the limit problem corresponds to the limit problem obtained with classical shell models, and also with the basic shell model, see Refs. 10 and 13. Therefore, for both asymptotic categories of shell problems, the mathematical shell model corresponding to 3D-shell elements is asymptotically consistent with classical shell models, i.e. the solutions converge — when ε tends to zero and with proper load scaling factors — to the solutions of the same limit problems. Hence, by analogy to the asymptotic behavior of classical shell models, me may say that the shell structure described by the 3D-shell model analyzed here is bending-dominated when pure bending is non-inhibited, and that it is membrane-dominated when pure bending is inhibited and provided that (82) holds. In addition, the above analysis shows how the elimination of the transverse components of the ﬁrst and second order terms in the kinematical assumption (48) leads to transformations of the elasticity tensor identical to those induced by the plane stress assumption in classical shell models,11,13 see also Refs. 8, 17, 23 and 25 for other discussions on this issue. Hence this asymptotic analysis is valuable both as a theoretical substantiation of the model introduced in this paper, and to provide insight into the plane stress assumption used in other models. 5. Analysis of the 3D-shell Finite Element Solution We consider in this section the convergence of displacement-based ﬁnite element solutions using the 3D-shell elements to the solutions of the underlying mathematical model, and also discuss how to obtain reliable (non-locking) ﬁnite element discretization schemes.
+
+3D-shell Elements and Their Underlying Mathematical Model
+
+123
+
+5.1. Convergence to the solution of the underlying model The objective of this section is to prove that the 3D-shell ﬁnite element solutions converge to the solution of the mathematical model described above when the mesh is reﬁned. This will, indeed, justify the terminology “underlying model”. Recalling Sec. 3, the ﬁnite element formulation amounts to ﬁnding Uh , the solution of ˜ ˜ A(3D) (Uh , V) = F (3D) (V) , ∀V, (91)
+
+where in every element K, Uh and V are of the form Uh = t (i) t2 (i) (i) λi (r, s) uh + z θh + z 2 τ h , 2 4 i=1 t2 t λi (r, s) v(i) + z η (i) + z 2 ρ(i) . 2 4 i=1
+k k
+
+(92)
+
+V=
+
+(93)
+
+Here, h denotes (as usual) the maximum diameter of the elements in the mesh (i) (i) (i) considered, λi the shape function associated with the node (i) and (uh , θh , τ h ) the nodal values of (uh , θh , τ h ), with a similar notation being used for the nodal values of test functions (note that we use here the expression of the ﬁnite element ˜ ˜ displacements in terms of midsurface unknowns as in Eq. (32). In A(3D) and F (3D) all the geometric quantities are computed from the isoparametric approximation of the geometry given by (14) that we now rewrite with the chart notation as Φh (r, s, z)|K =
+(i)
+
+t (i) λi (r, s) φ(i) + z a3 , 2 i=1
+
+k
+
+(94)
+
+where φ(i) and a3 respectively denote the position of the midsurface and the unit normal vector at node (i). Equation (94) can also be written as t Φh = I(φ) + z I(a3 ) , 2 (95)
+
+where I represents the interpolation operator associated to the in-plane ﬁnite element discretisation. Note that we assume here the normal vector to be known exactly at each node (and not computed from the approximation of the midsurface). Introducing the discrete space
+k
+
+Vh =
+
+(v, η, ρ) ∈ V | ∀ K, v|K =
+k
+
+λi (r, s)v(i) ,
+i=1 k
+
+η|K =
+i=1
+
+λi (r, s)η (i) , ρ|K =
+i=1
+
+λi (r, s)ρ(i)
+
+,
+
+(96)
+
+124
+
+D. Chapelle, A. Ferent & K. J. Bathe
+
+the 3D-shell discrete procedure can be formulated in an equivalent manner as: Find (uh , θh , τ h ) ∈ Vh such that Ah (uh , θh , τ h ; v, η, ρ) = Fh (v, η, ρ) , where ˜ Ah (u, θ, τ ; v, η, ρ) = A(3D) (u + ξ 3 θ + (ξ 3 )2 τ , v + ξ 3 η + (ξ 3 )2 ρ) , ˜ Fh (v, η, ρ) = F (3D) (v + ξ 3 η + (ξ 3 )2 ρ) , (98) (99) ∀ (v, η, ρ) ∈ Vh , (97)
+
+using the change of variables given in (23). Comparing with Problem (50), we note that the approximation scheme proposed here introduces a consistency error arising from the approximation of the geometry. In order to determine the inﬂuence of the approximate geometry on the discrete solution, we suppose that the interpolation errors are optimal. Assuming (u, θ, τ ) ∈ H p+1 (ω)3 × H p+1 (ω)3 × H p+1 (ω)3 , p being the degree of the polynomials used for the 2D shape functions, the following classical estimate holds15
+(v,η,ρ)∈Vh
+
+inf
+
+u − v, θ − η, τ − ρ
+
+1
+
+≤ u − I(u), θ − I(θ), τ − I(τ )
+
+1
+
+≤ Chp u, θ, τ
+
+p+1
+
+.
+
+(100)
+
+We can then prove the following optimal convergence result (see Appendix). Proposition 5.1. Problem (97) has a unique solution (uh , θ h , τ h ) which converges to (u, θ, τ ), the solution of the underlying mathematical model, namely, u − uh , θ − θ h , τ − τ h
+1
+
+≤ Chp u, θ, τ
+
+p+1
+
+,
+
+(101)
+
+with a constant C depending on the thickness. 5.2. Reliability considerations The question then arises as to what makes the proposed ﬁnite element scheme speciﬁc to shell analysis, as in fact the ﬁnite elements that we have been presenting are in essence 3D elements used in a single layer across the thickness of the structure. In order to clarify this point, we may resort to reliability considerations. As a matter of fact, it is well-known that 3D elements used in thin bending-dominated structures are subject to severe numerical locking.2,13 This means that the accuracy of the ﬁnite element solution is very sensitive to the aspect ratio of the elements and may seriously deteriorate when the element is thin in the direction of structural thickness. The sources of numerical locking for shells are now well identiﬁed, see in particular Refs. 2, 13 and the references therein. It is due to constraints that are enforced by a penalization mechanism in the mechanical formulation (where the square of the structural aspect ratio is the penalization parameter). In classical shell models, these constraints are that membrane and shear strains vanish.10 Locking then arises because the discrete displacements that satisfy the constraints are “scarce”.
+
+3D-shell Elements and Their Underlying Mathematical Model
+
+125
+
+In order to circumvent the locking phenomenon, it is now classical to resort to mixed formulations in which additional unknowns — corresponding to the “locking producing” terms of the energy — are introduced.2,9 For shell formulations, it is thus natural to use the membrane and shear stresses as independent unknowns. The eﬀect of this procedure can be interpreted as a relaxation of the constraints to be satisﬁed by the discrete displacements. A crucial diﬃculty is that — while attempting to alleviate the locking phenomenon — the modiﬁcations performed may seriously aﬀect the performance of the method when applied in a membranedominated situation, i.e. when locking is not to be expected.10 In particular, the MITC (standing for “Mixed Interpolated Tensorial Components”) shell elements appear to be eﬀective for both bending-dominated and membrane-dominated shell problems,4,5,13,21 although there is no complete mathematical analysis available for these elements (nor for any other shell element). They rely on an interpolation procedure of the strain components, which are computed at some well-chosen points within an element — called the tying points — directly from the displacements and are then re-interpolated from these points throughout the element for the stiﬀness computation. Regarding the above-proposed 3D-shell elements, we have seen by analyzing in Sec. 4 the corresponding underlying shell model that the same constraints — namely of vanishing membrane and shear strains — are also present in the variational formulation of the proposed shell element formulation, see (67). Hence, it is straightforward to use the same treatments to address the induced locking phenomena. In addition, we can see in (67) that a new constraint is applied in bendingdominated situations, which is that a displacement ﬁeld expressed in the form (49) should also satisfy η · a3 ≡ 0 , (102)
+
+in the asymptotic limit. Hence this constraint creates an additional source of locking that we call pinching locking, due to the nature of the quantity that tends to vanish, namely, the pinching strain. In order to circumvent the pinching locking phenomenon, a natural idea inspired from the MITC approach is to use tying points for the corresponding ezz tensorial component. In particular, when using the nodes themselves as tying points (as proposed e.g. in Ref. 7) we can see that the relaxed constraint imposed is that η · a3 = 0 (103)
+
+at the nodes, which is easily satisﬁed by the discrete displacements. In fact, it can be mathematically proven that this strategy eﬀectively remedies the pinching locking phenomenon.14 6. Concluding Remarks The objective in this paper was to present and analyze a family of shell elements that include the eﬀects of the transverse normal stress and lend themselves to
+
+126
+
+D. Chapelle, A. Ferent & K. J. Bathe
+
+model in an eﬀective way shell structures in which the shell surfaces are coupled to surrounding media. Similar shell elements have been introduced earlier but the novelty in this paper is that we identiﬁed the underlying shell mathematical model, we analyzed the model for the asymptotic behavior when the shell thickness decreases, and we discussed how a ﬁnite element discretization as reliable as now widely-used schemes based on the Reissner–Mindlin kinematic assumption can be established. The mathematical model is asymptotically consistent with the basic shell model of Refs. 11, 13 and classical shell models, in that an analogous asymptotic behavior is observed as the shell thickness is decreased and the solutions converge to the solutions of the limit problems of the other shell models. Hence, bending-dominated and membrane-dominated problems can be identiﬁed. However, in addition to the membrane and shear strains, also the pinching strain now enters the analysis. Considering the displacement-based solutions, a convergence analysis shows that the optimal order of convergence is obtained but of course with a constant that depends on the shell thickness. Hence, “locking” is observed in the numerical solutions, and in these ﬁnite element solutions, shear, membrane and pinching strain locking can arise. To obtain a ﬁnite element scheme that is more reliable and eﬀective, the MITC interpolation schemes for the element discretizations can be used. Appendix A. The purpose of this Appendix is to provide the proofs of the results stated in the above propositions. In the forthcoming presentation, we will use the inequalities (proven in Refs. 11 and 13) given in Lemmas A.1 to A.3. We point out that the constants appearing in these inequalities are all independent of the thickness t. Lemma A.1. There exist strictly positive constants C and γ such that, for any (ξ 1 , ξ 2 , ξ 3 ) ∈ Ωt , γaαβ (ξ 1 , ξ 2 )Xα Xβ ≤ g αβ (ξ 1 , ξ 2 , ξ 3 )Xα Xβ ≤ Caαβ (ξ 1 , ξ 2 )Xα Xβ , ∀ (X1 , X2 ) ∈ R2 . (A.1)
+
+Lemma A.2. There exist strictly positive constants C and γ such that, for any (ξ 1 , ξ 2 , ξ 3 ) ∈ Ωt , γaαβ (ξ 1 , ξ 2 )aλµ (ξ 1 , ξ 2 )Yαλ Yβµ ≤ g αβ (ξ 1 , ξ 2 , ξ 3 )g λµ (ξ 1 , ξ 2 , ξ 3 )Yαλ Yβµ ≤ Caαβ (ξ 1 , ξ 2 )aλµ (ξ 1 , ξ 2 )Yαλ Yβµ , ∀ (Y11 , Y12 , Y21 , Y22 ) ∈ R4 . (A.2) Lemma A.3. There exist strictly positive constants C and γ such that, for any (ξ 1 , ξ 2 , ξ 3 ) ∈ Ωt , √ √ √ (A.3) γ a(ξ 1 , ξ 2 ) ≤ g(ξ 1 , ξ 2 , ξ 3 ) ≤ C a(ξ 1 , ξ 2 ) .
+
+3D-shell Elements and Their Underlying Mathematical Model
+
+127
+
+We now turn to the proof of another lemma needed in our analysis. Lemma A.4. Assuming that the essential boundary conditions enforced in V are such that no rigid body motion is possible, the bilinear form A is continuous and coercive over V, i.e. there exist two strictly positive (thickness-dependent) constants C and γ, such that for any (u, θ, τ ) and (v, η, ρ) in V, A(u, θ, τ ; v, η, ρ) ≤ C u, θ, τ γ v, η, ρ
+2 1 1
+
+v, η, ρ
+
+1
+
+,
+
+(A.4) (A.5)
+
+≤ A(v, η, ρ; v, η, ρ) .
+
+Proof. We focus on the coercivity inequality (the continuity is established by similar — although much more straightforward — arguments). To make the equations more compact, we write eij instead of eij (v + ξ 3 η + (ξ 3 )2 ρ), and γαβ , χαβ , kαβ , lαβ , ζα , mα , nα , δ, p instead of γαβ (v), χαβ (v, η), kαβ (η, ρ), lαβ (ρ), ζα (v, η), mα (η, ρ), nα (ρ), δ(η) and p(ρ), respectively. We decompose the proof into three steps. (i) We ﬁrst show that A(v, η, ρ; v, η, ρ) ≥ γ( γ + ζ
+2 0 2 0
+
++ χ + m
+
+2 0 2 0
+
++ k + n
+
+2 0 2 0
+
++ l + δ
+
+2 0 2 0
+
++ p 2) . 0
+
+(A.6)
+
+From (A.1) and (A.2), using g ij g kl eij ekl = (g ij eij )2 ≥ 0, we have A(v, η, ρ; v, η, ρ) ≥ γ ≥γ ≥γ g ik g jl eij ekl dV
+Bt
+
+[g αλ g βµ eαβ eλµ + g αβ eα3 eβ3 + (e33 )2 ] dV
+Bt
+
+[aαλ aβµ eαβ eλµ + aαβ eα3 eβ3 + (e33 )2 ] dV .
+Bt
+
+(A.7)
+
+Now using Eq. (A.3), then Eqs. (53)–(55), and integrating through the thickness, we obtain A(v, η, ρ; v, η, ρ) ≥ γt + aαλ aβµ γαβ γλµ +
+ω 4
+
+t2 t2 χαβ χλµ + γαβ kλµ 12 6
+
+t4 t6 t kαβ kλµ + lαβ χλµ + lαβ lλµ 80 40 448 t2 t2 t4 mα mβ + ζ α nβ + nα nβ 12 6 80 dS . (A.8)
+
++ aαβ ζα ζβ + + δ2 + t2 2 p 12
+
+128
+
+D. Chapelle, A. Ferent & K. J. Bathe
+
+˜ For two second-order surface tensors T and T , we use the Euclidean inner-product deﬁned and denoted as in ˜ ˜ T , T = aαβ aλµ Tαλ Tβµ . (A.9)
+
+The associated (Euclidean) norm is denoted by the usual norm symbol “ · ” (without a subscript). Likewise, for ﬁrst-order surface tensors we use ˜ ˜ W , W = aαβ Wα Wβ . By standard inequalities, we then have t2 αλ βµ 1 1 a a γαβ kλµ = | γ, t2 k | ≤ 6 6 12 ≤ and similarly t2 t4 αλ βµ 1 αλ βµ r2 t6 lαβ lλµ + a a lαβ χλµ ≤ a a χαβ χλµ , 40 80 r2 t2 αβ 1 αβ t4 a ζ α nβ ≤ a nα nβ , r3 ζα ζβ + 6 12 r3 (A.12) (A.13) r1 γ
+2
+
+(A.10) t4 k r1
+
++
+
+2
+
+t4 1 αλ βµ r1 γαβ γλµ + a a kαβ kλµ , 12 r1
+
+(A.11)
+
+with r1 , r2 , r3 arbitrary strictly positive constants. With an appropriate choice for 6 these constants — for example r1 = 10, r2 = 35 , r3 = 10 — Eq. (A.8) gives A(v, η, ρ; v, η, ρ) ≥ γ
+ω
+
+{aαλ aβµ [γαβ γλµ + χαβ χλµ + kαβ kλµ + lαβ lλµ ] (A.14)
+
++ aαβ [ζα ζβ + mα mβ + nα nβ ] + [δ 2 + p2 ]} dS ,
+
+namely, we have (A.6) (note that the constant γ depends on the parameter t). (ii) Denoting η3 , ρ
+#
+
+=
+
+m(η, ρ)
+
+2 0
+
++ n(ρ)
+
+2 0
+
++ k(0, η3 , ρ)
+
+2 0
+
++ δ(η)
+
+2 0
+
++ p(ρ)
+
+2 1/2 0
+
+,
+
+(A.15) we now show that · # provides a norm equivalent to the H 1 -norm (i.e. the norm prevailing in V) over the subspace of V of displacements of the type (0, 0, η3 , ρ). In order to see that · # gives a norm, we observe that from δ(η) = 0 and p(ρ) = 0 we obtain η3 = 0 and ρ3 = 0, respectively. Then, from m(η, ρ) = 0 and η3 = 0 we have ρ = 0. Bounding this norm as in η3 , ρ
+#
+
+≤ C η3 , ρ
+
+1
+
+(A.16)
+
+is straightforward, hence to prove the equivalence it remains to show that we have the other inequality η3 , ρ
+#
+
+≥ γ η3 , ρ
+
+1
+
+.
+
+(A.17)
+
+3D-shell Elements and Their Underlying Mathematical Model
+
+129
+
+To that purpose, we use the following Korn inequality for ﬁrst-order surface tensors, see Refs. 16 and 18, |v|1 ≤ C( ε(v) where ε(v) = We then have, from (58), |ρ|2 ≤ C( ε(ρ) 1
+2 0 0
+
++ v 0) ,
+
+(A.18)
+
+1 ( 2
+
+v+(
+
+v)T ) .
+
+(A.19)
+
++ ρ 2) 0
+2 0 2 0
+
+≤ C( k(0, η3 , ρ) ≤ C( k(0, η3 , ρ) In addition, from Eq. (62) we have
+
++ bρ3 + ρ3
+2 0
+
+2 0
+
++ cη3
+2 0
+
+2 0
+
++ ρ 2) 0 (A.20)
+
++ η3
+
++ ρ 2) . 0
+
+|ρ3 |2 ≤ C( n(ρ) 1 and, from (61),
+
+2 0
+
++ ρ 3) , 0
+2 0
+
+(A.21)
+
+|η3 |2 ≤ C( m(η, ρ) 1 Gathering Eqs. (A.20)–(A.22), we obtain η3 , ρ
+2 1
+
++ ρ 2) . 0
+2 0 2 0 2 0
+
+(A.22)
+
+≤ C( m(η, ρ) ≤ C( η3 , ρ
+2 #
+
+2 0
+
++ k(0, η3 , ρ)
+
+2 0
+
++ n(ρ)
+
++ ρ3
+
++ η3
+
++ ρ 2) 0 (A.23)
+
++ η3 , ρ 2 ) . 0
+2
+
+Finally, in order to show that we can dispense with the L -norm term on the righthand side of this inequality, we invoke a (standard) contradiction argument, see e.g. Refs. 16 and 13. (iii) Final coercivity bound. We will repeatedly use the following general inequality, valid for any norm and any (ﬁxed) real number α, v1 + αv2
+2
+
++ v2
+
+2
+
+≥ γ( v1
+
+2
+
++ v2
+
+2
+
+).
+
+(A.24)
+
+Using this inequality we obtain χ(v, η)
+2 0
+
++ δ(η)
+
+2 0
+
+= χ(v, η, 0) − bη3 ≥ γ( χ(v, η, 0)
+2 0
+
+2 0
+
++ η3
+2 0) ,
+
+2 0
+
++ η3
+
+(A.25)
+
+hence γ(v)
+2 0
+
++ χ(v, η)
+2 0 2 1
+
+2 0
+
++ ζ(v, η)
+2 0
+
+2 0
+
++ δ(η)
+
+2 0 2 0
+
+≥ γ( γ(v) ≥ γ( v, η
+
++ ζ(v, η)
+2 0) ,
+
++ χ(v, η, 0)
+
++ η3
+
+2 0)
+
++ η3
+
+(A.26)
+
+130
+
+D. Chapelle, A. Ferent & K. J. Bathe
+
+where the last inequality directly follows from the coercivity of the bilinear form of the classical shell model referred to as the “shear-membrane-bending model” in Ref. 13 and “Naghdi model” in Ref. 16, see also these references (and references therein) for a proof. Furthermore, k(η, ρ) hence, k(η, ρ)
+2 0 2 0
+
++ |η|2 ≥ γ( k(0, η3 , ρ) 1
+2 0
+
+2 0
+
++ |η|2 ) , 1
+2 0
+
+(A.27)
+
++ |η|2 + m(η, ρ) 1
+2 0 2 #
+
++ n(ρ)
+2 0
+
+2 0
+
++ δ(η)
+2 0
+
++ p(ρ)
+2 0
+
+2 0 2 0
+
+≥ γ( k(0, η3 , ρ) = γ( η3 , ρ
+
++ m(η, ρ)
+
++ n(ρ)
+2 1
+
++ δ(η)
+
++ p(ρ)
+
++ |η|2 ) 1 (A.28)
+
++ |η|2 ) ≥ γ( η3 , ρ 1
+2 0
+
++ |η|2 ) . 1
+2 0
+
+Therefore, from (A.6), (A.26) and (A.28), we have A(v, η, ρ; v, η, ρ) ≥ γ( γ + χ
+2 1 2 1 2 0
+
++ ζ
+2 0
+
++ δ
+2 0
+
+2 0
+
++ k
+2 0
+
+2 0
+
++ m
+2 0
+
+2 0
+
++ n
+
+2 0
+
++ p 2) 0
+
+≥ γ( v, η ≥ γ( v, η
+
++ η3
+
++ k
+
++ m
+
++ n
+2 1
+
++ p 2) 0 (A.29)
+
++ η3 , ρ 2 ) = γ v, η, ρ 1
+
+.
+
+Proof of Proposition 4.1. The existence and the uniqueness are direct consequences of the Lax–Milgram lemma, since A is a coercive bilinear form and F is a linear form, both in V. To obtain the estimate (66) we use the continuity of F , which gives for any (v, η, ρ) ∈ V
+Bt
+
+F · (v + ξ 3 η + (ξ 3 )2 ρ) dV ≤ F
+
+L2 (Bt )
+
+v + ξ 3 η + (ξ 3 )2 ρ v, η, ρ
+0
+
+L2 (Bt )
+
+≤C F Then, from the H -coercivity of A we infer γ u, θ, τ
+2 1 1
+
+L2 (Bt )
+
+.
+
+(A.30)
+
+≤ A(u, θ, τ ; u, θ, τ ) = F (u, θ, τ ) ≤ C F
+L2 (Bt )
+
+u, θ, τ
+
+0
+
+,
+
+(A.31)
+
+and the a priori estimate directly follows. In the statement (and proof) of the following lemma we use the same compact notation for the strains as in the proof of Lemma A.4. Lemma A.5. We have the following equivalence relations of norms and seminorms: 1. Whether these expressions deﬁne norms (when pure bending is inhibited ) or semi-norms (otherwise), v, η m is equivalent to ( γ 2 + ζ 2 + δ 2 )1/2 . 0 0 0
+
+3D-shell Elements and Their Underlying Mathematical Model
+
+131
+
+2. The norms
+
+v, η, ρ b , ( γ
+
+2 0
+
++ ζ
+
+(Am (v, η; v, η) + Ab (v, η, ρ; v, η, ρ)) 3. The norms v, η, ρ 1 and ( γ 2 + ζ 0 n 2 )1/2 are equivalent. 0
+
+2 0 + 1/2 2 0
+
+δ
+
+2 0
+
++ χ
+
+2 0
+
++ m
+
+2 0 2 0
+
++ p 2 )1/2 , and 0 + p
+2 0
+
+, are all equivalent. + δ 0+ χ 2+ m 0
+
++ k
+
+2 0
+
++
+
+Proof. We split the proof according to the items in the statement of the lemma. (i) From the deﬁnition of v, η
+2 m
+
+·
+
+m
+
+we have ˜ ˜ [H αβλµ γαβ γλµ + H 3333 (δ)2
+ω
+
+=L
+
+˜ ˜ + 2H αβ33 γαβ δ + 4H α3β3 ζα ζβ ] dS . Then ˜ H αβλµ γαβ γλµ dS =
+ω
+
+(A.32)
+
+Eν (1 + ν)(1 − 2ν) + E 2(1 + ν)
+ω
+
+aαβ aλµ γαβ γλµ dS
+ω
+
+(aαλ aβµ + aαµ aβλ )γαβ γλµ dS
+2 0
+
+= Likewise,
+ω
+
+Eν tr γ (1 + ν)(1 − 2ν)
+
++
+
+E γ 1+ν
+
+2 0.
+
+(A.33)
+
+˜ H α3β3 ζα ζβ dS = ˜ H 3333 (δ)2 dS =
+ω
+
+E ζ 2(1 + ν)
+
+2 0
+
+,
+2 0,
+
+(A.34)
+
+and ˜ H αβ33 γαβ δ dS =
+ω
+
+E(1 − ν) δ (1 + ν)(1 − 2ν)
+
+(A.35)
+
+Hence, v, η
+2 m
+
+Eν tr γ, δ (1 + ν)(1 − 2ν)
+2 0
+
+L2 (ω)
+
+.
+
+(A.36)
+
+=
+
+Eν tr γ + δ (1 + ν)(1 − 2ν) + 2E ζ (1 + ν) ≥ γ[ γ
+0, 2 0 2 0
+
++
+2 0,
+
+E γ 1+ν
+
+2 0
+
++
+
+E δ 1+ν
+2 0
+
+(A.37)
+
+which implies v, η Furthermore, since tr γ
+0 2 m
+
++ ζ
+
++ δ 2] . 0
+
+(A.38)
+
+≤C γ
+2 m
+
+from (A.37) we directly obtain
+2 0
+
+v, η
+
+≤ C[ γ
+
++ ζ
+
+2 0
+
++ δ 2] , 0
+
+(A.39)
+
+and the equivalence is proven.
+
+132
+
+D. Chapelle, A. Ferent & K. J. Bathe
+
+(ii) We have v, η, ρ
+2 b
+
+= v = v
+
+2 1 2 1
+
++ η + η
+
+2 1 2 1
+
++ η3 + m
+
+2 0 2 0
+
++ ρ3 + δ
+2 0
+
+2 0
+
++ ρ+ 1 p 4
+
+1 2
+
+η3
+
+2 0
+
++
+
+2 0.
+
+(A.40)
+
+Using the H 1 -coercivity of the bilinear form of the shear-membrane-bending model (see the proof of Lemma A.4) we have γ( v and χ(v, η, 0)
+0 2 1
+
++ η 2) ≤ γ 1 = χ − bη3
+2 0
+
+2 0
+
++ ζ
+
+2 0
+
++ χ(v, η, 0)
+
+2 0
+
+,
+
+(A.41)
+
+0
+
+≤ χ + χ
+
+0
+
++ bη3
+
+0
+
+≤ C( χ
+2 0
+
+0
+
++ δ 0) .
+
+(A.42)
+
+From (A.40)–(A.42), we obtain v, η, ρ
+2 b
+
+≤ C( γ
+
++ ζ
+
+2 0
+
+2 0
+
++ m ·
+
+2 0
+
++ δ
+
++ p 2) . 0
+
+(A.43)
+
+Furthermore, from the deﬁnition of the norm bounds γ
+2 0
+
+b
+
+we obtain by straightforward
+2 b
+
++ ζ
+
+2 0
+
++ χ
+
+2 0
+
++ m
+
+2 0
+
++ δ
+
+2 0
+
++ p
+
+2 0
+
+≤ C v, η, ρ
+
+,
+
+(A.44)
+
+hence the equivalence of · b and ( γ 2 + ζ 2 + δ 2 + χ 2 + m 2 + p 2 )1/2 0 0 0 0 0 0 is proven. To prove the equivalence of · b and (Am (· , ·) + Ab (· , ·))1/2 , we recall that γ 2 + ζ 2 + δ 2 is equivalent to Am (· , ·). Hence to complete the proof it suﬃces 0 0 0 to show that γ( χ
+2 0
+
++ m
+
+2 0
+
++ p 2 ) ≤ Ab (v, η, ρ; v, η, ρ) ≤ C( χ 0 and ( γ
+2 0+
+
+2 0
+
++ m
+
+2 0
+
++ p 2) , 0
+
+which is achieved exactly like in Step (i) above. (iii) The equivalence of ·
+1
+
+ζ
+
+2 0+
+
+δ
+
+0+
+
+χ
+
+2 0+
+
+m
+
+2 0+
+
+p
+
+2 0+
+
+k
+
+2 0+
+
+n 2 )1/2 directly follows from the proof of Lemma A.4. 0
+
+Remark A.1. Using Eqs. (42), (43), (53)–(55), and the change of variables ξ 3 = εξ, the bilinear form A can be expressed as A(u, θ, τ ; v, η, ρ) = I1 + I2 + I3 + I4 + I5 , with
+L/2
+
+(A.45)
+
+I1 = ε
+−L/2 ω
+
+H αβλµ γαβ (u) + εξχαβ (u, θ) + ε2 (ξ)2 kαβ (θ, τ )
+
++ ε3 (ξ)3 lαβ (τ ) × γλµ (v) + εξχλµ (v, η) + ε2 (ξ)2 kλµ (η, ρ) √ + ε3 (ξ)3 lλµ (ρ) g dξ 1 dξ 2 dξ ,
+
+(A.46)
+
+3D-shell Elements and Their Underlying Mathematical Model
+L/2
+
+133
+
+I2 = ε
+−L/2 ω
+
+4H α3β3 ζα (u, θ) + εξmα (θ, τ ) + ε2 (ξ)2 nα (τ ) √ g dξ 1 dξ 2 dξ , √ g dξ 1 dξ 2 dξ , (A.47)
+
+× ζβ (v, η) + εξmβ (η, ρ) + ε2 (ξ)2 nβ (ρ)
+L/2
+
+I3 = ε
+−L/2 ω
+
+H 3333 δ(θ) + εξp(τ ) δ(η) + εξp(ρ)
+
+(A.48)
+
+L/2
+
+I4 = ε
+−L/2 ω
+
+H αβ33 γαβ (u) + εξχαβ (u, θ) + ε2 (ξ)2 kαβ (θ, τ ) √ g dξ 1 dξ 2 dξ , (A.49)
+
++ ε3 (ξ)3 lαβ (τ ) × δ(η) + εξp(ρ)
+L/2
+
+I5 = ε
+−L/2 ω
+
+H αβ33 γαβ (v) + εξχαβ (v, η) + ε2 (ξ)2 kαβ (η, ρ) √ g dξ 1 dξ 2 dξ . (A.50)
+
++ ε3 (ξ)3 lαβ (ρ) × δ(θ) + εξp(τ ) Similarly, the linear form F becomes
+L/2
+
+F (v, η, ρ) = ε
+−L/2 ω
+
+√ F · (v + εξη + ε2 (ξ)2 ρ) g dξ 1 dξ 2 dξ .
+
+(A.51)
+
+Proof of Proposition 4.2. We follow the same approach as for the model underlying general shell elements, namely the basic shell model, see Refs. 11 and 13. We divide the proof into three steps. (i) Uniform bound on the solution. We start by noting that, in the proof of Lemma A.4, from (A.8) and (A.11)–(A.13), Inequality (A.14) can be restated as A(v, η, ρ; v, η, ρ) ≥ γt +a {aαλ aβµ [γαβ γλµ + t2 χαβ χλµ + t4 kαβ kλµ + t6 lαβ lλµ ] [ζα ζβ + t2 mα mβ + t4 nα nβ ] + [δ 2 + t2 p2 ]} dS ,
+t L
+
+ω
+
+αβ
+
+(A.52)
+
+with γ independent of t. Hence, using ε = A(v, η, ρ; v, η, ρ) ≥ γε +a
+
+we have
+
+L{aαλ aβµ [γαβ γλµ + ε2 L2 χαβ χλµ + ε4 L4 kαβ kλµ + ε6 L6 lαβ lλµ ]
+ω αβ
+
+[ζα ζβ + ε2 L2 mα mβ + ε4 L4 nα nβ ] + [δ 2 + ε2 L2 p2 ]} dS .
+
+(A.53)
+
+134
+
+D. Chapelle, A. Ferent & K. J. Bathe
+tmax L ,
+
+Since t ≤ tmax and denoting εmax = A(v, η, ρ; v, η, ρ) ≥ γε3
+
+(A.53) gives
+2 0
+
+1 ( γ ε2 max
+2 0
+
++ ζ
+
+2 0
+
++ δ 2) 0
+
+×( χ
+
++ m
+2 b
+
+2 0
+
++ p 2 ) + ε2 ( k 0
+
+2 0
+
++ n 2) 0 (A.54)
+
+≥ γ[ε3 v, η, ρ
+
++ ε5 v, η, ρ 2 ] , 1
+
+using the equivalences given in Lemma A.5. In addition, recalling F = ε2 G, using (12), (69), (A.51) and integrating through the thickness, we obtain F · (v + ξ 3 η + (ξ 3 )2 ρ) dV = ε3 = ε3
+ω L/2 −L/2 ω
+
+Bt
+
+√ (G0 + εξB)(v + εξη + ε2 (ξ)2 ρ) g dξ 1 dξ 2 dξ (A.55)
+
+√ LG0 · v a dξ 1 dξ 2 + R ,
+
+where the remainder R is bounded as |R| ≤ Cε4 v, η, ρ Recalling (77), this gives F · (v + ξ 3 η + (ξ 3 )2 ρ) dV ≤ Cε3 v, η, ρ
+b 0
+
+.
+
+(A.56)
+
++ Cε4 v, η, ρ
+
+0
+
+.
+
+(A.57)
+
+Bt
+
+Using then (v, η, ρ) = (uε , θε , τ ε ) in the variational formulation, with (A.54) and (A.57) we infer uε , θ ε , τ ε
+b
+
++ ε uε , θ ε , τ ε
+
+1
+
+≤C.
+
+(A.58)
+
+Note that this bound substantiates Remark 4.3.
+0 (ii) Weak convergence in Vb . Since (uε , θε , τ ε ) is uniformly bounded in the norm · b , we can extract a subsequence (for which we will use the same notation) converging weakly in Vb to a limit (uw , θw , τ w ). Of course, ε · 1 remains bounded for this subsequence also, due to (A.58). Since the geometry is smooth, we can expand the constitutive tensor as
+
+˜ ¯ H ijkl (ξ 1 , ξ 2 , ξ 3 ) = H ijkl (ξ 1 , ξ 2 ) + ξ 3 H ijkl (ξ 1 , ξ 2 , ξ 3 ) ,
+
+(A.59)
+
+¯ where H ijkl (ξ 1 , ξ 2 , ξ 3 ) is bounded over Bt . Using the change of variable ξ 3 = εξ, for any (v, η, ρ) ∈ V ⊂ Vb , A(uε , θε , τ ε ; v, η, ρ) = I1 + I2 + I3 + I4 + I5 , (A.60)
+
+3D-shell Elements and Their Underlying Mathematical Model
+
+135
+
+where I1 , I2 , I3 , I4 , I5 are deﬁned by Eqs. (A.46)–(A.50). Since (uε , θε , τ ε ) is weakly converging in Vb we have
+ε→0
+
+lim γ(uε ) = γ(uw ) ,
+
+weakly in L2 (ω) , weakly in L2 (ω) ,
+
+(A.61) (A.62) (A.63) (A.64) (A.65) (A.66)
+
+ε→0
+
+lim ζ(uε , θε ) = ζ(uw , θw ) ,
+ε→0
+
+lim δ(θ ε ) = δ(θw ) ,
+
+weakly in L2 (ω) , weakly in L2 (ω) , weakly in L2 (ω) ,
+
+ε→0
+
+lim χ(uε , θε ) = χ(uw , θ w ) ,
+
+ε→0
+
+lim m(θε , τ ε ) = m(θ w , τ w ) ,
+ε→0
+
+lim p(τ ε ) = p(τ w ) ,
+
+weakly in L2 (ω) ,
+1,
+
+so that, using the uniform boundedness of ε uε , θε , τ ε
+ε→0
+
+we obtain (A.67) (A.68) (A.69) (A.70) (A.71)
+
+lim
+
+1 I1 = ε
+
+√ ˜ LH αβλµ γαβ (uw )γλµ (v) a dξ 1 dξ 2 ,
+ω
+
+1 I2 = ε→0 ε lim lim
+
+√ ˜ LH α3β3 ζα (uw , θw )ζβ (v, η) a dξ 1 dξ 2 ,
+ω
+
+1 I3 = ε→0 ε 1 I4 = ε→0 ε lim
+ε→0
+
+√ ˜ LH 3333 δ(θ w )δ(η) a dξ 1 dξ 2 ,
+ω
+
+√ ˜ LH αβ33 γαβ (uw )δ(η) a dξ 1 dξ 2 ,
+ω
+
+lim
+
+1 I5 = ε
+
+√ ˜ LH αβ33 γαβ (v)δ(θ w ) a dξ 1 dξ 2 ,
+ω
+
+hence,
+ε→0
+
+lim
+
+1 A(uε , θε , τ ε ; v, η, ρ) = Am (uw , θw ; v, η) . ε
+
+(A.72)
+
+On the other hand, recalling (A.57) we have 1 1 A(uε , θ ε , τ ε ; v, η, ρ) = ε ε F · (v + ξ 3 η + (ξ 3 )2 ρ) dV
+b
+
+Bt
+
+≤ Cε2 v, η, ρ
+
++ Cε3 v, η, ρ
+
+0,
+
+(A.73)
+
+and, since (v, η, ρ) is ﬁxed in V, the left-hand side of this inequality tends to zero with ε. Therefore, Am (uw , θw ; v, η) = 0 , ∀ (v, η, ρ) ∈ V , (A.74)
+
+and by density this also holds for any (v, η, ρ) ∈ Vb , hence in particular for (uw , θw , τ w ). From Lemma A.5 (ﬁrst equivalence statement) we then infer that b (uw , θw , τ w ) ∈ V0 .
+
+136
+
+D. Chapelle, A. Ferent & K. J. Bathe
+
+(iii) Characterization of (uw , θw , τ w ). Let us now choose (v, η, ρ) ∈ V0 , namely, γαβ (v) = 0 , Since 1 1 1 1 1 1 A(uε , θε , τ ε ; v, η, ρ) = 3 I1 + 3 I2 + 3 I3 + 3 I4 + 3 I5 , (A.76) 3 ε ε ε ε ε ε we analyze each term in the right-hand side separately. Using (A.75), we have 1 1 I = 2 3 1 ε ε
+L/2 −L/2 ω
+
+ζα (v, η) = 0 ,
+
+δ(η) = 0 .
+
+(A.75)
+
+H αβλµ (γαβ (uε ) + εξχαβ (uε , ρε ) + ε2 (ξ)2 kαβ (θ ε , τ ε )
+
++ ε3 (ξ)3 lαβ (τ ε )) × (εξχλµ (v, η) + ε2 (ξ)2 kλµ (η, ρ) √ + ε3 (ξ)3 lλµ (ρ)) g dξ 1 dξ 2 dξ .
+
+(A.77)
+
+Developing in powers of ε by using (12) and (A.59), we obtain that the only term in 1 is ε 1 ε2
+L/2 −L/2 ω
+
+√ ˜ εξ H αβλµ γαβ (uε )χλµ (v, η) a dξ 1 dξ 2 dξ ,
+
+(A.78)
+
+which vanishes because of the integration on ξ. The other terms in the expansion of ε1 I1 converge to zero, except for 3 L3 12 √ ˜ H αβλµ χαβ (uw , θw )χλµ (v, η) a, dξ 1 dξ 2 .
+ω
+
+(A.79)
+
+To prove this claim, we use the weak convergence of (uε , θε , τ ε ) to (uw , θw , τ w ), the b uniform bound on ε uε , θε , τ ε 1 and the fact that (uw , θw , τ w ) ∈ V0 . For example,
+ε→0
+
+lim
+
+1 ε2 =
+
+L/2
+
+√ ˜ ε2 H αβλµ γαβ (uε )((ξ)2 kλµ (η, ρ)) a dξ 1 dξ 2 dξ
+ω
+
+−L/2
+
+L3 12
+
+√ ˜ H αβλµ γαβ (uw )kλµ (η, ρ) a dξ 1 dξ 2 = 0 ,
+ω
+
+(A.80)
+
+because γαβ (uw ) = 0. Note also that for the same reason, and using the bounded¯ ness of H αβλµ , we have 1 ε→0 ε2 lim
+L/2 −L/2 ω L/2
+
+√ ¯ εξ H αβλµ γαβ (uε )εξχλµ (v, η) a dξ 1 dξ 2 dξ √ ¯ (ξ)2 H αβλµ γαβ (uε )χλµ (v, η) a dξ 1 dξ 2 dξ = 0 . (A.81)
+ω
+
+= lim
+
+ε→0
+
+−L/2
+
+By similar arguments, we obtain
+ε→0
+
+lim
+
+1 L3 I = 3 2 ε 12 lim
+
+√ ˜ 4H α3β3 mα (θ w , τ w )mβ (η, ρ) a dξ 1 dξ 2 ,
+ω
+
+(A.82) (A.83)
+
+1 L3 I3 = ε→0 ε3 12
+
+√ ˜ H 3333 p(τ w )p(ρ) a dξ 1 dξ 2 ,
+ω
+
+3D-shell Elements and Their Underlying Mathematical Model
+
+137
+
+ε→0
+
+lim
+
+L3 1 (I4 + I5 ) = ε3 12
+
+˜ H αβ33 (χαβ (uw , θw )p(ρ)
+ω
+
+√ + χαβ (v, η)p(τ w )) a dξ 1 dξ 2 . Therefore, 1 A(uε , θ ε , τ ε ; v, η, ρ) = Ab (uw , θw , τ w ; v, η, ρ) . ε3 Furthermore, recalling (A.55) and (A.56) we have
+ε→0
+
+(A.84)
+
+lim
+
+(A.85)
+
+1 ε3 with
+
+Bt
+
+F · (v + ξ 3 η + (ξ 3 )2 ρ) dV =
+
+L/2 −L/2
+
+√ R G0 · v a dξ 1 dξ 2 dξ + 3 , ε ω
+
+(A.86)
+
+R ≤ Cε v, η, ρ ε3 We infer
+ε→0
+
+0
+
+.
+
+(A.87)
+
+lim
+
+1 ε3
+
+Bt
+
+F · (v + ξ 3 η + (ξ 3 )2 ρ) dV =
+
+ω
+
+√ LG0 · v a dξ 1 dξ 2 ,
+
+(A.88)
+
+hence Ab (uw , θw , τ w ; v, η, ρ) =
+ω
+
+√ LG0 · v a dξ 1 dξ 2 ,
+
+∀ (v, η, ρ) ∈ V0 .
+
+(A.89)
+
+b By density, this equation also holds for any (v, η, ρ) ∈ V0 and therefore coincides with Eq. (76). From the uniqueness of the solution, it follows that (uw , θw , τ w ) = (ub , θb , τ b ). As this holds for any weakly-converging subsequence (uε , θε , τ ε ), we conclude that the whole sequence converges weakly to (ub , θb , τ b ).
+
+Proof of Proposition 4.3. We divide the proof into two steps. (i) Uniform bound on the solution. We proceed like in the proof of Proposition 4.2, using Eq. (A.53) and Lemma A.5 to obtain A(v, η, ρ; v, η, ρ) ≥ γ(ε v, η
+2 m
+
++ ε3 v, η, ρ
+
+2 b
+
++ ε5 v, η, ρ 2 ) . 1
+
+(A.90)
+
+Recalling that F = G0 + εξB and integrating through the thickness we obtain
+Bt
+
+F · (v + ξ 3 η + (ξ 3 )2 ρ) dV = ε
+
+ω
+
+LG0 · v dS + R , + ε3 v, η, ρ 1 ) .
+
+(A.91)
+
+where the remainder R is bounded as |R| ≤ C(ε2 v, η
+0
+
++ ε3 ρ 0 ) ≤ C(ε2 v, η, ρ
+
+b
+
+(A.92)
+
+Since G0 ∈ (Vm ) , from (A.91) we have
+Bt
+
+F · (v + ξ 3 η + (ξ 3 )2 ρ) dV ≤ Cε( v, η
+
+m
+
++ ε v, η, ρ
+
+b
+
++ ε2 v, η, ρ 1 ) . (A.93)
+
+138
+
+D. Chapelle, A. Ferent & K. J. Bathe
+
+Considering (v, η, ρ) = (uε , θε , τ ε ) in the variational formulation and using (A.90) and (A.93), we infer uε , θ ε
+m
+
++ ε uε , θ ε , τ ε
+
+b
+
++ ε 2 uε , θ ε , τ ε
+
+1
+
+≤C.
+
+(A.94)
+
+Note that this bound was discussed in Remark 4.4. (ii) Weak convergence. Since (uε , θ ε ) is uniformly bounded in Vm and ε2 (uε , θε , τ ε ) t2 is uniformly bounded in H 1 (ω), we infer that the sequence (uε + 12 τ ε , θε ) is also uniformly bounded in Vm . Therefore, we can extract a subsequence (of the latter) converging weakly to a limit (uw , θw ) in Vm . Of course, for this subsequence ε uε , θε , τ ε b and ε2 uε , θε , τ ε 1 are also bounded. We again use the expansion (A.59) in the decomposition (A.60) for an arbitrary (v, η, ρ) ∈ V ⊂ Vm , noting that we now have, due to the weak convergence in Vm ,
+ε→0
+
+lim γ uε +
+
+t2 ε τ 12
+
+= γ(uw ) ,
+
+weakly in L2 (ω) , weakly in L2 (ω) ,
+
+ε→0
+
+lim ζ uε +
+
+t2 ε ε τ ,θ 12
+
+= ζ(uw , θw ) ,
+
+ε→0
+
+lim δ(θ ε ) = δ(θw ) ,
+
+weakly in L2 (ω) .
+1,
+
+Taking into account the uniform boundedness of ε uε , θ ε , τ ε b and ε2 uε , θε , τ ε we obtain √ 1 ˜ LH αβλµ γαβ (uw )γλµ (v) a dξ 1 dξ 2 , lim I1 = ε→0 ε ω
+ε→0
+
+lim
+
+1 I2 = ε
+ε→0
+
+√ ˜ 4LH α3β3 ζα (uw , θw )ζβ (v, η) a dξ 1 dξ 2 ,
+ω
+
+lim
+
+1 I3 = ε
+
+√ ˜ LH 3333 δ(θ w )δ(η) a dξ 1 dξ 2 ,
+ω
+
+ε→0
+
+lim
+
+1 I4 = ε 1 I5 = ε
+
+√ ˜ LH αβ33 γαβ (uw )δ(η) a dξ 1 dξ 2 ,
+ω
+
+ε→0
+
+lim
+
+√ ˜ LH αβ33 γαβ (v)δ(θ w ) a dξ 1 dξ 2 .
+ω
+
+Hence, for any (v, η, ρ) ﬁxed in V, we obtain
+ε→0
+
+lim
+
+1 A(uε , θε , τ ε ; v, η, ρ) = Am (uw , θw ; v, η) . ε
+
+(A.95)
+
+On the other hand, recalling (A.91) we have 1 1 A(uε , θε , τ ε ; v, η, ρ) = ε ε =
+Bt
+
+F · (v + ξ 3 η + (ξ 3 )2 ρ) dV
+
+(A.96) (A.97)
+
+√ R LG0 v a dξ 1 dξ 2 + , ε ω
+
+3D-shell Elements and Their Underlying Mathematical Model
+
+139
+
+where R satisﬁes (A.92), hence R/ε converges to zero as ε → 0 since (v, η, ρ) is ﬁxed. We then infer √ Am (uw , θw ; v, η) = LG0 v a dξ 1 dξ 2 , ∀ (v, η) ∈ V . (A.98)
+ω
+
+By density, this holds for any (v, η) ∈ Vm . Since (81) has a unique solution, we have that (uw , θ w ) = (um , θm ). Finally, as this identity holds for any weakly-converging t2 subsequence we conclude that the whole sequence (uε + 12 τ ε , θ ε ) converges weakly to (um , θm ) in Vm . We now turn to the proof of Proposition 5.1. We ﬁrst focus on consistency error estimates which will be used in a stability/consistency argument to establish the a priori error estimate. Lemma A.6. We have inf u − v, θ − η, τ − ρ
+p+1 1
+
+(v,η,ρ)∈Vh
+
++
+
+sup
+(w,ϑ,ς)∈Vh
+
+|(A − Ah )(v, η, ρ; w, ϑ, ς)| w, ϑ, ς 1 (A.99)
+
+≤ Chp u, θ, τ and
+
+sup
+(w,ϑ,ς)∈Vh
+
+|(F − Fh )|(w, ϑ, ς)| ≤ Chp . w, ϑ, ς 1
+
+(A.100)
+
+Proof. Noting that the integrals in Ah and Fh are computed over the same domain — namely, Bt — as in A and F , we need to analyze the quantities which are modiﬁed by using the approximate geometry. We have ˜ Ah (v, η, ρ; w, ϑ, ς) = A(3D) (V; W) =
+Bt
+
+√ H ijkl eij (V)ekl (W) g dξ 1 dξ 2 dξ 3 , √
+
+(A.101) g are com-
+
+where the constitutive tensor H ijkl , the strains eij and the Jacobian puted using the approximate quantities
+h gi =
+
+∂Φh , ∂ξ i
+
+(A.102)
+
+instead of gi . Since the geometry is smooth, we infer from (95) that
+h gi − gi L∞ (ω)
+
+≤ Chp ,
+
+hence all errors introduced by using the approximate forms of H ijkl , eij are in O(hp ), and therefore |(A − Ah )(v, η, ρ; w, ϑ, ς)| ≤ Chp v, η, ρ
+1
+
+(A.103) √ and g (A.104)
+
+w, ϑ, ς
+
+1
+
+.
+
+140
+
+D. Chapelle, A. Ferent & K. J. Bathe
+
+Choosing (v, η, ρ) = (I(u), I(θ), I(τ )) and using the standard continuity inequality I(u), I(θ), I(τ )
+1
+
+≤ C u, θ, τ
+
+1,
+
+(A.105)
+
+the conclusion immediately follows from the interpolation estimate (100). We use a similar reasoning to prove the estimate (A.100). Proof of Proposition 5.1. We ﬁrst prove the coercivity of the bilinear form Ah over Vh . Since A is V-coercive, (A.104) indeed implies, for h suﬃciently small, Ah (v, η, ρ; v, η, ρ) ≥ C v, η, ρ
+2 1
+
+,
+
+∀ (v, η, ρ) ∈ Vh .
+
+(A.106)
+
+Likewise, (A.100) implies that Fh is bounded, hence the discrete problem (97) has a unique solution (uh , θh , τ h ). We now use a (classical) stability/consistency argument. Considering an arbitrary (v, η, ρ) ∈ Vh , we have uh − v, θ h − η, τ h − ρ
+2 1
+
+≤ CAh (uh − v, θ h − η, τ h − ρ; uh − v, θ h − η, τ h − ρ) = C Fh (uh − v, θ h − η, τ h − ρ + (A − Ah )(v, η, ρ; uh − v, θ h − η, τ h − ρ) − A(v, η, ρ; uh − v, η h − η, τ h − ρ) = C A(u − v, θ − η, τ − ρ; uh − v, θh − η, τ h − ρ) + (Fh − F )(uh − v, θ h − η, τ h − ρ) + (A − Ah )(v, η, ρ; uh − v, θ h − η, τ h − ρ) , recalling (50) and (97). Using the continuity of A as in A(u − v, θ − η, θ − ρ; uh − v, θh − η, τ h − ρ) ≤ C u − v, θ − η, τ − ρ we then obtain uh − v, θ h − η, τ h − ρ ≤C +
+1 1
+
+(A.107)
+
+uh − v, θ h − η, τ h − ρ
+
+1,
+
+(A.108)
+
+u − v, θ − η, τ − ρ sup
+(w,ϑ,ς)∈Vh
+
+1
+
++
+
+sup
+(w,ϑ,ς)∈Vh
+
+|(A − Ah )(v, η, ρ; w, ϑ, ς)| w, ϑ, ς 1 (A.109)
+
+|(F − Fh )(w, ϑ, ς)| w, ϑ, ς 1
+
+.
+
+The ﬁnal estimate (101) follows by using a triangular inequality and the consistency error estimates (A.99) and (A.100).
+
+3D-shell Elements and Their Underlying Mathematical Model
+
+141
+
+Acknowledgment The authors wish to thank Professor Patrick Le Tallec (Ecole Polytechnique, France) for several stimulating discussions related to this work.
+
+References
+1. C. Baiocchi and C. Lovadina, A shell classiﬁcation by interpolation, Math. Models Methods Appl. Sci. 12 (2002) 1359–1380. 2. K. J. Bathe, Finite Element Procedures (Prentice Hall, 1996). 3. K. J. Bathe, The inf-sup condition and its evaluation for mixed ﬁnite element methods, Comput. Structures 79 (2001) 243–252; 971. 4. K. J. Bathe, A. Iosilevich and D. Chapelle, An evaluation of the MITC shell elements, Comput. Structures 75 (2000) 1–30. 5. K. J. Bathe, P. S. Lee and J. F. Hiller, Towards improving the MITC9 shell element, Comput. Structures 81 (2003) 477–489. 6. M. Bernadou, Finite Element Methods for Thin Shell Problems (John Wiley & Sons, 1996). 7. M. Bischoﬀ and E. Ramm, Shear deformable shell elements for large strains and rotations, Int. J. Numer. Methods Engrg. 40 (1997) 4427–4449. 8. M. Bischoﬀ and E. Ramm, On the physical signiﬁcance of higher order kinematic and static variables in a three-dimensional shell formulation, Int. J. Solids Structures 37 (2000) 6933–6960. 9. F. Brezzi and M. Fortin, Mixed and Hybrid Finite Element Methods (Springer-Verlag, 1991). 10. D. Chapelle and K. J. Bathe, Fundamental considerations for the ﬁnite element analysis of shell structures, Comput. Structures 66 (1998) 19–36; 711–712. 11. D. Chapelle and K. J. Bathe, The mathematical shell model underlying general shell elements, Int. J. Numer. Methods Engrg. 48 (2000) 289–313. 12. D. Chapelle and K. J. Bathe, Optimal consistency errors for general shell elements, C. R. Acad. Sci. Paris S´rie I (2001) 771–776, t.332. e 13. D. Chapelle and K. J. Bathe, The Finite Element Analysis of Shells — Fundamentals (Springer-Verlag, 2003). 14. D. Chapelle, A. Ferent and P. Le Tallec, The treatment of “pinching locking” in 3D-shell elements, Math. Model. Numer. Anal. 37 (2003) 143–158. 15. P. G. Ciarlet, The Finite Element Method for Elliptic Problems (North-Holland, 1978). 16. P. G. Ciarlet, Mathematical Elasticity — Volume III : Theory of Shells (North-Holland, 2000). 17. M. C. Delfour, Intrinsic P (2, 1) thin shell model and Naghdi’s models without a priori assumption on the stress tensor, in Optimal Control of Partial Diﬀerential Equations, eds. K. H. Hoﬀmann, G. Leugering and F. Tr¨ltzsch (Birkha¨ser, 1999), pp. 99–113. o u 18. M. C. Delfour, Tangential diﬀerential calculus and functional analysis on a C 1,1 submanifold, in Diﬀerential-Geometric Methods in the Control of Partial Diﬀerential Equations, eds. R. Gulliver, W. Littman and R. Triggiani (AMS, 2000), pp. 83–115. 19. A. E. Green and W. Zerna, Theoretical Elasticity (Clarendon Press, 1968), 2nd edition. 20. V. Havu and J. Pitk¨ranta, Analysis of a bilinear ﬁnite element for shallow shells. I: a Approximation of inextensional deformations, Math. Comput. 71 (2002) 923–943. 21. J. F. Hiller and K. J. Bathe, Measuring convergence of mixed ﬁnite element discretizations: An application to shell structures, Comput. Structures 81 (2003) 639–654.
+
+142
+
+D. Chapelle, A. Ferent & K. J. Bathe
+
+22. J. L. Lions, Perturbations Singuli`res dans les Probl`mes aux Limites et en Contrˆle e e o Optimal (Springer-Verlag, 1973). 23. M. Malinen, On reﬁned 2D shell models taking into account transverse deformations, submitted to Comput. Structures. 24. M. Malinen, On the classical shell model underlying bilinear degenerated shell ﬁnite elements, Int. J. Numer. Methods Engrg. 52 (2001) 389–416. 25. J. Pitk¨ranta, Y. Leino, O. Ovaskainen and J. Piila, Shell deformation states and a the ﬁnite element method: A benchmark study of cylindrical shells, Comput. Methods Appl. Mech. Engrg. 128 (1995) 81–121. 26. J. Sanchez-Hubert and E. Sanchez-Palencia, Coques Elastiques Minces — Propri´t´s ee Asymptotiques (Masson, 1997). 27. E. Sanchez-Palencia, Statique et dynamique des coques minces. II. Cas de ﬂexion pure inhib´e — Approximation membranaire, C. R. Acad. Sci. Paris S´rie I 309 (1989) e e 531–537. 28. C. Sansour, A theory and ﬁnite element formulation of shells at ﬁnite deformations involving thickness change: circumventing the use of a rotation tensor, Arch. Appl. Mech. 65 (1995) 194–216.
+

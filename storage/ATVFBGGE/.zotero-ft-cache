@@ -1,0 +1,310 @@
+Computational Mechanics 33 (2003) 52–60 Ó Springer-Verlag 2003 DOI 10.1007/s00466-003-0499-z
+
+Refined triangular discrete Mindlin flat shell elements
+G. Zengjie, C. Wanji
+
+52 Abstract In this paper ﬂat shell elements are formed by the assemblage of discrete Mindlin plate elements RDKTM and either the constant strain membrane element CST or the Allman’s membrane element with drilling degrees of freedom LST. The element RDKTM is a robust Mindlin plate element, which can perform uniformly thick and thin plate bending analysis. It also passes the patch test for thin plate bending, and its convergence for very thin plates can be ensured theoretically. The singularity of the stiffness matrix and membrane locking are studied for the present elements. Numerical examples are presented to show that the present models indeed possess properties of simple formulations, high accuracy for thin and thick shells, and it is free from shear locking for thin plate/shell analysis. Keywords Mindlin plate theory, Shear locking, Drilling degrees of freedom, Displacement functions of a Timoshenko beam known that for Mindlin plates that only C0 continuity is required and that the difﬁculties of C1 continuity for thin plate elements can be avoided. Moreover both thin plate and thick plate analysis can be integrated in the element model. Initially, Mindlin plate elements use strain-displacement relations to obtain bending and transverse shear strain. In this case, bending energy is written in terms of nodal rotations only, whereas shear strain energy is given in terms of both nodal rotations and deﬂections. When the plate becomes thin, transverse shear effects are reduced and nodal deﬂections become associated only with the vanishing shear energy. This is a difﬁcult situation to uphold and shear locking is soon observed. In order to avoid this, reduced integration [1, 2] and selective integration [3, 4] technique are widely used. In the 3-noded triangular element, a single Gauss point integration is used for calculating the shear strain energy. However, it is found that such elements have low accuracy, and furthermore, they very often cannot pass the patch test for thin plates. In the re-constituting shear strain technique, the shear-strain approximation along with the edgeprojection (or discrete Mindlin technique) has been used to derive 3-noded triangular Mindlin plate elements. A number of efﬁcient 9-DOF triangular Mindlin plate elements based on the discrete constraint and the equilibrium conditions can be produced [5–7]. These elements can converge towards the discrete Kirchhoff plate bending elements when the plate thickness is very small. Recently, a reﬁned nonconforming element method has been developed by Chen and Cheung. Based on the Mindlin plate theory, a new triangular plate element, RDKTM, with the re-constitution of the shear strain has been established [8, 9]. Using this method and the displacement function of the Timoshenko’s beam, formulation of new triangular thin/thick plate elements can be derived. It can be shown that the element RDKTM indeed possesses properties of high accuracy for thin and thick plates, is capable of passing the patch test required for Kirchhoff thin plate elements, and does not exhibit extra zero energy modes. In addition, RDKTM is free of locking for very thin plate analysis (where the thickness/span ratio is less than 10À30 ) and its convergence can be ensured theoretically. It is well known that when all elements connected to a node are coplanar, zero stiffness appears in the direction normal to the plane rotation (hz ), This causes the assembly stiffness matrix at a global level to be singular [10]. In order to avoid this singularity, Zienkiewicz [10] has suggested the addition of an 3 Â 3 artiﬁcial rotational stiffness matrix to all elements in the assembly. This matrix also
+
+1 Introduction In the formulations of shell elements there are three distinct choices: (1) The ﬂat shell element, that is obtained by combining a membrane element for plane elasticity and a bending element for ﬂat plates; (2) The curved shell element, that is formulated according to shell theory; and (3) The degenerated shell element, that is formed based on the three dimensional solid theory. Among those formulations, the ﬂat shell element is considered simplest and avoids complex shell equations. Therefore, the application of ﬂat shell elements is widespread in engineering. Triangular ﬂat shell elements may be used to represent an arbitrarily shaped shell as a faceted surface for curved shell structures. In this case, convergence to the exact geometry is obtained when the mesh is reﬁned. Usually, triangular ﬂat shell elements consist of triangular constant strain membrane elements and triangular bending plate elements. To study this type of shell element, the ﬁrst step is the choice of an applicable plate element and an applicable membrane element. However, shear locking has been a major problem for the Mindlin plate element. It is well
+Received: 18 January 2003 / Accepted: 5 August 2003 Published online: 20 November 2003
+
+G. Zengjie, C. Wanji (&) State Key Laboratory of Structural Analysis for Industrial Equipments, Dalian University of Technology, Dalian, P. R. China
+
+appears in a more recent formulation [11]. This problem may be avoided by using rotational ﬁctitious stiffness or by introducing drilling degrees of freedom in the formulation of the membrane element. Earlier attempts to develop membrane elements with drilling degrees of freedom were not successful [12]. An important advance was made by Allman [13] who proposed a 9-DOF compatible triangular element with quadratic varying displacement ﬁelds. This element is known to have a spurious zero energy mode, while its vertex rotations are not true rotations in the sense of plane elasticity. Another problem with this method is that triangular elements with drilling degrees of freedom encounter poor response for membrane action [14–16], especially in spherical shells and twisted beam structures [17]. Recently, an approach for adding true drilling rotations to the triangular thin ﬂat shell element was studied by Provias and Kattis [18]. Triangular, discrete Reissner-Mindlin plate and shell elements were studied by Sydenstricker and Landau [19], however the spherical shell and twisted beam problem are not considered. In this paper, reﬁned 15/18-DOF triangular discrete Mindlin ﬂat shell elements are formed by the assembly of triangular discrete Mindlin plate elements, RDKTM, and triangular constant strain membrane elements, CST/Allman’s triangular membrane element with drilling rotations LST.
+
+~ ~ ~ ~ N ¼ ½N1 N2 N3  and " # Pi Pxi Pyi ~ Ni ¼ ði ¼ 1; 2; 3Þ : Qi Qxi Qyi ~ For shape function N1 , P1 ¼ 1:51 ðl12 m12 N4 =S12 À l31 m31 N6 =S31 Þ Px1 ¼ À0:75ðl12 m2 N4 þ l31 m2 N6 Þ þ L1 12 31 Py1 ¼ 0:75ðl12 l12 m12 N4 þ l31 l31 m31 N6 Þ Q1 ¼ 1:5ðÀl12 l12 N4 =S12 þ l31 l31 N6 =S31 Þ Qx1 ¼ 0:75ðl12 l12 m12 N4 þ l31 l31 m31 N6 Þ Qy1 ¼ À0:75ðl12 l2 N4 þ l31 l2 N6 Þ þ L1 12 31
+
+ð3Þ
+
+ð4Þ
+
+53
+
+where, lij ¼ 1=ð1 þ 12kij Þ, kij ¼ t 2 =5S2 ð1 À mÞ, Sij is the ij i À j boundary length, q ¼ ½ w1 hx1 hy1 w2 hx2 hy2 w3 hx3 hy3 T , and Ni is the shape function of the 6-node triangular element in area coordinates (Li ), and
+
+2 Bending strain mode of element RDKTM [9] 2.1 Timoshenko’s beam function The Timoshenko’s beam function can be used to derive more efﬁcient Mindlin plate elements, whichcan be expressed as follows, w ¼ ðLi þ le Li Lj ðLi À Lj ÞÞwi þ ðLi Lj þ le Li Lj ðLi À Lj ÞÞL=2hi þ ðLj þ le Li Lj ðLj À Li ÞÞwj þ ðÀLi Lj þ le Li Lj ðLi À Lj ÞÞL=2hj h ¼ Àð6Li Lj =LÞle wi þ Li ð1 À 3le Lj Þhi þ ð6Li Lj =LÞle wj þ Lj ð1 À 3le Li Þhj ð1Þ
+
+Ni ¼ ð2Li À 1ÞLi ði ¼ 1; 2; 3Þ ð5Þ Nk ¼ 4Li Lj ðk ¼ 4; 5; 6; ij ¼ 12; 23; 31Þ ~ Other shape functions Ni ði ¼ 2; 3Þ can be obtained by cyclic permutation. It is obvious that element displacements in Eq. (4) will become the displacements of the discrete Kirchhoff plate element DKT, because of kij ! 0 when t=Sij ! 0. 2.3 The bending strain and the bending part of the stiffness matrix of element RDKTM The bending strain of the element can be written as 3 2 oh
+x
+
+6 6 e¼6 4
+
+ox ohy oy ohx oy
+
+þ
+
+ohy ox
+
+7 7 7 5
+
+ð6Þ
+
+The bending strain  can be expressed as
+
+e ¼ Bb q
+
+ð7Þ
+
+The part of bending of the element stiffness matrix can be where Li ¼ 1 À x=L; Lj ¼ x=L; le ¼ 1=ð1 þ 12ke Þ; ke ¼ written as follows, Z h2 =5ð1 À m2 ÞL2 ; L is the length of the strip, h is the height of the strip, m is Poisson’s ratio. Ke ¼ BT Db Bb dx dy ð8Þ b b
+
+2.2 Displacement function of the element RDKTM [9] By eliminating the surplus parameters at the mid-side nodes as the procedure of the element DKT, the explicit expression of the rotations hx and hy of the element RDKTM for describing bending strains of the element can be obtained as follows, & hx hy ' ~ ¼ Nq ð2Þ
+
+Ve
+
+where D2 is b 1 " Db ¼ D b 4 m 0
+
+the elasticity matrix, and 3 m 0 5, Db ¼ Et3 2 : " 1 0 12ð1Àm Þ 0 ð1 À mÞ=2
+
+where,
+
+3 Shear strain mode of element RDKTM [9] The shear strain can be expressed as follows, ( ) ( ) hx À ow cx ox ¼ c¼ cy hy À ow oy
+
+ð9Þ
+
+&
+
+cx cy
+
+' ¼
+
+L1 0
+
+0 L1
+
+L2 0
+
+0 L2
+
+L3 0
+
+0 x2 L3 > cy2 > > >c > > x3 > > > > > > : ; cy3
+
+8 9 > cx1 > > > > > > > > !> cy1 > <c > =
+
+& ð10Þ
+
+cx cy
+
+'
+
+8 9 < cs4 = ~ ¼ N cs5 : ; cs6 ~ " l3 L1 À l2 L2 ~ " m3 L1 À m2 L2 ^ ~ l1 L2 À l3 L3 ^ ~ m1 L 2 À m3 L 3 " ^ l2 L3 À l1 L1 " ^ m2 L3 À m1 L1 !
+
+and
+
+~ N¼
+
+54
+
+Timoshenko’s beam function can be used to deﬁne the deﬂection on the element boundary. The interpolation of ~ the displacements ws on the i À j boundary (see Fig. 1(b)) by using the parameters of the i and j nodes which are wi ; hsi and wj ; hsj can be given as
+
+ð16Þ
+where ~ ^ " " ~ li ¼ li =A1 , li ¼ li =A2 , li ¼ li =A3 , mi ¼ mi =A1 , mi ¼ mi =A2 , ^ mi ¼ mi =A3 ði ¼ 12; 23; 31Þ, A1 ¼ Àl31 m12 þ l12 m31 , A2 ¼ Àl12 m23 þ l23 m12 , A3 ¼ Àl23 m31 þ l31 m23 . csk ðk ¼ 4; 5; 6Þ are the natural shear strains at mid-side nodes 4, 5, 6 of the element (see Fig.1 (a)). This means the shear strains can be expressed as follows,
+
+~ ws ¼ ðLi þ lij Li Lj ðLi À Lj ÞÞwi þ ðLi Lj þ lij Li Lj ðLi À Lj ÞÞSij =2hsi þ ðLj þ lij Li Lj ðLj À Li ÞÞwj þ ðÀLi Lj þ lij Li Lj ðLi À Lj ÞÞSij =2hsj Þ
+and thus giving,
+
+ð11Þ
+
+o~ s w 1 ¼ ðÀ1 þ lij ð1 À 6Li Lj ÞÞwi os Sij þ 0:5ðLi À Lj þ lij ð1 À 6Li Lj ÞÞhSi 1 þ ð1 À lij ð1 À 6Li Lj ÞÞwj Sij
+
+8 9 8 ow 9 > cs4 > > hs4 À oSs4 > < = < = cs5 ¼ hs5 À ows5 oS > > > > : ; : ; cs6 hs6 À ows6
+oS
+
+ð17Þ
+
+Substituting Li ¼ Lj ¼ 0:5 into Eq. (13), the following is determined for node k (see Fig. 1(b))
+
+owsk ¼ ð1 À lij Þwi =Sij þ 0:5ð1 À lij ÞhSi oS À ð1 À lij Þwj =Sij þ 0:5ð1 À lij ÞhSj ð18Þ þ 0:5ðÀLi þ Lj þ lij ð1 À 6Li Lj ÞÞhSj ð12Þ À Á2 It is obvious that cx ; cy ! 0 when t=Sij ! 0; lij ¼ 1. The ~ It is clear that the displacements ~s À ows =oS on the h element RDTMK is free of shear locking for thin plate boundary will always be constant because of analysis and its convergence can be ensured theoretically. Actually, the solution of element RDKTM is the same as ~ ows ~s À ¼ ð1 À lij Þwi =Sij þ 0:5ð1 À lij ÞhSi h element DKT when ðt=Sij Þ < 10À10 . oS & ' Â Ã hx À ð1 À lij Þwj =Sij þ 0:5ð1 À lij ÞhSj ð13Þ From hs ¼ Àmij lij , it can be found that, h 8 9 y Therefore the shear strains at node i can be expressed by > wi > > > >h > the constant shear strains, leading to the following > xi > > > > > expressions for node 1 (see Fig. 1(a)), owsk ~ < hyi = & ' !& ' ¼ Tk hsk À ð19Þ cx1 Àm12 l12 cs4 > wj > oS > > ¼ ð14Þ > > > > cy1 cs6 Àm31 l31 > hxj > > > : ; hyj and & ' !& ' Finally, the mid-side node parameters (hsk À owsk =os) of cx1 1 l31 Àl12 cs4 ¼ : the element RDKTM can be expressed as cy1 cs6 l12 m31 À l31 m12 m31 Àm12 ow ð15Þ hsk À sk ¼ Bsij q ðk ¼ 4; 5; 6; ij ¼ 12; 23; 31Þ ð20Þ os Similarly, the remaining nodal shear strains cxi and The shear strains of the element RDKTM can be obtained cyi ði ¼ 2; 3Þ can be obtained by cyclic permutation. as follows: Finally the shear strains can be obtained as follows, 8 9 > hs4 À ows4 > ( ) > oS > ow < = hx À ox ~ ~~ ¼ N hs5 À ows5 ¼ NBs q ¼ Bs q ð21Þ c¼ oS > > hy À ow > > oy : ; hs6 À ows6 oS hsk À
+where
+
+Fig. 1. Triangular discrete Mindlin plate element
+
+3 Bs12 ~ Bs ¼ 4 Bs23 5 Bs31
+
+2
+
+ð22Þ
+
+It should be noted that according to the Timoshenko beam function, the shear strain cs on the element boundary is constant and can be denoted as cs4 ; cs5 and cs6 , therefore cxi and cyi can be denoted at the mi-side node i. The element shear strains, cx and cy can be found by using cs4 , cs5 and cs6 . The resulting shear strains cx and cy of the element are linearly distributed as their presumed values are distributed linearly. The patch test is presented to indicate that cx and cy can exactly express zero constant shear strain, and are free of shear locking. The shear part of the stiffness matrix of the element RDKTM can be written as follows,
+
+5 18-DOF triangular flat shell elements with fictitious drilling rotation RDKTM18 (P) The ﬁctitious drilling DOF is adopted to increase the order of the displacement function of the membrane element. The displacements u and v with drilling DOF have been given by Allman [13] as follows, u¼
+3 X i¼1
+
+Li ui þ p1 hz1 þ p2 hz2 þ p3 hz3 ð30Þ Li vi þ q1 hz1 þ q2 hz2 þ q3 hz3
+55
+
+Ke s
+
+¼
+
+Z
+
+v¼
+
+3 X i¼1
+
+BT Ds Bs s
+
+dx dy
+
+ð23Þ
+
+! "s 1 0 , where Ds is the elasticity matrix, and Ds ¼ D 0 1 " Ds ¼ 5Et=12ð1 þ mÞ. The stiffness matrix of element RDKTM can be written as follows,
+Ve
+
+Ke ¼ Ke þ Ke p b s
+
+ð24Þ
+
+where Li ði ¼ 1; 2; 3Þ are the area coordinates of the element, ui , vi are the nodal displacement parameters, and hzi are the nodal rotations about the z-axis in the local coordinates of the plate element. hzi are so-called pseudo drilling degrees of freedom. The pi , qi ði ¼ 1; 2; 3Þ, using i ¼ 1 as an example, is expressed as follows
+
+p1 ¼ ðb3 L2 À b2 L3 ÞL1 =2 4 Triangular flat shell elements RDKTM15 The stiffness matrix of a ﬂat shell element in a local coordinate system is obtained by simple assembling of a membrane element and plate element stiffness matrix, Ke ¼ Ke þ Ke m p ð25Þ
+In this case, the nodal displacement vector of the shell element is organized as
+
+q1 ¼ ðc3 L2 À c2 L3 ÞL1 =2
+and
+
+ð31Þ
+
+b1 ¼ y2 À y3 c1 ¼ x3 À x2
+
+ð32Þ
+
+By cycling the parameters 1 ! 2 ! 3 ! 1 the other parameters, pi ; qi ; bi ; ci ði ¼ 2; 3Þ can be obtained.
+
+where Pe is the membrane strain energy of element; Pe m p is the bending strain energy of element; m is Poisson’s where hzi ði ¼ 1; 2; 3Þ is the drilling DOF at the node of the ratio; b is a penalty factor ðb > 0Þ, and b ¼ 10À4 for this ﬂat element, A is the area of the element, E is the elastic paper; L is the operator " modulus, a is a small constant as a ¼ t Â 10À4 , and t is h i thickness of the element. Equation (28) is a penalty func- L ¼ 1 À o o " ð34Þ oy ox 2 tion and provides a ﬁctitious stiffness for hz .
+
+6 18-DOF triangular flat shell elements where am is the membrane nodal displacement vector, and with true drilling rotation RDKTM18(T) am ¼ ½ u v T ; ap is the plate nodal displacement vector, Allman’s rotation is not identical with the rotation variable deﬁned in the theory of elasticity, and it may and ap ¼ ½ w hx hy T . have an effect on the precision by showing over-stiffThe above formulation of the ﬂat shell elements will ness. Moreover, when hzi takes the same non-zero lead to singularities if all elements are coplanar. Such values, extra zero energy modes are produced. To solve singularities can be suppressed by adding a stabilization stiffness matrix Ke to each element stiffness matrix in the this problem, the rotation equations of the theory of h elasticity are introduced as constraint conditions and local coordinates Ke [10]. the least square method is applied in the functional so Ke ¼ Ke þ Ke þ Ke ð27Þ that rotation equations are satisﬁed by assigning m p h weights and averages. The stabilization matrix is given by For 18-DOF triangular ﬂat shell elements with drilling 8 9 9 2 38 1 À0:5 À0:5 > hz1 > rotations, the functional for an element with true drilling > Mz1 > < < = = 6 7 Mz2 ¼ aEA4 À0:5 1 À0:5 5 hz2 ð28Þ rotation can be written as Z > > > > : : ; ; Et e e e " " Mz3 hz3 À0:5 À0:5 1 P ¼ Pm þ Pp þ b ðhz À LuÞT ðhz À LuÞ dV 2ð1 À m2 Þ 3 2 Ve 1 À0:5 À0:5 7 6 e ð33Þ ð29Þ 1 À0:5 5 Kh ¼ aEA4 À0:5 a ¼ am þ ap ð26Þ À0:5 À0:5 1
+
+The drilling rotations hz are linearly interpolated as
+
+hz ¼
+
+3 X i¼1
+
+Li hzi ¼ Fh q
+
+ð35Þ 8 9 > u1 > > > > > > > > > !> v1 > < = 0 u2 ¼ Fq L3 > v2 > > > > > > u3 > > > > > : ; v3
+
+A full three-point quadrature is used to integrate the element stiffness matrix of the present elements RDKTM15, RDKTM18 (T) and RDKTM18 (P).
+
+and the displacements u are linearly interpolated as
+
+56
+
+& ' L1 u ¼ u¼ v 0
+
+DKT15: the 15-DOF discrete Kirchhoff triangular ﬂat shell element that is formed by the discrete Kirchhoff triangular plate element, DKT proposed by Batoz and Tahar [20], and the constant strain membrane element CST. ð36Þ DKT18 (P): the 18-DOF discrete Kirchhoff triangular ﬂat shell element that is formed by the DKT15 and trianSubstituting Eqs. (35) and (36) into Eq. (33), the stiffness gular membrane elements proposed by Allman [13, 21]. matrix of the element in the local coordinates is obtained DKT18 (T) the 18-DOF discrete Kirchhoff triangular ﬂat as shell element that is formed by the DKT15 and trianKe ¼ Ke þ Ke þ Ke ð37Þ m p h gular membrane elements with true drilling rotations. The stiffness matrix Ke can be written as h RDKTM15: reﬁned 15-DOF discrete triangular Mindlin ﬂat shell element, in which Timoshenko’s beam function is Ve introduced, the re-constituting shear strain energy technique has been used, the stabilization stiffness where matrix is added in order to suppress singularities of " Bd ¼ Fh À LF : ð39Þ structural stiffness matrix. In the global coordinate system (XYZ), for ease of trans- RDKTM18 (P): reﬁned 18-DOF discrete triangular Mindlin ﬂat shell element, in which Timoshenko’s beam funcformation of the nodal displacement parameters of the ﬂat tion is introduced, the re-constituting shear strain shell element, hy0 ¼ Àhx will be used, and if hx0 ¼ hy , then e Ãe energy technique has been used. The formulation of the the element stiffness matrix K becomes K . membrane element is carried out with ﬁctitious drilling The transformation of the nodal displacements and rotations. rotations at node i are denoted by 8 9 8 Ã9 8 9 8 9 RDKTM18 (T): reﬁned 18-DOF discrete triangular Mindlin <U= <u = < hx0 = < hX = ﬂat shell element, in which Timoshenko’s beam funcvÃ ¼ Ti V and hy0 ¼ Ti hY tion is introduced, the re-constituting shear strain en: ; : Ã; : ; : ; ergy technique has been used. The formulation of the W i w i hz0 i hZ i
+
+0 L1
+
+L2 0
+
+0 L2
+
+L3 0
+
+7 Numerical examples In this section several existing triangular ﬂat shell elements are selected for comparison with the proposed elements. These are
+
+Ke ¼ b h
+
+Et ð1 À v2 Þ
+
+Z
+
+The proposed elements are
+
+BT Bd dV d
+
+ð38Þ
+
+ð40Þ
+where Ti ði ¼ 1; 2; 3Þ is the transformation matrix. " Finally the element stiffness matrix Ke for the nonconforming elements RDKTM15 or RDKTM18 (P) or RDKTM18 (T) in the global coordinates can be written as,
+
+" " " Ke ¼ TT KÃe T
+where
+
+ð41Þ 3
+
+2
+
+6 6 6 " T¼6 6 6 4
+
+T1 T1 T2 T2 T3 T3
+
+7 7 7 7 7 7 5
+
+Fig. 2. Mesh for the patch test
+
+ð42Þ
+
+According to Eq. (41) the vector of the nodal displacement parameters in the global coordinates Qe can be expressed as
+
+Qe ¼ ½U1 V1 W1 hX1 hY1 hZ1 U2 V2 W2 hX2 hY2 hZ2 U3 V3 W3 hX3 hY3 hZ3 T : ð43Þ
+Fig. 3. A whole clamped plate divided by irregular meshes (160 elements)
+
+Table 1. Central deﬂection wc of a whole plate divided into an irregular mesh (160 elements) with different thickness/span ratios (clamped, uniform load) h/L DKT15 DKT18 RDKTM15 RDKTM18 EXACT 0.6 130.6 130.6 886.4 886.4 0.4 130.6 130.6 471.5 471.5 0.25 130.6 130.6 267.8 267.8 0.2 130.6 130.6 220.2 220.2 0.05 130.6 130.6 136.9 136.9 10À2 130.6 130.6 130.9 130.9 10À5 130.6 130.6 130.6 130.6 126.5 10À7 130.6 130.6 130.6 130.6 126.5 10À10 130.4 130.4 130.6 130.6 126.5 10À15 130.6 130.6 130.6 130.6 126.5 10À30 130.6 130.6 130.6 130.6 126.5
+
+membrane element is carried out with true drilling rotations. Numerical examples (1) Patch test for the plate bending and plane problem The special cases of the patch test involving a plate bending patch test and a plane membrane patch test are used to start. The patch test for plate bending is adopted for a plate with an arbitrary mesh as shown in Fig. 2, and in which the boundary deﬂection is given to be w ¼ 1=2ð1 þ x þ 2y þ x2 þ xy þ y2 Þ with hx ¼ 1=2ð2x þ yÞ, hy ¼ 1=2ðx þ 2yÞ. The numerical results show that the elements RDKTM15, RDKTM18, with full integration, all passed the aforementioned special patch Fig. 4. Pinched cylindrical shell with end diaphragms or with free test. The patch test is presented to indicate that cx and cy can edges (2 Â 2 meshes) exactly express the zero constant shear strain and are free
+Table 2. Central deﬂection (cylindrical shell with end diaphragms, central point load) Element DKT15 RDKTM15 DKT18(T) DKT18(P) RDKTM18(T) RDKTM18(P) EXACT Table 3. Central deﬂection (cylindrical shell with thickness = 0.094 and free edges, central point load) 2Â2 À0:000118 À0:000118 À0:000118 À0:000128 À0:000118 À0:000128 4Â4 À0:000879 À0:000894 À0:000898 À0:000954 À0:000899 À0:000955 6Â6 À0:001352 À0:001353 À0:001355 À0:001388 À0:001358 À0:001391 À0:001825 8Â8 À0:001570 À0:001573 À0:001572 À0:001582 À0:001577 À0:001589 10 Â 10 À0:001677 À0:001680 À0:001677 À0:001677 À0:001686 À0:001686 12 Â 12 À0:001727 À0:001733 À0:001726 À0:001721 À0:001736 À0:001740 24 Â 24 À0:001802 À0:001813 À0:001818 À0:001793 À0:001818 À0:001809 36 Â 36 À0:001817 À0:001830 À0:001833 À0:001807 À0:001833 À0:001825
+
+57
+
+Element DKT15 RDKTM15 DKT18(T) DKT18(P) RDKTM18(T) RDKTM18(P) EXACT
+
+2Â2 À0:0961 À0:0961 À0:0947 À0:0949 À0:0959 À0:0949
+
+4Â4 À0:1075 À0:1076 À0:1067 À0:1070 À0:1074 À0:1071
+
+6Â6 À0:1107 À0:1108 À0:1102 À0:1105 À0:1106 À0:1106 À0:1139
+
+8Â8 À0:1119 À0:1120 À0:1117 À0:1119 À0:1118 À0:1121
+
+10 Â 10 À0:1124 À0:1125 À0:1123 À0:1125 À0:1123 À0:1121
+
+12 Â 12 À0:1128 À0:1129 À0:1127 À0:1129 À0:1127 À0:1127
+
+Table 4. Central deﬂection (cylindrical shell with thickness = 0.01546 and free edges, central point load)
+
+Element DKT15 RDKTM15 DKT18(T) DKT18(P) RDKTM18(T) RDKTM18(P) EXACT
+
+2Â2 À0:02152 À0:02152 À0:02133 À0:02123 À0:02134 À0:02123
+
+4Â4 À0:02366 À0:02366 À0:02363 À0:02349 À0:02363 À0:02349
+
+6Â6 À0:02417 À0:02417 À0:02416 À0:02406 À0:02416 À0:02406 À0:02439
+
+8Â8 À0:02437 À0:02438 À0:02437 À0:02430 À0:02437 À0:02431
+
+10 Â 10 À0:02446 À0:02446 À0:02445 À0:02439 À0:02445 À0:02439
+
+12 Â 12 À0:02454 À0:02454 À0:02454 À0:02452 À0:02454 À0:02454
+
+58
+
+different from the special rectangular meshes in which a of shear locking. It can be noted that further numerical tests show that cx and cy can not pass the nonzero constant rectangle is divided into four triangular elements, an shear strain test, such as when the boundary deﬂection is approach that is used by a number of researchers [22]. given to be w ¼ x þ 2y and hx ¼ À1, hy ¼ À2. (4) Spherical shell A spherical shell under two opposite radial concentrated (2) A test for shear locking phenomena loads at points A and B is shown in Fig. 5. The radial A uniformly loaded whole clamped plate that is divided into irregular meshes (160 elements) with various ranges deﬂections at point A for different mesh divisions are used of thickness/span ratios as shown in Fig. 3 is used to test to compare with the analytical solution (uA ¼ 0:094 [22]). shear-locking phenomena. The results, presented in This example is often used for testing the properties of the Table 1, indicate that the present element, RDKTM, shows poor response for membrane action, which is caused by the characteristics of being free from locking. Also it is using full integration for formulating the stiffness of the shown that when the plate thickness is very small, the 18-DOF triangular ﬂat shell element [16]. The results are results of the present element are the same as those of the compared in Table 5 and Fig. 7. It can be seen that the 15thin plate element DKT. DOF elements and 18-DOF elements with constraint of the true drilling rotation freedom produce the best results. (3) Cylindrical shell with end diaphragms and with free edges (5) Twisted beam problem A cylindrical shell under a point load and with various The twisted beam problem, shown in Fig. 6, has often been types of end supports and thickness is used to demonstrate used to test the properties of the poor response for the accuracy of the present elements. This particular membrane action, which is caused by using full integration problem has been analyzed by many authors [22–24], and for formulating the stiffness of the 18-DOF triangular ﬂat its geometry and other parameters are shown in Fig. 4. The shell element when the thickness is very small [22]. The analytical solution, which gives wA ¼ À0:001825 for a deﬂections along the loading direction at point C of the twisted beam with thickness of 0.0032 and 0.32 are given in cylinder with end diaphragms, wA ¼ À0:1139 for a Tables 6a and 6b, and the results of the twisted beam with cylinder with thickness ¼ 0:094 and free edges, and thickness 0.0032 are shown in Fig. 8 for load case A and wA ¼ À0:02439 for a thin cylinder with thickness ¼ 0:01546 and free edges, are compared with the numer- Fig. 9 for load case B. The numerical results show that the ical results in Tables 2–4. Note that the numerical results proposed elements are able to converge to the analytical solution and that the 15-DOF element RDKTM15 and of the proposed elements are able to converge to the analytical solution, and that the results of the reﬁned shell 18-DOF element RDKTM18(T) with the constraint of true drilling rotation freedom produce the best results. Note elements are always better than those of the other elements. It should be noted that the meshes used here are that the results of the 18-DOF elements RDKTM18 (P) and
+
+Fig. 5. A quarter of a hemispherical shell with an 18 hole on the top Fig. 6. Twisted beam divided into 2 Â 12 mesh Table 5. Radial deﬂections at the point A of spherical shell under concentrated loads at points A and B Element DKT15 RDKTM15 DKT18(T) DKT18(P) RDKTM18(T) RDKTM18(P) EXACT 2Â2 0.08889 0.08889 0.08627 0.04764 0.08627 0.04765 4Â4 0.09384 0.09384 0.09328 0.01910 0.09328 0.01911 6Â6 0.093427 0.09354 0.09333 0.02115 0.09333 0.02116 8Â8 0.09353 0.09311 0.09300 0.03541 0.09301 0.03542 0.094 10 Â 10 0.09310 0.09281 0.09274 0.05244 0.09275 0.05245 12 Â 12 0.09280 0.09262 0.09257 0.06635 0.09258 0.06636 14 Â 14 0.09262 0.09252 0.09248 0.07584 0.09249 0.07586 24 Â 24 0.09260 0.09261 0.09260 0.09064 0.09260 0.09247 32 Â 32 0.09282 0.09283 0.09283 0.09246 0.09283 0.09258
+
+Table 6. Deﬂections at the point C of twisted beam Element Load A 2·8 a thickness = 0.0032 DKT15 RDKTM15 DKT18(T) DKT18(P) RDKTM18(T) RDKTM18(P) EXACT b thickness = 0.32 RDKTM15 RDKTM18(T) RDKTM18(P) EXACT 5256 5256 4815 81.949 4815 81.950 2 · 12 5268 5268 5174 185.34 5174 185.39 5256 0.005323 0.005332 0.005281 0.005396 0.005399 0.005366 0.005424 0.005479 0.005476 0.005396 0.001393 0.001397 0.001629 2 · 16 5274 5374 5242 389.74 5242 389.82 Load B 2·8 1265.2 1265.2 1170.3 20.301 1170.3 20.302 2 · 12 1284.4 1284.4 1262.1 46.043 1262.1 46.043 1294 0.001484 0.001828 0.001747 0.001754 0.001547 0.001845 0.001758 2 · 16 1291.1 1291.1 1282.8 96.489 1282.8 96.489
+
+59
+
+Fig. 7. Radial displacement at point A of spherical shell
+
+Fig. 9. Deﬂections at the point C of twisted beam with thickness = 0.0032 (load B)
+
+Fig. 8. Deﬂections at the point C of twisted beam with thickness = 0.0032 (load A)
+
+RDKTM18 (T) with the constraint of drilling rotation freedom are better than those of the 15-DOF element RDKTM15 in case of the thickness 0.32.
+
+element. This results in the thin and thick shell analysis being integrated in a uniform model and the convergence for very thin plate can be ensured theoretically. Second, the proposed discrete Mindlin ﬂat shell element is a re-constitution shear strain element, which possesses high accuracy and has the ability for passing the patch test for Kirchhoff thin plate bending. It is also free from shear locking, and the Kirchhoff thin plate results can be obtained even for very thin plates with thickness/span ratios of 10À30 . This can be considered as the most efﬁcient and simplest model among the existing ones. Third, In order to efﬁciently suppress singularities of the structural stiffness matrix, it is necessary to introduce true drilling rotations. Numerical examples are presented to show that the proposed element RDKTM18 (T) possesses high accuracy, especially for spherical shells and twisted beam structures. Finally, the formulations of the proposed elements RDKTM15 and RDKTM18 (T) are simple, and these elements can be used to solve thick/ thin shell problems.
+
+References 8 1. Zienkiewicz OC, Taylor RL, Too JM (1971) Reduced inteConclusions gration technique in general analysis of plates and shells. Int. The preceding determinations and numerical examples J. Numer. Meth. Eng. 3: 275–290 lead to several conclusions. First, The exact solution of 2. Pugh ED, Hiton E, Zienkiewicz OC (1978) A study of trianTimoshenko’s beam as a displacement of the boundary of gular plate bending element with reduced integration. Int. J. Numer. Meth. Eng. 12: 1059–1078 the element can be used to derive the Mindlin ﬂat shell
+
+60
+
+3. Malkus DS, Hughes TJR (1978) Mixed ﬁnite element methods-reduced and selective integration techniques: a uniﬁcation of concepts. Comput. Meth. Appl. Mech. Eng. 15: 63–81 4. Hughes TJR, Cohen M, Haroun M (1978) Reduced and selective integration techniques in ﬁnite element analysis of plates. Nucl. Eng. Design 46: 203–222 5. Batoz JL, Lardeur P (1989) A discrete shear triangular nine d.o.f. element for the analysis of thick to very thin plates. Int. J. Numer. Meth. Eng. 29: 533–560 6. Batoz JL, Katili I (1992) On a simple triangular Reissner/ Mindlin plate element based on incompatible modes and discrete constraints. Int. J. Numer. Meth. Eng. 35: 1603–1632 7. Katili I (1993) A new discrete Kirchhoff-Mindlin element based on Mindlin-Reissner plate theory and assumed shear strain ﬁelds-part I: An extended DKT element for thick-plate bending analysis. Int. J. Numer. Meth. Eng. 36: 1859–1883 8. Wanji Chen, Cheung YK (2000) Reﬁned quadrilateral element based on Midlin/Reissner plate theory. Int. J. Numer. Meth. Eng. 47: 605–627 9. Wanji Chen, Cheung YK (2001) Resined 9-DOF triangular Mindlin plate element. Int. J. Numer. Meth. Eng. 51: 1259– 1281 10. Zienkiewicz OC, Taylor RL (1991) The Finite Element Method. 4th edn, Mcgraw-Hill Book Co, London 11. Cook RD (1993) Further development of a three-node triangular shell element. Int. J. Numer. Meth. Eng. 36: 1413–1425 12. Irons BM, Ahmad (1980) Techniques of Finite Elements. Ellis Horwood, Chichester 13. Allman DJ (1984) A compatible triangular element including vertex rotations for plane elasticity analysis. Comput. Struct. 19: 1–8
+
+14. Cook RD (1994) Four-node ‘ﬂat’ shell element: drilling degrees-of-freedom, membrane-bending coupling, warped geometry, and behavior. Comput. Struct. 50: 549–555 15. Cook RD (1987) A plane hybrid element with rotational D.O.F. and adjustable stiffness. Int. J. Numer. Meth. Eng. 24: 1499– 1508 16. Fish J, Belytschko T (1992) Stabilized rapidly convergent 18 degrees-of-freedom ﬂat shell triangular element. Int. J. Numer. Meth. Eng. 33: 149–162 17. Wanji Chen, Cheung YK (1999) Reﬁned non-conforming triangular elements for analysis of shell structures. Int. J. Numer. Meth. Eng. 46: 433–455 18. Providas E, Kattis MA (2000) An assessment of two fundamental ﬂat triangular shell elements with drilling rotations. Comput. Struct. 77: 129–139 19. Sydenstricker RM, Landau L (2000) A study of some triangular discrete Reissner-Mindlin plate and shell elements. Comput. Struct. 78: 21–33 20. Batoz JL, Tahar MB (1982) Evaluation of a new triangular thin plate bending element. Int. J. Numer. Meth. Eng. 18: 1655– 1677 21. Allman DJ (1994) A basic ﬂat facet ﬁnite element for the analysis of general shells. Int. J. Numer. Meth. Eng. 37: 19–35 22. Sabourin F, Brunet M (1995) Analysis of plate and shell with a simpliﬁed three node triangular element. Thin-Walled Struct. 21: 209–223 23. Parisch H (1979) A critical survey of the 9-node degenerated shell element with special emphasis in the thin shell application and reduced integration. Comput. Meth. Appl. Mech. Eng. 20: 323–350 24. Jetteur P, Frey F (1986) A four node Marguerre element for non-linear shell analysis. Eng. Comput. 3: 276–282
+

@@ -1,0 +1,2395 @@
+Analysis of Functionally Graded Material Object Representation Methods
+by
+
+Todd Robert Jackson
+B.S.E., Princeton University (1994) S.M., Massachusetts Institute of Technology (1997) Submitted to the Department of Ocean Engineering in partial fulﬁllment of the requirements for the degree of Doctor of Philosophy at the MASSACHUSETTS INSTITUTE OF TECHNOLOGY June 2000 c Massachusetts Institute of Technology 2000. All rights reserved.
+
+Author . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Department of Ocean Engineering January 28, 2000
+
+Certiﬁed by . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Nicholas M. Patrikalakis, Ph.D. Kawasaki Professor of Engineering Thesis Supervisor Certiﬁed by . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Emanuel M. Sachs, Ph.D. Professor of Mechanical Engineering Thesis Supervisor
+
+Accepted by . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Nicholas M. Patrikalakis Chairman, Departmental Committee on Graduate Studies
+
+Analysis of Functionally Graded Material Object Representation Methods by Todd Robert Jackson
+Submitted to the Department of Ocean Engineering on January 28, 2000, in partial fulﬁllment of the requirements for the degree of Doctor of Philosophy
+
+Abstract
+Solid Freeform Fabrication (SFF) processes have demonstrated the ability to produce parts with locally controlled composition. To exploit this potential, methods to represent and exchange parts with varying local composition need to be proposed and evaluated. In modeling such parts eﬃciently, any such method should provide a concise and accurate description of all of the relevant information about the part with minimal cost in terms of storage. To address these issues, several approaches to modeling Functionally Graded Material (FGM) objects are evaluated based on their memory requirements. Through this research, an information pathway for processing FGM objects based on image processing is proposed. This pathway establishes a clear separation between design of FGM objects, their processing, and their fabrication. Similar to how an image is represented by a continuous vector valued function of the intensity of the primary colors over a two-dimensional space, an FGM object is represented by a vector valued function spanning a Material Space, deﬁned over the threedimensional Build Space. Therefore, the Model Space for FGM objects consists of a Build Space and a Material Space. The task of modeling and designing an FGM object, therefore, is simply to accurately represent the function m(x) where x ∈ Build Space. Data structures for representing FGM objects are then described and analyzed, including a voxelbased structure, ﬁnite element method, and the extension of the Radial-Edge and Cell-Tuple-Graph data structures with FGMDomains in order to represent spatially varying properties. All of the methods are capable of deﬁning the function m(x) but each does so in a diﬀerent way. Along with introducing each data structure, the storage cost for each is derived in terms of the number of instances of each of its fundamental classes required to represent an object. In order to determine the optimal data structure to model FGM objects, the storage cost associated with each data structure for representing several hypothetical models is calculated. Although these models are simple in nature, their curved geometries and regions of both piece-wise constant and non-linearly graded compositions reﬂect the features expected to be found in real applications. In each case, the generalized cellular methods are found to be optimal, accurately representing the intended design. Thesis Supervisor: Nicholas M. Patrikalakis, Ph.D. Title: Kawasaki Professor of Engineering Thesis Supervisor: Emanuel M. Sachs, Ph.D. Title: Professor of Mechanical Engineering
+
+2
+
+Dedication
+This dissertation is dedicated to my wife, Courtney, and our families. Thank you for your unwaivering love and support as I pursued my dream.
+
+3
+
+Acknowledgements
+I wish to thank my thesis supervisors, Professors Nicholas M. Patrikalakis and Emanuel M. Sachs, for the opportunity to participate in this research project. Participating in a project forging new grounds in Computer Aided Design and Manufacturing has been an exciting, challenging, and rewarding process. I am grateful for their mentoring and patience as we explored new ideas together and deﬁned the direction of my research. Professor Michael J. Cima also deserves recognition for his role in helping to deﬁne the direction of this work. I would also like to thank and recognize the eﬀorts of my colleagues who contributed invaluable energy and insights to the challenges presented through this work, including David Brancazio, Dr. Wonjoon Cho, Hongye Liu, and Dr. Hauijun Wu. Along with my thesis supervisors, Dr. Cho’s critical readings of the drafts of this manuscript have been instrumental in expediting the completion of this document and ensuring that the ﬁnal draft meets the expectations for an MIT dissertation. The author and investigators in this project also gratefully recognize the ﬁnancial support of the National Science Foundation (grant #DMI9617750) and the Oﬃce of Naval Research (grant #N00014-96-1-000857), without which this research would not have been possible. The examples used in this thesis were generated through the CAD system SolidWorks and meshed using the Finite Element Analysis package Algor. Finally, I wish to thank my friends and colleagues for their friendship and support through my years at MIT. The names are too numerous to mention here, but their comradery deserves just as much acknowledgement. Please forgive me for not attempting to list names here, for to do so would inevitably lead to the omission of someone who should not have been excluded. I choose rather to close these acknowledgements with a simple “thank you” and trust they all will realize how much their friendships mean to me and take some satisfaction in seeing this work in ﬁnal form. Thank you.
+
+4
+
+Contents
+1 Introduction 1.1 1.2 Motivation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21 21 21 21 22 23 23 24 24 28 28 28 29 31 33 33 37 37 40 42 42 42 42 43 46 46
+
+Scope of research . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.2.1 1.2.2 Thesis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Approach . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+1.3
+
+Solid Freeform Fabrication . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.3.1 1.3.2 1.3.3 Single material SFF processing . . . . . . . . . . . . . . . . . . . . . . . . . . Local Composition Control through SFF with multiple materials . . . . . . . Modeling and processing for SFF . . . . . . . . . . . . . . . . . . . . . . . . .
+
+2 Previous work 2.1 2.2 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Current data exchange methods . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2.2.1 2.2.2 2.3 STL ﬁle . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . STEP: STandard for the Exchange of Product model data . . . . . . . . . . .
+
+Modeling of FGM objects . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2.3.1 2.3.2 2.3.3 Voxel-based modeling . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Finite element modeling . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Generalized modeling methods . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+2.4
+
+Discussion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+3 Identiﬁcation of issues in FGM modeling 3.1 3.2 Motivation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+Modeling shape versus shape and composition . . . . . . . . . . . . . . . . . . . . . . 3.2.1 3.2.2 Geometric modeling . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Geometric and material modeling . . . . . . . . . . . . . . . . . . . . . . . . .
+
+3.3
+
+Accuracy in representation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3.3.1 Shape . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+5
+
+3.3.2 3.4
+
+Material . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+47 47 48 50 53 54 54 55 56 58 60 64 65 76 85 87 91 91 91 92 95 97 97
+
+Processing FGM models for fabrication . . . . . . . . . . . . . . . . . . . . . . . . . . 3.4.1 3.4.2 Image processing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . FGM model processing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+3.5
+
+Discussion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+4 Modeling composition through decomposition 4.1 4.2 4.3 4.4 4.5 4.6 Motivation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+Nomenclature . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Voxel-based modeling . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Triangulated shells . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Finite element meshes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Generalized cellular decomposition or multi-region B-rep . . . . . . . . . . . . . . . . 4.6.1 4.6.2 4.6.3 Data structures for topology . . . . . . . . . . . . . . . . . . . . . . . . . . . FGMDomains . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Relationship between FGMDomains and topology . . . . . . . . . . . . . . .
+
+4.7
+
+Discussion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+5 Bounds for voxel-based model growth 5.1 5.2 5.3 5.4 5.5 Motivation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+Voxel size dictates lattice size . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Geometric constraint on voxel size . . . . . . . . . . . . . . . . . . . . . . . . . . . . Composition constraint on volume fraction resolution . . . . . . . . . . . . . . . . . . Composition constraint on voxel size . . . . . . . . . . . . . . . . . . . . . . . . . . . 5.5.1 5.5.2 Constraint based on discontinuities in composition . . . . . . . . . . . . . . .
+
+Constraint based on gradient . . . . . . . . . . . . . . . . . . . . . . . . . . . 101
+
+5.6
+
+Discussion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 104 110
+
+6 Bounds for meshed model growth 6.1 6.2 Motivation
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 110
+
+Curve meshing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 110 6.2.1 6.2.2 6.2.3 Approximating a circular arc . . . . . . . . . . . . . . . . . . . . . . . . . . . 111 Approximating a G1 curve . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 112 Approximating an arbitrary curve or curves . . . . . . . . . . . . . . . . . . . 116 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 117
+
+6.3
+
+Surface meshing 6.3.1 6.3.2
+
+Approximating the surface of a sphere . . . . . . . . . . . . . . . . . . . . . . 117 Approximating an arbitrary surface patch . . . . . . . . . . . . . . . . . . . . 119
+
+6
+
+6.4
+
+Volume meshing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 120 6.4.1 6.4.2 6.4.3 Bounds on the number of tetrahedra due to geometric accuracy . . . . . . . . 121 Material curvature . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 121 Bounds on number of tetrahedra due to composition accuracy . . . . . . . . . 124
+
+6.5 6.6
+
+Relationship between the number of triangles and nodes in a triangulated shell . . . 126 Relationship between the number of tetrahedra and nodes in a ﬁnite element mesh . . . . . . . . . . . . . . . . . . . . . . 128
+
+6.7
+
+Discussion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 129 133
+
+7 Approaches to FGM design 7.1 7.2 7.3 7.4 7.5 Motivation
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 133
+
+FGM ﬁtting . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 133 FGM library . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 145 FGM chamfer, ﬁllet, and blending . . . . . . . . . . . . . . . . . . . . . . . . . . . . 146 Discussion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 149 150
+
+8 The cost of representing composition 8.1 8.2 Motivation
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 150
+
+Case studies . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 151 8.2.1 8.2.2 8.2.3 8.2.4 8.2.5 8.2.6 Sphere of unit radius . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 151 Bar with graded transition . . . . . . . . . . . . . . . . . . . . . . . . . . . . 158 Graded composition from boundary of cavity in block . . . . . . . . . . . . . 166 Cylinder butted to plate . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 179 Drug delivery device . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 189 Widget Mold . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 198
+
+8.3
+
+Discussion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 208 209
+
+9 Conclusions and Recommendations 9.1 9.2 9.3
+
+Conclusions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 209 Contributions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 212 Future work and recommendations . . . . . . . . . . . . . . . . . . . . . . . . . . . . 213 9.3.1 9.3.2 9.3.3 9.3.4 9.3.5 9.3.6 Investigation into generalized FGM modeler . . . . . . . . . . . . . . . . . . . 213 Exploration of FGMDomains . . . . . . . . . . . . . . . . . . . . . . . . . . . 213 FGM object design methods . . . . . . . . . . . . . . . . . . . . . . . . . . . 213
+
+Establishment of a design methodology for FGM objects . . . . . . . . . . . . 214 Tools for fabricating FGM objects . . . . . . . . . . . . . . . . . . . . . . . . 215 Eﬃcient methods for voxel-based and ﬁnite element models . . . . . . . . . . 215
+
+7
+
+9.3.7 9.3.8 9.3.9
+
+Exploration of material systems . . . . . . . . . . . . . . . . . . . . . . . . . . 215 Exploration of halftoning strategies . . . . . . . . . . . . . . . . . . . . . . . . 216 Exploration of Design Rules . . . . . . . . . . . . . . . . . . . . . . . . . . . . 216
+
+8
+
+List of Tables
+4.1 4.2 4.3 Storage costs for each instance of each class within the Radial-Edge data structure. . Storage costs for diﬀerent objects within the Cell-Tuple Data structure. . . . . . . . Storage costs of FGMDomain deﬁnitions used in analysis of memory requirements for generalized FGM modeling methods. . . . . . . . . . . . . . . . . . . . . . . . . . . . 4.4 The relationships between the number of topological entities in Radial-Edge data structure and each derived class of FGMDomain. . . . . . . . . . . . . . . . . . . . . 4.5 The relationships between the number roles of each topological entities in Radial-Edge data structure and each derived class of FGMDomain. . . . . . . . . . . . . . . . . . 4.6 The relationships between the number instances of each class in the Cell-Tuple-Graph data structure and each derived class of FGMDomain. . . . . . . . . . . . . . . . . . 4.7 Memory requirements for Exhaustive Enumeration, Triangulated B-Rep, Tetrehedral Mesh, Radial-Edge, and Cell-Tuple-Graph solid modeling methods. . . . . . . . . . . 6.1 8.1 90 88 87 87 85 70 76
+
+Modiﬁcation to triangulated mesh. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 126 Storage costs associated with primitive data types on a Silicon Graphics O2 workstation with 64 bit processor. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 151
+
+8.2
+
+FGMDomain and Cell-Tuple-Graph objects required to represent sphere object exactly and the associated storage cost. . . . . . . . . . . . . . . . . . . . . . . . . . . . 155
+
+8.3
+
+Number of instances of Radial-Edge objects required to represent sphere model exactly and the associated storage cost. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 155
+
+8.4
+
+FGMDomain and Cell-Tuple-Graph objects required to represent bar object exactly and the associated storage cost. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 164
+
+8.5
+
+The Radial-Edge objects required to represent FGM bar object exactly and the associated storage cost. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 164
+
+8.6
+
+FGMDomain and Cell-Tuple-Graph objects required to represent FGM block-withcavity object exactly and the associated storage cost. . . . . . . . . . . . . . . . . . . 175
+
+9
+
+8.7
+
+Radial-Edge objects required to represent FGM block-with-cavity object exactly and the associated storage cost. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 176
+
+8.8
+
+FGMDomain and Cell-Tuple-Graph objects required to represent FGM cylinder-plate object exactly and the associated storage cost. . . . . . . . . . . . . . . . . . . . . . 185
+
+8.9
+
+Radial-Edge objects required to represent FGM cylinder-plate object exactly and the associated storage cost. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 186
+
+8.10 Cell-Tuple-Graph objects required to represent FGM drug delivery device object exactly and the associated storage cost. . . . . . . . . . . . . . . . . . . . . . . . . . . . 195 8.11 Radial-Edge objects required to represent the topology of FGM drug delivery device object exactly and the associated storage cost. . . . . . . . . . . . . . . . . . . . . . 196 8.12 FGMDomain and Cell-Tuple-Graph objects required to represent FGM Widget Mold exactly and the associated storage cost. . . . . . . . . . . . . . . . . . . . . . . . . . 204 8.13 Radial-Edge objects required to represent the topology of FGM Widget Mold exactly and the associated storage cost. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 207
+
+10
+
+List of Figures
+1-1 (a) 3D Printing illustrating how SFF processes can build a part on a point-wise basis. (b) Parts fabrication through 3D Printing demonstrating the ﬂexibility of SFF to produce complex geometries. [59] . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1-2 3D Printing illustrating Local Composition Control by selectively depositing droplets of diﬀerent material into a powderbed to form a Functionally Graded Material object. 26 1-3 Information ﬂow for 3D Printing. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2-1 STL ﬁle format. The boundary of a model is described as a list of triangular facets and their normals. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2-2 (a) Faceted approximation of a wheel (26906 triangles). (b) STL text ﬁle describing part (3.17 Megabytes in ASCII format, 1.34 Megabytes in binary format) . . . . . . 2-3 The structure of STEP. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2-4 (a) Geometric and (b) topological entities deﬁned with Part 42 of STEP (ISO10303). 2-5 (a) Surfaces deﬁning the boundary of a wheel (269 surfaces). (b) STEP encoding of the part (11.1 Megabytes). . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2-6 Photograph of actual brain, magnetic resonance imaging of brain, voxelized model of brain. (image courtesy of University of Washington Structural Informatics Group http://sig.biostr.washington.edu/) [77] . . . . . . . . . . . . . . . . . . . . . . . . . . 2-7 (a) Proposed decomposition of solid model into atlases. (b) Proposed data structure for rm -object modeling based [40]. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2-8 (a) Model motivating need for representation method for heterogeneous objects with rm -sets [40]. (b) Example of a graded bar represented as an rm -object, decomposed into cells [40]. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2-9 (a) A pulley consisting of graded material deﬁned as a cellular model with B´zier e triangles and tetrahedra. (b) A drug delivery device deﬁned as a cellular model with B´zier triangles and tetrahedra. [33, 32]. . . . . . . . . . . . . . . . . . . . . . . . . . e 40 39 38 36 35 31 32 34 30 26 25
+
+11
+
+3-1 (a) The Model Space represented by state-of-the-art solid modeling systems. (b) Associating of materials to regions within a model. . . . . . . . . . . . . . . . . . . . 3-2 The Model Space for objects consisting of graded material spans both the Build Space (X) and a Material Space (M) in which the material variations are deﬁned. . . . . . 3-3 To deﬁne an FGM object, each point in the Build Space (x ∈ X) must map to a composition in the Material Space (m(x) ∈ M) . . . . . . . . . . . . . . . . . . . . . 3-4 The maximum distance between the intended object’s boundary and the modeled boundary is the geometric accuracy ( g ) of the modeled object.) . . . . . . . . . . . 47 45 45 44
+
+3-5 Visual interpretation of material accuracy, showing the diﬀerence between the desired composition m∗ (x0 ) and the modeled composition m(x0 ) at the point x0 in Build Space. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3-6 Steps of the information ﬂow for image processing. . . . . . . . . . . . . . . . . . . . 3-7 (a) Initial image: Iin (x). (b) Sampled image: I (n). (c) Halftoned image: J(n). (d) Physically reconstructed image: Iout (x). . . . . . . . . . . . . . . . . . . . . . . . . . 3-8 Steps of the information ﬂow for FGM model processing. . . . . . . . . . . . . . . . . 4-1 Model consisting of two tetrahedra used to illustrate various modeling methods. Shown is the wireframe of the model. . . . . . . . . . . . . . . . . . . . . . . . . . . . 4-2 Relationships between classes in an exhaustive enumeration method for modeling FGM objects. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4-3 (a) Voxelized representation of sample model. (b) VoxelModel object model. . . . . . 4-4 Relationships between classes in the triangulated boundary representation approach for modeling FGM objects. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4-5 (a) Triangulated shell representation of sample model. (b) Object model showing the instances data required to represent the sample model in the data structure. . . . . . 59 58 57 57 55 51 52 48 49
+
+4-6 Relationships between classes in tetrahedral mesh approach to modeling FGM objects. 61 4-7 (a) Tetrahedron classes for consideration in meshed modeling representations. (b) Vertex classes for consideration in meshed modeling representations. . . . . . . . . . 4-8 (a) Tetrahedral mesh representation of sample model. (b) Object model showing the instances data required to represent the sample model in the data structure. . . . . 62 66 61
+
+4-9 The classes comprising the Radial-Edge data structure and how they are related. . .
+
+4-10 Topological classes deﬁned within the Radial-Edge data structure and their attributes. 67 4-11 The Uses of topological entities within the Radial-Edge data structure. . . . . . . . . 4-12 (a) Radial Edge representation of sample model. (b) Object model showing the instances of topological entities required to represent the sample model in the Radial Edgedata structure. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 71 69
+
+12
+
+4-13 (a) Cells in model. (b) Graph of tuples. Paths between tuples are colored according to dimension: red=0, green = 1, blue = 2, dashed blue/yellow = 3. (c) Graph of tuples over boundary with each tuple labelled. . . . . . . . . . . . . . . . . . . . . . 73 74
+
+4-14 Relationships between classes in Cell-Tuple-Graph data structure. . . . . . . . . . . 4-15 Illustration of switch operator performed on tuple t1 for dimension 1 (green). (a) Cells in tuple t1 . (b) Location of tuple t1 in graph. (c) Cells in Tuple t2 . (d) Location of tuple t2 in graph. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4-16 Zero dimensional FGMDomain. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4-17 One dimensional FGMDomain: FGMRationalB´zierCrv. . . . . . . . . . . . . . . . . e 4-18 Two dimensional FGMDomains: FGMRationalB´zierTri, FGMRationalB´zierQuad, e e and FGMPlanarSurface. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4-19 Three dimensional FGMDomains: FGMRationalB´zierTet, FGMRationalB´zierPent, e e FGMRationalB´zierHex, and FGMBRepRegion. . . . . . . . . . . . . . . . . . . . . e 4-20 (a) Modeling two piecewise constant regions with composition information associated with (a) the two regions and (b) the vertices. In order to represent two piece-wise constant regions when the material information is associated with the vertices, the interface region must be meshed as in (c). . . . . . . . . . . . . . . . . . . . . . . . . 5-1 (a) The addition of a feature to a voxel-based data structure. (b) Modiﬁed voxel-based model to capture intended feature. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5-2 Examples of distretization of the intended boundaries of models into voxels. . . . . . 5-3 Intended designs for object boundary (m (x)) and modeled boundary (m(x)). The dimensions of the voxels are δx , δy , δz = a. (a.) Boundary of geometric feature lies along voxel boundaries. (b.) Boundary of geometric feature lies oﬀ voxel boundaries but is still captured in representation. (c.) Voxel mesh is too coarse to capture geometric feature. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+∗
+
+75 77 78
+
+79
+
+82
+
+89
+
+92 93
+
+95
+
+5-4 Thresholding of continuous grading to discrete levels maintained in voxel representation (a) nλ = 2, (b) (a) nλ = 3, (b) (a) nλ = 4, (d) nλ = 7. . . . . . . . . . . . . . . 5-5 Examples of discontinuities in composition. (a) Discontinuity between two regions of uniform composition. (b) Discontinuity with regions of graded composition. . . . . . 5-6 (a) Voxel to approximate a subregion of discontinuous composition. The discontinuity in composition occurs of the plane π. (b) The desired composition (m∗ (x)) over the subregion occupied by the voxel. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5-7 Thresholding of designed material assigned to discretized regions of uniform composition for (a) β ≤
+3
+
+96
+
+97
+
+98
+
+3 nλ −1 ,
+
+(b) β = 1 , and (c) β = 1. . . . . . . . . . . . . . . . . . . 2
+
+99
+
+13
+
+5-8 Intended designs for material distribution (m∗ (x)) and modeled compositions (m(x)). δx , δy , δz = a (a.) Boundary of material feature lies along voxel boundaries. (b.) Boundary of material feature lies oﬀ voxel boundaries but is still captured in representation. (c.) Voxel mesh is too coarse to capture material feature. . . . . . . . . . 100 5-9 (a) Region of linearly graded material and direction (ˆ ) of grading. (b) The desired v graded to be assigned to the region. . . . . . . . . . . . . . . . . . . . . . . . . . . . 101 5-10 Examples of linearly graded designs thresholded to uniform composition assignments to voxels. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 102 5-11 Storage cost (in bytes per material) required to represent a model as a function of normalized Build Space volume (V ∗ = of voxels (nvox ). (slope =
+1 8 Lx ×Ly ×Lz δx ×δy ×δz ),
+
+which is equivalent to the number
+
+bytes) . . . . . . . . . . . . . . . . . . . . . . . . . . . . 106
+
+5-12 Storage cost (in bytes per material ) required to represent a model as a function of Build Space volume (V in m3 ) for an SFF process with a resolution of δx = δy = δz = 10−4 m. (slope = 1.25 × 1011 bytes ) . . . . . . . . . . . . . . . . . . . . . . . . . . . . 107 m3 5-13 Storage cost (in bytes per material ) required to represent a Build Space with a crosssectional area of Lx × Ly = 10−2 m2 as a function of Build Space height (Lz ), for an SFF process with a resolution of δx = δy = δz = 10−4 m (slope = 1.25 × 109 bytes ). . 108 m 6-1 Error associated with approximating a circular arc with a straight line segment. . . . 111 6-2 The maximum arclength of a circular arc (∆s) that can be approximated by a single line segment within a prescribed accuracy ( g ), plotted as a function of
+R.
+g
+
+The actual,
+
+maximum arclength that can be approximated by a single line is also plotted. . . . . 113 6-3 Convergence to the shape of the arc with an increasing number of straight line segments: (a) nsegments = 1, (b) nsegments = 2, and (c) nsegments = 4. . . . . . . . . . . 114 6-4 The number of line segments required to approximate a circular arc of unit arclength, plotted as a function
+R
+g
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 114
+
+6-5 (a) An arbitrary tangent continuous curve. (b) Approximation of a tangent continuous curve with a chain of line segments. . . . . . . . . . . . . . . . . . . . . . . . . . . . 115
+
+6-6 (a) An arbitrary curve. (b) Approximation of an arbitrary curve with a chain of line segments. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 117 6-7 (a) A triangle approximating a patch of a sphere’s boundary. (b) Enlarged view of triangle showing the circumscribed circle and the approximation error. (c) Approximation of circular arc of radius R with a line segment of length D. . . . . . . . . . . 118 6-8 Number of triangles required to mesh a sphere to achieve a prescribed approximation accuracy. The data was generated from the STL export module in SolidWorks T M . . 120
+
+14
+
+6-9 (a) Hypothetical cube of graded material. (b) Parametric line p(u) through the graded material. (c) Hypothetical variations of the volume fractions of the diﬀerent materials along the curve p(u). . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 123 6-10 (a) Minimum material feature size determined by the minimum dimension of an internal feature of uniform composition. (b) Minimum material feature size determined by the minimum distance of the object’s boundary and an internal feature of the uniform composition. (c) Minimum material feature determined by the distance between two discontinuities in material variation. . . . . . . . . . . . . . . . . . . . . . . . . . . . 124 6-11 Topological operations for modifying a closed, triangulated shell. (a) The subdivision of a face into three triangles (OpI ). (b) The subdivision of an edge into two edges (OpII ). (c) The creation of a hole through the shell (OpIII ). . . . . . . . . . . . . . 127 6-12 Methods to modify a tetrahedron with the addition of a new node. . . . . . . . . . . 128 7-1 (a) Set of data points. (b) Surface ﬁt of data points. . . . . . . . . . . . . . . . . . . 134 7-2 Illustration of evaluation of distance from features (red) to node points (black) and the oﬀset region (yellow) in which the composition is to be ﬁtted. . . . . . . . . . . . 135 7-3 Grading styles for the design of FGM objects as a function of distance: (a) uniform, (b) linear, (c) and (d) quadratic, and (e) cubic. . . . . . . . . . . . . . . . . . . . . . 136 7-4 (a) Fit of composition (smoothly blended at re ) designed as a quadratic function of distance within a unit cube from point p0 = (0, 0, 0) (rs = 0cm, re =
+1 2 cm,
+
+ms =
+
+[0 1 0]T , me = [1 0 0]T ). (b) Rendering of nodes colored according to composition. (c) Rendering of material variation over slices through cube. . . . . . . . . . . . . . . 138 7-5 (a) Previous design plus ﬁt of composition (smoothly blended at rs = 1 cm and re = 2 1cm) designed as a cubic function of distance within a block from point p0 = (0, 0, 0) (ms = [1 0 0]T , me = [0 0 1]T ). A uniform composition of m = [0 0 1]T is assigned to all nodes beyond a distance of 1 mm from point p0 = (0, 0, 0). (b) Rendering of nodes colored according to composition. (c) Rendering of material variation over slices through cube. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 139
+
+7-6 (a) View of solid cube with composition designed as a cubic function of distance within a unit cube as from the line passing through p0 = (0, 0, 0) to p1 = (1, 1, 1) (rs = 0cm, re = 2 cm, ms = [1 0]T , me = [0 1]T ). (b) View of nodes in mesh. (c) View of slices 3 through FGM cube. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 140 7-7 Fit of composition designed as a linear function of distance within a unit cube from plane π : z = 0 (rs = 0cm, re = 1cm, ms = [1 0]T and me = [0 1]T . (a) View of solid cube. (b) View of nodes in mesh. (c) View of slices through FGM cube. . . . . . . . 141
+
+15
+
+7-8 (a) Design of tool on commerical CAD system. The dimension of the tools is 100mm× 50mm × 10mm. (b) Phantom view of the tool showing internal features (cooling channels). . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 142 7-9 (a) Fit of nodes to intended composition (smoothly blended at re ) designed as a quadratic function of distance from the boundary of the tool (rs = 0mm, re = 1mm). (b) View of composition grading over slices through FGM model. . . . . . . . . . . . 143 7-10 Fit of composition (smoothly blended at re ) designed as a quadratic function of distance from a subset of the boundary of a tool (rs = 0mm, re = 5mm ). The dimension
+2 of the tool is 100mm ×66 3 mm ×20 mm. (a) View of solid tool. (b) View of nodes in
+
+mesh. (c) View of slices through FGM model. . . . . . . . . . . . . . . . . . . . . . . 144 7-11 (a) A texture primitive stored in a feature library. (b) The mapping of the feature over a plate. (c) The mapping of the feature over a torus. . . . . . . . . . . . . . . . 145 7-12 (a) Primitive of regions containing drug. (b) The initial pill consisting of a uniform base material. (c) The mapping of drug primitives into the drug delivery device. The placement of of the primitives tailors the drug release proﬁle. . . . . . . . . . . . . . 146 7-13 (a) Original design of corner of part. (b) Chamfered corner. (c) Filleted corner. . . . 147 7-14 (a) Original material distribution over a cross-section of a block. (b) Material distribution over block cross-section with material chamfer. . . . . . . . . . . . . . . . . . 147 7-15 (a) Original material distribution over a cross-section of a block. (b) Material distribution over block cross-section with material ﬁllet. . . . . . . . . . . . . . . . . . . . 148 7-16 (a) Original material distribution over a cross-section of a block. (b) Material distribution over block cross-section with material blend. . . . . . . . . . . . . . . . . . . . 149 8-1 Geometric design of unit sphere. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 152 8-2 Voxelized approximation of sphere. . . . . . . . . . . . . . . . . . . . . . . . . . . . 152
+
+8-3 Triangulation of sphere. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 153 8-4 (a) Vertices and edges in generalized representation of sphere. (b) Faces in generalized representation of sphere. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 154 8-5 Graph of storage cost for representing a unit sphere as a function of geometric accuracy for the data structures considered. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 156 8-6 Graph of storage cost for representing a sphere as a function of geometric accuracy in the STL and STEP ﬁle formats. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 157 8-7 Geometric bar specimen to contain smoothly graded transition between two diﬀerent compositions. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 158 8-8 (a) Desired decomposition of bar into uniform and graded regions. (b) Graded composition along length of bar. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 159 8-9 Voxelized approximation of bar. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 160 16
+
+8-10 Tetrahedral mesh approximation of bar. . . . . . . . . . . . . . . . . . . . . . . . . . 161 8-11 (a) Vertices and edges in generalized representation of bar. (b) Faces and regions in generalized representation of bar. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 163 8-12 Graph of storage cost for representing an FGM bar specimen as a function of material accuracy within the indicated data structures with
+g
+
+= 0.1mm. . . . . . . . . . . . . 165
+
+8-13 Geometric design of block with cavity. . . . . . . . . . . . . . . . . . . . . . . . . . . 166 8-14 (a) Intended density distribution over bar specimen, grading of fully dense material at the surfaces x = 30mm and y = 10mm to 20% density at a distance of 10mm from these boundaries. (b) View of halftoned bar illustrating porous macro-structure generated through the halftoning of the continuous FGM model into binary material primitives. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 167 8-15 (a) Initial compositions of block and the selection of the desired faces from with the composition will be graded. (b) Desired grading from the selected feature. . . . . . . 169 8-16 Approximation of block geometry with tetrahedra within a ﬁnite element mesh. (2206 boundary (external) facets, 8685 tetrahedra, and 2197 nodes) . . . . . . . . . . . . . 170 8-17 (a) Nodes of the tetrahedral mesh colored according to their assigned compositions. View of composition grading assigned to tetrahedral mesh over slices deﬁned by the planes (b) π : x = xof f set , (c) π : y = yof f set and (d) π : z = zof f set . . . . . . . . . . 171 8-18 (a) Wireframe view of block decomposed into FGMDomains. (b) View of block with FGMDomains colored according to class and degree of shape and material variation. (c) Exploded view of three dimensional FGMDomains, colored according to their degrees of geometric and material variation. . . . . . . . . . . . . . . . . . . . . . . . 174 8-19 Graph of storage cost for representing a block (with composition graded from the boundary of a cavity) as functions of geometric accuracy (a) 0.0056234, (c)
+m m
+
+= 0.001, (b)
+
+m
+
+=
+
+= 0.17783, and (d)
+
+m
+
+= 1. . . . . . . . . . . . . . . . . . . . . . . 177
+
+8-20 Graph of storage cost for representing a block (with composition graded from the boundary of a cavity) as functions of material accuracy (a) 0.00446688mm, (c)
+g g
+
+= 0.001mm, (b)
+
+g
+
+=
+
+= 0.1122mm, and (d)
+
+g
+
+= 0.50119mm . . . . . . . . . . . . . 178
+
+8-21 Geometric design of cylinder butted to plate. . . . . . . . . . . . . . . . . . . . . . . 179 8-22 Initial, piece-wise constant compositions assigned to cylinder and plate. . . . . . . . 180 8-23 (a) Selection of the desired face across which composition will be ﬁlleted. (b) Decomposition of model into desired piece-wise constant regions and material ﬁllet. . . . . 181 8-24 Voxel-based representation of cylinder and plate. . . . . . . . . . . . . . . . . . . . . 182 8-25 Tetrahedral mesh model of cylinder and plate (1708 boundary facets, 7985 tetrahedra, and 1970 nodes). . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 183
+
+17
+
+8-26 (a) Decomposition of cylinder and plate into regions to represent grading exactly within a generalized data structure. (b) Edges and vertices in generalized representation of bar butted to plate. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 184 8-27 Graph of storage cost for representing a cylinder butted to a plate (with a material ﬁllet) as functions of geometric accuracy (a)
+m m
+
+= 0.001, (b)
+
+m
+
+= 0.0056234, (c)
+
+= 0.17783, and (d)
+
+m
+
+= 1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 187
+
+8-28 Graph of storage cost for representing a cylinder butted to a plate (with a material ﬁllet) as functions of material accuracy (a) (c)
+g g
+
+= 0.001mm, (b)
+
+g
+
+= 0.00446688mm,
+
+= 0.1122mm, and (d)
+
+g
+
+= 0.50119mm. . . . . . . . . . . . . . . . . . . . . . . 188
+
+8-29 Geometric design of boundary of drug delivery device. . . . . . . . . . . . . . . . . . 189 8-30 (a) Library drug primitives with minimum geometric and material feature sizes µg and µm . (b) Placement of drug primitives into drug delivery device. . . . . . . . . . 191 8-31 Representation of the drug delivery device as a tetrahedral mesh. . . . . . . . . . . . 193 8-32 Representation of the drug delivery device as a collection of FGMDomains. Shown are only the vertices and edges bounding the region of uniform composition, into which the drug primitives are placed. (a) Initial vertices and edges of pill. (b) Vertices and edges of device after the addition of a drug primitive. . . . . . . . . . . . . . . . . . . 194 8-33 Geometric design of Widget Mold. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 198 8-34 (a) Representation of the Widget Mold as a tetrahedral mesh (wireframe view). (a) Representation of the Widget Mold as a tetrahedral mesh (solid view). . . . . . . . 200
+
+8-35 (a) View of the nodes in the tetrahedral mesh. (b) View of the material grading over slices of a tetrahedral mesh representation of the Widget Mold. (c) View of material evaluated over 60% of each tetrahedron’s domain. (d) View of material evaluated over 40% of each tetrahedron’s domain. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 201 8-36 (a) FGMDomain vertices and edges into which the Widget Mold is decomposed in a generalized data structure. (b) A single FGMDomain representing the interior of the Widget Mold in a generalized data structure. . . . . . . . . . . . . . . . . . . . . . . 202 8-37 Hierarchy from FGMDomain to FGMProcRegion. . . . . . . . . . . . . . . . . . . . 203 8-38 Graph of storage cost for representing the Widget Mold (with composition graded from the boundary) as functions of geometric accuracy (a) 10−3 ,(c)
+m m
+
+= 10−4 , (b)
+
+m
+
+=
+
+= 10−1 , and (d)
+
+m
+
+= 1. . . . . . . . . . . . . . . . . . . . . . . . . . . . 205 = 10−3 mm, (b)
+
+8-39 Graph of storage cost for representing the Widget Mold (with composition graded from the boundary) as functions of material accuracy (a) 0.00446688mm, (c)
+g g g
+
+=
+
+= 0.1122mm, and (d)
+
+g
+
+= 0.50119mm . . . . . . . . . . . . . 206
+
+18
+
+Symbols
+a The ceiling of a; the ﬁrst integer b equal to or larger than a such that 0 ≤ b − a < 1 a The ﬂoor of a; the ﬁrst integer b equal to or less than a such that 0 ≤ a − b < 1 Ap the area of the surface p. G0 position continuity: no breaks or gaps exist over a G0 curve or surface G1 tangent continuity: the tangent vector for a G1 curve varies continuously; the orientation of the tangent plane for a G1 surface varies continuously G2 curvature continuity: the center of curvature for a G2 curve varies continuously; the principal curvatures for a G2 surface vary continously M 0 material continuity: the volume fraction of each material varies continuously over an M 0 region, lim (m(x) − m(x + ∆x)) = 0
+
+∆x→0
+
+M 1 material derivative continuity: the rate of change of the volume fraction of each material varies continuously within an M 1 region, m(x) is continuous at all points x in an M 1 region
+
+M a vector or array or composition points Sa storage cost for an object of type a Sbln storage cost for a Boolean object Sf lt storage cost for a ﬂoat object Sint storage cost for an integer object Sms storage cost for a Material System Sptr storage cost for a pointer object R radius of curvature 19
+
+U a vector or arracy of points in parameter space Vq the volume of the region of space q X a vector or array of points in Build Space Xn×m multidimensional array of data (mn ﬂoats or doubles) b Boolean ﬂag (true or false) dm number of materials in the Material System; dimension of the Material Space in which the FGM object exists m a composition stored in an FGM modeling system; a vector of volume fractions of materials in Material System; the modeled point in Material Space m∗ the intended composition to be stored in an FGM modeling system; the intended point in Material Space nλ number of intensity levels represented in a voxel-based data structure (each intensity level maps to a speciﬁc volume fraction of material) u a point in parameter space x a geometric point in Build Space
+g
+
+accuracy in approximating a desired or ideal geometry accuracy in approximating desired or ideal composition
+
+m
+
+κg curvature of curve or surface κm material curvature f (x)
+x=x0
+
+gradient of f (x) at x0 ; ∂f ∂f ∂f , , ∂x ∂y ∂z
+
+f (x)
+x=x0
+
+=
+
+x=x0
+
+ˆ f (x) · v
+
+x0
+
+ˆ directional derivative of f (x) at point x0 in direction v; ∂f (x) ˆ ∂v
+
+ˆ f (x) · v
+
+=
+x=x0
+
+x=x0
+
+20
+
+Chapter 1
+
+Introduction
+1.1 Motivation
+
+With recent advances in Solid Freeform Fabrication (SFF), the ability to fabricate parts with Local Composition Control (LCC) is becoming a reality, opening the door to creating a whole new class of parts with graded compositions. Despite the advanced capabilities of these SFF machines, access to this new technology is limited by how information is represented, exchanged, and processed. Designers need new CAD representations to capture their ideas as models with graded compositions and manufacturers need algorithms capable of converting these models into machine instructions for their fabrication. A method for maintaining this information, however, has not yet been adopted as the preferred solution from the many approaches to representing volumetric data. This presents an obstacle to the exploration of tools for capturing design intent, algorithms for processing models for fabrication, and ﬁnally exercising the capabilities of LCC to produce FGM parts and tooling, as each method maintains data diﬀerently and follows a diﬀerent paradigm. One of the major obstacles to choosing a solid modeling method through which to explore modeling FGM objects is the memory required to accurately store information within the model. By investigating the memory requirements for various approaches to representing parts with graded compositions, a decision about which method should be preferred as the basis for the solid modeling of FGM parts can be made.
+
+1.2
+1.2.1
+
+Scope of research
+Thesis
+
+With recent advances in Solid Freeform Fabrication (SFF) technology to achieve Local Composition Control (LCC), Computer Aided Design (CAD) methods need to extended to truly realize the potential of Functionally Graded Material (FGM) parts and tools. To better understand the CAD
+
+21
+
+issues involved with modeling FGM objects, this dissertation identiﬁes and compares several likely candidate data structures in terms of how they might represent FGM objects. Through this work, the following hypothesis is examined: “A memory eﬃcient and accurate approach to modeling FGM objects can be achieved by extending solid modeling methods currently used for mechanical design. This extension consists of incorporating methods to map from a Build Space to a Material Space into their underlying generalized cellular decomposition or B-rep data structures.” Through the exploration of this hypothesis, the information ﬂow from concept to fabrication is outlined, modeling issues for FGM objects are identiﬁed, several alternative approaches to FGM modeling are discussed, and sample FGM objects are presented and their expected storage costs are analyzed in terms of each data structure.
+
+1.2.2
+
+Approach
+
+In order to study the memory required to model FGM objects, this dissertation will begin with an overview of what FGM objects are and how they can be fabricated through SFF processes. Next, a review of methods for model exchange is presented followed by proposed solutions for FGM modeling. The decision for selecting one method over another remains an open question at this point. To answer it, issues concerning the modeling of FGM objects are outlined, including the representation of geometry and composition and how this information should be processed into machine instructions for fabrication through SFF. The accuracy of representation of both the geometry and composition are identiﬁed as the relevant parameters in evaluating modeling methods and a clean separation is established between the representation of the object and its processing. To address the issue of representation, data structures for maintaining FGM models are then introduced (voxel-based, triangulated shells, ﬁnite element based, and generalized cellular decomposition), along with their memory requirements in terms of the data they maintain. Since several of the modeling methods approximate the designer’s intent, a relationship is established between the number of instances of each of their data classes with the accuracy at which the intended geometry and composition is captured. Since working with FGM objects is a new concept, a set of design tools are proposed for deﬁning FGM models as pathways for capturing the designer’s intent for material variation. In order to explore the storage costs associated with modeling FGM objects, several hypothetical FGM objects are introduced, using these tools, containing features that a real FGM part might possess (such as curved surfaces and nonlinearly graded compositions). The storage costs associated with representing the objects in each modeling method are analyzed, as functions of accuracy in shape and composition representation. This dissertation then concludes with a recommendation for a preferred solid modeling method based on memory considerations and suggests possible directions
+
+22
+
+for future research.
+
+1.3
+
+Solid Freeform Fabrication
+
+Solid Freeform Fabrication (SFF) refers to a class of manufacturing processes that build objects in an additive fashion directly from a computer model. While some SFF processes are restricted to building in a single material at a time, most can be adapted to exercise some degree of control over the local composition [17, 35, 57]. Such Local Composition Control (LCC) provides the opportunity to design and create parts with graded composition tailored for speciﬁc applications. These graded compositions have become known as Functionally Graded Material (FGM) [20, 80] and refer to the tailored distribution of material within a part designed for optimal performance. The capability of LCC and fabrication of FGM parts could be utilized by a wide variety of industries. Applications could range from multi-color visualization models to functional parts and tools. For example, the potential to convey additional tissue information through multi-color medical models would increase their usefulness in medical applications such as surgical planning [31]. Not limited to prototyping, SFF processes can also build ﬁnished parts and tools. The possibility of incorporating graded compositions could be used in applications requiring the optimization of the mechanical properties of parts and tools at a local scale, potentially reducing distortion due to internal stresses, increasing hardness at points of greatest wear, or resisting failure, for example by locally controlled toughening [80]. The application of FGM compositions to drug delivery devices is even being studied as a means to achieve optimal, controlled release of medicine into a patient [78].
+
+1.3.1
+
+Single material SFF processing
+
+SFF processes build parts by repeatedly adding minute primitives of material according to a computer model until the ﬁnal object is created [3, 39]. Although there are many variations on this process using diﬀerent materials and mechanisms for adding material, the underlying philosophy is the same: fabricate an object in an additive fashion directly from a computer model. Some of these SFF processes, each capable of building parts in some additive fashion such as Selective Laser Sintering (SLS) [6], Laminated Object Manufacturing (LOM) [10], Stereolithography (SLA) [34], Shape Deposition Manufacturing [74], Selective Area Laser Deposition (SALD) [35], and 3D Printing(3DP) [57]. To illustrate how SFF processes work, the 3D Printing process is explained here. 3D Printing manufactures a part by selectively binding powder together according to a computer model. The build cycle begins by spreading a layer of powder over the print bed. A print head then traverses the bed, selectively depositing binder 1 over the regions corresponding to the interior
+1 Any
+
+liquid that can be delivered through a printhead (similar to an inkjet printhead) that binds powder together.
+
+23
+
+of a slice of the computer model. After the layer is printed, the print bed is lowered and another layer of powder is spread. The process of spreading powder, depositing binder, and lowering the print bed is repeated, as shown in Figure 1-1(a), until the entire volume of the object is printed. At the end of the process, the bound powder becomes the manufactured object, eﬀectively rendering the computer model as a physical object. Post processing steps may also be performed, included sintering and inﬁltration, in order to increase the density and strength of the object. Currently, metal and ceramic parts are being manufactured through 3D Printing, but the potential exists to build with any material supplied in powder form. A collection of parts manufactured with a single material is pictured in Figure 1-1(b).
+
+1.3.2
+
+Local Composition Control through SFF with multiple materials
+
+Considering that most SFF processes build parts on a point-wise basis, a analogy can be made between how parts are constructed and how images and documents are rendered by the computer on display or hard-copy devices. Following this analogy, the capability to generate mixtures of materials similar to how varying intensities of color are generated through image processing is a logical next step for SFF processes. Through the local control of primitives of diﬀerent material, the material in a part can be controlled on a local scale, achieving what has become known as Local Composition Control (LCC). Although many SFF processes are capable of achieving LCC, how 3D Printing could achieve it is explained here. Similar to how an ink-jet printer prints color documents, 3D Printing can achieve LCC with multiple materials. This is accomplished by using a print-head with several jets, as shown in Figure 12, each depositing binders and/or slurries 2 of unique material. By varying the pattern in which the jets deposit material on the powder-bed, the material composition can be controlled on the scale of the binder droplets (≈ 100µm). Regions of uniform and graded composition can be created in a manner analogous to how continuous tone images are rendered on a hard-copy device from primary colors. With this capability, graded compositions can be designed along with the geometry of the part, tailoring the part’s physical properties for a speciﬁc purpose or function.
+
+1.3.3
+
+Modeling and processing for SFF
+
+Solid Freeform Fabrication (SFF) processes build parts directly from computer models. These models may originate from sampled volumetric data or solid models of parts designed within a CAD system. The processing of these models for fabrication is unique to each SFF system (depending on the architecture and mechanism of adding material) but the general philosophy can be understood by looking at the information ﬂow for 3D Printing, as shown in Figure 1-3.
+solution or colloid without binding properties, used as a transport mechanism for locally adding material to an FGM object.
+2A
+
+24
+
+start
+
+remove
+
+?
+Spread powder Apply binder Lower print bed
+
+repeat
+
+Finished part
+
+(a)
+
+(b)
+
+Figure 1-1: (a) 3D Printing illustrating how SFF processes can build a part on a point-wise basis. (b) Parts fabrication through 3D Printing demonstrating the ﬂexibility of SFF to produce complex geometries. [59]
+
+25
+
+start
+
+remove
+
+?
+Spread powder Apply binders Lower print bed
+
+Figure 1-2: 3D Printing illustrating Local Composition Control by selectively depositing droplets of diﬀerent material into a powderbed to form a Functionally Graded Material object. The process begins with a designer interacting with a CAD system to deﬁne the shape of the object. The designer uses tools to modify the geometry of the part and the CAD system provides visual and numerical feedback to the designer about the status of the design. The solid model is represented internally by a proprietary CAD representation, which may be exchanged with other designers and manufacturers using a similar system or translated into a neutral ﬁle format (such as STEP [49, 29] or IGES [27]) for exchange between diﬀerent systems.
+
+repeat
+
+Finished part
+
+design intent digital solid model ↓
+
+designer
+
+proprietary CAD data structure ↓ Convert boundary into triangles → STL ﬁle0 ↓   Orient  Scale  → STL ﬁle1 Translate ↓ Slice into layers → SLC ﬁle ↓ Raster layers into passes → Raster ﬁle ↓ Encode into instructions → 3DP ﬁle ↓ Apply binder according to 3DP ﬁle ↓ Bound powder
+
+process planning
+
+↓ fabrication ↓ ﬁnished part
+
+Figure 1-3: Information ﬂow for 3D Printing. Once the shape of the part is completely deﬁned, process planning begins, generating the in-
+
+26
+
+structions for the fabrication process. The ﬁrst step in this process is the conversion of the model from its native representation into a tessellation of triangles approximating its boundary. Next, this tessellated model is oriented, scaled, and positioned in order to ensure its optimal fabrication. Once correctly positioned, the model is sliced into layers of polygons. These polygons are then rasterized into scan lines which are then encoded into instructions for the 3D Printer, indicating where to apply binder as the printhead traverses the printbed. Although capable of achieving Local Composition Control, the pathway for information ﬂow in current practice does not permit either the deﬁnition of FGM objects at the design stage or the conveyance of the material variation downstream to the printer.
+
+27
+
+Chapter 2
+
+Previous work
+2.1 Introduction
+
+Computer Aided Design and Manufacturing methods aim to improve the design process and the quality of the ﬁnished process by using computers to represent, design, and evaluate models and from these models, generate plans for their accurate fabrication. Initially, CAD systems were simply used to reproduce traditional drafting tools within the computer, enabling the creation and storage of digital engineering drawings. As computers and modeling methods evolved, CAD systems evolved as well, from simply representing engineering drawings to allowing the complete deﬁnition and representation of solid parts and assemblies in three dimensions, along with all the relevant manufacturing data (surface ﬁnish, bill of materials, etc.). Relative to Solid Freeform Fabrication (SFF), the capability of solid modeling has enabled designers to create models and directly manufacture the parts through an SFF process, in a manner analogous to producing hardcopy output directly from a word processing program. One of the next challenges for solid modeling is the representation of graded compositions, or Functionally Graded Material (FGM). With their representation, FGM objects could then be designed and fabricated through SFF processes capable of Local Composition Control (LCC). The current standards for data exchange do not allow this, as explained below in the review of current data exchange methods, providing motivation for research into new modeling methods. To address this shortcoming, several solutions for modeling FGM parts have been proposed by diﬀerent groups and are also outlined below.
+
+2.2
+
+Current data exchange methods
+
+Data exchange allows designers to communicate models between each other, the customer, and manufacturers. Although there are as many methods to deﬁne an exchange speciﬁcation as there
+
+28
+
+are CAD systems, two paths are considered here. The ﬁrst, the STL ﬁle format, is introduced as the accepted speciﬁcation for model processing within the SFF community. The second, STEP (ISO10303), represents a neutral exchange standard proposed by the CAD community at large to enable the complete and exact exchange of model information between various CAD systems.
+
+2.2.1
+
+STL ﬁle
+
+In current practice within the SFF community, the processing of models for fabrication is based on the STL ﬁle format. This format was introduced in 1987 by the Albert Consulting Group and remains the most common speciﬁcation for the transfer of models to SFF processing systems [42, 47]. Designers use the tools within a commercial solid modeling system to deﬁne a model. Once a model is deﬁned, the boundary of the model is tessellated into a collection of triangular facets, approximating the intended design of the part, and written to a ﬁle in the STL format. This ﬁle is then used as input to the data processor for generating machine instructions for the part’s fabrication. At this point, the model may be oriented, scaled, or support structures added to ensure optimal fabrication. The tessellated model is then sliced into layers and instructions unique to each SFF machine for printing each layer are written to a ﬁle. This process of information ﬂow is illustrated in Figure 1-3. To represent a part, the STL format maintains a triangulated representation of the model’s boundary. The ﬁle is organized as a list of solids, each of which maintains a list of facets deﬁning its boundary, as shown in Figure 2-1. The orientation of the facet is deﬁned by: (1) the ordering of the vertices such that they form a counter clockwise circuit when viewed from outside the solid and (2) the outward pointing normal. The appeal of the STL ﬁle to the SFF community comes from its simplicity. Since the STL ﬁle is simply a list of triangles, algorithms to read, write, manipulate, and process models are relatively simple to develop and implement (when compared to generalized boundary representation methods). With the convenience of simplicity, however, comes penalties as well. These penalties can be divided into three general categories: approximation tradeoﬀs, shortcomings in format deﬁnition, and conversion errors [47]. Through the representation of solid models as a triangulated boundary representation within the STL format, curves and curved surfaces are approximated, resulting in a loss of information and accuracy. To provide a higher ﬁdelity representation of a designer’s intent for curved objects, more triangles must used, resulting in greater storage cost. Therefore, with the use of a triangulated boundary representation, a tradeoﬀ must be made in the accuracy of representation of the model and the memory required to represent that model. The deﬁnition of the STL format, itself, introduces problems. First, the STL ﬁle is unnecessarily verbose, containing redundant data. The orientation of each facet, for instance, is doubly deﬁned by the ordering of its vertices and the associated normal. Second, truncation errors are introduced into
+
+29
+
+STL File Format solid <name> facet normal nx ny nz ˆ ˆ ˆ outer loop vertex x1 y1 z1 vertex x2 y2 z2 vertex x3 y3 z3 endloop endfacet facet normal nx ny nz ˆ ˆ ˆ outer loop vertex x1 y1 z1 vertex x2 y2 z2 vertex x3 y3 z3 endloop endfacet . . . endsolid <name> Figure 2-1: STL ﬁle format. The boundary of a model is described as a list of triangular facets and their normals. the representation through the use of single precision ﬂoating point numbers. This may result in gaps between facets that cannot be easily detected due to the third problem with the format: lack of topological information. Although the topology, or connectivity, between facets may be inferred, the lack of explicit topology prevents models from being quickly validated as being solids; ie. having watertight boundaries. STL models containing gaps and holes may be created and not detected without the costly step of re-deriving all of the neighbor information between triangles [4, 5]. The ﬁnal categories of problems with the STL format are due to conversion from the original solid model into the triangulated representation. During triangulation from the original model into the STL ﬁle, any of the following errors may be generated: gaps (open shells) or dangling facets formed, degenerate facets recorded, inconsistent normals assigned, or the topology of the model altered [41, 47, 11]. All of these errors are a function of the accuracy and robustness of the algorithms used to convert the native solid modeling representation with the designer’s CAD system into the STL ﬁle. To illustrate the STL format, Figure 2-2(a) shows the tessellated representation of a wheel (with a radius of 269 mm), initially designed with swept, freeform surfaces. Figure 2-2(b) is a truncated description of the part as an STL ﬁle. The STL model of the wheel has a total of 26906 triangular facets with a reasonable approximation tolerance, requires 3.17 Megabytes to store the data in ASCII format (1.34 Megabytes as a binary ﬁle). The model was created and converted to the STL speciﬁcation using the commercial CAD system SolidWorks
+1 Solidworks:
+
+TM 1
+
+.
+
+http://www.solidworks.com
+
+30
+
+solid Wheel facet normal -1.000000e+000 0.000000e+000 0.000000e+000 outer loop vertex 7.095000e+001 2.913194e+002 7.026579e+001 vertex 7.095000e+001 2.914028e+002 7.636772e+001 vertex 7.095000e+001 3.106206e+002 8.149973e+001 endloop endfacet facet normal -1.000000e+000 0.000000e+000 0.000000e+000 outer loop vertex 7.095000e+001 3.106206e+002 8.149973e+001 vertex 7.095000e+001 2.914028e+002 7.636772e+001 vertex 7.095000e+001 2.882984e+002 1.048139e+002 endloop endfacet facet normal -1.000000e+000 0.000000e+000 0.000000e+000 outer loop vertex 7.095000e+001 3.106206e+002 8.149973e+001 vertex 7.095000e+001 2.882984e+002 1.048139e+002 vertex 7.095000e+001 2.795565e+002 1.320610e+002 endloop endfacet facet normal -1.000000e+000 0.000000e+000 0.000000e+000 outer loop vertex 7.095000e+001 2.685262e+002 2.101446e+002 vertex 7.095000e+001 2.845330e+002 1.940968e+002 vertex 7.095000e+001 2.647845e+002 1.974923e+002 endloop . . . facet normal -1.000000e+000 0.000000e+000 0.000000e+000 outer loop vertex 7.095000e+001 2.647845e+002 1.974923e+002 vertex 7.095000e+001 2.845330e+002 1.940968e+002 vertex 7.095000e+001 3.011244e+002 1.720122e+002 endloop endfacet endsolid
+
+(a)
+
+(b)
+
+Figure 2-2: (a) Faceted approximation of a wheel (26906 triangles). (b) STL text ﬁle describing part (3.17 Megabytes in ASCII format, 1.34 Megabytes in binary format)
+
+2.2.2
+
+STEP: STandard for the Exchange of Product model data
+
+The concept of enterprise data management has become increasingly important in every facet of the business world, with the goal of promoting the complete and neutral data exchange across an organization. The STEP standard was developed for representing product data for data exchange throughout a product’s design, analysis, and manufacture cycles [28]. Initiated in 1984, STEP was intended to become an international standard based on existing speciﬁcations established by various countries, such as IGES (U.S.), PDDI (U.S.), SET (France), NEDO (U.K.), and VDA/VDMA-FS (Germany) [49]. To improve upon these speciﬁcations, the following goals for STEP were established: Completeness: the capability to maintain all relevant product data over its life-cycle, from inception to retirement. Extensibility: able to be expanded to incorporate future representations, processes, products, and methodologies. Testability of additions: clear procedures for validating extensions to the standard.
+
+Eﬃciency: permit product description and storage with minimal cost. Compatibility: provide as much compatibility as possible with existing standards.
+
+31
+
+Minimal redundancy: allow only one way of representation for each concept. Computing environment independence: enable the exchange of data across systems and architectures. Logical classiﬁcation of data elements: organize the standard such that future expansions can easily build on established data elements. Implementation validation: establish a set of tests and protocols for validating new implemen-
+
+tations using STEP, ensuring their correctness. Today, STEP represents a comprehensive set of international standards for modeling product life cycles across a broad spectrum of industries. While a great deal of the standard has been established, it continues to grow as the new requirements for emerging products and processes are identiﬁed, building upon existing parts of the standard.
+
+application protocols 201 Explicit draughting 202 Associative draughting 203 Conﬁguration controlled design 204 Mechanical design using boundary representation 205 Mechanical design using surface representation 206 Mechanical design using wireframe representation 207 Sheet metal die planning and design 208 Life cycle product change process . . . integrated resources generic Fundamental product description Geometric and topological representation Representation structures Product structures Materials Visual presentation Shape variation tolerances Form features Process structure, property, and representation application 101 103 104 105 Draughting Electrical applications Finite element analysis Kinematics
+
+41 42 43 44 45 46 47 48 49
+
+description methods 11 The EXPRESS language reference manual 12 The EXPRESS-I language reference manual
+
+abstract test suites 1201 ATS for 201 . . .
+
+implementation methods 21 Clear text encoding of the exchange structure 22 Standard data access interface
+
+conformance testing methodology and framework 31 General concepts 32 Requirements on test laboratories and clients 33 Abstract test suites 34 Abstract test methods
+
+Figure 2-3: The structure of STEP. STEP is comprised of six major classes, as shown in Figure 2-3 [29]. The top most class, application protocols, deﬁne a protocol for the exchange of data for a speciﬁc application. These protocols are developed using parts of the integrated resources. The integrated resources, in turn, are described in terms of description methods, for which the schema language EXPRESS is used [60, 75]. In order to ensure compliance with the standard, a STEP implementation must satisfy the speciﬁcations of 32
+
+the three remaining classes: implementation methods, conformance testing methodology, and the abstract test suite. The basis of solid modeling within STEP is Part 42 of the integrated resources: geometric and topological resources [30]. STEP separates the implementation of the geometry resources from the topology. Points, curves, and surfaces are each individually deﬁned and then positioned and oriented using the transformation operators. A wide variety of parametric entities for geometric representation are included in the standard, permitting accurate description of a model. The hierarchy of these entities is illustrated in Figure 2-4(a). The connectivity between these geometric entities is maintained through an associated topological graph, consisting of the classes shown in Figure 24(b). An object recorded as a STEP ﬁle is shown in Figure 2-5. Figure 2-5 shows the surfaces
+
+of a boundary representation of the wheel blade. Figure 2-5(b) is the description of the part as a STEP ﬁle, containing a precise mathematical desciption of all of the curves and surfaces as well as the connectivity between all of the topological entities. In this representation, the model consists only 269 faces and requires 11.1 Megabytes of memory to store the data in text format. Although larger than the corresponding text representation of the wheel in STL format (see Figure 2-2(a), the STEP description provides a complete and accurate description of wheel’s design, including analytic descriptions of the features (curves and surfaces) using trimmed NURBS patches and how they are related to each other. This detailed information in a neutral format allows the exchange of the product data to another system without loss of information. The model was an example provided with the commercial CAD system SolidWorks SolidWorks TM export interface.
+TM
+
+, and translated into the STEP standard through
+
+2.3
+
+Modeling of FGM objects
+
+The modeling of parts with graded material compositions requires the attachment of composition information to the model. Although there are existing methods for composite structures [73, 72], the capability to model graded composition requires that a representation go a step beyond decomposing models into subregions of uniform material. The following describes several of the approaches proposed in the literature for modeling these FGM objects.
+
+2.3.1
+
+Voxel-based modeling
+
+The use of voxel-based or exhaustive enumeration methods are commonly used for representing volumetric data sampled from the real-world [37]. The structure of a voxelized model consists of cells uniformly distributed over a 3D grid. Each cell maintains information about its composition. Two classes of voxel-based methods exist: binary voxel and grey-value [37]. In the former class, a binary value is assigned to each voxel, indicating whether it corresponds to a cell interior or exterior
+
+33
+
+geometric representation item placement axis1 placement axis2 placement 2d axis2 placement 3d Cartesian transformation Cartesian transformation operator 2d Cartesian transformation operator 3d point Cartesian point degenerate curve evaluated degenerate pcurve point on curve point on surface point on replica vector direction curve bounded curve B-spline curve uniform quasi uniform B´zier curve e B-spline curve B-spline curve with knots rational B-spline curve composite curve composite curve on surface boundary curve outer boundary curve composite curve segment polyline trimmed curve conic circle ellipse hyperbola parabola pcurve surface curve intersection curve seam curve line offset curve 2d offset curve 3d curve replica surface bounded surface B-spline surface uniform surface quasi uniform surface B´zier surface e B-spline surface with knots rational B-spline surface elementary surface curve bounded surface rectangular trimmed surface rectangular composite surface surface patch elementary surface conical surface cylindrical surface plane spherical toroidal offset surface swept surface surface of linear extrusion surface of revolution surface replica
+
+topological representation item vertex vertex point edge edge curve oriented edge path open path oriented path edge loop loop edge loop vertex loop poly loop face oriented face face surface subface face bound face outer bound vertex shell wire shell connected face set open shell oriented open shell closed shell oriented closed shell connected edge set
+
+(a)
+
+(b)
+
+Figure 2-4: (a) Geometric and (b) topological entities deﬁned with Part 42 of STEP (ISO10303).
+
+34
+
+ISO-10303-21; HEADER; FILE DESCRIPTION (( ’STEP AP203’ ), ’1’ ); FILE NAME (’wheel.step’, ’1999-11-11T17:16:43’, ( ’Jackson’ ), ( ’MIT Design Lab’ ), ’SwStep 1.0’, ’SolidWorks 98011’, ” ); FILE SCHEMA (( ’CONFIG CONTROL DESIGN’ )); ENDSEC; DATA; #1= EDGE CURVE ( ’NONE’, #70750, #70945, #32869, .T. ) ; #2= ORIENTED EDGE ( ’NONE’, *, *, #56432, .T. ) ; #3= ORIENTED EDGE ( ’NONE’, *, *, #75214, .F. ) ; #4= CARTESIAN POINT ( ’NONE’, ( -0.02277223799738261100, . . . ) ; #5= CARTESIAN POINT ( ’NONE’, ( -0.02274808706025059600, . . . ) ; #6= CARTESIAN POINT ( ’NONE’, ( -0.02276491948137489600, . . . ) ; #7= CARTESIAN POINT ( ’NONE’, ( -0.02278175190249919600, . . . ) ; #8= CARTESIAN POINT ( ’NONE’, ( -0.02283956758760015800, . . . ) ; #9= CARTESIAN POINT ( ’NONE’, ( -0.02293799242417949100, . . . ) ; #10= CARTESIAN POINT ( ’NONE’, ( -0.02303641726075882400, . . . ) ; #11= CARTESIAN POINT ( ’NONE’, ( -0.02317545069753161600, . . . ) ; #12= CARTESIAN POINT ( ’NONE’, ( -0.02335419307990956000, . . . ) ; #13= CARTESIAN POINT ( ’NONE’, ( -0.04164771119154294500, . . . ) ; #14= CARTESIAN POINT ( ’NONE’, ( -0.04092825589242170300, . . . ) ; #15= CARTESIAN POINT ( ’NONE’, ( -0.04020880261889587400, . . . ) ; . . .
+
+(a)
+
+(b)
+
+Figure 2-5: (a) Surfaces deﬁning the boundary of a wheel (269 surfaces). (b) STEP encoding of the part (11.1 Megabytes). to the modeled object. Grey-value go one step further, in which a value is assigned to each voxel representing the density of a material or property assigned to that cell. Sources of real world data for voxel models come from sampling methods that naturally generate data over a grid, such a X-ray computed tomography, magnetic resonance, positron emission tomography, computed radiography, digitized x-rays, and ultrasound [62, 77]. A summary of the advantages and disadvantages of voxel-based modeling methods has been provided by Kaufman et al [38], which is reproduced here: • Disadvantages of voxel-based models: Discrete form Voxel-based methods provide ﬁnite resolution, approximating surfaces and volumes as discrete primitives. This artifact of voxel-based methods also complicates transformations and results in information loss during the transformations. Loss of geometric information: Since a model is represented as discrete information, information about speciﬁc surfaces and features is not readily available for rendering and design algorithms. Memory and processing: In order to represent models accurate, large sets of voxels are required. • Advantages of voxel based models: Insensitivity to scene complexity: All objects in a scene are represented as collections 35
+
+Figure 2-6: Photograph of actual brain, magnetic resonance imaging of brain, voxelized model of brain. (image courtesy of University of Washington Structural Informatics Group http://sig.biostr.washington.edu/) [77] voxels in an ordered grid, allowing direct rendering without concern for intersections between polygons (as in surface models). Citing the fact that raster based graphics have dominated in 2D environments over vector based approaches [19], Kaufman suggests that a similar migration is possible in the 3D modeling as memory prices drop and processing speed increases [38]. Citing the close resemblance between how voxel-based methods represent parts and how SFF processes build parts, several researchers have suggested the use of voxel-based modelers for SFF model representation and design [9, 46]. Chandru et al introduces the Geometric Workbench for Rapid Prototyping (G-WoRP), incorporating a voxel-based data structure for modeling parts with design tools for capturing designers’ intent [9]. In their approach, they suggest that the process planning for SFF fabrication is greatly simpliﬁed through the use of a voxelized representation. The voxels in their data structure correspond directly with the material primitives added during the build of the part, reducing the intermediate steps of generating an STL ﬁle, slicing it, and rasterizing the slices. They also suggest the possibility of building composite structures by associating material information with each voxel, thereby enabling the representation and design of parts with local composition. Despite advocating the use of voxelized models for modeling parts for SFF, Chandru et al [9]
+
+36
+
+recognize that “the memory requirements of voxel models are enormous” [9]. They provide as an example that a 400 × 400 × 400 grid requires 6.4 × 107 bytes of memory. To address this issue, they suggest trading computation time with memory cost by compression, octrees, shells, or maintain “the original geometric representation and use voxelization algorithms when necessary” [9].
+
+2.3.2
+
+Finite element modeling
+
+In Computer Aided Engineering (CAE), designs and physical problems are often analyzed through the Finite Element Method [2], allowing the study and prediction of engineering properties throughout a ﬁnite element model. With its ability to represent volumetric data, the ﬁnite element modeling is another avenue for establishing a representation for FGM objects. In order to perform a ﬁnite element analysis, a simpliﬁed model of the problem is formed, consisting of many ﬁnite elements (tetrahedra, bricks, etc.) interpolating nodes in space. These nodes are positioned such that the shape of the mesh of elements captures the important features of the problem being studied. Boundary and load conditions are then imposed on the appropriate nodes and a set of governing equations are solved over the elements, determining the values at all of the nodes, solving for the properties of interest throughout the model. With its ability to represent volumetric data, the Finite Element Method has been proposed as a solution for the representation and design of FGM objects, most notably by Pegna [50] at a presentation in the 1998 Solid Freeform Fabrication Symposium. Pegna suggested that models represented by point sets used in existing ﬁnite elements analysis systems could be used to model spatially varying material distributions within FGM objects. Although proposed as a method to represent FGM objects, Pegna does not give a predication of the memory requirements for modeling FGM objects in such a manner.
+
+2.3.3
+
+Generalized modeling methods
+
+While the preceding approaches to FGM modeling adopt analysis methods for volumetric data to the design of FGM objects, another avenue to solving this problem is to extend solid modeling methods currently used in Computer Aided Design (CAD) systems to handle graded material data. The following sections introduce two possible approaches. The ﬁrst proposes the extension of Boundary Representation (B-rep) modeling to include material information. The second proposes a generalized cellular decomposition scheme. Upon close review of the two methods, it will become apparent that both approaches advocate the decomposition of models into general regions over which material variations are mapped.
+
+37
+
+(a)
+
+(b)
+
+Figure 2-7: (a) Proposed decomposition of solid model into atlases. (b) Proposed data structure for rm -object modeling based [40]. rm -objects Kumar et al. [42, 43, 40] have proposed the extension of solid modeling to handle heterogeneous objects by using (r−sets) with information about material variation (rm −sets). The shape of a model is deﬁned in terms of an r−set (a form of B-rep modeling). This geometry model is further decomposed into atlases over which material variations are mapped, as shown in Figure 2-7(b). In such a manner, FGM solid models are represented as rm -objects, maintaining the geometry of the model’s boundary and the volume fraction variation of each material throughout the object. In their initial proposal (1997), Kumar and Dutta [42], rm -objects were to be represented in a data structure built upon the commercially available solid modeling kernel ACIS [65]. In their latest published work (1999), a new cellular data structure (Kumar et al [40]) is proposed to maintain solid models decomposed into cells with atlases deﬁning their compositions and properties (see Figure 2-7(b)). In order to deﬁne FGM models, Kumar et al. also propose a set of Boolean operators for modifying the geometry and composition stored in the data structure. Examples of FGM objects modeled as rm -objects are given in Figures 2-8(a) and (b). They do not, however, provide an analysis of the memory required to store rm -objects. FGM cellular decomposition A generalized cellular decomposition approach to FGM solid modeling was proposed by Jackson et al. [33, 32, 58]. In their approach, a solid model is decomposed into a collection of cells representing
+
+38
+
+(a)
+
+(b)
+
+Figure 2-8: (a) Model motivating need for representation method for heterogeneous objects with rm -sets [40]. (b) Example of a graded bar represented as an rm -object, decomposed into cells [40]. the vertices, edges, faces, and regions of the solid model. The topology (or connectivity between the cells) is maintained through the use of a data structure known as the Cell-Tuple data structure [7, 8, 25, 26]. The geometry of each cell was maintained separately, similar to how the geometry is maintained in existing B-rep modelers. Along with the geometry of each cell, material information was also stored, allowing the modeling of both curved geometries and graded compositions for each cell. In their prototype implementation, the shape and composition of the cells were deﬁned in terms of B´zier curves, triangles and tetrahedra (linear in shape, but of any degree in composition). Control e points blended according to the barycentric Bernstein polynomials deﬁne the shape of each cell. Likewise, control compositions deﬁned in material space and another set of Bernstein basis functions deﬁne the material variation of each cell. Although Jackson et al [32, 33] state that their approach is general in nature, the examples they provide were generated through a commercial meshing system
+2
+
+as an initial approach to
+
+subdividing models into sub-regions (see Figure 2-9). Acknowledging the expense of storing meshes in a relational database maintaining all of the topological data explicitly, Jackson et al. suggest that further research should address methods to more logically subdivide models as well as the development of additional cell classes for representing shape and composition.
+2 Algor:
+
+http://www.algor.com
+
+39
+
+Variation of FGM within drug delivery device 1
+
+Variation of FGM within pulley 1
+
+Volume fraction of material
+
+0.8
+
+Volume fraction of material
+
+Pill matrix Binder Drug Voids
+
+0.8
+
+Stainless Steel Binder Carbide Voids
+
+0.6
+
+0.6
+
+0.4
+
+0.4
+
+0.2
+
+0.2
+
+0 0
+
+0.1
+
+0.3 0.4 0.5 0.6 0.7 Ratio of distance between query point and pill boundary to the pill radius
+
+0.2
+
+0.8
+
+0 0
+
+0.2
+
+0.4 0.6 0.8 Ratio of distance between query point and reference axis to pulley radius
+
+1
+
+(a)
+
+(b)
+
+Figure 2-9: (a) A pulley consisting of graded material deﬁned as a cellular model with B´zier triangles e and tetrahedra. (b) A drug delivery device deﬁned as a cellular model with B´zier triangles and e tetrahedra. [33, 32].
+
+2.4
+
+Discussion
+
+This chapter has provided a brief overview of the state-of-the-art in solid modeling relevant to modeling FGM objects. For data exchange, the STL ﬁle format is recognized as the de facto speciﬁcation in the SFF community. Serving the same purpose (data exchange) but with more accuracy and wider acceptance, the STEP standard was presented as the state-of-the-art in solid model exchange. Given the limitations of the STL format, the logical choice for data exchange for solid models should be STEP (provided that both the transmitter and receiver of the model posses the facilities to handle this format). For representing FGM objects, however, neither STL or STEP allow the deﬁnition of regions of graded compositions, motivating the exploration of extensions to STEP to handle graded materials. Three classes of solid modeling for handing FGM objects were then introduced. Each addresses the issue of material variation in space diﬀerently. The ﬁrst two, voxel-based and ﬁnite element based are commonly used for engineering analysis of volumetric data, but their use in mechanical design is not as common. The generalized methods suggest extending the concepts behind existing solid modeling methods used for design. The most common method, B-rep modelers, describe the boundary of a solid in terms of a shell of faces, deﬁned based on a wide variety of surface types. Both Kumar et al and Jackson et al suggest that this paradigm can be followed for FGM object modeling in which models are decomposed into regions that map material variations, similar to how
+
+40
+
+shape is represented. By mapping each region into a material space, their compositions are deﬁned. Although several methods for representing FGM models have been introduced, no conclusions have been drawn on the storage costs associated the representing an FGM object in each.
+
+41
+
+Chapter 3
+
+Identiﬁcation of issues in FGM modeling
+3.1 Motivation
+
+Before proposing a solution for modeling FGM objects, the issues involved in the design, representation, and processing of FGM models must be understood. Only the most fundamental issues concerning the representation of FGM objects are presented here: the deﬁnition of shape and composition in terms of a Build Space and Material Space. These concepts are then put in the context of the overall information ﬂow for SFF processing with LCC, clearly a separation between FGM modeling and SFF fabrication.
+
+3.2
+3.2.1
+
+Modeling shape versus shape and composition
+Geometric modeling
+
+Modeling the geometry (or shape) of an object is the primary purpose of most design systems. The goal is simple: provide a system capable of maintaining a model’s geometry and provide the tools to deﬁne that geometry by accurately capturing the designer’s geometric intent. Existing CAD systems provide this functionality in many formats, but the basic idea is typically to deﬁne the boundary of an object, whether it is a single part and a component of an assembly. The Model Space maintained in the data structure can be considered the Build Space in R3 in which the model will be fabricated (see Figure 3-1(a)). The boundary of the model must clearly divide this Build Space into the interior and exterior of the model. To accomplish this, any of a number of solid modeling methods may be used (voxel-based, CSG, B-rep, cellular decomposition,
+
+42
+
+etc). The designer modiﬁes the boundary of the object through a set of design tools (extrude, cut, sweep, revolve, etc.) to generate the desired shape of the model. In addition to representing the object, information about the geometric nature of the boundary may be requested. Geometric interrogations may consist of calculating quantities such as surface normals, curvature, minimum distance between features, surface area, or volume. Although material information may be associated with a geometric model, it is added after the fact as an attribute to the enclosed region and is assumed to be uniform throughout that region (see Figure 3-1(b)).
+
+3.2.2
+
+Geometric and material modeling
+
+With the goal of modeling graded compositions, the issue of material modeling becomes as important in the representation of an object as the geometric modeling of its boundary. The Model Space in which the model is deﬁned can now be considered as the combination of the Build Space and the Material Space (see Figure 3-2). Again, the Build Space is simply the three dimensional space in which the object is to be fabricated. The Material Space, however, is spanned by the primary materials in the material system. This concept is analogous to the blending of primary colors (Cyan, Yellow, Magenta, and Black) in an ink-jet printer to produce a wide range of colors and tones for color hard-copy output. To achieve Local Composition Control, an SFF process builds a part by selectively adding varying quantities of diﬀerent base materials. These materials comprising the material system create a Material Space out of which an FGM is deﬁned. The dimension of the Material Space (dm ) is the number of materials out of which the object is to be composed. To deﬁne an FGM object, a mapping from the Build Space (X) into the Material Space (M) must be provided. This concept has previously been suggested by Kumar et al. [42, 43] (through the use of atlases) and Jackson et al. [33, 32] (through the use of parametric cells with control points in Build Space and control compositions in Material Space). This concept of mapping from Build Space into Material Space is illustrated in Figure 3-3. Before even exploring how one might maintain a digital representation of the model, it must be understood that the underlying goal of any FGM modeling method is to deﬁne a function spanning the material space for all the points in Build Space. This is accomplished by deﬁning the concept of a composition, represented by m, which deﬁnes the volume fraction of each of the primary materials
+
+43
+
+^ z
+
+^ y ^ x
+
+build space model space
+(a)
+
+^ z
+
+Bill of materials Material m0 Material m1 Material m2
+
+^ y ^ x
+
+build space model space
+(b)
+
+Figure 3-1: (a) The Model Space represented by state-of-the-art solid modeling systems. (b) Associating of materials to regions within a model. 44
+
+^ z
+
+m2
+
+^ y ^ x
+
+m1
+
+build space
+
+m0
+
+material space model space
+
+Figure 3-2: The Model Space for objects consisting of graded material spans both the Build Space (X) and a Material Space (M) in which the material variations are deﬁned.
+
+^ z
+
+m2
+
+^ y ^ x
+
+m1
+
+build space
+
+m0
+
+material space model space
+
+Figure 3-3: To deﬁne an FGM object, each point in the Build Space (x ∈ X) must map to a composition in the Material Space (m(x) ∈ M)
+
+45
+
+at every point in the Build Space. M = material0 × material1 × material2 ...   %material0     %material1   ∈ M for x ∈ X  m(x) =   %material2    . . . (3.1)
+
+(3.2)
+
+For completeness, the material voids are always included to allow the deﬁnition of space exterior to the object’s intended boundary. In addition, further restrictions are imposed on the composition function such that the volume fractions always sum to unity and the volume fraction of each material is non-negative: ||m(x)||1 = material0 + material1 + . . . = 1.0 materiali ≥ 0 for 0 ≤ i < dm (3.3) (3.4)
+
+Other than the above constraints, no other limitations have yet been imposed on the nature of the material variation. Tools for working with geometric information (the object’s boundary) are still important, but how the material varies throughout the model is now equally important at the time of design. The composition may vary smoothly or contain discontinuities, depending on what tools are available for the deﬁnition of m(x) and how this information is modeled. It is important to note that at this point in the discussion of FGM modeling issues, the manner in which that data is represented in the computer or how the model is to be processed for fabrication has not been discussed. Only the concept of a Model Space, consisting of a build space and a Material Space, in which an FGM model is to exist have been identiﬁed.
+
+3.3
+
+Accuracy in representation
+
+The previous section introduced the goal of FGM modeling: to represent the shape and material variation of an object through a function m(x). The manner in which m(x) should be chosen, in part, based on the accuracy of representing the designer’s intentions.
+
+3.3.1
+
+Shape
+
+Accuracy in representing shape is an underlying goal of existing CAD systems. The designer has an idea for the shape of an object’s boundary. The geometric accuracy is the maximum distance between the desired shape and the shape actually stored in the digital representation (see Figure 3-4).
+
+46
+
+^ z
+Modeled object boundary
+
+Intended object boundary
+
+^ y ^ x
+
+εg
+build space model space
+
+Figure 3-4: The maximum distance between the intended object’s boundary and the modeled boundary is the geometric accuracy ( g ) of the modeled object.)
+
+3.3.2
+
+Material
+
+With the representation of graded material information, the concept of material accuracy needs to be deﬁned. The material accuracy is the maximum diﬀerence between the intended volume fraction for any material at any point in the object and the volume fraction actually maintained or computed from the digital representation: = max {m∗ (x) − m(x)} for x ∈ Build Space = max{|m∗ (x) − m0 (x)| , |m∗ (x) − m1 (x)| , . . . } for x ∈ Build Space 0 1
+
+m
+
+where m∗ (x) represents the desired material distribution for the object and m(x) is the distribution actually modeled in the data structure. Figure 3-5 illustrates the concept of material accuracy for the assignment of uniform material to a region in a model.
+
+3.4
+
+Processing FGM models for fabrication
+
+The issue of processing FGM models for fabrication can now be discussed. With the deﬁnition of an FGM object as a function m(x), the model must be transformed into machine instructions for its 47
+
+^ z
+
+m2
+
+εm
+
+x.
+
+* m(x) m(x)
+
+^ y ^ x
+
+m1
+
+build space
+
+m0
+
+material space model space
+
+Figure 3-5: Visual interpretation of material accuracy, showing the diﬀerence between the desired composition m∗ (x0 ) and the modeled composition m(x0 ) at the point x0 in Build Space. fabrication. To achieve this goal, image processing techniques provide a two-dimensional solution which may readily be adapted for three-dimensional models.
+
+3.4.1
+
+Image processing
+
+Figure 3-6 outlines the steps in image processing, as presented by Ulichney [71, 70]. This process starts with a continuous tone image (Iin (x)) that deﬁnes the intensity of each of the primary colors over the space occupied by the image.  %red = r(x))  (3.5)     Iin (x) = %green = g(x) for x ∈ image   %blue = b(x)
+
+Iin (x) may originate from a digital photograph, a computer graphics program, or a word processing document. The ﬁrst step in image processing is the sampling of the continuous tone image at a grid of
+
+48
+
+continuous tone image ↓
+
+Iin (x) ↓   Retrospective Resampler  Tone Scale Adjust  → I [n] Sharpen ↓   Halftone → J[n]
+
+image processing
+
+↓ printing or display ↓ printed or displayed image
+
+↓  Physical Reconstruction Function ↓  Iout (x)
+
+Figure 3-6: Steps of the information ﬂow for image processing. discrete points (n).  %red = r(n))  (3.6)     I (n) = %green = g(n) for n ∈ grid   %blue = b(n)
+
+These sampled values are then modiﬁed to compensate for errors inherent in display or printing process. The Tone Scale Adjust step modiﬁes values to account for any non-linearities between the mapping of the desired values and the rendered value due to the nature of the Physical Reconstruction Function and the halftoning method used. The Sharpen step attempts to modify the values of the image to compensate for any loss of clarity during the halftoning step. The next step in the information ﬂow is the halftoning of the continuous values in the grid into binary values. There are many methods for accomplishing this, including the use of dithering arrays and error diﬀusion, but the underlying goal remains the same: determine a pattern of ones and zeros over the sampling grid that will most closely reproduce the original image after the Physical Reconstruction Function is applied.  1 or 0     J(n) = 1 or 0 for n ∈ grid   1 or 0 
+
+(3.7)
+
+These binary values are encoded into instructions for the display or hardcopy device. The Physical
+
+49
+
+Reconstruction Function is deﬁned by Ulichney as the mathematical description of this device, capturing the nature of pixel rendering (accuracy and intensity distribution) to reproduce the processed image [70]:  %red = r(x))  (3.8)     Iout (x) = %green = g((x)) for x ∈ image   %blue = b((x))
+
+The left hand side of the above equation (Iout (x)) represents the ﬁnal, processed (displayed or printed) image. Although this image was produced through a digital process (pixels on a monitor or ink droplets on a page), ideally this ﬁnal image will closely match the initial image: Iout (x) ≈ Iin (x) for x in the image. A measure of the quality of a display device and the image processing algorithms used to drive it, is how close these two images match [70]. This information ﬂow is illustrated in Figure 3-7 for a single color (red). The initial distribution of red in the image is deﬁned as: r(x, y) = cos(x) ∗ sin(y) + 1 2 (3.9)
+
+This distribution is shown in Figure 3-7(a). The image is then sampled over a 77 × 77 grid, as shown in Figure 3-7(b). The value at each grid point may take on any value between zero and unity. To convert the grid of continuous tone value to binary values, the values are halftoned, generating the grid of binary values shown in Figure 3-7(c). A simple Physical Reconstruction Function based on diﬀusion of the ink during printing was used to simulate the rendered image Figure 3-7(d). For a more detailed explanation about this process, consult Ulichney’s work on digital halftoning [70].
+
+3.4.2
+
+FGM model processing
+
+As previously stated, an FGM object can be deﬁned as the function m(x), providing a mapping from a Build Space into a Material Space. For the processing of FGM models for fabrication through Local Composition Control, the paradigm of information ﬂow from image processing can be followed. This process is outlined in Figure 3-8. The process begins with capturing the designer’s intent in terms of a digital FGM model. At this point, the model m(x) is maintained within a data structure selected to accurately capture the designer’s ideas. Once the model is completely deﬁned, processing begins with the model ﬁrst positioned in the fabrication space, then sampled over a lattice of points, and then halftoned into discrete material primitives. The object is then fabricated through an SFF process, whose properties are captured mathematically by the Physical Reconstruction Function.
+
+50
+
+4
+
+70
+
+60
+3
+
+50
+2
+
+40
+
+1
+
+30
+
+0
+
+20
+
+10
+−1
+
+0
+
+0.5
+
+1
+
+1.5
+
+2
+
+2.5
+
+3
+
+10
+
+20
+
+30
+
+40
+
+50
+
+60
+
+70
+
+(a)
+
+(b)
+
+70
+
+4
+
+60
+3
+
+50
+2
+
+40
+
+1
+
+30
+
+20
+
+0
+
+10
+−1
+
+10
+
+20
+
+30
+
+40
+
+50
+
+60
+
+70
+
+0
+
+0.5
+
+1
+
+1.5
+
+2
+
+2.5
+
+3
+
+(c)
+
+(d)
+
+Figure 3-7: (a) Initial image: Iin (x). (b) Sampled image: I (n). (c) Halftoned image: J(n). (d) Physically reconstructed image: Iout (x).
+
+51
+
+design intent digital FGM model ↓  
+
+designer
+
+min (x) ↓
+
+process planning
+
+Orient  Scale  → min (x ) Translate ↓   Retrospective Resampler  Tone Scale Adjust  → m [n] Sharpen ↓   Halftone → J[n]
+
+↓ fabrication ↓ ﬁnished part
+
+↓  Physical Reconstruction Function ↓  mout (x)
+
+Figure 3-8: Steps of the information ﬂow for FGM model processing.
+
+52
+
+As an example, consider the deﬁnition of an FGM object in a two dimensional Material Space consisting of stainless steel and voids. The processing begins with the part being oriented, scaled, and positioned in the fabrication space in order to ensure an optimal build. The model is then sampled over a lattice of points in the fabrication space. Just as the sampled image needed to be ﬁltered, Tone Scale Adjust and Sharpen steps are applied to help compensate for errors and distortions introduced later. These values are then halftoned into binary values which are then used to drive the fabrication (represented by the Physical Reconstruction Function). For 3D Printing, the Physical Reconstruction Function depends on the nature of the droplet formation, ﬂight, impact, and diﬀusion into the powder bed. For Selective Laser Sintering, the Physical Reconstruction Function would capture then intensity distribution of the laser and the nature of the melting and solidiﬁcation of the power.
+
+3.5
+
+Discussion
+
+This chapter has introduced three important concepts: the Model Space in which an FGM object should be deﬁned, the deﬁnition of material accuracy, and how FGM models should be processed. This Model Space consists of a Build Space and a Material Space. Through the introduction of a Model Space, no reference was made to a solid modeling method. Instead, emphasis was placed on the information that needs to be conveyed: shape and material variation. The accuracy in capturing the designer’s intent for shape and composition is then deﬁned. Since the goal of any modeling system is to capture design intent, the measures of accuracy (
+m) g
+
+and
+
+should be used as the parameters when evaluating any data structure upon which an FGM
+
+modeling system and exchange standard will be built. Following the paradigm of image processing for the process planning of FGM objects, a clean separation is established between object modeling (part design and representation) and object fabrication. The processing steps are suﬃciently general to apply to any point-wise manufacturing process (SLS [6], 3DP [57], SDM [74], SALD [35], SLA [31]) and material system. The details of the halftoning, its encoding into machine instruction, and the nature of the Physical Reconstruction Function, however, are unique to each process and material system and are not addressed in this work [79].
+
+53
+
+Chapter 4
+
+Modeling composition through decomposition
+4.1 Motivation
+
+Solid modeling schemes diﬀer in the manner in which they deﬁne interior regions of models, and how these regions are related to each other to form a complete object. In most existing approaches to solid modeling for use in design tasks, attributes attached to regions within the representation of an object are considered to be uniform or constant throughout each region. This permits the association of a single material or manufacturing process with each region, facilitating the modeling of composite structures. With the developing capability to locally vary the composition of a part as it is fabricated, additional information must be associated with each region to represent how its composition varies or grades throughout its interior. This requirement impacts both the complexity of the representation schemes used for each region as well as the number of regions required to accurately model an object. Both of these factors are related to how eﬃciently the data representing an object data is stored. To address these issues, this chapter introduces several modeling schemes for representing FGM objects. The data structures to be considered include a exhaustive enumeration approach, a triangulated boundary representation (a variation on the STL format) [47], a ﬁnite element mesh [2], the Radial-Edge data structure [73], and the Cell-Tuple-Graph data structure [7, 8, 25, 26]. Regardless of the data structure used, the concept of decomposing the model into regions with which material information is associated is fundamental. The generality in the representation of regions and amount of topological (connectivity) information explicitly recorded, however, is diﬀerent for each method, resulting in diﬀerent degrees of generality, accuracy, and eﬃciency of interrogation algorithms. To illustrate what information is maintained for each method, the object in Figure 4-1 is used. This
+
+54
+
+chapter is concerned with outlining how the diﬀerent modeling schemes represent FGM models as well as formulating storage cost of each method in terms of the data it maintains.
+
+(0,0,1)
+
+(1,1,1) (0,1,0)
+
+(0,0,0)
+
+(1,0,0)
+
+Figure 4-1: Model consisting of two tetrahedra used to illustrate various modeling methods. Shown is the wireframe of the model. The solid modeling data structures explored here increase in complexity from an exhaustive enumeration scheme to the completely general methods (Radial-Edge and Cell-Tuple-Graph). For each approach, the overall data structure is ﬁrst introduced, followed by a description of each of the classes needed in an object-oriented implementation of the data structure [54]. The storage requirement for the entire data structure is then formulated in terms of these elementary data classes, providing general expressions for the costs associated with modeling an object within each representation. The analysis here is concerned with the minimal information needed to represent the model and does not include additional information which may be useful for performing operations on the model, such as interrogating the data structure, visualizing or processing the model, and modifying its geometry or composition.
+
+4.2
+
+Nomenclature
+
+The storage costs for the various approaches to modeling FGM objects are derived in terms of the amount and classes of data they maintain and the number of instances of each class stored in the data structure. The cost associated with a speciﬁc data class is represented by the symbol Sa with 55
+
+the subscript a replaced by the name of the corresponding data type or class. The storage cost Sa is the amount of memory required to store a single instance of class a. The units are assumed to be in bytes, although in all but the voxel-based approach the units are arbitrary. The symbols Sint , Sf lt , and Sptr represent the number of bytes for primitive data types integer, ﬂoating point number, pointer, respectively, which are machine-dependent. The number of instances for a given class is represented by the parameter nb , where b is the class name. In some cases, attributes within an object are used in the derivation. This information is represented by naming the object followed by a period and the name of the attribute. The number of facets nf bounding a facetted region r, for instance, would be written as r.nf . For each modeling method, the terms of the storage costs are initially grouped by data class, identifying the amount and kind of data associated with each data class. This takes the following form: Smethod A = [Sclass B ]class B + [Sclass C ]class C (4.1)
+
+where the storage cost for modeling method A, class B, and class C are represented by Smethod A , Sclass B , and Sclass C , respectively. In this example, modeling method A consists of only two classes: B and C.
+
+4.3
+
+Voxel-based modeling
+
+In the exhaustive enumeration approach to solid modeling, a region of space containing the object is decomposed into a lattice of voxels [37]. If the model is composed of a single material of uniform density, a binary value is associated with each voxel, indicating whether or not the voxel lies inside or outside of the object. This modeling method, also known as binary voxel modeling, is usefule in representing conventional composite structures where discrete materials exist within separate regions of the model. For blended compositions, a vector of numerical values must be associated with each voxel, representing the volume fractions of each material present within the voxel. These models are known as grey-value voxel models and are commonly used for modeling sampled data sets of scalar ﬁelds. Figure 4-2 shows the two classes required in a voxelized modeling scheme for representing object. The class Voxel-Model maintains information about the dimensions of each voxel (δx , δy , δz ), the number of voxels, or subdivisions, along each dimension (nx , ny , nz ), and the position of the lower corner of the voxel model in the Build Space (ox , oy , oz ). The pointer lattice provides a reference into the 3D grid of voxels and matsys contains all of the information regarding the Material System out of which the object is composed. Figure 4-3 shows the sample object represented as a voxel56
+
+based model.
+
+Each voxel maintains an array of values m, corresponding to the intensity level or Voxel-Model nx , ny , nz : integers δx , δy , δz : ﬂoats ox , oy , oz : ﬂoats lattice : pointer to array of voxels matsys : MaterialSystem
+
+→
+
+Voxel m : array of values
+
+Figure 4-2: Relationships between classes in an exhaustive enumeration method for modeling FGM objects.
+
+δz
+
+sample::Voxel-Model nx , ny , nz = 20, 20, 20 δx , δy , δz = 0.05, 0.05, 0.05 ox , oy , oz = 0, 0, 0 lattice =→ v000 matsys =→ : MaterialSystem v000::Voxel 1 m = 0 v010::Voxel 1 m = 0 v100::Voxel 1 m = 0 . . . v001::Voxel 1 m= 0 v011::Voxel 1 m= 0 v101::Voxel 1 m= 0 . . .
+
+k
+δy
+
+···
+
+δx
+
+···
+
+j
+
+i
+(ox,oy,oz)
+
+···
+
+;
+
+(a)
+
+(b)
+
+Figure 4-3: (a) Voxelized representation of sample model. (b) VoxelModel object model. volume-fraction of the corresponding material or physical property. The memory required to store this array depends on the number of levels of intensity (nλ ) to be represented by each voxel as well as the number of ﬁelds (materials) in m. To represent nλ levels of intensity for each material, each voxel must store an integer value from zero to nλ − 1 for each material. Representing this value in binary form, the number of bits required by a voxel to represent the intensity value of each material is simply lg nλ . For a Material System with dm materials, each voxel would require dm lg nλ bits. Therefore, the total storage cost (in bytes) for the exhaustive enumeration representation presented in Figure 4-2 is: Svox = [3Sint + 6Sf lt + Sptr + Sms ]Voxel-Model + 1 nvox dm lg nλ 8 (4.2)
+Voxel
+
+where nvox = nx ny nz is the number of voxels stored in the lattice. Therefore, the storage requirement for the exhaustive enumeration method is directly proportional to the number of voxels (regions) and the log of the number of levels of intensity for each
+
+57
+
+material stored in the data structure.
+
+4.4
+
+Triangulated shells
+
+The next level of sophistication for modeling FGM objects is the use of a faceted Boundary Representation (B-rep) modeler [47]. In this approach, a model is decomposed into regions of uniform (constant) composition, bounded by shells of triangular facets. This is a modest extension of the conventional STL format in current use for exchanging models for SFF [47]. The data classes TriModel nr : integer r : array of nr pointers matsys : MaterialSystem ↓ TriRegion nf : integer f : array of nf pointers n : array of nf Boolean values m : array of dm ﬂoats TriFacet v : array of 3 pointers TriVertex x : array of 3 ﬂoats
+
+→
+
+→
+
+Figure 4-4: Relationships between classes in the triangulated boundary representation approach for modeling FGM objects. comprising this modeling method include: TriModel, TriRegion, TriFacet, and TriVertex (see Figure 4-4). The top most class, TriModel, is used to represent an individual FGM model, containing a Material System matsys and an array of regions r into which the model is decomposed. Each region is represented by an object of type TriRegion, containing a vector of volume fractions m of the primary materials to deﬁne its uniform composition as well as references to the triangular facets f deﬁning its boundary. An array of Boolean values n is also maintained by each region, each value indicating whether or not the orientation of the vertices about the corresponding triangular facet form a counter-clock-wise circuit when viewed from outside the region. Each triangular facet is an instance of a TriFacet and references three vertices v. Vertices are stored separately as TriVertex objects, each storing a point x in Build Space. The sample object represented as a triangulated model with its objects are shown in Figure 4-5. The storage cost for the data structure is a function of the number of regions, facets (internal and external), and vertices needed to represent the model.
+
+Stri
+
+= [Sint + nr Sptr + Sms ]T riModel +
+r∈ Model.r
+
+(Sint + r.nf Sptr + r.nf Sbln + dm Sf lt )
+T riRegion
+
++ [3ntriangles Sptr ]T riF acet + [3nnodes Sf lt ]T riV ertex = (Sint + Sptr + dm Sf lt )nr +
+r∈Model.r
+
+r.nf (Sptr + Sbln ) + 3Sptr ntriangles + 3Sf lt nnodes (4.3) 58
+
++Sint + Sms
+
+v 3 fd v 2 f a r A fb v 1 fc ff fg r B fe v 5
+
+v 4
+
+r C
+
+(a)
+
+sample::TriModel nr = 2 r = [rA , rB , rC ] matsys =→
+
+rA ::TriRegion nf = 4 f = [fa , fb , fc , fg ] n = [0 0 1 0] 1.0 m= 0.0 fc ::TriFacet v = [v1 , v2 , v4 ] v2 ::TriVertex   0.0 x = 1.0 0.0
+
+rB ::TriRegion nf = 4 f = [fd , fe , ff , fg ] n = [1 1 0 1] 1.0 m= 0.0 fd ::TriFacet v = [v2 , v3 , v5 ] v3 ::TriVertex   1.0 x = 0.0 0.0
+
+rC ::TriRegion nf = 6 f = [fa , fb , fc , fd , fe , ff ] n = [1 1 0 0 0 1] 0.0 m= 1.0 fe ::TriFacet v = [v3 , v4 , v5 ] v4 ::TriVertex   0.0 x = 0.0 1.0 ff ::TriFacet v = [v2 , v4 , v5 ] v5 ::TriVertex   1.0 x = 1.0 1.0
+
+fa ::TriFacet v = [v1 , v2 , v3 ]
+
+fb ::TriFacet v = [v1 , v3 , v4 ] v1 ::TriVertex   0.0 x = 0.0 0.0
+
+fg ::TriFacet v = [v2 , v3 , v4 ]
+
+(b)
+
+Figure 4-5: (a) Triangulated shell representation of sample model. (b) Object model showing the instances data required to represent the sample model in the data structure.
+
+59
+
+With the region exterior to the modeled object explicitly represented by a TriRegion object, all of the triangles are referenced exactly twice, once by each region incident to it. Each facet is reference twice by deﬁnition, deﬁning a facet of the boundary of a single region which is also a facet of the interface between exactly two adjacent region. By representing the complement of the space occupied by the model as a region within the structure, all of the facets (including those on the external boundary of the object) are referenced twiced). Therefore, r.nf = 2ntriangles
+r∈Model.r
+
+(4.4)
+
+where r is a region in the model (stored in the array Model.r), r.nf are the number of facets bounding the region, and ntriangles is the total number of triangles stored in the data structure. The above expression for the storage cost simpliﬁes to: Stri = (Sint + Sptr + dm Sf lt )nr + (5Sprt + 2Sbln )ntriangles + 3Sf lt nnodes +Sint + Sms . (4.5)
+
+4.5
+
+Finite element meshes
+
+In order to facilitate the representation of graded regions (rather than the piece-wise constant regions presented in the preceding two methods), analytic functions deﬁning how the composition varies must be attached to each region. Such a representation can be achieved through the use of a ﬁnite element mesh, in which material or physical property ﬁelds are attached to the nodes in the mesh. Interpolation functions associated with the volume elements are used to deﬁne the composition m throughout each element as functions of the values assigned to the nodes. Although various ﬁnite elements can be deﬁned with interpolation functions of varying degree, for the purposes of this analysis we will restrict the types of elements used in the ﬁnite element mesh to linear tetrahedra. The inclusion of additional element deﬁnitions would likely reduce the memory costs by some constant factor, but the trends in memory requirements will follow those of homogeneous tetrahedral meshes. The main classes in a ﬁnite element modeling data structure for FGM objects include the FEModel, FE-Tet, and FE-Vert (see Figure 4-6). An FGM model would consist of a single FE-Model object containing a Material System matsys and references to a set of nr elements r into which it is decomposed. For the purpose of the memory analysis here, each region within the model is represented by an FE-Tet object, deﬁning a tetrahedral domain of the model and a linear variation of the composition over the domain. Each tetrahedron maintains references to four vertices (v) which are interpolated to deﬁne its geometry. The composition information may either be associated with the vertices of the tetrahedra (similar to interpolating nodes in traditional ﬁnite element meshes) or
+
+60
+
+the tetrahedra themselves (see Figures 4-7(a) and (b)). In the former case, FE-Tet objects maintain references to 4 FE-Vert-M objects which are interpolated to deﬁne the tetrahedron’s geometry and composition. In the latter case, by associating material information m with each tetrahedron of class FE-Tet-M, only the geometry is deﬁned by interpolating the referenced FE-Vert objects, permitting the deﬁnition of composition independent of neighboring elements and allowing the representation of discontinuities in composition between elements (which is a desirable design system feature). Another variation on this modeling approach is the incorporation of backwards references from each vertex to the tetrahedra which are incident to it. This additional topological information (stored in FE-Vert-P and FE-Vert-PM objects) may be useful for increasing the eﬃciency of some operations on the database, such as evaluating the variation of the geometry or composition across multiple elements and the determination of external (boundary) facets. FE-Model nr : integer r : pointer to an array of FE-Tetrahedra matsys : Material System FE-Tet ... → or ↔ FE-Vert ...
+
+→
+
+Figure 4-6: Relationships between classes in tetrahedral mesh approach to modeling FGM objects.
+
+FE-Tet v : array of 4 pointers
+
+FE-Vert-M m : array of dm ﬂoats
+
+X  XXXXXX 
+
+FE-Vert x : array of 3 ﬂoats
+
+FE-Vert-P t : array of nt pointers nt : integer
+
+FE-Tet-M m : array of 4dm f loats
+(a) FE-Tet class.
+
+FE-Vert-PM m : array of dm ﬂoats
+(b) FE-Vert classes.
+
+Figure 4-7: (a) Tetrahedron classes for consideration in meshed modeling representations. (b) Vertex classes for consideration in meshed modeling representations.
+
+61
+
+t v 3 v 5
+
+r B
+
+v 2
+
+r A
+
+v 1
+
+v 4
+
+(a)
+
+sample::FE-Model nr = 2 rA r = rB matsys =→ v1 ::FE-Vert-PM   0.0 x = 0.0 0.0 t = [rA ] nt = 1 1.0 m = 0.0 v2 ::FE-Vert-PM   0.0 x = 1.0 0.0 t = [rA , rB ] nt = 2 1.0 m= 0.0
+
+rA ::FE-Tet   v1 v  v =  2 v3  v4 v3 ::FE-Vert-PM   1.0 x = 0.0 0.0 t = [rA , rB ] nt = 2 1.0 m = 0.0
+
+rB ::FE-Tet   v5   v2  v = v3  v4 v4 ::FE-Vert-PM   0.0 x = 0.0 1.0 t = [rA , rB ] nt = 2 1.0 m= 0.0 v5 ::FE-Vert-PM   1.0 x = 1.0 1.0 t = [rA ] nt = 1 1.0 m= 0.0
+
+(b)
+
+Figure 4-8: (a) Tetrahedral mesh representation of sample model. (b) Object model showing the instances data required to represent the sample model in the data structure.
+
+62
+
+Sf e00 Sf e01 Sf e10 Sf e11
+
+= SFE-Model + SFE-Tet + [(3 + dm )Sf lt nv ]FE-Vert-M = SFE-Model + SFE-Tet-M + [3Sf lt nv ]FE-Vert = SFE-Model + SFE-Tet +
+v∈FE-Model
+
+(4.6) (4.7) (4.8)
+FE-Vert-PM
+
+[(3 + dm )Sf lt + v.nt Sptr + Sint ]
+
+= SFE-Model + SFE-Tet-M +
+v∈FE-Model
+
+(3Sf lt + v.nt Sptr + Sint )
+FE-Vert-P
+
+(4.9)
+
+where SFE-Model = Sint + Sptr + Sms , SFE-Tet = 4nr Sptr , and SFE-Tet-M = 4(Sptr + dm Sf lt )nr . Equations 4.6- 4.9 detail the storage costs for the four variations of the ﬁnite element approach to modeling FGM objects. In Equations 4.6 and 4.8, the material information is associated with the vertices and interpolated by the tetrahedron’s interpolation functions, whereas in Equations 4.7 and 4.9 each tetrahedron maintains its own composition information independently. In the ﬁrst two equations, references are maintained only by the tetrahedra to the vertices. For the cases in which references are also maintained from the vertices back to their incident tetrahedra, represented in the Equations 4.8 and 4.9, the storage cost is given in terms of the number of tetrahedra incident to each vertex. Depending upon the topology of the model, therefore, the storage requirement for each vertex will be diﬀerent. The total storage cost of the model, however, can be determined by recognizing that the total number of incidence relationships within the data structure from vertices to tetrahedra is equal to the number of incidence relationships from tetrahedra to vertices. Given that each tetrahedron references exactly 4 vertices, the number of references from the vertices to the tetrahedra can be expressed in terms of the number of tetrahedra in the model:
+nr −1
+
+# of vertex-to-tetrahedron relationships:
+v∈ Model
+
+v.nt =
+r∈Model
+
+r.nvertices =
+j=0
+
+4 = 4nr (4.10)
+
+where v is a vertex in the Model, v.nt is the number of tetrahedra incident to the vertex v, r is a tetrahedron in the Model, r.nvertices is the number of vertices incident to the tetrahedron r, and nr is the total number of tetrahedra in the Model. With this information, the storage cost for the various tetrahedral data structures can be sim-
+
+63
+
+pliﬁed, as in Equations 4.11- 4.14. Ste00 Ste01 Ste10 Ste11 = 4Sptr ntetrahedra + (3 + dm )Sf lt nv + Sint + Sms + Sptr = 4(Sptr + dm Sf lt )ntetrahedra + 3Sf lt nv + Sint + Sms + Sptr = 8Sptr ntetrahedra + [(3 + dm )Sf lt + Sint ]nv + Sint + Sms + Sptr = 4(2Sptr + dm Sf lt )ntetrahedra + [3Sf lt + Sint ]nv + Sint + Sms + Sptr (4.11) (4.12) (4.13) (4.14)
+
+Whereas Equations 4.6- 4.9 are equally applicable to a ﬁnite element mesh with any type of linear volume element (by replacing SFE-Tet and SFE-Tet-M with the elements’ corresponding storage costs), Equations 4.11- 4.14 apply to only the subset of tetrahedral meshes.
+
+4.6
+
+Generalized cellular decomposition or multi-region B-rep
+
+The preceding sections introduced three methods for representing FGM objects. They are considered specialized methods here since they restrict the decomposition of an object into regions (voxels, triangulated shells, or tetrahedra). In current practice, however, CAD systems provide a wider range of representations to precisely describe the boundary surfaces of solid models. This is achieved through the use of generalized data structures which maintain the topology of a model in a relational database. This allows the incorporation of various geometric representations that best describe the geometry of the object’s model. This paradigm can be extended to the representation of FGM objects, permitting the representation of models decomposed into regions of arbitrary topology. Two possible data structures for achieving a generalized representation are presented in this section. Both maintain the topology of a model in terms of a graph and reference deﬁnitions for the geometry and composition of each topological entity external to the topological data structure. The ﬁrst method is known as the Radial-Edge data structure [73] and represents the basis for exchange standards of 3D object models such as STEP [28] and IGES [64], and is widely adopted as the modeling kernel within various solid modeling systems, such as ACIS [65]. The second solid modeling method is the Cell-Tuple-Graph data structure [7, 8, 25, 26, 32] which can be considered as a generalization and simpliﬁcation of the Radial-Edge data structure for n-dimensional models. Other generalized data structures for modeling solid models exist [1, 23, 56] but are not discussed here since the methods choosen here reﬂect the general nature of these other methods and the same trends should apply. For both modeling methods, the geometry and composition is deﬁned external to the topological data structure, allowing a modular approach to the design of the FGM modeling system architecture. For the purpose of FGM representation, the concept of an FGMDomain is introduced, representing a generic structure through which the geometry and material fraction variation is deﬁned for
+
+64
+
+the referencing topological entity of any dimension. The purpose of this structure is to map the corresponding topological entity into build and Material Spaces, uniquely deﬁning some part of an FGM model. This mapping is subject only to the constraints that it is deﬁned over the topological entity’s interior and provides a one-to-one mapping into Build Space, guaranteeing that the domain does not self-intersect. The remainder of this section is divided into two parts, describing these concepts in more detail. The ﬁrst part introduces the frameworks of the two modeling methods and how they maintain the connectivity between topological entities. The memory cost for each of these methods is deﬁned in terms of their fundamental components. The second part of the section describes the concept of FGMDomains in more detail and provides the deﬁnition for a set of domains which could be used to represent a wide class of FGM parts, and identiﬁes the storage cost of each domain class. In the presentation of these data structures, material information is associated with all FGMDomain classes. Although material information may not be needed at the lower dimensions (points, curves, and surfaces), this information is associated with these classes in this analysis for three reasons: consistency, unambiguous representation of composition, and ﬂexibility for future development. The concept of an FGMDomain is generic, as will be described in the following sections, and by associating material information with an FGMDomain, all FGMDomains are handled equally. In addition, in order to provide an unambiguous deﬁnition of the composition at each point in Build Space, material information associated with lower dimensional entities allows the unique deﬁnition of the composition at points at interfaces between adjacent regions.1 Finally, there is the possibility of developing new FGMDomains for which the composition is derived from lower dimensional entities (a mesh interpolating material information at nodes is one example) or deﬁning design tools that perform operations to create compositions over higher dimensional entities from the compositions associated with the lower dimensional ones (such as lofting) . By including this information at the lower dimensions in this analysis, the conclusions drawn will still apply to future work that may require information at these levels.
+
+4.6.1
+
+Data structures for topology
+
+Radial-Edge data structure Overview of Radial-Edge Classes: The Radial-Edge data structure provides a uniﬁed method for representing solid models [73]. The data structure maintains the topology of the models in terms of two major sets of classes: (1) topological entities and (2) their uses. The former set of classes
+1 Another approach to handling the composition deﬁnition over interfaces is the use of half-open regions in which compositions at points on a face are derived from one of the incident regions, determined from the orientation of the face.
+
+65
+
+represent the diﬀerent topological entities of the model and include the entities Vertex, Edge, Loop, Face, Shell, and Region. The second set of classes simpliﬁes the implementation of the modeling system architecture, providing information about how instances of the ﬁrst set of classes are used. Each instance of an object of type Vertexuse, Edgeuse, Loopuse, or Faceuse identiﬁes a single role that the corresponding topological entity plays in the connectivity of the model. The hierarchy of the all the classes in the Radial-Edge data structure is shown in Figure 4-9. The following sections will describe in detail the role of each class in the data structure and the data each maintains. RE-Complex  Region  Shell  Faceuse  Loopuse  Edgeuse  Vertexuse ←− −→ Vertex −−→ −− FGMDomain ←− −→ Edge −−→ −− FGMDomain ←− −→ Loop ←− −→ Face −−→ −− FGMDomain −−→ −− FGMDomain
+
+Figure 4-9: The classes comprising the Radial-Edge data structure and how they are related.
+
+Topological classes: In the adaptation of the Radial-Edge data structure for FGM modeling, each FGM object is represented by an instance of the Complex class, serving as the access point to the database. The Complex node maintains the MaterialSystem (matsys) out of which the model is created as well as a reference (regionList) into a circular list of Regions. The shape and composition of the Complex are deﬁned by the data stored in the lower dimensional topological objects, beginning with the referenced Regions objects. In the traditional Radial-Edge data structure, references to 66
+
+Complex regionList : pointer matsys : MaterialSystem
+
+Region owningComplex : pointer prevRegion : pointer nextRegion : pointer shellList : pointer f gmRegion : pointer
+(b) Region
+
+Shell owningRegion : pointer prevShell : pointer nextShell : pointer f aceuseList : pointer
+
+(a) Complex
+
+(c) Shell
+
+Face f aceuseList : pointer f gmF ace : pointer
+(d) Face
+
+Loop loopuseList : pointer
+
+Edge edgeuseList : pointer f gmEdge : pointer
+(f) Edge
+
+(e) Loop
+
+Vertex vertexuseList : pointer f gmV ertex : pointer
+(g) Vertex
+
+Figure 4-10: Topological classes deﬁned within the Radial-Edge data structure and their attributes. other Complexes are maintained within this class, creating a circular list of Complexes stored in the data structure. Since this information is not directly relevant to the memory analysis, and in the interest of brevity, it is not included here. Region objects within the Radial-Edge data structure represent sub-regions or volumes of space within a Complex, bounded by Shells of Faces. The topology of a Region object is arbitrary, subject to the requirements that at most one Region within the Complex is inﬁnite in extent and all Regions are bounded by Shells of Faces. A Region node in the data structure maintains an upward reference to the Complex (owningComplex) to which it belongs and a downwards reference into a list of shells (shellList) which deﬁne its boundary. Each Region node also maintains horizontal references to the previous region (prevRegion) and the next region (nextRegion) contained in the model (these regions may or may not be adjacent). In this way, all of the Regions in a single Complex are linked together in a circular list. To deﬁne a region’s shape and composition, the Region node ﬁnally references an FGMDomain object of dimension 3 (f gmRegion), deﬁning the geometry and material grading over the region’s interior. The boundary of a Region is deﬁned by a list of Shells. Each Shell represents an oriented surface serving as a boundary to its referenced Region (owningRegion). A Region may be bounded by multiple shells, permitting the representation of voids and disjoint regions. To provide this ﬂexibility,
+
+67
+
+the Shells are maintained in a circular list fashion, with each Shell referencing the previous Shell (prevShell) and the next Shell (nextShell) bounding the region. The ﬁnal piece of data maintained by a Shell node is a reference into a list of Faceuses (f aceuseList) which deﬁne the geometry and orientation of the shell. No composition or geometric information is explicitly associated with the Shell class. It is used purely to maintain the relationships between topological entities of dimensions 3 and 2 (Regions and Faces). Each Shell is composed of a set of Faces, each of which represents a bounded section of the Shell. A Face is a topological entity of dimension 2 and is orientable, with each side bounding a diﬀerent Region. The orientation of a Face is not maintained explicitly within its deﬁnition since orientation is relative. For each Region to which a Face is incident, the Face has a diﬀerent orientation. This information is captured by the Faceuse objects stored in the list referenced by f aceuseList. To deﬁne the geometry and composition of the Face, the Face node also references an FGMDomain of dimension 2 (f gmF ace). Just as Regions are bounded by Shells, Faces are bounded by Loops. A Loop consists of an alternating sequence of Vertices and Edges, forming a circuit. Each boundary of a Face is represented by a single Loop, and as such Loops are also orientable. The Edges and Vertices comprising a loop are not explicitly maintained within a Loop node since the orientation depends on its use, but are referenced indirectly through a list of Loopuses (loopuseList). The Vertices and Edges comprising Loops represent the lower dimensional (0 and 1) entities deﬁning the model. Each Vertex or Edge may be referenced by multiple Loops, yielding multiple uses for a given Vertex or Edge within a model (as maintained by the lists referenced by vertexuseList and edgeuseList, respectively). As with Faces and Regions, the deﬁnition of a Vertex or Edge is maintained by an externally referenced FGMDomain of the appropriate dimension (f gmV ertex or f gmEdge). Topological uses: As stated above, each topological entity within a model may have multiple roles within the relational database. A Face, for instance, serves as part of two diﬀerent Shells bounding two adjacent Regions. Similarly, an Edge may be a part of any number of Loops bounding Faces incident to the Edge. To deﬁne all of the roles for the various topological entities, four additional classes are introduced. An instance of each object represents one role the corresponding topological entity plays in the connectivity of the parts in the entire Complex. These classes (shown in Figure 4-11) include: Faceuse, Loopuse, Edgeuse, and Vertexuse. Each Face in the model serves a portion of two diﬀerent Shells, deﬁning the interface between two adjacent regions. To represent this information, a Faceuse is deﬁned for each orientation of the Face. Each Faceuse maintains a reference to the Shell (owningShell) to which it belongs as well as to the deﬁnition of the Face (f aceDef ). All of the Faceuses deﬁning the orientation of the
+
+68
+
+Faceuse owningShell : pointer f aceDef : pointer prevF aceuse : pointer nextF aceuse : pointer f aceuseM ate : pointer loopuseList : pointer
+(a) Faceuse
+
+Loopuse owningF aceuse : pointer loopDef : pointer prevLoopuse : pointer nextLoopuse : pointer loopuseM ate : pointer edgeuseList : pointer
+(b) Loopuse
+
+Edgeuse owningLoopuse : pointer edgeDef : pointer f irstV ertexuse : pointer edgeuseCW : pointer edgeuseCCW : pointer edgeuseM ate : pointer edgeuseRad : pointer
+(c) Edgeuse
+
+Vertexuse owningEdgeuse : pointer vertexDef : pointer prevV ertexuse : pointer nextV ertexuse : pointer
+
+(d) Vertexuse
+
+Figure 4-11: The Uses of topological entities within the Radial-Edge data structure. owning Shell are linked together in a circular list, with each of its Faceuses referencing a previous Faceuse (prevF aceuse) and next Faceuse (nextF aceuse) in the shell. In addition, since each Face has exactly two uses (one for each region to which it is adjacent), each Faceuse maintains a reference to its opposite mate (f aceuseM ate). Finally, to deﬁne the oriented boundary of the Face according to the orientation of the Face relative to the Region, a list of Loopuses is referenced by a Faceuse (loopuseList) for each Loop bounding the Face. As previously described, the boundary of each Face is deﬁned by one or more Loops. Each Loop has two possible orientations relative to the orientation of the Face (clockwise or counter-clockwise), requiring the orientation of the Loop to be deﬁned for each orientation of the Face. To maintain this information, the class Loopuse is introduced. Each Loopuse maintains a reference to the Faceuse (owningF aceuse) for which it is maintaining the orientation of the boundary. Since a Face may be bounded by multiple Loops (to represent interior holes), the Loopuses for a given Faceuse are linked together in a circular list with each Loopuse referencing the previous (prevLoopuse) and the next (nextLoopuse) Loopuse for the owning Faceuse. In addition, each Loopuse also has a mate (loopuseM ate) oriented in the opposite direction, representing the same boundary of the Face on its opposite side. Since a Loopuse represents one orientation of a Loop, each Loopuse references a list of Edgeuses (edgeuseList), each of which maintain a correctly oriented Edge contained in the Loopuse.
+
+69
+
+Each Edge in a model has two endpoints (A and B), yielding two possible directions along which the Edge may be traversed (A → B or B → A). To distinguish between the two directions, the class Edgeuse is introduced and is used to represent each instance a given Edge is used in a Loop. Each Edgeuse references the Loopuse (owningLoopuse) to which it belongs as well as the deﬁnition of its Edge (edgeDef ). The Vertex at the start of the Edge of the given Edgeuse’s orientation is also referenced (f irstV ertexuse), thereby deﬁning the orientation of the Edge for the owning Loopuse. To maintain the order of the Edges in the Loopuse, each Edgeuse references then next Edgeuses in the clockwise orientation (edgeuseCW ) and counter-clockwise (edgeuseCCW ) directions about the Loopuse, permitting the circuit of Edges for a given orientation of a Face to be followed. Each Edgeuse also maintains references to the opposing Edgeuse (edgeuseM ate) on the opposite of the owning Loopuse’s Face and to the Edgeuse on the radially adjacent Face (edgeuseRad) to the owning Loopuse’s Face. The ﬁnal class, Vertexuse, is used to represent each instance a Vertex is used within a Complex. Each Vertexuse represents the role of the referenced Vertex (vertexDef ) as the starting point for the directed the traversal of an Edge, as deﬁned by the owning Edgeuse (owningEdgeuse). In addition, all of the possible uses for the referenced Vertex are linked in a circular list, with each Vertexuse referencing the previous (prevV ertexuse) and next (nextV ertexuse) Vertexuses for the Vertex. Storage costs associated with representing topology with the Radial-Edge data structure: The previously described data classes are used to completely deﬁne the topology of a solid model (or how the topological elements deﬁning the model are connected together) within the RadialEdge data structure. Referring to Figures 4-10 and 4-11, the cost for each instance of each class within the modeling method is readily determined, as summarized in Table 4.1. Class Complex Region Shell Face Loop Edge Vertex FaceUse LoopUse EdgeUse VertexUse Storage cost Sptr + Sms 5Sptr 4Sptr 2Sptr Sptr 2Sptr 2Sptr 6Sptr 6Sptr 7Sptr 4Sptr
+
+Table 4.1: Storage costs for each instance of each class within the Radial-Edge data structure. The total storage cost attributed to representing the topology of a model maintained in the
+
+70
+
+v 3 v 2 f a ea eb fg r A fb v 1 fc ec v 4 ei ff fd r B fe ed eh
+
+eg v 5
+
+ee
+
+ef
+
+r C
+
+(a)
+
+c::Complex regionList = rA matsys =→
+
+rA ::Region owningComplex = c prevRegion = rC nextRegion = rB shellList = sA
+
+rB ::Region owningComplex = c prevRegion = rA nextRegion = rC shellList = sB
+
+rC ::Region owningComplex = c prevRegion = rB nextRegion = rA shellList = sC
+
+sA ::Shell owningRegion = rA prevShell = sC nextShell = sB f aceuseList = f ub fa ::Face f aceuseList = f ua f gmF ace =→
+
+sB ::Shell owningRegion = rB prevShell = sA nextShell = sC f aceuseList = f ud
+
+sC ::Shell owningRegion = rC prevShell = sB nextShell = sA f aceuseList = f ua fd ::Face f aceuseList = f ud f gmF ace =→
+
+fb ::Face f aceuseList = f ub f gmF ace =→
+
+fc ::Face f aceuseList = f uc f gmF ace =→
+
+fe ::Face f aceuseList = f ue f gmF ace =→ la ::Loop loopuseList = lua
+
+ff ::Face f aceuseList = f uf f gmF ace =→
+
+fg ::Face f aceuseList = f ug f gmF ace =→ ld ::Loop loopuseList = lud
+
+lb ::Loop loopuseList = lub
+
+lc ::Loop loopuseList = luc
+
+le ::Loop loopuseList = lue ea ::Edge edgeuseList = eua f gmEdge =→ eb ::Edge edgeuseList = eub f gmEdge =→
+
+lf ::Loop loopuseList = luf ec ::Edge edgeuseList = euc f gmEdge =→
+
+lg ::Loop loopuseList = lug ed ::Edge edgeuseList = eud f gmEdge =→ ee ::Edge edgeuseList = eue f gmEdge =→
+
+ef ::Edge edgeuseList = euf f gmEdge =→
+
+eg ::Edge edgeuseList = eug f gmEdge =→
+
+eh ::Edge edgeuseList = euh f gmEdge =→
+
+ei ::Edge edgeuseList = eui f gmEdge =→
+
+v1 ::Vertex vertexuseList = vu1 f gmV ertex =→
+
+v2 ::Vertex vertexuseList = vu2 f gmV ertex =→
+
+v3 ::Vertex vertexuseList = vu3 f gmV ertex =→
+
+v4 ::Vertex vertexuseList = vu4 f gmV ertex =→
+
+v5 ::Vertex vertexuseList = vu6 f gmV ertex =→
+
+(b)
+
+Figure 4-12: (a) Radial Edge representation of sample model. (b) Object model showing the instances of topological entities required to represent the sample model in the Radial Edgedata structure.
+
+71
+
+Radial-Edge data structure as a function of the number objects of each class is expressed as Sre = Sptr + Sms + 5Sptr nr + 4Sptr ns + 2Sptr nf + Sptr nl + 2Sptr ne + 2Sptr nv + 6Sptr nf u + 6Sptr nlu + 7Sptr neu + 4Sptr nvu +
+f gmd∈model
+
+2
+
+Sf gmd .
+
+(4.15)
+
+The storage cost associated with the deﬁnition of the object’s shape and composition is represented by the last term,
+f gmd∈model
+
+Sf gmd , which depends on the type and nature of the FGMDomains
+
+used to model the object. Several possible FGMDomains are introduced in Section 4.6.2 along with their storage costs. Recognizing that each Face has only two Faceuses (one for each Region to which it is adjacent), the above equation simpliﬁes to: Sre = Sptr + Sms + 5Sptr nr + 4Sptr ns + 14Sptr nf + Sptr nl + 2Sptr ne + 2Sptr nv + 6Sptr nlu + 7Sptr neu + 4Sptr nvu +
+f gmd∈model
+
+Sf gmd .
+
+(4.16)
+
+Cell-Tuple-Graph The Cell-Tuple-Graph data structure [7, 8, 25, 26, 32] is a cellular solid modeling method, decomposing a model of an object into Cells. A Cell is a generic, topological entity of any dimension, representing a vertex, edge, face, or region in the model. In this way, this data structure can be considered as a generalization of the Radial-Edge data structure, providing a uniform framework for representing topology and relating the topological entities to each other. There are two approaches to implementing the Cell-Tuple-Graph data structure. The ﬁrst approach is to maintain an incidence graph between Cells, in which each Cell maintains lists of incident Cells of higher and lower dimensions. Information about adjacent Cells is determined by intersecting lists of incident Cells to ﬁnd which Cells share a common boundary. The second approach is to implement the Cell-Tuple-Graph in a fashion analogous to the Radial-Edge structure. For this case, connectivity between the Cells is explicitly maintained in graphs of Tuples which reference Cells. In this way, adjacency information is explicit and neighboring Cells can be found in constant time. Due to the fact that it is analogous to the Radial-Edge structure and provides faster access to searching the data structure, only the latter approach is discussed here. The Cell-Tuple-Graph data structure is composed of only four classes: CTG (Cell-Tuple-Graph), Cell, Tuple, and FGMDomain. Cells represent the topological entities in the model, FGMDomains describe their shape and composition, and instances of the Tuple and CTG classes are used to maintain the connectivity between Cells. The relationships between these classes are shown in
+number of instances of Regions, Shells, Faces, Loops, Edges, Vertices, Faceuses, Loopuses, Edgeuses, and Vertexuses in a Radial-Edge model are represented by nr , ns , nf ,nl , ne , nv , nf u , nlu , neu , and nvu , respectively.
+2 The
+
+72
+
+c 3 c 2 c ii cg c A cb c 1 cc c iii c 4 c ix cf cd c B ce c iv c viii
+
+c vii c 5
+
+ca c v ci
+
+c vi
+
+cC
+
+(a)
+
+(b)
+
+t 28 t 16 t 15 t 9 t 8 t 10 t 14 t 6 t 11 t 5 t 13 t 12 t 3 t 4 t t 35 34 t 33 t 36 t t 7 32 t 17 t 1 t 2
+
+t 27 t 31 t 30 t 22 t 21 t 20
+
+t 26 t 29 t 24 t 25 t 23
+
+t 18
+
+t 19
+
+(c)
+
+Figure 4-13: (a) Cells in model. (b) Graph of tuples. Paths between tuples are colored according to dimension: red=0, green = 1, blue = 2, dashed blue/yellow = 3. (c) Graph of tuples over boundary with each tuple labelled.
+
+73
+
+Figure 4-14. More detailed descriptions of the data maintained by each of the classes and their roles in the Cell-Tuple-Graph modeling method are provided below. Cell d : integer f gmDomain : pointer ng : integer g : array of pointers matsys : MaterialSystem (static) 
+
+CTG cellDomain : pointer t : pointer
+
+FGM-Domain −→
+
+−→
+
+←→
+
+Tuple d : integer c : array of d + 1 pointers t : array of d + 1 pointers g : pointer
+
+Figure 4-14: Relationships between classes in Cell-Tuple-Graph data structure.
+
+Cell: A Cell represents a d dimensional topological entity in the model. In reference to the RadialEdge data structure, a Cell may play the role of Vertex, Edge, Face, or Region within the model. The shape and composition of the Cell is deﬁned by an FGMDomain referenced by the Cell (fgmDomain), allowing a separation between the implementation of the topological data structure and the geometric and material representation. Cells are connected together through graphs of Tuples (described below). Each Cell maintains a single reference to a Tuple in each unique CTG in which the Cell appears. References into the ng graphs containing the Cell are maintained in an array of Tuples (g) within the Cell object. A MaterialSystem is also deﬁned to represent the material space in which the model exists. Since the Material Space must be the same for all of the Cells in the model, the allocation of only one MaterialSystem (matsys) is required per model. At the time of model creation, a Cell of dimension 3 is deﬁned to represent the Build Space. It is at this time that the MaterialSystem is deﬁned for the Cell class, establishing a Material Space for the Cells that will deﬁne the object. Tuple: A Tuple represents a unique collection of incident Cells (c) in a model of diﬀering dimensions: c = {c0 , c1 , . . . cd }. Each Cell in a Tuple represents a section of the boundary of the next higher dimensional Cell within the same Tuple: ck ⊂ ∂ck+1 . Each Tuple is connected to d + 1 other Tuples within the reference CTG (g) by d numbered paths. CTG: A CTG consists of a collection (graph) of Tuple objects connecting all of the incident states
+
+which diﬀer by a single Cell together. Just as the Tuple’s role is to provide the incidence information
+
+74
+
+between Cells of diﬀerent dimensions, a CTG object provides the adjacency information between Cells of the same dimensions, thereby allowing complete representation of a subdivided, manifold section of a model.
+
+c 3
+
+ci
+
+t 1
+
+t 1 cb
+
+t 2
+
+cC
+
+(a)
+
+(b)
+
+c 3
+
+c iv t 1 cb
+
+t 2
+
+cC
+
+(c)
+
+(d)
+
+Figure 4-15: Illustration of switch operator performed on tuple t1 for dimension 1 (green). (a) Cells in tuple t1 . (b) Location of tuple t1 in graph. (c) Cells in Tuple t2 . (d) Location of tuple t2 in graph. All of the Tuples of a single CTG object can be accessed through the repeated application of a single operator: switch . Given Tuple tα and a dimension k, switch(k, tα ) returns the Tuple tβ = tα .tk . By deﬁnition of the CTG, Tuples tα and tβ reference all of the same Cells except at dimension k. These two Cells (tα .ck and tβ .ck ) are adjacent to each other (for k > 0) and as well incident to the same Cells of lower and higher dimension in the model. Since all of the Tuples for a single graph can be reached through this single operator, a CTG object needs only to reference a 75
+
+single Tuple. A CTG also maintains a reference to a Cell (cellDomain) in which the subdivided manifold exists. All of the Cells referenced by the graph are said to exist within the domain of this higher dimensional Cell. To provide access between CTGs, the jmpswitch operator is deﬁned. Given a Tuple tα and a Cell cβ , jmpswitch(tα , cβ ) returns a Tuple tγ in a diﬀerent graph (if one exists) than the one referenced by tα (tα .g = tγ .g). The new Tuple will either contain the Cell cβ within its array of referenced cells (cβ ∈ tγ .c) or the new Tuple will serve as a node in a graph deﬁned within Cell cβ (tγ .g.cellDomain = cβ ). With the addition of this operator, the CTG data structure can represent Faces with internal Loops and Regions with internal Shells in a manner analogous to the Radial-Edge data structure. FGMDomain: To deﬁne the shape and composition of each Cell, the FGMDomain class is used. The deﬁnition of a derived FGMDomain class is arbitrairy, subject to the only restriction that it span the interior of the Cell referencing it, uniquely deﬁning the composition of each point within the Cell. A more detailed description of the FGMDomain class is given in Section 4.6.2. Class CTG Tuple Cell FGMDomain Storage cost 2Sptr Sint + (2d + 3)Sptr 2Sint + (cκ .ng + 1)Sptr [+Sms static] [ depends on deﬁnition ]
+
+Table 4.2: Storage costs for diﬀerent objects within the Cell-Tuple Data structure. Storage required for a model maintained in the Cell-Tuple-Graph data structure: Sctg = 2Sptr nctg + Sms +
+f gmd∈model
+
+[Sint + (2t.d + 3)Sptr ] +
+t∈model
+
+[2Sint + (c.ng + 1)Sptr ] + (4.17)
+c∈model
+
+Sf gmd
+
+where t represents a Tuple in the Cell-Tuple-Graph, c represents a Cell in the model, an f gmd is an FGMDomain referenced by a Cell. The storage cost an FGMDomain is represented by Sf gmd and is depedendent upon the deﬁtion of the domain. The following section (Section 4.6.2 introduces several possible FGMDomain deﬁnitions for use in modeling FGM objects with a relational database and establishes their storage costs.
+
+4.6.2
+
+FGMDomains
+
+In most B-rep approaches to solid modeling, deﬁnitions for the shapes of curves and surfaces deﬁning the boundary of regions are deﬁned external to the topological data structure. This not only simpliﬁes issues in implementation but permits the expansion of the modeling system as new shape 76
+
+representations are introduced in the future. The same paradigm can be followed to model FGM objects. The concept of an FGMDomain is introduced here as an abstract class to deﬁne shape and composition of a point, curve, surface, or region. It is a generic concept and can be used to deﬁne FGM models within either the Radial-Edge or the Cell-Tuple-Graph data structures. As previously stated, this approach is not new but is a direct extension of how B-rep modelers currently represent shape. In such applications, a wide range of deﬁnitions have been established to provide the ﬂexibility and accuracy needed to represent a wide range of models. Some shape deﬁnitions within the STEP standard (a ﬁle format for used for the neutral exchange of solid models) were given in Figure 2-4(a) to illustrate the various possibilities for deﬁning shape. This section presents a set FGMDomains based on rational B´zier formulations which would e provide the capability to represent FGM objects with non-linear geometries and compositions. Although the deﬁnition of FGMDomains is certainly not limited to the few introduced here, it is anticipated that this limited set will enable the representation of a broad range of FGM objects with complex shapes and compositions. Other possible deﬁnitions for FGMDomains are described at the end of this section to re-enforce the generality of the approach and how it can be expanded in the future. Zero Dimensional FGMDomain
+
+FGMPoint:FGMDomain x : array of 3 ﬂoats m : array of dm ﬂoats
+(a) FGMPoint class.
+
+Figure 4-16: Zero dimensional FGMDomain. FGMPoint: The lowest dimensional FGMDomain is the FGMPoint. It deﬁnes a single point in
+
+Build Space (x) as well as a point in Material Space (m). The storage cost for an FGMPoint, as deﬁned in Figure 4-16, is simply: Spnt = (3 + dm )Sf lt One Dimensional FGMDomain FGM Rational B´zier Curve: e Although a variety of representations for lines, arcs, and freeform (4.18)
+
+curves could be considered, this analysis will only be concerned with rational B´zier curves for e deﬁning one dimensional FGM entities [19, 52, 55]. An FGM rational B´zier curve is a parametric e curve which maps a line in parametric space (0 ≤ t ≤ 1) to a rational, freeform curve in the build 77
+
+(t → x(t)) and Material Spaces (t → m(t)). In order to be well deﬁned, the geometric mapping must be one-to-one, without self intersections. Due to its general deﬁnition, an FGM rational B´zier e curve can be used to represent straight line segments as well as polynomial and rational curves, enabling the representation of a wide range of curves within a model.
+
+FGMRationalB´zierCrv:FGMDomain e nx : integer nm : integer x : array of 3 × (nx + 1) ﬂoats m : array of dm × (nm + 1) ﬂoats wx : array of (nx + 1 ﬂoats wm : array of (nm + 1) ﬂoats
+(a) FGMRationalB´zierCrv class. e
+
+Figure 4-17: One dimensional FGMDomain: FGMRationalB´zierCrv. e The deﬁnition of FGMRationalB´zierCurve is given in Figure 4-17(a). Each instance of the curve e maintains its degree of shape (nx ) and composition variation (nm ). The shape and composition of the curve are deﬁned by control polygons and weights in Build Space (x, wx ) and Material Space (m, wm ), respectively. The mapping from parameter space into model space (using inhomogeneous coordinates) is provided by the following pair of equations: x(t) =
+nx nx i=0 wx i xi Bi (t) nx nx i=0 wx i Bi (t)
+
+m(t) =
+
+nm nm i=0 wm i mi Bi (t) nm nm i=0 wm i Bi (t)
+
+(4.19)
+
+where Bernstein polynomial basis of degree n on the unit interval t ∈ [0, 1] are deﬁned by   n n Bi (t) =   ti (1 − t)(n−i) i The binomial coeﬃcients are given by     n!  if 0 ≤ i ≤ n n   = i!(n−i)!  0 otherwise i The memory required to represent an FGMRationalB´zierCurve is a function of the degrees of e the mapping functions as well as the dimension of the Material Space. Srbc = 2Sint + [4(nx + 1) + (dm + 1)(nm + 1)]Sf lt (4.21)
+
+(4.20)
+
+78
+
+Two Dimensional FGMDomains Three classes of FGMDomains are introduced here to represent the shape and composition of topological entities of dimension two. The ﬁrst two are parametric, based on rational B´zier formulae tions [19, 52, 55]. The third is a more general representation for planar surface, with the topology of surface’s boundary implicitly deﬁned by an accompanying topological data base.
+
+FGMRationalB´zierTri:FGMDomain e nx : integer nm : integer x : array of 3 (nx + 1)(nx + 2) ﬂoats 2 m m : array of d2 (nm + 1)(nm + 2) ﬂoats wx : array of 1 (nx + 1)(nx + 2) ﬂoats 2 wm : array of 1 (nm + 1)(nm + 2) ﬂoats 2
+(a) FGMRationalB´zierTri class. e
+
+FGMRationalB´zierQuad : FGMDomain e mx : integer mm : integer nx : integer nm : integer x : array of 3(mx + 1)(nx + 1) ﬂoats m : array of dm (mm + 1)(nm + 1) ﬂoats wx : array of (mx + 1)(nx + 1) ﬂoats wm : array of (mm + 1)(nm + 1) ﬂoats
+(b) FGMRationalB´zierQuad class. e
+
+FGMPlanarSurface : FGMDomain f : pointer ˆ n : array of 3 ﬂoats d : ﬂoat m : array of dm ﬂoats
+(c) FGMPlanarSurface class.
+
+Figure 4-18: Two dimensional FGMDomains: FGMRationalB´zierTri, FGMRationalB´zierQuad, e e and FGMPlanarSurface.
+
+FGM Rational B´zier Triangular Patch: e
+
+The FGMRationalB´zierTri class is used to deﬁned e
+
+the shape and composition of a two dimensional topological entity bounded by three edges through the mapping of a triangular parameter space into the build and Material Spaces. As with the curve case, the mapping into Build Space must be one-to-one in order to prevent self-intersections. The data maintained by the FGMRationalB´zierTri class include the degrees of the shape (nx ) e and composition (nm ) variation as well as the control points and weights to deﬁne the shape (x, wx ) and composition (m, wm ). The mapping from parameter space into build and Material Spaces (using inhomogeneous coordinates):
+|i|=nx n wxi xi Bi x (u) |i|=nm n wmi mi Bi m (u) n wm i Bi m (u)
+
+x(u) =
+
+nx |i|=nx wx i Bi (u)
+
+and m(u) =
+
+.
+
+(4.22)
+
+|i|=nm
+
+where i represents the index of a control point or composition and |i| = i0 + i1 + i2 . The parameter
+
+79
+
+u is the barycentric coordinate of the point in parameter space satisfying the condition |u| =
+n u0 + u1 + u2 = 1.0 and 0 ≤ u0 , u1 , u2 ≤ 1. The function Bi (u) is the generalized Bernstein
+
+polynomials of degree n, as deﬁned by   
+i0 i1 i2 n! i0 !i1 !i2 ! u0 u1 u2
+
+n Bi (u) =
+
+if i0 , i1 , i2 >= 0 and i0 + i1 + i2 = n
+
+ 0 othewise.
+
+(4.23)
+
+Since the inﬂuence of each control point and weight are summed over |i| = n, the number of control points and weights required to completely deﬁned the mapping for a B´zier triangle of degree n is: e
+n+1
+
+1=
+|i|=n i=1
+
+i=
+
+1 (n + 1)(n + 2). 2
+
+(4.24)
+
+With the information, along with the data contained with each class instance (see Figure 4-18(a)), the storage cost associated with a single FGMRationalB´zierTri patch object is determined as: e Srbtp = 2Sint + 2(nx + 1)(nx + 2) + FGM Rational B´zier Quadrilateral Patch: e dm + 1 (nm + 1)(nm + 2) Sf lt . 2 (4.25)
+
+An FGMRationalB´zierQuad also deﬁnes the e
+
+shape and composition for a two dimensional topological entity, except that an FGMRationalB´zierQuad is bounded by four edges, homeomorphic to a rectangle deﬁned in parame eter space. The data maintain by objects of this class include the degrees of shape (mx , nx ) and ˆ ˆ composition (mm , nm ) variation in the u0 and u1 directions in parametric space. The shape and composition are deﬁned by nets of control points in Build Space (x, wx ) and Material Space (m, wm ). The mapping from parameter space into model space is accomplished through the following pair of equations: x(u0 , u1 ) = m(u0 , u1 ) =
+mx nx mx nx i0 =0 i1 =0 wx i0 i1 xi0 i1 Bi0 (u0 )Bi1 (u1 ) and mx nx mx nx i0 =0 i1 =0 wxi0 i1 Bi0 (u0 )Bi1 (u1 ) mm nm mm nm i0 =0 i1 =0 wmi0 i1 mi0 i1 Bi0 (u0 )Bi1 (u1 ) . mm nm mm nm i0 =0 i1 =0 wm i0 i1 Bi0 (u0 )Bi1 (u1 )
+
+(4.26)
+
+where (i0 , i1 ) is the index of a control point or composition and (u0 , u1 ) is a point in parameter space.
+n The function Bi (u) is the ith ordinary Bernstein polynomial of degree n, as deﬁned in Equation 4.20.
+
+Accounting for the data maintained by the class deﬁned in Figure 4-18(b), the storage cost for an FGMRationalB´zierQuad patch is: e Srbqp = 4Sint + [4(mx + 1)(nx + 1) + (dm + 1)(mm + 1)(nm + 1)] Sf lt . (4.27)
+
+80
+
+General 2D Cell or B-rep Face: If a surface is planar and maintains a uniform composition, information about the shape and composition variation needed not be explicitly deﬁned. A single composition (vector of volume fractions) can be associated with an FGMDomain along with the equation for the plane and the topology of the planar face can be inferred from the topological data structure. To accomplish this, the FGMPlanarSurface is introduced. This class maintains an equation for the normal of a plane (n), its distance from the origin of the Build Space (d), and a vector of volume fractions (m) deﬁning the composition over the plane. Furthermore, the bounding edges of the planar surface are determined through the interrogation of the accompanying topological data structure, accessed through the reference to the corresponding Face or Cell (f ). The geometry of the face is deﬁned by the points that lie on the plane (ˆ · x = d) and within the boundary as n deﬁned its loops of edge. Through this class, complex, planar surfaces with arbitrary boundaries and internal holes can be deﬁned without the duplication of data maintained by lower dimensional topological elements or the subdivision of the surface into simple facets. The storage cost of each FGMPlanarSurface object is simply: Sps = Sptr + (4 + dm )Sf lt . Three Dimensional FGMDomains Three dimensional FGMDomains deﬁne the shape and composition of a region with an FGM object. Four derived FGMDomains classes are discussed here: the FGMRationalB´zierTet, FGMRae tionalB´zierPent, FGMRationalB´zierHex, and the FGMBRepRegion. The ﬁrst three of these class e e are based on B´zier volume representations [24]. e FGM Rational B´zier Tetrahedral Region: The ﬁrst FGM region class to be discussed is the e FGMRationalB´zierTet. Instances of this class provide a mapping from a tetrahedral parametric e domain into a three dimensional Build Space and the model space according to the following pair equations: x(u) =
+|i|=nx n wx i xi Bi x (u) n wx i Bi x (u)
+
+(4.28)
+
+and m(u) =
+
+|i|=nm
+
+n wm i mi Bi m (u) n wm i Bi m (u)
+
+.
+
+(4.29)
+
+|i|=nx
+
+|i|=nm
+
+As for the one and two dimensional classes, the shape and composition are deﬁned by sets for control points and weights in Build (x, wx ) and Material (m, wm ) Spaces. The control points and weights are blended using the generalized Bernstein polynomials, as deﬁned by
+n Bi (u)
+
+=
+
+n! ui0 ui1 ui2 ui3 i0 !i1 !i2 !i3 ! 0 1 2 3
+
+(4.30)
+
+81
+
+FGMRationalTetrahedron : FGMDomain nx : integer nm : integer +2)(nx +3) x : array of (nx +1)(nx2 ﬂoats dm (nm +1)(nm +2)(nm +3) m : array of ﬂoats 6 (nx +1)(nx +2)(nx +3) ﬂoats wx : array of 6 wm : array of (nm +1)(nm +2)(nm +3) ﬂoats 6
+
+FGMRationalB´zierPent : FGMDomain e mx : integer mm : integer nx : integer nm : integer x x : array of 3(mx +1)(n2 +1)(nx +2) ﬂoats dm (mm +1)(nm +1)(nm +2) m : array of ﬂoats 2 (mx +1)(nx +1)(nx +2) ﬂoats wx : array of 2 wm : array of (mm +1)(nm +1)(nm +2) ﬂoats 2
+(b) FGMRationalPenthedron Class.
+
+(a) FGMRationalB´zierTet Class e
+
+FGMRationalB´zierHex : FGMDomain e lx : integer lm : integer mx : integer mm : integer nx : integer nm : integer x : array of 3(lx + 1)(mx + 1)(nx + 1) ﬂoats m : array of dm (lm + 1)(mm + 1)(nm + 1) ﬂoats wx : array of (lx + 1)(mx + 1)(nx + 1) ﬂoats wm : array of (lm + 1)(mm + 1)(nm + 1) ﬂoats
+(c) FGMRationalB´zierHex Class e
+
+FGMBRepRegion : FGMDomain r : pointer m : array of (dm ) ﬂoats
+
+(d) FGMBRepRegion Class
+
+Figure 4-19: Three dimensional FGMDomains: FGMRationalB´zierTet, FGMRationalB´zierPent, e e FGMRationalB´zierHex, and FGMBRepRegion. e
+
+82
+
+where u = (u0 , u1 , u2 , u3 ) is the barycentric coordinate of the point in a tetrahedral parameter space satisfying the conditions |u| = u0 + u1 + u2 + u3 = 1 and 0 ≤ u0 , u1 , u2 , u3 ≤ 1. i = (i0 , i1 , i2 , i3 ) is the index of a control point or weight. The indices of the control points and weights satisfy the condition |i| = i0 + i1 + i2 + i3 = n, where n is the degree of the generalized Bernstein polynomial. For a B´zier tetrahedron of a given degree n , the number of control points or weights deﬁning e its shape or composition is
+n+1 i n+1
+
+1=
+|i|=n i=1 j=1
+
+j=
+i=1
+
+1 1 i(i + 1) = (n + 1)(n + 2)(n + 3). 2 6
+
+(4.31)
+
+Therefore, the total storage cost for each FGMRationalB´zierTet region object is e Srbtr = 2Sint + 2 dm + 1 (nx + 1)(nx + 2)(nx + 3) + (nm + 1)(nm + 2)(nm + 3) Sf lt . 3 6 (4.32)
+
+FGM Rational B´zier Pentahedron Region: The next FGMDomain to be discussed in the e FGMRationalB´zierPent. Instances of this class are homeomorphic to a topological entity having e ﬁve faces, nine edges, and six vertices, also known as a wedge. The blending of the control points in Build (x, wx ) and Material (m, wm ) Spaces to map a wedge in parametric space to a region in model space are accomplished through a combination of the ordinary and generalized Bernstein polynomials. This mapping is given by:
+mx mx nx j=0 |i|=nx wx i;j xi;j Bj (v)Bi (u) and mx mx nx j=0 |i|=nx wx i;j Bj (v)Bi (u) mm mm n (v)Bi m (u) j=0 |i|=nm wmi;j xi;j Bj . nm mm n (v)Bi m (u) j=0 |i|=nm wm i;j Bj
+
+x(u; v)
+
+=
+
+m(u; v) =
+
+(4.33)
+
+The coordinate u is a parametric point within the cross-section of the wedge and the coordinate v is the parametric distance along the length of the wedge. Regions deﬁned by this class can considered as sweeps or lofting of a B´zier triangles along B´zier curves (see the class deﬁnitions above). The e e degree of the shape (nx ) or composition (nm )variation of over the cross-section is independent from the vacation along the length of the wedge (mx or mm ). The number of control points and weights required to deﬁne a B´zier pentahedron is simply the e product of the number of control points to deﬁne a cross section (see Equation 4.24) and the order of the variation along its length:
+m
+
+1=
+j=0 |i|=n
+
+1 (m + 1)(n + 1)(n + 2). 2
+
+(4.34)
+
+Knowing the number of control points and weights as a function of degree, the storage cost for
+
+83
+
+representing an FGMRationalB´zierPent region is determined to be: e Srbpr = 4Sint + 4(mx + 1)(nx + 1)(nx + 2) + (dm + 1)(mm + 1)(nm + 1)(nm + 2) Sf lt . (4.35) 2 The ﬁnal FGMDomain based on a B´zier formulation e
+
+FGM Rational B´zier Hexahedron: e
+
+if the FGMRationalB´zierHex. Objects of this class deﬁne the shape and composition of three e dimensional topological objects homeomorphic to a cube (a brick). The shape and composition of the region are deﬁned by lattices of control points and weights in Build Space (x, wx ) and Material Space (m, wm ). The mapping is an extension of that for the quadrilateral path (Equation 4.26 into a higher dimension; from a unit cube into a region in Build Space according to:
+lx mx nx lx mx nx i0 =0 i1 =0 i2 =0 wx i0 i1 i2 xi0 i1 i2 Bi0 (u0 )Bi1 (u1 )Bi2 (u2 ) and lx mx nx lx mx nx i0 =0 i1 =0 i2 =0 wxi0 i1 i2 Bi0 (u0 )Bi1 (u1 )Bi2 (u2 ) lm mm nm lm mm nm i0 =0 i1 =0 i2 =0 wm i0 i1 i2 mi0 i1 i2 Bi0 (u0 )Bi1 (u1 )Bi2 (u2 ) . lm mm nm lm mm nm i0 =0 i1 =0 i2 =0 wmi0 i1 i2 Bi0 (u0 )Bi1 (u1 )Bi2 (u2 )
+
+x(u)
+
+=
+
+m(u) =
+
+(4.36)
+
+The coordinate u = (u0 , u1 , u2 ) is the parametric location of a point within a unit cube the Cartesian space. The index of the control point is represented by i = (i0 , i1 , i2 ) The degrees of variation in ˆ ˆ ˆ shape and composition along the u0 , u1 , and u2 are lx ,mx , and nx ; and lm ,mm , and nm , respectively. The total storage cost for an FGMRationalB´zierHex region is: e Srbhr = 6Sint + [4(lx + 1)(mx + 1)(nx + 1) + (dm + 1)(lm + 1)(mm + 1)(nm + 1)] Sf lt . (4.37)
+
+General 3D Cell or B-rep Region: To eﬃciently represent regions of uniform composition, a single composition vector can be used and the shape of the region inferred from the topological data structure containing the lower dimensional entities (its boundary). This is analogous to how composite structures are currently represented within B-rep modeling systems. Within the framework described here, the FGMBRepRegion domain is introduced. This FGMDomain simply deﬁnes a vector of material volume fractions (m) for the corresponding Region or Cell (r) stored in the topological data structure reference by the domain. The composition of the region, interior to the bounding Cells (or Shells) stored within the generalized solid modeling data structure, is considered uniform or piece-wise constant. In this way, large regions of uniform composition can be deﬁned without further subdivision of the model into simpler FGMDomains. The storage cost of each such region is: Scr = Sptr + dm Sf lt . (4.38)
+
+84
+
+Summary of FGMDomain storage costs The storage cost of each derived class of FGMDomain depends on the amount of data each class maintains as well as the complexity (degree) of the composition and shape variation. These storage costs are summarized in Table 4.3. FGMDomain FGMPoint FGMRationalB´zierCrv e FGMRationalB´zierTri e FGMRationalB´zierQuad e FGMPlanarSurface FGMRationalB´zierTet e FGMRationalB´zierPent e FGMRationalB´zierHex e FGMBRepRegion Storage cost (3 + dm )Sf lt 2Sint + [4(nx + 1) + (dm + 1)(nm + 1)]Sf lt 2Sint + 2(nx + 1)(nx + 2) + dm2+1 (nm + 1)(nm + 2) Sf lt 4Sint + [4(mx + 1)(nx + 1) + (dm + 1)(mm + 1)(nm + 1)] Sf lt Sptr + (dm + 4)Sf lt 2Sint + 4Sint +
+4(nx +1)(nx +2)(nx +3)+(dm +1)(nm +1)(nm +2)(nm +3) 6 4(mx +1)(nx +1)(nx +2)+(dm +1)(mm +1)(nm +1)(nm +2) 2
+
+Sf lt Sf lt
+
+6Sint + [4(lx + 1)(mx + 1)(nx + 1)+ (dm + 1)(lm + 1)(mm + 1)(nm + 1)] Sf lt Sptr + dm Sf lt
+
+Table 4.3: Storage costs of FGMDomain deﬁnitions used in analysis of memory requirements for generalized FGM modeling methods.
+
+Other deﬁnitions for FGMDomains Only a small subset of all the possible FGMDomains that could be deﬁned have been presented here. These FGMDomains were based on rational Berstein polynomials were chosen for their ﬂexibility in representing a wide range of shapes accurately (cylindrical and spherical patches [15], for instance). For some applications, the rational formulation may not be needed. In addition, material information associated with lower dimensional entities (vertices, curves, and faces) may not be needed but is included for consistency. Additional FGMDomains could also be deﬁned to further extend the generalized cellular approaches to solid modeling, just as the STEP standard includes many representations for sphape (see Figure 2-4). Other parameteric FGMDomains could be based on NURBS (Non-Uniform Rational B-Spline) [15, 16, 19, 52, 55, 69] or simplex spline [14, 61] representations. The Bernstein FGMDomains are special cases of these two. Procedural methods, similar to the oﬀset surfaces [45, 51] used in exisiting solid model representations [49], could also be introduced.
+
+4.6.3
+
+Relationship between FGMDomains and topology
+
+At the beginning of this section, the generality of the Radial-Edge and Cell-Tuple-Graph data structures was emphasized, permitting a decoupling between the representation of the topology of the model and the shape and composition. The deﬁnition of the shape and composition in an FGMDomain, however, must map completely onto the corresponding entity in the topological data structure, deﬁning the shape and composition to the entities boundary. In order to guarantee that
+
+85
+
+this happens, the topology of the FGMDomain must be homeomorphic to the corresponding entity in the relational database. Therefore, since the parametric FGMDomains discussed in this section all map a parametric space of a given topology into the topological data base, the number of objects stored in the database can be related to each instance of an FGMDomain in the model. This section lists the number of topological entities generated for each case of an FGMDomain. Relationship between FGMDomains and RadialEdge objects The Radial-Edge data structure maintains the two major sets of classes: topological entities and their uses. The number instances of each entity and use created for each instance of an FGMDomain are listed in Tables 4.4 and 4.5. The relationship between the parametric FGMDomains and topological objects is ﬁxed. Each instance of a point, curve, parametric surface, or parametric regions results in a since instance of a vertex, edge, face, or region, respectively. Each surface or region also requires an object to represent its boundaries; either a Loop or Shell. As for the roles of each topological entity, the number of Loopuses, Edgeuses, and Vertexuses depend on the topologies of the surfaces and the number of Faceuses depend on the topologies of regions. For a two dimensional FGMDomain (a surface), each Edge in a Face contributes 2 Edgeuses and 2 Vertexuses to the relational database. In addition, two Loopuses are also generated to deﬁne the opposing orientations for each Loop bounding the Face. Therefore, each FGMDomain corresponding to a Face contributes twice as many Edgeuses and Vertexuses as it has bounding Edges, and twice as many Loopuses as it has Loops. Similarly, each three dimensional FGMDomain contributes one Faceuse for each of its Faces, deﬁning the relative orientation of that Face. For the implicit FGMDomains that derive their topology from the topological database, however, the relationship is entirely dependent upon how the FGM object is decomposed in the FGMDomain. An FGMBRepRegion, for instance, may be bounded by an arbitrary number of Faces and possibly by multiple Shells (in order to represent voids within the region). Likewise, an FGMPlanarSurface may be bounded by an arbitrary number of Edges and may also contain holes (deﬁned by additional Loops of Edges forming internal boundaries). Relationship between FGMDomains and Cell-Tuple-Graph objects The Cell-Tuple-Graph data structure maintains the topology of the model in graphs of Tuples, each of which represent a unique combination of incident Cells in the model of diﬀerent dimensions. The relationship between the objects in this data structure and each class of FGMDomain is listed in Table 4.6. Each FGMDomain is represented by a Cell in the Cell-Tuple-Graph data structure, resulting in a one-to-one correspondence between the number of Cells and FGMDomains. The Tuples, or unique incident states, is related to number of two dimensional Cells (Faces) in the model. For each Edge bounding a Face, 4 Tuples are required to represent the four incidence states,
+
+86
+
+FGMDomain FGMPoint FGMRationalB´zierCrv e FGMRationalB´zierTri e FGMRationalB´zierQuad e FGMPlanarSurface FGMRationalB´zierTet e FGMRationalB´zierPent e FGMRationalB´zierHex e FGMBRepRegion
+
+Region instance
+
+Shell instance
+
+F ace instance
+
+Loop instance
+
+Edge instance
+
+V ertex instance
+
+1 1 1 1 1 1 1 1 1 1 1 1 nvoids + 1 1 1 nholes + 1
+
+Table 4.4: The relationships between the number of topological entities in Radial-Edge data structure and each derived class of FGMDomain. FGMDomain FGMPoint FGMRationalB´zierCrv e FGMRationalB´zierTri e FGMRationalB´zierQuad e FGMPlanarSurface FGMRationalB´zierTet e FGMRationalB´zierPent e FGMRationalB´zierHex e FGMBRepRegion
+F aceuse instance Loopuse instance Edgeuse instance V ertexuse instance
+
+2 2 2
+
+2 2 2(1 + nholes )
+
+6 8 2nedges
+
+6 8 2nedges
+
+Table 4.5: The relationships between the number roles of each topological entities in Radial-Edge data structure and each derived class of FGMDomain. two at either end of the Edge and two on either side of the Face. The number of isolated graphs of Tuples (CTGs) in the model depends upon its topology. If all of the incident states are connected (no voids in Regions or holes in Faces), then only one CTG exists. Such a model is considered to be a subdivided manifold. Finite element meshes are one subset of subdivided manifold. With the introduction of implicit FGMDomains (FGMPlanarSurface and FGMBRepRegion), the possibility for disconnected graphs exists. The incident states for the topology for a void, for instance, are clearly isolated from the Tuples in the Regions exterior boundary. The relationship between CTG’s and FGMPlanarSurfaces, however, is not ﬁxed (indicated by the “X” in the Table). Paths of connected Tuples between a Face’s exterior and interior loops may exist depending on how the surfaces bounding the Face’s hole through the incident region connect to the boundary of the region. Therefore, no deﬁnite relationship can be asserted, depending instead on how the object is decomposed into Cells.
+
+4.7
+
+Discussion
+
+The preceding sections develop expressions for the memory requirements for several diﬀerent modeling schemes, beginning with a simple exhaustive enumeration approach to general B-rep and cellular
+
+87
+
+FGMDomain FGMPoint FGMRationalB´zierCrv e FGMRationalB´zierTri e FGMRationalB´zierQuad e FGMPlanarSurface FGMRationalB´zierTet e FGMRationalB´zierPent e FGMRationalB´zierHex e FGMBRepRegion
+
+ctg s instance
+
+cells instance
+
+tuples instance
+
+X
+
+nvoids + 1
+
+1 1 1 1 1 1 1 1 1
+
+12 16 4nedges
+
+Table 4.6: The relationships between the number instances of each class in the Cell-Tuple-Graph data structure and each derived class of FGMDomain. decomposition methods. The memory required for each of the representations, in terms of the number of instances of their fundamental data classes, is summarized in Table 4.7. Note that the generalized data structure storage requirements (Radial-Edge and Cell-Tuple-Graph) only represent the cost associated with maintaining the topology explicitly; the representation of the shape and composition are depends entirely on the nature of the model and how it was constructed. The term
+f gmd∈model Sf gmd
+
+represents the total cost associated with all of the FGMDomains used to model
+
+the object. In addition, the deﬁnition of the FGMDomains also associate material information with entities of zero, one, and two dimensions. This information is included for consistency of FGMDomain deﬁnitions (all FGMDomains maintain shape and composition information), the unabmiguous deﬁnition of the composition at each point in the Build Space (each point in BuildSpace maps uniquely to one Cell and its associated FGMDomain), and to follow the paradigm set forth in B-rep modeling in which analytic descriptions of vertex and curve geometries are explicitly maintained even though this information is implicitly conveyed with the intersection of the higher order surfaces. This generality allows the greatest freedom for the deﬁnition of future FGMDomain representations and design methods which may employ material information associated with lower dimensional entities.
+
+The four ﬁnite element methods presented in this chapter are slight variation of each other. Two methods incorporate backwards pointers from the elements to the vertices. This information may be helpful in the optimal design of algorithms for working with the data structure (this is beyond the scope of this thesis). The other variation deals with where the material information is maintained. In one pair of of ﬁnite element data structures, the information is associated with the vertices, similar to how ﬁeld values are associated with nodes in a ﬁnite element mesh. The composition of each element is determined from blends of the values at the noes. In the other pair, the material information is directly assocatied with each tetrahedron. How the material information is associated with the elements greatly impacts how the mesh can represent discontinuities in material composition, as shown in Figure 4-20.
+
+88
+
+v 2
+
+v 3
+
+v 2
+
+v 3
+
+r B r A r A
+
+r B
+
+v 1
+
+v 4
+
+v 1
+
+v 4
+
+(a)
+
+(b)
+
+v 2
+
+v v 3 4 r C r B
+
+v 5 r D
+
+r A
+
+v 1
+(c)
+
+r r E v F 6 v v 8 7
+
+Figure 4-20: (a) Modeling two piecewise constant regions with composition information associated with (a) the two regions and (b) the vertices. In order to represent two piece-wise constant regions when the material information is associated with the vertices, the interface region must be meshed as in (c).
+
+89
+
+Exhaustive Enumeration: Svox = 3Sint + 6Sf lt + Sptr + Sms + 1 nvox dm lg nλ 8 Triangulated B-rep Model: Stri = (Sint + Sptr + dm Sf lt )nr + 8Sptr ntriangles + 3Sf lt nnodes + Sint + Sms FE-Model: Ste00 = 4Sptr ntetrahedra + (3 + dm )Sf lt nnodes + Sint + Sms + Sptr (FE-TET, FE-Vert-M) Ste01 = 4(Sptr + dm Sf lt )ntetrahedra + 3Sf lt nnodes + Sint + Sms + Sptr (FE-TET-M, FE-Vert) Ste10 = 8Sptr ntetrahedra + [(3 + dm )Sf lt + Sint ]nnodes + Sint + Sms + Sptr (FE-TET, FE-Vert-MP) Ste11 = 4(2Sptr + dm Sf lt )ntetrahedra + [3Sf lt + Sint ]nnodes + Sint + Sms + Sptr (FE-TET-M, FE-Vert-P) Radial-Edge: Sre = Sptr + Sms + 5Sptr nr + 4Sptr ns + 14Sptr nf + Sptr nl + 2Sptr ne + 2Sptr nv + 6Sptr nlu + 7Sptr neu + 4Sptr nvu + Sms + f gmd∈model Sf gmd Cell-Tuple-Graph: Sctg = 2Sptr nctg + t∈model [Sint + (2t.d + 3)Sptr ] + +Sms + f gmd∈model Sf gmd
+c∈model [2Sint
+
++ (c.ng + 1)Sptr ]
+
+Table 4.7: Memory requirements for Exhaustive Enumeration, Triangulated B-Rep, Tetrehedral Mesh, Radial-Edge, and Cell-Tuple-Graph solid modeling methods.
+
+90
+
+Chapter 5
+
+Bounds for voxel-based model growth
+5.1 Motivation
+
+Exhaustive enumeration modeling methods represent objects as a lattice of voxels. Filled voxels deﬁne interior sub-regions of the model while empty voxels are outside the model. In most applications of voxelized representations, the dimensions of each voxel and the total number of voxels are determined by the resolution of some inspection process (eg. medical imaging) [37]. For design applications, voxel dimensions remain variables to be determined by the designer. Since the storage cost of an exhaustive enumeration method is related to the voxel size, the factors inﬂuencing the selection of voxel size are explored to relate memory requirements to parameters more directly related to the quality of the modeled object representation.
+
+5.2
+
+Voxel size dictates lattice size
+
+In order to represent an object as a voxelized model, the object must be placed within a three dimensional lattice of voxels. Each voxel within the lattice deﬁnes the compositions of the corresponding sub-region within the FGM object. The total number of voxels within the lattice (nvox ) is a functions of the physical size of the lattice (Lx × Ly × Lz ) and the size of each voxel (δx × δy × δz ). The physical size of the lattice is determined by the bounding box of the object to be modeled. Given that the nvox voxels must ﬁll the space, the following inequality must hold: nvox δx δy δz ≥ Lx Ly Lz . (5.1)
+
+91
+
+Therefore, the total number of voxels (one factor aﬀecting the storage cost) is inversely related to the dimensions of the voxels. nvox = Lx δx Ly δy Lz δz (5.2)
+
+5.3
+
+Geometric constraint on voxel size
+
+Voxel-based modeling provides a discrete representation of an object. Before investigating this discretization’s impact on the representation of composition, its impact on single material modeling must be understood. In a model consisting of a single material, the nature of the material boundary deﬁning the part surface is the most important piece of conveyed information. As a model is designed (when the bounding surface is deﬁned and modiﬁed), voxels are set as ﬁlled or empty depending upon where they lie relative the the desired boundary. Obviously, all voxels that are completely interior to the boundary are considered ﬁlled and do not present a problem. Voxels on the boundary, however, may or may not be ﬁlled depending upon how they intersect the desired, designed boundary. To understand which voxels get ﬁlled, let us deﬁne an algorithm that ﬁlls voxels to represent a new feature added to the model, as described in Algorithm 1. The criteria used to determined whether or not to change the state of a voxel to “ﬁlled” depends upon how much of a given voxel lies interior to the new feature’s boundary, as illustrated in Figure 5-1.
+Modeled boundary. Feature intended to be added. Desired boundary.
+
+Model existing in data structure.
+
+Model in data structure after addition of feature.
+
+(a)
+
+(b)
+
+Figure 5-1: (a) The addition of a feature to a voxel-based data structure. (b) Modiﬁed voxel-based model to capture intended feature.
+
+92
+
+Intended boundary. Modeled boundary.
+
+Intended boundary. Modeled boundary.
+
+εg δy
+
+δy
+
+δx
+(a)
+
+δx
+(b)
+
+εg
+
+Intended boundary. Modeled boundary.
+
+Intended boundary. Modeled boundary.
+
+εg εg δy δy
+
+δx
+(c)
+
+δx
+(d)
+
+Figure 5-2: Examples of distretization of the intended boundaries of models into voxels.
+
+93
+
+Algorithm 1 addFeature( lattice, f eature); add a single material “feature” to a binary voxel model. . Require: lattice is a 3D lattice of binary voxels. Each voxel represents the presence or not of material: f illed or empty. f eature references some feature the designer wishes to be added to the model. Ensure: The voxels in lattice that are determined to be interior to the feature are set to f illed in order to represent the feature. 1: for each vijk ∈ lattice do {Iterate through the voxels.} 2: if (vijk ∩ f eature) > 1 (δx δy δz ) then {Is majority of voxel within feature?} 2 3: vijk ← f illed {Yes, set the current voxel as ﬁlled.} 4: else {No, do not modify voxel.} 5: vijk ← vijk
+
+If the feature only partially ﬁlls a voxel, the discretized boundary over the ﬁlled or empty voxel will be in error, some distance
+g
+
+from the desired boundary of the feature. This error is a function of
+
+the shape of the feature’s surface through the voxel, but will at most be the length of the maximum dimension of the voxel, as shown in Figure 5-2 for several discretization cases. The overall accuracy of the model is determined by the maximum deviation of the boundary from the intended to the modeled. Since the walls of the voxels are parallel to the axes, this distance is always measured parallel to the axes. Therefore, the accuracy at which a voxelized model represents the designer’s intent is a function of the resolution of the lattice (size of each voxel) and is limited by the worst case (Figure 5-2), yielding the following relationship between the voxel dimensions and the geometric accuracy: = max{δx , δy , δz }. (5.3)
+
+g
+
+Rewriting the above equation, we can express the maximum dimensions for the voxels as a function of a desired accuracy for representing the geometry (shape) of a model. δx ≤
+g,
+
+δy ≤
+
+g,
+
+δz ≤
+
+g
+
+(5.4)
+
+Therefore, the geometric accuracy imposes an upper limit on the dimension of the voxels. In addition, to capture the geometry of small features in the model, the voxel dimension must be less than or equal to the minimum feature size in the model (see Figure 5-3). Therefore, the dimensions of the voxels must also satisfy another constraint: δx ≤ µg , δy ≤ µg , δz ≤ µg where µg is the minimum geometric feature size in the intended design. (5.5)
+
+94
+
+^ z
+
+* m(x)
+
+^ z
+
+m(x)
+^ x
+
+^ z
+
+* m(x)
+
+^ z
+
+m(x)
+^ x
+
+^ x 6a
+
+^ x 6a
+
+(a)
+
+(b)
+
+^ z
+
+* m(x)
+
+^ z
+
+m(x)
+^ x
+
+^ x 3a
+
+(c)
+
+Figure 5-3: Intended designs for object boundary (m∗ (x)) and modeled boundary (m(x)). The dimensions of the voxels are δx , δy , δz = a. (a.) Boundary of geometric feature lies along voxel boundaries. (b.) Boundary of geometric feature lies oﬀ voxel boundaries but is still captured in representation. (c.) Voxel mesh is too coarse to capture geometric feature.
+
+5.4
+
+Composition constraint on volume fraction resolution
+
+To model FGM objects, vectors of volume fractions of the base materials in the material system are assigned to each voxel, permitting the representation of compositions within a grey-valued voxel model. The resolution in composition, however, is limited to the number of levels of intensity allocated to each voxel. Even though the designer may wish to specify any volume fraction for each material, the discrete representation of intensity levels results in the continuous value being thresholded to the closest level representable by the voxelized system. This thresholding eﬀect is illustrated in Figure 5-4. To quantify this error, let us assume that the desired presence (volume fraction) of a single material (m∗ ) can take on any value between zero and one: 0.0 ≤ m∗ ≤ 1.0. A voxel, however, can l l only represent nλ discrete volume fractions, requiring that the desired volume fraction be thresholded such that the voxel’s assigned value is: ml = m∗ (nλ − 1) + 1 l 2 nλ − 1 where (5.6) m∗ ∈ [0, 1] l and ml ∈ {0.0, 1 2 , , . . . 1.0} nλ − 1 nλ − 1
+
+Although a designed composition (m∗ ) may be exactly representable as one of the discrete levels of l the voxels, it is more likely that there will be some diﬀerence between the desired composition and 95
+
+0.0
+
+1.0
+
+* m(x) l m(x) l
+0.0
+(a)
+
+* m(x) l
+1.0
+
+0.0
+
+1.0
+
+m(x) l
+
+0
+(b)
+
+1/2
+
+1
+
+* m(x) l m(x) l
+
+0.0
+
+1.0
+
+* m(x) l
+0 1/3
+(c)
+
+0.0
+
+1.0
+
+2/3
+
+1
+
+m(x) l
+
+0
+
+1/7
+
+2/7
+
+3/7
+
+4/7
+
+5/7
+
+6/7
+
+7/7
+
+(d)
+
+Figure 5-4: Thresholding of continuous grading to discrete levels maintained in voxel representation (a) nλ = 2, (b) (a) nλ = 3, (b) (a) nλ = 4, (d) nλ = 7. a representable value: m∗ = ml . This diﬀerence leads to an error in the material volume fraction l assignment and is inversely proportional to the number of levels of intensity that can be represented: |m∗ − ml | ≤ l = 1 2(nλ − 1) (5.7)
+
+m
+
+In order to guarantee a certain accuracy in composition representation, therefore, a minimum resolution of material volume fractions must be supported, as given by: 1 2
+m
+
+nλ =
+
++1
+
+(5.8)
+
+Algorithm 2 Add a multiple material “feature” to an FGM voxel model: lattice, f eature)
+
+addFeature(
+
+Require: lattice is a 3D lattice of voxels. Each voxel represents the dm volume fractions corresponding to materials in the material system, each at one of nλ intensity levels. f eature is some feature the designer wishes to add to the model. A vector value function (m∗ (x)) associated with the feature provides a mapping from Build Space into Material Space. Ensure: The voxels in lattice that are determined to be interior to the feature are set to a thresholded composition which best approximates the feature’s composition. 1: for each vijk ∈ lattice do {Iterate through the voxels.} 2: if (vijk ∩ f eature) > 1 (δx δy δz ) then {Is majority of voxel within feature?} 2 3: for l ← 0 to dm − 1 do {Yes, loop through the materials in system.} 4: νl ← f eature.ml dV /(δx δy δz ) {Compute presence of ml in voxel.} voxel
+5: 6: 7:
+λ vijk .ml ← l nλ −1 2 {Threshold the desired volume fraction and assign.} else {No, do not modify voxel.} vijk ← vijk
+
+ν (n −1)+ 1
+
+96
+
+5.5
+
+Composition constraint on voxel size
+
+A desired accuracy in representing the composition also aﬀects the size of the voxels used to approximate the material variation throughout the model. Obviously the smaller the voxels, the closer the grading will be to the ideal, desired grading. The relationship between voxel size and composition accuracy can be quantiﬁed and depends on the nature of the grading. In this section, we explore the impact of the desired grading on the required size of the voxels in order to guarantee a certain degree of composition accuracy.
+
+5.5.1
+
+Constraint based on discontinuities in composition
+
+Material discontinuity.
+
+Material discontinuity. 100% Material B
+
+100% Material A 100% Material B
+(a)
+
+100% Material A
+(b)
+
+Figure 5-5: Examples of discontinuities in composition. (a) Discontinuity between two regions of uniform composition. (b) Discontinuity with regions of graded composition. The ﬁrst constraint on composition stems from discontinuities in composition (points in the model where m(x) is not deﬁned) as illustrated in Figure 5-5. This constraint is analogous to
+
+the geometric constraint described above for a single material, except in this case the boundary is internal, separating two regions of diﬀering composition rather than deﬁning the external surface of the model. Referring to Lines 4-5 of Algorithm 2, we can formulate an expression for the voxel size in terms of a material accuracy:
+m.
+
+First, let us consider a voxel enclosing the subregion xi ≤ x < xi + a, yj ≤ y < yj + a, zk ≤ z < zk + a, as shown in Figure 5-6(a). We will assume the voxel lies wholly within a feature of graded composition which is being designed. Let us deﬁne a hypothetical composition variation for this feature within the voxel such that the desired variation has an internal boundary between regions
+
+97
+
+^ z
+
+^ z
+
+voxel
+
+^ y
+
+^ y
+
+π β
+(a)
+
+^ x
+
+β
+(b)
+
+^ x
+
+Figure 5-6: (a) Voxel to approximate a subregion of discontinuous composition. The discontinuity in composition occurs of the plane π. (b) The desired composition (m∗ (x)) over the subregion occupied by the voxel. of diﬀering composition:    1.0       if x − xi + y − yj + z − zk < βa     0.0 ∗ m (x, y, z) =     0.0      otherwise     1.0
+
+such that 0.0 ≤ β ≤ 1.0
+
+(5.9)
+
+Figures 5-6(b) shows this desired material distribution for the voxel. Since a voxel can represent only a single composition 1 , Algorithm 2 uses the average composition of the intended design to assign to the voxel.
+xi +a yj +a zk +a xi yj zk
+
+νl   ν  0 ν1
+
+=
+
+m∗ (x, y, z)dxdydz l
+
+
+
+6 =  1.0 −
+
+β
+
+3
+
+
+β3 6
+
+a3
+
+
+
+In addition, since a voxel can only represent discrete values, this average composition must be
+1 The
+
+composition m associated with voxel vijk is expessed as vijk .m.
+
+98
+
+thresholded:  vijk .m =
+(nλ −1)+ 1 2 nλ −1   β3 nλ − 6 (nλ −1)+ 1 −1 2 nλ −1
+β3 6
+
+ (5.10)
+
+Through studying this composition assignment process, we discover two artifacts due to the voxelized representation of the composition discontinuity: loss of accuracy in composition and loss of information about the interface boundary between discontinuous regions. Although both involve material assignment, the latter can be attributed to the minimum material feature size. The ﬁrst error is due to a diﬀerence between the assigned and the intended compositions: = max{m0 − m∗ (x, y, z), m1 − m∗ (x, y, z)|(x, y, z) ∈ ([xi , xi + a), [xi , xi + a), [xi , xi + a))} 0 1 (5.11) Figures 5-7(a)-(c) shows the assigned volume fractions for diﬀerent values of β. When β ≤
+3
+
+m
+
+3 nλ −1 ,
+
+^ z ^ y
+
+^ z ^ y
+
+^ z ^ y
+
+^ z ^ y
+
+^ x
+
+^ x
+
+^ x
+
+^ x
+
+(a)
+
+(b)
+
+^ z ^ y
+
+^ z ^ y
+
+^ x
+
+^ x
+
+(c)
+
+Figure 5-7: Thresholding of designed material assigned to discretized regions of uniform composition for (a) β ≤ 3 nλ3 , (b) β = 1 , and (c) β = 1. −1 2 we ﬁnd that the material error is at its greatest,
+m
+
+= 1, over the region x− xi + y − yj + z − zk ≤ βa.
+
+Since β is a free parameter, subject only to the designer’s intent (0.0 ≤ β ≤ 1.0), no voxel size, no matter how small, can guarantee an improvement in composition accuracy. For this reason, a material accuracy cannot be considered as a valid constraint for restricting voxel size within FGM
+
+99
+
+models containing discontinuous compositions. The second eﬀect of discretization concerns the material feature represented by the internal boundary. As explained in the previous section, a voxel can only represent boundaries along a combination of its eight faces. A design that includes a discontinuity in composition across a surface has this surface as an internal boundary between regions of diﬀering composition and can be considered, itself, a geometric feature. For the example given above (Equation 5.9), this design feature is the section of the plane (π : x−xi +y−yj +z−zk = βa|xi ≤ x < xi +a, yj ≤ y < yj +a, zk ≤ z < zk +a). In the voxelized representation, however, this feature consists of three of the faces of the voxel. Even if the composition relative to either side of this feature can be represented exactly, the shape of this feature becomes perturbed from the intended design. In this planar case, the largest distance this feature will be perturbed is one half the dimension of the voxel. For more general cases (for the design of curved or faceted interfacial surfaces, for instance) this error grows to that observed before at the object’s external boundary (Equation 5.3). Therefore, to accurately represent the interface at discontinuities in composition, the size of the voxels in the model is limitied by the intended minimum material feature size in the model: δx ≤ µm , δy ≤ µm , and δz ≤ µm . (5.12)
+
+^ z
+
+* m(x)
+
+^ z
+
+m(x)
+^ x
+
+^ z
+
+* m(x)
+
+^ z
+
+m(x)
+^ x
+
+^ x 6a
+
+^ x 6a
+
+(a)
+
+(b)
+
+^ z
+
+* m(x)
+
+^ z
+
+m(x)
+^ x
+
+^ x 3a
+
+(c)
+
+Figure 5-8: Intended designs for material distribution (m∗ (x)) and modeled compositions (m(x)). δx , δy , δz = a (a.) Boundary of material feature lies along voxel boundaries. (b.) Boundary of material feature lies oﬀ voxel boundaries but is still captured in representation. (c.) Voxel mesh is too coarse to capture material feature.
+
+100
+

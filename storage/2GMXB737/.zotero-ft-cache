@@ -1,0 +1,367 @@
+Computer-Aided Design (
+
+)
+
+–
+
+Contents lists available at ScienceDirect
+
+Computer-Aided Design
+journal homepage: www.elsevier.com/locate/cad
+
+A structural topology design method based on principal stress line✩
+Tsz-Ho Kwok, Yongqiang Li, Yong Chen ∗
+Epstein Department of Industrial and Systems Engineering, University of Southern California, Los Angeles, CA 90089, United States
+
+article
+
+info
+
+abstract
+Topology optimization is an important topic in structural mechanics. One common application is to obtain the optimal distribution of material that maximizes the stiffness of the solution (minimize the compliance). However, as an iterative process, topology optimization of large and complex structures is computationally intensive. The problem becomes even more complicated if the manufacturing constraints are taken into account in the optimization process. In this paper, a novel growth method based on principal stress lines (PSLs) is presented for topology optimization. The PSLs are traced in the design domain along the direction of principal stresses, in which the materials would be located to define the geometry and topology of the structure. Consequently, the optimization problem is converted into a geometric design problem. Compared to previous methods, the computation based on PSLs is fast, and the designer can have explicit control over the number of structural members. In addition, the manufacturing constraints can easily be incorporated. Multiple test cases are given to illustrate the presented method. The PSL-based method is promising for building practical designing tools for various structural applications. © 2016 Elsevier Ltd. All rights reserved.
+
+Article history: Received 18 June 2015 Accepted 16 July 2016 Keywords: Topology optimization Growth method Principal stress line Additive manufacturing Computer-aided design Structure design
+
+1. Introduction Structural Topology Optimization (STO) has gained extensive interests in both academia and industry. It has been applied to many structural design problems, such as the design of materials and mechanisms. In recent years, a new manufacturing method— additive manufacturing (AM), can directly fabricate objects from computer-aided design (CAD) models without part-specific tooling or fixtures. By building physical model layer upon layer, the AM processes can build complex geometry with small cost penalty. This presents tremendous opportunities for complex structural design and enables the built part to be closer to the optimum design that is impossible to be fabricated using the traditional manufacturing processes [1]. A recent case study by EADS (refer to Fig. 1) demonstrates that a component design based on topology optimization can reduce its weight by nearly 30% [2]. Exploring alternative design concepts such as different loading and constraints using STO presents tremendous opportunities for designing product components with optimum design performance. A classic problem of the optimum structural design is due to Michell’s theorem [3], in which the lightest frame structure S of a bounded compliance is to be found to transmit a given load to
+
+✩ This paper has been recommended for acceptance by Krishnan Suresh.
+
+∗
+
+Corresponding author. E-mail address: yongchen@usc.edu (Y. Chen).
+
+given supports in a feasible domain Ω [4]. Michell trusses play a significant role in STO because they define the shape and topology of the optimal structure. The exact analytical solutions of Michell trusses are very hard to obtain. However, they can be approximated numerically by trusses composed of large, but finite number of members. It requires, however, solving large-scale numerical optimization problems. The optimization of a truss structure [5] means the simultaneous selection of the optimal (1) topology, (2) shape, and (3) size, where topology is the connectivity of the members, shape refers to the location of the joints, and size represents the cross-sectional dimensions. Solving such a non-linear optimization problem could be computationally expensive because all the structure variables are correlated to each other. Nevertheless, topology optimization is critical because it can achieve much greater material saving than only considering size and/or shape optimization. From Michell’s theorem, if there exists a virtual deformation of the design domain, the minimum weight structure needs to satisfy the conditions that the displacements vanish on the supports and the strains distribute along the members of the structure. That is, the minimum weight structure should follow the direction of principal stresses (tension or compression) such that no shear stress exists on the structure members. In this paper, we develop a novel structural topology design method based on principal stress line (PSL) analysis, and accordingly define the topology and shape of the structures. Consequently, the topology optimization problem can be converted into a geometric design problem, which can be
+
+http://dx.doi.org/10.1016/j.cad.2016.07.005 0010-4485/© 2016 Elsevier Ltd. All rights reserved.
+
+2
+
+T.-H. Kwok et al. / Computer-Aided Design (
+
+)
+
+–
+
+Fig. 1. A test case based on topology optimization and additive manufacturing. Source: Courtesy of EOS Inc.—http://www.eos.info/.
+
+computed in an interactive speed. Our technical contributions are summarized as follows: 1. We develop a novel design platform for structural topology optimization, which is computationally fast and easy to control. 2. We develop an initial structure generation algorithm that can connect given load to given supports for different kinds of domains and set-ups. 3. We develop a topology growth process based on the PSL to insert new joints for refining the designed structure. The manufacturing constraints of AM processes are incorporated to ensure the designed structures can be fabricated. The main purpose of the paper is to develop a structural topology design platform that is computationally inexpensive and can provide a possible direction for design space exploration (i.e., identifying ‘‘what if’’ scenarios). Although our method is a heuristic-based approach, the final solutions tend to mimic the exact solutions of Michell problems. Additionally, the user of our method has explicit control over the number of final structural members. Such a control does not exist in most non-heuristicbased topology optimization methods. As Michell’s theorem is only applicable to single-load case problems, our current framework also works only for such problems while several loads may be presented (see Ch. 1.5.1 in [6] for the distinction between single-load and multiple-load problems). Extending the PSL-based design method for multiple-load case problems will be considered in our future work. The rest of the paper is organized as follows. The related work is discussed in Section 2. The design principles and an overview of our design platform are presented in Section 3. The implementation detail of the PSL-based design method is presented in Section 4, followed by the experimental results that are discussed in Section 5. Finally, Section 6 concludes the paper with a discussion of future work. 2. Related work Topology optimization of trusses is a classic subject in structural design. For a more advanced presentation of structural topology optimization, the reader can refer to some classic books and papers [5,7–10]. Discrete and continuous structures are two broad categories in the structural topology optimization. Our work is mainly related to the discrete structure optimization. In the approximate-discrete formulations, they can be roughly classified into two different kinds of processes (or a combination of them): reduction and growth processes. A widely used approach, called Ground Structure [11–14], is one kind of the reduction processes. It starts with the union of all potential members, and eliminates the ‘‘vanishing’’ ones, i.e., those having a zero cross-section area, in the optimization process. Dorn et al. were among the pioneers, who developed a basis of a linear programming method [11,15].
+
+Given a design domain, boundary conditions and external loads, they obtained the members that are coincided with the principal stress directions of an optimal continuum structure [5]. The numerical computational theories of the ground structure approach are mainly founded on minimizing compliance or maximizing stiffness. This objective function has been utilized in many literatures [16–21]. In order to solve the objective function of minimizing compliance, linear or nonlinear programming (LP/NLP) techniques were developed [22–24]. There are some other numerical computational approaches that have been used to find the optimal truss structure from a ground structure [25]. Node positions in a ground structure are to be optimized as well as the cross-section optimization. This node position optimization is called shape optimization. Research on both topology and shape of ground structures can be found in [8,26]. Despite much theoretical and computational progress, the application of this topology optimization method to industrial problems is still not widespread. A main reason is due to the computational cost. The complexity of ground structure approach is O(n2 ), where n is the number of the nodes. When n is large, the ground structure is very dense, and the numerical computation of the LP or NLP techniques is unstable; sometimes some unreasonable structures may be obtained [27]. Thus, there is a need for a topology optimization method that is computationally efficient and easy to control. In contrast to the reduction process, the growth process starts with a simple topology and iteratively inserts joints and members into the structure. The problem size of the growth process is small, which makes it more practical for real world problems. However, the main difficulty of the growth process is the selection of variables. That is, the determination of which member should be subdivided and where the new joints should be located. Different subdivision strategies have been proposed before to address the problem. Rule [28] subdivided the largest member at its midpoint, and connect the new joint to the nearest joint. The shape annealing method [29,30] applied to structural design grows structures by using a set of shape modification rules. McKeown [31] added a new joint, or a symmetric group of joints, one at a time, and optimized the position of joints at each stage. Bojczuk and Mróz [32] had also considered joint separation to separate one existing joint into two joints with a new member connecting them. Gilbert and Tyas [33] introduced a growth method called ‘‘adaptive ground structure’’, which starts with an initial ground structure with minimal connectivity, and increases the number of members at each step. Sokół [34,35] further speeded up this approach by first considering the shortest members in the ground structure, and considering longer and longer members as candidates in the following iterations. Along the same trend, Sokółand Rozvany [36] showed the growth method can be extended to the problems with multiple loads. Martínez et al. [37] optimized the structure to obey the orthogonal properties of the members at each joint, and they fitted a cubic spline along the average slope of members to compute the position of the new joint. Although these heuristics work fine in some cases, they require a lot of post-processing optimization as the effectiveness of the newly added joints and members is unclear. More importantly, the generation of initial structure is not well-studied. Gilbert and Tyas [33] simply connected the adjacent nodes in the design domain, and Martínez et al. [37] directly linked the loading to all the supports. However, the initial structure generated in these ways may be structurally unstable, far from optimal, and even invalid. Ning and Pellegrino [38] optimized the structural topology based on the size distribution field. In our study, we find the PSL can be used to define the shape and topology of designed structure for given loads and supports. Based on the PSL analysis, we are able to define the initial structure, determine the positions of joints, and identify the subdivision sequence. As a result, the difficulty of variable selection in the traditional growth methods can be overcome with improved usability for structural topology optimization.
+
+T.-H. Kwok et al. / Computer-Aided Design (
+
+)
+
+–
+
+3
+
+3. Principles and algorithm 3.1. Design principles A fundamental problem of structural design is the determination of a structure with minimum weight that can safely equilibrate given loads by connecting them to given supports. In this paper, we aim at developing a design framework based on principal stress line analysis. Specifically, given the design domain with specified loads and supports, we compute the stress field on the design domain. By tracing lines from the load to the supports along the direction of principal stress, the connectivity of the structure can be defined. The lines traced along the principal direction are called Principal Stress Lines (PSLs). The truss structure is constructed based on the connectivity of PSLs, and the design process is to refine the structure to mimic the shape of the PSLs. During the growth process, in order to generate a valid and effective structure topology, the following design principles are obeyed: Principle 1: The truss members need to lie along the PSLs as close as possible. Principle 2: When a truss member is subdivided at a point, a new member is added along the orthogonal PSL at that point. Principle 3: Subdivision should only occur at the points that have orthogonal compression and tension principal stresses (i.e., in the T regions to be explained in the remainder of the section). The reasons and theories of having these principles are as follows. Following the Michell’s theorem [3], if the design of a truss structure S is optimum, all of its members are in tension or compression, such that the loading force will be distributed on the supports and with strains along the members of S. In other words, the members of S must lie along lines of the principal strain in the virtual deformation such that they are fully loaded. Therefore, we have Principle 1, which defines the shape of the structure. Respect to Principle 2, for two given nodes in a structure, a straight line connecting them will lead to a smaller compliance of the structure than any other curves that are used to connect them. There are two main reasons for this statement. First, a straight-line segment between two adjacent nodes has the shortest distance. Therefore, the consumed material of the structural member is the least. Consequently, for a constant volume of material given to the whole structure, the stiffness of the structure can be larger for a straight line. Second, and more importantly, as the trusses are assumed to support only axial loads, the shear stress of a truss member should be minimized to achieve a smaller compliance. Suppose two adjacent nodes P1 and P2 are connected by a curve instead of a straight-line segment as shown in Fig. 2. Assume the curve undergoes a compression, then the two axial forces of F1 and F2 are along the tangent directions on both nodes of P1 and P2 . In order to achieve the equilibrium of this curve, a force F3 is generated by the internal strain deformation of the connection. Obviously, F3 is a shear force, which will be zero if and only if the curve is a straight line. As a result, whenever a joint is inserted to refine a member, a new member has to be added as well, and it has to be orthogonal to the principal stresses at the splitting joint. Finally, Principle 3 comes from Michell’s optimality condition [3], which states that for a virtual strain field ε on the structural domain D , we must have
+
+Fig. 2. Shear force on a curve.
+
+where k is a positive constant, f is the force in a bar, and sgn is the sign function [39]. These optimality criteria allow the following optimal regions for plane trusses at all points of the available space: R+ R− S+ S− T
+
+: : : : :
+
+ε1 ε1 ε1 ε1 ε1
+
+= k, = −k, = ε 2 = k, = ε 2 = −k, = k,
+
+|ε 2 | < k, |ε 2 | < k, ε 2 = −k,
+
+f1 f1 f1 f1 f1
+
+> 0, < 0, > 0, < 0, > 0,
+
+f2 f2 f2 f2 f2
+
+= 0, = 0, > 0, < 0, < 0,
+
+(2)
+
+where ε 1 and ε 2 are the principal adjoint strains, and f1 and f2 are the corresponding member forces. The layouts of various types of optimal regions, together with their commonly used symbols, are shown in Fig. 3. As can be seen, members run in only one direction in R regions, and the forces have the same sign. In S regions, members with the forces of a given sign may run in any direction. The compression and tension members in the T region are orthogonal to each other. For the classical Michell problem, Rozvany [40] stated that ‘‘If a pair of tension and compression members cross each other, they must be orthogonal... No other members can be coplanar with them’’. Therefore, as the T region is the only region that can fulfill the orthogonality requirement, a subdivision should always happen in the T region. In the rest of the paper, for the points in the R+ , R− , S + , S − , T regions, we call them R+ , R− , S + , S − , T -points respectively. After doing the stress–strain analysis on the design domain with the given load and boundary conditions, the type of a point can be determined by computing the member forces (f1 , f2 ) of that point along the principal directions, and then matching them with the optimality criteria listed in Eq. (2). In practice, we replace f2 = 0 by |f2 | < δ to address the numerical f1 errors in computation, and we set δ = 1000 . 3.2. Algorithm overview The development of our topology design framework is based on the aforementioned principles. The basic idea of the algorithm is as follows. Through the stress and related optimal region analysis, we can know the structural pattern of the local region around the load and the supports. For the example of the classic case of the single-load and two-supports cantilever as shown in Fig. 4, after the analysis of the optimal regions, we know that the loading point is a T -point and the two fixed supports are S + -point and S − -point, respectively. Therefore, a pair of orthogonal compression and tension members should meet at the point of loading, while a set of tension/compression members should end at the points of support (see Fig. 4(a)). After knowing the local structural patterns, the next step is to find out how they are connected. Our approach
+
+ε = k sgn f , ε ≤ k,
+
+(for f ̸= 0) (for f = 0)
+
+(1)
+
+4
+
+T.-H. Kwok et al. / Computer-Aided Design (
+
+)
+
+–
+
+Fig. 3. Types of optimal regions in Michell trusses. Blue solid lines and red broken lines represent tension and compression bars, respectively. (For interpretation of the references to color in this figure legend, the reader is referred to the web version of this article.)
+
+(a) Domain specification & optimal regions.
+
+(b) PSLs.
+
+(c) Truss structure.
+
+Fig. 4. The basic idea of the proposed method.
+
+(a) Line constraint with middle load.
+
+(b) Line constraint with bottom load.
+
+(c) Two point constraints with middle load.
+
+Fig. 5. Visualization of sampled principal stress lines in different boundary conditions and loads.
+
+traces the field lines on the stress field that was computed in the design domain (called principal stress lines). As shown in Fig. 4(b), the blue and red PSLs correspond to the tension and compression members, respectively. The details of the growth process will be described in Section 4.3. Based on the PSLs, the connectivity of the truss structure can be defined. As shown in Fig. 4(c), the intersection points of the PSLs define the joints, and the PSLs between the intersection points define the structure members. For illustration, we present the principal stress field for a simple cantilever beam with different loads and constraint positions in Fig. 5. Compared to the case of line constraint with the load in the middle (refer to Fig. 5(a)), the load is moved from the middle to the bottom of the beam in Fig. 5(b), and two point constraints, instead of the line constraint, are used in Fig. 5(c). We can observe that for different boundary and loading conditions, the computed PSLs of the design domain are different. Accordingly, the topology and shape of the designed structures would be different in order to mimic the computed PSLs. The overview of our algorithm is illustrated in Fig. 6. Based on the given design domain with the specified loads and supports, we first use the Finite Element Analysis (FEA) to compute the stress field in the design domain, and identify the candidates of joints (Section 4.1). After that, the initial structure S0 is generated by tracing PSLs to connect the load to the supports (Section 4.2). The
+
+initial structure is then refined iteratively to reduce the total strain energy E in the structure. This growth process has two nested loops of iterations: Outer Loop: It performs the topology and shape updates (Section 4.3). At each step, a point with the maximum approximation error is located, and a new PSL is traced from the point based on the aforementioned design principles. By inserting new joints and members according to the intersections of the PSLs, the structure Si is refined to Si+1 . It is iterated as long as the strain energy is reduced, i.e., E (Si+1 ) < E (Si ), otherwise, Si is returned as the optimal truss structure. Inner Loop: This is the loop for size optimization (Section 4.4). Starting from the uniform cross-section area for all members (A0 ), the strain energy stored in each truss member is computed using FEA. The cross-section areas are scaled to Aj+1 based on the distribution of strain energy. In short, the member with larger strain energy becomes larger and vice versa to achieve uniform distribution of strain energy among all the members. It is iterated as long as the total strain  energy is reduced, i.e., E Aj+1 < E (Aj ). Therefore, once the topology is updated, the size optimization will be applied to compute the optimal distribution of materials
+
+T.-H. Kwok et al. / Computer-Aided Design (
+
+)
+
+–
+
+5
+
+a FEA system (e.g., COMSOL). In our study, we have implemented the FEA in our PSL-based design system for a better integration. The FEA results have been verified by the commercial system; however, our FEA code has not been optimized for the best efficiency. For any point p ∈ Ω , its stress tensor is defined by Fσ as {σx , σy , τxy }. The principal stresses are the components of the stress tensor when the basis is changed such that the shear stress components become zero. The angle between such a basis and the x-axis is given by
+
+θ=
+
+1 2
+
+tan−1
+
+
+
+2τxy
+
+
+
+σx − σy   ±
+
+,
+
+(8)
+
+and the principal stresses are
+
+σ1,2 =
+
+σx + σy
+2
+
+σx − σy
+2
+
+2
+
+2 + τxy .
+
+(9)
+
+Fig. 6. The flowchart of the algorithm overview. E (·) represents the strain energy.
+
+based on the updated topology. The optimized energy is compared with the energy in the previous step, and the iterations are stopped when no more improvement is made. Each step is discussed in detail in the following section. 4. Design framework 4.1. Domain specification Given a design domain Ω ∈ R2 with given load f and support φ . We first use the stress analysis method based on FEA to compute a stress field Fσ in Ω . Specifically, a finite element mesh (e.g., quadrilateral mesh) is generated for Ω , and the load and support are specified as the nodal forces and boundary conditions applied to the nodes of the mesh. Approximations for the strain and stress follow directly from the displacements:
+
+ε = Lu = LNj uj ≡ Bj uj , σ = Dε = DBj uj ,
+
+(3) (4)
+
+where u is the set of the nodal displacements, L is the matrix of differential operators, Nj are the shape functions, Bj = LNj , and the Hooke’s law takes the plane stress condition. An increase in strain energy δ U in an element with a force fi applied on node i is given by:
+
+δU =
+
+
+V
+
+δεT σ dV = δ uT i
+
+
+V
+
+This stress field Fσ is a physical representation that contains the information about the relationship between the load f and the supports φ . Therefore, it is also the governing field that will be used for generating the truss structure of the given design problem. As the principal directions are defined for the whole design domain Ω , PSLs can be traced starting from any point in the domain. Without loss of generality, assume a PSL is being traced from a starting point p0 in the principal direction v0 . We use an incremental method by moving a small step δ along the current principal direction, i.e., pi = pi−1 +δ·vi−1 , and computing the principal direction in the new position for the next iteration. As there are two principal directions at each point, the one closer to vi−1 will be selected as vi . In our tests, we use δ = 0.001 m. We identify the candidates of joint points in this step. There are four types of candidate joints, including: (1) the point of loading, (2) the points of supports, (3) local maximal points, and (4) intersection points. Because the goal of the structure is to withstand the loads through the supports, it is obvious that the first two types of joints have to be in the designed structure. The third type is the local maximal point that is a point having the maximum principal stress value in its neighboring region. It can be located by checking whether its absolute stress value is greater than its neighbors’ stress values. Generally speaking, the maximal points are the points with loads and supports. However, as the design space is limited by the given design domain Ω , some local maximal points may be located on the boundary ∂ Ω . For the example of the L-shape domain as shown in Fig. 7, the upper corner at the turning point of ‘‘L’’ is a local maximal point. It will be one of the joints in the final structure. This type of joint is generally a S + -point or S − -point, where both member forces have the same sign (refer to Fig. 3 and Eq. (2)). Finally, the joints of the fourth type are the intersections between PSLs, as the structure members can only cross each other through joints. Notice that, the first three types of joints are identified as candidates in this step. They are activated and constructed only when a PSL reaches them. The intersection points are created whenever an intersection between PSLs happens. 4.2. Initial structure The goal of the initial structure is to connect the loads to the supports. Automatically constructing an initial structure for a given problem is difficult. One may solve the problem by directly creating a set of straight bars between the load and the supports, and then eliminating the zero-volume ones during the size optimization. Although this method works well on the Michell cantilever problem, it does not work for more complicated cases. For instance, directly connecting the load and supports in the concave L-shape domain shown in Fig. 7 will result in a structure outside the design domain; directly connecting the load and supports in the bridge
+
+BT DBj dV uj , i
+
+(5)
+
+which must be equal to the work done by the nodal forces:
+
+δ W = δ uT fi . i
+
+(6)
+
+Equating Eqs. (5) and (6), and canceling the common factor δ uT rei sults in
+
+
+V
+
+BT DBj dV i
+
+
+
+uj = fi .
+
+(7)
+
+This is of the desired form Ku = F with the stiffness matrix    K = kij , and kij = V BT DBj dV . The result can be generated by i
+
+6
+
+T.-H. Kwok et al. / Computer-Aided Design (
+
+)
+
+–
+
+(d) Initial structure.
+
+(a) L- shape design domain.
+
+(b) Stress field.
+
+(c) Initial PSLs.
+
+Fig. 7. (a) The input L-shape design domain with specified load and supports. (b) The stress field computed on the domain, and the candidate joints are identified. (c) Initial PSLs are constructed by tracing from the points of load to the points of support. (d) The initial structure is constructed based on the connectivity and the intersections of PSLs.
+
+(a) Bridge design domain.
+
+(b) Initial PSLs.
+
+(c) Initial structure.
+
+Fig. 8. The bridge problem and its initial structure generated by our method.
+
+structure shown in Fig. 8 will create two horizontal bars, which will make it difficult to do further subdivision. Therefore, the previous growth-based methods generally required user interaction when creating the initial structure. In our method, the PSLs describe how the load is connected to the supports within the design domain, and we can generate the initial structure automatically with the help of the PSLs. Specifically, our method consists of three phases to compute the connectivity including (I) load phase, (II) local maximal point phase, and (III) support phase. Load Phase (I) Although there could be multiple supports, not all of them would connect to the loads. The goal of the load phase is to connect the loads to some of the given supports that can provide the best performance. Therefore, the first phase in computing the initial structure is to trace PSLs starting from the loading point (Ref. Section 4.1). If the PSLs end at some points of support (e.g., the Michell cantilever in Fig. 4, or Ib in Fig. 7), a structural member is created for each of these PSLs, in which the two endpoints are the points of load and support. Otherwise, if a PSL ends at a local maximal point (e.g., Ia in Fig. 7), the point is activated and a joint is created at that position. Afterwards it goes to Phase II. Local Maximal Point Phase (II) This phase is performed only if there is at least one local maximal point that is activated in Phase I. A set of PSLs is traced from the activated points. For the example shown in Fig. 7, the upper PSL (IIa ) ends at a point of support, and a structural member is created between them. Another PSL (IIb ) going toward the left intersects an existing PSL (Ib ), and thus Ib is subdivided with a joint created at the intersection point. A structural member is created between the intersection point and the local maximal point as well. The resultant initial structure is shown in Fig. 7(d). The PSLs that do
+
+not have any intersection with others or will create duplicates of structural member are discarded automatically. Support Phase (III) When the loading and supporting points are collinear (e.g. in the example of bridge as shown in Fig. 8), they are connected by intersection points that are created in the support phase. That is, we trace PSLs from the supporting points to intersect the PSLs that are traced in Phase I. In Phase III, we create a queue to sort the supporting points in a descending order in term of their stress values. Each time, the point with the maximum stress value is taken out from the queue and PSLs are traced from it. This process is continued until there is an intersection between the traced PSLs and the existing ones. The initial structure generated by our method for the bridge problem is shown in Fig. 8(c). More test results will be shown in Section 5. The presented PSLs-based initial structure generation method was used in all of the test cases. 4.3. Topology growth The PSLs play an important role not only in the initial structure generation, but also in the topology growth process. The traditional shape and topology optimization is a non-linear problem. With the help of PSLs, we convert the shape and topology optimization into a geometric design problem. Based on design principle 1, the goal of the topology growth is to refine the structure to better mimic the shape of the computed PSLs. In other words, the approximation errors between the structure and the PSLs in the design domain need to be minimized. Such approximation error in our study is calculated as the area of the region that is bounded by them (refer to Fig. 9). The area is computed by a numerical method that uniformly samples the PSL into a set of
+
+T.-H. Kwok et al. / Computer-Aided Design (
+
+)
+
+–
+
+7
+
+points, and integrates the absolute orthogonal distances of each sample point to the related structural member. In each iteration of the topology growth, a structural member is subdivided at a point that can reduce the approximation error by the largest amount. To fulfill the orthogonality requirement in the design principle 3, only T -points are considered for such subdivisions (refer to Fig. 3 and Eq. (2)). Hence, from an initial structure (S0 ), the main process of our topology growth method is: (1) Locate a point (Pi,a ) on the existing PSLs, where the point can reduce the largest approximation error for the current structure (Si ). Pi,a is one of the sampling points {Pk } on the PSLs, where the subscript i stands for the iteration number, and a stands for the first intersection point (following by b for the second, c for the third, etc.). See Fig. 10 for an example on the notation. (2) A new PSL (PSLi ) is traced from Pi,a , where PSLi is the one that is orthogonal to the existing PSL that contains Pi,a (refer to design principle 2).   (3) Compute a set of intersection points Pi,b , Pi,c , . . . with the existing PSLs (could be an empty set), and subdivide the structural members by the intersection points together with Pi,a . A new structure (Si+1 ) is created by connecting the existing joints and the computed joints based on the connectivity of PSLs.
+
+members. The truss sizes of the structure are also getting smaller; some of them may reach the fabrication limit of AM processes. As can be seen in the chart, the strain energy is increased in iteration #13 when the manufacturing constraint is enforced. This is because when the minimum thickness is required for all the structural members in the size optimization, the strain energy cannot be distributed uniformly. Thus the total strain energy in the structure is increased in iteration #13. In contrast, if the manufacturing constraint is not considered (i.e., no minimum thickness is required for each truss member), the strain energy of the structure can keep decreasing as shown in Fig. 10. However, such structure will have structural members whose sizes are too small to be fabricated by AM processes. Therefore, if manufacturing constraint is considered, getting the finest refinement is not always the best. 4.4. Size optimization Once the topology and the shape of a structure have been determined during an iteration of the topology growth process, the cross-section size of each member is optimized in our PSL-based design method. The objective of the size optimization is to achieve the maximum stiffness of the structure using the same amount of material. Based on the method of uniform strain energy density [5], maximizing the stiffness also means to minimize the strain energy of the structure. The structure achieves the minimum potential energy when the strain energy density is uniform in the entire structure. Since the strain energy density of the ith member is given 1 as Ui = 2V uT Ki (xi )ui , where ui is the displacement, and Ki (xi ) is the i i stiffness matrix of the ith member with the cross-section area xi . As the area factors in the stiffness matrix K = Ex and the volume L V = xL are cancelled, the density U is proportional to the square of the displacement u (i.e., U ∝ u2 ), and u is inversely proportional to the area under Hooke’s law: F = Ex u (i.e., u ∝ 1 ). In other words, L x when the area x is increased, the displacement u will be decreased in the same ratio, and the strain energy density U will be decreased
+1 by the square root of the ratio (i.e., x ∝ ( U ) 2 ). Therefore, the size optimization is defined by the square root of the density ratio:
+1
+
+
+The above process is iterated until the strain energy does not drop further, or until it reaches the subdivision level specified by user. The details of the algorithm are described in Procedure 1; △A is the difference of approximation error before and after subdivision. Fig. 10 illustrates the algorithm based on the Michell cantilever case shown in Fig. 4. Starting from the initial structure in iteration #0, the best point to be subdivided is P0,a , because it can reduce the largest approximation error. After tracing the orthogonal PSL (PSL0 ) of P0,a , the overall structure is refined and a new structure is generated as shown in iteration #1. After size optimization, the strain energy of the new structure is 12.081 mJ, which is significantly reduced from that of the structure in the previous iteration (12.500 mJ). Hence, the stiffness of the structure is increased using the same amount of material. In the next iteration (iteration #1), the subdivision point is P1,a . The orthogonal PSL (PSL1 ) of P1,a intersects with other PSLs at the point P1,b (there could be more intersection points, e.g., P3,b and P3,c in iteration #3). P1,a and P1,b are then inserted to refine the structure for the next iteration. We have shown 14 iteration steps in Fig. 10 with the related strain energy for each iteration. As shown in the topology growth process, when more PSLs are used, the generated structure is more similar to the Michell-type structure. Although the strain energy of the structure is getting smaller, the improvements on stiffness are getting smaller after several iterations. At the same time, the designed structure is becoming more complex with an increasing number of structural xnew = xi ·  i Ui max Uj
+j
+
+1 2
+
+ .
+
+(10)
+
+After the cross-section areas are resized, they are rescaled to fit the given volume Vmax . By computing the new FEA results on the new sizes, this step is iterated until there is no more update. Although nowadays additive manufacturing can fabricate complex shape with small cost penalty, there is still a requirement on the minimum member size that can be fabricated by a selected AM process. Assume the minimum printable size is tmin , and the cross-sectional shape of a member is square, then the minimum 2 allowable size is xmin = tmin (or xmin = tmin ·h for rectangular shape, where h ≥ tmin ). Therefore, to incorporate the manufacturing constraint, any structural member that is scaled to a size smaller than xmin during the size optimization is set to xmin , and other members will be scaled proportionally to make the total volume equal to Vmax . The size optimization results are rendered as the thickness of each structural member in Fig. 10. 5. Results In this section, a number of test examples are presented to demonstrate the presented PSL-based design method. The test cases include some classic cases in topology optimization such as the Michell cantilever structure and the bridge structure, as well as some cases with different domain shapes, loads, and boundary
+
+8
+
+T.-H. Kwok et al. / Computer-Aided Design (
+
+)
+
+–
+
+Fig. 9. The shape approximation is calculated by the area bounded by the truss member and its PSL.
+
+Fig. 10. The topology growth of a Michell cantilever structure in 14 iterations. The chart shows the relation of strain energy (E) and growth times.
+
+conditions. Based on our method, all the examples can be designed in an interactive speed (see Table 1) using a PC running with 64-bit R Win7 and Intel⃝ CoreTM i7-4790 CPU @3.60 GHz. A YouTube video made to demonstrate the design process can be found at [41]. To verify the scalability, a finer mesh is used for the last example in the table to show how the size of the domain influences the computation time. While the time needed for the SIMP method [42] increases to a couple of minutes, our method still takes less than a second in the growth process. Our method can be further improved with a more efficient implementation of the FEA method. The physics properties that are used in the tested examples include: H = 1.0 m; F = 1000 N; Young’s modulus E = 2.0 × e8 Pa; Poisson’s ratio υ = 0.33; maximum total volume Vmax = 0.005 m3 ; and minimum thickness tmin = 0.1 mm. Each row in Table 1 shows an example with the domain size, the optimal iteration numbers, the time for computing the FEA results on the design domain as well as the time for the growth process, the total time, and the computation time using the SIMP method [42].
+Fig. 11. Physical test on the fabricated structure produced by PSL method.
+
+5.1. Cantilever structure The classic Michell cantilever structure is the case of supporting a single-load with two fixed supports as shown in Fig. 4. We have shown the growth process of the Michell cantilever structure in Fig. 10. To further verify if the structure is fabricatable, we used the mask-image-projection-based Stereolithography (MIPSL) process [43] to fabricate the designed truss structure (after Iteration #14). A simple physical test of the fabricated structure is shown in Fig. 11. The structure is firm even built with photocurable plastics. It can easily hold an aluminum part with no noticeable deflection. Fig. 12 compares our results with those generated by the SIMP method [42]. To assess the performance, we have tested three different levels of resolution in the design domains, including 600 elements (20 × 30), 9.6k elements (80 × 120), and 60k elements (200 × 300). The analytic solution is also shown in Fig. 12. It can be
+
+seen that the results generated by the SIMP method highly depend on the given resolution of the design domain. When the resolution is low, the boundaries of the members are not well-defined, which makes the SIMP method cannot get a more refined structure. When the resolution is high, a more refined structure is generated; however, the related computation gets more expensive, (e.g., it takes more than 5 min in the domain with 60k elements). In contrast, the PSL-based design results always have well-defined boundaries, and similar shapes were generated for different resolutions. This is because the finite elements in our method are only used for the stress analysis. As long as the resolution is good enough to provide a reasonable stress analysis result, the PSL computation is independent of the domain resolution. Therefore, the PSL-based design method demands less on the resolution of the design domain and can produce repeatable results in different resolutions. This means coarser finite element mesh could be used
+
+T.-H. Kwok et al. / Computer-Aided Design ( Table 1 Time statistics and comparison. Example Fig. 10 Fig. 13 Fig. 14 Fig. 16 Fig. 17 Domain size 9600 (80 × 120) 9600 (80 × 120) 5000 (50 × 100) 6400 40 000 (200 × 200) Iter. 10 6 8 6 6 FEA (s) 1.490 1.513 0.900 1.076 6.531
+
+)
+
+–
+
+9
+
+Growth (s) 0.168 0.156 0.055 0.440 0.549
+
+Total (s) 1.658 1.669 0.955 1.516 7.080
+
+SIMP [42] (s) 38.39 26.03 12.67 70.57 218.64
+
+Fig. 12. A comparison between the results of cantilever structure generated by the SIMP method and the PSL-based method with different resolutions of the design domain. The analytic optimum is shown on the left, and the total time to generate the structures are shown in the bottom-right for each of them accordingly.
+
+Fig. 13. The test case of an asymmetric cantilever structure. (For interpretation of the references to color in this figure legend, the reader is referred to the web version of this article.)
+
+in the PSL-based design method for shorter computation time. Furthermore, even in the domain with 60k elements, our method takes less than 10 s in total to complete all the steps, in which the FEA takes 9.2 s and the growth process takes only 0.36 s. This is promising for some complicated cases or 3D problems that are more computationally intensive. More importantly, our method can generate results with different refinement levels to mimic the analytic solution of the Michell truss, and the user can have the explicit control on which level of refinement to stop. Such capability is not supported by the SIMP method. Beside the symmetric cantilever structure, we have also tested the asymmetric one as shown in Fig. 13. In this example, the design domain is exactly the same as the symmetric one; however, the load is applied on the bottom-right corner instead of the
+
+middle of the right edge. To compare with the symmetric case, the domain specification and the optimal regions indicated by Eq. (2) have also been shown. The R+ , R− , S + , S − , and T regions are shown in blue, red, light gray, gray, and green, respectively. The subdivisions are allowed only in the T regions. Notice that, the optimal regions are visualized based on the sampling in the design domain, which is just for reference. The sampling is not needed in the computation for topology growth; instead, the principal strains can be directly computed from the FEA result for any points in the domain. Therefore, some subdivision points (e.g., P3,a in Fig. 13) may look like outside the T -region, but they actually are T -points. In both of the symmetric and asymmetric cases, the initial structures have two structural members and three joints. After the growth process, the strain energy is decreased from 15.125 to
+
+10
+
+T.-H. Kwok et al. / Computer-Aided Design (
+
+)
+
+–
+
+Fig. 14. The topology growth of a bridge structure.
+
+Fig. 15. A comparison between the results of bridge structure generated by the SIMP method and the PSL-based method based on different resolutions of the design domain. The analytic optimum is shown on the left, and the total time to generate the related structures are shown in the top-right of each structure.
+
+12.376 mJ. Hence, the stiffness of the structure is increased using the same amount of material in the structure. It can be seen that the PSL-based method can work for both symmetric and asymmetric cases without modifications to the design method or the user interface. 5.2. A bridge structure The design domain and the initial structure of a bridge design problem are shown in Fig. 8. The initial structure has three members and four joints. The optimal regions and the related topology growth process are shown in Fig. 14. After eight iterations, the strain energy of the designed structure has been decreased from 4.161 to 3.588 mJ. A comparison between our method and the SIMP method for the bridge structure is shown in Fig. 15. Again, three different levels of resolution, 800 elements (20 × 40), 20k elements (100 × 200), and 80k elements (200 × 400), were used. The analytic solution of the structure is also shown in Fig. 15. A similar phenomenon can be found, that is, the quality and the computational effort of the SIMP method depend heavily on the given resolution of the design domain, while our method generates similar results in different resolutions. In the domain with 80k elements, the SIMP method takes about 8 min, while our method takes 12.66 s, in which the FEA takes 12.33 s and the growth process takes only 0.34 s. In addition, the results generated by our method can better mimic the shape defined by the analytic solution of the Michell truss than those generated by the SIMP method. 5.3. L-shaped design domain A test case with different design domain is the L-shape design problem as shown in Fig. 7. The domain is fixed at two points on the top, and a load is applied on the bottom-right of the ‘‘L’’. In this
+
+example, H = 2.0 m. Fig. 16 shows its growth process using the PSL-based design method. The test case has six iterations, and the strain energy is decreased from 139.557 to 84.206 mJ. The result generated by the SIMP method is also shown in the figure for a comparison. Instead of the L-shape domain, we have also tested our design method based on a convex design domain. All other conditions are exactly the same as the ‘‘L’’ domain test case. As shown in the bottom row of Fig. 17, the growth process for this structure is converged in six steps to achieve the strain energy of 14.633 mJ, which is much lower than that of the L-shape domain. In this example, we can see that the given design domain affects the computed final structure, and our proposed framework can handle both concave and convex domains without any modifications to the design method. 5.4. Bicycle frame structure Fig. 18 shows a test case using a bicycle frame structure [44]. The given load simulates the situation of a person sitting on the frame and holding the front handles. Therefore, two loads, one in the middle pointing down and one on the left with both x and y directions, are applied. The domain is fixed at two points on the bottom to simulate the centers of the wheels. After performing the FEA on the design domain, the optimal regions can be computed for the design problem. The two points of load are T -point and S − -point, and the two points of support are S + - and S − -points, respectively. There is one local maximum point at the top of the domain between two points of load. PSLs were traced from the two points of load consecutively in the load phase during the initial structure generation. Accordingly, the connectivity between the loads and supports was found. The initial structure has six members and five joints. The growth process is converged in five iterations, and the strain energy is decreased from 12.916 to 10.167 mJ.
+
+T.-H. Kwok et al. / Computer-Aided Design (
+
+)
+
+–
+
+11
+
+Fig. 16. The topology growth of a concave L-shaped structure using the PSL method, compared with the result generated by SIMP method.
+
+Fig. 17. The example of a convex L-shaped structure.
+
+Fig. 18. The topology growth of a bicycle frame structure.
+
+6. Conclusions and discussion Based on the principle of minimum shear stress in the Michelltype structure and the proposition of uniform strain energy density in discrete truss structures, we presented a new structural topology design framework that is computationally fast and easy to control. Three design principles are derived from the Michell’s theorem. The principal stress lines are used to identify the topology and shape of the designed structure. The PSL-based topology growth process is to reduce the difference between the generated
+
+structure and the PSLs computed in the design domain. The fabrication constraints given by additive manufacturing processes have been incorporated in the structure design process. With a given minimum fabrication size, the refinement of the structure needs to be controlled; the finest refinement may not lead to the optimal structure. An algorithm with the topology growth as the outer loop and the size optimization as the inner loop has been developed to control the optimal refinement level. A number of examples have been used to test the PSL-based design method. The results have demonstrated its effectiveness and efficiency. In addition, the
+
+12
+
+T.-H. Kwok et al. / Computer-Aided Design (
+
+)
+
+–
+
+Fig. 19. A test case showing the growth process of 3D cantilever structure design by PSL strategy.
+
+PSL-based method is general. The same design process and user interface can be used for symmetric and asymmetric cases, convex and concave domains, as well as single and multiple external forces. We believe the PSL-based design method is promising for developing practical designing tools for various structural applications. The presented principles can be extended to three-dimensional (3D) problems. A simple test example of a 3D cantilever is shown in Fig. 19, which illustrates how the PSLs in a 3D design domain could be used for designing a 3D cantilever. The PSL distribution in the 3D design domain is visualized in the figure. Two iterations of topology growth are performed. The strain energy of the structure in iteration #2 is smaller than that in iteration #0. Hence, the structure is getting stiffer with the same amount of material. However, the load paths based on the principal stresses in the 3D cases are more complicated. In addition, the PSLs in some regions could become messy. Another challenge of using the PSL-based method in 3D domain is how the intersections between different PSLs can be robustly computed in order to use them in the topology growth step. Our future work will study how these issues can be handled. In addition to addressing 3D problems, the PSL-based design method still has a number of limitations that need to be addressed. Firstly, as our design principles are developed based on Michell’s theorem in minimizing compliance, the current version is not able to handle other design goals. In the future, we will study other theorems (e.g., the optimality criteria advocated by Praeger, Rozvany) to see if the related mathematical problems can be converted into geometric design problems. Secondly, we only consider the point loads in this paper. For a structure that needs to support a distributed volume load, further research is needed on how it will affect the tracing of PSLs. Thirdly, we assume the truss structure has the same strengths in tension and compression. If such strengths are different, the structure should have different topology and shape. One way to incorporate such strength difference is to add weights to the approximation errors between the structure and the PSLs. Our future work will study how to incorporate the allowable tension and compression strains as well. Acknowledgments This work is partially supported by the James H. Zumberge Faculty Research and Innovation Fund at the USC, and the National Science Foundation grant IIP-0810637.
+
+References
+[1] Gao W, Zhang Y, Ramanujan D, Ramani K, Chen Y, Williams CB, Wang CCL, Shin YC, Zhang S, Zavattieri PD. The status, challenges, and future of additive manufacturing in engineering. Comput-Aided Des 2015;69:65–89. [2] EOS and Airbus Group Innovations Team on Aerospace Sustainability Study for Industrial 3D Printing, EOS, 5 Feb 2014. [Online]. Available: http://www. eos.info/eos_airbusgroupinnovationteam_aerospace_sustainability_study. W460W9435. [3] Michell AGM. The limit of economy of material in frame structures. Phil Mag 1904;8(47):589–97. [4] Tomasz S. A 99 line code for discretized Michell truss optimization written in Mathematica. Struct Multidiscip Optim 2011;43(2):181–90. [5] Rozvany GIN. Topology optimization in structural mechanics. New York: Springer; 1997. [6] Bendsøe MP, Sigmund O. Topology optimization: theory, methods, and applications. Berlin (Heidelberg): Springer; 2004. [7] Kirsch U. Optimal topologies of truss structures. Comput Methods Appl Mech Engrg 1989;72(1):15–28. [8] Bendsøe MP, Mota Soares CA, editors. Topology design of structures. Netherlands: Springer; 1993. [9] Rozvany GIN, Bendsøe MP, Kirsch U. Layout optimization of structures. Appl Mech Rev 1995;48(2):41–119. [10] Bendsoe MP, Sigmund O. Topology optimization: theory, methods, and applications. Berlin: Springer; 2003. [11] Dorn WS, Gomory RE, Greenberg HJ. Automatic design of optimal structures. J. Mec. 1964;3:25–52. [12] Hemp WS. Studies in the theory of Michell structures. In: International congress of applied mechanics. Munich, West Germany, 1964. W460W9435. [13] Hemp WS. Optimum structures. Oxford (United Kingdom): Clarendon Press; 1973. [14] Hemp WS, Chan HSY. Optimum design of pin-jointed frameworks, London, United Kingdom: Aeronautical Research Council Reports and Mem. No. 3632. Her Majesty’s Stationery Office; 1970. [15] Haug EJ, Arora JS. Applied optimal design. New York: Wiley & Sons; 1979. [16] Bendsøe MP. Methods for optimization of structural topology, shape and material. Verlag (New York): Springer; 1995. [17] Achtziger W, Bendsøe MP, Ben-Tal A, Zowe J. Equivalent displacement based formulations for maximum strength truss topology design. Impact Comput Sci Eng 1992;4:315–45. [18] Svanberg K. Optimal truss sizing based on explicit Taylor series expansions. Struct Multidiscip Optim 1990;2:153–62. [19] Svanberg K. Global convergence of the stress ratio method for truss sizing. Struct Multidiscip Optim 1994;8:60–8. [20] Taylor JE. Maximum strength elastic structural design, proceedings of the ASCE. J Eng Mech Div 1969;95:653–63. [21] Taylor JE, Rossow MP. Optimal truss design based on an algorithm using optimality criteria. Internat J Solids Structures 1977;13:913–23. [22] Bendsøe MP, Ben-Tal A. Truss topology optimization by a displacement based optimality criterion approach. Optim. Large Struct. Syst. 1993;I:139–55. [23] Achtziger W, Stolpe M. Global optimization of truss topology with discrete bar areas - Part I: Theory of relaxed problems. Comput Optim Appl 2008;40: 247–80.
+
+T.-H. Kwok et al. / Computer-Aided Design ( [24] Achtziger W, Stolpe M. Global optimization of truss topology with discrete bar areas - Part II: Implementation and numerical results. Comput Optim Appl 2009;44:315–41. [25] Xie YM, Steven GP. Evolutionary structural optimization. New York: Springer; 1997. [26] Achtziger W. On simultaneous optimization of truss geometry and topology. Struct Multidiscip Optim 2007;33:285–304. [27] Scott AB. Recent advances in optimal structural design. Reston (VA): Institute of the American Society of Civil Engineers; 2002. [28] Rule WK. Automatic truss design by optimized growth. J Struct Eng 1994; 120(12):3063–70. [29] Shea K, Cagan J, Fenves SJ. A shape annealing approach to optimal truss design with dynamic grouping of members. J Mech Des 1997;119(3):388–94. [30] Shea K, Cagan J. Innovative dome design: Applying geodesic patterns with shape annealing. Artif Intell Eng Des Anal Manuf 1997;11(5):379–94. [31] McKeown JJ. Growing optimal pin-jointed frames. Struct Optim 1998;15(2): 92–100. [32] Bojczuk D, Mróz Z. Optimal topology and configuration design of trusses with stress and buckling constraints. Struct Optim 1999;17(1):25–35. [33] Gilbert M, Tyas A. Layout optimization of large-scale pin-jointed frames. Eng Comput 2003;20(8):1044–64. [34] SokółT. Topology optimization of large-scale trusses using ground structure approach with selective subsets of active bars. In: 19th international conference on computer methods in mechanics. Warsaw, Poland. 2011. W460W9435. [35] Sokół T. A 99 line code for discretized Michell truss optimization written in Mathematica. Struct Multidiscip Optim 2011;43(2):181–90.
+
+)
+
+–
+
+13
+
+[36] SokółT, Rozvany GIN. On the adaptive ground structure approach for multiload truss topology optimization. In: 10th world congress on structural and multidisciplinary optimization. Orlando, Florida. 2013. W460W9435. [37] Martínez P, Martí P, Querin OM. Growth method for size, topology, and geometry optimization of truss structures. Struct Multidiscip Optim 2007; 33(1):13–26. [38] Ning X, Pellegrino S. Design of lightweight structural components for direct digital manufacturing. In: 53rd AIAA/ASME/ASCE/AHS/ASC structures, structural dynamics and materials conference. Honolulu, Hawaii, 2012. W460W9435. [39] Rozvany GIN. Structural topology optimization (STO) – exact analytical solutions: Part I. In: Topology optimization in structural and continuum mechanics. Vienna: Springer; 2014. p. 1–14. [40] Rozvany GIN. Partial relaxation of the orthogonality requirement for classical Michell trusses. Struct Optim 1997;13(4):271–4. [41] Kwok T, Li Y, Chen Y. A topology design method for 3D printing, 2015. [Online]. Available: https://www.youtube.com/watch?v=Sd7Y2OQ1umA [Accessed 15.06.15]. W460W9435. [42] Andreassen E, Clausen A, Schevenels M, Lazarov BS, Sigmund O. Efficient topology optimization in MATLAB using 88 lines of code. Struct Multidiscip Optim 2011;43(1):1–16. [43] Pan Y, Zhou C, Chen Y. A fast mask projection stereolithography process for fabricating digital models in minutes. ASME J Manuf Sci Eng 2012;134(5): 051011. [44] Suppapitnarm A, Parks GT, Shea K, Clarkson PJ. Conceptual design of bicycle frames by multiobjective shape annealing. Eng Optim 2004;36(2):165–88.
+

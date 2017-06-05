@@ -1,0 +1,574 @@
+Computers and Structures 89 (2011) 285–301
+
+Contents lists available at ScienceDirect
+
+Computers and Structures
+journal homepage: www.elsevier.com/locate/compstruc
+
+Measuring the convergence behavior of shell analysis schemes
+Klaus-Jürgen Bathe a,⇑, Phill-Seung Lee b
+a b
+
+Department of Mechanical Engineering, Massachusetts Institute of Technology Cambridge, MA 02139, USA Division of Ocean Systems Engineering, Korea Advanced Institute of Science and Technology, Daejeon 305-701, Republic of Korea
+
+a r t i c l e
+
+i n f o
+
+a b s t r a c t
+While shells have been analyzed abundantly for many years in engineering and the sciences, improved ﬁnite element and related analysis methods are still much desired and researched. More general and effective ﬁnite element procedures are needed for complex shell structures, including for the analysis of composite shells and the optimization of shells. In this paper we discuss how ﬁnite element methods, and other analysis techniques, should be tested in order to identify their reliability and effectiveness. We summarize some important theoretical results, present appropriate test problems and convergence measures, and we illustrate our discussion through some novel numerical results. An important conclusion is that the testing has to be performed very carefully in order to obtain relevant results, and we show how this is accomplished in detail. Ó 2010 Elsevier Ltd. All rights reserved.
+
+Article history: Received 12 July 2010 Accepted 21 September 2010 Available online 10 November 2010 Keywords: Shells Finite element Convergence Benchmark problems MITC shell elements Norms
+
+1. Introduction Shell ﬁnite element analyses have been performed for decades, and in practice acceptable solutions have been obtained for many shell analysis problems [1]. However, with recent advances in technology, more complex shell structures are being designed, more stringent requirements on accurate analysis results have evolved, and the optimization of shell structures based on accurate analyses has become increasingly important. Hence, the search for more effective shell analysis schemes has actively continued. The analysis of general shells is a most difﬁcult ﬁeld, because of the different shell physical behaviors that can be encountered [2,3]. An optimal shell analysis scheme would be one that we could use to solve in a uniformly effective manner any shell structure, of any geometry, thickness, boundary conditions, and applied loading - and in linear and highly nonlinear conditions. The optimality of the scheme would have to be proven mathematically and observed in numerical tests. Such ﬁnite element scheme is extremely difﬁcult to establish, does not exist at present, and – due to the inherent physical and mathematical difﬁculties – its development represents a major challenge in mechanics. Indeed, considering linear analysis only, shell structures exhibit already very complex behaviors. Assuming that the shell structure is stable, that is, the analysis problem is well-posed, the shell behavior depends on the geometry, shell thickness, boundary con-
+
+⇑ Corresponding author.
+E-mail address: kjb@mit.edu (K.J. Bathe). 0045-7949/$ - see front matter Ó 2010 Elsevier Ltd. All rights reserved. doi:10.1016/j.compstruc.2010.09.007
+
+ditions and the applied loading. The shell may be in membrane, bending and mixed strain states, and internal and boundary concentrated strain layers may be present [2–4]. To solve for these complex and varied behaviors, ﬁnite element displacement-based formulations are not effective, and mixed formulations need be used. When evaluating a ﬁnite element shell discretization scheme, or any other numerical method, to solve shell structural problems, analytical proofs regarding convergence are generally out of reach. Hence, it is important to numerically test the considered method appropriately. The usual testing involves the solution of some benchmark shell problems that have been used for many years, and simply measure the displacement at some point of the shell structure as a function of mesh reﬁnement [5]. Frequently, relatively simple shell structural problems are solved. While such solutions are useful, they do not test shell analysis schemes in depth – because the test problems are usually not stringent enough, have not been selected judiciously, and the ‘convergence measure’ employed is not sufﬁcient to give an overall assessment of a shell numerical solution scheme. Our objective in this paper is to address the proper testing of analysis schemes for shell structures and demonstrate this testing. We summarize important theoretical considerations, give appropriate shell problems to be solved and appropriate convergence measures, and we apply the proposed procedures. While the theoretical results given herein have largely been published before, we include these in this paper, in a simple and compact description, to make the presentation readable and complete. Our focus in the paper is on the norms used to measure the
+
+286
+
+K.J. Bathe, P.S. Lee / Computers and Structures 89 (2011) 285–301
+
+solution accuracy, the actual testing procedure, and the results obtained for a family of shell elements, namely the quadrilateral and triangular MITC shell elements. The numerical results given are largely new because of the norms and the speciﬁc testing
+
+that we employ. Our focus is also on emphasizing that the details of appropriate testing, including the speciﬁc norms used in an evaluation, are very important in order to obtain relevant results.
+
+Fig. 1. Three shell test problems using an axisymmetric hyperboloid (L = 1.0, E = 1.0 Â 1011 and v = 1/3); (a) the free-free case, (b) the ﬁxed–ﬁxed case, and (c) the ﬁxed-free case. The shaded regions are modeled.
+
+Fig. 2. The test problems for the ellipticity condition; (a) the test for triangular elements, (b) the test for quadrilateral elements. The single unsupported elements used for these tests are extracted from the one-eighth model of the shell and the lowest eigenvalues are calculated.
+
+K.J. Bathe, P.S. Lee / Computers and Structures 89 (2011) 285–301
+
+287
+
+2. The governing shell equations The basic ingredient of a mathematical shell model is that a shell mid-surface is deﬁned, and all geometric and kinematic variables and unknowns are referred to that mid-surface. In this way, different shell mathematical models can be derived, but in practice by far most shell analyses are based on the ﬁnite element discretization of the basic shell model presented and analyzed by Chapelle and Bathe [3,6], see also Ref. [7]. This shell model behaves for small shell thickness in the same way as the shear-membrane-bending model (for the derivation of this model and researchers who have contributed to its derivation, see Chapelle and Bathe [3]). This model can be written in the generic form [3]: Find ~ 2 V such that u
+
+that the thickness t is constant, but this assumption could be easily removed [3]. Indeed, for small shell thickness, also the 3D-shell model behaves as the models described by Eq. (1) [3,8]. Hence, in our discussion of ﬁnite element convergence issues we can use the generic formulation (1) to focus on the underlying difﬁculties to properly measure convergence of ﬁnite element procedures. The basic step of a ﬁnite element method is to interpolate geometric, kinematic, and stress (or strain) quantities to solve Eq. (1). As well known, using as basic solution variables only displacements, leads to very ineffective ﬁnite element solution schemes for general shell problems (that is, the methods ‘lock’) and mixed ﬁnite element procedures must be used [3,9,10]. The reformulation of Eq. (1) then leads to ! Find ~ 2 V ; ~ 2 C such that u g ~
+
+e3 Ab ð~; ~Þ þ eAm ð~; ~Þ ¼ Fð~Þ; 8~ 2 V ; u v u v v v
+
+!
+
+ð1Þ
+
+Ab ð~; ~Þ þ Bð~; ~Þ ¼ Gð~Þ; u v vg v Bð~; ~Þ À e2 Dð~; ~Þ ¼ 0; u c gc
+
+8~ 2 V ; v 8~ 2 C; c ~
+ð2Þ
+
+!
+
+where e is the shell thickness parameter t/L (t is the thickness and L is a global characteristic dimension of the shell structure), the bilinear form Ab represents the scaled bending energy, the bilinear form Am represents the scaled membrane and transverse shear energies, ~ is the unknown solution (displacement ﬁeld), ~ is the test funcu v ! tion, V is the appropriate Sobolev space, and F denotes the linear form of the external loading. In our discussion below, we assume
+
+with the bilinear forms B and D; ~ the unknown strain solution, ~ g c ~ the test function for the strain, C the appropriately selected strain space, and G the linear form of the scaled external loading. Using the second equation in Eq. (2) to eliminate the unknown strains from the ﬁrst equation, and discretizing using ﬁnite element interpolations and spaces denoted by the subscript h, we obtain
+
+Table 1 Boundary layer widths used for meshing; L = 1.0. Analysis cases Free–free case Fixed–ﬁxed case Fixed–free case Top pﬃﬃ 0:5 t pﬃﬃ 6 t – Bottom pﬃﬃ 0:5 t pﬃﬃ 6 t pﬃﬃ 3 t
+
+Ah ð~h ; ~Þ þ b u v
+
+1
+
+e2
+
+Ah ð~h ; ~Þ ¼ Gð~Þ; v m u v
+
+8~ 2 V h ; v
+
+!
+
+ð3Þ
+
+where Ah and Ah are perturbed forms of Ab and Am, respectively. b m The conditions to be satisﬁed for stability and best convergence properties are then the ellipticity condition [3,9–11]
+
+Ah ð~; ~Þ þ Ah ð~; ~Þ P ak~k! ; v V b v v m v v
+
+2
+
+8~ 2 V h v
+
+!
+
+ð4Þ
+
+Fig. 3. Typical ﬁnite element meshes used for the three shell problems (N = 8); (a) the free-free case, (b) the ﬁxed–ﬁxed case, and (c) the ﬁxed-free case. The meshes for the quadrilateral elements are obtained by combining adjacent triangular elements.
+
+288
+
+K.J. Bathe, P.S. Lee / Computers and Structures 89 (2011) 285–301 Table 2 The sequence of meshes used.
+
+and the inf-sup condition
+
+~2~h ;~–0 ~2~ c C c v Vh
+
+inf
+
+sup
+
+Bð~; ~Þ vc Pd v c~ k~k! k~kC
+V
+
+ð5Þ
+
+Analysis cases
+
+Axial direction Smooth area In boundary layer N/2 N/2 N/2
+
+Circumferential direction
+
+with the constants a and d > 0. It is very difﬁcult to deeply study and prove analytically whether the ellipticity and inf-sup conditions are satisﬁed for a shell analysis scheme when considering arbitrary shell geometries and boundary conditions. Indeed, even for ‘just’ plate bending problems, analytical investigations regarding the inf-sup condition are limited [9,10]. However, numerical tests can be performed for plates and shells [12–14], albeit always for only a given geometry, boundary conditions and mesh sequences used. Hence these numerical inf-sup tests only give limited information, and indeed such insight into whether the inf-sup condition may be generally satisﬁed can be more directly obtained by convergence tests as we perform below [3,15,16]. 3. Measuring convergence In this section we ﬁrst brieﬂy review the conditions for convergence, then we propose the shell test problems, the convergence measures and appropriate meshing to be used. 3.1. The analytical conditions for convergence The conditions for convergence are that (i) the discretization scheme must be consistent, (ii) the scheme must satisfy the ellipticity condition, and (iii) the scheme ideally satisﬁes the inf-sup condition [3]. The consistency condition expresses the fact that the discretization scheme must properly represent all geometric and strain terms. This means that the bilinear forms used in the ﬁnite element discretization that are a function of the element size h must approach the exact bilinear forms of the mathematical model optimally as h goes to zero. Hence, considering Eq. (3), Ah and Ah b m should approach Ab and Am, respectively, as h goes to zero, with the optimal order corresponding to the ﬁnite element interpolations used. The ellipticity condition means that the ﬁnite element discretization should not display spurious zero energy modes, for any single element, for any assemblage of elements, and for any geometry and boundary conditions. Ideally, the ﬁnite element scheme would also satisfy the inf-sup condition. Shell elements that satisfy this condition are optimal in bending-dominated problems for the interpolations used. Hence, the element would not lock and, provided the consistency and ellipticity conditions are also satisﬁed, the element would be optimal in general and perform equally well for any shell thickness, geometry and boundary conditions. Unfortunately, no general shell analysis scheme has so far been proven analytically to satisfy the inf-sup condition, and, as mentioned above, so far only numerical tests have been performed. The above three conditions are fundamental, and while they should hold for any problem formulation and any discretization scheme, the conditions are particularly difﬁcult to deal with when considering shell analyses. 3.2. Proposed numerical tests As mentioned above, due to the complexity of shell behaviors, rigorous mathematical investigations and proofs on whether a shell discretization scheme is effective are still out of reach and therefore, largely, recourse to numerical investigations is necessary. However, these numerical studies need to be well-designed,
+
+Free–free case (1/8th of structure) Fixed–ﬁxed case (1/8th of structure) Fixed–free case (1/4th of structure)
+
+N/2 N/2 3N/2
+
+N N N
+
+Table 3 The t/L - dependent sequence of meshes used for the shell problem with ﬁxed–ﬁxed boundary (1/8th of structure), L = 1.0. t/L Axial direction Smooth area 1/100 1/1000 1/10000 N/2 N/2 N/2 In boundary layer 4N 8N 16N N N N Circumferential direction
+
+discriminating, and based upon the general mathematical insight already available. For the proper numerical testing of a shell ﬁnite element discretization scheme, we propose to use the problems deﬁned in Figs. 1 and 2. The shell problems in Fig. 1 with fully ﬁxed and fully free boundaries were already used in e.g. Ref. [16] but we now also consider the problem with one boundary ﬁxed and one free. The hyperbolic midsurface of the shell structure1 is given by
+
+X2 þ Z2 ¼ 1 þ Y 2 ;
+
+Y 2 ½ÀL; L
+
+ð6Þ
+
+and the loading imposed is the smoothly varying periodic pressure normal to the surface,
+
+pðhÞ ¼ p0 cosð2hÞ with p0 constant:
+
+ð7Þ
+
+The problems in Fig. 1 pertain to the solution of a doubly curved shell, which is important for discriminating tests. The ﬁxed–ﬁxed structure is a pure-bending inhibited shell, and the free-free structure is a pure bending non-inhibited shell. Hence the two extreme cases of fully membrane-dominated and fully bending-dominated situations are used. The ﬁxed-free structure is as well asymptotically (that is, as the thickness decreases) a pure-bending inhibited shell. However, of interest is also the case when the thickness of the shell is not very small and bending is present. 3.2.1. A numerical test for the consistency condition This test is performed by solving the shell problems described in Fig. 1. If only the transverse shear and membrane terms have been changed, the solutions of the ﬁxed–ﬁxed and ﬁxed-free shell problems will show whether consistency is satisﬁed. If all terms in the energy expressions have been changed, the free-free shell analysis needs to also be performed to identify whether consistency is satisﬁed. However, appropriate convergence measures must be used with reliable reference solutions, see Section 3.3. 3.2.2. A numerical test for the ellipticity condition This test is accomplished by ensuring that any generic single element does not contain a spurious zero energy mode, or a spurious small eigenvalue. Flat single elements should ﬁrst be considered, but to render the test complete we also propose for
+
+1 In shell ﬁnite element analysis, it is very important to use the exact surface ! normal vector, which is V n ¼ fÀX Y À ZgT for this shell structure.
+
+K.J. Bathe, P.S. Lee / Computers and Structures 89 (2011) 285–301 Table 4 The seventh lowest eigenvalue of the element stiffness matrices. DISP denotes the nodal-point equivalent displacement-based shell ﬁnite element. The elements are unsupported and all show the proper six rigid body modes. The Gauss integration schemes used over the element shell surface are: (a) ‘usual’ integration orders; 3node elements: 3 point integration; 6-node elements: 7 point integration; 4-node elements: 2 Â 2 integration; 9-node elements: 3 Â 3 integration, (b) ‘high’ integration orders; 3-node elements: 7 point integration; 6-node elements: 13 point integration; 4-node elements: 4 Â 4 integration; 9-node elements: 5 Â 5 integration. Element t/L = 1/100 (a) MITC3 DISP3 MITC6 DISP6 MITC4 DISP4 MITC9 DISP9 4.06749E+03 6.34297E+07 2.77891E+03 4.89801E+06 6.50000E+03 9.65451E+06 7.11271E+03 3.44228E+05 (b) 4.16337E+03 8.96212E+07 2.77702E+03 4.85714E+06 6.33945E+03 1.56350E+07 7.12058E+03 5.59655E+05 t/L = 1/10000 (a) 4.06753EÀ03 6.34278E+05 2.77900EÀ03 4.88047E+04 6.49997EÀ03 9.64527E+04 7.11340EÀ03 3.23948E+03 (b) 4.16341EÀ03 8.96167E+05 2.77710EÀ03 4.83884E+04 6.33942EÀ03 1.56259E+05 7.12120EÀ03 5.46539E+03
+
+289
+
+however, appropriate convergence measures need be used. If the convergence curves show the optimal slope and are independent of the shell thickness, the element discretization, for the mesh used, is optimal and for this problem passes the inf-sup condition. Of course, the test results are far from an analytical general evaluation, but since the problem is rather discriminating, a good indication is obtained.
+
+3.3. Error measures An important ingredient in measuring convergence in the solution of the test problems described above is the use of an appropriate error measure. To assess displacement-based formulations, we would simply use the strain energies calculated by the displacement-based discretization, using Eq. (1), and see whether optimal convergence is obtained [10]. The strain energy is in this case most easily calculated by one-half times the spatial integration of the displacements times the loads. However, for a mixed formulation, the use of an appropriate norm is required and measuring convergence is much more difﬁcult. For example, we need to note that if we were to use the solutions obtained from a perfect non-locking effective mixed shell element in Eq. (1) in order to evaluate the displacement-based strain energy, the measure would indicate worse results in bending-dominated problems than obtained in the equivalent displacement-based formulation – although any such formulation locks. This is so, of course, because the displacement-based solution minimizes the error in the strain energy. For shell analyses appropriate error measures are: The (Ab + Am) norm. This norm is properly used for bendingdominated problems because for well-posed such problems the
+
+quadrilateral and triangular elements to consider the single elements in Fig. 2. If the lowest (seventh) eigenvalue is non-zero but small, then a sequence of meshes for the same geometries should be used to see whether this eigenvalue stabilizes at a reasonable value larger than zero. 3.2.3. A numerical test for the inf-sup condition A numerical test operating on the inf-sup expression is rather complex [13], and in practice measuring the convergence of a scheme in the analysis of the shell problem in Fig. 1 with free-free conditions is more effective. In the solution of the test problem,
+
+Fig. 4. Convergence curves for the shell problem with ﬁxed–ﬁxed boundary. The s-norm is used.
+
+290
+
+K.J. Bathe, P.S. Lee / Computers and Structures 89 (2011) 285–301
+
+exact solutions are proven to converge to limit solutions in this norm [3,17]. The error measure is given by
+
+Ab ð~ À ~h ; ~ À ~h Þ þ Am ð~ À ~h ; ~ À ~h Þ u u u u u u u u
+with
+
+We also use the Am norm without the transverse shear energy contribution, because then we can identify the error caused by these shear terms
+
+" # BT CBb d b Am ð~ À ~h ; ~ À ~h Þ ¼ ð~ À ~h Þ u u u u u u
+T
+
+" Ab ð~ À ~h ; ~ À ~h Þ ¼ ð~ À ~h Þ u u u u u u u u u u Am ð~ À ~h ; ~ À ~h Þ " ¼ ð~ À ~h ÞT u u
+T
+
+e
+
+À3
+
+XZ
+e
+
+e
+
+À1
+
+XZ
+e
+
+# BT CBm d m
+
+Xe ð~ À ~h Þ: u u
+ð10Þ
+
+Xe
+
+Xe ð~ À ~h Þ; u u
+#
+
+Xe
+
+eÀ1
+
+XZ
+e
+
+u u ðBm þ Bc ÞT CðBm þ Bc ÞdXe ð~ À ~h Þ;
+
+ð8Þ
+
+Xe
+
+where the summation sign denotes that we sum over all elements in the reference mesh, Xe is the 3D shell domain of an element, C is the stress–strain matrix for the shell, Bb, Bm and Bc denote the strain–displacement matrices of the displacement-based element corresponding to bending, membrane and transverse shear strain contributions, respectively. These matrices are evaluated as described in the Appendix A. Note that we use here the exact bilinear forms Am and Ab, which is important since otherwise the error in a bilinear form would affect our error calculations. The Am norm. This norm is properly used for membrane-dominated problems because, here too, for well-posed such problems the exact solutions are proven to converge to limit solutions in this norm [3,17]. The error measure is given by
+
+While we slightly abuse our notation with the left-hand sides of Eqs. (9) and (10) being the same, we will always explicitly point out, in our results, when we do not include the transverse shear strain effects. We note that with this error measure bending effects (of course present for a ﬁxed value of e) in boundary layers are not measured, since the norm only measures membrane (and shear) actions. However, in practice, e is not close to zero and there may be the question as to whether bending effects are still important. The j-norm. This norm joins membrane and bending effects and is somewhat naturally and properly used for membranedominated problems because, for well-posed such problems and any ﬁxed e, displacement-based ﬁnite element solutions converge in the j-norm [3,17]. Since the norm measures membrane, shear and bending effects, the boundary layer bending effects are included. The error measure is given by
+
+k~ À ~h k2 ¼ u u j
+
+qﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ Am ð~ À ~h ; ~ À ~h Þ u u u u qﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ2 u u u u u u u u þ e Ab ð~ À ~h ; ~ À ~h Þ þ Am ð~ À ~h ; ~ À ~h Þ ; ð11Þ
+
+Am ð~ À ~h ; ~ À ~h Þ u u u u " ¼ ð~ À ~h ÞT u u
+
+eÀ1
+
+XZ
+e
+
+# u u ðBm þ Bc ÞT CðBm þ Bc ÞdXe ð~ À ~h Þ: ð9Þ
+
+Xe
+
+Fig. 5. Convergence curves for the shell problem with ﬁxed–ﬁxed boundary. The Am norm is used.
+
+K.J. Bathe, P.S. Lee / Computers and Structures 89 (2011) 285–301
+
+291
+
+Fig. 6. Convergence curves for the shell problem with ﬁxed–ﬁxed boundary. The Am norm without the transverse shear energy contribution is used.
+
+MITC3
+0 0
+
+MITC4
+0
+
+MITC6
+0
+
+MITC9
+
+-1
+
+-1
+
+-1
+
+-1
+
+-2
+
+-2
+
+-2
+
+-2
+
+log(relative error)
+
+log(relative error)
+
+log(relative error)
+
+-3
+
+log(relative error)
+
+-3
+
+-3
+
+-3
+
+-4
+
+-4
+
+-4
+
+-4
+
+-5
+
+-5
+
+-5
+
+-5
+
+-6 t/L = 1/100 t/L = 1/1000 t/L = 1/10000 -7 -1.8 -1.5 -1.2 -0.9 -0.6 -0.3 log(2h)
+
+-6
+
+-6
+
+-6
+
+-7 -1.8 -1.5 -1.2 -0.9 -0.6 -0.3 log(2h)
+
+-7 -1.8 -1.5 -1.2 -0.9 -0.6 -0.3 log(h)
+
+-7 -1.8 -1.5 -1.2 -0.9 -0.6 -0.3 log(h)
+
+Fig. 7. Convergence curves for the shell problem with ﬁxed–ﬁxed boundary. The L2 norm is used; dashed lines: mid-surface translations; solid lines: section rotations.
+
+292
+
+K.J. Bathe, P.S. Lee / Computers and Structures 89 (2011) 285–301
+
+where the Am norm with and without the transverse shear energy contribution is of interest. The s-norm. This norm can be used for membrane-dominated problems and bending-dominated problems [3,16]. The error measure is given by
+
+this action is entering the analysis as a distributed load over a small area and then no difﬁculties are encountered [10]. To measure the convergence of the discretization schemes with various shell thicknesses, we use the relative errors given by
+
+k~ À ~h k2 ¼ u u s
+
+Z
+X
+
+EðAb þAm Þ ¼
+
+D~T D~dX; e r
+
+ð12Þ EAm ¼ Es ¼
+
+Ab ð~ À ~h ; ~ À ~h Þ þ Am ð~ À ~h ; ~ À ~h Þ u u u u u u u u ; Ab ð~; ~Þ þ Am ð~; ~Þ u u u u Ej ¼ k~ À ~h k2 u u j k~k2 u j
+~
+
+where D~ ¼ ~ À ~h and D~ ¼ ~ À ~h , and we integrate over the 3D e e e r r r shell domain (the reference mesh). We should note that we measure here the difference between the exact and approximate strains (and the exact and approximate stresses). This is quite different from the use of the other above-mentioned norms where the calculated displacements and rotations are measured using the (exact) bilinear forms Am and Ab. This norm is very useful because of its physical basis and its applicability to all shell problems, that is, bending-dominated, membrane-dominated and mixed problems. The norm is also relatively easy to evaluate. However, it is clear that the s-norm does not measure errors in deformations that cause no strains and such errors are also of interest [18,19]. Hence we sometimes use in addition the L2 norm of errors in section rotations and displacements measured at the mid-surface. We recommend the use of these convergence measures in the solution of the test problems of Fig. 1. Note that the applied load is a smoothly distributed pressure. The reason is that point loads are not admissible in most shell formulations, that is, the discretizations do not converge when the element size h ? 0. Of course, in practice, as long as the mesh is not too ﬁne around a point load,
+
+Am ð~ À ~h ; ~ À ~h Þ u u u u ; Am ð~; ~Þ u u Eu2 ¼ L
+~
+
+; k~ À ~h kL2 h h : k~ 2 hk
+L
+
+k~ À ~h k2 u u s ; k~k2 u s
+
+k~ À ~h kL2 u u ; k~kL2 u
+
+Eh2 ¼ L
+
+ð13Þ
+
+The theoretical convergence behaviors of the solutions using the shell elements is then given by
+
+EðAb þAm Þ ﬃ ch ; Eu2 ﬃ ch L
+~ kþ1
+
+2k
+
+EAm ﬃ ch ;
+~ kþ1
+
+2k
+
+Ej ﬃ ch ;
+
+2k
+
+Es ﬃ ch ; ð14Þ
+
+2k
+
+;
+
+Eh2 ﬃ ch L
+
+;
+
+where h is the element size, k is the interpolation order of the element and c is a constant, different in each case. Note that these measures, except for the L2 norms, correspond to squared values of norms. To evaluate the nodal load vectors for the problem solutions, we establish the nodal pressure load vectors from the analytical value of pressure normal to the exact shell mid-surface, according to Eqs. (6) and (7), and then the consistent nodal point force vectors by the usual interpolation and integration over the ﬁnite elements discretizing the shell surface.
+
+Fig. 8. Convergence curves for the shell problem with ﬁxed–ﬁxed boundary. (a) Am norm in smooth area (dashed lines) and (Ab + Am) norm in boundary layer (solid lines); (b) s-norm; (c) Am norm; (d) Am norm without the transverse shear energy contribution. The t/L - dependent sequence of meshes in Table 3 is used for (b), (c) and (d), but not for (a).
+
+K.J. Bathe, P.S. Lee / Computers and Structures 89 (2011) 285–301
+
+293
+
+Fig. 9. Convergence curves for the shell problem with ﬁxed–ﬁxed boundary. (a) and (c) j-norm; (b) and (d) j-norm with the Am norm without the transverse shear energy contribution.
+
+Fig. 10. Convergence curves for the shell problem with ﬁxed–ﬁxed boundary. The s-norm is used.
+
+294
+
+K.J. Bathe, P.S. Lee / Computers and Structures 89 (2011) 285–301
+
+Fig. 11. Convergence curves for the shell problem with ﬁxed–ﬁxed boundary. The Am norm is used.
+
+Fig. 12. Convergence curves for the shell problem with ﬁxed–ﬁxed boundary. The Am norm without the transverse shear energy contribution is used.
+
+K.J. Bathe, P.S. Lee / Computers and Structures 89 (2011) 285–301
+
+295
+
+In the practical use of these norms, it is very important to employ, when the exact solution ~ is unknown, instead, a reliable refu erence mesh ﬁnite element solution, ~ref , obtained using a very ﬁne u mesh with an element that satisﬁes the consistency condition. We employ, for the test problems, reference solutions obtained using the MITC9 shell element, which was analyzed in Ref. [16]. Note that, actually, in the statements of the error measures in Eqs. (8)–(11), we slightly abuse our notation (considering Eq. (3)) in that ~h is now the calculated displacement vector from a given u target mesh mapped into the reference mesh, that is, the size of ~h is the same as ~ref (in terms of nodal degrees of freedom in u u Eqs. (8)–(11)). However, in the s-norm calculation in Eq. (12), ~h u is the displacement vector of the target solution which we use to evaluate the strains and stresses in the target mesh. The actual evaluation of the above norms can be accomplished as described in Ref. [20]. 3.4. Meshing Another very important requirement in the convergence studies is to mesh the boundary and internal layers appropriately [3,16]. Table 1 summarizes information on boundary layers in each case encountered in the shell analyses of Fig. 1. To observe the actual and proper convergence rates of ﬁnite element discretizations, the meshing used should be such that the error measured per unit volume, or surface, of the shell is uniform in the ﬁnite element solutions [10]. Hence, in the illustrative solutions given next, meshes taking the boundary layers into account have been used, see Fig. 3 and Tables 2 and 3.
+
+Due to symmetry, only the shaded areas in Fig. 1 are modeled. We will use in the tests the MITC quadrilateral and triangular shell elements [21–25]. The sequence of meshes used is given in Table 2 (but for Fig. 8(b) to (d) and Fig. 13(b) to (d), Table 3 is used as indicated in the Figure titles). For the convergence studies, N = 8, 16, 32 and 64 is used for linear elements, and N = 4, 8, 16 and 32 is used for quadratic elements. The element size is h = L/N. In addition, for the shell problem with the free-free boundary, N = 128 and N = 64 are employed for the MITC3 element and the MITC6 element, respectively. To calculate the relative errors in Eq. (13) we use the ﬁnite element solutions ~ref obtained with very ﬁne MITC9 shell element u meshes (N = 96) instead of the exact solutions ð~Þ. u
+
+4. Illustrative solutions The objective in this section is to illustrate the considerations and recommendations given above. We solve the problems described in Fig. 1 using the convergence measures given in Section 3.3. In the ﬁnite element discretizations, we use the quadrilateral MITC4 [21] and ‘improved’ MITC9 shell elements [22] and the triangular MITC3 [23] and ‘improved’ MITC6 shell elements [24], see also Ref. [25]. A particular difﬁculty in formulating triangular elements is that these elements need to be spatially isotropic, a condition fulﬁlled by the MITC3 and MITC6 elements. First, we perform the ellipticity test, which is of course passed for ﬂat elements. For the test described in Fig. 2, we calculate the lowest seven eigenvalues of single unsupported elements. This test
+
+Fig. 13. Convergence curves for the shell problem with ﬁxed–ﬁxed boundary. (a) Am norm in smooth area (dashed lines) and (Ab + Am) norm in boundary layer (solid lines); (b) s-norm; (c) Am norm; (d) Am norm without the transverse shear energy contribution. The t/L - dependent sequence of meshes in Table 3 is used for (b), (c) and (d), but not for (a).
+
+296
+
+K.J. Bathe, P.S. Lee / Computers and Structures 89 (2011) 285–301
+
+is passed as presented in Table 4. Since the elements are warped (note that the director vectors at the nodes are normal to the exact shell mid-surface), we list the eigenvalues obtained with the ‘usual’ numerical integration orders and the ‘high’ integration orders, and note some expected differences. The results show that the lowest eigenvalues of the displacement-based elements are much too high and that the eigenvalues of the MITC elements behave as expected. These eigenvalues also scale appropriately with the shell thickness, a criterion not seen for the eigenvalues of the displacement-based elements. Here of course the correct scale is (t/L)3. We next focus on the convergence tests by solving the problems in Fig. 1 with the meshes shown in Fig. 3 and the ‘usual’ numerical integration orders, see Table 4(a). Using the ‘high’ numerical integration orders has an insigniﬁcant effect on these results. In Figs. 4–21, the solid thick line represents the optimal convergence rate. 4.1. The shell problem with ﬁxed–ﬁxed boundary: the membranedominated case The convergence results obtained in the solution of this problem using the MITC elements are given in Figs. 4–9. The results in Figs. 4–6 show good convergence for all elements in the s-norm and in the Am norm not including transverse shear strain effects, with the quadrilateral elements slightly better in performance, as expected. The results using the Am norm including and not including the transverse shear strain effects reﬂect the errors in these strains when measured in this norm. Of interest are therefore the results in Fig. 7, which gives the convergence in the L2 norm of the displacements and section rotations seen at the shell mid-surface.
+
+The displacements converge quite well; signiﬁcantly larger errors are measured in the rotations. To obtain further insight, we show in Fig. 8 additional results for the MITC4 element. Fig. 8(a) shows the performance of the MITC4 element in the bending dominated boundary layer and in the membrane dominated part outside the boundary layer, measured individually. These results tell that the element performs quite well in each part of the structure. Fig. 8(b) to (d) show a good convergence behavior in the applicable norms when the thicknessdependent meshing given in Table 3 is used. Finally, Fig. 9 shows some convergence results in the j-norm. The optimal slopes are seen but the transverse shear energy error in the norm is causing the upward shift of the curves. It is valuable to see that the behavior of the errors is quite like when measured in the Am norm. The results using the corresponding displacement-based elements are given in Figs. 10–14. These elements are optimal for this problem, as predicted by theory [3,17], but the ﬁne meshing in the boundary layer must also be used. Indeed, Fig. 13(a) shows that, as expected, the displacement-based elements severely lock in the boundary layer and Fig. 14 therefore does not show optimal slopes. Comparing these results with those given in Figs. 4, 5, 6, 8 and 9, we see that, for the MITC shell elements, the stresses show less error but the transverse shear energy error in the Am norm is larger. 4.2. The shell problem with free-free boundary: the bendingdominated case The convergence results are given in Figs. 15 and 16. Here the quadrilateral elements show an excellent convergence behavior, indeed virtually perfect convergence curves. On the other hand,
+
+Fig. 14. Convergence curves for the shell problem with ﬁxed–ﬁxed boundary. (a) and (c) j-norm; (b) and (d) j-norm with the Am norm without the transverse shear energy contribution.
+
+K.J. Bathe, P.S. Lee / Computers and Structures 89 (2011) 285–301
+
+297
+
+Fig. 15. Convergence curves for the shell problem with free-free boundary. The s-norm is used.
+
+Fig. 16. Convergence curves for the shell problem with free-free boundary. The (Ab + Am) norm is used.
+
+298
+
+K.J. Bathe, P.S. Lee / Computers and Structures 89 (2011) 285–301
+
+Fig. 17. Convergence curves for the shell problem with ﬁxed-free boundary. The s-norm is used.
+
+Fig. 18. Convergence curves for the shell problem with ﬁxed-free boundary. The Am norm is used.
+
+K.J. Bathe, P.S. Lee / Computers and Structures 89 (2011) 285–301
+
+299
+
+Fig. 19. Convergence curves for the shell problem with ﬁxed-free boundary. The Am norm without the transverse shear energy contribution is used.
+
+0
+
+MITC3
+
+0
+
+MITC4
+
+0
+
+MITC6
+
+0
+
+MITC9
+
+-1
+
+-1
+
+-1
+
+-1
+
+-2
+
+-2
+
+-2
+
+-2
+
+log(relativeerror)
+
+log(relativeerror)
+
+log(relativeerror)
+
+log(relativeerror)
+
+-3
+
+-3
+
+-3
+
+-3
+
+-4
+
+-4
+
+-4
+
+-4
+
+-5
+
+-5
+
+-5
+
+-5
+
+-6
+t/L = 1/100 t/L = 1/1000 t/L = 1/10000
+
+-6
+
+-6
+
+-6
+
+-7 -1.8 -1.5 -1.2 -0.9 -0.6 -0.3 log(2h)
+
+-7 -1.8 -1.5 -1.2 -0.9 -0.6 -0.3 log(2h)
+
+-7 -1.8 -1.5 -1.2 -0.9 -0.6 -0.3 log(h)
+
+-7 -1.8 -1.5 -1.2 -0.9 -0.6 -0.3 log(h)
+
+Fig. 20. Convergence curves for the shell problem with ﬁxed-free boundary. The L2 norm is used; dashed lines: mid-surface translations; solid lines: section rotations.
+
+300
+
+K.J. Bathe, P.S. Lee / Computers and Structures 89 (2011) 285–301
+
+the correct calculation of the various terms in the error measures, are very important in order to obtain a proper evaluation of a shell solution scheme. Of all the norms used, we conclude that the snorm is quite physical and practical, and gives in all cases the proper indication regarding convergence (in the solution of membrane, bending dominated and mixed problems), but is best used together with the L2 norm on the rotations and displacements. In this paper, we used the MITC shell elements in the meshes of Fig. 3 to demonstrate the use of our testing. While already a significant number of results are given, additional valuable results would be obtained when using in the meshing skewed elements, or even randomly distorted elements. Of course, the basic conclusions given above regarding the procedures to be used in such testing are not expected to change. The accurate analysis of shell structures is inherently extremely difﬁcult and improvements in available analysis techniques are very desirable. The search for more effective analysis methods will therefore continue for quite some time. The procedures for measuring convergence given here should be of value in the proper evaluation of any proposed solution scheme, including schemes solving the 3D-shell model [3,8,26], and hence in the general search for the more effective analysis of shell structures. Of course, we considered in this paper only a priori error estimates and corresponding convergence behaviors of shell elements, the a posteriori error estimation in shell analyses is another large and very important ﬁeld, where much progress is still needed [27]. Acknowledgement The authors thank Dr. D. Chapelle, INRIA, Rocquencourt, France, for valuable discussions regarding this work. Appendix A. On the numerical evaluation of the norms considering the triangular elements, these only perform reasonably well for the cases t/L = 1/100 and 1/1000, and, due to some locking, the convergence for the very thin shell is not good. However, we note that the ﬁnal slopes of the convergence curves for the triangular elements are also virtually optimal. 4.3. The shell problem with ﬁxed-free boundary For this problem, we should expect that the performance of the elements can be deduced from their performance given above. The convergence curves are given in Figs. 17–20. All elements show indeed the expected convergence behavior. However, the solution of this problem also shows the deﬁciency of the ‘original’ MITC6 shell element presented in Ref. [23] and analyzed in Refs. [18,19]. Fig. 21 shows the convergence in the L2 norm for the mid-surface displacements and section rotations. We see a much larger error in the rotations than for the improved MITC6 shell element presented in Ref. [24], see Fig. 20. 5. Conclusions The objective in this paper was to describe how shell ﬁnite elements, and indeed any analysis scheme for shell structures, should be properly tested. We presented appropriate test problems, error measures based on norms, details on how to calculate the norms and some test results, largely not previously published. An important conclusion is that the details of performing the tests, including the use of discriminating problems, the proper meshing of curved surfaces and boundary layers, the evaluation of the nodal load vectors using the exact shell geometry, the use of appropriate error norms with proper reference solutions, and In Eqs. (8)–(11), it is crucial to calculate accurately the strain– displacement matrices Bb, Bm and Bc for the bending, membrane and transverse shear actions, respectively. Let us consider the complete strain–displacement matrix B(r, s, n) deﬁned corresponding to the local Cartesian shell-aligned coordinate system at the shell mid-surface (n = 0)
+
+Fig. 21. Convergence curves for the shell problem with ﬁxed-free boundary for the ‘original’ MITC6 shell element, presented in Ref. [23] as the MITC6a element. The L2 norm is used; dashed lines: mid-surface translations; solid lines: section rotations.
+
+3 B rr 7 6 6 B 7 6 ss 7 7 6 6 Bnn 7 7; Bðr; s; nÞ ¼ 6 7 6 6 B 7 rs 7 6 6B 7 4 n 5 s 2 Bn r
+
+ðA:1Þ
+
+where ;  and n denote the base vectors at the shell mid-surface r s and Bnn = 0. We can separate the strain–displacement matrices corresponding to membrane, bending and transverse shear strains as follows
+
+2
+
+B rr
+
+3
+
+2
+
+B rr
+
+3
+
+2
+
+0
+
+3
+
+6 7 6 B 7 6 ss 7 6 7 60 7 Bm ðr; s; nÞ ¼ 6 7 6 7 6 B 7 rs 6 7 60 7 4 5 0
+n¼0
+
+7 6 7 6 6 B 7 60 7 7 6 ss 7 6 7 6 7 6 60 7 60 7 7: ; Bb ðr; s; nÞ ¼ 6 7 À Bm ; Bc ðr; s; nÞ ¼ 6 7 6 7 6 6 B 7 60 7 rs 7 6 7 6 60 7 6B 7 4 5 4 n 5 s 0 Bn r ðA:2Þ
+
+Here we use the matrix Bm(r, s, n) deﬁned corresponding to the local Cartesian shell-aligned coordinate system at the shell mid-surface
+
+K.J. Bathe, P.S. Lee / Computers and Structures 89 (2011) 285–301
+
+301
+
+(n = 0), and we then evaluate all other strain–displacement matrices for all values of n using that same coordinate system. References
+[1] Bathe KJ. The ﬁnite element method. In: Wah B, editor. Encyclopedia of Computer Science and Engineering. J Wiley and Sons; 2009. p. 1253–64. [2] Timoshenko S, Woinowski-Krieger S. Theory of plates and shells. New York: McGraw-Hill; 1959. [3] Chapelle D, Bathe KJ. The ﬁnite element analysis of shells Fundamentals. Springer; 2003. [4] Lee PS, Bathe KJ. On the asymptotic behavior of shell structures and the evaluation in ﬁnite element solutions. Comput Struct 2002;80:235–55. [5] MacNeal RH, Harder RL. A proposed standard set of problems to test ﬁnite element accuracy. Finite Elem Anal Des 1985;1:3–20. [6] Chapelle D, Bathe KJ. The mathematical shell model underlying general shell elements. Int J Numer Methods Eng 2000;48:289–313. [7] Lee PS, Bathe KJ. Insight into ﬁnite element shell discretizations by use of the basic shell mathematical model. Comput Struct 2005;83:69–90. [8] Chapelle D, Ferent A, Bathe KJ. 3D-shell elements and their underlying mathematical model. Math Models Methods Appl Sci 2004;14:105–42. [9] Brezzi F, Fortin M. Mixed and hybrid ﬁnite element methods. Springer; 1991. [10] Bathe KJ. Finite element procedures. New York: Prentice Hall; 1996. [11] Chapelle D, Bathe KJ. On the ellipticity condition for model-parameter dependent mixed formulations. Comput Struct 2010;88:581–7. [12] Iosilevich A, Bathe KJ, Brezzi F. On evaluating the inf-sup condition for plate bending elements. Int J Numer Methods Eng 1997;40:3639–63. [13] Bathe KJ, Iosilevich A, Chapelle D. An inf-sup test for shell ﬁnite elements. Comput Struct 2000;75:439–56.
+
+[14] Bathe KJ. The inf-sup condition and its evaluation for mixed ﬁnite element methods. Comput Struct 2001;79:243–52. 971. [15] Bathe KJ, Brezzi F, Cho SW. The MITC7 and MITC9 plate bending elements. Comput Struct 1989;32:797–814. [16] Hiller JF, Bathe KJ. Measuring convergence of mixed ﬁnite element discretizations: an application to shell structures. Comput Struct 2003;81:639–54. [17] Chapelle D, Bathe KJ. Fundamental considerations for the ﬁnite element analysis of shell structures. Comput Struct 1998;66:19–36. 711-2. [18] Beirão da Veiga L, Chapelle D, Paris Suarez I. Towards improving the MITC6 triangular shell element. Comput Struct 2007;85:1589–610. [19] Chapelle D, Paris Suarez I. Detailed reliability assessment of triangular MITC elements for thin shells. Comput Struct 2008;86:2192–202. [20] Lee PS, Noh HC, Bathe KJ. Insight into 3-node triangular shell ﬁnite elements: the effects of element isotropy and mesh patterns. Comput Struct 2007;85:404–18. [21] Dvorkin E, Bathe KJ. A continuum mechanics based four-node shell element for general nonlinear analysis. Eng Comput 1984;1:77–88. [22] Bathe KJ, Lee PS, Hiller JF. Towards improving the MITC9 shell element. Comput Struct 2003;81:477–89. [23] Lee PS, Bathe KJ. Development of MITC isotropic triangular shell ﬁnite elements. Comput Struct 2004;82:945–62. [24] Kim DN, Bathe KJ. A triangular six-node shell element. Comput Struct 2009;87:1451–60. [25] Lee PS, Bathe KJ. The quadratic MITC plate and MITC shell elements in plate bending. Adv Eng Software 2010;41:712–28. [26] Kim DN, Bathe KJ. A 4-node 3D-shell element to model shell surface tractions and incompressible behavior. Comput Struct 2008;86:2027–41. [27] Grätsch T, Bathe KJ. A posteriori error estimation techniques in practical ﬁnite element analysis. Comput Struct 2005;83:235–65.
+

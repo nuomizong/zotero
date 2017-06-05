@@ -1,0 +1,257 @@
+Cronfa - Swansea University Open Access Repository _____________________________________________________________
+This is an author produced version of a paper published in : Finite Elements in Analysis and Design
+
+Cronfa URL for this paper: http://cronfa.swan.ac.uk/Record/cronfa7034
+
+_____________________________________________________________
+Paper: Belblidia, F. & Hinton, E. (2002). Fully integrated design optimization of plate structures. Finite Elements in Analysis and Design, 38(3), 227-244. http://dx.doi.org/10.1016/S0168-874X(01)00060-9
+
+_____________________________________________________________
+This article is brought to you by Swansea University. Any person downloading material is agreeing to abide by the terms of the repository licence. Authors are personally responsible for adhering to publisher restrictions or conditions. When uploading content they are required to comply with their publisher agreement and the SHERPA RoMEO database to judge whether or not it is copyright safe to add this version of the paper to this repository. http://www.swansea.ac.uk/iss/researchsupport/cronfa-support/
+
+Finite Elements in Analysis and Design 38 (2002) 227–244
+www.elsevier.com/locate/ÿnel
+
+Fully integrated design optimization of plate structures
+Fawzi Belblidia ∗ , Ernest Hinton
+ADOPT Group, Department of Civil Engineering, University of Wales, Swansea, Wales SA2 8PP, UK
+
+Abstract This paper deals with fully integrated design optimization (FIDO) of plate structures. First, topology optimization is introduced based on a hybrid algorithm, then ÿtting optimization is applied. Finally, the sizing optimization is described. Each one of these optimization techniques is tested on some examples. Finally, the FIDO-plate toolkit, which is a link of the three stages cited above, is tested on some examples following three major steps. First the optimal sti ening topology of the initial plate is produced, and the sti ening regions identiÿed. Then, the regions of di erent boundaries of the new sti ened plate are adaptively ÿtted using cubic B-splines. Finally, the sizing optimization technique is applied in order to determine the thickness of each region. This leads to an improved plate design. ? 2002 Elsevier Science B.V. All rights reserved.
+Keywords: Topology optimization; B-spline curves ÿtting optimization; Sizing optimization
+
+1. Introduction With diminishing resources and increasing economic competition the need for e cient and lightweight structures is becoming greater. This has motivated research and design engineers to reconsider the traditionally adopted design procedures. Optimization methods have received increased attention, especially topology optimization which was introduced by BendsHe and co-workers [1,2]. In this paper we consider the optimization of structures which can be modelled accurately using Mindlin–Reissner (MR) plate bending theory. We focus on a fully integrated design procedure with special emphasis on a speciÿc problem. The objective is to ÿnd the sti est plate structure subject to a given set of loading, boundary conditions and material properties
+∗
+
+Corresponding author. Tel.: +44-1792-51-31-79; fax: +44-1792-29-56-76. E-mail address: f.belblidia@swansea.ac.uk (F. Belblidia). 0168-874X/02/$ - see front matter ? 2002 Elsevier Science B.V. All rights reserved. PII: S 0 1 6 8 - 8 7 4 X ( 0 1 ) 0 0 0 6 0 - 9
+
+228
+
+F. Belblidia, E. Hinton / Finite Elements in Analysis and Design 38 (2002) 227–244
+
+Fig. 1. FIDO process for structures.
+
+which ÿts within a speciÿed thin box and has a speciÿed volume=weight. The plate may be sti ened symmetrically about its mid-plane in a piece-wise constant manner and a three layer MR ÿnite element (FE) model is used. It is assumed that the middle layer must always be present throughout the whole plate. An initial estimate of the sti ening topology (or layout) is found using topology optimization based on the artiÿcial material model or the solid isotropic microstructure with penalty: SIMP method combined with a hybrid method known as constraint adaptive topology optimization, or CATO algorithm. This results in an optimum sti ening topology in the form of a variable density plot for the upper and lower sti ening layers. From this a viable sti ening layout must be discerned. This is achieved by choosing a cut-o density value below which it is assumed there is no sti ening layer and above which there is a sti ening layer. The boundaries of the resulting sti ening layers are uneven as a result of the FE mesh used and are subsequently smoothed using a boundary least squares ÿtting algorithm based on parametric cubic splines. A further sizing optimization is then performed with the sti ening zones partitioned into subgroups of constant sti ening layer thickness. In all cases the compliance is minimized subject to a constraint on the volume=weight and bounds on the maximum size of the plate thickness. This paper will address the topology, boundary ÿtting and sizing optimization. In the following each one of the optimization methods mentioned here is introduced as shown in Fig. 1, and the FIDO toolkit will then be tested on some plate examples.
+
+F. Belblidia, E. Hinton / Finite Elements in Analysis and Design 38 (2002) 227–244
+
+229
+
+This research work was part of the on going research on the FIDO project by the ADOPT group at Swansea led by Professor Ernest Hinton until his untimely death. 2. Topology optimization 2.1. Overview Although shape and sizing optimization techniques have achieved a great improvements in the emergence of new optimum designs, they are still limited by the fact that a suitable topology must be assumed initially. For topology optimization, three major techniques have emerged since the 1980s, they have some common aspects such as the material format, the constraint satisfaction strategy and the iterative improvement scheme. However, they can be classiÿed as follows:
+• Homogenization methods (h-methods) include (a) the classic homogenization method involv-
+
+ing square microcells with rectangular voids, (b) the artiÿcial material or SIMP methods and (c) the rank one and two methods [1,2]. With the h-methods the structure is assumed to consist of a sponge-like material with inÿnitely many microscale cells with voids. The variation of the porosity of this material throughout the structure is optimized using an optimality criteria procedure based on Kuhn–Tucker conditions. Finite elements (FEs) are adopted as the simulation tool and each element is assumed to consist of a separate material which may have its own void size and orientation. • The evolutionary methods or e-methods include (a) hard-kill, (b) soft-kill methods [3–5] and more recently (c) the material redistribution technique [6]. The e-methods have their origin in fully stressed design techniques. Here, a ‘removal process’ is used to remove from the structure inactive material which has a low strain energy density. This can be achieved by either varying the elastic modulus as a function of the strain energy density or by deleting from the structure the space occupied by the zones with low strain energy density. FEs are again used as the simulation tool. • Finally, the h=e-methods are hybrid methods which contain attributes of both h- and e-methods in di ering degrees. The ÿrst of these methods was that due to Fuchs [7], who characterized the topology material in a manner similar to that of the original microcell model of BendsHe and Kikuchi [1], using the ‘Aboudi-Cell’ method. Recently, Bulman and Hinton [8] introduced a constraint topology optimization algorithm for 2D structures. Here this algorithm has been extended to plate structures and used with sizing optimization algorithm in an integrated process. 2.2. CATO method Let us describe the CATO method which is essentially an h=e-method. To be used in the context of FIDO, the algorithm uses a three layered artiÿcial material model which consists of a porous medium in which only the top=bottom layer is subject to optimization. The aim of the algorithm is to update the density parameters ae for each element within a given design domain
+
+230
+
+F. Belblidia, E. Hinton / Finite Elements in Analysis and Design 38 (2002) 227–244
+
+using a volume preserving scheme which may change during the iterative improvement. We ensure that the targeted structural volume is maintained during the complete iterative process, so that at each iteration step we have a valid solution. In the following, the main features of the CATO method for structural topology optimization are introduced. Firstly, the three layered artiÿcial material model is described, followed by a detailed explanation of the iterative material updating scheme process. Finally, plate structures examples are provided to demonstrate the use of the CATO algorithm in topology optimization. 2.3. Artiÿcial material model By considering structural topology optimization as a material distribution problem, the structure can be described by a discrete function , deÿned at each point x as (x) = 1 if x ∈ 0 if x ∈
+s
+
+material
+s
+
+\
+
+no material;
+
+(1)
+
+where is the design domain, s is the solid part of it and x ∈ is the vector of design variables. If isotropic behaviour is assumed for the solid part of the structure, we can write (x) = (x)
+0
+
+and
+
+D(x) = (x)D0 ;
+
+(2)
+
+where 0 and D0 are the density and elastic constitutive matrix respectively of the homogeneous solid. For the numerical solution of the optimization problem, the indicator function (x) causes solution di culties [1,9]. The easy way to relax this problem is to replace the discrete parameter variable (x) with a continuous one (x), so that (x) = (x)
+0
+
+and
+
+D(x) = (x)D0 ;
+
+(3)
+
+where 0 6 (x) 6 1 and x ∈ . It is desirable to obtain a solution which only consists of solid and void regions. This allows a better approximation of condition (1). Zhou and Rozvany [9], and Rozvany et al. [10] suggested that porous regions could be suppressed by adding to the material costs the ‘cost of manufacturing of holes’, thereby a parameter can be included in (3) to penalize the intermediate values of (x). Hence, D(x) = (x) D0 ; (4)
+
+where the exponent ¿ 1 and is usually between 3 and 9. For convenience the artiÿcial material parameter can be related to some geometric parameters to create some sort of microstructure. For example, to make an analogy to the idea of a cellular body consisting of unit cells with square holes, (x) may be expressed as (x) = 1 − a2 (x): (5)
+
+F. Belblidia, E. Hinton / Finite Elements in Analysis and Design 38 (2002) 227–244
+
+231
+
+Fig. 2. References in a symmetric three-layered model.
+
+Note that although we have assumed a micro-cellular material with a square hole of size a, we have approximated the resulting material behaviour as isotropic based on a solid isotropic microstructure with penalty (SIMP) method rather than truly orthotropic. There is, therefore, no dependency on the orientation of the square hole in the artiÿcial material model. Assume isotropic behaviour in the case of plate structures, the bending and shear matrices of the artiÿcial elasticity constants of a three layered MR plate model, in which E0 and E1 are the elastic modulus for the central layer and the top=bottom layer respectively, 0 and 1 are the Poisson’s ratio for the central layer and the top=bottom layer respectively and h0 is the thickness of the central layer, while h1 is the thickness of the top=bottom layer and H is the plate thickness. See Fig. 2. Note that in this case, the artiÿcial material parameter = 1 − a2 is only applied to the top=bottom layer:   1 0 0  E0 h3  0  0 1  0 DH = b  12(1 − 2 )  0 0 0 (1 − 0 )=2   1 1 0  E1 (H 3 − h3 )  0  ; 1 0 +(1 − (ae )2 ) (6) 2)  1  12(1 − 1 0 0 (1 − 1 )=2 DH = s E0 h0 (1 − (ae )2 ) E1 h1 + (1 + 0 ) 2 (1 + 1 ) 10 01 :
+
+2.4. The CATO algorithm The CATO algorithm is now described. Note that we have used the standard terms ‘design’ and ‘non-design’ domains to refer to zones in which the density parameters are allowed to
+
+232
+
+F. Belblidia, E. Hinton / Finite Elements in Analysis and Design 38 (2002) 227–244
+
+change and zones where this is not the case. Thus, the central layer in the three layered model is considered as a ‘non-design’ domain. 1. Set up the design domain data, optimization data and FE model data including information deÿning the mesh, material properties, loading and boundary conditions. Set iteration counter i = 1. 2. For the desired volume fraction, Vfac , initialize the material density parameters ae for each i element according to the expressions ae = i 0 (1 − Vfac )1=2 if non-design domain; if design:
+
+Also, calculate the desired volume of the system Vdes using Vdes = Vfac
+n
+
+ve ;
+
+3. 4. 5. 6. 7. 8. 9.
+
+where n is the number of elements present in the model and ve is the volume of element e respectively. For the current ae values evaluate the appropriate constitutive properties using a three layered i artiÿcial material model. Perform an FE analysis based on a nine-noded MR plate element and order the elements according to their strain energy density values. From a speciÿed volume preserving relationship ae (fe ) evaluate the change of the density i parameters ae for each element and update the density parameter so that ae = ae + ae . i i i i+1 This will be described in the next section. Given the new density parameters ae , evaluate the overall structural volume of the system i+1 Vsys . Check the requirement that Vsys =Vdes ¡ Vtol . If this condition is not satisÿed, adjust ae i+1 proportionately to obtain Vsys = Vdes and go to step 6. If some convergence criterion is met continue to the next step, otherwise set i = i + 1 and return to step 3. Post-process the results and ÿnish the process.
+
+2.5. Material updating scheme with volume preservation The CATO algorithm uses an incremental relationship ae (fe ) to vary ae according to the element strain energy density value fe . A special feature of this relationship is that it is chosen so as to preserve the total volume of the structure. Furthermore, the relationship can adapt itself through the iterative scheme. Fig. 3 shows an example of this relationship at two stages of the scheme. The function is composed of a curve of the form y = npcur where n and pcur are described later. To deÿne the curve some parameters are needed. If ‘ = [‘1 ; ‘2 ; : : : ; ‘n ]T is the list of n element numbers ordered as increasing fe values, then three parameter values fmin , fmax and fcut are
+
+F. Belblidia, E. Hinton / Finite Elements in Analysis and Design 38 (2002) 227–244
+
+233
+
+Fig. 3. Example of the relationship intermediate stage (dash line).
+
+ae (fe ) at an early stage of the iterative scheme (solid line) and at an
+
+calculated as fmin = f(‘ ) ; fmax = f(‘ ) ; fcut = f(‘ ) ; where k satisÿes the equation
+n i=k
+k n 1
+
+(7)
+
+v‘ = Vdes
+
+i
+
+(8) ae for i (9)
+
+and v‘ is the volume of element ‘i respectively. The change in the density parameter element e is illustrated in Fig. 3 and is given by ae = npcur ; i where =−
+|d|
+
+i
+
+d
+
+;
+
+d = fe − fcut ; n = d=r; pcur = pinit − ((i − 1:0)iter) and r is deÿned as fmax − fcut r= fmin − fcut if fe ¿ fcut ; if fe 6 fcut : (10)
+
+(11)
+
+234
+
+F. Belblidia, E. Hinton / Finite Elements in Analysis and Design 38 (2002) 227–244
+
+Three further parameters are speciÿed by the user, they are: (a) the maximum incremental density parameter amax . (b) The initial curve exponent parameter pinit determines the initial conÿguration of the curve. Finally (c) the iterative advancing parameter iter controls how the curve adapts through the iterative scheme. A maximum number of iterations niter is also speciÿed by the user. After the density parameters ae for all elements in the design space have been updated the i volume of the new system is evaluated to check that the volume fraction constraint is not violated using the expression Vsys =Vdes ¡ Vtol ; (12) where Vsys is the current system volume, Vdes is the desired system volume and Vtol is some allowable tolerance on the volume constraint, typically less than 1%. If this condition is satisÿed, then the algorithm can proceed to the next iteration. However, if it is not satisÿed then the volume error for each element is calculated as Vsys − Vdes Verr = ; (13) n where n is the number of elements in the design space. The new density parameter ae for i+1 each element is then simply taken as ae = ae + Verr : i i+1 2.6. Convergence It is assumed that, convergence of the CATO algorithm occurs when: 1. the number of iterations exceeds a number speciÿed by the user, 2. the change in strain energy between any three successive iterations is below a given tolerance or 3. there is an increase in the strain energy in three successive iterations. 2.7. Topology optimization examples In the following example, the optimization problem is deÿned as minimizing the strain energy with an equality constraint on the volume of the plate. The plate is subjected to a central bending load and clamped at its four edges. The problem data is: elastic modulus E = 10:92 × 105 , Poisson’s ratio = 0:3, load intensity Fc = − 100, the plate side length is a = 10 and the plate thickness H = 0:1. All units are assumed to be consistent. The topology optimization input data quantities are: volume fraction Vf = 50%, artiÿcial material exponent = 3, maximum incremental density parameter amax = 0:05, the initial curve exponent parameter pinit = 5:0 and the iterative advancing parameter iter = 0:025. A maximum of 200 iterations are assumed with a tolerance in the change of the strain energy of 1%. Fig. 4 illustrates the variation of the normalized strain energy with increasing number of iterations for the clamped supported plate. Fig. 5 shows the corresponding topologies at 10, 50, 150 and 200 iterations. (14)
+
+F. Belblidia, E. Hinton / Finite Elements in Analysis and Design 38 (2002) 227–244
+
+235
+
+Fig. 4. Convergence of the normalized strain energy for centrally loaded square plate with all edges clamped. A volume fraction Vf = 50% is used.
+
+Fig. 5. Emerging sti ening topologies for centrally loaded square plate with all edges clamped. A volume fraction Vf = 50% is used.
+
+3. Adaptive ÿtting optimization technique 3.1. Algorithm The adaptive ÿtting technique is a sequential process which is used to ‘clean-up’ the image from the topology optimization process. The resulting contours on the top=bottom layer of the plate are then ÿtted with parametric cubic splines. First, a ‘thresholding process’ is applied to the topology image to create void domains and material domains. Then a ‘nodal data transfer’ is performed where the boundaries of the threshold structure are detected as a series of segments. Segments having a special shape such as lines, circles or circular arcs are detected for more
+
+236
+
+F. Belblidia, E. Hinton / Finite Elements in Analysis and Design 38 (2002) 227–244
+
+accurate ÿtting. The process ÿnishes by ÿtting through the remaining points with parametric cubic splines. The algorithm of adaptive ÿtting is summarized as follows: 1. From the result of the topology optimization, the image produced is extracted. This image is usually a grey scales image, and must be ‘cleaned-up’. 2. A black and white image is created from the grey scales one. This is done by imposing a thresholding value so that all elements with a density value below the speciÿed thresholding value are considered as void, others are considered as material. 3. Any single ‘ ying’ or isolated element is deleted and the edges of any holes are ‘tidied-up’. 4. The connectivities of the remaining elements are redeÿned to ease scanning around the boundaries of the thresholded structure. 5. For each segment in turn, elements on its boundary are located, and the coordinates of the edge nodes are recorded. 6. A check is then performed, within a given tolerance, to ascertain if the coordinates form a line, a circle or a circular arc to be ÿtted with the appropriate shape without the need to use spline ÿtting. 7. If the coordinates do not have a special identiÿable shape, the optimization ÿtting algorithm is used to ÿt points with a cubic spline using a least-squares method. 3.2. Least-squares spline ÿtting Let us now consider how to ÿt an open parametric cubic spline with speciÿed end slopes to the set of data points on a section of the boundary obtained from the topology optimization described earlier. This is achieved using a suitably adapted least-squares ÿtting method which is now outlined: 1. All of the nd data points (xi ; y i ) of the boundary section are joined together in sequence to form a polygonal curve. The total length of this curve, lp ; is evaluated together with the accumulated length, lpi ; of curve at each data point i. A non-dimensional or parametric quantity t varying from 0 to 1 is then evaluated at each data point by dividing lpi by lp to give ti = lpi =lp . 2. A parametric cubic spline, f(t), is then postulated with a given number of key points, say ns . The spline is uniquely deÿned by the coordinates (Xj ; Yj ) of each key point j and the predeÿned end slopes at the key points 1 and ns . Note that ns nd . Note also that in the absence of any other information, a natural spline end conditions is assumed to provide these end slopes. Note also that the spline is also expressed in terms of a parameter t which varies from 0 to 1 just like the polygonal curve joining the data points. 3. As each data point i has an associated parametric value ti , see item 1, the distance between that point and the parametric cubic spline f(t) may be evaluated as ei = (xi − xi )2 + (yi − y i )2 ; (15)
+
+where xi and yi are the coordinates of f(t) at t = ti .
+
+F. Belblidia, E. Hinton / Finite Elements in Analysis and Design 38 (2002) 227–244
+
+237
+
+These ei values may be accumulated to ÿnd an error measure for the ÿt of the postulated spline to the data which may be termed E=
+nd i=1
+
+ei :
+
+(16)
+
+4. If the spline is uniquely deÿned by the speciÿed end slopes and coordinates (Xj ; Yj ) of the key points, then the ÿtting problem may be expressed as follows: Find the key point coordinate X, Y which minimize E where X = [X1 ; X2 ; : : : ; Xns ]; Y = [Y1 ; Y2 ; : : : ; Yns ] : This optimization process may be subject to a set of constraints to ensure that the distance between adjacent key points is never more than a suitable speciÿed distance (move limit). This optimization process is carried out here using a standard mathematical programming package called DOT [11]. To make the above algorithm adaptive, we begin by taking three key points to deÿne the 0 starting spline. The optimal error measure E 0 , suitably normalized to E = E 0 =lp by dividing it 0 by the data point polygonal length lp , is evaluated. If E is less than some pre-deÿned value, even if the key point is allowed to move within the speciÿed distance, then the key point number is increased by 1 and a new spline is introduced and the ÿtting process is repeated 0 until E is suitably small. 3.3. Topology image ÿtting examples An example is presented here to show the performance of the method used. However, it is useful to remind ourselves of the overall purpose of the ÿtting. We are not trying to produce an exact ÿt which would constitute an interpolation. Thus, we require that the number of key points ns is much smaller than nd , the number of data points. What we require is a ‘reasonable ÿt’ which gives a ‘fair’ representation of the data and curve which is suitable for our purpose of producing a practical design. We, therefore, do not require a ‘noisy’ or highly oscillatory curve. Ultimately, this is perhaps best achieved by introducing some ‘interactivity’ in the process allowing the engineer=designer to choose the most appropriate curve provided by the adaptive algorithm. This remark is applied in the ÿtting of a topological image of a simply supported square plate with a hole under four point loads located at the center of the plate quarter using an error tolerance and a move limit of 10% each. The result is shown in Fig. 6. 4. Sizing optimization of plate 4.1. Algorithm The sizing optimization technique is based on the optimization of the variation of thickness throughout the plate. In the present context, the design variables are the plate thicknesses of
+
+238
+
+F. Belblidia, E. Hinton / Finite Elements in Analysis and Design 38 (2002) 227–244
+
+Fig. 6. Fitting optimization process: (a) design domain, (b) topology result, (c) key point position and (d) ÿtting result for a square plate with circular hole.
+
+various regions within the plates. FE analyses and the sensitivity analyses are conducted based on the MR triangular DRM element [12] to evaluate the objective function and the constraints and associated derivatives with respect to each design variable. Mathematical programming method is then used iteratively using this information to evaluate the optimum solution for the problem. The main steps of the sizing optimization of plates are: 1. Deÿne the optimization problem: The objective function, the constraints and the bounds on the design variables are speciÿed. To be consistent with the whole FIDO process, here the objective function is the strain energy of the plate and the volume is used as an equality constraint. 2. Create the design model: The plate is divided into zones and the initial layer thicknesses of each zone are speciÿed. The layer thicknesses of each zone will serve as the design variables. The loadings, boundary conditions and material properties are then speciÿed. 3. Create the FE model: A mesh of triangular DRM elements is then generated. 4. Carry out the FE analysis: An FE analysis is then carried out to establish the objective function and constraints. 5. Sensitivity: By perturbing each design variable in turn, the sensitivities of the objective function and the constraints are evaluated using the FDM. This information is required to ÿnd out the search direction in the next step. 6. Optimization: Using the objective and constraint functions and their derivatives, the SQP optimization algorithm is used to improve the chosen objective. When the solution produced converges, an optimum is found. 7. Update optimization model: If convergence is not achieved, it is necessary to update the design variable vector (in this case the layer thicknesses of each zone) and go to step 3. Otherwise the solution is terminated. 4.2. Sizing optimization procedure The general non-linear optimization problem can be stated as follows: minimize (or maximize) F(s)
+
+F. Belblidia, E. Hinton / Finite Elements in Analysis and Design 38 (2002) 227–244
+
+239
+
+subject to gi (s) 6 0; hj (s) = 0; i = 1; : : : ; m; j = 1; : : : ; ‘; k = 1; : : : ; ndv (17)
+
+sk l 6 sk 6 sk u ;
+
+in which s is the design variables vector, F(s) is the objective function and gi (s) and hj (s) are the constraint functions. Finally, sk l and sk u represent the lower and the upper bounds imposed on the design variable sk . m is the number of inequality constraints, ‘ the number of equality constraints and ndv is the number of design variables used. In the FIDO process, the optimization problem is deÿned as minimizing the strain energy of the plate and keeping its volume constant. Because optimization is an iterative process, one of the most di cult and critical tasks is to decide when to end it. DOT [11] uses several criteria to do so, such as: maximum iteration number, no feasible solution, asymptotic approach or the satisfaction of the Kuhn–Tucker conditions. As mentioned earlier, the sizing optimization technique requires the evaluation of the sensitivities of the objective and constraint functions. The sensitivity of the strain energy, or any other unknown, is based on the sensitivity calculation of the displacement ÿeld. Therefore, the calculation of the displacement derivatives with respect to a design variable sk represents the ÿrst and major step in the sensitivity analysis. When the standard governing static equation Kd = f is di erentiated with respect to the design variable sk , we obtain @d @K @f K + d= (18) @sk @sk @sk in which the terms @d=@sk ; @K=@sk and @f=@sk can be evaluated by any sensitivity calculation method. The approach adopted here is the ÿnite di erence method (FDM) due to the complex formulation of the DRM element. The method uses a simple ÿnite di erence evaluation of the gradient. This is achieved by perturbing the considered design variable sk by sk , and then a comparison of unknowns in the structure is made between the two states (sk + sk ) and sk : these values are dsk + sk and d respectively. Consequently, the sensitivity of the displacement d with respect to the design variable sk is calculated by d d sk + s k − d @d = : (19) @sk sk sk This is carried out using the following scheme: ÿrst the static standard equation K(s)d = f is solved for the current design variables s to get d, and then the kth design variable is perturbed by a quantity sk and the new displacement dsk + sk is obtained by solving the equation K(sk + sk )d = f. Thus, for each sensitivity calculation a separate full assembly and solution of the governing FE equation of equilibrium is required. This is computationally expensive and, furthermore, the sensitivity accuracy is highly dependent on the step size sk . The major redeeming feature is that no access to the FE simulation tool (i.e. the solver) is required and it can be treated as a black box.
+
+240
+
+F. Belblidia, E. Hinton / Finite Elements in Analysis and Design 38 (2002) 227–244
+
+5. FIDO-plates toolkit As stated before, a typical objective of the FIDO process for optimally sti ened plates is to ‘ÿnd the sti est plate structure subject to a given set of loading, boundary conditions and material properties which ÿts in a speciÿed thin box and has a speciÿed volume’. The FIDO-plates cycle starts with the topology optimization technique. The technique uses a three layered artiÿcial material model with a resizing algorithm. The principle of the topology optimization is to redistribute material in the plate in order to reduce its strain energy within a given volume. The material re-distribution is done through the top and bottom layers by creating empty, voided and solid material regions within them. As a result of this a grey scales sti ening image is produced. This represents the optimal sti ening topology. The second phase of the FIDO process is called adaptive ÿtting optimization. The basis of this technique is to ‘clean up’ the grey scales image obtained from the topology optimization phase. This can be carried out by an automatic image processing approach. The technique uses a spline ÿtting algorithm based on least-squares smoothing of points deÿning the sti ening boundaries. When the adaptive ÿtting is used, the resulting sti ened plate may violate the volume constraint condition. This condition can, however, be re-established again by either shape or sizing optimization. The last stage of the FIDO-plates process can be either shape or sizing optimization. Shape optimization will be used to establish the volume constraint by optimizing the shape of the boundaries of the regions deÿned by the topology optimization and the ÿtting steps, and by imposing user estimate thicknesses for these regions. In this case the optimum boundaries may di er considerably from the original ones. That is why it is more realistic to use the sizing optimization method to ascertain the thicknesses of each region with the sti ening boundaries ‘frozen’ as deÿned in the previous steps of FIDO. Also in sizing optimization we may add further constraints such as stress or maximum displacement limits. The full FIDO process is described in Fig. 1, where the dark boxes show the selections from the FIDO-TK toolkit used in FIDO plates. The process can continue until no further improvement has been attained. 6. FIDO examples We now turn our attention to some examples of the FIDO process for sti ening plates. In the two examples presented here two sets of ÿgures are provided for each example in the form: 1. problem deÿnition and results from the topology optimization, 2. image extraction and FE meshing prior to sizing optimization, here a symmetric quadrant is considered and 3. ÿnally the results following the di erent steps of the FIDO process are given. In all of the examples, the E = 10:92 × 105 , Poisson’s a thickness h0 = 0:05 and The thickness of the plate following problem deÿnition data are identical with elastic modulus ratio = 0:3 and the central load Fc = − 100. The central layer has the top and bottom layers each have a thickness of h1 =2 = 0:025. is then H = (h0 + 2h1 =2) = 0:1. All units are assumed to be consis-
+
+F. Belblidia, E. Hinton / Finite Elements in Analysis and Design 38 (2002) 227–244
+
+241
+
+Fig. 7. Cross-shaped plate: (1) design domain, (2) topology at 50 iterations, (3) topology at 100 iterations and (4) topology at 150 iterations.
+
+tent. For topology optimization data are as follows: penalty exponent for the artiÿcial material = 5, maximum incremental density parameter amax = 0:05, initial curve exponent parameter pinit = 5:0, iterative advancing parameter iter = 0:025, volume fraction of Vf = 50% and tolerance in the change of the strain energy of 1%. The volume fraction is applied to the volume of the top and bottom layers, and the volume of the central layer is unchanged during the topology optimization. If A is the total area of the plate, the plate volume is calculated as (Ah0 + Vf Ah1 ). In all the examples tested here, only a symmetric quadrant of each plate is considered. Given the above data we can see that the initial plate is assumed to ÿt within a thin box of a uniform thickness of 0.100, and has sti ening volume of 50% of the equivalent solid plate. 6.1. Cross-shaped plate The cross-shaped plate shown in Fig. 7 is subject to a central point load and has clamped boundary conditions at its four outer edges. The geometric parameter a in Fig. 7 is taken as equal to 10. The overall objective as mentioned above is to minimize the strain energy of the plate subject to a constraint on the sti ening volume which is taken to be 5.625. The topology optimization results in Fig. 8 show that there are three di erent regions within the plate: the central region where the load is applied is identiÿed by the thickness value hr1 , the two regions adjacent to the edge where the clamped boundary conditions are applied are identiÿed by the thickness value hr2 and the remaining region is identiÿed by the thickness value hr3 . These thicknesses hr1 –hr3 are used as design variables in the sizing optimization. The optimization results are given in Table 1, where the redistribution of the sti ening material in the upper and lower layers after the full FIDO leads to a 41% improvement in the strain energy and maximum displacement and a 40% improvement in the maximum von Mises e ective stress. 6.2. Floor slab The ÿnal example of this section consists of a oor slab supported by four columns. The slab is subjected to a central concentrated load. The dimensions of the slab, which is illustrated
+
+242
+
+F. Belblidia, E. Hinton / Finite Elements in Analysis and Design 38 (2002) 227–244
+
+Fig. 8. FIDO process for the cross-shaped plate quadrant: (1) topology, (2) position of data points deÿning sti ening boundaries, (3) optimum ÿtting and (4) sizing mesh data. Table 1 FIDO optimization results for the cross-shaped plate Optimization stages Main values Variables Constraint Objective Displ. Stress hr1 hr2 hr3 Volume SE wmax
+max
+
+Initial Uniform Thickness 0.100 5.625 728 23.0 176 404
+
+Topology 0.1000 0.1000 0.0500 5.625 — — —
+
+Fitting 0.1000 0.1000 0.0500 5.627 — — —
+
+Sizing 0.1000 0.1000 0.0512 5.624 383 13.5 106 970
+
+Fig. 9. Floor slab: (1) design domain, (2) topology at 50 iterations, (3) topology at 150 iterations and (4) topology at 300 iterations.
+
+in Fig. 9 are side length a = 10, space between columns 2b = 8 and square column side length c = 1. The sti ening volume is taken to be 1.875. The topology optimization results in Fig. 10 show that there are three di erent regions within the plate: The central region shown in dark colour in
+
+F. Belblidia, E. Hinton / Finite Elements in Analysis and Design 38 (2002) 227–244
+
+243
+
+Fig. 10. FIDO process for the and (4) sizing mesh data.
+
+oor slab quadrant: (1) topology, (2) position of data points, (3) optimum ÿtting
+
+Table 2 FIDO optimization results for the oor slab Optimization stages Main values Variables Constraint Objective Displ. Stress hr1 hr2 Weight SE wmax
+max
+
+Initial Uniform 0.100 1.875 448 4.48 160 220
+
+Topology 0.1000 0.0500 1.875 — — —
+
+Fitting 0.1000 0.0500 1.871 — — —
+
+Sizing 0.1000 0.0529 1.875 219 2.19 104 180
+
+Fig. 10(1) where the load is applied is identiÿed by the thickness value hr1 . The region where the column is positioned is deÿned as a non-design domain and has a constant thickness hrc = 0:05. Finally the remaining region is identiÿed by the thickness value hr2 . These thicknesses hr1 and hr2 are used as design variables in the sizing optimization. The redistribution of the sti ening material in the upper and lower layers after the full FIDO leads to a 51% improvement in the strain energy and maximum displacement and a 35% improvement in the maximum von Mises e ective stress. The optimization results are given in Table 2. 7. Conclusions The FIDO-TK is an optimization tool which can be applied to improve the structural design. In this paper, FIDO-TK has been applied to plate structures using three major optimization steps. Each one of these steps has been tested separately in order to show its main improvements. The ÿrst step is topology optimization based on a hybrid algorithm where a three layered, isotropic, nine-noded MR plate bending element is used with the artiÿcial material model, the aim is to redistribute the material in order to minimize the structural strain energy of the plate without altering its volume.
+
+244
+
+F. Belblidia, E. Hinton / Finite Elements in Analysis and Design 38 (2002) 227–244
+
+The second step is the boundary ÿtting optimization which is used to smooth the emerging boundaries from the topology optimization step. The test example shows that the ÿtting is most e cient if we use as few key points as possible. The quality of the approximation is speciÿed by a user-deÿned convergence limit and move tolerance. The ÿnal step is the sizing optimization where the thickness of each part of the plate deÿned by the topology optimization is minimized. Finally the results from the fully integrated optimization tool show a decrease in the strain energy of the plate, and also in the maximum displacement and maximum von Mises e ective stress. The FIDO-TK process has produced a plate with good performance compared to the initial one. Acknowledgements The ÿrst author would like to thank the British Council (Algiers) for their sponsorship. The sponsorship of EPSRC grant called ‘Fully Integrated Design Optimization of Engineering Structures’ (FIDO) is also acknowledged. Sadly during the correction of this paper Prof. E. Hinton passed away. He was a well respected man in the ÿeld of FE analysis and optimization and a good friend. He will be deeply missed by family, friends and colleagues. References
+[1] M.P. BendsHe, N. Kikuchi, Generating optimal topologies in structural design using homogenization method, Comput. Methods Appl. Mech. Eng. 71 (1998) 197–224. [2] M.P. BendsHe, Optimization of Structural Topology Shape, and Material, Springer, Berlin, 1995. [3] Y.M. Xie, G.P. Steven, Evolutionary Structural Optimization, Springer, Berlin, 1997. [4] A. Baumgartner, L. Harzheim, C. Matteck, SKO soft kill option. The biological way to ÿnd an optimum structure topology, Int. J. Fatigue 14 (6) (1992) 387–393. [5] J. Sienz, Integrated structural modelling, adaptive analysis and shape optimization, Ph.D. Thesis, C=Ph=181=94, Department of Civil Engineering, University of Wales, Swansea, 1994. [6] Q. Li, Evolutionary structural optimization for thermal and mechanical problems, Ph.D. Thesis, Department of Aeronautical Engineering, University of Sydney, Sydney, Australia, 2000. [7] M. Paley, M.B. Fuchs, E. Miroshnik, The Aboudi micromechanical model for shape design of structures, The Third International Conference on Computational Structures Technology, Budapest, 1996. [8] S.D. Bulman, E. Hinton, Constrained adaptive topology optimization of engineering structures, Des. Optim. 1 (1999) 419–439. [9] M. Zhou, G.I.N. Rozvany, The COC algorithm, Part II: topological, geometrical and generalized shape optimization, Comput. Methods Appl. Mech. Eng. 89 (1991) 309–336. [10] G.I.N. Rozvany, M. Zhou, T. Birker, Generalized shape optimization without homogenization, Struct. Optim. 4 (1992) 250–252. [11] DOT, Design Optimization Tool, Version 4.00 Reference Manual, Vanderplaats, Mirua & Associates VMA Engngn., April 1993. [12] O.C. Zienkiewicz, R.L. Taylor, P. Papadopoulos, E. Onates, Plate bending elements with discrete constraints: new triangular elements, Comput. Struct. 35 (4) (1990) 505–522.
+

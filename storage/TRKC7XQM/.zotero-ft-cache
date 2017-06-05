@@ -1,0 +1,160 @@
+Journal of Materials Processing Technology 146 (2004) 396–402
+
+Modeling and processing of functionally graded materials for rapid prototyping
+M.Y. Zhou∗ , J.T. Xi, J.Q. Yan
+School of Mechanical Engineering, Shanghai Jiaotong University, Shanghai 200030, PR China Received 18 June 2002; received in revised form 28 October 2002; accepted 20 November 2003
+
+Abstract In this paper, we present an approach to model and process functionally graded material objects by integrating material information along with geometry information in the heterogeneous solid model. Geometry modeling of the objects is done in the CAD system and the STEP standard exchange format is adopted to exchange geometry information between the CAD system and heterogeneous solid modeling system. For material modeling, reference entities were selected and material distribution information in terms of distance functions were speciﬁed together. The material information was incorporated with geometry information by attaching distance functions to reference entities as their properties. In processing a heterogeneous solid model, the continuous material distribution is discretized in 2D space rather than in 3D space and only material distribution functions are saved in slice ﬁles. The slicing process goes along with the manufacturing process of heterogeneous objects concurrently. Therefore, much memory can be saved. Two examples are described. © 2003 Elsevier B.V. All rights reserved.
+Keywords: Functionally graded materials; Rapid prototyping; Heterogeneous solid model
+
+1. Introduction 1.1. Design and layered fabrication of heterogeneous parts Functionally graded materials (FGM), also called heterogeneous materials, are a new generation of engineered materials wherein the microstructural details are spatially varied through non-uniform distribution of the reinforcement phase(s), by using reinforcement with different properties, sizes and shapes, as well as by interchanging the roles of reinforcement and matrix phases in a continuous manner. The result is a microstructure that produces continuously or discretely changing thermal and mechanical properties at the macroscopic or continuum scale [1,2]. Functionally graded material has become a subject of research in the material science, composites, ceramic engineering and metallurgy communities [3]. The genre of manufacturing processes that can fabricate such heterogeneous objects is termed rapid prototyping (RP) or layered manufacturing (LM). This fabrication technique involves deposition of material to create an object, unlike conventional methods, where material is removed to obtain the ﬁnal object [4–6]. The deposition of ma∗ Corresponding author. Tel.: +86-21-52581501. E-mail address: manyuanzhou@hotmail.com (M.Y. Zhou).
+
+terial can be explicitly controlled thereby providing unique opportunities to selectively deposit material. In other words, the material deposited can be varied continuously to yield a functionally graded material object with varying material distribution [7,8]. For the purpose of design, representation and fabrication of heterogeneous objects, a CAD model of the object is required which has not only the geometry information but also the information on material, property, etc. at each point of the object. Only recently, however, has the design and fabrication of heterogeneous parts been the focus of research, possibly because of the highly evolutionary nature of the ﬁeld. 1.2. Previous work Kumar and Dutta [9] introduced an approach for modeling heterogeneous objects by using r-sets extended to include composition rm -sets with accompanying Boolean operators. An rm -object is deﬁned as a ﬁnite collection of these rm -sets with each rm -set being a material domain with an analytic material function. Jackson et al. [10] exploited an approach to produce functionally graded material objects based on sub-dividing a model into sub-regions (tetrahedrons). For each region, an analytic composition blending function is assigned to deﬁne the material composition variation. Pegna and Sali [11] proposed a model by representing
+
+0924-0136/$ – see front matter © 2003 Elsevier B.V. All rights reserved. doi:10.1016/j.jmatprotec.2003.11.034
+
+M.Y. Zhou et al. / Journal of Materials Processing Technology 146 (2004) 396–402
+
+397
+
+multi-material models as point sets including Cartesian coordinates plus material composition. Decomposition modeling, however, is cumbersome during design because it does not maintain topological information about the model and is not as memory efﬁcient as the more commonly used B-Rep methods. Patil et al. [12] proposed an information model to represent heterogeneous objects using the information modeling methodology developed for STEP. Siu and Tan [13] proposed a ‘source-based’ heterogeneous solid modeling scheme and deﬁned extended operations (e.g. insertion, merge, immersion) in addition to the CSG type Boolean operations to model the grading sources. Apart from the modeling schemes, some researchers also studied the fabrication of heterogeneous objects. Fessler et al. [7] used a shape deposition manufacturing (SDM) laser deposition system to fabricate functionally graded metals by mixing metal powder. They utilized the system to fabricate an advanced multi-material injection molding tool to reduce the problem of stress concentrations. Jepson et al. [8] developed a multiple material selective laser sintering machine to fabricate heterogeneous parts made of metal and ceramic. In this paper we propose a new approach for modeling and processing functionally graded material objects for rapid prototyping. Compared to the above heterogeneous object representation schemes, the approach described in this paper is easier to design and modify the material grading distribution and memory efﬁcient by assigning material distribution functions and reference features together. It also has good generality and ﬂexibility by using STEP format and extended B-Rep schemes to exchange and represent FGM objects, respectively. Different from the scheme proposed by Siu and Tan [13], heterogeneous objects with complex geometry shape (e.g. NURBS surfaces) can be modeled using our method because the geometry of the
+
+object is modeled in a commercial CAD systems using its powerful geometry modeling ability. Considering that the material distribution of functionally graded material objects is never very complicated, only a union method is used to deal with material distribution with multi-references. For slicing heterogeneous objects, only the material functions, which represent the material information, are stored in slice ﬁles. Therefore, much memory can be saved. Unlike the above heterogeneous object representation schemes, in our approach the discretization of the continuous material distribution is done in 2D layer instead of 3D space, so it becomes much easier and simpler. Fig. 1 shows the information ﬂow of modeling and processing functionally graded material objects.
+
+2. Representation of material grading information Traditional CAD modeling systems only describe geometry information of the object. Heterogeneous solid modeling must also describe material composition and grading distribution information apart from geometry information. The space to model FGM objects is a product space T = E3 × Mn , where E3 is the 3D geometry space and Mn is n-dimensional material space. Material space V is deﬁned as a subset of Mn : V= v∈M | v
+n n 1
+
+=
+i=1
+
+vi = 1 and vi ≥ 0
+
+(1)
+
+CAD System
+Geometry Model
+
+Select Reference
+Specify Material function
+Heterogeneous Solid Model
+
+Material Modeling System
+
+Geometry Slice
+
+Material Slice
+
+Post Processing
+
+Slice Model
+Layered Manufacturing
+Fig. 1. Information ﬂow of modeling and processing heterogeneous objects.
+
+Each point in the object could be modeled as a point P(x ∈ E3 , v ∈ V) in T, where x and v (or equivalently, F(x)) denotes the geometric and material points, respectively [9]. By applying the concept of material space, material composition information of heterogeneous objects can be represented and incorporated with geometry information through some kind of mapping from E3 to Mn . Fig. 2 shows the mapping of material information. In our approach, the material grading information of heterogeneous objects is assigned to a reference feature. The material grading information is represented by material distribution functions. The material distribution function is deﬁned in the entire Euclidean space E3 , but it is only valid within the boundary of the object. The material function is represented in terms of a distance function f(d), where d represents the distance between query point inside the object and the reference feature. Different compositions can be assigned to different references and can have different material distribution functions. By selecting a reference, the material distribution can be easily modiﬁed without changing the geometry of the object. Fig. 3 shows the representation of material information. In this case, each primary material of the object has its own material grading distribution and is speciﬁed with different references, though different material can also be speciﬁed with the same reference.
+
+398
+
+M.Y. Zhou et al. / Journal of Materials Processing Technology 146 (2004) 396–402
+Querying Point P
+
+Geometry Space
+
+E3
+
+···
+
+Material Density dp
+
+Fm
+
+material function f1
+
+material function f1
+
+···
+
+material function f1
+
+Material Space M n
+Fig. 2. Mapping of material information.
+
+Fig. 3. Representation of material information.
+
+3. Modeling of functionally graded material objects 3.1. Geometry modeling and exchange of geometry data The ﬁrst task of heterogeneous solid modeling is geometry modeling. This step generates the geometric data that deﬁne the physical boundary of the model. Our approach is implemented in a commercial CAD system. The geometric data is exported from the CAD system to the heterogeneous solid modeling system as a standard exchange format such as STEP for the following reasons. Stereolithography (STL) ﬁle format, which has become the de facto standard in the RP community, has many disadvantages, such as loss of topologic information and large ﬁle size besides approximation of the boundary of the object [14]. Furthermore, STL ﬁle format cannot be used to represent material information. STEP was developed as an international standard for representing product data for data exchange throughout a product’s design, analysis, and manufacture cycles. Compared to STL ﬁle format, STEP provides complete and accurate description of the geometric and topologic information of a product using NURBS patches [15]. STEP also can be
+
+used to describe material information of a product. Given the limitations of the STL ﬁle format, the logical choice for the data exchange heterogeneous solid models is STEP. 3.2. Material modeling For material modeling, the incorporation of geometry and material information is done through assigning the material composition grading information to a reference entity. The reference entity could be an arbitrary feature of the model in the coordinate system, such as a point, line, surface or the entire outer boundary of the heterogeneous object. When the reference entity is the entire outer boundary of the object, the distance used as a parameter in the material distribution function refers to the minimum of all the distances between the query point and all the surfaces of the outer boundary. The material composition grading is represented by a distance function f(d). The material composition at any point inside the heterogeneous object can be evaluated through this distance function f(d ) with d representing the distance from the query point to the reference. By selecting a geometry entity as the reference and specifying a material
+
+Reference Entity
+
+Reference Entity
+
+Reference Entity
+
+M.Y. Zhou et al. / Journal of Materials Processing Technology 146 (2004) 396–402
+
+399
+
+distribution function f(d ), the designer accomplishes the design of material grading distribution. The material composition distribution information can be incorporated with geometry information by storing the distribution function f(d) as an attribute of the reference entity. The material distribution function f(d) is a vector function, each branch function represents the distribution function of a primary material. They should satisfy the following condition:
+n
+
+fi (d) = 1
+i=1
+
+(2)
+
+where i is the material index and n is the number of material kinds. Because the material volume fraction should be positive and not greater than 1, the material distribution f(d) should be truncated to 0 or 1 when it is less than 0 or greater than 1, respectively. That is, the material distribution f(d) turns to the following forms:   fi (d), 0 ≤ fi (d) ≤ 1   fi (d) = 0, (3) fi (d) < 0    1, fi (d) > 1 where i is the material index. Fig. 4 shows the design of the material grading. The heterogeneous object in Fig. 4 is composed of two kinds of materials: A and B. Material A is on the outer surface and material B is inside the object away from the outer surface. The volume fraction of material A turns from 1 to 0 along the composition grading direction from the outer surface to the center and the fraction of material B turns from 0 to 1. Followed are their distribution functions. fA (d) = (1 − d)2 , fB (d) = 1 − fA (d) (4)
+
+material grading distributions just like in Fig. 4. When different materials are assigned to different references, they can have the same distribution function or different distribution functions. Whether single reference or multi-references are selected for material modeling, both formulae (2) and (3), should all be submitted. When a material is assigned to more than references, it has different material distribution functions and it will have different material composition values at the same point inside the heterogeneous object. To deal with this kind of conﬂict the minimum distance principle is adopted. That is, the reference that has minimum distance between the query point is used to evaluate the material composition at that point through its material distribution function.
+
+4. Processing of functionally graded material objects In the context of heterogeneous objects, the processing tasks of determining part orientation and slicing require considering material distribution within the model as well as the geometry. As the ﬁrst task of process planning in a layered manufacturing process, part orientation determination affects building time, surface quality, total volume of support structure and area of contact with support structure. In part orientation determination of heterogeneous objects, it is necessary to go beyond geometric features and consider material features, especially material distribution. It is much easier and more convenient to control the RP machine for building an object with constant proportion of material compositions than by varying the proportions in a single layer. When the building direction is identical to the material grading direction, the proportion of material compositions in each layer will be uniform, namely the volume proportion of material compositions will be constant in each layer. For the convenience of manufacturing, the building direction should be selected to be the same as the material grading direction or such that the angle between building direction and material grading direction is minimal. The generation of support structure for heterogeneous objects is independent of the material compositions and their distributions. So, the generation of support structure for heterogeneous objects can only consider the geometry of the object, just as for homogeneous objects. Because many researchers have studied the generation of support structure for homogeneous objects, we do not intend to explain the generation of support structure for heterogeneous objects. Unlike the slicing of homogeneous objects, the slicing of heterogeneous objects should be determined not only by the geometry of the contour but also by the material distribution information in each layer. In our approach, the slicing process of heterogeneous objects is divided into two steps. First, the geometry of the 3D model is directly sliced into many thin 2.5D layers with a constant layer thickness to determine the contour of each layer. The determination of
+
+where d represents the ratio of distance between query point to the reference. For more than one material grading distribution, multireferences can be selected. Different materials can be assigned to the same reference or different references. If the same reference is selected, different materials can have different distribution functions so that they have different
+
+Fig. 4. Material design.
+
+400
+
+M.Y. Zhou et al. / Journal of Materials Processing Technology 146 (2004) 396–402
+
+layer thickness should consider not only geometry tolerance but also material tolerance. The minimum layer thickness that meets the requirement of both geometry and material tolerance should be selected to slice the model. Second, material compositions information of the model is decomposed (sliced) to determine the material distribution in each layer, that is, to determine the material compositions (the volume fractions of all primary materials) at some query points inside the object. This is a process of discretizing the continuous material distribution that includes tessellating the contour into many cells and evaluating the material compositions in each cell. First, the contour of each layer is tessellated into many small foursquare cell meshes. Each cell is small enough to be considered as a homogeneous lump. Second, the distance from the center of each cell to the reference feature is evaluated so that the material compositions in each cell can be evaluated by material distribution function, which uses the distance as its parameter. When the reference entity is the entire outer boundary of the object, the distance used as a parameter in the material distribution function refers to the minimum of all the distances between the query point and all the surfaces of the outer boundary. Unlike Jackson et al. [10] and Pegna and Sali [11], in our approach the material information is represented and stored in slice ﬁles in terms of material distribution functions. Compared to ﬁnite cells or point sets, storing material information in terms of distance functions can save much memory. Furthermore, the slicing process of the object can go along with the manufacturing process concurrently. The material distribution within the current layer can be computed through distance functions while the former layer is being fabricated. Therefore, only a small part of material information of the object needs to be stored.
+
+perature properties and the material on the outer surface is Al alloy which has ﬁne mechanical properties. The materials of the vessel alternate from ceramic to Al alloy continuously from the inner surface to the outer surface. The geometry of the part is ﬁrst modeled in a commercial CAD system such as unigraphics. Then the geometry model is loaded into our heterogeneous object modeling system by STEP standard format. For material modeling, the outer cylindrical surface is selected as the reference feature of materials distribution and materials composition variation is deﬁned as functions of distance between the query points inside the object and the reference. The sum of the values of all the distribution functions must equal one and each one should submit to a value between zero and one. In this example, the material distribution functions are assigned as fA (d ) = (1 − d )2 , 0≤d≤1
+2
+
+fB (d ) = 1 − (1 − d ) ,
+
+0≤d≤1
+
+(5)
+
+where d is the ratio of distance between query point and the reference and materials A and B represent Al alloy and ceramic, respectively. After material modeling is ﬁnished, the heterogeneous solid model is sliced for rapid prototyping fabrication. Fig. 5 shows the geometry model, heterogeneous solid model and one slice of this part. 5.2. Example 2 The second example is a bevel wheel which has a 10◦ incline. The bevel wheel has ceramic on the outer surface for its high hardness and ﬁne wearing resistance properties and steel in the core for its ﬁne mechanical properties. The materials inside the bevel wheel alternate continuously from the ceramic on the outer surface to the steel core. The geometry of the bevel wheel is ﬁrst modeled in unigraphics and then the geometry model loaded into our heterogeneous object modeling system by STEP ﬁle. For material modeling, the entire outer boundary of the bevel wheel, which is composed of 84 surface entities including 63 NURBS surfaces and 21 cylindrical surfaces, is speciﬁed as the reference feature. The material compositions variation of the bevel wheel
+
+5. Examples 5.1. Example 1 The ﬁrst example is a pressure vessel with the shape of hollow cylinder that contains high temperature ﬂuid. The material on the inner surface is ceramic which has high tem-
+
+Fig. 5. (a) Geometry model of cylinder container; (b) heterogeneous solid model; (c) one slice.
+
+M.Y. Zhou et al. / Journal of Materials Processing Technology 146 (2004) 396–402
+
+401
+
+Fig. 6. (a) Geometry model of a bevel wheel; (b) heterogeneous solid model; (c) one slice; (d) local view of the slice.
+
+is assigned to the reference as functions of distance between query points inside the object and the reference. The material distribution functions of the two kinds of materials are listed below: fA (d ) = 4 × d 2 − 5.8 × d + 1, 0 ≤ d ≤ 0.2 0, 0≤d≤1 0.2 < d ≤ 1 (6)
+
+fB (d ) = 1 − fA (d),
+
+where d represents the ratio of distance between query points inside the bevel wheel and the entire outer boundary and fA (d), fB (d ), represent distribution functions of ceramic and steel, respectively. After material modeling is ﬁnished, the heterogeneous object is sliced and processed before being sent to the RP machine so that it can be fabricated. Fig. 6 shows the geometry model, heterogeneous solid model and one slice of this part. A single entity is select as a reference of materials distribution in Example 1 and multi-entities are selected in Example 2. Although only one reference is selected for grading distribution of two kinds of materials in the foregoing two examples, multi-references can be selected for different materials distributions. When multi-references are selected, the material compositions of all material distributions should be united at the points inside the heterogeneous object and the sum of all the material functions also must submit to a value between 0 and 1.
+
+also be modeled using our method because the geometry of the object is modeled in a commercial CAD system. Compared to homogeneous objects, the fabrication of FGM objects is very complicated for the representation and processing of functionally graded material information. In processing FGM objects, the discretizing process of the continuous material distribution is done in 2D layer instead of 3D space. Only the material functions, which represent the material information, are stored in slice ﬁles. The slicing process of the FGM object can go along with the manufacturing process concurrently so that only a small part of material information of the object needs to be stored. Apart from the representation and slicing, part orientation and tool-path generation for fabricating heterogeneous objects should also be studied in greater detail in future work, considering the material distribution information.
+
+References
+[1] J. Aboudi, M.-J. Pindera, S.M. Arnold, Higher-order theory for functionally graded materials, Comp. Part B: Eng. 30 (1999) 777– 832. [2] B. Ilschner, Processing–microstructure–property relationships in graded materials, J. Mech. Phys. Solids 44 (5) (1996) 647–656. [3] S. Suresh, A. Mortensen, Fundamentals of functionally graded materials, IOM Commun. (1998) 3–7. [4] C. Chua, S. Chou, T. Wong, A study of the state-of-the-art rapid prototyping technologies, Int. J. Adv. Manufac. Technol. 14 (1998) 146–152. [5] D. Kochan, Solid Freeform Manufacturing: Advanced Rapid Prototyping, Elsevier, Amsterdam, 1993. [6] X. Yan, P. Gu, A review of rapid prototyping technologies and systems, Comput. Aided Des. 28 (4) (1996) 307–318. [7] J. Fessler, A. Nickel, G. Link, F. Prinz, P. Fussell, Functional gradient metallic prototypes through shape deposition manufacturing, in: Solid Freeform Fabrication Proceedings, Austin, September 1997, pp. 521–528. [8] L. Jepson, J. Beaman, D. Bourell, K. Wood, SLS processing of functionally graded materials, in: Solid Freeform Fabrication Proceedings, Austin, September 1997, pp. 67–80. [9] V. Kumar, D. Dutta, An approach to modeling and representation of heterogeneous objects, J. Mech. Des. 120 (12) (1998) 659–667. [10] T.R. Jackson, H. Liu, N.M. Partikalakis, E.M. Sachs, M.J. Cima, Modeling and designing functionally graded material components for fabrication with local composition control, Mater. Des. 20 (1999) 63–75.
+
+6. Conclusions An approach to the modeling and processing of functionally graded material objects for rapid prototyping is presented. In this approach, material information is represented in terms of a group of distance functions, which are accompanied by one reference or multi-references. The material information is incorporated with geometry/topology information by attaching material distribution functions to reference entities as their properties. The modiﬁcation of the material grading distribution can be done conveniently without modifying the geometry of the object. FGM objects with complex geometry shape (e.g. NURBS surfaces) can
+
+402
+
+M.Y. Zhou et al. / Journal of Materials Processing Technology 146 (2004) 396–402 [13] Y.K. Siu, S.T. Tan, ‘Source-based’ heterogeneous solid modeling, Comput. Aided Des. 34 (2002) 41–55. [14] V. Kumar, D. Dutta, An assessment of data formats for layered manufacturing, Adv. Eng. Softw. 28 (3) (1997) 151–164. [15] ISO/DIS 10303-42: Product Data Representation and Exchange, Integrated Generic Resources: Geometric and Topological Representation, 1993.
+
+[11] J. Pegna, A. Sali, CAD modeling of multi-modal structures for free-form fabrication, in: Presentation at Solid Freeform Fabrication Symposium, Austin, Tx, August 1998. [12] L. Patil, D. Dutta, A.D. Bhatt, K. Jurrens, K. Lyons, M.J. Pratt, R.D. Sriram, in: Proceedings of the ASME Conference, Representation of Heterogeneous Objects in ISO 10303 (STEP), Orlando, FL, November 2000.
+

@@ -1,0 +1,322 @@
+Computers & Graphics 51 (2015) 117–124
+
+Contents lists available at ScienceDirect
+
+Computers & Graphics
+journal homepage: www.elsevier.com/locate/cag
+
+Special Issue: SMI 2015
+
+Orientation analysis of 3D objects toward minimal support volume in 3D-printing
+Ben Ezair n, Fady Massarwi, Gershon Elber
+Computer Science Department, Technion Israel Institute of Technology, Haifa, Israel
+
+art ic l e i nf o
+Article history: Received 4 March 2015 Received in revised form 17 May 2015 Accepted 17 May 2015 Available online 2 June 2015 Keywords: Additive manufacturing GPU computation 3D-printing optimization
+
+a b s t r a c t
+In this paper, we examine how the support structure in 3D-printing can be optimized, by changing a model's orientation. Speciﬁcally, we explore the effect that the orientation of a printed object has on the volume of the needed support structure, directly below the model. We show that the volume of the support is a continuous but non-smooth function, with respect to the orientation angles. We continue by presenting an efﬁcient algorithm, capable of running on a GPU, that computes the model's support volume for a given orientation. Then, this algorithm is used to ﬁnd an orientation with a minimal volume of support for constructing the model, that is not necessarily optimal. However, examples and experimental results are presented, showing that the minimum computed by our approach is for practical purposes, in many cases, optimal. & 2015 Elsevier Ltd. All rights reserved.
+
+1. Introduction The orientation in which a 3D model (denoted as M from now on) is constructed using a 3D-printer, affects the printing process in many ways. Properties such as mechanical strength, surface smoothness, overall printing time, and the amount of material needed for the support structure, all depend on the orientation in which M is constructed using 3D-printing [1,2]. In this work, we concentrate on one such property: the volume of the support structure. The support structure (denoted as S) is an additional printed structure, needed to support M (in our case directly from below, ﬁlling the entire vertical gap where the model overhangs) during the 3D-printing process. Without S, parts of M that have not yet achieved their full strength may collapse during the printing process. While S is necessary to 3D-print certain models, the volume of S, V(S), should be minimized as it requires additional printing time and material [3]. The main contributions of this work are 1. Providing a better understanding of the problem of computing V(S), given M. 2. Presenting an efﬁcient algorithm to compute V(S) for a given orientation, possibly using the GPU. 3. Developing a scheme by which the algorithm (presented in 2 and following the limitations portrayed in 1) can be employed to ﬁnd the overall best orientation of M that minimizes V(S). Our experiments indicate that in many cases the
+
+best solution found by our approach is, in fact, the optimal solution. In Section 2, we give a short overview of related work. In Section 3, we present an efﬁcient, possibly GPU based, approach to compute V(S), for a given orientation of M. We show that V(S) is a continuous but only piecewise smooth function of the orientation for a polygonal model M, and so the derivative of V(S), with respect to orientation angles, cannot be assumed to exist for all orientations. Then, we present a derivatives-free algorithm that selects the best orientation for M, minimizing V(S). In Section 4, we provide some experimental results, and ﬁnally, conclusions and possible future work are discussed in Section 5.
+
+2. Related work An example of some of the early work related to ﬁnding the best printing (or build) orientation, is the work by Alexander et al. [3]. In [3], various orientation dependent properties, such as model height, support volume, and surface accuracy, are evaluated, and a cost comparison is used to ﬁnd the best orientation. Other work similar to [3] was done by Frank et al. [4] that proposes an expert system tool that interacts with a user to select the best orientation, and Crawford et al. [5] that presents quantitative measures relating different aspects of part quality to orientation. In the work by Jibin et al. [6], the build orientation is optimized based on the considerations of the staircase effect (surface smoothness), support area (the total area of the downward-facing facets), and production time (model height).
+
+n
+
+Corresponding author.
+
+http://dx.doi.org/10.1016/j.cag.2015.05.009 0097-8493/& 2015 Elsevier Ltd. All rights reserved.
+
+118
+
+B. Ezair et al. / Computers & Graphics 51 (2015) 117–124
+
+According to the authors of [6], a shortcoming of their method can be found in the long computing time. A recent overview of work related to ﬁnding the best printing orientation, can be found in the work of Tauﬁk et al. [2]. Other related work concentrates on computing the effect that the orientation of M has on a single property, for example, in [7] a visual tool that presents a model's surface smoothness for a given orientation is used, allowing users to identify the best orientation. The work by Gupta et al. [8] chooses a near optimal orientation based only on minimal build time (and minimal number of layers) for a shape deposition manufacturing (SDM) system. The optimal orientation in [8] is found by partitioning the unit sphere (representing all the candidate orientations) into smaller spherical polygons, identifying the best orientation within every spherical polygon, and assembling solutions from various polygons to ﬁnd the ﬁnal build orientation. The most common single property examined is V(S). The work by Allen et al. [9] computes an approximation of V(S) for a given orientation, and also identiﬁes a pool of good (small) V(S) candidate orientations. V(S) is approximated in [9] by sampling points on the surface of M and classifying them as supported or unsupported. Agarwal et al. [10] consider only convex models and use an approximation algorithm to compute an orientation, that minimizes the surface area of contact between M and the support structure. The work by McMains et al. [11] offers a fast GPU based algorithm for computing V(S). The ability to run the algorithm on a GPU provides faster results than previous CPU based algorithms, while keeping the computation error under 1% for the cases presented in [11]. V(S) computation times in [11], on a GPU are usually under a second, while the compared CPU based algorithm takes tens of seconds to complete. Other works deal with aspects of the support volume other than orientation. For example, in the work by Hu et al. [12] the issue of support volume is sidestepped by decomposing the shape into (pyramidal) parts that can be printed individually without support material and then assembled together. In the work by Huang et al. [13] a reliable general support region is generated from part slices for a given orientation and the self-support area of the part (detected by offsetting the lower slicing contour) is excluded as much as possible to save support material. This paper focuses on providing tools to compute V(S) directly below M for given orientations, and also ﬁnds the best overall orientation that minimizes V(S). The (possibly GPU based) algorithm we propose for computing V(S) is similar to the one in [11]. In [11], V(S) is also computed for a given orientation, using rendering. Ref. [11] fully computes, for each pixel, all polygons that cover (project to) the pixel and their distances from a base Z level, denoted the ﬂoor. The number of polygons covering each pixel is determined by the complexity of M. The maximum number of polygons covering a single pixel is referred to as the depth complexity of M. The distance information is then used to compute V(S). They ﬁnd this information by rendering M, layer by layer (in a process similar to Z-buffer peeling [14]): ﬁrst, all the polygons closest to the screen plane in each pixel are peeled away.
+
+Next, the second closest polygons are peeled away and so on. The volume trapped between two adjacent layers is mapped to either inside or outside of M, with the volume outside of M assigned to V (S). In contrast, the algorithm proposed here requires at most two renderings of M to compute V(S), regardless of the depth complexity of M. We also provide a way to use the introduced algorithm to quickly ﬁnd the global optimal orientation that minimizes V(S).
+
+3. Minimal support volume Recall S is an additional printed structure that is needed to support M during printing. S is necessary to properly 3D-print certain models (some examples can be seen in [15], that explores a speciﬁc strategy to construct the support, and uses the approach given in [3] to select an orientation). The volume of S, V(S), should be minimized by selecting the optimal build orientation, as S imposes additional costs in both extra material and printing time, costs that are proportional to V(S) [3]. In Section 3.1, we lay down the theoretical foundation for our support volume computation algorithm. The algorithm itself, is presented in Section 3.2. Finally, in Section 3.3, we show how this algorithm can be used to select the overall best orientation. 3.1. Theoretical background Let M be a compact surface in R3. In the following discussion, assume that M is in a speciﬁc orientation, and the þ Z direction is considered up. We denote the lowest level (with the lowest value of z) in the model as Zmin. It is trivial to see that the optimal placement for the printing base surface (ﬂoor) in this orientation is at the height of Zmin: all higher values cause the ﬂoor to penetrate M, and all lower values add to V(S) unnecessarily. The support structure needs to support every point in M not already supported by M. This means that every point in M must be connected to the ﬂoor by a vertical segment, made of points that are part of either S or M. The support S is formally deﬁned as Deﬁnition 3.1. È S≔ ðx; y; zÞ j z Z Z min and ( z0 4 z so that ðx; y; z0 Þ A M and É ðx; y; zÞ2 M : = ð1Þ
+
+Note that the mutual exclusion between M and S (ðx; y; zÞ2 M in the = deﬁnition of S), means that if M is deﬁned as an open set, then S will be a closed set, and vice versa. Deﬁnition 3.2. The top cover, T, includes every point that is below some point p A M and is not below the ﬂoor (Zmin). Inclusion in T is deﬁned as È T≔ ðx; y; zÞj z ZZ min and É ð2Þ ( z0 Z z so that ðx; y; z0 Þ A M : Lemma 3.1. For every point p A T either p A M or p A S.
+
+M
+
+T S
+
+Proof. This is a direct result of the deﬁnitions of the three sets. Clearly S & T, and M & T. On the other hand T & ðS [ M). This leads to T ¼ ðS [ MÞ, and since S \ M ¼ ∅, a point in T is either in M or in S. □ Corollary 3.2. S ¼ T À M and VðSÞ ¼ VðTÞ À VðMÞ.
+
+Fig. 1. The model M ((a), in green) has the top cover, T ((b), in blue). By subtracting M from T, S ((c), in yellow) is computed. (For interpretation of the references to color in this ﬁgure legend, the reader is referred to the web version of this article.)
+
+Because V(M) is invariant to rotation, if we compute V(T), V(S) can be derived with ease. See also Fig. 1.
+
+B. Ezair et al. / Computers & Graphics 51 (2015) 117–124
+
+119
+
+3.2. Support volume computation We propose an algorithm that will take advantage of the observation made by Lemma 3.1 and Corollary 3.2, and the rendering abilities of GPU's to quickly compute V(S). The idea behind the proposed algorithm is to map the depth value normally computed by a GPU, to the distance from some real plane (Zmin). Then, when the two, top and bottom, views of M are rendered with orthogonal projection, we will have the results for the ﬁrst (nearest/lowest) and last (farthest/highest) Z level rendered in each pixel and can compute V(T). The Z level of the lowest point in M (overall) can be set as the ﬂoor, Zmin of the printing surface. We then compute the volumes trapped between the highest Z level in each pixel and the level of the ﬂoor, and sum these volumes, only to get the value of V(T). According to Corollary 3.2, in addition to V (S) the extra volume enclosed in V(T) is the internal volume of M, V (M), that is invariant for all orientations and can be calculated in linear time [16]. By computing V(T) using only two (top and bottom) simple Z-buffer renderings, we can derive VðSÞ ¼ V ðTÞ À VðMÞ, as opposed to [11] that requires multiple renderings, depending on the depth complexity of M. Algorithm 1 implements the proposed approach and computes V(S) for a given orientation. The algorithm starts by setting up the rendering to the correct resolution and position M so as to best ﬁt the rendered image. The model is then rendered twice: once from above and once from below. The rendering from below is used to compute the lowest point in the model, Zmin, that is set to be the level of the ﬂoor. The rendering from above is used to compute the top cover for each pixel. The volumes, per pixel, are summed (and corrected for the Zmin level) to get V(T). Finally, V(S) is obtained from V(T) using Corollary 3.2 as V ðSÞ ¼ VðTÞ À VðMÞ. We should note that a single render approach may also be used for a polygon model, as the height of the lowest vertex can be set as the ﬂoor (or Zmin) level. Depending on the costs of rendering and information exchange between CPU and GPU, a single render approach may be more efﬁcient on certain hardware setups. Some further optimizations are made to Algorithm 1 in our implementation, and are discussed in Section 4. Algorithm 1. ComputeTopCoverVolume. Input: (1) 3D model M.
+
+(2) Orientation of M, prescribed using (θ, ϕ), angles of a spherical coordinates system. (3) xres, yres the rendering resolution to use. Output: (1) V(S) for the orientation of M dictated by (θ, ϕ). Algorithm: 1: Setup the resolution of the renderer to xres, yres; 2: Set the rendering projection to tightly enclose M; 3: Bfb ≔ Rendering result of M from below in orientation ðθ; ϕÞ; 4: Z min ≔minðZbufferðBfb ÞÞ; 5: Initialize ZbufferðAfb ð1 Á Áxres ; 1 Á Áyres ÞÞ≔Z min ; 6: Afb ≔ Rendering result of M from above in orientation ðθ; ϕÞ; 7: H sum ≔0; 8: AreaOfPixel≔RenderingAreaXY=ðxres yres Þ; 9: for all x A 1 .. xres do 10: for all y A 1 Á Áyres do 11: H sum ≔H sum þ ðZbufferðAfb ðx; yÞÞ À Z min Þ; 12: endif 13: end for 14: end for 15: Return ðH sum Á AreaOfPixelÞ À VðMÞ;
+
+3.3. Optimizing orientation In Section 3.2, we presented an efﬁcient algorithm to compute V(S) for a given orientation. We now use this algorithm to identify the best orientation that minimizes V(S). V(S) as a function of the orientation angles (θ, ϕ) is potentially a non-smooth function, and is always non-smooth for polygonal models. Fig. 2 shows some graphs for which V(S), as a function of a single orientation angle θ (ϕ is set to a general position), exhibits a non-smooth behavior. Further analysis of the lack of smoothness and the behavior of V(S), for a polygonal model M, as a function of the orientation angles (θ, ϕ), can be found in Appendix A. Realizing V(S) is a non-smooth function, we divide the problem of ﬁnding the best orientation (that minimizes V(S)) into two subproblems: 1. The ﬁrst step performs a uniform sampling of orientation angles, in angular parametric space, and computes V(S) as a function of these sampled angles. This sampling of V(S) gives us a rough estimate of the best orientation. 2. The second stage is used to ﬁnd a locally optimal V(S) using a derivative-free optimization algorithm. Herein, we are following [17]. The algorithm accepts as parameters the ranges of θ and ϕ to be examined, as well as our function to compute V(S) for a given orientation (i.e. Section 3.2). The ﬁnal parameter for the algorithm is an initial guess for the search process. The algorithm in [17] converges to local optimums that are identiﬁed as accumulations of points and designated as stationary points of the algorithm. Hence, it is not necessarily the case that the best sample obtained in step 1, will yield the overall best result in step 2. Hence, instead of using a single starting point, we use the best n results found in the sampling stage 1, and run the optimization algorithm [17] on each of the best n results. n is a parameter set by the user.
+
+0.8 0.7 0.6 0.5 Teapot Cube
+
+V(S)
+
+0.4 0.3 0.2 0.1 0 −0.1
+
+0
+
+50
+
+100
+
+150
+
+200
+
+250
+
+300
+
+350
+
+400
+
+Angle of Rotation[degrees]
+Fig. 2. V(S) for a cube (dashed black line) and a tessellated Utah Teapot model (shown in Fig. 4(b)) (solid blue line) in a general ϕ position is a non-smooth function of the angle of rotation θ. (For interpretation of the references to color in this ﬁgure legend, the reader is referred to the web version of this article.)
+
+4. Results In this section, we present some experimental results for both Algorithm 1, in Section 3.2, and the optimization scheme described in Section 3.3. The experiments were run on an Intel
+
+120
+
+B. Ezair et al. / Computers & Graphics 51 (2015) 117–124
+
+i7-3770 3.4 GHz, with 8 GB of RAM, and using a GeForce GT 630 GPU. Unless otherwise noted, the pixel resolution used is 10242, the sampling step size is ﬁve degrees, and n, the maximal number of samples fed to the optimizer, is 100. To achieve orientation ðθ; ϕÞ, models are rotated (relative to their original orientation) θ A ½0; 360 degrees around the Z-axis, and then ϕ A ½ À 90; 90 degrees around the Y-axis. As part of our implementation of Algorithm 1, we applied several small optimizations to the Algorithm:
+
+ A single rendering approach was used which proved to be more 
+efﬁcient on our system (computing Zmin by simply traversing all vertices on the CPU). We use the mipmapping hardware of the GPU to hierarchically calculate the linear sum (Hsum in the algorithm). In our tests this mipmap hierarchical computation was found to be faster than the shader based hierarchical summing approach proposed in [11]. Since the same model M is going to be rendered from numerous view directions, we compute once a bounding sphere to M, properly position the bounding sphere in the rendering screen and rotate M around the center of the bounding sphere for all these numerous view directions.
+
+
+
+In Section 4.1, we explore the accuracy of the algorithm in computing V(S). In Section 4.2, we examine the running times of the algorithm. Finally, in Section 4.3, we present some results for different models. 4.1. Accuracy In the following results of this section, accuracy (the error) is expressed as the difference between the theoretical V(S) and the computed V(S), normalized as a percentage out of the theoretical V (T) (that is, the total printed volume). Fig. 3 shows the accuracy of the computation of V(S) for two simple freeform shapes, for which V(T) and V(S) can be determined analytically, as a function of the quality of the polygonal tessellation used. Fig. 3 shows that for a sphere the deviation, from the theoretical VðSÞ ¼ 1π r 3 and V ðTÞ ¼ 5π r 3 values, decreases as the 3 3
+
+tessellation quality (and the number of triangles in the model) increases, as expected. Fig. 4(a) presents a model of a cube (with a side length of 4) with four quarters of a unit sphere removed from it. V(S) is calculated for an orientation in which two of the quarter spheres are on the downward facing face. Fig. 3 shows again, for the model in Fig. 4 (a), that the deviation from the theoretical VðSÞ ¼ 2π r 3 , VðTÞ ¼ 64 À 2π r 3 decreases as the tessellation quality 3 3 increases. Note the error in this case does not drop to zero because of aliasing errors explored in the coming examples. Fig. 5 shows the computed V(S) for a cube with one face parallel to the XY plane, rotated around the Z-axis. The theoretical value of V(S) for the cube is clearly zero, but inaccuracies due to aliasing errors cause an imprecise computation of V(T) when the cube's edges align with the rows, columns, or diagonals, of the rendered image. Overall, the aliasing error remains small (far less than 1% of the volume of the cube). Fig. 6 shows the computed V(S) of a cube using different (pixel) resolutions of the rendered image. Again, the expected theoretical value of V(S) is zero, but just as in the previous example, inaccuracies due to aliasing errors cause an inexact result to be computed. The results in Fig. 6 show the expected behavior of randomized error values that diminish as the resolution increases. In summary, our experiments concerning accuracy lead us to believe that one can achieve a sub-percent accuracy, even for cubes or other shapes that exacerbate aliasing errors, using a GPU based approach, and a resolution of 10242.
+
+Fig. 4. (a) A test model M, a cube with four spherical quarters removed from it. (b) A test model of a Utah teapot (with 3550 polygons). Both models are presented in the optimal orientation, that minimizes V(S).
+
+0.7 Cube−sphere Sphere 0.6
+
+0.35
+0.5
+
+0.3
+
+Error[%]
+
+0.4
+
+0.25
+0.3
+
+Error[%]
+0 0.5 1 1.5 2 2.5 3 3.5 4 4.5 x 10
+
+0.2
+
+0.2
+
+0.15
+
+0.1
+
+0.1
+0
+
+Number of Triangles
+
+0.05
+
+Fig. 3. Accuracy of the computation of V(S) as a function of quality of the polygonal tessellation, for a unit sphere model (blue solid line), and the model of a cube with four spherical quarters removed from it (black dashed line), shown in Fig. 4(a) (oriented so one of the faces with the removed spherical parts is parallel to the XY plane). (For interpretation of the references to color in this ﬁgure legend, the reader is referred to the web version of this article.)
+
+0
+
+0
+
+50
+
+100
+
+150
+
+200
+
+250
+
+300
+
+350
+
+400
+
+Angle [degrees]
+Fig. 5. Computation accuracy of V(S) for a cube (with one of its faces parallel to the XY plane) as it is rotated around the Z-axis.
+
+B. Ezair et al. / Computers & Graphics 51 (2015) 117–124
+
+121
+
+1.2
+
+3.4 3.3 3.2
+
+x 10
+
+−3
+
+1
+
+0.8
+
+Error[%]
+
+3.1
+
+0.6
+
+Time [s]
+400 600 800 1000 1200 1400 1600 1800 2000
+
+3 2.9 2.8
+
+0.4
+
+0.2
+2.7
+
+0
+0 0.5 1 1.5 2 2.5 3 3.5 x 10 4
+
+Resolution [pixel]
+Fig. 6. Computation accuracy of V(S) for a cube (with one of its faces parallel to the XY plane) using different (square) pixel resolutions of the rendered image.
+
+Number of Triangles
+
+Fig. 8. V(S) computation time for spheres approximated using different numbers of triangles.
+
+0.025
+
+25
+0.02
+
+Sampling Time Optimization Time 20
+
+0.015
+
+Time [s]
+
+0.01
+
+Time [s]
+0 500 1000 1500 2000 2500 3000 3500 4000 4500
+
+15
+
+10
+
+0.005
+
+5
+0
+
+Resolution [pixel]
+Fig. 7. V(S) computation time for a model of cube using different (square) pixel resolutions.
+
+0 0 20 40 60 80 100 120 140 160 180
+
+Sampling Step [degrees]
+Fig. 9. V(S) sampling and optimization times for a Utah teapot (3162 triangles) for various sampling step sizes.
+
+4.2. Computation time Fig. 7 shows the average time needed to compute V(S) in a single orientation, for a model of a cube, using different (pixel) resolutions. The tested resolutions are all powers of 2 in order to take advantage of the mipmapping hardware that can substantially accelerate the computation. As expected, computation time increases as the resolution increases, but remains below 0.025 seconds for all tested resolutions, and is about 2 milli-seconds for 10242. Fig. 8 shows the typical time needed to compute V(S) in a single orientation, for sphere models using different levels of tessellation quality (number of triangles). As expected computation time increases as the number of triangles increases, but in a sublinear rate as the number of polygons increase. Fig. 9 shows the time needed for the sampling step, and the time needed to ﬁnd the optimal result (using the optimization algorithm) for the model of a Utah teapot (the model in Fig. 4(b)). The maximum n used in our tests for the optimization step (as described in Section 3.3) is n ¼100. For sampling steps that produce less than 100 samples all the samples from step 1 are
+0.5 0.45 0.4 Sampled V(S) Optimization V(S)
+
+V(S)
+
+0.35 0.3 0.25 0.2 0.15 0 20 40 60 80 100 120 140 160
+
+Sampling Resolution [degrees]
+Fig. 10. Optimal V(S) achieved by sampling and by the optimization algorithm for different sampling step sizes, for a Utah teapot (3162 triangles).
+
+122
+
+B. Ezair et al. / Computers & Graphics 51 (2015) 117–124
+
+Fig. 11. (a) A wicker-like basket, (b) a mechanical part, (c) a model of dual views Israel's menorah emblem and the Technion logo, (d) an upper case G, and (e) a Moebius strip, using ducks.
+
+Table 1 Results of computing the minimal V(S) for several complex models of approximately unit size. Resolution is 10242 pixels, and the sampling step is ﬁve degrees. Model (Fig. 11) Wicker (a) Part (b) Menorah (c) G (d) Moebius (e) Teapot (Fig. 4 (b)) Triangles 209401 2889 211004 372 47571 3550 V(M) 0.007 0.393 0.081 0.135 0.006 0.096 Sampling V(S) 0.114 0.1303 0.1479 0.000 0.0678 0.1533 Optimization V(S) 0.103 0.1302 0.1478 0.000 0.0675 0.1533 Sampling time (s) 8.145 3.351 8.337 2.663 2.949 3.802 Optimization time (s) 31.445 11.896 34.573 9.352 13.992 12.819
+
+Fig. 12. The models from Fig. 11 presented in their computed optimal orientations. All models but (e) are shown “ﬂoating in the air” to better depict their optimal orientation. The result in (e) is a bit surprising as some portions of this model are substantially above the ﬂoor. Interestingly enough, in this optimal orientation, the cast shadow is of a very small area, explaining this somewhat surprising orientation.
+
+used in the optimization step. Note that at roughly a sampling step of 25 degrees, the total number of produced samples is 100, which is why there is a distinct drop in the optimization time after that point, having less than 100 points to optimize. The n ¼ 100 optimizations are faster for less than 251 than for 251, due to the fact that the optimization algorithm converges faster when the starting locations are closer to the solution. Fig. 10 shows the optimal support volume V(S) for the Utah teapot (Fig. 4(b)), achieved by just sampling, and that achieved by using the optimization algorithm. The ﬁgure shows that even without further optimization, a reasonably ﬁne sampling can give fairly accurate results, in a reasonable amount of time. On the other hand, the optimization algorithm can ﬁnd the optimal result ðVðSÞ ¼ 0:1533Þ even if the sampling resolution is quite coarse. For the Utah teapot model, the optimization algorithm only fails to ﬁnd the optimal result when the sampling resolution is over 1201. Fig. 4(b) presents the teapot in its optimal orientation. Similar experiments performed for ﬁve other test models (see Fig. 11) produce similar results: given a reasonably ﬁne step size (sampling resolution), the sampling step gives results that are close to the optimum, while the optimization algorithm ﬁnds the optimal result even when a relatively coarse step size is used. In all our experiments, a sampling step of ﬁve degrees gave us a
+
+difference of less than 10% between the best optimization result and the best sampled result.
+
+4.3. Various models In this section, we present the experimental results of our algorithm for several complex models that are presented in Fig. 11. Table 1 shows the results of the computation for these models. The sampling resolution used for these results is 5 degrees for both θ and ϕ (having 72 Â 36 ¼2592 samples), for optimization n¼ 100, and the pixel resolution used is 10242. The results in Table 1 are consistent with previous results (in Section 4.2): a reasonable sampling resolution provides quick and fairly accurate results, while the optimization algorithm is slower but can be used to achieve the optimal result. Fig. 12 shows the ﬁve models in their optimal printing orientations. The columns in Table 1 are 1. 2. 3. 4. Model – name of the model, and a reference to its picture. Triangles – the number of triangles in the model. V(M) – the computed volume of the model. Sampling V(S) – the best V(S) value found by sampling.
+
+B. Ezair et al. / Computers & Graphics 51 (2015) 117–124
+
+123
+
+5. Optimization V(S) – the best V(S) value found by the optimization algorithm. 6. Sample time – the total time taken by the sampling stage. 7. Optimization time – the total time taken by the optimization stage. Of special interest is the result of the Moebius strip. The orientation that intuitively one can assume will yield minimal V (S) is probably when the strip is in contact with the ﬂoor at two almost opposite locations (i.e. see image on the right). However, this intuition will result in a V (S) that is roughly 50% larger than
+
+Appendix A. Smoothness and behavior of V(S) In this section, we discuss the smoothness of V(S) for a polygonal model M as a function of the orientation. A polygonal model is a piecewise linear composition of a set of polygons, typically triangles, forming a closed 2-manifold. Given a triangle T having vertices pi ¼ ðxi ; yi ; zi Þ; i ¼ 0; ‥; 2, V T – the volume of the truncated prism created between T and the XY plane: VT ¼ nz ðz0 þ z1 þ z2 Þ ; 6 ðA:1Þ
+
+the optimum in Fig. 12(e).
+
+where n ¼ ðnx ; ny ; nz Þ is the unnormalized normal of T that can be obtained by n ¼ ðp1 Àp0 Þ Â ðp2 À p0 Þ. See also [18] for which J n J is 2 the area of T . For simplicity, we study the behavior of V T by rotating T around a single axis, the X-axis. When rotating T around the X axis by angle θ, each zi becomes zi -zi cos ðθÞ þ yi sin ðθÞ; i ¼ 0; ‥; 2; ðA:2Þ
+
+5. Conclusions This work presented tools to aid in the selection of the optimal orientation, for 3D-printing. We introduced algorithms to compute, and then identify the best printing orientation, based on the minimization of V (S). We hope that future work will leverage this tool to formulate an overall printing orientation selection strategy. Such a strategy will have to weigh the optimization of V (S) against other objectives, and choose the best printing orientation based on the overall objectives of a speciﬁc application, and the 3D-printing process. Because V (S) is a non smooth function, typically, and because derivative-free algorithms, like [17], are unlikely to yield a global optimum, one possible avenue for further research is the question of establishing bounds on the variations of V (S) as a function of changes in θ and ϕ. Speciﬁcally, it may be possible to derive a bound, LS, on the variation of V (S) with respect to θ and ϕ j VðSÞðθ þ ϵ; ϕÞ À VðSÞðθ; ϕÞj o Ls ϵ; and j VðSÞðθ; ϕ þ δÞ À VðSÞðθ; ϕÞj o Ls δ: Knowing the angular sampling step, LS can then be used to bound the difference between the best result found using sampling, and the overall expected optimal result. Such a bound will allow one to produce an approximation algorithm for the optimal V(S) possibly without an optimization step, and allow one to set the necessary angular sampling step to achieve a needed accuracy. Another avenue for further research is the question of support that is not necessarily directly below M. An example of such a support structure is discussed in [15], with the clear potential advantage of having a smaller V(S). Finally, we have used a somewhat naive scheme to sample the angular space of orientations, by using a uniform sampling in the ðθ; ϕÞ angular parameter space. Clearly, one can exploit a more elaborate scheme of sampling the orientations uniformly in Euclidean space, over S2.
+
+and nz becomes nz -nz cos ðθÞ þny sin ðθÞ: Substituting (A.2) and (A.3) in (A.1) results in nz cos ðθÞ þ ny sin ðθÞ V T ðθ Þ ¼ 6 À ðz0 þ z1 þ z2 Þ cos ðθÞ þ Á ðy0 þ y1 þ y2 Þ sin ðθÞ ; and after rearranging À V T ðθÞ ¼ 1 nz ðz0 þz1 þ z2 Þ cos 2 ðθÞ 6 þðnz ðy0 þy1 þ y2 Þ þny ðz0 þ z1 þ z2 ÞÞ sin ðθÞ cos ðθÞ  2 þny ðy0 þ y1 þ y2 Þ sin ðθÞ : ðA:5Þ ðA:3Þ
+
+ðA:4Þ
+
+We show that the volume of support of triangle T , V~T ðθÞ, is not smooth as a function of θ by considering the simple individual case where the initial T is parallel to the XY plane, with the normal pointing down in relation to the þZ direction. The volume of support, V~T ðθÞ, of T vanishes after π =2 rotation, when n becomes coplanar to the XY plane. V~T ðθÞ can be written as follows: ( V T ðθÞ; π =2 Z θ Z 0; V~T ðθÞ ¼ ðA:6Þ θ 4 π =2: 0; If T is parallel to the XY plane, nx ¼ ny ¼ 0, and V~T ðθÞ is reduced to 8n À > z ðz0 þ z1 þ z2 Þ cos 2 ðθÞ þ > >6 > > < V~T ðθÞ ¼ > ðy þy þy Þ sin ð2θÞ=2Á; > > 0 1 2 > > : 0;
+
+π =2 Z θ Z0; θ 4 π =2:
+
+ðA:7Þ
+
+V~T ðθÞ is continuous at θ ¼ π =2. I.e. V~T ðθÞ vanishes as the trigonometric functions vanish for θ-π , however, its derivative , 2 ∂V~ T , does not exist there ∂θ
+θ-π =2
+
+lim À
+
+∂V~T À nz ðy0 þy1 þy2 Þ; ¼ 6 ∂θ ∂V~T ¼ 0: ∂θ
+
+ðA:8Þ
+
+Acknowledgments This work was supported in part by the People Programme (Marie Curie Actions) of the European Union's Seventh Framework Programme FP7/2007-2013/ under REA Grant agreement PIAP-GA2011-286426, and was supported in part by the ISRAEL SCIENCE FOUNDATION (Grant no. 278/13).
+
+while
+θ-π =2
+
+lim þ
+
+ðA:9Þ
+
+Hence, we can conclude the following: Corollary A.1. V(S) of M is non-smooth at every orientation some polygon in M becomes vertical (or its normal becomes horizontal).
+
+124
+
+B. Ezair et al. / Computers & Graphics 51 (2015) 117–124
+
+Fig. A1. A simple model of a sphere approximation using 200 polygons (a) yields a fairly complex arrangement of smooth regions of V(S), on the Gaussian sphere, on S2 (b).
+
+Consider the Gaussian sphere S2 and consider the great circle CT & S2 orthogonal to normal nT of some triangle T A M. Any view direction v A CT is a non-smooth transition in the support volume of T . A plot of all great circles CT , for all T A M, will delineate the smooth regions of V(S) in S2. The order of the number of 2 intersections of k great circles in S2 is Oðk Þ and indeed the complexity of this arrangement can grow up rapidly. Fig. A1 shows one simple example. References
+[1] Ahn SH, Montero M, Odell D, Roundy S, Wright PK. Anisotropic material properties of fused deposition modeling abs. Rapid Prototyping J 2002;8 (4):248–57. [2] Tauﬁk M, Jain PK. Role of build orientation in layered manufacturing: a review. Int J Manuf Technol Manag 2013;27(1):47–73. [3] Alexander P, Allen S, Dutta D. Part orientation and build cost determination in layered manufacturing. Comput-Aided Des 1998;30(5):343–56.
+
+[4] Frank D, Fadel G. Expert system-based selection of the preferred direction of build for rapid prototyping processes. J Intell Manuf 1995;6(5):339–45. [5] Crawford DCTRH. Optimizing part quality with orientation. In: Solid freeform fabrication symposium proceedings. center for materials science and engineering, mechanical engineering department and chemical engineering department. TX, US: The University of Texas at Austin; 1995. p. 362–8. [6] Jibin Z. Determination of optimal build orientation based on satisfactory degree theory for RPT. In: Ninth international conference on computer aided design and computer graphics, 2005. Hong-Kong, China: IEEE; 2005. p. 6–21. [7] Kattethota G, Henderson M. A visual tool to improve layered manufacturing part quality. In: Proceedings of the solid freeform fabrication symposium, Austin, TX; 1998. p. 327–34. [8] Gupta SK, Tian Q, Weiss L. Finding near-optimal build orientations for shape deposition manufacturing. In: Machining impossible shapes. NY, US: Springer; 1999. p. 208–16. [9] Allen S, Dutta D. On the computation of part orientation using support structures in layered manufacturing. In: Solid freeform fabrication symposium 1994. DTIC Document; 1994. p. 259–69. [10] Agarwal PK, Desikan PK. Approximation algorithms for layered manufacturing. In: SODA; 2000. p. 528–37. [11] Khardekar R, McMains S. Fast layered manufacturing support volume computation on gpus. In: ASME 2006 international design engineering technical conferences and computers and information in engineering conference. American Society of Mechanical Engineers; 2006. p. 993–1002. [12] Hu R, Li H, Zhang H, Cohen-Or D. Approximate pyramidal shape decomposition. ACM Trans Graph (TOG) 2014;33(6):213–25. [13] Huang P, Wang CC, Chen Y. Algorithms for layered manufacturing in image space. In: Advances in computers and information in engineering research, vol. 1. NY, US: ASME Press; 2014. p. 3–35. [14] Everitt C. Interactive order-independent transparency. White Paper, nVIDIA 2001;2(6):7–17. [15] Vanek J, Galicia JA, Benes B. Clever support: efﬁcient support structure generation for digital fabrication. In: Computer graphics forum; vol. 33. US: Wiley Online Library; 2014. p. 117–25. [16] Hughes SW, D'arcy T, Maxwell DJ, Saunders J, Ruff C, Chiu W, et al. Application of a new discreet form of Gauss' theorem for measuring volume. Phys Med Biol 1996;41(9):1809–24. [17] Lucidi S, Sciandrone M. A derivative-free algorithm for bound constrained optimization. Comput Optim Appl 2002;21(2):119–42. [18] Klamkin MS. On the volume of a class of truncated prisms and some related centroid problems. Math Mag 1968:175–81.
+

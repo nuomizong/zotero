@@ -1,0 +1,1979 @@
+Institut Gramme – LIEGE
+Dr. Ir. P. BOERAEVE Chargé de cours
+
+January 2010
+
+Introduction To The Finite Element Method (FEM)
+
+P. Boeraeve
+
+The Finite Element Method
+
+page 2
+
+Contents of this chapter :
+CHAPITRE 1. THE FINITE ELEMENT METHOD............................................................................4
+
+1.1 SEVEN STEPS IN THE FINITE ELEMENT METHOD............................................................................4 1.1.1 STEP 1 - IDEALIZATION ...............................................................................................................4 1.1.2 STEP 2 - DISCRETIZATION ..........................................................................................................5 1.1.3 STEP 3 - CHOICE OF THE TYPE OF ELEMENT ...............................................................................5 1.1.4 STEP 4 - ASSEMBLY OF THE DISCRETE ELEMENTS ......................................................................6 1.1.5 STEP 5 - APPLICATION OF BOUNDARY CONDITIONS ....................................................................6 1.1.6 STEP 6 - SOLVE FOR PRIMARY UNKNOWNS ................................................................................6 1.1.7 STEP 7 - CALCULATE DERIVED VARIABLES .................................................................................6 1.2 PHYSICAL INTERPRETATION OF THE FEM .....................................................................................6 1.3 ILLUSTRATION OF THE FEM THEORY WITH THE 2 NODES BAR ELEMENT.........................................6 1.3.1 INTRODUCTION...........................................................................................................................6 1.3.2 VIRTUAL W ORK PRINCIPLE .........................................................................................................7 1.3.3 EXAMPLE : HANGING CYLINDRICAL BAR LOADED BY ITS OWN WEIGHT........................................11 1.3.4 NODAL EXACTNESS ............................................................................................................17 1.3.5 LOCAL AXES – GLOBAL AXES – TRANSFORMATION MATRIX.......................................................19 1.3.6 CONCLUSIONS .........................................................................................................................21 CHAPITRE 2. THE 2-NODES BEAM ELEMENT ..........................................................................23
+
+2.1 INTRODUCTION............................................................................................................................23 2.2 WHAT IS A BEAM? .....................................................................................................................23 2.3 MATHEMATICAL MODELS ............................................................................................................23 2.3.1 BERNOULLI-EULER BEAM MODEL .............................................................................................23 2.3.2 TIMOSHENKO BEAM MODEL .....................................................................................................23 2.4 DISPLACEMENT FIELD IN A BEAM .................................................................................................23 2.5 SIMPLIFIED BERNOULLI-EULER BEAM ELEMENT. ........................................................................24 2.5.1 KINEMATICS .............................................................................................................................24 2.5.2 SHAPE FUNCTIONS ...................................................................................................................25 2.5.3 STRAINS ..................................................................................................................................27 2.5.4 STIFFNESS MATRIX ..................................................................................................................28 2.5.5 WORK-EQUIVALENT FORCES ....................................................................................................28 2.5.6 COMPLETE PLANE BEAM ELEMENT ..........................................................................................29 2.5.7 LOCAL AXES – GLOBAL AXES – TRANSFORMATION MATRIX ......................................................29 2.6 SPATIAL BEAM (3D)....................................................................................................................30 2.7 CONCLUSIONS ............................................................................................................................30 CHAPITRE 3. DIMENSIONAL REDUCTION.................................................................................32
+
+3.1 INTRODUCTION............................................................................................................................32 3.2 REDUCING FROM 3D SOLID TO LINE (3D TO 1D)..........................................................................32 3.3 REDUCING FROM 3D TO A PLANAR (2D) ANALYSIS .....................................................................32 3.3.1 PLANE STRESS ........................................................................................................................32 3.3.2 PLANE STRAIN .........................................................................................................................33 3.3.3 AXISYMMETRIC ........................................................................................................................34 3.3.4 2D FINITE ELEMENTS ...............................................................................................................34 3.4 COMBINATION OF ELEMENT TYPES ..............................................................................................36 CHAPITRE 4. MEMBRANE ELEMENTS.......................................................................................37
+
+P. Boeraeve
+
+The Finite Element Method
+
+page 3
+
+4.1 DISPLACEMENT-STRAIN RELATION .............................................................................................37 4.2 THE THREE NODES TRIANGLE MEMBRANE ELEMENT T3.............................................................37 4.2.1 DESCRIPTION ...........................................................................................................................37 4.2.2 STRAINS ..................................................................................................................................37 4.2.3 SHAPE FUNCTIONS ..................................................................................................................38 4.2.4 CONCLUSIONS .........................................................................................................................39 4.3 THE SIX NODES TRIANGLE MEMBRANE ELEMENT T6..................................................................39 4.3.1 DESCRIPTION ...........................................................................................................................39 4.3.2 STRAINS ..................................................................................................................................39 4.3.3 SHAPE FUNCTIONS ..................................................................................................................40 4.3.4 CONCLUSIONS .........................................................................................................................41 4.4 THE FOUR NODES QUADRILATERAL MEMBRANE ELEMENT Q4 ..................................................42 4.4.1 DESCRIPTION ...........................................................................................................................42 4.4.2 STRAINS ..................................................................................................................................42 4.4.3 SHAPE FUNCTIONS ...................................................................................................................42 4.4.4 ELEMENT STIFFNESS ................................................................................................................44 4.5 THE Q6 "INCOMPATIBLE" FINITE ELEMENT .................................................................................45 4.6 THE HEIGHT NODES QUADRILATERAL MEMBRANE ELEMENT Q8 ...............................................45 4.6.1 DESCRIPTION ...........................................................................................................................45 4.6.2 STRAINS ..................................................................................................................................46 4.6.3 SHAPE FUNCTIONS ...................................................................................................................46 4.7 THE NINE NODES QUADRILATERAL MEMBRANE ELEMENT Q9 ...................................................49 4.7.1 DESCRIPTION ...........................................................................................................................49 4.7.2 STRAINS ..................................................................................................................................49 4.7.3 SHAPE FUNCTIONS ..................................................................................................................50 CHAPITRE 5. ISO-PARAMETRIC ELEMENTS AND NUMERICAL INTEGRATION ..................54
+
+5.1 ISO-PARAMETRIC ELEMENTS ......................................................................................................54 5.2 NUMERICAL INTEGRATION ...........................................................................................................56 5.2.1 1D INTEGRATION ......................................................................................................................56 5.2.2 CONCLUSION ...........................................................................................................................57 5.2.3 2D AND 3D INTEGRATION .........................................................................................................57 5.2.4 CHOICE OF QUADRATURE RULE. INSTABILITIES........................................................................58 5.2.5 EXERCISE ................................................................................................................................58 CHAPITRE 6. 3D SOLIDS AND SOLIDS OF REVOLUTION .......................................................59
+
+6.1 3D SOLIDS..................................................................................................................................59 6.1.1 INTRODUCTION....................................................................................................................59 6.1.2 STRESS-STRAIN RELATIONS :...................................................................................................59 6.1.3 INTERPOLATION OF THE DISPLACEMENTS WITHIN AN ELEMENT (SHAPE FUNCTIONS) .................60 6.1.4 STRAIN-DISPLACEMENT RELATIONS : .......................................................................................60 6.1.5 STIFFNESS MATRIX CALCULATION ............................................................................................60 6.1.6 SOLID FINITE ELEMENTS ..........................................................................................................60 6.1.7 EXAMPLE OF THE CONSTANT STRAIN TETRAHEDRON ...............................................................61 6.2 SOLIDS OF REVOLUTION .............................................................................................................62 6.2.1 STRESS-STRAIN RELATIONS :...................................................................................................62 6.2.2 STRAIN-DISPLACEMENT RELATIONS .........................................................................................62 6.2.3 EXAMPLE OF THE T3 AXISYMMETRIC ELEMENT .........................................................................63 6.2.4 EXERCISE 7-1 ..........................................................................................................................63 6.2.5 EXERCISE 7-2 ..........................................................................................................................64 6.2.6 EXERCISE 7-3 ..........................................................................................................................64
+
+P. Boeraeve
+
+The Finite Element Method
+
+page 4
+
+CHAPITRE 7.
+
+PLATES AND SHELLS ..........................................................................................65
+
+7.1 PLATE ELEMENTS .......................................................................................................................65 7.1.1 INTRODUCTION.........................................................................................................................65 7.1.2 THIN-PLATE (KIRCHHOFF) THEORY. .........................................................................................65 7.1.3 DEGREES OF FREEDOM: ..........................................................................................................66 7.1.4 DISPLACEMENT FIELD...............................................................................................................66 7.1.5 THICK-PLATE (MINDLIN) THEORY .............................................................................................67 7.2 SHELL ELEMENTS .......................................................................................................................68 7.2.1 INTRODUCTION.........................................................................................................................68 7.2.2 SHELL ELEMENTS. ...................................................................................................................68
+
+Chapitre 1.
+1.1
+
+The Finite Element Method
+
+Seven Steps in the Finite Element Method
+
+1.1.1 Step 1 - Idealization1
+
+The "real" problem is idealized : assumptions are made to simplify the problem : • by reducing the dimensions (see below) (all real problems are 3D, but may be idealized with1D, 2D or 3D models), • by idealizing the support conditions, • by suppressing details, such as small holes and fillets, that are insignificant from the analysis point of view, but which complicate matters during mesh2 generation. This step can be dramatically important if the assumptions are not correct ! Examples : 1.This 3D part can be idealized by 2D elements (plates3) or 3D solid elements4.
+
+Figure 1 : Idealization 2. The roof truss5 of the figure 2 can be idealized with 1D members :
+
+1 2
+
+modélisation Le maillage 3 Plaques 4 Eléments volumiques 5 Charpente en treillis
+
+P. Boeraeve
+
+The Finite Element Method
+
+page 5
+
+a) bars with hinges6 at the extremities b) beams with rigid joints7 at the extremities The choice between a) and b) idealizations depend on how the real structure is realized : are the joints able to transmit moments? (Riveted8 or bolted9 joints are usually idealized by hinges, while welded joints may be idealized by rigid joints).
+
+Figure 2 : Idealization of a roof truss
+1.1.2 Step 2 - Discretization
+
+The problem domain is discretized into a collection of simple shapes, or elements. In the figure 1 above, the 3D idealization shows the discretization in many tetrahedral solid elements.
+1.1.3 Step 3 - Choice of the type of element
+
+The software available on the market offer a lot different types of elements :
+
+Figure 3 : Typical ﬁnite element geometries
+
+6 7
+
+rotules assemblages 8 rivetés 9 boulonnés
+
+P. Boeraeve
+
+The Finite Element Method
+
+page 6
+
+The results can be very different from one type to another. This is due to the theory hidden behind those elements. We will see, in this course, the theory of the main types of elements.
+1.1.4 Step 4 - Assembly10 of the discrete elements
+
+The element equations for each element in the FEM mesh are assembled into a set of global equations that model the properties of the entire system.
+1.1.5 Step 5 - Application of Boundary Conditions11
+
+Solution cannot be obtained unless boundary conditions are applied. They reflect the known values for certain primary unknowns. Imposing the boundary conditions modifies the global equations.
+1.1.6 Step 6 - Solve for Primary Unknowns
+
+The modified global equations are solved for the primary unknowns at the nodes.
+1.1.7 Step 7 - Calculate Derived Variables
+
+Calculated using the nodal values of the primary variables.
+
+1.2
+
+Physical Interpretation of the FEM
+
+The basic concept in the physical interpretation is the breakdown (≡disassembly, tearing, partition, separation, decomposition) of a complex mechanical system into simpler, disjoint components called ﬁnite elements, or simply elements. The mechanical response of an element is characterized in terms of a ﬁnite number of degrees of freedom. These degrees of freedoms are represented as the values of the unknown functions at a set of node points (displacements, temperature, flow…) The response of the original system is considered to be approximated by that of the discrete model constructed by connecting or assembling the collection of all elements.
+
+1.3
+
+Illustration of the FEM theory with the 2 nodes bar element.
+
+1.3.1 Introduction
+
+The simplest finite element is the 2 nodes bar element. It has 2 extremities, called "nodes" by which it can be connected to other finite elements or supports, and can only shorten or extend, that means that the unknowns at the nodes are the axial displacements u1 and u2. These are called the degrees of freedom of the element. It has a cross-section12 A and a length L. We will here consider the case of an external distributed loads (axial load per unit length) q(x).
+
+10 11
+
+Assemblage Conditions aux limites 12 Section droite
+
+P. Boeraeve
+
+The Finite Element Method
+
+page 7
+
+u u2 u1 x q(x) 1 u1 L
+Figure 4 : 2-nodes bar element
+1.3.2 Virtual Work Principle
+
+u(x)
+
+2
+
+u2
+
+The external work done by the forces q(x) is stored in the solid as (internal) strain energy WI :
+1.3.2.a)Strain energy :
+
+In Mechanics of Materials it is shown that the strain energy density at a point of a linear-elastic material subjected to a one-dimensional state of stress σ and strain ε is
+1 U = .ε .σ , 2 Total Strain Energy Integrated on the total volume V of the bar :
+
+1 WI = ∫ .ε .σ .dV 2 V
+As σ=E.ε is constant over the section A of the bar, and dV=A.dx :
+
+1 1 WI = ∫ .ε .σ .dV = ∫ .ε .E.ε . A.dx 2 2 V L And the strain and displacements are linked by the relation :
+
+ε ( x) =
+
+d u ( x) dx
+
+The real variation of u(x) along the bar is not known. Instead, we will interpolate the value of u(x) from the values of the displacements at the nodes : u1 and u2 : u ( x) = N1 ( x).u1 + N 2 ( x).u2
+
+P. Boeraeve
+
+The Finite Element Method
+
+page 8
+
+where N1(x) and N2(x) are called shape functions13. From this last equation, it can be seen that : • N1(x)=1 and N2(x)=0 at x=0, in order to have u (0) = u1 • N1(x)=0 and N2(x)=1 at x=L, in order to have u ( L) = u2
+
+1.3.2.b)The shape functions
+
+For a two node bar element the only possible variation of the displacement u(x) is linear, and expressed by the interpolation formula : u ( x) = That means that the shape functions are : N1 = L−x x and N 2 = . L L L−x x .u1 + .u2 . L L
+
+This can be written as a scalar product of 2 vectors : L − x x  u1  u ( x) =< , > .   = < N > .{U } L L u2  where : {…} represents a column vector, <…> represents a line vector, {U} is the nodal displacement vector. <N> is the shape function vector
+1.3.2.c)Strain
+
+ε ( x) =
+
+d d u ( x) =  < N dx  dx 1 1 = < − , > .{U } L L
+
+ >  .{U } 
+
+Finally : where :
+
+ε ( x) = < B > .{U } = < U > .{ B}
+
+(1)
+
+<B>=
+1.3.2.d)External work
+
+d < N > is called the Strain-Displacement Matrix dx
+
+The external work of q(x) applied on a infinitesimal length dx, at the distance x is q ( x).dx.u ( x) The total external work on the length L is :
+
+13
+
+Fonctions d'interpolation
+
+P. Boeraeve
+
+The Finite Element Method
+
+page 9
+
+WE = ∫ q( x).u ( x).dx
+L
+
+1.3.2.e)Total Potential Energy
+
+Π = WI − WE
+1.3.2.f)Virtual Work Principle
+
+The total work done by all forces acting on a system in static equilibrium is zero for any infinitesimal virtual displacement field δ u , kinematically admissible (compatible with the support conditions). Then With 1 2
+L
+
+δΠ = δWI − δWE = 0
+δ WI = .∫ [ε .E.δε + δε .E.ε ]. A.dx = ∫ ε .E.δε . A.dx
+L
+
+and
+
+δ WE = ∫ q( x).δ u ( x).dx
+L
+
+Thus,
+
+∫ ε .E.δε . A.dx = ∫ q( x).δ u ( x).dx
+L L
+
+(2)
+
+Substituting (1) in (2) gives :
+
+< δ U > .∫ A.E.{ B} . < B > .{U } .dx = < δ U > .∫ qx .{ N } .dx
+where < δ U > is a vector of nodal virtual displacements.
+L L
+
+Thus
+
+∫ A.E.{B} . < B > .dx.{U } = ∫ q .{N }.dx
+x
+L
+
+L
+
+This can be written
+
+[ K ].{U } = {F }
+
+P. Boeraeve
+
+The Finite Element Method
+
+page 10
+
+Where: [K]=
+
+∫ A.E.{B} . < B > .dx
+L
+
+is the element stiffness matrix14,
+
+{U} is the nodal displacement vector, {F} = ∫ q x .{N }.dx the work-equivalent nodal force vector (the nodal forces {F}
+L
+
+produce the same external work as the distributed load q(x).
+1.3.2.g)Stiffness Matrix :
+
+ 1 − L   1 1  [K ] = ∫ A.E. 1 .− , .dx L   L L  L   1  2 = ∫ A.E. L 1 L − 2  L − 1 L2 .dx 1   L2 
+
+=
+
+E. A  1 − 1 . . dx L2 − 1 1  ∫ L E. A  1 − 1 . L − 1 1   
+
+=
+
+1.3.2.h)Work-equivalent nodal force vector {F}
+
+δWE → {F } = ∫ q x .{N }.dx
+L
+
+L − x   = ∫ q x . L .dx x L    L 
+
+14
+
+Matrice de rigidité
+
+P. Boeraeve
+
+The Finite Element Method
+
+page 11
+
+ L−x  L  ∫ L .dx    F  L  2 →  1  = qx .   = qx .   L  F2   x .dx  ∫ L  2    L    
+
+1.3.3 Example : Hanging cylindrical bar loaded by its own weight.
+
+x h
+
+Figure 5
+1.3.3.a)Analytical solution :
+
+Stress in a cross-section at a distance x
+The stress is equal to the weight of the bar below that point divided by the area of the cross-section at that point. Thus :
+
+σ ( x ) = ρ .g . ( h − x )
+
+and the stress varies linearly along the bar
+
+displacement in a cross-section at a distance x :
+
+ε=
+
+du dx
+
+and ε =
+
+σ
+E
+
+ε=
+
+du σ ρ .g = = (h − x) dx E E
+σ
+E .dx + cste =
+
+u ( x) = ∫
+
+ρ .g .x 
+
+x  . h −  E  2
+
+in x = 0 , we have : u (0) = 0
+in x = h , we have : u (h) = ρ .g . h2 2.E
+
+P. Boeraeve
+
+The Finite Element Method
+
+page 12
+
+2 h  h  3.ρ .g.h u  = in x = , we have : 8.E 2 2
+
+1.3.3.b)Finite Element Method with one element :
+
+[ K ].{U } = {F }
+[K ] =
+E. A  1 −1 . h  −1 1   
+
+{U } = 
+
+ u1   u2 
+
+h   {F } = ρ .g. A.  2  (because qx = =ρ*g*A )   h 2  
+
+h 2 1 −1  u1  E. A    .  . u  = ρ .g . A.  h  h  −1 1   2    2   Solution The system cannot be solved because the determinant of the matrix is zero. This is due to the fact that we haven't taken into account the boundary conditions and the bar is free to move as a rigid body. The FEM software, in such a case, display an error message like "Instability at node xxx". That means that the model is unsupported or inadequately supported.
+
+The boundary condition here is that : • the displacement at node 1, u1, is equal to zero, • at node 1, there is a external reaction force R. That force, like any other external nodal force, must appear in the force vector {F}
+
+To summarize : the force vector {F} is the sum of: - the external nodal forces vector - the work-equivalent nodal forces vector - the reactions vector -
+
+P. Boeraeve
+
+The Finite Element Method
+
+page 13
+
+Thus
+
+h    ρ .g . A. 2 + R  E. A  1 −1  0    .   . u  =  h h  −1 1   2   ρ .g . A.    2   The second line gives directly u2 E. A h .u2 = ρ .g . A. h 2
+
+•
+
+→
+
+h h u2 = ρ .g . A. . 2 E. A
+
+→
+
+u2 =
+
+ρ .g .h 2
+2.E
+
+• −
+
+The first line gives the reaction R :
+
+E. A h .u2 = ρ .g . A. + R h 2 2 E. A ρ .g .h h R=− − ρ .g . A. = − ρ .g . A.h h 2.E 2
+
+The reaction is negative, because opposite to the direction of x in the element.
+
+Displacements along the bar
+The formula u( x ) =< N > { d } found above allows the determination of the values of de displacement in x=h/2 et x=h
+in x=h/2:
+
+u  u ( x ) = u1.N1 + u2 .N 2 =< N1 , N 2 > .  1  u2 
+x x u  → u ( x ) =< 1 − , > .  1  h h u2  1 1 0 h → u   =< 1 − , > .   2 2 u2  2
+h ρ .g .h 2 → u( ) = 2 4.E
+
+Stresses
+Now let us deduce from σ ( x) = E.ε ( x) = E. du ( x) the value of σ in x=h/2 and x=h dx
+
+P. Boeraeve
+
+The Finite Element Method
+
+page 14
+
+σ ( x ) = E.ε ( x ) = E.
+
+du ( x ) 1 1 u  = E. < − , > .  1  dx h h u 2 
+
+As u1 is equal to zero, one has : u2 1 ρ .g .h 2 ρ .g .h σ ( x ) = E. = E . . = h h 2.E 2 element !
+1.3.3.c)Finite Element Method with two elements
+
+→ σ ( x) =
+
+ρ .g .h
+2
+
+at any point in the
+
+1 h 2
+Figure 6
+
+Element 1 :
+
+[K ] = E. A . 
+L1
+
+− 1 2.E. A  1 − 1  = h .− 1 1  − 1 1   
+1
+
+{U } = 
+
+ u1   u2 
+
+ L1  h 2   {F } = ρ .g. A.   = ρ .g. A.  4       L1  h 2 4    
+
+Element 2 :
+
+[K ] = E. A . 
+L2
+
+− 1 2.E. A  1 − 1  = h .− 1 1  − 1 1   
+1
+
+{U } = 
+
+u2   u3 
+
+P. Boeraeve
+
+The Finite Element Method
+
+page 15
+
+L h 2   {F } = ρ .g. A.   = ρ .g. A.  4      L h 2 4     Elements 1+2 : The next figure shows both elements with their work-equivalent nodal forces and reactions.
+
+R
+
+ρ.g.A.h/4 1 h/2
+
+ρ.g.A.h/4
+
+ρ.g.A.h/4 2
+
+ρ.g.A.h/4
+
+u2
+
+u3
+
+Node 2 is common to both elements : there is a work-equivalent nodal force coming from each element. Node 1 has a work-equivalent force AND a reaction. The global stiffness matrix is assembled from the elemental matrices. The displacement vector contains all the degrees of freedom (the displacements) of the whole structure.
+
+h   ρ .g. A. + R   4  1 −1 0   0    h 2.E. A   . u  =  ρ .g . A. + ρ .g . A. h  . −1 1 + 1 −1  2    h  4 4 u    0 −1 1   3    h   ρ .g. A.   4  
+
+As u1 = 0, the system reduces to
+
+2.E. A  2 −1 u2  h 2 .  . u  = ρ .g. A. 4 . 1  h  −1 1   3   
+
+P. Boeraeve
+
+The Finite Element Method
+
+page 16
+
+h  2.E. A  h . ( 2.u2 − u3 ) = ρ .g . A. 2      2.E. A h  . ( −u2 + u3 ) = ρ .g . A. 4  h  
+
+If we add these two equations, member to member, we obtain : 2.E. A 1 1 . ( 2.u2 − u3 − u2 + u3 ) = ρ .g . A.h.  +  h 2 4 2.E. A 3 .u2 = ρ .g . A.h. h 4 3 h u2 = ρ .g . A.h. . 4 2.E. A 3ρ .g .h 2 8.E
+
+u2 =
+
+Substituting that value in the first equation of the reduced system, we obtain :
+
+2.E. A 3 ρ .g.h2 2.E. A h .2. . − .u3 = ρ .g. A. h 8 E h 2
+
+2.E. A 3 h .u3 = .ρ .g. A.h − ρ .g. A. h 2 2
+u3 =
+
+ρ .g.h 2
+2.E
+
+Stresses
+element 1 :
+
+σ 1 = E.ε = E.
+
+du 1 1 u  = E. < − , > .  1  h h u2  dx 2 2
+
+As u1 = 0, we obtain :
+
+P. Boeraeve
+
+The Finite Element Method
+
+page 17
+
+2.E 2.E 3 ρ .g.h2 σ1 = .u2 = . . h h 8 E
+3 → σ 1 = .ρ .g .h 4
+
+element 2 :
+
+σ 2 = E.ε = E.
+
+du 1 1 u  = E. < − , > .  2  h h u3  dx 2 2
+
+→ σ2 = − → σ2 = −
+
+2.E 2.E .u2 + .u3 h h
+
+2.E 3 ρ .g.h 2 2.E ρ .g.h 2 3 . . + . = − .ρ .g .h + ρ .g .h h 8 E h 2.E 4
+
+1 → σ 2 = .ρ .g .h 4
+1.3.4 NODAL EXACTNESS
+
+Suppose that the following three conditions are satisﬁed: 1. The bar properties are constant along the length (prismatic member). 2. The distributed load q(x) is zero between nodes. 3. The only applied loads are point forces applied at the nodes. If so, a linear axial displacement u(x) as deﬁned by the shape functions of the 2-nodes bar element is the exact solution over each element because constant strain and stress satisfy, element by element, all of the governing equations. It follows that if the foregoing conditions are veriﬁed, the FEM solution is exact; that is, it agrees with the analytical solution of the mathematical model. Adding extra elements and nodes would not change the solution. In truss discretizations, one element per member is sufﬁcient if the members are prismatic and the only loads are applied at the joints. Such FEM models are called nodally exact. What happens if the foregoing assumptions are not met? Exactness is then generally lost, and several elements per member may be beneﬁcial. For an inﬁnite one-dimensional lattice of equal-length 2-node bar elements, however, an interesting result is that the solution is nodally exact for any loading if consistent node forces are correctly computed.
+
+P. Boeraeve
+
+The Finite Element Method
+
+page 18
+
+This result underlies the importance of computing node forces correctly.
+
+P. Boeraeve
+
+The Finite Element Method
+
+page 19
+
+1.3.5 Local axes – Global axes – Transformation Matrix
+
+What happens if the bars are not all oriented in a same direction (example in a truss structure) ? In this case, we need to refer to a global system of coordinates defined by a set of Global Axes.
+
+yL
+
+YG
+
+2
+
+xL u 2L
+
+u 1L 1
+u1G
+
+v1G ϕ
+
+XG
+
+1.3.5.a)Global displacements
+
+u1G= displacement of node 1 following Global Axis XG v1G= displacement of node 1 following Global Axis YG u2G= displacement of node 2 following Global Axis XG v2G= displacement of node 2 following Global Axis YG
+1.3.5.b)Local displacements
+
+Displacement of node 1 following the Local Axis xL: u1L = u1G .cos ϕ + v1G .sin ϕ And similarly for node 2 : u2 L = u2G .cos ϕ + v2G .sin ϕ To simplify, we write : c = cos φ s = sin φ Thus :
+
+ u1G     u1L   c 0 s 0  u2G   =  .  u2 L  0 c 0 s   v1G   v2G   
+
+(3)
+
+(We choose to structure the vector {UG} in such a way that the nodal displacements in the XGdirection are in the top half of {UG} and the nodal displacements in the YG-direction are in the lower half of {UG}.)  c 0 s 0 15 The matrix : [T ] =   is called the Transformation Matrix . 0 c 0 s  We can now write (3) in the form :
+
+{U L } = [T ].{U G }
+15
+
+(4)
+
+Matrice de rotation
+
+P. Boeraeve
+
+The Finite Element Method
+
+page 20
+
+with {U G } = Global Nodal Displacement Vector
+
+Remark :
+
+u  The 2 nodes Bar Element has 2 Degrees of Freedom16 (DOF) in local axes  1L  but 4 DOF in u2 L   u1G  u   2G  global axes   .  v1G   v2G   
+
+1.3.5.c)Global Nodal Forces
+
+yL
+
+YG
+
+2
+
+xL
+
+F1
+
+1 L
+
+ϕ
+V1G
+
+XG
+
+H1G
+H1G= Component of the force acting on node 1 following Global Axis XG V1G= Component of the force acting on node 1 following Global Axis YG H2G= Component of the force acting on node 2 following Global Axis XG V2G= Component of the force acting on node 2 following Global Axis YG
+1.3.5.d)Local Nodal Forces
+
+F1L = H1G .cos ϕ + V1G .sin ϕ , and similarly for node 2 : F2 L = H 2 G .cos ϕ + V2G .sin ϕ We obtain :
+
+ H1G     F1L   c 0 s 0   H 2G  (5)  =  .  F2 L  0 c 0 s   V1G   V2G    (Because of the structure of the vector U, the global nodal Forces in the XG-direction are in the top half of {FG} and the global nodal Forces in the YG -direction are in the lower half of {FG}.)
+16
+
+Degré de liberté (nom générique donné à une inconnue nodale dans la méthode des Eléments Finis)
+
+P. Boeraeve
+
+The Finite Element Method
+
+page 21
+
+We can now write (5) in the form :
+
+{FL } = [T ].{FG }
+At the local level we had :
+
+(6)
+
+Where [ K L ] = Local Stiffness Matrix Replacing eq. (4) and (6) into that equation, gives :
+
+[ K L ].{U L } = {FL }
+
+→ [ K L ] .[T ] .{U G } = [T ] .{FG }
+
+(7)
+
+To obtain a formulation like [ KG ] .{U G } = { FG } we will pre-multiply both members of (7) by
+
+[T ]T (=transpose matrix of [T]).
+T
+
+→ [T ] .[ K L ] .[T ] .{U G } = [T ] .[T ] .{FG }
+T
+
+Thus, finally : Where :
+
+[ KG ].{U G } = {FG }
+T
+
+the global stiffness matrix = [ K G ] = [T ] .[ K L ] .[T ]
+
+[T ]T .[T ] = identity matrix because T is orthogonal.
+1.3.5.e)Computation of stresses
+
+At 2.3.2.c) equ.(1) gave us, the strains in local axes : ε ( x) = < B > .{U L } Thus ε ( x) = < B > .[T ] .{U G } And the stresses (in local axes): σ ( x) = E. < B > .[T ] .{U G } .
+1.3.6 Conclusions
+
+In a 2-nodes bar element, the strains (and thus the stresses) are constant over the bar length. Two adjacent bar elements have the same global nodal unknowns at their common node. That means that they have the same global displacements at this node. If a bar must be connected to another one, at least a common node must exist between the two bars. For example, in the next figure, even if the "real" bar is continuous, it is necessary to idealize that bar by three finite elements otherwise there will be no force transfer between that bar and the other truss members connected over its length.
+
+P. Boeraeve
+
+The Finite Element Method
+
+page 22
+
+Finally, the 2-nodes bar element will give exact results if : • the loads are applied at the nodes • the bar is prismatic, that is, the cross-section A is constant over the length of the element. If loads are applied between nodes, and replaced by work-equivalent nodal forces, it can be shown that the nodal displacements will be exact. This does not mean that, between the nodes, the displacements will be exact, nor the stresses.
+
+Finite Elements Method
+
+The 2-nodes Beam Element
+
+page 23
+
+Chapitre 2.
+2.1
+
+The 2-nodes Beam Element
+
+Introduction
+
+The previous Chapter introduced the Principle of Virtual Work and the variational formulation of ﬁnite elements, which was illustrated for the 2-nodes bar element. This Chapter applies that technique to a more complicated one-dimensional element: the plane beam described by engineering beam theory. Mathematically, the main difference of beams with respect to bars is that both deﬂections and slopes are matched at nodal points. Slopes may be viewed as rotational degrees of freedom in the small-displacement assumptions used here.
+
+2.2
+
+What Is A Beam?
+
+Beams are the most common type of structural component, particularly in Civil and Mechanics Engineering. A beam is a bar-like structural member whose primary function is to resists transverse loads mainly through bending17 action. By “bar-like” it is meant that one of the dimensions is considerably larger than the other two. This dimension is called the longitudinal dimension or beam axis. The intersection of planes normal to the longitudinal dimension with the beam member are called cross sections.
+
+2.3
+
+Mathematical Models
+
+One-dimensional mathematical models of structural beams are constructed on the basis of beam theories. Because beams are actually three-dimensional bodies, all models necessarily involve some form of approximation to the underlying physics. The simplest and best known models for straight18, prismatic19 beams are based on the BernoulliEuler theory, also called classical beam theory or engineering beam theory, and the Timoshenko beam theory. Both models can be used to formulate beam ﬁnite elements
+2.3.1 Bernoulli-Euler Beam Model
+
+The Bernoulli-Euler theory is that taught in Mechanics of Materials, and is the one emphasized in this Chapter. The classical (Bernoulli-Euler) model assumes that the internal energy of beam member is entirely due to bending strains and stresses. This model neglects transverse shear deformations and cross-sections remain plane during deformation and perpendicular to the longitudinal axis.
+2.3.2 Timoshenko Beam Model
+
+Elements based on Timoshenko beam theory, incorporate a ﬁrst order correction for transverse shear effects and and cross-sections do not remain perpendicular to the longitudinal axis during deformation.
+
+2.4
+
+Displacement field in a beam
+
+At first sight, a beam element looks like a bar element : it has the same number of nodes (2 is the most common) and looks like a "wire20". The difference lies in the DOF (degrees of freedom) : • the bar element has 1 DOF at each node : the axial displacement
+17 18
+
+flexion Poutre droite = poutre dont l'axe longitudinal est une droite 19 Poutre prismatique = poutre de section droite constante 20 Fil de fer
+
+Finite Elements Method
+
+The 2-nodes Beam Element
+
+page 24
+
+•
+
+the beam element has 3 DOF at each node : the axial displacement, the transverse displacement and a rotation.
+v1 θ1 u1 v2
+
+θ2
+
+u2
+
+Because the effect of axial displacement, in a first order analysis, is independent of the effect of the other two DOF, we can use the principle of superposition. The effect of the axial displacements is the same as the one already studied in the 2-nodes bar element, so we already know the shape functions for these DOF. We will now concentrate our attention on the other two DOF's in what could be called the simplified Bernoulli-Euler beam element.
+
+2.5
+
+Simplified Bernoulli-Euler Beam Element.
+
+2.5.1 Kinematics
+
+The motion of plane beam member in the x, y plane is described by the two dimensional displacement ﬁeld
+
+u ( x, y )  v ( x, y )
+where u and v are the axial and transverse displacement components, respectively, of an arbitrary beam material point whose coordinates are (x,y). The motion in the z direction, which is primarily due to Poisson’s ratio effects, is of no interest. Because of the normality (assumption cross-sections remain plane) of the classical (BernoulliEuler) model we have u ( x, y ) = − y.ϑ ( x) (see next figure).
+
+y θ1 v1 1 x
+
+u(x)=-y.θ(x)
+
+y
+
+θ2
+θ(x)
+
+v(x)
+y
+
+v2 x 2
+
+Finite Elements Method
+
+The 2-nodes Beam Element
+
+page 25
+
+If the displacements and rotations are small, it can be seen on the figure, that : • • Thus :
+
+v(x,y) resumes to v(x) (any point in the cross-section has the same vertical displacement), and dv u ( x, y ) = − y.ϑ ( x) ≈ − y. (1) dx
+
+u ( x, y ) = − y.
+
+dv and dx
+
+v1  v    v ( x ) =< N1 ( x), N 2 ( x), N 3 ( x), N 4 ( x) > .  2  θ1  θ 2   
+2.5.2 Shape functions
+
+(2)
+
+To find the shape functions N1(x), … N4(x), lets have a look at eq. (2) when v1=1 and v2=θ1=θ2=0 1  0    v ( x ) =< N1 ( x), N 2 ( x), N 3 ( x), N 4 ( x) > .   = N1 ( x) 0  0    In other words, the function N1(x) is equal to the vertical displacement of the beam when v1=1 and v2= θ1= θ2= 0. (A similar conclusion can be drawn for the functions N2(x) to N4(x)). If we choose a polynomial form for the shape functions, they will be on the form :
+
+N i ( x) = ai .x3 + bi .x 2 + ci .x + di
+
+(3)
+
+and the four coefficients ai… di can be determined from the four boundary conditions : Example :
+
+Finite Elements Method
+
+The 2-nodes Beam Element
+
+page 26
+
+N1 ( x) = a1.x3 + b1.x 2 + c1.x + d1 N1 ( x) x =0 = 1 ∂N1 ( x) =0 ∂x x = 0 N1 ( x) x = L = 0 ∂N1 ( x) =0 ∂x x = L This can be done by hand (for each Ni(x) : 4 equations of 4 unknowns ai… di) or by a symbolic Computer Algebra System like "Mathematica" or the (free) open source "Maxima21" and the recommended windows interface "wxMaxima22". Maxima script to be loaded into wxMxima: kill(all); v(x):=a*x^3+b*x^2+c*x+d; /* v(x)=<N1,N2,N3,N4>{v1,v2,teta1,teta2) */ dd:diff(v(x),x); dv(x):=''dd; /* first derivative of v
+
+S1:[v(0)=1,v(L)=0,dv(0)=0,dv(L)=0]; solve(S1,[a,b,c,d]); N1:ev(v(x),%[1]); S2:[v(0)=0,v(L)=1,dv(0)=0,dv(L)=0]; solve(S2,[a,b,c,d]); N2:ev(v(x),%[1]); S3:[v(0)=0,v(L)=0,dv(0)=1,dv(L)=0]; solve(S3,[a,b,c,d]); N3:ev(v(x),%[1]); S4:[v(0)=0,v(L)=0,dv(0)=0,dv(L)=1]; solve(S4,[a,b,c,d]); N4:ev(v(x),%[1]); Nv:matrix([N1,N2,N3,N4]);
+And the last line gives the shape function vector <N> :
+
+21 22
+
+Maxima : http://sourceforge.net/project/showfiles.php?group_id=4933 wxMaxima : http://wxmaxima.sourceforge.net/wiki/index.php/Main_Page
+
+Finite Elements Method
+
+The 2-nodes Beam Element
+
+page 27
+
+The functions N1(x), … N4(x) are plotted herebelow with L=1.
+
+1
+
+N1(x)
+
+N3(x)
+
+1
+
+N2(x)
+2.5.3 Strains
+
+N4(x)
+
+As for the 2 nodes-bar element, the stresses in a plane beam are uniaxial and parallel to the longitudinal axis. That means that, ε =
+
+du ( x, y ) d 2v d2 < N > = − y. 2 = − y. .{U } =< B > .{U } dx dx dx 2
+
+where :
+
+<B>= = − y.
+
+d2 < N > is, as for the bar element, the Strain-Displacement Matrix dx 2
+
+As <N> is a cubic in x (see eq. (3), after double derivation, it will remain, at most, a linear term in x, thus the strains in a 2-nodes beam element are, at most, linear in x and y. After calculations, the strain field is :
+
+Finite Elements Method
+
+The 2-nodes Beam Element
+
+page 28
+
+v1    6 12.x 6 12. x 4 6. x 2 6.x v2  ε = − y. < − 2 + 3 , 2 − 3 , − + 2 , − + 2 > .   L L L L L L L L θ1  θ 2    As foreseen, the strains (and thus the stresses) are linear in x and y. This corresponds, in the classical Mechanics of Materials theory to a beam with linear moment diagram. The 2-nodes beam element will thus be exact if : • the loads are applied at the nodes • the beam is prismatic, that is, the cross-section A is constant over the length of the element.
+2.5.4 Stiffness Matrix
+
+The stiffness matrix is computed from the expression :
+
+[ K ] = ∫V E.{B} . < B > .dV
+Where : < B >= − y. < − After calculations, we find the stiffness matrix [ K ] : 6 12.x 6 12.x 4 6. x 2 6.x + 3 , 2 − 3 ,− + 2 ,− + 2 > L2 L L L L L L L
+
+2.5.5 Work-equivalent forces
+
+What happens if there is a transverse uniform load applied between the nodes (positive if acting in the same direction as the y axis)? As for the 2-nodes bar element, that distributed load must be transformed in nodal loads that are "work-equivalent". The virtual external work of q(x) applied on a infinitesimal length dx, at the distance x is q ( x).dx.v( x) The total external work on the length L is :
+
+WE = ∫ q( x).v( x).dx
+And the variation of external work for a virtual vertical displacement field δ v( x)
+L
+
+δ WE = ∫ q( x).δ v( x).dx = < δ U > .∫ q( x).{ N } .dx
+L L
+
+Finite Elements Method
+
+The 2-nodes Beam Element
+
+page 29
+
+And the work-equivalent nodal force vector is thus determined by :
+
+{F } = ∫ q( x).{ N } .dx
+L
+
+Adding the following line to the previous wxMaxima script : fe:integrate(transpose(Nv)*q,x,0,L);
+
+gives the work-equivalent nodal force vector, for an uniform distributed load q :
+
+y
+
+q
+x
+
+qL/2
+
+qL/2
+
+qL²/12
+2.5.6 Complete Plane Beam Element
+
+L
+
+qL²/12
+
+If we superpose the 2-nodes bar element with the simplified Bernoulli-Euler Beam element, we obtain the complete plane beam element, with 3 DOF/node : two displacements and one rotation. v1 v2 θ2 u1 u2 θ1
+2.5.7 Local Axes – Global Axes – Transformation Matrix
+
+As for the 2-nodes bar element, we have to transform the local displacements in global displacements : the equations of the axial displacements u1L = u1G .cos ϕ + v1G .sin ϕ and u2 L = u2G .cos ϕ + v2G .sin ϕ are still valid, but we need to write the equations for transverse displacements v1L and v2 L .
+
+xL yL v 1L
+v1G u1G 1 YG
+
+2
+
+ϕ
+
+XG
+
+Finite Elements Method
+
+The 2-nodes Beam Element
+
+page 30
+
+v1L = −u1G .sin ϕ + v1G .cos ϕ v2 L = −u2 G .sin ϕ + v2 G .cos ϕ Combining all local displacements, we obtain :
+
+ u1L   c 0 u    2L   0 c v1L   − s 0    = v2 L   0 − s ϑ1L   0 0      ϑ2 L   0 0
+
+s 0 c 0 0 0
+
+0 s 0 c 0 0
+
+0 0 0 0 1 0
+
+0   u1G    0  u 2 G     0   v1G   .   = [T ].{U G } 0  v2G  0  ϑ1G     1  ϑ2G   
+
+2.6
+
+Spatial beam (3D)
+
+This is the 3D version of the one we studied in this chapter. The spatial beam still has 2 nodes, but each node has here 6 DOF (3 displacements and 3 rotations). In order to define the orientation of the principal axes of inertia, a third point (sometimes called K node) is necessary : it defines, with the other 2 nodes the x-y plane. The following figure shows that additional node and the DOF in local and global axes.
+
+2.7
+
+Conclusions
+
+In a 2-nodes beam element, the strains (and thus the stresses) are linear in x and y. Two adjacent beam elements have the same nodal unknowns at their common node. That means that they have the same displacements and rotations at this node, as if they were welded! If a hinge must be modelized in a beam, software usually allows the user to activate a "release23" of one or more DOF at a node. The 2-nodes beam Euler-Bernoulli element will thus give exact24 results if : • the loads are applied at the nodes • the beam is prismatic, that is, the cross-section A is constant over the length of the element. If loads are applied between nodes, and replaced by work-equivalent nodal forces, it can be shown that, as for the 2-nodes bar element, the nodal displacements will be exact. This does not mean that, between the nodes, the displacements will be exact, nor the stresses.
+23 24
+
+relâchement With the limitation that shear deformations are neglected!
+
+Finite Elements Method
+
+The 2-nodes Beam Element
+
+page 31
+
+If the significant shear deformations are expected, the Timoshenko beam element is more suitable: this is generally the case if the height of the beam is greater than about 1/5th of beam's span25.
+
+25
+
+portée
+
+Finite Elements Method
+
+Dimensional Reduction
+
+page 32
+
+Chapitre 3.
+
+Dimensional Reduction
+
+3.1 Introduction
+When carrying out a finite element analysis, the domain of the problem is divided (discretized) into some sort of mesh. The problems we model are often 3D in nature, making the analysis so large that computation time is lengthy and prohibitively expensive. In order that the analysis is carried out in some sort of reasonable time, various methods of model reduction may be used. Dimensional reduction or model order reduction techniques are often used to transform a complex 3D or 2D problem into a lower order 1D or 2D system respectively. By doing so, computation times are significantly reduced, but in a way that does not compromise model accuracy. In dimensional reduction, the finite element model makes use of elements of reduced dimension, such as bars, beams, plates26 and shells27. The crux28 of any model order reduction process is the removal of physical dimensions from the governing equations and replacing them with parameters.
+
+3.2 Reducing from 3D solid to Line (3D to 1D)
+If part of the structure is long and slender, then it may be appropriate to use some sort of 1D element in 3D space. We have seen in the previous chapters, the simplest finite elements : the 2 nodes-bar element and the 2-nodes plane beam element. Line elements can represent 2D & 3D bars, beams, pipe structures and 2D models of 3D axisymmetric shell structures. A Spar29, Rod30, pipe or truss31 element is able to support forces in the element direction only. These elements carry no rotations, so are limited in capability. Cable elements can support tensile loads only. Beams can support rotational degrees of freedom and can be used to model any type of cross-sectional profile. The cross-section properties are defined in the description of the element (area, Ixx, Iyy, Ixy, J).
+
+3.3 Reducing from 3D to a planar (2D) Analysis
+Sometimes it is possible to represent the full 3D analysis on a plane. Then the third dimension is input as a parameter such as a material thickness. There are three types of plane idealization available to the analyst, plane stress, plane strain and axisymmetric.
+3.3.1 Plane Stress32
+
+A problem can be described as plane stress if the stress is zero in the direction that is not being modelled. The assumptions built into the formulation of plane stress elements are that the solid is of uniform thickness and that this thickness is much less than the other two characteristic dimensions. The Plane Stress State has an effect on the equation between stresses and strains (also called the constitutive matrix). In Plane Stress State, we have :
+
+26 27
+
+plaques coques 28 Point crucial, nœud du problème 29 Poteau, mât 30 Bielle, tige 31 (poutre en) treillis 32 Etat plan de contrainte
+
+Finite Elements Method
+
+Dimensional Reduction
+
+page 33
+
+  1 ν σ x  0  εx     E    .ν 1 0 . ε y  σ y  = 2  τ  1 −ν  1 −ν  γ xy   xy  0 0      2 
+σ x  εx      → σ y  = [ EPS ] .  ε y  τ  γ   xy   xy    1 ν 0   E  where [ EPS ] = .ν 1 0  = constitutive matrix for Plane Stress 2  1 −ν  1 −ν  0 0   2 
+3.3.2 Plane Strain33
+
+A problem can be described as plane strain if the strain is zero in the direction that is not being modelled. Plane strain analyses are used to model deep solids which cannot deform in the third plane (e.g. retainer walls, tunnels, etc..) The assumptions built into the formulation of plane strain elements are that the thickness is much greater than the other two characteristic dimensions. The Plane Strain State has an effect on the equation between stresses and strains. In Plane Strain State, we have :
+
+ σ x  ν 1 − ν E   . ν 1 −ν σ y  = . τ  (1 + ν )(1 − 2.ν )  0 0   xy  
+
+   ε x  0 . ε y  1 − 2.ν     γ xy 2   0
+
+σ x  ε x      → σ y  = [E PD ]. ε y  τ  γ   xy   xy 
+
+ 1 − ν E where [E PD ] = . ν (1 + ν )(1 − 2.ν )  .  0 
+
+ν
+1 −ν 0
+
+  0  = constitutive matrix for Plane Strain 1 − 2.ν   2  0
+
+33
+
+Etat plan de déformation
+
+Finite Elements Method
+
+Dimensional Reduction
+
+page 34
+
+3.3.3 Axisymmetric
+
+3D solids of revolution are generated by revolving a planar crosssection. Therefore, axisymmetric elements are used to describe and analyse the behaviour of this planar cross-section. Axisymmetric simulations are generally only appropriate if the geometry, loads and boundary conditions can be described as axysymmetric (although an axisymmetric solid under a nonaxisymmetric load can be analysed by representing the load as a Fourier series, separately calculating the response to each term with the FE model, and superposing results during postprocessing). An important point to note is that some commercial finite element packages require that the axis of revolution coincides with the global x or y axes (either one or the other, depends on the software), and some let the user specify the axis of revolution. The Axisymmetric Plane State of stress has an effect on the equation between stresses and strains. We have :
+
+νc νc 0  ε r  σ r  (1 −ν )c σ     (1 −ν )c νc 0  ε θ   θ   νc  .   = νc (1 −ν )c 0  ε z  σ z   ν c   τ zr   0 0 0 G  γ zr      with : E c= (1 +ν ) . (1 − 2.ν )
+G= E 2. (1 + ν )
+
+3.3.4 2D Finite Elements
+
+In structural mechanics and in finite element software, ﬂat thin sheet of material are called membranes, plates and shells. The distance between the plate faces is called the thickness and denoted by h. The thickness should be small, typically 10% or less, than the shortest in-plane dimension. The midplane lies halfway between the two faces. The direction normal to the midplane is called the transverse direction. Directions parallel to the midplane are called in-plane directions. The global axis z will be oriented along the transverse direction. Axes x and y are placed in the midplane, forming a right-handed Rectangular Cartesian Coordinate (RCC) system. Thus the midplane equation is z = 0. See Figure 14.1.
+
+Finite Elements Method
+
+Dimensional Reduction
+
+page 35
+
+a)Membranes
+
+Membranes are plane elements respecting the following assumptions: 1. All loads applied to the element act in the midplane direction, and are symmetric with respect to the midplane. 2. All support conditions are symmetric about the midplane. 3. In-plane displacements, strains and stresses can be taken to be uniform through the thickness. 4. The material is homogeneous though the thickness. The last assumption excludes wall constructions of importance in aerospace, in particular composite and honeycomb34 plates. The development of models for such conﬁgurations requires a more complicated integration over the thickness as well as the ability to handle coupled bending and stretching effects, and will not be considered here. Membrane elements may be used in plane stress, plane strain, axisymmetric or 3D analyses.
+b)Plates
+
+Plates are plane elements loaded exclusively by transverse loads producing plate bending. Plates are usually used for the idealization of floors, roofs. Plates have bending properties only and so have one displacement freedom in the transverse direction and two rotation freedoms per node. Plate elements may be used in plane stress or 3D analyses.
+c)Shells
+
+Shell elements are appropriate where the structure is in presence of membrane stresses combined with bending stresses. Moreover, shell elements may be curved in space, and are sometimes considered as 2½D element (surface element in 3D space). Shell elements usually have three displacement DOF per node (one transverse and two in plane) and two rotation DOF. Some shell element formulations also have a third rotation DOF about the normal of the shell, this is often referred to the drilling DOF and is not used very often in analyses.
+34
+
+Nid d'abeilles
+
+Finite Elements Method
+
+Dimensional Reduction
+
+page 36
+
+Flat shell elements may be used in plane stress or 3D analyses while curved shells are only used in 3D analyses.
+
+3.4 Combination of element types
+A combination of different element types is always possible, but one must be careful to the connections between elements, because they don't have the same DOF. For example, a spatial beam element connected to a node of a solid element will be considered as a hinge, because the solid element only has 3 displacements DOF, and the three rotations DOF of the beam cannot be transmitted to the solid element.
+
+Connection between a membrane element and a plane beam element requires special care because the beam has two displacement DOF + one rotational DOF and the membrane only has two displacement DOF. The discretization on the left will have the same effect as placing a hinge in A. To transmit a moment from the beam to the membrane model, it is necessary to extend the beam a least to node C.
+
+Finite Elements Method
+
+Membrane Elements
+
+page 37
+
+Chapitre 4.
+
+Membrane Elements
+
+4.1 Displacement-Strain Relation
+The strains in the membrane elements are related to the displacements by the following differential equations :
+
+εx =
+
+∆u δu = ∆x δx
+
+εy =
+
+∆v δv = ∆y δy
+
+γ xy =
+
+∆v ∆u δv δu + = + ∆x ∆y δx δy
+
+4.2 The Three Nodes Triangle Membrane Element T3
+4.2.1 Description
+y,v v3 u3 3
+
+This is the simplest membrane element. The T3 membrane element has 2 DOF per node (2 displacements) and 3 nodes thus 6 nodal unknowns. Let us assume, for the functions u(x,y) et v(x,y) , polynomials in x and y of the same degree. As there are 6 nodal unknowns, we need 6 constants βi to determine the complete displacement field that will be of the form :
+u( x , y ) = β 1 + β 2 .x + β 3 . y
+
+b
+
+v1 1 u1 a 2
+
+v2 x,u u2
+
+v ( x , y ) = β 4 + β 5 .x + β 6 . y
+
+(2)
+These constants are determined with the boundary conditions at the nodes, for example at node 1 we must have u(0,0)=u1, thus β 1 = u1
+4.2.2 Strains
+
+Let us have a look to the strains δu u −u εx = = β2 = 2 1 a δx v −v δv εy = = β6 = 3 1 b δy u −u v −v δu δv γ xy = + = β3 + β5 = 3 1 + 2 1 b a δy δx
+
+Finite Elements Method
+
+Membrane Elements
+
+page 38
+
+All strains are thus constant in the element!
+4.2.3 Shape Functions
+
+The shape functions can be determined by the same method as for the beam element but here the polynomial, will be like : N i ( x, y ) = mi .x + ni . y + pi
+
+(3)
+
+and the three coefficients mi… pi can be determined from the three boundary conditions at the nodes : • u(0,0)=1,u(a,0)=0,u(0,b)=0; • u(0,0)=0,u(a,0)=1,u(0,b)=0; • u(0,0)=0,u(a,0)=0,u(0,b)=1. The maxima script is: kill(all); u(x,y):=m+n*x+p*y;
+
+/* model function */ /* first derivative of the function */ /* boundary condition 1 at /* first shape function */ /* boundary condition 2 at /* second shape function */ /* boundary condition 3 at /* third shape function */
+
+dd:diff(u(x,y),x); du(x):=''dd;
+
+S1:[u(0,0)=1,u(a,0)=0,u(0,b)=0]; node 1 */ solve(S1,[m,n,p]); N1:ev(u(x,y),%[1]); S2:[u(0,0)=0,u(a,0)=1,u(0,b)=0]; node 2 */ solve(S2,[m,n,p]); N2:ev(u(x,y),%[1]); S3:[u(0,0)=0,u(a,0)=0,u(0,b)=1]; node 3 */ solve(S3,[m,n,p]); N3:ev(u(x,y),%[1]); N:transpose(matrix([N1,N2,N3]));
+And the script gives the shape functions N1,N2,N3 :
+
+Note :
+
+Finite Elements Method
+
+Membrane Elements
+
+page 39
+
+The edge 1-3 of the element remains straight during deformation, because on this edge x=0, thus u et v are only dependent on displacements of nodes 1 et 3. If an adjacent element shares the same nodes 1 et 3, its edge will remain straight as well and the displacements of both elements along the edge 1-3 will be compatible, that is there will be no gap between both elements edges. The displacement field in the element is given by the two equations :
+u1  u   2  x y   1− − u ( x, y )    u3   a b = [ N ].   =     v ( x, y )    v1   0 v2      v3   
+4.2.4 Conclusions
+
+x a 0
+
+y b
+
+0
+
+0 x a
+
+x y 0 1− − a b
+
+u1     u2  0   u3  .  y  v1  b  v2     v3   
+
+• • •
+
+The 2-D shape functions follow the same procedure as for 1-D : If there are two or more components (e.g., u, v and w displacements) then the same interpolation function is used for all components. All strains are independent in x and y in the element. This is why this element is called Constant Strain Triangle (CST). This element can only represent a constant strain field. If the strain gradient is important, this property will oblige the user to refine the mesh dramatically to get reliable results.
+
+4.3 The Six Nodes Triangle Membrane Element T6
+4.3.1 Description
+y,v v3 u3 3 v6 6 u6 v5 5 u5
+
+The T3 membrane element has 2 DOF per node (2 displacements) and 6 nodes thus 12 nodal unknowns. Let us assume, for the functions u(x,y) et v(x,y) , polynomials in x and y of the same degree. As there are 12 nodal unknowns, we need 12 constants βi to determine the complete displacement field that will be of the form :
+u ( x, y ) = β1 + β 2 .x + β3 . y + β 4 .x + β5 .x. y + β 6 . y
+2 2
+
+b
+
+v ( x, y ) = β 7 + β8 .x + β9 . y + β10 .x 2 + β11.x. y + β12 . y 2
+1
+
+v1 u1 4 a
+
+v4 u4 2
+
+v2 x,u u2
+
+These constants are determined with the boundary conditions at the nodes, for example at node 1 we must have u(0,0)=u1, thus β1 = u1
+4.3.2 Strains
+
+Let us have a look to the strains
+
+δu = β 2 + 2.β 4 .x + β5 . y δx δv εy = = β 9 + β11.x + 2.β12 . y δy εx =
+
+Finite Elements Method
+
+Membrane Elements
+
+page 40
+
+γ xy =
+
+δu δv + = ( β3 + β8 ) + ( β 5 + 2.β10 ) .x + ( 2.β 6 + β11 ) . y δy δx
+
+This element is thus able to show strains fields linear in x and y.
+4.3.3 Shape Functions
+
+The shape functions can be determined by the same method as for the T3 element but here the polynomial, will be like : N i ( x, y ) = mi + ni .x + pi . y + qi .xy + ri .x ² + si . y ² (3) and the six coefficients mi… si can be determined from the six boundary conditions at the nodes :
+• • • • • •
+
+u(0,0)=1,u(a,0)=0,u(0,b)=0,u(a/2,0)=0,u(a/2,b/2)=0,u(0,b/2)=0; u(0,0)=0,u(a,0)=1,u(0,b)=0,u(a/2,0)=0,u(a/2,b/2)=0,u(0,b/2)=0; u(0,0)=0,u(a,0)=0,u(0,b)=1,u(a/2,0)=0,u(a/2,b/2)=0,u(0,b/2)=0 ; u(0,0)=0,u(a,0)=0,u(0,b)=0,u(a/2,0)=1,u(a/2,b/2)=0,u(0,b/2)=0 ; u(0,0)=0,u(a,0)=0,u(0,b)=0,u(a/2,0)=0,u(a/2,b/2)=1,u(0,b/2)=0 ; u(0,0)=0,u(a,0)=0,u(0,b)=0,u(a/2,0)=0,u(a/2,b/2)=0,u(0,b/2)=1 .
+
+The maxima script is:
+
+kill(all); u(x,y):=m+n*x+p*y+q*x*y+r*x^2+s*y^2;
+
+/* model function */
+
+S1:[u(0,0)=1,u(a,0)=0,u(0,b)=0,u(a/2,0)=0,u(a/2,b/2)=0,u(0,b/2 )=0]; /* boundary condition 1 at node 1 */ solve(S1,[m,n,p,q,r,s]); N1:ev(u(x,y),%[1]); /* first shape function */ S2:[u(0,0)=0,u(a,0)=1,u(0,b)=0,u(a/2,0)=0,u(a/2,b/2)=0,u(0,b/2 )=0]; /* boundary condition 2 at node 2 */ solve(S2,[m,n,p,q,r,s]); N2:ev(u(x,y),%[1]); /* second shape function */ S3:[u(0,0)=0,u(a,0)=0,u(0,b)=1,u(a/2,0)=0,u(a/2,b/2)=0,u(0,b/2 )=0]; /* boundary condition 3 at node 3 */ solve(S3,[m,n,p,q,r,s]); N3:ev(u(x,y),%[1]); /* third shape function */ S4:[u(0,0)=0,u(a,0)=0,u(0,b)=0,u(a/2,0)=1,u(a/2,b/2)=0,u(0,b/2 )=0]; /* boundary condition 1 at node 1 */ solve(S4,[m,n,p,q,r,s]); N4:ev(u(x,y),%[1]); /* fourth shape function */
+
+Finite Elements Method
+
+Membrane Elements
+
+page 41
+
+S5:[u(0,0)=0,u(a,0)=0,u(0,b)=0,u(a/2,0)=0,u(a/2,b/2)=1,u(0,b/2 )=0]; /* boundary condition 2 at node 2 */ solve(S5,[m,n,p,q,r,s]); N5:ev(u(x,y),%[1]); /* fifth shape function */ S6:[u(0,0)=0,u(a,0)=0,u(0,b)=0,u(a/2,0)=0,u(a/2,b/2)=0,u(0,b/2 )=1]; /* boundary condition 3 at node 3 */ solve(S6,[m,n,p,q,r,s]); N6:ev(u(x,y),%[1]); /* sixth shape function */ N:transpose(factor(matrix([N1,N2,N3,N4,N5,N6])));
+
+And the script gives the shape functions N1,N2,N3,N4,N5,N6 :
+
+4.3.4 Conclusions
+
+•
+
+All strains are linear in x and y in the element. This is why this element is called Linear Strain Triangle (LST). This element can only represent, at most, a linear strain field. If the strain gradient is severe, this property will oblige the user to refine the mesh to get reliable results.
+
+Finite Elements Method
+
+Membrane Elements
+
+page 42
+
+4.4 The Four Nodes Quadrilateral Membrane Element Q4
+4.4.1 Description
+
+The Q4 membrane element has 2 DOF per node (2 displacements) and 4 nodes thus 8 nodal unknowns.
+4
+
+v4 u4 3 y,v
+
+v3 u3
+
+Let us assume, for the functions u(x,y) et v(x,y) , polynomials in x and y of the same degree. As there are 8 nodal unknowns, we need 4 terms in the polynomial describing u(x,y) and 4 terms in the polynomial describing v(x,y). From Pascal's triangle, the four terms will be choosen to have the complete displacement field like: u = β 1 + β 2 .x + β 3 . y + β 4 .x. y v = β 5 + β 6 .x + β 7 . y + β 8 .x. y
+2b
+
+x,u
+
+v1 1 u1 2a 2
+
+v2 u2
+
+1 x y 2 x xy y2 x3 x2y xy2 y3 x4 x3y x2y2 xy3 y4 x5 x4y x3y2 x2y3 xy4 y5
+Terms of Q4 element in Pascal's Triangle These constants βi are determined with the boundary conditions at the nodes, for example at node 1 we must have u(-a,-b)=u1.
+4.4.2 Strains
+
+Let us have a look to the strains
+
+εx = εy =
+
+δu = β2 + β4 . y δx δv = β 7 + β8 .x δy
+
+(constant in x and linear in y)
+
+(constant in y and linear in x)
+
+γ xy =
+
+δu δv + = ( β 3 + β 6 ) + β 4 .x + β8 . y δy δx
+
+(linear in x and y)
+
+4.4.3 Shape functions
+
+It is usual to make a double variable change, in order to be independent of the dimensions "a" and "b" of the element : We introduce two non-dimensional variables ξ,η such that :
+
+Finite Elements Method
+
+Membrane Elements
+
+page 43
+
+x a y η= b
+
+ξ=
+
+These two variables are thus both varying between -1 and +1. The shape functions will be like :
+N i (ξ ,η ) = mi + niξ + piη + qiξη
+
+and the four coefficients mi… qi can be determined from the four boundary conditions at the nodes : • u(-1,-1)=1,u(1,-1)=0,u(1,1)=0, u(-1,1)=0; • u(-1,-1)=0,u(1,-1)=1,u(1,1)=0, u(-1,1)=0; • u(-1,-1)=0,u(1,-1)=0,u(1,1)=1, u(-1,1)=0; • u(-1,-1)=0,u(1,-1)=0,u(1,1)=0, u(-1,1)=1. The maxima script is: kill(all); u(xi,eta):=m+n*xi+p*eta+q*xi*eta; S1:[u(-1,-1)=1,u(1,-1)=0,u(1,1)=0, u(-1,1)=0]; solve(S1,[m,n,p,q]); N1:factor(ev(u(xi,eta),%[1])); wxplot3d(N1, [xi,-1,1], [eta,-1,1],['grid, 10, 10]); S2:[u(-1,-1)=0,u(1,-1)=1,u(1,1)=0, u(-1,1)=0]; solve(S2,[m,n,p,q]); N2:factor(ev(u(xi,eta),%[1])); wxplot3d(N2, [xi,-1,1], [eta,-1,1],['grid, 10, 10]); S3:[u(-1,-1)=0,u(1,-1)=0,u(1,1)=1, u(-1,1)=0]; solve(S3,[m,n,p,q]); N3:factor(ev(u(xi,eta),%[1])); wxplot3d(N3, [xi,-1,1], [eta,-1,1],['grid, 10, 10]); S4:[u(-1,-1)=0,u(1,-1)=0,u(1,1)=0, u(-1,1)=1]; solve(S4,[m,n,p,q]); N4:factor(ev(u(xi,eta),%[1])); wxplot3d(N4, [xi,-1,1], [eta,-1,1],['grid, 10, 10]); N:transpose(matrix([N1,N2,N3,N4])); And the shape function vector is :
+
+Finite Elements Method
+
+Membrane Elements
+
+page 44
+
+The script gives also a 3D plot of the shape functions. For example, the plot of N3(ξ,η) is :
+
+4.4.4 Element stiffness
+
+It can be shown that the Q4 finite element is too stiff when bended in its plane. Under pure bending, the bending35 deformation of a rectangular area is shown on the left figure. The Q4 element doesn't deform like that : its four edges remain straight like drawn on the right picture:
+
+The moment M2 necessary to deform the Q4 element in such a way that θ2=θ1 is equal to : 2 1  1 1a  M2 = +   M1  1 +υ 1 −υ 2  b     Thus M2 is always > M1 and the Q4 element is thus too stiff (especially if a>>b ! So it's a good idea to keep an aspect ratio ≈ 1 (aspect ratio = ratio of the greatest dimension of the element to the smallest dimension).
+35
+
+flexion
+
+Finite Elements Method
+
+Membrane Elements
+
+page 45
+
+4.5 The Q6 "Incompatible" Finite Element
+One solution to compensate the too high stiffness of the Q4 element is to consider additional internal displacement (=bubble modes36) describing constant curvature modes. This is what does the Q6 element present in some FEM softwares like ALGOR. The magnitude of those modes is determined by minimizing the internal strain energy in the element. Such elements are called Q6 even though externally, they still have 4 nodes like the Q4. One consequence of these internal modes is that the edges of two adjacent elements may have different curvatures, and thus the displacement field along this common edge may be incompatible. This is why this element is also called "incompatible". This incompatibility is illustrated on the next figure
+
+4.6 The Height Nodes Quadrilateral Membrane Element Q8
+4.6.1 Description
+
+The Q8 membrane element has 2 DOF per node (2 displacements) and 8 nodes thus 16 nodal unknowns.
+4
+
+v4 u4 7
+
+v7 u7 y,v x,u 6 3
+
+v3 u3
+
+Let us assume, for the functions u(x,y) et v(x,y) , polynomials in x and y of the same degree. As there are 16 nodal unknowns, we need 8 terms in the polynomial describing u(x,y) and 8 terms in the polynomial describing v(x,y).
+2b
+8
+
+v8 u8
+
+v6 u6
+
+v1
+
+v5 5 u5 2a 2
+
+v2 u2
+
+From Pascal's triangle, the eight terms will be 1 u1 choosen to have the complete displacement field like: u = β 1 + β 2 x + β 3 y + β 4 x² + β 5 xy + β 6 y² + β 7 x² y + β 8 xy²
+v = β 9 + β 10 x + β 11 y + β 12 x² + β 13 xy + β 14 y² + β 15 x² y + β 16 xy²
+
+1 x y 2 x xy y2
+36
+
+modes bulles
+
+Finite Elements Method
+
+Membrane Elements
+
+page 46
+
+x3 x2y xy2 y3 x4 x3y x2y2 xy3 y4 x5 x4y x3y2 x2y3 xy4 y5
+Terms of Q8 element in Pascal's Triangle These constants βi are determined with the boundary conditions at the nodes, for example at node 1 we must have u(-a,-b)=u1.
+4.6.2 Strains
+
+Let us have a look to the strains
+
+εx = εy =
+
+δu = β 2 + 2 β 4 .x + β5 . y + 2 β 7 .xy + β8 . y 2 δx δv = β11 + β13 .x + 2 β14 . y + β15 .x 2 + 2 β16 .xy δy
+
+(linear in x and quadratic in y)
+
+(linear in y and quadratic in x)
+
+γ xy =
+
+δu δv + = ( β 3 + β10 ) + β 5 .x + β13 . y + 2 ( β 6 . y + β12 .x ) + β 7 .x 2 + β16 . y 2 + 2 ( β8 + β15 ) .xy δy δx
+(quadratic in x and y)
+
+4.6.3 Shape functions
+
+We will express the shape functions in terms of two non-dimensional variables ξ,η we introduced in the Q4 element : x ξ= a y η= b The shape functions will be like :
+N i (ξ ,η ) = ai + biξ + ciη + d iξ 2 + eiη 2 + fiξη + g iξη 2 + hiξ 2η
+
+and the eight coefficients ai… hi can be determined from the eight boundary conditions at the nodes. The maxima script is: kill(all); u(xi,eta):=a+b*xi+c*eta+d*xi^2+e*eta^2+f*xi*eta+g*xi*eta^2+h*eta*xi^2; S1:[u(-1,-1)=1,u(0,-1)=0,u(1,-1)=0,u(-1,0)=0,u(1,0)=0,u(-1,1)=0,u(0,1)=0,u(1,1)=0]; solve(S1,[a,b,c,d,e,f,g,h]); N1:factor(ev(u(xi,eta),%[1])); wxplot3d(N1, [xi,-1,1], [eta,-1,1],['grid, 10, 10]); S2:[u(-1,-1)=0,u(0,-1)=0,u(1,-1)=1,u(-1,0)=0,u(1,0)=0,u(-1,1)=0,u(0,1)=0,u(1,1)=0]; solve(S2,[a,b,c,d,e,f,g,h]); N2:factor(ev(u(xi,eta),%[1])); wxplot3d(N2, [xi,-1,1], [eta,-1,1],['grid, 10, 10]);
+
+Finite Elements Method
+
+Membrane Elements
+
+page 47
+
+S3:[u(-1,-1)=0,u(0,-1)=0,u(1,-1)=0,u(-1,0)=0,u(1,0)=0,u(-1,1)=0,u(0,1)=0,u(1,1)=1]; solve(S3,[a,b,c,d,e,f,g,h]); N3:factor(ev(u(xi,eta),%[1])); wxplot3d(N3, [xi,-1,1], [eta,-1,1],['grid, 10, 10]); S4:[u(-1,-1)=0,u(0,-1)=0,u(1,-1)=0,u(-1,0)=0,u(1,0)=0,u(-1,1)=1,u(0,1)=0,u(1,1)=0]; solve(S4,[a,b,c,d,e,f,g,h]); N4:factor(ev(u(xi,eta),%[1])); wxplot3d(N4, [xi,-1,1], [eta,-1,1],['grid, 10, 10]); S5:[u(-1,-1)=0,u(0,-1)=1,u(1,-1)=0,u(-1,0)=0,u(1,0)=0,u(-1,1)=0,u(0,1)=0,u(1,1)=0]; solve(S5,[a,b,c,d,e,f,g,h]); N5:factor(ev(u(xi,eta),%[1])); wxplot3d(N5, [xi,-1,1], [eta,-1,1],['grid, 10, 10]); S6:[u(-1,-1)=0,u(0,-1)=0,u(1,-1)=0,u(-1,0)=0,u(1,0)=1,u(-1,1)=0,u(0,1)=0,u(1,1)=0]; solve(S6,[a,b,c,d,e,f,g,h]); N6:factor(ev(u(xi,eta),%[1])); wxplot3d(N6, [xi,-1,1], [eta,-1,1],['grid, 10, 10]); S7:[u(-1,-1)=0,u(0,-1)=0,u(1,-1)=0,u(-1,0)=0,u(1,0)=0,u(-1,1)=0,u(0,1)=1,u(1,1)=0]; solve(S7,[a,b,c,d,e,f,g,h]); N7:factor(ev(u(xi,eta),%[1])); wxplot3d(N7, [xi,-1,1], [eta,-1,1],['grid, 10, 10]); S8:[u(-1,-1)=0,u(0,-1)=0,u(1,-1)=0,u(-1,0)=1,u(1,0)=0,u(-1,1)=0,u(0,1)=0,u(1,1)=0]; solve(S8,[a,b,c,d,e,f,g,h]); N8:factor(ev(u(xi,eta),%[1])); wxplot3d(N8, [xi,-1,1], [eta,-1,1],['grid, 10, 10]); N:transpose(matrix([N1,N2,N3,N4,N5,N6,N7,N8])); And the shape function vector {N} is :
+
+Finite Elements Method
+
+Membrane Elements
+
+page 48
+
+The plot of the shape functions N3 and N6 are given herebelow as examples :
+
+N3 shape function
+
+Finite Elements Method
+
+Membrane Elements
+
+page 49
+
+N6 shape function
+
+4.7 The Nine Nodes Quadrilateral Membrane Element Q9
+4.7.1 Description
+v4 u4 4 v8 7 v7 u7 3 v3 u3
+
+This is another popular finite element present in many FEM softwares. The Q9 membrane element has 2 DOF per node (2 displacements) and 9 nodes thus 18 nodal unknowns.
+2b
+
+v9 y,v x,u 9 u9 6
+
+v6 u6
+
+Once again, let us assume, for the functions u(x,y) et v(x,y) , polynomials in x and y of the same degree. As there are 18 nodal unknowns, we need 9 terms in the polynomial describing u(x,y) and 9 terms in the polynomial describing v(x,y).
+
+8
+
+u8
+
+v1 1 u1
+
+v5 5 u5 2a 2
+
+v2 u2
+
+From Pascal's triangle, the nine terms will be choosen to have the complete displacement field like: u = β1 + β 2 x + β3 y + β 4 x ² + β 5 xy + β 6 y ² + β 7 x ² y + β8 xy ² + β17 x 2 y ²
+v = β 9 + β10 x + β11 y + β12 x ² + β13 xy + β14 y ² + β15 x ² y + β16 xy ² + β18 x 2 y ²
+
+1 x y 2 x xy y2 x3 x2y xy2 y3 x4 x3y x2y2 xy3 y4 x5 x4y x3y2 x2y3 xy4 y5
+4.7.2 Strains
+
+εx =
+
+δu = β 2 + 2 β 4 x + β5 y + 2 β 7 xy + β8 y 2 + 2 β17 xy 2 δx
+
+Finite Elements Method
+
+Membrane Elements
+
+page 50
+
+εy = γ xy =
+
+δv = β11 + β13 x + 2 β14 y + β15 x 2 + 2 β16 xy + 2 β18 x 2 y δy δu δv + = ( β 3 + β10 ) + (2 β12 + β 5 ) x + (2 β 6 + β13 ) y + β 7 x 2 + (2 β8 + 2 β15 ) xy + δy δx β16 y 2 + 2β17 x 2 y + 2β18 xy 2
+
+4.7.3 Shape Functions
+
+We will express, once more, the shape functions in terms of two non-dimensional variables ξ,η we introduced in the Q4 element : x ξ= a y η= b The shape functions will be like :
+N i (ξ ,η ) = ai + biξ + ciη + diξ 2 + eiη 2 + fiξη + g iξη 2 + hiξ 2η + +iiξ 2η 2
+
+and the nine coefficients ai… ii can be determined from the nine boundary conditions at the nodes. The maxima script is: kill(all); u(xi,eta):=a+b*xi+c*eta+d*xi^2+e*eta^2+f*xi*eta+g*xi*eta^2+h*eta*xi^2+i*eta^2*xi^2; S1:[u(-1,-1)=1,u(0,-1)=0,u(1,-1)=0,u(-1,0)=0,u(1,0)=0,u(1,1)=0,u(0,1)=0,u(1,1)=0,u(0,0)=0]; solve(S1,[a,b,c,d,e,f,g,h,i]); N1:factor(ev(u(xi,eta),%[1])); wxplot3d(N1, [xi,-1,1], [eta,-1,1],['grid, 10, 10]); S2:[u(-1,-1)=0,u(0,-1)=0,u(1,-1)=1,u(-1,0)=0,u(1,0)=0,u(1,1)=0,u(0,1)=0,u(1,1)=0,u(0,0)=0]; solve(S2,[a,b,c,d,e,f,g,h,i]); N2:factor(ev(u(xi,eta),%[1])); wxplot3d(N2, [xi,-1,1], [eta,-1,1],['grid, 10, 10]); S3:[u(-1,-1)=0,u(0,-1)=0,u(1,-1)=0,u(-1,0)=0,u(1,0)=0,u(1,1)=0,u(0,1)=0,u(1,1)=1,u(0,0)=0]; solve(S3,[a,b,c,d,e,f,g,h,i]); N3:factor(ev(u(xi,eta),%[1])); wxplot3d(N3, [xi,-1,1], [eta,-1,1],['grid, 10, 10]); S4:[u(-1,-1)=0,u(0,-1)=0,u(1,-1)=0,u(-1,0)=0,u(1,0)=0,u(1,1)=1,u(0,1)=0,u(1,1)=0,u(0,0)=0]; solve(S4,[a,b,c,d,e,f,g,h,i]); N4:factor(ev(u(xi,eta),%[1])); wxplot3d(N4, [xi,-1,1], [eta,-1,1],['grid, 10, 10]);
+
+Finite Elements Method
+
+Membrane Elements
+
+page 51
+
+S5:[u(-1,-1)=0,u(0,-1)=1,u(1,-1)=0,u(-1,0)=0,u(1,0)=0,u(1,1)=0,u(0,1)=0,u(1,1)=0,u(0,0)=0]; solve(S5,[a,b,c,d,e,f,g,h,i]); N5:factor(ev(u(xi,eta),%[1])); wxplot3d(N5, [xi,-1,1], [eta,-1,1],['grid, 10, 10]); S6:[u(-1,-1)=0,u(0,-1)=0,u(1,-1)=0,u(-1,0)=0,u(1,0)=1,u(1,1)=0,u(0,1)=0,u(1,1)=0,u(0,0)=0]; solve(S6,[a,b,c,d,e,f,g,h,i]); N6:factor(ev(u(xi,eta),%[1])); wxplot3d(N6, [xi,-1,1], [eta,-1,1],['grid, 10, 10]); S7:[u(-1,-1)=0,u(0,-1)=0,u(1,-1)=0,u(-1,0)=0,u(1,0)=0,u(1,1)=0,u(0,1)=1,u(1,1)=0,u(0,0)=0]; solve(S7,[a,b,c,d,e,f,g,h,i]); N7:factor(ev(u(xi,eta),%[1])); wxplot3d(N7, [xi,-1,1], [eta,-1,1],['grid, 10, 10]); S8:[u(-1,-1)=0,u(0,-1)=0,u(1,-1)=0,u(-1,0)=1,u(1,0)=0,u(1,1)=0,u(0,1)=0,u(1,1)=0,u(0,0)=0]; solve(S8,[a,b,c,d,e,f,g,h,i]); N8:factor(ev(u(xi,eta),%[1])); wxplot3d(N8, [xi,-1,1], [eta,-1,1],['grid, 10, 10]); S9:[u(-1,-1)=0,u(0,-1)=0,u(1,-1)=0,u(-1,0)=0,u(1,0)=0,u(1,1)=0,u(0,1)=0,u(1,1)=0,u(0,0)=1]; solve(S9,[a,b,c,d,e,f,g,h,i]); N9:factor(ev(u(xi,eta),%[1])); wxplot3d(N9, [xi,-1,1], [eta,-1,1],['grid, 10, 10]); N:transpose(matrix([N1,N2,N3,N4,N5,N6,N7,N8,N9])); And the shape function vector {N} is :
+
+Finite Elements Method
+
+Membrane Elements
+
+page 52
+
+The plot of the shape functions N3, N6 and N9 are given herebelow as examples :
+
+N3 shape function
+
+Finite Elements Method
+
+Membrane Elements
+
+page 53
+
+N6 shape function
+
+N9 shape function
+
+Finite Elements Method Iso-Parametric Elements and Numerical Integration
+
+page 54
+
+Chapitre 5. Integration
+
+Iso-Parametric
+
+Elements
+
+and
+
+Numerical
+
+5.1 Iso-Parametric Elements
+Because the geometry of general 2D problems can't be modelled only by right-angled triangles and rectangles, distorted triangles and quadrilaterals finite elements are necessary. The isoparametric formulation makes it possible to have nonrectangular elements, elements with curved sides, "infinite" elements for unbounded media, and singularity elements for fracture mechanics. Here we discuss only the four-node plane quadrilateral Q4. Other isoparametric elements have more nodes and more shape functions but are very similar in that they use the same concepts and computational procedures. An auxiliary coordinate system must be introduced in order that a quadrilateral may be nonrectangular. This system, called ξ,η in Fig. 6.1, is a "natural" coordinate system.
+
+Fig. 6.1 :Q4 element in ξ and η "natural" coordinates and in global X,Y coordinates Its origin in global coordinates XY is at the average of the comer coordinates. In natural coordinates ξ,η , element sides are always defined by ξ =±1 and η =±1, regardless of the shape or physical size of the element or its orientation in global coordinates XY. in general, axes ξ and η are not orthogonal and they have no particular orientation with respect to axes X and Y. Coordinates of a point within the element are defined by : x = < N > .{ X }
+y = < N > .{Y } Where {X} and {Y} are the X and Y coordinates of the 4 nodes. The <N> vector is the same as the shape vector we used for the displacement interpolation within the Q4 element : 1 1 N1 = (1 − ξ )(1 − η ) N 2 = (1 + ξ )(1 − η ) 4 4 1 1 N 3 = (1 + ξ )(1 + η ) N 4 = (1 − ξ )(1 + η ) 4 4
+
+Given ξ and η coordinates of a point we can calculate its x and y coordinates.
+
+Finite Elements Method Iso-Parametric Elements and Numerical Integration
+
+page 55
+
+Displacements of a point are interpolated from nodal d.o.f. by use of the same shape functions: u = < N > .{U } v = < N > .{V }
+Displacements u and v are parallel to X and Y axes, not ξ and η axes.
+
+The name "isoparametric" derives from use of the same shape functions to interpolate both coordinates and displacements.
+In order to write the strain-displacement matrix B we must establish the relation between gradients in the two coordinate systems. δu Consider one of these gradients, the strain ε x = . We cannot immediately write the result δx because u is declined as a function of ξ and η rather than as a function of X and Y. We must start by differentiating with respect to ξ and η, and use the chain rule: δ u δ u δ X δ u δY = + δξ δ X δξ δ Y δξ δ u δ u δ X δ u δY = + δη δ X δη δ Y δη What can be written : δ u  δ X δ Y   δ u   δu   δξ   δξ δξ          δ X  = [ J ] δ X   =     δ u  δ X δ Y   δ u   δu   δη δη   δ Y   δY   δη         Where [J] is the Jacobian matrix.
+T The integral needed to calculate the element stiffness k = B EB dV is transformed in
+
+∫
+
+k = ∫ B EBdV =
+T
+
++1 +1
+
+−1 −1
+
+∫∫B
+
+T
+
+EB J .t.δξ .δη
+
+The principle of the iso-parametric formulation can be extended to curved edges elements when intermediate edge nodes are present :
+
+Finite Elements Method Iso-Parametric Elements and Numerical Integration
+
+page 56
+
+Fig. 6.2 The analytical integration of the element stiffness k =
++1 +1
+
+−1 −1
+
+∫∫B
+
+T
+
+EB J .t.δξ .δη or the work-
+
+equivalent force vector may become very difficult, or impossible. The only way to estimate these integrals is to do a numerical integration.
+
+5.2
+
+Numerical Integration
+
+5.2.1 1D integration
+
+Idea : the analytical integral of the function φ is replaced by a finite sum of n weighted terms representing the numerical integration
+I = ∫ φ (ξ ) .d ξ = ∑ Wi .φ (ξi )
+1
+−1 i =1 n
+
+Where :
+
+φ (ξ ) is the function to integrate,
+
+∫ φ (ξ ).dξ
+1 −1
+n i =1 i i
+
+is the analytical integral,
+
+∑W .φ (ξ ) is the numerical integral,
+Wi
+
+are the weighting coefficients of the numerical integration,
+
+φ (ξi ) the values of φ (ξ ) at the integration points.
+The most common numerical integration is the GAUSS quadrature or GAUSS integration: the following figures illustrate the Gauss quadrature of a function with 1, 2 or 3 integration points.
+
+Finite Elements Method Iso-Parametric Elements and Numerical Integration
+
+page 57
+
+It can be shown that a Gauss quadrature with nG integration points can give the same value as an analytical integration if the function is a polynomial of degree 2.nG – 1 or less.
+Examples : integration if nG = 2 → max degree of the polynomial = 3 for exact numerical
+
+if nG = 3 → max degree of the polynomial= 5 for exact numerical integration
+
+5.2.2
+
+Conclusion
+
+The numerical integration brings a third source of error in the FEM.
+5.2.3 2D and 3D integration
+
+The quadrature rule can be extended for multi-dimensional integration.
+
+I =∫
+
+1
+
+−1 −1
+
+∫
+
+1
+
+φ ( ξ ,η ) .d ξ dη = ∑∑ WW j .φ (ξi ,η j ) i
+i =1 j =1
+
+ni
+
+nj
+
+It is common practice to use an order 2 Gauss rule (four points) to integrate [K] of four- and eightnode plane elements, and common practice to compute strains and stresses at these same points. Similarly, three-dimensional elements often use eight Gauss points for stiffness integration and stress calculation.
+
+Finite Elements Method Iso-Parametric Elements and Numerical Integration
+
+page 58
+
+5.2.4 Choice Of Quadrature Rule. Instabilities
+
+A FEM model is usually inexact, and usually it errs by being too stiff (see Chapter 5). Overstiffness37 is usually made worse by using more Gauss points to integrate element stiffness matrices because additional points capture more higher-order terms in k. These terms resist some deformation modes that lower-order terms do not, and therefore act to stiffen an element. Accordingly, greater accuracy in the integration of [K] usually produces less accuracy in the FE solution,in addition to requiring more computation. On the other hand, use of too few Gauss points produces a situation known by various names: instability, spurious singular mode, mechanism and kinematic mode,zero-energy mode,and hourglass mode.
+
+Instability occurs if one or more deformation modes happen to display zero strain at all Gauss points.
+One must regard Gauss points as strain sensors. If Gauss points sense no strain under a certain deformation mode, the resulting k will have no resistance to that deformation mode.
+5.2.5 Exercise
+
+Dashed lines in the sketch show independent displacement modes of a four-node rectangular membrane element having two displacement d.o.f. per node. Which of these modes are associated with strain energy in the element and which are not? Answer for each of the following situations. (a) strain energy is integrated analytically. (b) strain energy is integrated by one Gauss point. (c) strain energy is integrated by four Gauss points.
+
+(Indication : the strain energy of an element is proportional to σε dV , thus if the strain is zero at
+
+∫
+
+all Gauss points, the strain energy of the element will be zero! Write the expressions of u and v for each deformation mode. Then deduce the strains at Gauss points.)
+
+37
+
+Sur-raideur
+
+Finite Elements Method
+
+3D Solids and Solids of Revolution
+
+page 59
+
+Chapitre 6.
+
+3D Solids and Solids of Revolution
+
+This chapter considers solid elements, first for the general 3D case, then for the special (but very common) case of axial symmetry.
+
+6.1 3D Solids
+6.1.1 INTRODUCTION
+
+The term "solid" is used to mean a three-dimensional solid that is unrestricted as to shape, loading, material properties, and boundary conditions. A consequence of this generality is that all six possible stresses (three normal and three shear) must be taken into account (Fig.). Also, the displacement field involves all three possible components, u, v, and w.
+
+Fig. 7.1.
+
+Typical finite elements for 3D solids are tetrahedra and hexahedra. with three translational d.o.f. per node. Figure 7.1 shows a hexahedral element. Problems of beam bending, plane stress, plates, and so on, can all be regarded as special cases of a 3D solid. Why then not simplify FE analysis by using 3D elements to model everything? In fact, this would not be a simplification. 3D models are the hardest to prepare, the most tedious to check for errors, and the most demanding of computer resources.
+6.1.2 Stress-Strain relations :
+
+3D Hooke's law becomes here :
+
+σ x  (1 − ν ).c σ   ν .c  y  σ z   ν .c    = τ xy   0 τ yz   0    τ zx   0   
+
+ν .c (1 − ν ).c ν .c
+0 0 0
+
+ν .c ν .c (1 − ν ).c
+0 0 0
+
+0 0 0  ε x  0 0 0  ε y    0 0 0  ε z    .  G 0 0  γ xy  0 G 0  γ yz    0 0 G  γ zx   
+
+Finite Elements Method
+
+3D Solids and Solids of Revolution
+
+page 60
+
+where c =
+
+E and (1 + ν )(1 − 2.ν ) .
+
+G=
+
+E 2.(1 + ν )
+
+{σ } = [E ]{ε }
+6.1.3 Interpolation of the Displacements within an element (Shape functions)
+
+ u   N1    v  =  0  w  0   
+
+0
+N1
+
+0 0
+N1
+
+N2
+
+0
+N2
+
+0 0
+N2
+
+0 0
+
+0
+
+0
+
+ u1  v   1 ...  w1    .... u 2  → dimension : 3.n  ...  v 2    where n = number of nodes.  w2     ... 
+
+6.1.4
+
+Strain-Displacement Relations :
+
+εx = γ xy =
+
+δu δx δu δv + δy δx
+
+εy = γ yz =
+
+δv δy δv δw + δz δy
+
+εz = γ xz =
+
+δw δz
+
+δu δw + δz δx And if we group all the strain component in a vector, we can write : {ε } = [ B ] .{U }
+6.1.5 Stiffness Matrix Calculation
+
+k = ∫ [B ] .[E ][B ].dV .
+T V
+
+where [B ] is defined by {ε } = [ B ] .{U }
+6.1.6 Solid Finite Elements
+
+Most solid elements are direct extensions of plane elements discussed in Chapter 5. The extensions consist of adding another coordinate and another displacement component. The behaviour and the limitations of specific 3D elements largely parallel those of their 2D counterparts (see table). To illustrate this we present hereafter a table of correspondence and we shortly develop the 4 nodes Tetraedron.
+
+Finite Elements Method
+
+3D Solids and Solids of Revolution
+
+page 61
+
+Plane elements
+CST (Constant Strain Triangle) = T3
+y,v v3 u3 3
+
+Solid elements
+"Constant Strain Tetraedron" : 4 nodes Tetraedron
+
+b
+
+v1 1 u1 a 2
+
+v2 x,u u2
+
+LST (Linear Strain Triangle) = T6
+y,v v3 u3 3 v6 6 u6 v5 5 u5
+
+"Linear Strain Tetraedron" : 10 nodes Tetraedron.
+
+b
+
+v1 1 u1 4 a
+
+v4 u4 2
+
+v2 x,u u2
+
+"Bilinear Quadrilateral" = Q4
+v4 u4 4 y,v b 2 x,u 3 v3 u3
+
+"Trilinear Hexaedron" : 8 nodes Hexaedron.
+
+v1 1 u1 2a 2
+
+v2 u2
+
+" Quadratic Quadrilateral" = Q8
+v4 u4 4 v8 7 v7 u7 y,v x,u 8 u8 6 u6 3 v3 u3 v6
+
+"Quadratic Hexaedron" : brique à 20 nœuds.
+
+2b
+
+v1 1 u1
+
+v5 5 u5 2a 2
+
+v2 u2
+
+6.1.7 Example of the Constant Strain Tetrahedron
+
+This element has three translational d.o.f. at each of its four nodes, for a total of 12 d.o.f. In terms of generalized coordinates β. its displacement field is u= β1 + β2 x+ β3 y+ β4 z v= β5 + β6 x+ β7 y+ β8 z w=β9 + β10 x+ β11 y+ β12 z
+
+Finite Elements Method
+
+3D Solids and Solids of Revolution
+
+page 62
+
+Like the constant strain triangle, the constant strain tetrahedron is accurate only when strains are almost constant over the span of an element. The element is poor at representing fields of bending or twisting if the axis of bending or twisting either intersects the element or is close to it.
+
+6.2 Solids of Revolution
+The z axis is an axis of symmetry. The elements are drawn in a radial plane. Because of the symmetry around z it is useless to draw the symmetric part (r<0).
+
+Fig. 7.2.
+6.2.1 Stress-Strain relations :
+
+As already seen in the chapter 4, we have here : νc νc 0  ε r  σ r  (1 −ν )c σ     (1 −ν )c νc 0  ε θ   θ   νc  .  =   (1 −ν )c 0  ε z  νc σ z   ν c   τ zr   0 0 0 G  γ zr     
+with : c= E (1 +ν ) . (1 − 2.ν ) G= E 2. (1 + ν )
+
+6.2.2 Strain-Displacement Relations
+
+δu δr δw εz = δz εr = εθ =
+u r
+
+γ zr =
+
+δ w δu + δr δ z
+
+The tangential strain is deduced from the figure 7.3:
+
+Finite Elements Method
+
+3D Solids and Solids of Revolution
+
+page 63
+
+Fig. 7.3.
+
+6.2.3 Example of the T3 axisymmetric element
+
+For a T3 axisymmetric element, we have : u ( r , z ) = β1 + β2 .r + β3 .z
+
+w ( r , z ) = β 4 + β5 .r + β 6 .z
+
+Thus the strains are : δu εr = = β2 δr δw εz = = β6 δz β + β .r + β 3 .z β1 z εθ = 1 2 = + β2 + β3. r r r δ w δu γ zr = + = β 5 + β3 δr δ z
+
+Remarks. 1. To prevent singularity of K, boundary conditions on a 3D solid must suppress six rigid-body motions: translation along, and rotation about, each of the three coordinate axes. In a solid of revolution with axisymmetric deformations, translation w along the z axis is the only possible rigid-body motion. Accordingly, K will be nonsingular if w is prescribed at only one node (or, stated more properly, around one nodal circle). 2. An axisymmetric radial component of load is statically equivalent to zero, but this does not mean that it can be discarded from the load vector. It still produces deformation and stress. Over the circumference, a radial line load of q units of force per unit of (circumferential) length is regarded as contributing a radial force 2πrq of units to the load vector, where r is the radius at which q acts. Likewise, a moment of M N.m per unit of (circumferential) length is statically equivalent to zero but is regarded as applying a moment about the θ direction of 2πrM N.m.
+6.2.4 Exercise 7-1
+
+This exercise is similar to the one of Chapter 6, but this time we consider a Q4 axisymmetric element. Which of the displacement modes illustrated on fig.7.4. are associated with strain energy in the element and which are not? Answer for each of the following situations. (a) strain energy is integrated analytically.
+
+Finite Elements Method
+
+3D Solids and Solids of Revolution
+
+page 64
+
+(b) strain energy is integrated by one Gauss point. (c) strain energy is integrated by four Gauss points.
+
+Fig. 7.4.
+6.2.5 Exercise 7-2
+
+Fig. 7.5 represents in dashed lines the displacement mode of an axisymmetric T3 element :
+u0 u0
+
+z,w r,u Fig. 7.5 . Calculate the strains for that displacement mode.
+6.2.6 Exercise 7-3
+
+Fig. 7.6 represents the model of an axisymmetric structure. a) does the structure have enough supports to avoid any mechanism? b) draw a 3D-sketch of the structure with the loads and supports.
+
+z,w r,u
+
+p
+
+Fig. 7.6
+
+Finite Elements Method
+
+Plates and Shells
+
+page 65
+
+Chapitre 7.
+
+Plates and Shells
+
+7.1 Plate Elements
+7.1.1 Introduction
+
+A plate can be regarded as the two-dimensional analogue of a beam. Beams and plates both carry transverse loads by bending action, but they have significant differences. A beam can be straight or curved, a plate is flat (a curved geometry would make it a shell).
+
+Fig. 8.1 A beam typically has a single bending moment; a plate has two bending moments (Mx and My) and a twisting38 moment Mxy. Moreover, plates moments are expressed by unit width (for example in kN.m/m) Note that in plate theory, Mx is defined as the bending moment caused by the σx stresses and not the moment around the x axis! All FEM softwares use that convention which can be confusing if you don't remember it.
+7.1.2 Thin-Plate (Kirchhoff) Theory.
+
+Consider a plate of thickness t. Plate surfaces are at z=+/- t/2 and the plate "midsurface39" is in the plane xy at z=0 (Fig. 8.1). A differential slice cut from the plate by planes perpendicular to the x axis is shown in Fig. 8.2 (a).
+
+Fig. 8.2 (a)
+38 39
+
+Fig. 8.2 (b)
+
+torsion Feuillet moyen
+
+Finite Elements Method
+
+Plates and Shells
+
+page 66
+
+Loading causes the plate to have transverse displacement w = w(x, y) in the z direction. The differential slice moves to the position shown in Fig. 8.2-(b), with right angles preserved in cross sections because transverse shear deformation is neglected. Thus γyz=0 and γzx=0. ∂w ) in the x direction. An arbitrary point P has displacement u = - z.( ∂x An analogous argument with a differential slice cut from the plate by parallel planes normal to the y ∂w axis yields v = - z.( ) as the y-direction displacement of point P. ∂y
+7.1.3 Degrees of Freedom:
+
+Fig. 8.3 shows a quadrilateral plate element and the three DOF associated to each node: 2 rotations and one transverse displacement.
+
+w4 w3 z w1 w2
+
+Fig. 8.3
+7.1.4 Displacement field
+
+δw δw u = − z. v = − z. δx δy 2 w( x ) = β1 + β 2 x + β 3 y + β 4 x
++ β 5 xy + β 6 y 2 + β 7 xy 2 + β 8 x 2 y + β 9 y 3 + β10 x 3 + β 11 x 3 y + β12 xy 3
+
+1 x y 2 x xy y2 x3 x2y xy2 y3 x4 x3y x2y2 xy3 y4 x5 x4y x3y2 x2y3 xy4 y5
+Terms of Q4 plate element in Pascal's Triangle
+
+δu δ 2w εx = = − z. 2 δx δx εy = δv δ 2w = − z. 2 δy δy
+
+Finite Elements Method
+
+Plates and Shells
+
+page 67
+
+γ xy =
+
+δu δv δ 2w + = −2.z. δ y δx δ xδ y
+
+γ xz = γ yz = 0
+7.1.5 Thick-Plate (Mindlin) Theory
+
+This theory takes into account the shear deformation. The right angles are thus not preserved anymore in cross sections. Thus γyz ≠ 0 and γzx ≠ 0 (fig. 8.4).
+
+Fig. 8.4
+
+εx = εy =
+
+δθ y δu = z. → deformations εx linear in z direction. δx δx δθ δv = − z. x → deformations εy linear in z direction. δy δy
+ δθ y δθ x  δu δv + = z.  δy − δx   δy δx  
+
+γ xy =
+In summary :
+
+Element Type Beam Shear deformation neglected Shear deformation taken into account BERNOULLI Plate KIRCHHOFF Right angles are preserved in cross-sections Right angles are NOT preserved in cross-sections
+
+TIMOSHENKO
+
+MINDLIN
+
+Finite Elements Method
+
+page 68
+
+7.2 Shell Elements
+7.2.1 Introduction
+
+The geometry of a shell is defined by its thickness and its midsurface, which may be a curved surface in space. Load is carried by a combination of membrane action and bending action. A thin shell can be very strong if membrane action dominates, in the same way that an arch can carry great load if compression is predominant in the arch. However, no shell is completely free of bending stresses. They appear at or near point loads, line loads, reinforcements, junctures, changes of curvature, and supports.
+7.2.2 Shell Elements.
+
+The most direct way to obtain a shell element is to combine a membrane element and a bending element. Thus a simple quadrilateral shell element can be obtained by combining the Q4 plane membrane element with the plate bending quadrilateral of Fig. 8.3 (a). The resulting element is flat and has five d.o.f. per node : three displacements and two rotations (Fig. 8.5 (b)). But shells are more often curved in space. The formulation of such curved shells may become very complex and will not be developed here.
+
+Fig. 8.5 (a) In summary :
+
+Fig. 8.5 (b)
+
+Plate Elements Shell Elements
+
+Are always plane May be plane or curved in space
+
+Carry bending and twisting actions but no membrane actions. Carry bending, twisting and membrane actions.
+

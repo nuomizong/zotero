@@ -1,0 +1,266 @@
+See	discussions,	stats,	and	author	profiles	for	this	publication	at:	https://www.researchgate.net/publication/245041191
+
+Bidirectional	evolutionary	topology optimization	of	continuum	structures	with	one or	multiple	materials
+Article		in		Computational	Mechanics	·	February	2009
+DOI:	10.1007/s00466-008-0312-0
+
+CITATIONS
+
+READS
+
+91
+
+250
+
+2	authors: X.	Huang RMIT	University
+137	PUBLICATIONS			1,521	CITATIONS			
+SEE	PROFILE
+
+Yi	Min	Xie RMIT	University
+253	PUBLICATIONS			5,189	CITATIONS			
+SEE	PROFILE
+
+All	in-text	references	underlined	in	blue	are	linked	to	publications	on	ResearchGate, letting	you	access	and	read	them	immediately.
+
+Available	from:	Yi	Min	Xie Retrieved	on:	06	November	2016
+
+Comput Mech (2009) 43:393–401 DOI 10.1007/s00466-008-0312-0
+
+ORIGINAL PAPER
+
+Bi-directional evolutionary topology optimization of continuum structures with one or multiple materials
+X. Huang · Y. M. Xie
+
+Received: 31 January 2008 / Accepted: 11 June 2008 / Published online: 15 July 2008 © Springer-Verlag 2008
+
+Abstract There are several well-established techniques for the generation of solid-void optimal topologies such as solid isotropic material with penalization (SIMP) method and evolutionary structural optimization (ESO) and its later version bi-directional ESO (BESO) methods. Utilizing the material interpolation scheme, a new BESO method with a penalization parameter is developed in this paper. A number of examples are presented to demonstrate the capabilities of the proposed method for achieving convergent optimal solutions for structures with one or multiple materials. The results show that the optimal designs from the present BESO method are independent on the degree of penalization. The resulted optimal topologies and values of the objective function compare well with those of SIMP method. Keywords Bi-directional evolutionary structural optimization (BESO) · Material interpolation scheme · Optimal design
+
+1 Introduction Topology optimization for continuum structures has attracted considerable attention in the last three decades and many methods have been developed based on the ﬁnite element analysis [1–10]. Two of the commonly used methods are the solid isotropic material with penalization (SIMP) method
+X. Huang (B) · Y. M. Xie School of Civil, Environmental and Chemical Engineering, RMIT University, GPO Box 2476V, Melbourne 3001, Australia e-mail: huang.xiaodong@rmit.edu.au Y. M. Xie e-mail: mike.xie@rmit.edu.au
+
+[2–6] and the evolutionary structural optimization (ESO) method [7–10]. In SIMP method one deﬁnes at each element a density of material that varies continuously between 0 and 1. The elastic properties for intermediate densities are expressed in terms of the density, for example, using a power-law interpolation which leads to nearly 0/1 designs throughout optimization [11]. ESO method is based on an empirical concept that a structure evolves towards an optimum by slowly removing inefﬁcient material [7,8]. Bi-directional evolutionary optimization (BESO) is an extension of that idea which allows for efﬁcient material to be added to the structure at the same time as the inefﬁcient one to be removed [12–14]. It is noted that the sequential linear programming (SLP)-based approximate optimization method followed by the Simplex algorithm is equivalent to ESO/BESO if the strain energy criterion is utilized [15]. Topology optimization problems for continuous structures are well known to be ill-posed problems, if one seeks an optimal distribution of solid and void materials without restriction. This shows up through numerical instabilities such as mesh-dependency [2,16,17]. In topology optimization using SIMP method, some restrictions on the density design ﬁeld variation are normally required in order to ensure existence of solutions. A variety of restriction methods have been developed, for example, by perimeter control [18], gradient constraint [19] or blurring ﬁlters [20,21]. SIMP method incorporated with these restrictions leads to convergent, mesh-independent and nearly solid-void designs when a large penalty exponent (normally p ≥ 3) is used. ESO/BESO methods solve an optimization problem using discrete design variables (0 or 1). Several previous papers have dealt with the numerical instability problems of ESO/BESO methods. For example, to prevent checkerboarding, a smoothing algorithm using the surrounding elements’ reference factors has been proposed by Li et al. [22].
+
+123
+
+394
+
+Comput Mech (2009) 43:393–401
+
+However, this smoothing procedure depends on the assigned mesh and fails to overcome the mesh-dependency problem. To overcome mesh-dependency, an additional restriction by perimeter control [23] or ﬁlter [24] has been introduced into BESO method more recently. As has been pointed out by Zhou and Rozvany [25], removing (hard-killing) elements may cause non-optimal solution when it is used to solve a statically indeterminate structure with a highly inefﬁcient support with a coarse mesh. The breakage of such boundary support could completely change the original optimization problem. Therefore BESO leads to a non-optimal solution if it fails to detect this change. To overcome this problem, Edwards et al. [26] and Huang and Xie [27] have proposed in their parallel but independent studies a ﬁne mesh so that the breakage of the boundary is avoided and a member with a small size is allowed to remain in the optimal design. In BESO method, the optimal topology is determined according to the relative ranking of sensitivity numbers. The sensitivity numbers for solid elements can be easily estimated by the approximate variation of objective function due to removing these individual elements. The sensitivity numbers for void elements is hardly determined because these void elements are not included in the ﬁnite element analysis. Therefore, elements were directly added to the regions of the structure neighboring those elements with higher sensitivity numbers [12,14]. Yang et al. [13] calculated the sensitivity numbers of void elements through the linear extrapolation of the displacement ﬁeld. However, these BESO methods failed to obtain convergent solutions due to their separate criteria for material removal and addition. Recently, a new BESO algorithm has been developed [24] where sensitivity numbers for void elements are set to be zero initially, then modiﬁed by the ﬁlter scheme. Using a consistent removal and addition criterion the BESO algorithm leads to a convergent and mesh-independent solution and the resulted topology is very similar to the optimal topology of SIMP method. Similarities in the resulted topologies may well indicate some intrinsic relationships between BESO sensitivity number and SIMP model. Therefore, we propose a new BESO method utilizing the material interpolation scheme with penalization in this paper. The sensitivity number with a penalty parameter is derived from the sensitivity analysis. It indicates that sensitivity numbers for solid elements and void elements can be set to be elemental strain energy and zero respectively when the penalty exponent tends to be inﬁnity. However, the strain energy criterion is invalid for the topology optimization problems of structures involving two or more materials. In the end, a number of examples are presented to show effect of the penalty exponent and demonstrate the effectiveness of the present BESO method to solve topology optimization problems of structures with one or more materials.
+
+2 Problem statements and material interpolation scheme 2.1 Problem statements To maximizing the stiffness of a structure, the total strain energy of the structure or mean compliance (which is half of compliance) is minimized for a given volume of the material. The topology optimization problem can be stated as
+1 minimize : C = 2 uT Ku N
+
+Subject to : V ∗ − xi = xmin or 1
+
+Vi xi = 0
+
+(1)
+
+i=1
+
+where K and u are the global stiffness matrix of the structure and displacement vectors. Vi is the volume of an individual element and V * the prescribed total structural volume. The binary design variable xi denotes the density of ith element. To avoid the singularity of the stiffness matrix, a small value of xmin , for example, 0.001 is used to denote the void elements. Sometimes, we may seek the optimal distribution of multiple materials and their elasticity modulus are E 1 , E 2 , . . ., E n (where E 1 > E 2 · · · > E n ). The corresponding optimization problem can be stated as
+1 minimize : C = 2 uT Ku N i=1 j−1 i=1
+
+Subject to : V j∗ −
+
+Vi xi j −
+
+Vi∗ = 0
+
+(2)
+
+xi j = xmin or 1( j = 1, 2, . . . , n − 1) where V j∗ denotes the prescribed volume of jth material, the design variables xi j denote the density of ith element for jth material and xi j = 1 xmin for E ≥ E j for E ≤ E j+1 (3)
+
+2.2 Material interpolation scheme In Bendsøe and Sigmund [28], the material interpolation schemes were compared to various bounds for effective material properties in composite, for example, the Hashin– Shtrikman bounds. In the solid-void design case, Young’s modulus of intermediate material can be interpolated as the function of the element density variable as E (xi ) = E 1 xi
+p
+
+(4)
+
+where E 1 denotes the Young’s modulus for solid material, p is the penalty exponent. In the two non-zero materials case, the Young’s modulus of two materials are E 1 and E 2 and E 1 > E 2 = 0. The material interpolation scheme can be expressed as E(xi ) = xi E 1 + (1 − xi )E 2
+p p
+
+(5)
+
+123
+
+Comput Mech (2009) 43:393–401
+
+395
+
+If the optimal design contains n types of materials and corresponding elasticity modulus are E 1 > E 2 > · · · > E n . It is straightforward to interpolate the material properties between two neighboring phases, for example, E j and E j+1 as E(xi j ) = xi j E j + (1 − xi j )E j+1 3 where the subscript j = 1, . . . , n − 1.
+p p
+
+αi = −
+
+1 ∂C 1 p−1 = xi (uiT Ki1 ui − uiT Ki2 ui ) p ∂ xi 2
+
+(10)
+
+(6)
+
+where K i1 and K i2 denote the elemental stiffness matrix calculated with mechanical properties of material 1 and 2, respectively. If we assumed both materials with a same Poisson’s ratio, the sensitivity number for two materials can be expressed explicitly as ⎧ 1 ⎨2 1− ⎩
+E2 T 1 E 1 ui Ki ui p−1 xmin (E 1 −E 2 ) 1 T 2 2 x p E 1 +(1−x p )E 2 ui Ki ui min min
+
+3 Sensitivity numbers and modiﬁed sensitivity numbers 3.1 Sensitivity numbers The gradient of the objective function with respect to individual element density can be easily derived by the adjoint method [2]. For solid-void designs, the sensitivity of ith element can be expressed by px ∂C =− i ∂ xi 2
+p−1 T ui Ki ui
+
+αi =
+
+for material 1 (11) for material 2
+
+For the extreme case that p tends to be inﬁnity, the sensitivity numbers can also be simpliﬁed as αi =
+1 2
+
+1−
+
+E2 E1
+
+T ui Ki ui
+
+for material 1 for material 2
+
+0
+
+(12)
+
+(7)
+
+where Ki are the elemental stiffness matrix. In the evolutionary structural optimization method, a structure can be optimized using discrete design variables. That is to say that only two bound materials are allowed in the design. Also, the sensitivity number used in the evolutionary structural optimization method denotes the relative ranking of the sensitivity of an individual element. Therefore, it can be deﬁned by αi = − 1 ∂C = p ∂ xi
+1 T 2 ui Ki ui p−1 xmin T 2 ui Ki ui
+
+It can be seen that the ranking of the above sensitivity number totally differs from the elemental strain energy criterion used in the original BESO method. If we seek optimal designs with n types of materials, the sensitivity numbers can be derived by sensitivity analysis with the design variables xi j as αi j = − 1 ∂C 1 p−1 j j+1 = xi j (uiT Ki ui − uiT Ki ui ) p ∂ xi j 2
+j j+1
+
+(13)
+
+when xi = 1 when xi = xmin
+
+(8)
+
+It can be seen that the above sensitivity numbers of “void” elements depends on the selection of the penalty exponent. When the penalty exponent tends to inﬁnity, the above sensitivity number can be simply expressed as αi =
+1 T 2 ui Ki ui
+
+denote the elemental stiffness matrix where K i and K i calculated with E j and E j+1 . It should be noted that the sensitivity number αi j is deﬁned in the whole design domain for later ﬁlter scheme although it is only used for adjusting the material between material j and j + 1. Therefore, the sensitivity number can be explicitly expressed as ⎧ E j+1 1 T j ⎪ 2 1 − E j ui Ki ui ⎪ ⎪ ⎪ ⎪ ⎨ for materials 1, . . . , j
+p−1 ⎪ 1 xmin (E j −E j+1 ) T j+1 ⎪ p ⎪ 2 x E +(1−x p )E ui Ki ui ⎪ min j j+1 ⎪ min ⎩ for materials j + 1, . . . , n
+
+0
+
+when xi = 1 when xi = xmin
+
+(9)
+
+αi j =
+
+(14)
+
+The above equation indicates that the sensitivity numbers for solid elements and “void” elements are equal to the elemental strain energy and zero respectively. It is consistent with the sensitivity numbers used in the original BESO method [24]. According to the material interpolation scheme Eq. (4), the stiffness of “void” elements also becomes zero as p tends to inﬁnity. Therefore these “void” elements can be totally removed from the design domain except that the removal causes the singularity of global stiffness matrix or any change of boundary conditions [22,23]. Similarly, if the design composed of two non-zero materials the sensitivity number can be found through sensitivity analysis [28] as
+
+When p tends to inﬁnity, the sensitivity number can be written as ⎧ ⎪ 1 1 − E j+1 uT Ki ui ⎪2 i ⎪ Ej ⎪ ⎪ ⎨ for materials 1, . . . , j (15) αi j = ⎪0 ⎪ ⎪ ⎪ ⎪ ⎩ for materials j + 1, . . . , n It can be seen that there is n −1 groups of sensitivity numbers in the system to adjust neighboring materials.
+
+123
+
+396
+
+Comput Mech (2009) 43:393–401
+
+3.2 Filter scheme and stabilization of evolutionary process To avoid numerical instabilities such as checkerboard and mesh-dependency, the ﬁlter technique is applied to smooth the sensitivity number in the whole design domain. First, the nodal sensitivity numbers (αin ) which do not carry any physical meaning on their own are deﬁned by averaging the sensitivity numbers of connected elements. Then, these nodal sensitivity numbers must be converted back into element before the topology can be determined. Here, a ﬁlter scheme is used to carry out this process. The deﬁned ﬁlter functions are based on a length scale rmin . The primary role of the scale parameter rmin in the ﬁlter scheme is to identify the nodes that inﬂuence the sensitivity of ith element. This can be visualized by drawing a circle of radius rmin centered at the centroid of ith element, thus generating the circular sub-domain i . Nodes located inside i contribute to the computation of the modiﬁed sensitivity number of ith element as αi = ˆ
+M n j=1 w(ri j )α j M j=1 w(ri j )
+
+where k is the current iteration number, τ is a allowable convergence error and N is integral number which are set to be 0.01% and 5 throughout this paper. It means a stable compliance at least in successive 10 iterations, thus the effect of Eq. (18) on the ﬁnal solution can be nearly eliminated.
+
+4 Bi-directional evolutionary structural optimization procedure The evolutionary iteration procedure for solid-void and two non-zero material designs are same except for the calculation of sensitivity numbers. It can be outlined as follows: Step 1: Discrete the whole design domain using a ﬁnite element mesh. Step 2: Deﬁne the BESO parameters such as objective volume, V ∗ , evolutionary ratio E R and penalty exponent, p. Step 3: Carry out a ﬁnite element analysis (FEA) which is conducted by ABAQUS in this paper. Step 4: Calculate elemental the sensitivity numbers (Eq. (8) for solid-void designs and Eq. (11) for two non-zero material designs) and update sensitivity numbers by ﬁltering (Eq. (16)) and averaging with historical information (Eq. (18)). Step 5: Determine the target volume for the next design. When the current volume Vi is larger than the objective volume V ∗ , the target volume for the next design can be calculated by Vi+1 = Vi (1 − E R) (20)
+
+(16)
+
+where M is the total number of nodes in the sub-domain i and ri j denotes the distance between the center of the element i and node j.w(ri j ) is weight factor given as w(ri j ) = rmin − ri j 0 for ri j < rmin for ri j ≥ rmin (17)
+
+However, the BESO algorithm using above sensitivity numbers is hard to convergent. Computational experience has shown that averaging the sensitivity number with its historical information is an effective way to avoid this problem [24]. It can be simply expressed by 1 ˆ ˆ (18) αi = (αi,k + αi,k−1 ) ˜ 2 ˜ where k is the current iteration number. Then let αi,k = αi , ˆ thus the modiﬁed sensitivity number considers the sensitivity information in the previous iterations. It should be noted that the above equation has almost no effect on the solution when it is convergent. For optimizing structures with multiple materials, all sensitivity numbers αi j are modiﬁed by the above ﬁlter scheme and averaging with their corresponding historical information. 3.3 Convergence criterion To stop the optimization process, the convergence criterion should be given after the objective volumes for all materials are achieved. The following convergence criterion is deﬁned in the variation of the objective function err or =
+N i=1 (C k−i+1
+
+If the calculated volume for the next design is less than the objective volume V ∗ , the target volume for the next design Vi+1 is set to be V ∗ . Step 6: Reset the design variables of all elements. For solid elements, the elemental density is switched from 1 to xmin if the following criterion is satisﬁed. αi ≤ αth (21a)
+
+For “void” elements, the elemental density is switched from xmin to 1 if the following criterion is satisﬁed. αi > αth (21b)
+
+− Ck−N −i+1 )
+
+N i=1 C k−i+1
+
+≤τ
+
+(19)
+
+Where αth is the threshold of the sensitivity number which can be easily determined by the target material volume and ranking of the sensitivity number.
+
+123
+
+Comput Mech (2009) 43:393–401
+
+397
+
+Step 7: Repeat 3–6 until the objective volume is achieved and the convergent criterion deﬁned in Eq. (19) is satisﬁed. The basic BESO procedure for multiple material designs is similar to that for solid-void designs except that the above calculation should be applied for every group of sensitivity number αi j according to Eq. (14). BESO starts from the full design with material 1 and triggers by evolutionary ratio E R which is deﬁned as the proportion of volume reduction of material 1 relative to the total volume of material 1 in the current design. At the same time, the volume of material 2 gradually increases until the objective volume is achieved. Thereafter, the volume of material 2 keeps constant and the volume of material 3 gradually increases until the objective volume is achieved, and so on. Transition between materials 1 and 2 is carried out according to the target volume of material 1 and sensitivity numbers αi1 . Similarly, transition ˜ between materials 2 and 3 is carried out according to the target volume of material 2 and sensitivity numbers αi2 , and ˜ so on. The whole optimization procedure is stopped when objective volumes for all materials are achieved and the convergent criterion is satisﬁed.
+
+density is set to be 0.001 which denotes void element in the following simulations. The objective is to design the stiffest structure by minimizing its mean compliance with 50% of material in the design domain. The evolutionary ratio is set to be E R = 2%. Figure 2 shows the evolutionary histories of the mean compliance, volume fraction and topologies for the proposed BESO method using p = 3.0. It indicates that the mean compliance increases initially as the ‘volume fraction decreases, then it is convergent to an almost constant value after the objective volume is achieved. The ﬁnal structure is convergent to a stable topology after 65 iterations. Figure 3a and b shows the BESO optimal designs for p = 1.5 and p = 3.0, respectively. The mean compliances of both designs are 1.865 Nmm. The results show the penalty exponent p has almost no effect on the optimal design. As a result, both optimal topologies and mean compliances are very close to the results of the “hard-killing” BESO method as shown in the reference [24]. Figure 3c shows a optimal topology
+
+5 Numerical examples 5.1 Examples for solid-void designs The topology optimization problem of a cantilever beam is depicted in Fig. 1 where the 80 mm × 50 mm domain with a unit thickness is discretized by four-node 80 × 50 quadrilateral element mesh. The material properties are Young’s modulus E = 100 GPa, Poisson’s ratio v = 0.3. The ﬁlter radius is rmin = 3 mm. The lower bound of the material
+
+Fig. 2 Evolutionary histories of the mean compliance, volume fraction and topology when p = 3.0
+
+Fig. 1 Design domain for a cantilever beam
+
+Fig. 3 Optimal designs a BESO with p = 1.5, b BESO with p = 3.0, c SIMP with p = 3.0 and d the continuation method
+
+123
+
+398
+
+Comput Mech (2009) 43:393–401
+
+using SIMP method [29] with p = 3.0. Its topology is similar to those of above BESO designs except some “grey” elements. The mean compliance of the design is 2.05 Nmm which is about 10% higher than that of BESO designs due to those inefﬁcient “grey” elements. To avoid premature convergence to local minima in SIMP method, the continuation method was proposed by gradually increasing penalty parameter from lower bound to upper bound [30,31]. For mesh-independence ﬁlter Sigmund [32] and Sigmund and Torquato [33] suggested starting with a large value of the ﬁlter size and gradually to decrease it, to end up with a 0–1 design. Figure 3d shows the ﬁnal design via the continuation method which decreased the ﬁlter size from rmin = 3 mm to 1 mm in increments 0.05 mm. The resulted optimal topology is almost identical to these BESO topologies. Its mean compliance is 1.856 Nmm that is just about 0.4% lower than that of BESO designs. Next, we show a topology optimization problem for a beam structure. The design domain with 240 mm × 40 mm is supported by both ends and vertically loaded (P = 10N) in the middle of its lower edge as depicted in Fig. 4. Due to the symmetry, the computations are performed in only right-half of the domain with 120 × 40 four-node plane stress elements. The linear material is assumed with Young’s modulus E = 1 GPa, Poisson’s ratio v = 0.3. The ﬁnal volume constraint is set to 30% of the design domain. The parameters used for all of following simulations are xmin = 0.001, rmin = 3.0 mm. The BESO starts from the full design and gradually decreases the total volume according to evolutionary ratio, E R = 2%. Figure 5a shows the optimal design for p = 2.0 after 102 iterations. Its mean compliance is 7.26 Nmm. Figure 5b and c show the optimal designs for SIMP method with p = 3.0 and the continuation method. Their corresponding mean compliances are 9.28 and 7.18 Nmm. Both examples show that the proposed BESO method can obtain optimal topologies which are similar to SIMP method. The values of the objective function are lower than that of SIMP method and very close to that of the continuation method. It is also shown the penalty exponent almost has no effect on the obtained optimal designs using the present BESO method with the given meshes. Therefore, the penalty exponent can be set to be any value even inﬁnity which is equivalent to the original BESO method for solidvoid designs. The researches had shown that the optimization
+
+Fig. 5 Optimal designs a BESO with p = 2.0, b SIMP with p = 3.0 and c the continuation method
+
+using the material extrapolation scheme resulted in nearly solid-void design if one chooses p sufﬁciently big ( p ≥ 3 is usually required) [28,30]. Numerical experience indicates that p ≥ 1.5 is usually required for the present BESO method to obtain a convergent solution. 5.2 Examples for design with two non-zero materials Consider the topology optimization problem as shown in Fig. 4 using two non-zero materials. The topology optimizations were performed for the following two cases: (a) two materials with E 1 = 1 GPa and E 2 = 0.1 GPa, p = 3; (b) two materials with E 1 = 1 GPa and E 2 = 0.2 GPa, p =inﬁnity. In both cases, the objective volume of material 1 is set to be 50% of the design domain. The parameters used for all of following simulations are E R = 2% and rmin = 3 mm. xmin = 1.0 × 10−5 is used when p = 3. Figure 6 shows the evolutionary histories of mean compliance, topology and volume fraction of material 1 for case a. It demonstrates that the proposed BESO method leads to a convergent solution for objective function and topology after 57 iterations. Figure 7 shows the ﬁnal optimal topologies for both cases. Obviously, the optimal topologies are totally different as different materials are used because the sensitivity numbers depend on the Young’s modulus ratio of two materials.
+
+Fig. 4 Design domain and support conditions for a beam
+
+123
+
+Comput Mech (2009) 43:393–401
+
+399
+
+Fig. 8 BESO optimal design for a three-phase structure
+
+Fig. 6 Evolutionary histories of the mean compliance, volume fractions and topology for a two material structure (E 1 = 1 GPa, E 2 = 0.1 GPa) with p = 3.0
+
+Fig. 9 Evolutionary histories of the mean compliance, volume fractions and topology for a three-phase structure
+
+5.4 Discussion on the “hard-kill” BESO method It is well known that the solid-void topology optimization problem for continuum structures without a size limitation lacks solution. In the BESO method with an inﬁnite penalty exponent, any member in the structure which is thinner than one-element width will be immediately penalized to void elements. Thereafter, the structure evolves to an optimum which is composed with members whose width are more than or equal to one-element size. Therefore, it is also called as the “hard-kill” BESO method. However, hard-killing elements may cause the failure of the BESO method when a prescribed boundary support is totally broken for a statically indeterminate structure such as a cantilever tie-beam in Zhou and Rozvany [25]. Therefore, Huang and Xie [27] suggested a simple way to detect the possible failure of the “hard-kill” BESO method by checking the boundary conditions of the design after each iteration. If a breakdown of boundary support occurs before a satisfactory solution is obtained, it may well indicate that the used mesh is too coarse for the BESO method. The scenario can be compared to the situation when the design loses its integrity (the breakage of the connection between external forces and boundary supports). Fortunately, the later case can be detected by ﬁnite element analysis automatically due to the singularity of the stiffness matrix. For both cases, the problem
+
+Fig. 7 BESO optimal designs for a two material structure a E 1 = 1 GPa, E 2 = 0.1 GPa; b E 1 = 1 GPa, E 2 = 0.2 GPa
+
+5.3 Examples for designs with void and two materials We consider the above optimization problem shown in Fig. 4 where the optimal design is composed with void and two materials with E 1 = 1 GPa, E 2 = 0.1 GPa. The Poisson’s ratio is 0.3 for all material. The objective volume of materials 1 and 2 are set to be 15 and 25% of the whole design domain. The above BESO method for multiple materials is applied for p =inﬁnity and void elements are totally removed from designs. The optimal design is shown in Fig. 8 and its mean compliance is 13.0 Nmm. The optimal topology shows a sandwich structure with a stiff skin (material 1) and soft truss core (material 2). Figure 9 shows the evolutionary histories of volume fractions for materials 1 and 2, topology and mean compliance. Both topology and objective function start to be convergent to stable solutions after 130 iterations.
+
+123
+
+400
+
+Comput Mech (2009) 43:393–401 4. Zhou M, Rozvany GIN (1991) The COC algorithm, part II: Topological, geometry and generalized shape optimization. Comp Meth Appl Mech Eng 89: 197–224 5. Rozvany GIN, Zhou M, Birker T (1992) Generalized shape optimization without homogenization. Struct Optim 4: 250–254 6. Rozvany GIN (2001) Aims, scope, methods, history and uniﬁed terminology of computer-aided topology optimization in structural mechanics. Struct Multidiscipl Optim 21: 90–108 7. Xie YM, Steven GP (1993) A simple evolutionary procedure for structural optimization. Comp Struct 49: 885–896 8. Xie YM, Steven GP (1997) Evolutionary structural optimization. Springer, London 9. Chu DN, Xie YM, Hira A, Steven GP (1996) Evolutionary structural optimization for problems with stiffness constraints. Finite Elements Anal Des 21: 239–251 10. Xie YM, Steven GP (1996) Evolutionary structural optimization for dynamic problems. Comp Struct 58: 1067–1073 11. Rietz A (2001) Sufﬁciency of a ﬁnite exponent in SIMP (power law) methods. Struct Multidiscipl Optim 21: 159–163 12. Querin OM, Steven GP, Xie YM (1998) Evolutionary structural optimization (ESO) using a bi-directional algorithm. Eng Comput 15: 1031–1048 13. Yang XY, Xie YM, Steven GP, Querin OM (1999) Bidirectional evolutionary method for stiffness optimization. AIAA J 37(11): 1483–1488 14. Querin OM, Young V, Steven GP, Xie YM (2000) Computational efﬁciency and validation of bi-directional evolutionary structural optimisation. Comp Meth Appl Mech Eng 189: 559–573 15. Tanskanen P (2002) The evolutionary structural optimization method: theoretical aspects. Comp Meth Appl Mech Eng 191: 5485–5498 16. Jog CS, Haber RB (1996) Stability of ﬁnite element models for distributed-parameter optimization and topology design. Comp Meth Appl Mech Eng 130: 203–226 17. Sigmund O, Petersson J (1998) Numerical instability in topology optimization: a survey on procedures dealing with checkerboards, mesh-dependencies and local minima. Struct Optim 16: 68–75 18. Haber RB, Bendsøe MP, Jog CS (1996) A new approach to variable-topology shape design using a constraint on the perimeter. Struct Optim 11: 1–12 19. Petersson J, Sigmund O (1998) Slope constrained topology optimization. Int J Numer Meth Eng 41: 1417–1434 20. Sigmund O (1994) Design of Material Structures Using Topology Optimization. PhD Thesis, Technical University of Denmark 21. Bourdin B (2001) Filters in topology optimization. Int J Numer Meth Eng 50(9): 2143–2158 22. Li Q, Steven GP, Xie YM (2001) A simple checkerboard suppression algorithm for evolutionary structural optimization. Struct Multidisc Optim 22: 230–239 23. Yang XY, Xie YM, Liu JS, Parks GT, Clarkson PJ (2003) Perimeter control in the bidirectional evolutionary optimization method. Struct Multidisc Optim 24: 430–440 24. Huang X, Xie YM (2007) Convergent and mesh-independent solutions for the bi-directional evolutionary structural optimization method. Finite Elements Anal Des 43: 1039–1049 25. Zhou M, Rozvany GIN (2001) On the validity of ESO type methods in topology optimization. Struct Multidisc Optim 21: 80–83 26. Edwards CS, Kim HA, Budd CJ (2007) An evaluative study on ESO and SIMP for optimizing a cantilever tie-beam. Struct Multidisc Optim 34(5): 403–414 27. Huang X, Xie YM (2008) A new look at the ESO/BESO optimization methods. Struct Multidisc Optim 35(1): 89–92 28. Bendsøe MP, Sigmund O (1999) Material interpolation schemes in topology optimization. Arch Appl Mech 69: 635–654 29. Sigmund O (2001) A 99 line topology optimization code written in Matlab. Struct Multidisc Optim 21: 120–127
+
+needs to be resolved with a ﬁner mesh. The details may refer to the recent paper by Huang and Xie [27]. The limit of the mesh size for the BESO method depends on the optimization problem such as loading and support conditions and the volume constraint. It may not be possible to determine the appropriate mesh size beforehand except for a simple problem. Therefore, a disadvantage of the “hardkill” BESO method is that the optimal solution, especially for small volume fraction, may be obtained after several trials on mesh reﬁnements.
+
+6 Conclusions Using material interpolation schemes with penalization, this paper has developed a new and generalized BESO method. For solid-void design, it is shown that the original BESO is a special case of the present BESO method where the penalty exponent tends to inﬁnity. Numerical examples show the resulted topologies are similar to those obtained by SIMP and continuation methods. The value of the objective function is much lower than that of SIMP method and very close to that of the continuation method. These examples demonstrate that the optimal designs of the present BESO method are independent of the selection of penalty exponent (normally p ≥ 1.5) and therefore are the same as those of the original “hard-kill” BESO method for solid-void designs. However, the sensitivity number in the present BESO method is totally different from the strain energy criterion in the original BESO method when the material interpolation scheme utilized for topology optimization problems of structures with two or more materials. Numerical examples show that the present BESO method also results in convergent solutions for this type of topology optimization problems and the optimal designs are independent of the degree of penalization. The present BESO method can only be applied to the self-adjoint optimization problems with simple volume constraints. Further work on the more complex optimization problems needs to be conducted in the future.
+Acknowledgments The authors wish to acknowledge the ﬁnancial support from the Australian Research Council for carrying out this work.
+
+References
+1. Bendsøe MP, Kikuchi N (1988) Generating optimal topologies in structural design using a homogenization method. Comp Meth Appl Mech Eng 71: 197–224 2. Bendsøe MP, Sigmund O (2003) Topology optimization: theory, methods and applications. Springer, Berlin 3. Bendsøe MP (1989) Optimal shape design as a material distribution problem. Struct Optim 1: 193–202
+
+123
+
+Comput Mech (2009) 43:393–401 30. Rozvany GIN, Zhou M, Sigmund O (1994) Optimization of topology. In: Adeli H (ed) Advances in design optimization. Chapman & Hall, London 31. Stolpe M, Svanberg K (2001) On the trajectories of penalization methods for topology optimization. Struct Multidiscipl Optim 22: 116–124
+
+401 32. Sigmund O (1997) On the design of compliant mechanism using topology optimization. Mech Struct Mach 25: 495–526 33. Sigmund O, Torquato S (1997) Design of materials with extreme thermal expansion using a three-phase topology optimization method. J Mech Phys Solids 45: 1037–1067
+
+123
+

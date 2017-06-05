@@ -1,0 +1,1101 @@
+INTERNATIONAL J O U R N A L FOR NUMERICAL METHODS I N ENGINEERING,
+
+VOL. 3729- 3754 (1993) 36,
+
+HIGHER-ORDER MITC GENERAL SHELL ELEMENTS
+MIGUEL LUlZ EUCALEMI AND KLAUS-JURGEN BATHE'
+
+Department o Mechanicul Engineering, Massachusetts Institute of Technology, f Cambridge, M A 02139, U.S.A.
+
+SUMMARY
+Two mixed-interpolated general shell finite elements for non-linear analysis-a 9-node element and a 16node element- are presented. The elements are based on the Mixed Interpolation of Tensorial Components (MITC) approach in which the covariant strain component fields for the in-plane and shear actions are interpolated and tied to the also interpolated displacement field. Both the 9-node element, referred to as the MITC9 element, and the 16-node element, referred to as the MITC16 element, are tested numerically and found to have high predictive capabilities.
+
+1. INTRODUCTION For over two decades an extensive research effort has been directed to the development of shell finite elements. A review of the current state of the art can be found in Reference 1. Our approach towards the development of finite elements for the analysis of plate and shell structures has been guided by the following requirements:
+1. The elcmcnt should be reliable.
+
+2. The element should be computationally effective. 3. The element formulation should be general, i.e. the element should be applicable to non-linear analysis (geometric and material non-linear solutions). thick and thin plate/shell situations, - any shell geometry.
+-
+
+4. The formulation of the element should be mechanistically clear and sufficiently simple to render the element suitable for engineering analysis.
+
+The continuum-based degenerated shell elements originally proposed by Ahmad et aL2 and extended for non-linear analysis by Ramm3 and Bathe and Bolourchi4 satisfy requirements 3 and 4, but the lower-order elements do not satisfy requirements 1 and 2, and the higher-order 16-node element does not sufficiently satisfy requirement 2, due to the effects of membrane and shear locking. Ideally, considering requirements 1 and 2, the element formulation would lead to finite element discretizations that could be shown mathematically to be stable, convergent and to have optimal error bounds. In plate analysis much progress has been made in this regard. Especially, the MITC family of Reissner-Mindlin plate bending elements has been developed by Bathe et al., and has a strong mathematical foundation that assures the convergence of the discretizations with
+
+'Professor of Mechanical Engineering
+0029-598 1/93/213729-26$18.00 0 1993 by John Wiley & Sons, Ltd.
+Received 5 June 1992 Revised 2 March 1993
+
+*Graduate Student
+
+3730
+
+M. L. BUCALEM A N D K. J. BATHE
+
+optimal error bounds for the displacement variables. The theoretical foundations of the elements can be found in References 5-8 and additional theoretical and numerical results are presented in References 9-12. In general shell analysis, as stated in requirement 3, the situation is quite different. A mathematical analysis of the type just mentioned is not available. However, a very valuable contribution in this direction, although restricted in its applicability, has been published by Pitkaranta.I3 We refer again to his work later in this Introduction. Since a complete mathematical theory is lacking, the following conditions should be strictly enforced to satisfy requirement 1:
+0 0
+
+0
+
+The element should not have any spurious zero energy mode. The element should not membrane or shear lock, when used in, of course, undistorted and reasonably distorted meshes of well-designed numerical test cases. The predictive capability of the element should be high and relatively insensitive to geometric distortions.
+
+Of course, insight into element behaviour and the use of numerical experiments will be important in the design of elements to satisfy the above conditions. It is our view that an element which fails any one of these conditions should not be used in engineering practice. The MITC approach has been used successfully to propose shell elements that satisfy the above conditions and requirement 2. Also, the formulation of the MITC elements preserves the essential and appealing characteristics of the continuum-based degenerated shell elements, therefore satisfying requirements 3 and 4. The approach of mixed interpolation of tensorial components for shell elements finds its roots in the work of Dvorkin and Bathe,’ where a 4-node general shell element, called MITC4 element, was developed. This element degenerates to the MITC4 plate bending element when the geometry is flat, the analysis is linear and the plate is subjected to transverse loading only, and then is closely related to the elements proposed by Hughes and T e ~ d u y a r ’ ~ M a ~ N e a 1 . I ~ and However, the MITC4 element was originally proposed for shell analysis and this is where assumed covariant strain component fields were first introduced. Subsequently, Bathe and DvorkinI6 developed an 8-node element in which not only the transverse shear strains were interpolated to avoid shear locking but also the in-layer strains, to avoid membrane locking. In this work, the strain tensor was decomposed into a transverse shear strain part and an in-layer strain part and the resulting quantities were interpolated in different ways. Nine-node shell elements were published by Huang and Hinton,I7 Park and Stanley,” and Jang and Pinsky.” Huang and Hinton used a local Cartesian system to separate bending and membrane strains and mixed-interpolated only the membrane part. The transverse shear strains were evaluated and mixed-interpolated in the natural co-ordinate system. Park and Stanley used assumed physical strain component fields that were derived from special assumptions on the strains along selected co-ordinate lines. A second version of their element was presented in Reference 20. Jang and Pinsky” assumed covariant strain components in natural co-ordinates for both the in-layer and transverse shear strains. These approaches of formulation are similar to the approach used in Reference 16 and also in this paper, but the actual detailed assumptions employed result, of course, in quite different elements. Recently, as mentioned above, Pitkaranta13 analysed mathematically the membrane locking problem in the analysis of a clamped hemicylindrical shell subjected to varying distributed pressure. He was able to conclude that the displacement-based elements would require an order greater than or equal to 4 in the local polynomial expansion for the displacement variables to be
+
+HIGHER-ORDER MlTC GENERAL SHELL ELEMENTS
+
+373 1
+
+free of locking for rectangular grids, whereas for quadrilateral grids, the elements would not be, in general, free of locking for any order of polynomial expansions. Pitkaranta, motivated by the high predictive capability of the MTTC8 element of Bathe and Dvorkin, analysed mathematically a family of mixed-interpolated schemes very close to the scheme of Bathe and Dvorkin. Although his analysis is valid only for rectangular grids and is based on additional restrictive assumptions, he was able to prove that these schemes avoid membrane and shear locking and converge with an optimal rate. It is interesting to note that the conclusions of PitkarantaI3 regarding displacement-based elements suggest that the 16-node isoparametric displacement-based shell element widely used in engineering practice is not entirely free of locking even for rectangular grids. Our numerical experiences show that, in some cases, this element exhibits a very low convergence rate and, when curved and geometrically distorted, can display a locking behaviour. The objective in this paper is to present a 16-node mixed-interpolated element which we call the MITC16 element. According to our numerical experiments this new element is free of locking and represents a significant improvement with respect to its displacement-based counterpart. Our motivations to develop the 16-node shell element were reinforced by our observations that the 16- and 25-node two-dimensional Lagrangian elements predict stresses accurately and efficiently. For two-dimensional analysis, Kato and Bathe' found that the 16-node isoparametric element can be more efficient than the lower-order elements for problems with high stress gradients, and that the 16- and 25-node Lagrangian isoparametric elements were the most efficient in a study of these elements versus conventional p-type elements of up to order 10. Moreover, in shell analysis, the higher-order Lagrangian elements have the additional advantage of describing more accurately the geometry of the shell. Encouraged by the performance of the MITC16 element, we formulated with the same approach a new 9-node mixed-interpolated shell element, the MITC9 shell element that we also present in this paper. In the following sections, we first give the formulations of the MITC9 and MITC16 elements, and then we present numerical results.
+2. FORMULATION OF THE MIXED-INTERPOLATED SHELL ELEMENTS
+
+In this section we formulate mixed-interpolated shell elements. First, we introduce, in a general framework, how elements based on assumed covariant strain fields can be proposed, and subsequently we discuss, in particular, the elements that we have developed.
+2.1. Shell elements based on assumed covariant strain ,fields
+
+Let us use a total Lagrangian formulation to derive the governing equations of our finite element shell model. The starting point is the statement of the principle of virtual workZ2 written at time t At
+
++
+
+where the '+'bS"'j are the contravariant components of the second Piola-Kirchhoff stress tensor, the z+AbEij the covariant components of the Green-Lagrange strain tensor and ""'a is the are virtual work of the applied loads. All quantities are defined at time t + At. The governing equations of the isoparametric displacement-based elements are obtained from equation (1) by using the finite element interpolation assumptions both for the geometry and
+
+3732
+
+M. I-. BUCALEM AND K. J. BATHE
+
+Figure 1. Local co-ordinates for a shell element
+
+displacement variables to evaluate the strain *+*kErj, more precisely denoted by t+A&Eg'. the Here superscript DI indicates that the strains are obtained by 'direct' interpolation using the finite element displacement assumptions. The mixed-interpolated elements are constructed using [ + A t -AS o c i j in place of '+*hZ?, where the superscript AS indicates assumed strain fields. The next step is to show how the assumed strain fields, '+AhEy, related to the directly are interpolated strain fields, +*h .E We omit temporarily, merely for ease of notation, the subscripts ': and superscripts relating to times (0, t + A t ) in the strain expressions. In order to define the assumed covariant strain fields, equation (1) has to be written in a particular convected co-ordinate system. This co-ordinate system is defined element-wise by the element isoparametric co-ordinates r, s and t as shown in Figure 1 with the following convention for indicia1 notation: r l = I , r2 = s and r3 = t. Associated with each strain component Zij we define a set of points, k = 1, . . . , n i j , by specifying for each point k its natural co-ordinates r = r k , s = s,, and t . These points are called tying points. Now, the assumed covariant strain component E is defined as y
+
+where the k z ( r , s) are interpolation functions (polynomials in r and sj associated with the strain component E j j such that
+hLJI':= ky(rl,S')
+=
+
+&,
+
+1 = 1, . . . ,nij
+
+Let
+
+EvIk:= sk, t ) Ep(rk,
+-Ask ~ j j
+
+and
+
+;?Ik
+
+:=
+
+Zy(rk, t ) sk,
+
+It follows that
+
+1
+
+=~
+
+-DI k i j
+
+I , k = 1 , . . . ,nij
+
+Of course, this selection is the reason why the nij points are called tying points.
+2.2. The proposed elements
+
+The formulation described in the previous section is quite general and, of course, allows us to propose a number of elements, However, an element is only useful if the conditions for reliability and effectiveness stated in the lntroduction are satisfied.
+
+HIGHER-ORDER MITC GENER~ALSHELL ELEMENTS
+
+3733
+
+MITCS TYING SCHEMES
+
+COMPONENTS
+
+- . .
+Ell
+3
+
+Eri
+
+j
+I
+
+,s
+I
+
+I
+
+i
+
+I
+
+i
+COMPONENT
+Era
+
+i
+
+i
+
+!
+0.577...
+
+0.577-
+
+Figure 2. Tying schemes used for the strain components of the MITC9 shell element. Tying schemes for the components
+
+Ess and Est arc implied by symmetry. Co-ordinates of tying points always coincide with one-dimensional Gauss point
+co-ordinates, e.g., (1,'3)"2
+=
+
+0-577. . .
+
+The choice of tying points for the 9-node element is given in Figure 2 and the choice for the 16-node element is presented in Figure 3. We remark that using the tying points of Figure 2 it is also possible to propose an 8-node element. We did implement and test such element, but the element was not sufficiently effective and reliable. Although it performed quite effectively in some cases, in a few analyses the element presented a very stiff behaviour rendering it not useful. We assumed for the transverse shear strain components that
+
+Ert(r,s, t ) = &(r, s, 0)
+&(r, s, t ) = &(r, s, 0)
+
+Both proposed elements do not have any spurious zero-energy mode and their stiffness matrices are evaluated with 'full' numerical integration, i.e. 3 x 3 Gauss integration, in the rs plane for the MITC9 element, and 4 x 4 for the MITC16 element. According to the numerical results, the proposed elements are free of locking and perform quite effectively.
+2.3. Construction of the element stifness masvices
+
+We present very briefly, in this section, how the stiffness matrices of these elements can be constructed. Although the stiffness matrix for linear analysis is obtained directly from the general
+
+3734
+
+M. L. BUCALEM AND K. J. BATHE
+
+MITC16 TYING SCHEMES
+
+0.861...
+COMPONENTS
+
+Erl
+
+, Ell
+
+-
+
+*_._.
+0.861...
+
+! 0.774 ...
+
+L
+
+1
+
+0.774 ...
+
+I
+
+COMPONENT
+
+-
+
+4s
+
+Figure 3. Tying schemes used for the strain components of the MITC16 shell element. Tying schemes for the components Ess and .Es, are implied by symmetry. Co-ordinates of tying points always coincide with one-dimensional Gauss point co-ordinates, e.g., (/)' = 0.774. . . 35''
+
+non-linear element formulation we present here, just for clarity of exposition, first the construction of the stiffness matrix for linear analysis and then for non-linear analysis. We note that the kinematic assumptions are the same as for the isoparametric displacement-based elementsz2and will not be repeated here. The covariant component iij the Green-Lagrange strain tensor can be written as of
+
+where Ogi and *gi are the covariant base vectors associated with co-ordinate ri at times 0 and t, respectively. If 'x and 'u are the position and displacement vectors at time t of any particle in our shell model then,
+
+HIGHER-ORDER MITC GENERAL SHELL ELEMENTS
+
+3735
+
+2.3.1. Linear analysis. Substituting equation (10) into equation (8) we obtain
+at
+
+(1 1) The quadratic term d'u/dri * atu/arj is neglected in linear analysis, yielding
+
+where in this case the superscript t just indicates the deformed configuration. From equation (12) we obtain
+t -DI
+
+O ~ i j
+
+= BYQ
+
+(13)
+
+where BY is the strain-displacement matrix corresponding to the covariant strain component LEV and G is the nodal point displacement vector. Using equation (2) we obtain the assumed strain components as
+
+where
+
+DI k . Bij
+
+I . - BDIj (rk, sk, t ) - i
+
+We can also define BY, the strain-displacement matrix for the assumed strain, as
+
+Using equation (14) it is now straightforward to obtain the stiffness matrix of the element, either by using the constitutive law written in the convected co-ordinate system or by transforming the strains and the constitutive law to the global system. 2.3.2. Non-linear analysis. Equation (1) can be rewritten in the following form:
+
+where
+r+A;$j f+Af
+
+=
+
+;$j
+
++ o$j
+
+(1 8)
+
+g.. = t b , o r j o ' i j + ogij
+OEij
+
+(19)
+
+(20) Here, oi?ij ofiij are the linear and non-linear parts of the incremental strain oEij. Note that and equation (17) will yield a complete linearization of the governing continuum mechanics equations with respect to the nodal point variables, provided the incremental displacements are expressed in terms of the nodal point incremental displacements, rotations and rotations-squared.22 Using equations (11) and (19) and defining u = at^ - 'u we obtain
+= 0z;j
+oqij
+
++
+
+3736
+
+M. L. BUCALEM A N D K. J. BATHE
+
+The above equation can be rewritten as
+
+where involves only terms that are linear in the nodal variables and ofiy contains all the quadratic terms including those arising from the rotations at the nodal points. We can write
+0e"PI =z 13
+
+LP'Q IJ
+
+(23)
+
+where L implicitly defined in the above equation, is the strain~displacement matrix associated with the incremental strain component oZij. The above equation leads to
+
+y,
+
+d0Fy
+We can also write
+
+= GfT(Ly)T
+
+(24)
+
+dofit' = 6QTNYQ
+which defines the square matrix NY. The assumed incremental strains can now be defined as
+
+k= 1
+
+and
+
+k= 1
+
+Therefore,
+
+and
+
+The stiffness matrices K, and KNLcan be derived as for the standard isoparametric elements by replacing the directly interpolated incremental strains by the assumed incremental strains defined in the above equations.
+3. NUMERICAL RESULTS
+
+In this section we present some numerical results obtained with the proposed shell elements. The analysis problems studied have been selected to assess the predictive capabilities of the elements.
+3.1. The patch test
+
+The patch test has been widely used as a test for element convergence, despite its limitations for mixed formulations. We use the test here in numerical form to merely assess the sensitivity of our elements to geometric distortions.
+
+HIGHER-ORDER MITC GENERAL SHELL ELEMENTS
+
+3737
+
+In Figure 4 we show the mesh used for the patch test. The minimum number of degrees of freedom are constrained to prevent rigid body motion, and we study the stresses along arbitrarily selected lines passing through Gauss integration points as shown schematically in Figure 5. In Figures 6 and 7 we show the stresses along lines L1 and L2 obtained with the MITC16 element
+
+Figure 4. Mesh used for the patch tests
+
+Figure 5. Lines through element Gauss points for stress evaluation
+
++
+
+StreSS-XX X stress-yy
+
+4 stress-xy
+
+X stress-xz
+Y stress-yr - analytical values
+
++ stress-xx
+X stress-yy
+
+4 stress-xy
+
+X
+
+stress-xz Y stress-yz - analytical values
+
+I
+
+- - - - “.
+m...
+
+0.
+
+2.
+
+4
+
+6.
+
+8.
+
+10.
+
+12 ..
+
+I
+
+distance a l o n g l m e hZ
+
+Figure 6. Stresses along lines L1 and L2 for membrane patch test
+
+3738
+
+M. L. BUCALEM AND K. J. BATHE
+
+for the membrane and bending tests, respectively. Although there are slight deviations from the analytical values, the constant stress state is closely represented indicating a low sensitivity to element geometric distortions. For the MITC9 element, very similar results are obtained. 3.2. Analysis o a curved cantilever f We consider the curved cantilever problem described in Figure 8. In Table I we show the results obtained for various meshes using the 16-node displacement-based element and the MITC16 element. The ratio between the finite element and the analytical predictions for the tip rotation, at point A, are shown for several values of the thickness. We notice that the predictions are excellent for most discretizations, even for extremely thin situations ( h / R = 1/105),and also for the two-element case with the side common to the two elements parallel to the axis of the cylindrical surface. However, when this side is skewed, the results significantly deteriorate for the 16-node displacement based element displaying a locking behaviour. In Table I1 we show analogous results for the MITC816 and the MITC9 elements. Using the MITC8 element, which is a good element in general, the same type of result deterioration that appeared for the 16-node displacement-based element is observed. We notice that the MITC9 element docs not display such a behaviour, and indeed performs better than the MITC16 element.
+
++ stress-xx
+X 4 X Y
+
+-
+
+stress-yy stress-xy streas-xz stress-yr a n a l y t i c a l values
+
+0.
+
+2.
+
+4.
+
+6.
+
+8.
+
+10.
+
+12.
+
+distance along l i n e L1
+
++ stress-xx
+X stress-yy 4 stress-xy X stress-xz Y stress-yz - analytical values
+
+"1
+0.
+
+2.
+
+1. 6. a. distance along l i n e L2
+
+10.
+
+12.
+
+Figure 7. Stresses along lines L1 and L2 for bending patch test
+
+HIGHER-ORDER MITC GENERAL SHELL ELEMENTS
+
+3739
+
+R = 20
+m I 240
+
+a I 30 degrees h = varlable
+LIlO
+Es2.1 X 10
+
+Figure 8. Physical model used for curved cantilever
+
+In the results presented we used v accuracy is observed.
+3.3. Analysis o a pinched cylinder f
+
+=
+
+0.0 but when using v # 0 0 the same kind of solution
+
+The pinched-cylinder problem has been widely used to test shell elements. The physical problem is presented in Figure 9. Due to symmetry conditions only one octant of the cylinder needs to be considered. In Figure 10 we compare the convergence of the vertical displacement under the load for the 16-node displacement-based element and the MITC16 element. Uniform meshes have been used and the results are normalized with respect to the analytical solution for this problem reported by Lindberg et ~ 1 We note ~ . ~ the poor performance of the 16-node displacement-based element with coarse meshes. In Figure 11 we show the performance of the MITC elements of various orders, and also the performance of elements that have been proposed by other authors. In order to make the comparison more meaningful, we used as the index of mesh refinement the number of nodes per side of the region discretized. We notice the excellent performance of the higher-order MITC elements. were used to compare stress predictions for the The Sussman-Bathe pressure band 16-node elements. In Figures 12-15 we show pressure band plots on the top surface of the cylinder for 4 x 4 and 8 x 8 meshes. We can see that using the MITC16 element, the 4 x 4 mesh
+
+3740
+
+M. L. BUCALEM AND K. J. BATHE
+
+Table I. Summary of results for the curved cantilever problem using 16-node elements. Point A always coincides with an element node
+OF,
+
+1
+
+*AN
+
+MESH
+
+h/R
+
+16 node
+
+disp. based
+1I100 111000 11100000
+
+MITC16
+
+0.9995 0.9995 0.9995
+
+1.0001 1.0001 1.0001
+
+1I1 00 1 1000 1 1/100000
+
+0.9996 0.9996 0.9994
+
+1.oooo
+
+1 .oooo 0.9999
+
+11100 1I1 000 1/100000
+
+0.9868 0.9277 0.0029
+
+0.9975 0.9796 0.9318
+
+1/I 00 1I1 000 11100000
+
+0.9995 0.9995 0.9994
+
+1.0001 1.0001 1.0001
+
+11100
+
+111000 11100000
+
+0.9993 0.9995 0.9994
+
+1.oooo 1.0001 1.0001
+
+already gives relatively smooth stress predictions, whereas for the 16-node displacement-based element, the 4 x 4 mesh is unable to show a distinguishable band pattern displaying large regions of discontinuity. Using this element, the 8 x 8 mesh is required to obtain a reasonably accurate prediction of stresses.
+
+3.4. Analysis of a hemispherical shell
+The hemispherical shell subjected to self-equilibrating concentrated loads was used as a benchmark problem for the analysis of doubly curved shells. The hemispherical shell that we analysed has an 18-degreecut-out at its top and is free on its bottom and top edges. Only one quarter of the shell needs to be considered and a particular discretization is shown in Figure 16.
+
+HIGHER-ORDER MITC GENERAL SHELL ELEMENTS
+
+3741
+
+Table TI. Summary of results for the curved cantilever problem using 8- and 9-node mixed-interpolated elements. Point A always coincides with an element node
+
+e,,
+MESH
+
+1
+
+e*r4
+
+h/R
+MITC8
+
+MITC9
+
+0
+A &
+
+1IlOO 1I1000 11100000
+
+0.9998 0.9995 0.9995
+
+0.9995 0.9995 0.9995
+
+1I100 111000 1/I 00000
+
+1.0001 1.oooo 1.oooo
+
+1.oooo
+
+1.oooo 1.oooo
+
+@
+
+1I100 111000 11100000
+
+0.8958 0.7230 0.0626
+
+0.9956 0.9913 0.9883
+
+1 I1 00 1 I1000 1 I1 00000
+
+0.9996 0.9995 0.9995
+
+0.9995 0.9995 0.9995
+
+1I100 1A000 1 I100000
+
+0.9999 0.9997 0.9997
+
+0.9995 0.9995 0.9995
+
+The convergence for the displacement under the load is shown in Figure 17 for the cubic elements. Again the superior performance of the MITC16 element over its displacement-based counterpart is noted. In Figure 18 we show the performance of the MITC9 element compared '~ with the 9-node element proposed by Huang and H i n t ~ n . We notice the excellent performance of the MTTC9 element. A theoretical lower bound for the displaeement under the load was derived by Morley and Morris25for the hemispherical shell without the cut-out and it is equal to 0.0924. We used for the normalization of our results the value 0.09355which corresponds to the converged solution when using the MITC16 element.
+
+3742
+UR.2
+h=l.O R/h = 100
+
+M. L. BUCALEM AND
+6
+
+K.J. BATHE
+
+E=30.0x10
+v=0.3
+
+Rigid diaphragm
+
+support (both ends)
+Figure 9. Pinched-cylinder problem
+
+A 16-node displacement
+based shell element
+
++ MITC16
+
+shell element
+
+2.
+
+I
+
+4.
+
+I
+
+I 6.
+
+I 8.
+
+I 10.
+
+I 12.
+
+14. I
+
+16. I
+
+number of elements per s i d e
+
+Figure 10. Convergence of 16-node shell elements in pinched-cylinder problem
+
+HIGHER-ORDER MITC GENERAL SHELL ELEMENTS
+
+3743
+
+mitc8 shell element
+
+X mitcl6 shell element
+
++
+
+16-node displacement based shell element
+
+X Huang and Hinton QUAD9** ref [ I 7 1
+
++
+4.
+
+Jang and Pinsky 9-node elem. ref [ 1 9 1
+12.
+16.
+
+8.
+
+number of
+
+nodes per side
+
+Figure 11. Convergence of various shell elements in pinched-cylinder problem using uniform meshes
+
+3.5. Plate bending analysis with the MITC shell elements
+
+The above MITCB and MITC16 shell elements, which we have formulated for general shell analysis, do not degenerate to the corresponding MITC plate bending elements,” when the shell is flat, the analysis is linear and the plate is subjected to transverse loading only. The first reason is the fact that for the plate bending elements the in-layer strains (in this case just the bending strains) are not mixed-interpolated. The other two reasons are:
+1. For the plate bending elements different interpolation fields are used for the section rotations and the section transverse displacement. This requires different sets of nodal degrees of freedom for the rotations and the transverse displacement. 2. The assumed transverse shear strain fields for the plate bending elements involved not only point-tying conditions but also integral-tying conditions.
+
+The construction of shell elements that degenerate to the plate bending elements of Reference 12 would, therefore, involve different sets of nodal degrees of freedom for rotations and displacements. However, such elements are not as easy to use in engineering practice. Another requirement would be the enforcement of integral-tying conditions for the assumed transverse shear
+
+3744
+
+M. L. BUCALEM AND K. J. BATHE
+
+PRES
+TIME 1.000
+
+45000
+
+37500.
+
+30000.
+
+22500.
+
+15000
+
+i
+I
+$
+
+7500.
+
+-
+
+0.
+
+-
+
+-7500.
+
+Figure 12. Pressure band plot in analysis of pinched cylinder problem. Uniform 4 x 4 mesh of 16-node displacementbased elements
+
+strain fields. Integral-tying conditions are expensive, in terms of computational effort, and tend to make an element inefficient. Our choice, in formulating shell elements, was to use the.same set of nodal degrees of freedom for both rotations and displacements. Also, integral-tying conditions were not used for the transverse shear strain fields. One additional consideration that supports our choice is that the MITC plate bending elements are designed to take into account the known nature of the Reissner-Mindlin plate bending mathematical model. When considering general curved shells the mathematical mod61 is quite different, and it is not clear that the optimal choice of assumed transverse shear strain fields would be the same as for the plate model. The idea of replacing the integral-tying conditions by additional point-tying conditions such that the integral-tying requirements are approximately satisfied was first explored in the context of plate analysis for the MITC9 plate element by Bathe et a/.'' This approach, of course, reduces the cost and complexity of the element at the expense of losing some accuracy.' In the following we present the solutions of sample problems in which the MITC9 and the MITC16 shell elements are used to model plate bending situations. Of course, we do not expect that the mixed interpolated shell elements would behave as well as the MTTC plate bending
+
+'
+
+HIGHER-ORDER MITC GENERAL SHELL ELEMENTS
+
+3745
+
+PRES TIME 1.000
+
+8
+
+L
+
+b
+
+E
+
+o
+
+-
+
+-7500.
+
+Figure 13. Pressure band plot in analysis of pinched-cylinder problem. Uniform 4 x 4 mesh of MITC16 elements
+
+elements in these particular analyses, but we do expect and require that shear locking is not seen and that the elements display a good predictive capability. In the numerical solutions of the circular plate and the skew plate we distinguish between two ‘types’of MITC9/MITC16 elements. We refer to the ‘MITC9/MITC16 plate’ elements as the ones that have been formulated for plate analyses and fully comply with the mathematical theory of the MITC plate bending elements (see Reference 12) and we refer to the elements presented in Section 2.2 as the ‘MITC9/MITC16 shell‘ elements.
+3.5.1. Analysis o u circulur plute. We consider the transverse shear stress predictions for f simply supported and clamped circular plates subjected to uniform pressure. The transverse shear stresses are often the most difficult stress components to predict with Reissner-Mindlin plate elements. The circular plate problems that we consider are very suitable to assess an element performance regarding transverse shear stresses because the analytical solution is known, there is no boundary layer and the elements are naturally distorted to model the problem geometry (see Figure 19). Figure 20 shows the calculated stresses as obtained with Mesh A of Figure 19 using the MITC16 plate and shell elements and the usual displacement-based element. We show the stresses calculated at those nodal points along line PO where two elements meet. The stresses for an
+
+3746
+
+M. L. BUCALEM A N D K. J. BATHE
+
+PRES
+
+TIME 1.000
+45000
+
+37500
+
+30000.
+
+22500
+
+15000.
+
+7500
+i
+
+F
+$
+I
+
+0.
+
+-
+
+-7500.
+
+Figure 14 Pressure band plot in analysis of pinched-cylinder problem. Uniform 8 x 8 mesh of 16-node displacementbased elements
+
+element at a nodal point were calculated using for an element
+
+z = CBG
+
+(30)
+
+where t is the stress, C is the stress-strain matrix, B is the strain-displacement matrix of the element at the nodal point considered and Q is the nodal point displacement vector. Hence, there is no stress smoothing and at nodal points where two elements meet, in Figure 19, two values for the shear stress components are obtained. We note that the solution is very accurate using the MITC16 plate element with only three elements. On the other hand, the displacement-based element does not give an accurate transverse shear stress prediction unless a very fine mesh is employed.” The MITCl6 shell element does not display the solution accuracy of the MITC16 plate element, as expected, but it provides good stress predictions considering that the mesh used is quite coarse. Figure 21 presents the same type of shear stress results using mesh B of Figure 19 and the MITC9 plate and shell elements. A similar behaviour as noted for the 16-node elements is encountered.
+
+3.5.2. Analysis o a skew plate. The Morley skew plate problem has also been used as a test f problem for plate/shell elements. The problem is described in Figure 22. The simply supported
+
+HIGHER-ORDER MITC GENERAL SHELL ELEMENTS
+
+3747
+
+PRES
+
+TIME 1.000
+
+t
+.
+
+45000.
+
+37500.
+
+. 30000.
+
+22500.
+
+-
+
+15000.
+
+-
+
+7500.
+
+-
+
+0.
+
+Figure 15. Pressure band plot in analysis of pinched-cylinder problem. Uniform 8 x 8 mesh of MITC16 elements
+
+edges are modelled using the appropriate soft boundary conditions, i.e. just the vertical displacement is constrained.26The convergence of the vertical displacement at point E is shown in Figure 23 for the cubic elements and in Figure 24 for the quadratic elements. A uniform skew-mesh topology was used (the 2 x 2 mesh is shown in Figure 22). The results are normalized with respect to the analytical solution derived by M ~ r l e y . ’It is noted that a rather large number of elements ~ must be used to obtain an accurate solution. However, in the analysis uniform meshes were employed; much less elements could be used with graded meshes. The same trend as observed in the analysis of the circular plate is displayed for the skew plate. The MITC plate elements perform best but the shell elements also behave well. The MITC16 shell element shows a considerable improvement in response prediction when compared with the displacement-based element and the MITC9 shell element shows better results than the MITC8 element which is a reasonable performer for this case.
+3.6. Snap-through of a shallow spherical cap
+
+We analysed a shallow spherical cap subjected to a concentrated loading. The physical model considered is shown in Figure 25. Using a load displacement control method2* we obtained the
+
+3148
+
+M. L. BUCALEM A N D K.J. BATHE
+
+Figure 16. Typical finite element discretization for analysis of hemispherical shell (8 x 8 mesh). Radius ness = 0.04, E = 6.825 x lo', v = 0.3 and P = 1.0
+
+=
+
+10.0, thick-
+
+i
+I I 1 I
+
+A 16-node displacement
+based shell element
+
++ MITC16
+
+shell element
+
+I
+
+I
+
+I
+
+1
+
+2.
+
+4.
+
+6.
+
+8.
+
+10.
+
+12.
+
+14.
+
+16.
+
+number of elements per side
+
+Figure 17. Convergence in analysis of hemispherical shell, cubic elements
+
+HIGHER-ORDER MlTC GENERAL SHELL ELEMENTS
+
+3749
+
+A m i t c 9 shell element
+X Huang and Hinton QUAD9** element
+
+I
+
+I
+
+I
+
+1
+
+I
+
+I
+
+I
+
+I
+
+2.
+
+4.
+
+6.
+
+8.
+
+10.
+
+12.
+
+14.
+
+16.
+
+number of elements per side
+
+Figure 18. Convergence in analysis of hemispherical shell, 9-node elements
+
+Y
+
+Y
+
+L
+P
+
+x
+P
+
+L x
+
+0
+
+MESH A
+
+0
+
+MESH B
+
+Figure 19. Meshes used in analysis of circular plate, Young’s modulus E = 2.1 x lo6, Poisson’s ratio v = 0.3, pressure p = 003072, diameter D = 20.0
+
+A 16-node displacement
+based shell element
+
++ mitcl6
+A
+
+plate element
+
+0 mitcl6 shell element
+
+0
+
+v
+0 I
+
+0
+I I I I
+
+I
+
+Figure 20. Mesh A shear stress predictions in analysis of simply supported circular plate, diameter/thickness = 100. The results not shown for the 16-node displacement-based shell element are actually outside the figure
+
+A mitc9 shell element
+
++ mitc9
+
+plate element
+
+0.
+
+2.
+
+4.
+
+6.
+
+8.
+
+10.
+
+distance along radial line PO
+
+Figure 21. Mesh B shear stress predictions in analysis of clamped circular plate, diameterlthickness = 100
+
+t'
+
+A
+
+B
+
+all edges slmpiy supported
+
+l uniform pressure p
+a =30dogrees
+
+thickness = 0.01
+
+Uniform Mesh 2 x 2
+
+Figure 22. Morley skew plate problem and typical finite element mesh used
+
+HIGHER-ORDER MITC GENERAL SHELL ELEMENTS
+
+3751
+
+complete non-linear response of the shell including the snap-through response. Due to symmetry conditions only one quarter of the shell needs to be discretized and we used meshes of one and four 16-node elements. Figures 26 and 27 show the central deflection plotted against the load for the results obtained with the 16-node displacement-based element and the MITC16 element. The solution reported by
+A 16-node displacement
+based shell element plate element 0 mitcl6 shell element
+
++ mitcl6
+
+8";.
+
+1'.
+
+2'.
+
+3'.
+
+4. '
+
+i.
+
+8.
+
+7'.
+
+a.
+
+number of elements per side
+
+Figure 23. Convergence of centre displacement for cubic elements in analysis of the Morley skew plate
+
+A mitc9 shell element
+V
+
++ mitc9
+
+plate element
+
+0 mitc8 shell element
+
+ZW!
+U &
+
+I
+
+I
+
+I
+
+,
+
+I
+
+I
+
+I
+
+2
+
+0.
+
+2.
+
+4.
+
+6.
+
+8.
+
+10.
+
+12.
+
+14.
+
+16.
+
+number of elements per side
+
+Figure 24. Convergence of centre displacement for quadratic elements in analysis of the Morley skew plate
+
+All edges of shell
+
+are hinged
+
+Radius 2540.0 Thickness = 99.45 a 784.90 E = 68.95 V =0.30
+
+2a
+
+Figure 25. Physical model used for analysis of spherical cap. One quarter of the shell is discretized
+
+3152
+
+M. L. BUCALEM AND K. J. BATHE
+
+0 0 0
+
+\ ' rl
+
+2-
+
+8
+3 0,c
+8
+0
+
+X one element mesh
+
+0 four element mesh
+
++ solution
+0.
+
+by Leicester
+
+I
+
+50.
+
+100.
+
+i50.
+
+200.
+
+250.
+
+300.
+
+CENTRAL DEFLECTION, WC
+
+Figure 26. Non-linear response of a shallow spherical cap subjected to concentrated load using the 16-node displacementbased element
+
+p
+8
+2
+
+U one element mesh
+0 four element mesh
+
++
+
+solution by Leicester
+
+0
+
+CENTRAL DEFLECTION, WC
+
+Figure 27. Non-linear response of a shallow spherical cap subjected to concentrated load using the MITC16 element
+
+LeicesterZ9using a semi-analytical approach is also shown. This solution is based on additional approximations to those of the mathematical model used in the finite element discretizations. We note that the solutions obtained with the MITC16 element using the one and four element meshes are quite close to each other in contrast to the solutions obtained with the 16-node displacement based element (Figure 26). We also note that the 16-node displacement-based solution with four elements is close to the solutions obtained with the MITC16 element. Hence, we can conclude that for the 16-node displacement-based element at least a four-element mesh is required whereas with the MITC16 element a good response prediction is already obtained with only one element for a quarter of the structure.
+4. CONCLUDING REMARKS
+
+Two new higher-order mixed-interpolated general shell elements for non-linear analysis were proposed. An interpolation scheme for the covariant strain components both for shear and membrane actions was developed and used to formulate the elements. The newly developed elements did not exhibit shear or membrane locking in a number of well-chosen test problems, and displayed a very good performance. Our objective of developing a 16-node mixed element that would replace the usual displacement-based element was accomplished. The MlTCl6
+
+HIGHER-ORDER MITC GENERAL SHELL ELEMENTS
+
+3753
+
+element represents a substantial improvement in performance when compared with the 16-node displacement-based element. Both, the MITC9 and MITC16 elements satisfy our criteria for reliability and together with the MITC4 and MITCS elements that have been previously published form a family of general non-linear shell elements. However, most valuable would be detailed mathematical analyses, or even partial analyses, of the shell elements in the form as such analyses have been provided for the MITC plate bending
+REFERENCES
+1. A Noor et al. (eds.), Analytical and Computational Models oJShells, ASME Special Publication, 1989, CED-3. 2. S. Ahmad, B. M. Irons and 0. C. Zienkiewicz, ‘Analysis of thick and thin shell structures by curved finite elements’, Int. j . numer. methods eng., 2, 419-451 (1970). 3. E. Ramm, ‘A plate/shell element for large deflections and rotations’, in K. J. Bathe (ed.), Formulations and Computational Algorithms in Finite Element Analysis. MIT press, Cambridge, MA, 1977. 4. K. J. Bathe and S. Bolourchi, ‘A geometric and material nonlinear plate and shell element’, Comput. Struct., 11,23-48 (1 979). 5 . K. J. Bathe and F. Brezzi, ‘On the convergence of a four-node plate bending element based on Mindlin/Reissner plate f theory and a mixed interpolation’, in J. R. Whiteman (ed.), Proc. Co?$ on Mathematics o Finite Elements and Applications V, Academic Press, New York 1985, pp. 491-503. 6. K. J. Bathe and F. Brezzi, ‘A simplified analysis of two plate bending elements-the MITC4 and MITC9 elements’, in G. N. Pande and J. Middleton (edy.),Proc. Int. COJZJ Numerical Methods in Engineering ( N U M E T A 87), University on College of Swansea, Wales, 1987, p. D46. 7. F. Brezzi, K. J. Bathe and M. Fortin, ‘Mixed-interpolated elements for Reissner-Mindlin plates’, f n t . j . numer. methods eng., 28, 1787-1801 (1989). 8. F. Brezzi, M. Fortin and K. Stenberg, ‘Error analysis of mixed-interpolated etements for Reissner--Mindlin plates’, ,Math. Models Methods A p p l . Sci. 1, 125-191 (1991). 9. E. Dvorkin and K. J. Bathe, ‘A continuum mechanics based four-node shell element for general nonlinear analysis’, Eng. Cornput., I, 77-88 (1984). 10. K. J. Bathe, F. Brezzi and S. W. Cho, ‘The MITC7 and MITC9 plate bending elements’, Comput. Struct., 32, 797-814 (1989). 11. K. J. Bathe, S. W. Cho, M. L. Bucalem and F. Brezzi, ‘On our MITC plate bending/shell elements’, in A. Noor et al. (eds.), Analytical and Computationd Models of Shells, ASME Special Publication, 1989, CED-3, pp. 261-278. 12. K. J. Bathe, M. L. Bucalem and F. Brezzi, ‘Displacement and stress convergence of our MITC plate bending elements’, Eng. Comput., 7, 291-302 (1990). 13. J . Pitkaranta, ‘The problem of membrane locking in finite element analysis of cylindrical shells’, Report, Helsinki University of Technology, Otakaari 1, SF-02150 Espoo, Finland, 1991. 14. T. J. R. Hughes and T. E. ’I’ezduyar,‘Finite elements based upon Mindlin plate theory with particular refcrence to the four-node bilinear isoparametric element’, J . Appl. Mech. Trans. ASME, 48, 587-596 (1981). 15. R. H. MacNeal, ’Derivation of element stiffness matrices by assumed strain distributions’, Nuclear Eng. Des., 70,3-12 (1982). 16. K. J. Bathe and E. Dvorkin, ’A formulation of general shell elements-the use of mixed interpolation of tensorial components’, Int. j . numer. methods eng., 22, 697-722 (1986). 17. H. C. Huang and E. Hinton, ‘A new nine node degenerated shell element with enhanced membrane and shear interpolation’, Int. j . numer. methods eng., 22, 73-92 (1986). 18. K. C. Park and G. M. Stanley, ‘A curved Co shell element based on assumed natural-coordinate strains’, J . Appl. Mech. Trans, A S M E , 53, 278-290 (1986). 19. J. Jang and P. M. Pinsky, ‘An assumed covariant strain based 9-node shell element’, 1nt.j. numer. methods eng., 24, 2389-2411 (1987). 20. K. C. Park, E. Pramono, €1. A. Stanley and G . M. Cabiness, ‘The ANS shell elements: earlier developments and recent improvements’, in A. Noor et al. (eds.), Analytical and Computational Models o Shells, ASME Special Publication, f 1989, CED-3, pp. 217-239. 21. K. Kato and K. J. Bathe, ‘On the use of higher-order finite elements in structural mechanics’, Report 89-4, Finite Element Research Group, Massachusetts Institute of Technology, Cambridge, MA, 1989. 22. K. J. Bathe, Finite Element Procedures in Engineering Analysis, Prentice-Hall, Englewood Cliffs, N. J., 1982; 2nd edn., to be published. 23. G. M. Lindberg, M. D. Olson and E. R. Cowper, ‘New developments in the finite element analysis of shells’, Quarterly f f Bulletin o the Division o Mechanical Engineering and the National Aeronautical Establishment (National Research Council of Canada), 4, 1-38 (1969). 24. T. Sussman and K. J. Bathe, ‘Studies of finite element procedures--stress band plots and the evaluation of finite element meshes’. Eny. Comput., 3, 178-191 (1986).
+
+3754
+
+M. L. BUCALEM AND K.J. BATHE
+
+25. L. S. D. Morley and A. J. Morris, ‘Conflict between finite elements and shell theory’, Technical Report, Royal Aicraft Establishment Report, London, 197k 26. B. Haggblad and K. J. Bathe, ‘Specifications of boundary conditions for Reissner-Mindlin plate bending finite elements’, Int. j . numer. methods eng., 30,981-1011 (1990). 27. L. S. D. Morley, Skew Plates and Structures. Pergamon Press, Oxford, 1963. 28. K. J. Bathe and E. N. Dvorkin, ‘On the automatic solution of nonlinear finite element equations’, Comput. Struct., 17, 871-879 (1983). 29. R. H. Leicester, ‘Finite deformations of shallow shells’, in Proc. American Society of Civil Engineers, Vol. 94, (EM6), 1968, pp. 1409-1423.
+

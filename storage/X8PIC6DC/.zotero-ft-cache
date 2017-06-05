@@ -1,0 +1,494 @@
+Materials Science and Engineering A362 (2003) 40–60
+
+Functionally graded materials for biomedical applications
+W. Pompe a,∗ , H. Worch a , M. Epple b , W. Friess c , M. Gelinsky a , P. Greil d , U. Hempel e , D. Scharnweber a , K. Schulte f
+a Institute of Materials Science, University of Technology, Dresden, Hallwachsstr 3, D-01069 Dresden, Germany Solid State Chemistry, Faculty of Chemistry, University of Bochum, Universitätsstr 150, D-44780 Bochum, Germany c Department of Pharmaceutical Technology, Friedrich-Alexander University of Erlangen-Nuernberg, Cauer Str. 4, D-91508 Erlangen, Germany d Department of Materials Science, Glass and Ceramics, Friedrich-Alexander University of Erlangen-Nuernberg, Martensstraße 5, D-91058 Erlangen, Germany e University of Technology, Dresden, Institute of Physiological Chemistry, Fiedlerstr 42, D-01307 Dresden, Germany Department of Polymers and Composites, University of Technology, Hamburg-Harburg, Denickestr. 15, D-21073 Hamburg, Germany b
+
+f
+
+Received 18 July 2002; received in revised form 25 April 2003
+
+Abstract Functional gradation is one characteristic feature of living tissue. Bio-inspired materials open new approaches for manufacturing implants for bone replacement. Different routes for new implant materials are presented using the principle of functional gradation. An artiﬁcial biomaterial for knee joint replacement has been developed by building a graded structure consisting of ultra-high molecular weight polyethylene (UHMWPE) ﬁbre reinforced high-density polyethylene combined with a surface of UHMWPE. The ingrowth behaviour of titanium implants into hard tissue can be improved by depositing a graded biopolymer coating of ﬁbronectin, collagen types I and III with a gradation, derived from the mechanisms occurring during healing in vivo. Functionally graded porous hydroxyapatite (HAP) ceramics can be produced using alternative routes, e.g. sintering of laminated structures of HAP tapes ﬁlled with polymer spheres or combining biodegradable polyesters such as polylactide, polylactide-co-glycolide and polyglycolide, with carbonated nanocrystalline hydroxyapatite. HAP–collagen I scaffolds are an appropriate material for in vitro growth of bone. The scaffold has to be functionally graded in order to create an optimised mechanical behaviour as well as the intended improvement of the cell ingrowth. © 2003 Elsevier B.V. All rights reserved.
+Keywords: Functionally graded materials; Biomaterials; Bone replacement
+
+1. Introduction The development of new biomaterials for medical applications is one of the challenging tasks for materials science today. There is an obvious need for better implants as well as for the manufacturing of artiﬁcial tissues. A characteristic feature of this research area is the increasing acceptance of biologically inspired approaches. Biological structures
+
+This is an overview of parts of the key results obtained within the Priority Program “Functionally Graded Materials” funded by the German Research Foundation (DFG) in the years 1995–2002. ∗ Corresponding author. Present address: Institut für Werkstoffwissenschaft, Technische Universität Dresden, Gebäude Hallwachsstrasse 3, D-01069 Dresden, Germany. Tel.: +49-351-463-31421; fax: +49-351-463-31422. E-mail address: pompe@tmfs.mpgfk.tu-dresden.de (W. Pompe). 0921-5093/$ – see front matter © 2003 Elsevier B.V. All rights reserved. doi:10.1016/S0921-5093(03)00580-X
+
+lend insight into the design concepts of new materials. When we consider the biological material, we often observe a number of design principles that are not usually used in traditional materials processing. One remarkable feature of biomaterials is the formation of hierarchical structures. Furthermore, the complex functionality of the various tissues includes a continuous change from one structure or composition to another. For instance, the beautiful design of bone with a change from a dense, stiff external structure (the cortical bone) to a porous internal one (the cancellous bone) demonstrates that functional gradation has been utilized by biological adaptation. This structure optimises the material’s response to external loading. Thus the optimised structure for an artiﬁcial implant should show similar gradation. Consider the example of orthopaedic implants for shoulder and knee joint replacements. In order to improve the
+
+W. Pompe et al. / Materials Science and Engineering A362 (2003) 40–60
+
+41
+
+acceptance of artiﬁcial implants by living tissue, a functionally graded interlayer of biopolymers should be a favourable approach. This will be shown for titanium implants functionallized with a graded coating of three different biopolymers in the following. From this example we can show that not only improved mechanical behaviour but also optimized interactions with cells living in the surrounding tissue are an important criterion for the interlayer design. Finally, functional gradation plays a central role for manufacturing of scaffolds for tissue engineering. Due to the importance of this new ﬁeld of biomaterials research, we will give three examples for possible scaffolds for hard tissue development. Hydroxyapatite (HAP, Ca10 (PO4 )6 (OH)2 ) and collagen I are the main building components for such scaffolds. The ingrowth of bone-forming cells (osteoblasts) and bone-resorbing cells (osteoclasts) is one major design criterion for these scaffolds in order to switch on remodelling of the artiﬁcial scaffold in living bone.
+
+2. Artiﬁcial implants 2.1. The problem UHMWPE is widely used in many orthopaedic implant applications such as total hip, shoulder and knee joint replacements. UHMWPE is utilised because of superior mechanical properties and biocompatibility. Depending on the level of deterioration of a knee, a joint prosthesis or a condylar prosthesis will be required, if the capsule bonding of the support remains intact. Wear debris from UHMWPE in artiﬁcial joints is a major reason for long-term osteolysis, resulting in the danger of loosening the implant [1]. The resistance of polyethylene inserts against abrasive wear, pitting and delamination may be improved using a UHMWPE-ﬁbre-reinforced high density polyethylene (HDPE) combined with a surface of UHMWPE. The present study reports an approach to improve the material tribological characteristics via gradient material manufacturing. 2.2. Finite element analysis (FEA) of PE gradient materials The lifetime of knee prostheses is mostly limited by material failure and surface wear of the tibial component. This UHMWPE component is loaded close to its ultimate stress and is additionally stressed by wear in service. The aim of the ﬁnite element study was to improve the durability of tibial components using functionally graded materials (FGM) made of PEs of different qualities. Stress analysis with a two-dimensional ﬁnite element model was evaluated using a commercial FEA software, MARC/Mentat. The model simulated the contact stresses between the femoral condyles and the tibial layer [2]. The tibial com-
+
+ponent was made up of eight layers. Different designs of a functionally graded material were represented by different Young’s moduli in the eight layers. One of the designs included ﬁbre-reinforced polyethylene in one layer. The evaluation of the graded design was based on a characteristic value called related stress (RelStr). The related stress value was calculated by dividing the von Mises stress with the ultimate stress for each speciﬁc material. The ultimate stress was linearly related to the Young’s modulus according to available data for PE. An increasing Young’s modulus corresponded to a decreasing molecular weight of polyethylene. The related stress (RelStr) values in a contact zone between the femoral condyles and the polymeric tibia plateau were nearly the same in all these materials. The maximum RelStr levels and the distance of the peak stresses from the contact surface were compared with those of the conventional UHMWPE. For the reference UHMWPE a maximum related stress value between 1.4 and 1.5 was found; the distance between the surface and the centre of the maximum related stress area was 2.22 mm (conventional UHMWPE material). The results of the graded design showed that the related stress level and the distance of the high stresses from the surface decreased (RelStr > 1.3 and 1.83 mm (−17.3%), respectively). The use of stiffer layers in the bulk markedly reduced the area of the high RelStr (Fig. 1). If the inner layers were more elastic than the ﬁrst layer, the high stresses were transferred deeper into the bulk [2]. The designs with ﬁbre-reinforced FGM (the last layer was made stiffer to better match the metallic tibia plateau of the prosthesis) showed some improvement [3]. Fibre-reinforced FGM exhibited the same value of RelStr as non-reinforced FGM, but the distance between the high stresses and the surface was reduced by 11.7% (1.96 mm). The results show that interior stress reduction in the tibia component without changing the surface wear properties of the component was possible only by the introduction of the functionally graded PE material. This theoretical study has already shown that a functionally graded material can yield stress-optimised tibial layers. However, the improvements are less pronounced when looking at characteristic stress values.
+
+Fig. 1. Potential design of a wear-optimised PE component.
+
+42
+
+W. Pompe et al. / Materials Science and Engineering A362 (2003) 40–60
+
+Table 1 Mechanical and physical parameters of PE and UHMWPE components used to manufacture the three- and four-component gradient samples and PE homocomposites PE MW (g/mole) MWD 13 – 27 20 13 30 20 E (MPa) 708 1060 783 1216 708 780 1216 σ s (MPa) 20 26 21 29 20 23 29 PE/PE homocomposite UHMWPE ﬁbre (Dyneema® SK65) E (MPa) 95 σ s (MPa) 3000
+
+Four-component gradient HUH1120 4000000 HHD8110 700000 HHD8020 490000 DHD7625 180000 Three-component gradient HUH1120 4000000 SHD4921 205000 DHD7625 180000
+
+HDPE matrix PE/PE homocomposite (Vf = 50%, UD = 0◦ )
+
+1.4 28
+
+28 850
+
+2.3. Manufacturing of graded polyethylene composite materials All graded materials investigated were developed at the Polymer Composites Group of the Technical University, Hamburg-Harburg. Different grades of HDPE and UHMWPE were used for gradient materials manufacturing. The commercial grades of polyethylene powders were manufactured by Billeter Kunststoffpulver AG (Germany), DSM (The Netherlands), Hoechst AG (Germany), Solvay (Belgium) and Ticona GmbH (Germany). The compositions of the investigated PE gradient and UHMWPE-ﬁbre/HDPE-matrix homocomposites are shown in Table 1. The gradient composition was chosen on the basis of results from rheological measurements, including correlation of MW and MWD with the cross-over point of the storage and loss moduli versus frequency curves [4]. Because the gradient components had relatively broad molecular weight distributions, it was postulated that a quasi-continuous grade in molecular weight was achieved in the polyethylene gradient material. PE samples with a gradient in molecular weight (MW), within a range of 8 × 104 to 4 × 106 g/mole, were prepared by compression moulding of polyethylene powders in a cylindrical mould. The powder was stacked in the mould and kept under a pressure of 20 MPa. Pressure applied on the melt was then decreased to 1.5 MPa. The compression moulding cycle included heating the stacked powder under pressure, keeping the melt at a steady state temperature and pressure for 30–90 min, and ﬁnally cooling down the mould and the gradient material under a continuous pressure of 10 MPa. The temperature varied from 140 ◦ C at the base plate (HDPE-side) to 200 ◦ C at the piston (UHMWPE-side). The pressure and thermal cycle were optimised for each component conﬁguration. The manufacturing route and the corresponding mechanical properties of PE-ﬁbre/PE-matrix composites were described elsewhere [5,6]. Investigated PE composites were manufactured applying the wet powder impregnation technique. All implants must be sterilized before use. A common practice today utilizes -radiation in air with a 60 Co-source and a radiation dose of about 25 kGy. Sterilised (S) and
+
+non-sterilised (NS) implant materials were supplied by ESKA Implant (Lübeck), and used as a reference material. The UHMWPE samples manufactured in this study were treated using electron beam radiation with a dose of 50 kGy. By this treatment, chain scission was produced, and the gliding of the molecules led to the reduction of the mechanical strength. With higher radiation dose (130 kGy) the molecular chain cross-linking dominated and the mechanical properties increased. 2.4. Mechanical behaviour 2.4.1. Microhardness The microhardness of PE is directly correlated with material and structural parameters, such as MW, MWD, crystallinity, degree of branching, lamellar thickness and number of molecular entanglements. Microhardness and indentation modulus were measured according to DIN 50359-1 at room temperature using a Fischerscope® tester H100VP XY-Prog with a Vickers square pyramidal diamond indenter with a load of 0.002 N. Samples for microhardness tests were prepared by cryo-microtom cutting perpendicular to the gradient direction. 2.4.2. Tribological test procedure 2.4.2.1. Test procedure I. In plastics contact stress leads to creep deformation in addition to wear. For this reason we tried to separate the inﬂuence of creep from the wear. Screening wear tests were performed in a simple standard wear test apparatus under dry conditions (Fig. 2). With this method the tribological characteristics of the materials chosen could be compared in a relatively short time. The test apparatus was a ball-on-prism type from Dr. Tillwich GmbH (Germany). The prism with an angle of 90◦ containing the specimens was pressed against a bearing steel ball. The normal load acting onto the specimen surface was 21.2 N. The steel balls rotated uniformly with a frequency of 1 Hz, giving a continuous sliding speed of 28.2 mm/s. 2.4.2.2. Test procedure II. A wear test procedure and apparatus was developed in accordance to the ASTM
+
+W. Pompe et al. / Materials Science and Engineering A362 (2003) 40–60
+
+43
+
+Fig. 2. Schematic of the ball-on-prism wear testing apparatus.
+
+F732-82 standard. Wear tests were performed in a standard sphere-on-ﬂat conﬁguration using bovine serum as a lubricant at a system temperature of 37 ◦ C. The serum lubricant allows a relatively realistic wear condition for prosthetic joint materials. In this test procedure the creep cannot be eliminated and has to be determined separately. The wear results intrinsically contain the ‘dynamic’ creep component. The normal load acting on the specimen surface was 225 N. CoCr pins moved uniformly with a frequency of 1 Hz, giving a continuous sliding speed of 50 mm/s (Fig. 3). The diameter of the cylindrical pins was 9 mm. After wear tests, the samples were analysed by different methods such as atomic force microscopy (AFM), scanning electron microscopy (SEM) and optical microscopy. 2.5. Results and discussion The morphological structures of the various commercial HDPEs were attributed to two categories: ﬁrst, those with small, homogeneous distributed spherulites, and second, those with a polyphase morphology and relatively large spherulites [4]. A uniform transcrystalline interphase developed in the boundary between HDPE components with different molecular weights, DHD7625 (MW = 180 000) and HHD8020 (MW = 490 000), and also in the boundary between HDPE and UHMWPE. Tensile tests showed that the transcrystalline interphases in gradient materials from commercial grades of polyethylene do not weaken the PE gradient [4]. Differences in the mechanical properties of graded samples depended more on the mechanical properties of the individual materials rather than the phase boundaries. The mechanical properties of the irradiated material changed, as expected. The tensile strength (σ s ) and the elastic modulus (E) increased. At the same time the toughness decreased.
+
+2.5.1. Microhardness The chain orientation and MW inﬂuenced the microhardness (HUcorr ) and indentation modulus (YHU 0.002) of UHMWPE-ﬁbre/HDPE-matrix composites and gradient components. An increase in the molecular weight of polyethylene leads to a decrease in hardness and indentation modulus. Two groups can be distinguished [4]. In the ﬁrst group are HDPEs (DHD 3H173, SHD 2020, DHD 7625) with a microhardness between 90 and 115 MPa. In the second group are the high and ultra-high molecular weight polyethylene grades (HHD 8020, HHD 8110, DUH 210 and HUH 1120) with HUcorr between 55 and 70 MPa. Extrusion and injection moulding grades were placed on one side and a blow moulding grade was placed on the other. In the polyethylene homocomposite both HUcorr and YHU increased with increasing molecular orientation and crystallinity. The ranking was determined to be as follows: HUcorr , YHU (UHMWPE-ﬁbre) HUcorr , YHU (transcrystalline interphase) > HUcorr , YHU (matrix). 2.5.2. Tribological properties 2.5.2.1. Test procedure I. Before starting the tribological tests a static load was applied for about 60 h. The penetration of the ball (creep), measured in this period, showed signiﬁcant differences between the various materials tested. UHMWPE clearly showed higher creep rates than the polyethylene-ﬁbre-reinforced composite. The plastic deformation of the homocomposite under static load was reduced with increasing ﬁbre volume fraction. After 60 h no further noticeable creep took place. Therefore, for the following wear tests it was assumed that no further creep occured. For the evaluation of the wear characteristics the wear rate (penetration depth per time dh/dt) was determined. The wear rate wh/t was obtained from the slope of the steady state part of the wear curve [7]. The results are detailed elsewhere [4]. The tests conﬁrmed that UHMWPE possesses very good wear characteristics (Figs. 4 and 5). By comparison the HDPE matrix, being reinforced by PE-ﬁbres with a volume fraction Vf = 20%, clearly showed lower wear. Increasing the ﬁbre volume fraction improved the wear resistance of homocomposites. The PE/PE composite with a ﬁbre volume fraction of Vf = 50% nearly reached the wear values of UHMWPE. The sliding direction relative to the ﬁbre orientation had no observed inﬂuence on wear rate. The graded PE, composed of a UHMWPE wear layer and three HDPE layers with a gradient in molecular weight did not creep as much as the pure UHMWPE. This four-component gradient contained no ﬁbre reinforcement. As the HDPE components possess a higher crystallinity than the UHMWPE, the rigidity of the gradient increases. The wear rate of the four-component gradient was slightly lower than the UHMWPE.
+
+Fig. 3. Schematic of the sphere-on-ﬂat wear testing apparatus.
+
+44
+
+W. Pompe et al. / Materials Science and Engineering A362 (2003) 40–60
+
+industrial manufacturing conditions on the wear behaviour was observed. The wear properties of isotropic materials were compared with three- and four-component gradients. For the evaluation of the wear characteristics of the examined materials the wear rate (dh/dt) was determined, as shown in Fig. 5. The wear rate of the irradiated UHMWPE was lower than that of the non-irradiated material. The scatter of the three-component gradient data was higher than the four-component one. The three-component as well as the four-component gradient did not show much better wear properties than the commercial materials. The gradients showed somewhat better results than the non-irradiated UHMWPE. 2.5.3. Materials analysis after testing The samples were disinfected after the test and the worn surfaces were analysed by means of scanning electron microscopy, optical microscopy, and atomic force microscopy. The metal-on-polyethylene system showed grooves in the sliding direction on the surfaces of both bearing partners after sliding for 106 cycles. The grooves may have been caused by hard mineral salt impurities in the UHMWPE [1]. These salt particles can initiate the abrasion process on both the CoCr pin side and the PE sample and may create a third-body wear system. Wear-generated PE debris were observed on the polyethylene side. A transfer ﬁlm, observed on the metal pin, was clearly identiﬁed with EDAX as polyethylene. After wear testing, disinfected plates were cleaned from the debris and serum deposits in an ultrasonic bath. Subsequently, the topography of the worn surfaces could be analysed by AFM, which is more sensitive than SEM. The AFM images of the UHMWPE and three-component gradient show similar topography of the worn surfaces, which suggests that the changes in wear behaviour of the three-component gradient compared with conventional
+
+Fig. 4. Steady state wear rates of all materials tested; where HDPE was the high-density polyethylene matrix, UHMWPE was an ultra-high molecular weight polyethylene, PE/PE were homocomposites of the HDPE matrix with different volume fractions of UHMWPE ﬁbres, and gradient means a four-component gradient.
+
+The wear characteristics of the graded PE can be explained since the UHMWPE layer provides the wear surface of the gradient. However, note that the results correspond to a duration of 60 h in the wear test and a friction load of 21.2 N. For a prosthetic application, wear tests for at least 300 h and higher loads are necessary (according to the ASTM F732-82), as described by test procedure II. 2.5.2.2. Test procedure II. Five different materials were evaluated in test procedure II. Commercial reference samples of an UHMWPE prosthesis material manufactured by ESKA Implants were used both sterilised (ESKA S) and non-sterilised (ESKA NS). The UHMWPE (S and NS) samples were manufactured from UHMWPE powder in our laboratory. With these samples, an inﬂuence of laboratory and
+
+400
+
+wear rate [ m/ M cycles]
+
+200
+
+0 3er 4er UHMWPE S NS ESKA ESKA S NS
+
+Fig. 5. The steady state wear rates measured for three-component gradient (3er) (4er means four-component gradient), and UHMWPE materials (ESKA), which were either sterilised (s) or non-sterilised (ns). Each point represents one measurement.
+
+W. Pompe et al. / Materials Science and Engineering A362 (2003) 40–60
+
+45
+
+isotropic material were not sufﬁcient. The AFM images of the four-component gradient indicate a regular bulge topography perpendicular to the sliding direction that may be due to different reaction of these materials to the friction load. In this case, the use of the four-component polyethylene gradient with different material properties in each layer may change the stress distribution compared to the conventional isotropic UHMWPE material. 3. Biological functionalisation of metallic implants 3.1. The problem For titanium implants in dental and orthopaedic surgery, a main aim of basic and applied research has been the improvement of osseointegration by optimising the implant surface. To this end, various methods have been employed: structuring of surfaces of implants for bone using coatings of hydroxyapatite [8,9], chemical modiﬁcations [10,11], and functionalisation of the surface with matrix proteins [12]. In all cases, the complex graded structures occurring in vivo during the healing of bone are not taken into consideration. In this healing process, the initial phase is characterised by the appearance of ﬁbronectin and an increase in the expression of collagen type III, giving rise to a scaffold promoting the migration of osteoprogenitor cells and invascularisation of the newly forming tissue [13,14]. In the course of time, collagen type I is superimposed on this matrix, an event accompanied by the onset of calciﬁcation. In the ﬁnal phase, when the woven bone is restructured into mature lamellar bone, collagen type III is replaced completely by collagen type I. Research into tissue development has shown that proliferation and differentiation of adherent cells are inﬂuenced by the extracellular matrix (ECM), through the engagement of receptors speciﬁc for certain matrix components. As the interaction between extracellular matrix proteins as ligands and cellular receptors, i.e. the integrins, initiates intracellular signal transduction cascades with effects on proliferation and differentiation of osteoblasts [15,16], the ECM plays an active role in the regulation of cellular behaviour. Based on these facts, it seems sensible to mimic this sequence of matrix proteins and supply the bone-forming cells with a microenvironment resembling the naturally occurring one, using the main matrix components. To achieve this, a structure representing the temporal gradient in a spatial manner must be developed, using the different matrix proteins involved in the healing of bone. During the integration of the implant, this layer will be continuously remodelled, thus presenting a matrix changing over time. This is exempliﬁed in a structure where ﬁbronectin, collagen types I and III are combined in such a way that, in an analogy to the events occurring during healing in vivo, (i) the outermost surface, which confers the initial interaction with the surrounding tissue, consists of ﬁbronectin,
+
+(ii) a graded transition to collagen type III is realised with the onset of biological remodelling, (iii) the gradient continues with an equally graded transition into the layer closest to the implant, consisting solely of collagen type I. It is of special importance that the layer adjacent to the implant surface should be made up only of type I, as histological studies have shown that mineralisation occurs only in matrices of this kind. 3.2. Layers of the collagen types I and III on titanium and Ti6Al4V To mimic the environment in healing bone, graded layers consisting of collagen types I and III were deposited on titanium implants. The ﬁrst step in this process was the generation of homotypic and heterotypic ﬁbrils and the characterisation of immobilized layers of these proteins on titanium-based substrates. Collagen type III was of special interest, since very little data exist concerning this collagen type with a relation to implant materials. Collagen types I and III resemble each other closely, but characteristic differences in their behaviour can be determined in their responses to ﬁbrillogenesis parameters. Most importantly, ﬁbrils formed by collagen type III always were of a much ﬁner structure than those consisting of type I. Also, in opposition to collagen type I, type III did not form ﬁbrils in sufﬁcient amounts under all the conditions studied. The effect of temperature, pH, ionic strength and phosphate ion concentration on ﬁbril formation and morphology was assessed extensively. By varying these parameters (with the last two having the most effect), the kinetics of ﬁbrillogenesis, the mean ﬁbril diameter, which correlates with the maximal adsorption, and the percentage of collagen integrated into the ﬁbrils could be modiﬁed over a wide range. The adsorption of ﬁbrils onto titanium, on the other hand, was inﬂuenced only to a small degree and was comparable for the two collagen types. Adsorbed amounts ranged between 49.3 ± 4.1 and 53.9 ± 11.0 g/cm2 for collagen types I and III, respectively. Studies concerning the retention of native collagen structure were performed using SEM and AFM, where a native banding pattern was distinguished resembling that for naturally occurring ﬁbrils. The detection by collagen-speciﬁc antibodies was still possible after adsorption, and FT-IR spectroscopic analysis showed that the changes caused by adsorption were always smaller than those occasioned by the natural process of mineralisation. For the creation of the graded systems, the development of heterotypic ﬁbrils consisting of varying ratios of collagen types I and III was necessary. This method is closer to the physiological situation than the simple mixing of homotypic ﬁbrils, as the integration of more than one collagen type into ﬁbrils employed in vivo adapts the ubiquitous collagen type I to speciﬁc tissue requirements.
+
+46
+
+W. Pompe et al. / Materials Science and Engineering A362 (2003) 40–60
+
+0,8 0,6
+
+100% I 20% III
+
+Table 2 Composition of buffers in collagen ﬁbrillogenesis Buffer A B C D E F G Phosphate (mM Pi) 30 30 65 30 30 30 65 NaCl (mM) 135 135 135 30 TES (mM) pH 7.4 7.4 7.4 7.4 7.0 7.0 7.0
+
+OD313
+
+0,4 0,2
+
+50% III
+
+100% III 0,0 0 200 400 600 time [min] 800
+
+Fig. 6. Heterotypic ﬁbrillogenesis with a rising amount of collagen type III; 0.5 mg/ml collagen concentration, 30 mM phosphate buffer, 135 mM NaCl, pH 7.4, temperature 34 ◦ C; extinction (OD optical density) measured at the wave length 313 nm.
+
+Heterotypic ﬁbrils can be generated in a wide range of collagen ratios. An increase in collagen type III content results in a decrease in mean ﬁbril diameter, as can be seen in the turbidity measurement (Fig. 6) and AFM images. The integration of collagen into the ﬁbrils was inﬂuenced to a lesser degree by the amount of collagen type III in the ﬁbril; differences are visible only above 50% collagen III. Pure type III is integrated to about 70% into ﬁbrils, as opposed to 80–90% for collagen type I. Differences in the adsorption of mixed ﬁbrils onto titanium were not detected. 3.2.1. Binding of ﬁbronectin to collagen ﬁbrils of varying composition Fibronectin plays a prominent role in wound healing and is known for its importance in cell adhesion. Incidentally,
+
+the molecule has both a cell-binding and a collagen-binding domain, which allows an easy binding of ﬁbronectin to the collagen layers. Experiments concerning these binding properties showed that the degree of ﬁbronectin binding depended both on the conditions under which the ﬁbrils were reconstituted and on the collagen type or the relation of collagen types in the ﬁbrils (Fig. 7, Table 2). Values in Fig. 7 are given in g ﬁbronectin/cm2 , which corresponds to approximate g ﬁbronectin/≈50 g collagen (as shown above). In homotypic ﬁbrils, the ﬁbronectin bonding could be inﬂuenced by the buffer system employed in ﬁbrillogenesis. For collagen type I, this effect was especially pronounced. In buffers with high ionic strength, the amount bound was tripled with 0.07 g/cm2 . Type III was not inﬂuenced to such a degree, but under most conditions bound more ﬁbronectin than did collagen type I. As mentioned above, the amount of collagen adsorbed per cm2 did not vary with collagen type or buffer system. The differences in binding of ﬁbronectin to the different collagen layers thus cannot be attributed to the presence of different collagen amounts, and are probably due to structural changes in the ﬁbrils. For heterotypic
+
+type I
+0,12
+
+10% III
+
+0,10
+
+90% III
+
+type III
+
+µg fibronectin/cm 2
+
+0,08
+
+50% III
+
+0,06
+
+0,04
+
+0,02
+
+0,00
+
+buffer a to g
+Fig. 7. Adsorption of ﬁbronectin to collagen ﬁbrils with varying collagen type I:III ratios and generated in differing buffer systems. (For buffer composition, see Table 2.)
+
+W. Pompe et al. / Materials Science and Engineering A362 (2003) 40–60
+0,25 0,20 0,15 0,10 0,05 0,00 0' 30' 2h 6h 18h 24h 2 d 3 d 4 d 5 d ti me 50 µg/ml FN 10 µg/ml FN
+
+47
+
+Fig. 8. Desorption of ﬁbronectin from type I collagen ﬁbrils in PBS, showing the amount remaining on the ﬁbrils.
+
+ﬁbrils, the capacity to bind ﬁbronectin was determined by the ratio of the two collagen types. Another method used to include ﬁbronectin in a collagen network was to conduct the collagen ﬁbrillogenesis in the presence of ﬁbronectin. No detrimental effects on kinetics and ﬁbril morphology could be detected for up to 100 g/ml ﬁbronectin. The amount of ﬁbronectin detected in these ﬁbrils generally exceeded the amount bound by adsorption to preformed layers by a factor of about three. The desorption of ﬁbronectin bound to collagen via speciﬁc interaction was comparatively low, with <25% in 4 days. The binding of ﬁbronectin to collagen was performed using a concentrated ﬁbronectin solution (50 g/ml); the protein attachment was initially about 50% greater. However, this additional amount desorbs within the ﬁrst 30 h, indicating an unspeciﬁc adsorption (Fig. 8). 3.2.2. Covalent cross-linking of collagen layers and generation of three-dimensional and graded structures Of the various cross-linking agents described in literature, glutaraldehyde was chosen due to its predominance in the clinical ﬁeld, and 1-ethyl-3(3-dimethylaminopropyl)carbodiimide (EDC) was chosen as an alternative. The latter can be used in aqueous solution and gives rise to a spacer-free linkage of amino and carboxy groups, with the result that no unphysiological degradation products are formed, though it generally produces a lesser degree of protein linkage. In order to cross-link three-dimensional structures successfully, it was necessary to dry the layers prior to linkage, bringing the reactive groups into a close contact. The best results were achieved by lyophilisation with the addition of ethanol to the cross-linking solution, as this stabilised the porous collagen structure in a satisfactory manner. The stability of the protein layers against degradation by bacterial collagenases depended on the cross-linking agent. Both EDC and glutaraldehyde conferred an increase in the resistance to proteolytic degradation, with glutaraldehyde being more effective.
+
+Unlike the linkage of the protein layers, the collagen– titanium interface proved to be problematic using polished titanium surfaces and three-dimensional collagen structures. With sandblasted surfaces (Ra = 4.38 m) chosen because of their typical implant surface morphology, a more gradual transition from metal to protein and better anchoring of the protein layers was achieved. To create three-dimensional structures, two methods were employed: the subsequent immobilisation of several layers out of a suspension of collagen ﬁbrils, and the direct layered reconstitution of the collagen network on the surface. Utilizing the immobilisation of ﬁbrils, a step-like gradient could be realised. If the ﬁbrillar network was reconstituted on the surfaces, the ﬁbrillogenesis of collagen solutions layered over each other allowed for a mutual penetration of the individual layers and thus a closer approximation of a continuous gradient. This had the added effect of mechanically connecting the layers to some degree without the use of a cross-linking agent. 3.3. Cell responses 3.3.1. Inﬂuence of collagen layers on the adhesion and differentiation of osteoblasts Primary osteoblastic cells from rat calvariae were used for cell biology. The cells were seeded onto the varying surfaces, and during a time period ranging from several days to 3 weeks to examine adhesion, proliferation and differentiation. The proliferation rate of the cells, assayed by the integration of tritium-labelled thymidine into the DNA, the activity of mitochondrial dehydrogenases (MTT test) and cell viability via the retention of lactate dehydrogenase (LDH) in the cells were measured. Differentiation markers were measured using the collagen synthesis rate through the incorporation of tritium-labelled proline, the enzyme activity of alkaline phosphatase and the mineralisation of the matrix (Ca determination). Cell morphology was visualised using immunostaining and ﬂuorescence microscopy. Of the sterilisation procedures tested, ethylene oxide proved to be the most suited. In studies with osteoblastic cells, no differences in adhesion, proliferation and differentiation could be detected between samples before and after sterilisation The adhesion of osteoblasts via speciﬁc matrix receptors— like the heterodimeric integrins—is of central importance for osseointegration. It is mediated by short peptide sequences. In the experiments, 70–100% of the cells were binding to the coated surfaces within 2 h. Different types of integrins are involved in the process of cellular adhesion, with those containing the 1-subunit and/or recognizing the RGD peptide sequence being of most importance in the cell–matrix interaction. The speciﬁc integrins involved in osteoblast adhesion to differently composed layers were determined by blocking speciﬁc integrin–matrix interactions using monoclonal antibodies and inhibitory peptides (i.e. GRGDSP). Osteoblasts
+
+fibronectin [µg/cm 2]
+
+48
+
+W. Pompe et al. / Materials Science and Engineering A362 (2003) 40–60
+
+were demonstrated to be binding to differently coated surfaces by different mechanisms. The recognition of the RGD sequence was of importance in the adhesion to uncoated Ti6Al4V or to a collagen surface covered with ﬁbronectin (40 or 60% of total adhesion), but not in the binding to pure collagen ﬁbrils. The 1-subunit of the integrins, on the other hand, inﬂuenced the adhesion to both collagen and collagen–ﬁbronectin-coated surfaces, but was of no importance in the adhesion to uncoated Ti6Al4V. The character of the surface thus has an effect on the engagement and subsequent activation of cell surface receptors. 3.3.2. Inﬂuence of the different collagen types on the differentiation of osteoblasts The formation of bone can be roughly divided into three phases: (1) the proliferative phase, during which the collagenous matrix is deposited; (2) the maturation phase, which is characterised by the activity of alkaline phosphatase; and lastly (3) the mineralisation phase, when the newly formed matrix begins to calcify. These phases were inﬂuenced by the two collagen types in the following manner: an increasing amount of collagen type III in the coating gave rise to an increase in proliferation and collagen synthesis, both of which are characteristic for the early phase of bone forma-
+
+tion. An increasing amount of collagen type I, on the other hand, occasioned a higher ALP activity and a mounting calciﬁcation, which is a marker for the later phases (Fig. 9). As collagen type III is associated with the early, and type I with later stages, it apparently seems that the matrix environment determines cellular activities and thus allows for a certain degree of inﬂuence. 3.3.3. Cell responses on three-dimensional layers The behaviour of cells on three-dimensional surfaces can differ to a large degree from behavior on two-dimensional cultures. Culturing osteoblastic cells on three-dimensional layers consisting of collagen types I and III, respectively, resulted in dramatic changes in cellular morphology after only 24 h. With a rise in type III content, the cells assumed an increasingly stellate shape. As type III ﬁbrils result in a much ﬁner network than do type I ﬁbrils, the differences on this level might also be traced to different mechanical properties, an aspect that is still an object of study. 3.3.4. Inﬂuence of cross linking on cell vitality The effect of the cross-linking agent on the viability of cells was assessed, and no detrimental effects, either of EDC or of glutaraldehyde, could be observed (Fig. 10).
+
+collagen synthesis
+prol ine incor porat ion [ cmp/1000 cel ls]
+
+activity of ALP
+AL P activ ity [U/mg prot ein]
+0,25 0,20 0,15 0,10 0,05 3 4 5 6 7 8 9 10 11 12
+I I/III III PS
+
+300 250 200 150 100 50 2
+
+I I/III III PS
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+days in cu lt ure
+
+days in cu lture
+
+calcium deposition
+8
+
+proliferation
+3,5
+
+Ca - µmol/ cm≤
+
+7 6 5 4 3 2 1 21 22
+
+abso rb ance 570 nm
+
+I I/III III PS
+
+3,0 2,5 2,0 1,5 1,0 0,5 0,0 0 2
+
+I I/III III PS
+
+23
+
+24
+
+25
+
+26
+
+27
+
+28
+
+29
+
+30
+
+4
+
+6
+
+8
+
+10
+
+12
+
+14
+
+16
+
+days in cult ure
+
+days in cul tur e
+
+Fig. 9. Physiological parameters of osteoblastic cells cultured on Ti6Al4V substrata consisting of different collagen types and cell culture polystyrene as control (in samples I/III the collagen type I:III ratios were 1).
+
+W. Pompe et al. / Materials Science and Engineering A362 (2003) 40–60
+effect of cross linking agent on cell vitality
+
+49
+
+2,0
+OD 570 nm
+
+day 2 day 8
+
+1,5 1,0 0,5 0,0
+control EDC glutaraldehyde
+
+Fig. 10. Inﬂuence of cross-linking agent on the vitality of osteoblasts, assayed with MTT-test; extinction (OD optical density) measured at the wavelength 570 nm.
+
+(ii) use of a continuously graded two-phase composite as the precursor in which one phase is a bioresorbable polymer. In this study a new bioresorbable bone substitution material from polyesters and amorphous carbonated calcium phosphates will be presented. The basic calcium phosphate is able to neutralize the acidic degradation products of the polyester (carboxylic acids) and improves the stiffness and biocompatibility of the material. A graded composition and porosity of the implants makes a new functionality possible: a spatially guided degradation progress and cell ingrowth. 4.2. Manufacturing of graded porous multilayer HAP ceramics HAP powder (Merck, Darmstadt, Germany) consisting of highly agglomerated primary HAP crystallite forming particles with an average particle size of 5 m and a high speciﬁc surface area of 66 m2 /g was used as ceramic feedstock. The Ca/P ratio was 1.67 ± 0.01, which corresponds to stochiometric HAP. Fourier-transformed infrared spectroscopy (FT-IR, Impact 420-T, Nicolet Instruments Technologies, Madison, WI, USA) indicated the presence of carbonate groups and water, which were removed after calcination for 1 h at 900 ◦ C. Subsequent attrition milling in isopropanol for 1 h resulted in a powder with an average particle size of 3 m and a speciﬁc surface area of 17 m2 /g. Spherical polybutylmethacrylate (PBMA) particles (Plexigum® P 24, Röhm, Darmstadt, Germany) were used as temporary porogen. Four different particle size fractions (100–150, 150–200, 200–250, 250–300 m) were separated by sieving. An aqueous hydroxyethylcellulose mixture (Tylose® H10 G4 and Tylose® H20 P2, Hoechst, Frankfurt am Main, Germany) was used as binder solution. Trusan 450 (Trukem, Worms, Germany) was added as dispersant, polyethylenglycol (Polyglykol 200, Clariant GmbH, Sulzbach, Germany) as plasticizer and AGITAN 281 (Münzing Chemie, Heilbronn, Germany) as defoaming agent. Layers of different pore size and volume were produced by tape casting, using a water-based HAP slurry with PBMA spheres added as porogen to generate macroporosity. Particle size fraction (100–300 m) and volume fraction (0–40 vol.%) of the porogen were varied. In order to avoid interfacial failure a multiple casting technique used for Al2 O3 and ZrO2 ceramics [31] was optimised to fabricate symmetrical multilayer HAP green bodies up to 5 mm thickness that were subsequently sintered. Water-based HAP suspensions were prepared by thorough mixing of the constituents in an attrition mill for 5 h. Viscosity measurements of slurries containing 46 wt.% HAP with a cone–plate viscometer (Bohlin Rheometer CS, Bohlin Reologi, Sjöbo, Sweden) demonstrated pseudoplastic behaviour, with a viscosity of 5.5 Pa s at a shear rate of 20 s−1 . Slurries for casting porous tapes were prepared by adding porogens with different particle size fractions up to 40 wt.% (50 vol.%).
+
+Summarising these observations, it can be concluded that by employing different matrix components, receptor engagement and differentiation of osteoblastic cells could be inﬂuenced in a predictable manner.
+
+4. Hydroxyapatite scaffolds with graded pore structure for in vivo tissue engineering 4.1. The problem Macroporous hydroxyapatite (HAP, Ca10 (PO4 )6 (OH)2 ) ceramics have been successfully used for osteoconduction [17–19]. Osteoconduction can be further stimulated by combination of the HAP ceramics with growth factors such as bone morphogenetic proteins or transforming growth factor- [20,21]. Proliferation of osteoblasts, vascular ingrowth and new bone formation require an interconnected pore system with pore diameters >100 m [16,22,23]. Controlled pore formation in HAP ceramics can be achieved by adding temporary inorganic or organic porogen particles that are thermally removed during the manufacturing process [24,25]. Another processing route is based on foaming of the ceramic slurries by in situ gas formation [26]. Although macroporosity facilitates bone formation, it simultaneously decreases the mechanical strength of the material. In order to meet both the biological and the mechanical requirements, functionally pore-graded materials were developed [27,28]. There are two complementary approaches to create a graded pore structure in an HAP ceramic: (i) use of multilayer precursors with gradients in pore diameter and pore volume fraction in each layer from the surface towards the interior. In the example to be presented the macropores in the outer layers provide access for cells, blood vessels and enhance new bone formation whereas the inner dense ceramic structure should improve the mechanical stability of the scaffolds. The ﬂexural strength of the advanced pore-graded ceramics was tested and in vitro cell culture tests were performed with murine osteoblast-like cells to evaluate bioactive functionality [29,30].
+
+50
+
+W. Pompe et al. / Materials Science and Engineering A362 (2003) 40–60
+
+1,0
+
+0,8 Relative Density
+
+0,6
+
+0,4
+
+samples. Increasing the sintering temperature up to 1350 ◦ C resulted in a gradual reduction of inter-grain porosity as micropores close and macropores appear. At temperatures above 1350 ◦ C phase transformations occur, changing the bulk structure to a coarse-grained mosaic of crystals and increased macropore formation, causing a severe microstructural damage. The observed phenomena could be attributed to dehydroxylation and decomposition of HAP. At temperatures of approximately 800 ◦ C slow dehydroxylation of HAP into the hydroxyl-ion-deﬁcient oxyapatite occurs: Ca10 (PO4 )6 (OH)2 → Ca10 (PO4 )6 (OH)2−2x Ox + xH2 O
+
+0,2 1200
+
+(1)
+1300 1400 1500 Sintering temperature [ C]
+
+Fig. 11. Relative density of individual tapes as a function of sintering temperature (2 h) for different porogen contents: ( ) porogen-free; ( ) 250–300 m, 20 vol.%; and ( ) 250–300 m, 40 vol.%.
+
+Above 1400 ◦ C (tapes with porogen contents ≤20 vol.%) and 1350 ◦ C (tapes with porogen contents up to 40 vol.%), respectively, decomposition of HAP and oxyapatite into -tricalcium phosphate ( -TCP) and tetracalcium phosphate (Tet-CP) occurred: Ca10 (PO4 )6 (OH)2−2x Ox → 2Ca3 (PO4 )2 + Ca4 P2 O9 + xH2 O (2)
+
+After cautious degassing (25 ◦ C, 2 h, 150 mbar) the slurries were cast onto a polymeric carrier tape (Silicone coated Hostaphan® , Hoechst, Frankfurt/M., Germany) using a single doctor blade device of 2100 m height. After drying for 24 h at room temperature the subsequent layer was cast upon the previous sheet. The organic additives and the porogen were burned out in air between 200 and 500 ◦ C in an electrically heated chamber furnace, leaving no residue. The heating rate was limited to 50 ◦ C/min to allow the volatile components to evaporate and to prevent crack formation. The specimens were sintered for 2 h at temperatures between 1250 and 1450 ◦ C. The phase composition was analyzed using X-ray powder diffraction with monochromated CuK radiation (Kristalloﬂex 5000, Siemens, München, Germany). The microstructure was analysed by scanning electron microscopy (SEM, Stereoscan S 250 MK 3, Cambridge Instruments, UK). Porogen-free HAP tapes attained a relative density of 70% at 1250 ◦ C, which increased up to a maximum of 89% at 1450 ◦ C. Porogen-containing HAP tapes reached maximum densiﬁcation at 1300 ◦ C (Fig. 11), which correlated with the ﬁndings of Muralithran and Ramesh [32], Wang et al. [33] and Ruys et al. [34]. Upon sintering at 1250 ◦ C for 2 h the linear in-plane shrinkage decreased with increasing porogen fraction: from 29% (without porogen) to 13% (50 vol.% porogen). SEM of multilayer green bodies with gradually increasing porogen size on either side of a porogen-free center, starting with a fraction of 100–150 m in the ﬁrst layer and ascending in 50 m steps to 250–300 m in the outer layer, demonstrated interpenetration of the different layers. After sintering at 1250 ◦ C no delamination phenomena were observed, but isolated macropore formation occurred. The tapes sintered at temperatures below 1300 ◦ C showed a microporous structure due to only partial coalescence of the HAP particles, which explains the low bulk density of these
+
+The XRD data indicated that the temperature of decomposition for the different tapes corresponded roughly to the temperature of maximum sintering density. 4.3. Mechanical behaviour of functionally graded porous multilayer HAP ceramics The strength of individual layers and the multilayered ceramics was measured by a concentric-ring test [35] using an Instron 4204 testing machine (Instron Corp., Canton, MA, USA). Measurements were performed with load and support rings of 8.2 and 18 mm diameter, respectively, and a crosshead velocity of 0.5 mm/min. Samples were tested as sintered, without grinding and polishing.For deriving the average strength 20 samples were considered. Fig. 12a shows the ﬂexural strength as a function of the sintering temperature for individual tapes prepared with different volume fractions of porogen with a particle size of 250–300 m. The ﬂexural strength exhibited a maximum of 36 MPa for macropore-free tapes and an average maximum of 11.5 MPa for macroporous tapes after sintering at 1300 ◦ C. The noticeable decrease in ﬂexural strength between 1300 and 1350 ◦ C can be attributed to macropore formation as a consequence of accelerated dehydroxylation [32,34,36]. As compared to individual tapes, multilayer structures consisting of three layers with identical porosity show considerably lower ﬂexural strength after sintering (Fig. 12b). The decrease in mechanical strength is more pronounced for non-macroporous three-layer structures, giving only approximately 22 and 12% of the strength of a single layer at 1250 and 1300 ◦ C. The increased thickness of the samples made it more difﬁcult for the water to evolve and cracks may be formed. The strength of macroporous
+
+W. Pompe et al. / Materials Science and Engineering A362 (2003) 40–60
+50
+
+51
+
+40 Flexural strength [MPa]
+
+30
+
+20
+
+10
+
+0 1250
+
+1300
+
+1350
+
+1400
+
+1450
+
+(a)
+10 Flexural Strength [MPa]
+
+Sintering temperature [˚C]
+
+5
+
+0
+
+0
+(b)
+
+10
+
+20
+
+30
+
+40 0,10,30
+
+Porogen Content [Vol.-%]
+
+Fig. 12. (a) Flexural strength of individual tapes as a function of sintering temperature for a sintering time of 2 h: ( ) 0; ( ) 20; and ( ) 40 vol.% porogen (250–300 m). (b) Flexural strength of three-layer systems 0–0–0%, 10–10–10%, 30–30–30%, 0–10–30% sintered for 2 h at ( ) 1250 and ( ) 1300 ◦ C.
+
+three-layer structures was reduced to approximately 83% of the strength of individual tapes at 1250 ◦ C and 30% at 1300 ◦ C. Dehydroxylation and decomposition of HAP is accelerated at higher temperatures, and hence the strength of the multilayer structures is decreased. 4.4. Osteoblast cell ingrowth in functionally graded porous multilayer HAP ceramics Osteoblast-like murine MC3T3-E1 cells (DSMZ, Braunschweig, Germany) were cultivated in -MMEM (Biochrom, Berlin, Germany) containing 10% FCS (Biochrom), 2 mM glutamine (Biochrom), 100 U/ml penicillin (Merck), 0.005% streptomycin (Merck) at 37 ◦ C/5% CO2 (maximum number of passages: 30 [37]). A total of 2 × 104 cells were seeded on ceramic discs of 10 mm diameter and 1 mm thickness. Medium was changed every 4 days using medium containing additional 10 mM -glycerophosphate (Sigma) and 50 g/ml ascorbic acid (Sigma). At days 4, 7, 14 and 21 samples were rinsed with phosphate-buffered saline (PBS) and processed for
+
+alkaline phosphatase (ALP) and DNA quantiﬁcations as well as microscopy. For SEM the ceramics were ﬁxed in 5% glutaraldehyde in PBS for 24 h, transferred through an ethanol gradient into hexamethyldisilazane (Fluka, Buchs, Switzerland) and vacuum-dried prior to gold sputtering and microscopy. Cell number and ALP activity were quantiﬁed after cell lysis, adding 300 l bidistilled water and performing three freeze-thaw cycles. Samples of 100 l volume were combined with 20 l 12.5% Triton X-100 (Sigma) solution. After 30 min incubation, the samples were centrifuged and 100 l volumes were added to 100 l 0.6 M 2-amino-2-methyl-1-propanol (Sigma), pH 10, containing 10 mM p-nitrophenylphosphate (Sigma) and 1 mM MgCl2 and incubated for 45 min at 37 ◦ C. The reaction was stopped by addition of 200 l 0.5 M NaOH. The absorbance at 405 nm was correlated with cell standards. For DNA quantiﬁcation using the Hoechst method calf thymus DNA (Sigma) and cell standards were used for calibration [38]. The 120 l lysed samples were incubated with 60 l EDTA (233 mM) at 37 ◦ C. After 20 min, 20 l 1 M KH2 PO4 were added and samples stored at −4 to 0 ◦ C, until 80 l of 4 g/ml Hoechst 33258 (Sigma) was added. Fluorescence was measured at 350 nm excitation with a densitometer CS9301PC (Shimadzu, Duisburg, Germany). Analysis of the cell number on the macropore-free substrates after 24 h indicated approximately 40% initial attachment. Similar MC3T3-E1 cell adherence to HAP was described by Elgendy [39], whereas Trentz et al. [40] found almost 100% MC3T3-E1 cells. At day 4, the cells were well spread over the biomaterial surface and presented the pronounced nodular character as found on tissue culture plates conﬁrming viability [39,41]. The cell number had increased ﬁvefold based on the attached number of cells and twofold based on the cells seeded. The cell density strongly increased to an almost conﬂuent layer on the ceramic surface found after 14 days. The cell number leveled off after 2 weeks, indicating a maximum packing density of cells, which limited the cell proliferation [42]. The cell number reached a ninefold higher cell density than originally after seeding. The ALP activity increased continuously over the observation period. A 35-fold higher level of cell seeding was reached after 3 weeks. The cells grown on the HAP ceramics reached 75 and 95% of the ALP activity of MC3T3-E1 cells cultivated on tissue culture plates after 14 and 21 days, respectively. These numbers compare favourably with literature data, indicating compatibility of the materials with the murine osteoblastic cell line [39,40]. Cellular attachment and growth was further investigated for porous ceramics with different pore sizes. The initial adherence to the surface of all porous materials was only slightly less than that of the dense substrates despite the fact that curvature has been described as critical for cellular attachment [43]. In addition, the geometry of HAP substrates has been shown to affect cellular morphology and shape and may even allow a bone-inductive microenvironment to be formed [44,45]. On day 7 cells can be seen to form
+
+52
+
+W. Pompe et al. / Materials Science and Engineering A362 (2003) 40–60
+
+Fig. 13. SEM micrographs of MC3T3-E1 cells grown on porous HAP substrates (30%, 125–250 m, sintered at 1250 ◦ C for 2 h) at days 4, 7, 14 and 21.
+
+dense layers on the surface and to advance into the pores (Fig. 13). At days 14 and 21, after further propagation into the ceramics, cells were found to proceed approximately 1 mm, reaching the bottom of some ceramics, which indicated migration through the interconnecting holes between pores. No effect of pore size for cellular growth or ALP activity could be observed. Microscopy did not indicate signiﬁcant differences in cellular penetration (Fig. 14a and b). The cell number again tripled in approximately 7 days based on the cells seeded. In all cases cell number reached a level similar to the non-porous materials after 3 weeks. The results indicate saturation of the top surface without signiﬁcant inﬂuence of the smaller number of cells penetrated into the matrices. Porosity seems to be more critical for depth of penetration based on pores created by PMBA spheres of 125–250 m. For both 30 and 40% porosity, the cellular penetration after 14 and 21 days was similar up to 1 mm. Cells were only found at the surface for 10 and 20% porosity, indicating a lack of interconnectivity between the pores.
+
+4.5. Manufacturing of graded porous HAP composites using a bioresorbable polymer phase Conceptually, biodegradable polyesters allow the temporary replacement of the bone until the implant is resorbed and replaced by newly built bone. However, during the degradation of a polyester, acidic monomers (carboxylic acid) are released and may decrease the local pH to a cell toxic level (4 or below). To stabilize the pH value on a physiological level, the polyester can be combined with a second basic phase. Our approach was to combine biodegradable polyesters, i.e. polylactide (PLLA), polylactide-co-glycolide (PLGA) and polyglycolide (PGA), with carbonated nanocrystalline hydroxyapatite (often termed ‘amorphous’ carbonated hydroxyapatite (ACP) in the literature) to a highly biocompatible composite material [46,47]. The carbonate content of the carbonated calcium phosphate is an important parameter for the pH adjustment of the material, because the carbonate is mainly responsible for the basic reaction of the ceramic phase (Fig. 15). Therefore, there are three reasons to use ACP: a higher solubility than
+
+W. Pompe et al. / Materials Science and Engineering A362 (2003) 40–60
+10 100-150 m 150-200 m 200-250 m
+
+53
+
+Table 3 Cell development during the biocompatibility tests Material PLLA PLLA-ACP PLGA PLGA-ACP Latex (negative control) Cell development Good cell propagation during the whole experiment Good cell propagation during the whole experiment Good cell propagation until day 17, then cell death Similar to PLGA, but less cell death Immediate cell death
+
+8
+
+Rel. cell number
+
+6
+
+4
+
+2
+
+0
+
+4
+
+7
+
+14
+
+21
+
+(a)
+12 10 100-150 m 150-200 m 200-250 m
+
+Time [d]
+
+Rel. ALP activity / cell
+
+8 6 4 2 0
+
+vitro test with primary human osteoblasts. After 1–4 weeks of cultivation the samples were analyzed by histological staining. The development of the cells (Table 3) was highly connected with the pH value of the growth medium (Fig. 16). The fast-degrading PLGA (50:50) showed poor biocompatibility, because of acidic degradation products. The composite material PLGA-ACP had much better pH characteristics, but the buffering capacity of the ACP was still not sufﬁcient. 4.6. Concept of a functionally graded implant for cranial reconstruction Conventionally, bone defects are ﬁlled with homogeneous materials. To fulﬁll the speciﬁc requirements at the implantation site, spatially variable properties (morphology, mechanical properties and degradation times) are desirable. To obtain a spatially guided degradation and cell ingrowth, an implant with gradients in composition and porosity is necessary. This concept requires the manufacturing of an individual implant for each patient, tailor-made for the defect site [48,49]. In the case of head surgery the added expense is justiﬁed because an individual implant is also needed for precise geometric reconstruction. Our concept of a functionally graded implant for cranial reconstruction is illustrated schematically in Fig. 17. A fully integrated processing chain for preoperative designing and manufacturing of titanium implants for cranial defects has been developed earlier. This process can easily be transposed to degradable biomaterials (Fig. 18).
+
+4
+
+7
+
+14
+
+21
+
+(b)
+
+Time [d]
+
+Fig. 14. (a) Cell number of MC3T3-E1 cells grown on porous HAP substrates (30%, 125–250 m, sintered at 1250 ◦ C for 2 h). (b) ALP activity of MC3T3-E1 cells grown on porous HAP substrates (30%, 125–250 m, sintered at 1250 ◦ C for 2 h).
+
+crystalline HAP, a higher similarity to bone mineral, and the ability to buffer within the physiological pH range. The biocompatibility of the composite materials was tested in comparison with the pure polymers by an in
+
+Fig. 15. The pH of PDLLA-ACP (w:w = 1:1) in demineralised water at 37 ◦ C (amorphous calcium carbonate (ACP) with three different carbonate contents).
+
+Fig. 16. The pH of the growth medium during the biocompatibility tests for the different composite materials.
+
+54
+
+W. Pompe et al. / Materials Science and Engineering A362 (2003) 40–60
+
+tially guided degradation progress. Cell culture experiments of these samples are currently under investigation.
+
+5. Scaffolds for in vitro tissue engineering 5.1. The problem Recent progress in the understanding of the cell biology of tissue formation has opened a completely new avenue for manufacturing of implants: the in vitro growth of living tissue. Thus, the development of a new generation of biomaterials for bone replacement could be possible in future that combines bone-like mechanical properties with characteristic features of the living bone, namely the capability of remodelling by cellular activity. However, there are many open questions before in vitro engineered tissues can be applied as an actual implant. For the following a hypothesis has been made that a functionally graded material may be promising for new bone replacement materials. As pointed out in the work of numerous groups in the last few years, there is a natural approach for preparation of bone replacements starting from HAP-bioceramics [50–53]. It has been shown that HAP-cements combine good mechanical properties with a certain potential for resorption depending on the particular chemical composition and structure [50,51]. Successful applications in medicine have been reported. However, the load-bearing capability as well as remodelling behaviour is yet far away from that of living bone. Therefore, selected features of hard tissue have to be implemented in the new biomaterial. The ﬁrst natural step is the preparation of a collagen–HAP composite [51,53], where the two main components of the extracellular matrix of bone are combined. However, to get a living bone tissue the interaction with bone-forming cells (osteoblasts) as well as bone-resorbing cells (osteoclasts) has to be implemented in the process in order to initiate the remodelling of the HAP–collagen scaffold. Therefore, for the in vitro formation a scaffold is needed consisting of a collagen–HAP composite with a graded pore distribution, and an additional functionalisation of surface near regions of the collagen–HAP composite for controlled cellular activity. The combination of both approaches yields a functionally graded material in which the optimisation of the mechanical reliability and the activation of remodelling processes may be realised in the same material. 5.2. In vitro formation of a functionally graded structure of collagen–HAP composites Collagen I–HAP composites can be prepared from liquid precursors using various processing routes such as controlled drying, freeze-drying, centrifugation, tape casting, phase separation, or pressure ﬁltration. As discussed elsewhere [54], these methods offer the possibility to generate
+
+Fig. 17. Concept of a functionally graded implant for cranial reconstruction.
+
+Semicrystalline PLLA was chosen for the outer layer of the implants and the faster degrading amorphous PDLLA was chosen for the inner layer. The different degradation rates of PLLA and PDLLA (same constitution, different tacticity) is caused by the different crystallinity. A graded interface between both sides of the implant reduces the risk of mechanical failure at the interface. Test specimens with a graded transition from PDLLA to PLLA and from PDLLA-ACP to PLLA- ACP were prepared by hot-pressing (polymer blending and mixing with calcium phosphate were carried out via solution). The specimens showed the desired gradual transition in crystallinity of the polymer and a spa-
+
+Fig. 18. Processing chain for preoperative designing and manufacturing of titanium implants for cranial defects.
+
+W. Pompe et al. / Materials Science and Engineering A362 (2003) 40–60
+
+55
+
+Fig. 19. SEM micrographs of a HAP–collagen I tape (left) and HAP–hyaluronic acid tape (right).
+
+graded pore structures as well. In the following, we will give two examples of well-established processing techniques in polymer technology and powder metallurgy. 5.2.1. Functionally graded structuring with collagen–HAP tapes A laminated structure from tapes can be used to generate a graded collagen–HAP composite. A suitable technique for tape manufacturing is vacuum pressure ﬁltration. As reported elsewhere [52], such tapes can be prepared from mineralised collagen ﬁbrils [53] that are chemically cross-linked after the densiﬁcation process. The alignment of the collagen ﬁbrils and the porosity of the tape can be varied in a certain range by the process conditions (vacuum pressure, initial concentration of the solution). The mechanical properties of the tape—in the dry state, a fracture strain of about 4% and an ultimate tensile strength of about 12 MPa; in the wet state, a fracture strain of >20% and an ultimate tensile strength of about 1.5 MPa—make it a feasible building block. With the same method (pressure ﬁltration), tapes of different chemical compositions can be prepared as well. Thus, tapes have been manufactured composed of collagen I and collagen III, as well as HAP–collagen I, HAP–collagen III and HAP–collagen I–hyaluronic acid (see Fig. 19). In order to build up laminated structures composed of the various tapes, a thin HAP-cement layer was used as an interconnecting material. Due to the different shrinkage of the
+
+collagen containing tape and the solidifying HAP-interlayer, residual stresses can be critical. Therefore, the lamination process was performed under pressure in controlled humidity. As shown in the laser scanning microscopy (LSM) images in Fig. 20 laminates with dense interfaces can be prepared. 5.2.2. Vacuum inﬁltration of liquid collagen–HAP precursors in porous HAP ceramics An alternative method for preparing graded structures exists when starting from a porous sintered HAP ceramic. As shown in Section 4, HAP ceramics with deﬁned pore size can be manufactured starting from HAP green bodies with porogen [55]. The sintered porous HAP body can be used as the frame structure to create a graded collagen–HAP material. A suspension of mineralised collagen ﬁbrils can be inﬁltrated in the pore channels by vacuum inﬁltration. The inﬁltration process yields a structure with a graded macroproﬁle of large pores ﬁlled with the mineralised collagen. However, depending on the processing conditions, different microstructures can be formed, as visible in the comparison of Figs. 21 and 22. During the inﬁltration two competitive processes are acting: the dissolution–precipitation of nanocrystalline or amorphous HAP at the collagen ﬁbrils, and the deposition of HAP at the well-formed crystalline surfaces of the large grains of the sintered body. At longer reaction times the second process is expected to dominate.
+
+Fig. 20. LSM micrographs of laminates of thin HAP-cement layers.
+
+56
+
+W. Pompe et al. / Materials Science and Engineering A362 (2003) 40–60
+
+Fig. 21. SEM micrographs of porous HAP ceramics after vacuum inﬁltration of liquid collagen–HAP precursors with low ﬁltration rate.
+
+Fig. 22. SEM micrographs of porous HAP ceramics after vacuum inﬁltration of liquid collagen–HAP precursors with high ﬁltration rate.
+
+Consequently, a structure composed of large HAP grains and pores ﬁlled with minor mineralised collagen networks is observed (Fig. 21). In the opposite case of a short reaction time, the pores are ﬁlled with a dense composite of nanocrystalline HAP connected by mineralised collagen ﬁbrils (Fig. 22). Therefore, with variation of the process time via changing ﬂow resistance during the ﬁltration the ﬁnal microstructure can be inﬂuenced. Furthermore, by addition of a second biomolecule (for instance osteocalcin or osteo-
+
+pontin) the dissolution–precipitation kinetics of the HAP can be slowed down, leading to a higher nanocrystalline content of HAP (see Fig. 23). 5.3. Functionalisation of surface near regions of HAP–collagen composites for controlled cellular activity The integration of living cells in an artiﬁcial scaffold could be stimulated by functionalisation of the surface near
+
+Fig. 23. SEM micrographs of porous HAP ceramics after vacuum inﬁltration of liquid collagen–HAP precursors with low ﬁltration rate in the presence of osteocalcin.
+
+W. Pompe et al. / Materials Science and Engineering A362 (2003) 40–60
+
+57
+
+the region of the scaffold with proteins that are known to carry signals that direct speciﬁc cellular activity promoting ingrowth or remodelling of the scaffold. Besides collagen, which is the main biopolymer in the extracellular matrix of bone tissue, other non-collagenous proteins are also found. Among these, osteocalcin (also known as Bone Gla Protein (BGP)) is the most abundant. BGP is secreted by osteoblasts, the bone-forming cells, and incorporated into the extracellular matrix. BGP consists of a single chain of 46–50 amino acids including two to three gamma-carboxy glutamic acids residues (GLA), which are essential for the calcium- and hydroxyapatite-binding properties of osteocalcin [56]. Osteocalcin acts as a promoter for heterogeneous nucleation of HAP [57]. As shown by Romberg et al. [58], at the same time osteocalcin inhibits the growth of HAP crystals. It has been veriﬁed that preferred osteocalcin binding to the (0 0 0 1) surface of the growing hexagonal HAP crystal controls the crystal shape [57]. For instance in the presence of osteocalcin, thin, hexagonal HAP crystals can be grown by using a dissolution–precipitation process starting from brushite (CaHPO4 ·2H2 O), a metastable calcium phosphate phase under physiological conditions (pH about 6.9–7.2) (Fig. 24). In living tissue osteocalcin fulﬁlls two tasks. Besides the nucleation and inhibition of HAP growth leading to nanosize crystals, osteocalin also inﬂuences cellular activity. Osteocalcin has been shown to be a chemotactic for human osteoclast-like cells [59]. Thus initial adhesion of these cells was promoted on osteocalcin-coated substrates. As discussed by Hauschka et al. [60], the cell-binding pro-
+
+Fig. 24. AFM image of precipitated apatite-like crystals on the brushite (0 1 0) face after 2 h incubation with osteocalcin-containing buffer. Crystal ledges arrange themselves parallel to the (1 1 0 0), (0 1 1 0) and (1 0 1 0) directions with mutual distances (amplitude image).
+
+perty of osteocalcin seems to be related to the amino- and carboxyterminal ends of the folded osteocalcin molecule. Most important for the intended cellular remodelling is the observation that the initial chemotactic activity of osteocalcin towards human osteoclast-like cells starts a sequence of intracellular processes in the osteoclast, leading to secretion of osteopontin, bone sialoprotein and ﬁbronectin [59]. These proteins induce the formation of speciﬁc focal adhesion contacts, which implies the involvement of integrins. Subsequently, the osteoclast will be able to polarise and to organise the so-called sealing zone and rufﬂed border, where the resorption process takes place. The inﬂuence of osteocalcin on the initial adherence of bone cells of osteocalcin-impregnated surface regions of collagen–HAP composites has been investigated using collagen–HAP-cement samples (with 2.5% collagen). Figs. 25 and 26 show the adhesion of osteoblasts (SAOS-2: human osteosarcoma cell line) on these samples in the absence and presence of osteocalcin. As seen in Figs. 25 and 26, osteoblasts adhere to the same extent to both surfaces, but cells are already more ﬂattened on osteocalcincontaining cements, which hints to a promotion of initial adherence. This ﬁnding was conﬁrmed by studies using the confocal laser scanning microscope. Osteoblasts on composites, on which osteocalcin was chemisorbed in surface near regions, were well spread after 2 h and displayed prominent lamellipodae, whereas osteoblasts on collagen–HAP composites were round. The observation that osteocalcin promotes the adhesion of osteoblasts is an interesting ﬁnding which could open additional possibilities for accelerated ingrowth. Additionally, osteocalcin is expected to be chemotactic for (pre)osteoclasts, thus inducing recruitment and ﬁrst adherence, which is the prerequisite for tight adherence via integrins, polarisation and resorption. Investigation of the osteoclast response to osteocalcin-containing composites is currently underway. The developed design principle for collagen–HAP composites combines two aspects of functional gradation that are relevant for the successful application of the bone replacement material. First, the initial mechanical response of the composite can be adapted to the local mechanical loading environment by tailoring the composition and orientation of the biopolymer in order to toughen the brittle HAP matrix. The porosity can be varied as well as the pore size in the surface near region of the implant. By this way, a ﬁrst rough layout of a hierarchical bone structure can be built. With the intention to achieve a functional bone replacement the directed remodelling of the artiﬁcial replacement by cellular processes seems to be even more important. The chemisorption of osteocalcin in the surface near region of the collagen–HAP composite was shown to be one promising option to initiate the remodelling cascade. The chemotactic effect on osteoclasts as well as osteoblasts might be used for a controlled and accelerated remodelling and incorporation of the new formed material as living hard tissue.
+
+58
+
+W. Pompe et al. / Materials Science and Engineering A362 (2003) 40–60
+
+Fig. 25. SEM micrographs of the adhesion of osteoblasts on collagen–HAP-cement samples after 2 h in absence of osteocalcin.
+
+Fig. 26. SEM micrographs of the adhesion of osteoblasts on collagen–HAP-cement samples after 2 h in presence of osteocalcin.
+
+If osteoclast adhesion and activity can be promoted on the artiﬁcial collagen–HAP material, pronounced resorption of the composite is expected. Due to the natural controlled interaction between osteoclasts and osteoblasts, subsequent formation of new bone by osteoblasts is probable in the surface near region, leading to replacement of the composite by natural bone.
+
+6. Summary The research projects were fulﬁlled in the frame of the 6-year program of the ‘Deutsche Forschungsgemeinschaft’ on functionally graded materials and have demonstrated new materials design concepts for biomaterials in medical applications. Functionally graded polyethylene composite materials could be developed to improve the mechanical behavior of implants in artiﬁcial joints. The present study reported a new approach via the gradient material manufacturing to improve the load transfer to the bone as well as the resistance of polyethylene inserts against abrasive wear. Biologically functionalized surfaces on titanium implants for dental and orthopaedic surgery were prepared, applying the concept of functional gradation. To mimic the environment in healing bone, graded layers consisting of the ﬁbronectin and collagen types III and
+
+I have also been deposited on titanium implants. In order to facilitate the events occurring during healing in vivo, the outermost surface consisted of ﬁbronectin, and a graded transition to collagen type III and ﬁnally to collagen type I. The different phases of bone formation (proliferation, maturation, and mineralisation) were inﬂuenced by the two collagen types in the following manner. An increasing amount of collagen type III in the coating gave rise to an increase in proliferation and collagen synthesis. An increasing amount of collagen type I, on the other hand, caused a higher ALP activity and increased calciﬁcation. Functionally graded macroporous hydroxyapatite ceramics were studied in order to improve osteoconduction in bone implants. A multilayer precursor with a gradient change in pore diameter and pore volume fraction of each layer from the surface towards the interior was produced. In this material, the macropores in the outer layers provide access for cells and blood vessels and enhance new bone formation whereas the inner dense ceramic structure increases the mechanical stability of the implant. While the mechanical behavior of the pore-graded ceramic needs further improvement, the material showed excellent bioactivity, as demonstrated by in vitro cell-culture tests performed with murine osteoblast-like cells. A continuously graded two-phase composite was also prepared when the precursor in one phase was a bioresorbable polymer. Here
+
+W. Pompe et al. / Materials Science and Engineering A362 (2003) 40–60
+
+59
+
+a new bioresorbable bone substitute made from polyesters and amorphous carbonated calcium phosphates was developed. The basic calcium phosphate was able to neutralize the acidic degradation products of the polyester (carboxylic acids) and improve the stiffness and biocompatibility of the material. The graded composition and porosity of the implant enabled spatially guided progress of degradation and cell ingrowth. This concept of a functionally graded implant was illustrated by an example for cranial reconstruction. Finally, the concept of functionally graded structures was applied to develop scaffolds of collagen–HAP composites for tissue engineering. Functionally graded structures were prepared by lamination of tapes composed from collagen I and collagen III, as well as HAP–collagen I, HAP–collagen III and HAP–collagen I–hyaluronic acid. In a second approach porous HAP ceramics were inﬁltrated with the liquid collagen–HAP precursor, forming a graded transition layer of collagen–HAP at the macropore surfaces. The chemisorption of osteocalcin in the surface of the collagen–HAP composite was shown to be one promising option to initiate the remodelling cascade. The chemotactic effect on osteoclasts as well as on osteoblasts could be used for a controlled and accelerated remodelling and incorporation of the new formed material as living hard tissue. The research has thus far focused on hard tissue replacement; however, similar developments would be relevant for soft tissue and blood vessels. Nature demonstrates functional gradation as an optimised design rule for living tissues. Therefore, we believe we have only begun exploration in an exciting new research ﬁeld at the interfaces between the materials engineering, biology, and medicine.
+
+Acknowledgements The authors would like to thank the Deutsche Forschungsgemeinschaft supporting this work in the program ‘Functionally Graded Materials’. In particular, we thank Professor Bernhard Ilschner, ETH Lausanne, for his major contribution in establishing the program, and Professor Jürgen Rödel, TU Darmstadt, for the scientiﬁc coordination of the program. Furthermore, we would like to thank Professor Keith Bowman, Purdue University, for his critical reading of the ﬁnal manuscript.
+
+References
+[1] M.A. Wimmer, Wear of the Polyethylene Component Created by Rolling Motion of the Artiﬁcial Knee Joint, Shaker Verlag, Aachen, 1999, pp. 43–46. [2] L.M.O. Birken, O. Lührs, T. Otto, A. Poeppel, M.M. Morlock, K. Schulte, E. Schneider, in: Proceedings of the Sixth World Biomaterials Congress, Hawaii, 2000, p. 856. [3] L.M.O. Birken, A. Poeppel, M.M. Morlock, K. Schulte, E. Schneider, in: Proceedings of the Sixth World Biomaterials Congress, Hawaii, 2000, p. 420.
+
+[4] K. Schulte, A. Poeppel, in: W. A. Kaysser (Ed.), Materials Science Forum, vols. 308–311, 1999, pp. 101F–106F. [5] F.V. Lacroix, H.Q. Lu, K. Schulte, Composites A 30 (1999) 369–373. [6] F.V. Lacroix, J. Loos, K. Schulte, Polymer 40 (4) (1998) 843–847. [7] O. Jacobs, N. Mentz, A. Poeppel, K. Schulte, Wear 244 (2000) 20– 28. [8] P. Remer, in: J. Rödel (Ed.), Schwerpunktprogramm “Gradientenwerkstoffe”, third ed., Technische Hochschule Darmstadt, Darmstadt, 1998, p. 30. [9] I. Floquet, A. Ralison, E. Eisenbarth, A. Iost, J. Breme, H.F. Hildebrand, Rev. Stomatol. Chir. Maxillofac. 98 (1997) 47–49. [10] M. Browne, P.J. Gregson, Biomaterials 15 (1994) 894–898. [11] T. Kitsugi, T. Nakamura, M. Oka, W.-Q. Yan, T. Goto, T. Shibuya, T. Kokubo, S. Miyaji, J. Biomed. Mater. Res. 32 (1996) 149–156. [12] S. Verrier, R. Bareille, A. Ririva, M. Dard, J. Amadee, J. Mater. Sci. Mater. Med. 7 (1996) 46–51. [13] N.M.G. Kurdy, S. Bowles, D.R. Marsh, A. Davies, M. France, J. Orthop. Trauma 12 (2) (1998) 122–126. [14] A. Hiltunen, T.A. Hannu, E. Vuorio, Mice, Clin. Orthop. Rel. Res. 297 (1993) 23–27. [15] S. Gronthos, K. Steward, S.E. Graves, P.J. Simmons, J. Bone Miner. Res. 12 (1997) 1189–1197. [16] Y.-K. Liu, T. Uemura, A. Nemoto, T. Yabe, N. Fujii, T. Ushida, T. Tateishi, FEBS Lett. 420 (1997) 112–116. [17] L. Hench, J. Am. Ceram. Soc. 81 (1998) 1705–1728. [18] R.A. Ayers, S.J. Simske, C.R. Nunes, L.M. Wolford, J. Oral Maxillofac. Surg. 56 (1998) 1297–1302. [19] C.R. Quinones, M.B. Hurzeler, P. Schupbach, A. Kirsch, P. Blum, R.G. Caffesse, J.R. Strub, Clin. Oral Implants Res. 8 (1997) 487–496. [20] S.D. Boden, G.J. Martin Jr., M.A. Morone, J.L. Ugbo, P.A. Moskovitz, Spine 24 (1999) 1179–1185. [21] U. Ripamonti, J. Crooks, D.C. Rueger, Plast. Reconstr. Surg. 107 (2001) 977–988. [22] C.A. van Blitterswijk, J.J. Grote, W. Kuijpers, W.T. Daems, K. de Groot, Biomaterials 7 (1998) 137–143. [23] H. Schliephake, F.W. Neukam, D. Klosa, Int. J. Oral Maxillofac. Surg. 20 (1991) 53–58. [24] I.H. Arita, V.M. Castaño, D.S. Wilkinson, J. Mater. Sci. Mater. Med. 6 (1995) 19–23. [25] D.M. Liu, Ceram. Int. 24 (1998) 441–446. [26] Z. Yang, H. Yuan, W. Tong, P. Zou, W. Chen, X. Zhang, Biomaterials 17 (1996) 2131–2137. [27] M. Wang, X.Y. Yang, K.A. Khor, Y. Wang, J. Mater. Sci. Mater. Med. 10 (1999) 269–273. [28] L. Vaz, B. Lopes, M. Almeida, J. Mater. Sci. Mater. Med. 1 (1999) 239–242. [29] H. Sudo, H.-A. Kodama, Y. Amagai, S. Yamamoto, S. Kasai, J. Cell Biol. 96 (1983) 191–198. [30] Y. Itakura, A. Kosugi, H. Sudo, S. Yamamoto, M. Kumegawa, J. Biomed. Mater. Res. 22 (1988) 613–622. [31] M. Wagner, A. Stiegelschmitt, A. Roosen, Keram. Z. 6 (2000) 490– 495. [32] G. Muralithran, S. Ramesh, Ceram. Int. 6 (2000) 221–230. [33] C.K. Wang, C.P. Ju, J.H. Chern Lin, Mater. Chem. Phys. 53 (1998) 138–149. [34] A.J. Ruys, M. Wei, C.C. Sorrell, M.R. Dickson, A. Brandwood, B.K. Milthorpe, Biomaterials 16 (1990) 409–415. [35] DIN 52292, Prüfung von Glas und Glaskeramik—Bestimmung der Biegefestigkeit, Doppelring-Biegeversuch an plattenförmigen Proben mit kleinen Prüfﬂächen, 1984. [36] A. Tampieri, G. Celotti, S. Sprios, C. Mingazzini, Mater. Chem. Phys. 64 (2000) 54–61. [37] C.Y. Chung, A. Iida-Klein, L.E. Wyatt, G.H. Rudkin, K. Ishida, D.T. Yamaguchi, T.A. Miller, Biochem. Biophys. Res. Commun. 265 (1999) 246–251. [38] D.C. West, A. Sattar, S. Kumar, Anal. Biochem. 147 (1985) 289–295.
+
+60
+
+W. Pompe et al. / Materials Science and Engineering A362 (2003) 40–60 [50] F.C. Driessens, J.A. Planell, M.G. Boltong, I. Khairoun, M.P. Ginebra, Proc. Inst. Mech. Eng. H212 (1998) 427–435. [51] K.S. TenHuisen, R.I. Martin, M. Klimkiewicz, P.W. Brown, J. Biomed. Mater. Res. 29 (1995) 803–810. [52] W. Pompe, S. Lampenscherf, S. Rößler, D. Scharnweber, K. Weis, H. Worch, J. Hoﬁnger, Mater. Sci. Forum 308–311 (1999) 325–330. [53] J.-H. Bradt, M. Mertig, A. Teresiak, W. Pompe, Chem. Mater. 11 (1999) 2694–2701. [54] S. Lampenscherf, K. Weis, W. Pompe, Mater. Sci. Forum 308–311 (1999) 362–367. [55] J.-P. Werner, C. Lathe, P. Greil, W. Frieß, in: Proceedings of the 6th Conference of the European Ceramic Society, vol. 2, Brighton, UK, 1999, pp. 509–510. [56] P.A. Price, A.A. Otsuka, J.W. Poser, J.K. Kristaponis, N. Raman, Proc. Natl. Acad. Sci. U.S.A. 73 (1976) 1447–1451. [57] K. Flade, C. Lau, M. Mertig, W. Pompe, Chem. Mater. 13 (2001) 3596–3602. [58] R.W. Romberg, P.G. Werness, B.L. Riggs, K.G. Mann, Biochemistry 25 (1986) 1176–1180. [59] C. Chemu, S. Colucci, M. Grano, P. Zigrino, R. Barattolo, G. Zambonin, N. Baldini, P. Vergnaud, P.D. Delmas, A.Z. Zallone, J. Cell Biol. 127 (1994) 1149–1158. [60] P.V. Hauschka, J.B. Lian, D.E.C. Cole, C.M. Gundberg, Physiol. Rev. 69 (1989) 990–1047.
+
+[39] H.M. Elgendy, M.E. Norman, A.R. Keaton, C.T. Laurencin, Biomaterials 14 (1993) 263–269. [40] O.A. Trentz, R. Zellweger, H.G. Amgwerd, G.K. Uhlschmid, Unfallchirurg. 100 (1997) 39–43. [41] M.A. Attawia, K.E. Uhrich, E. Botchwey, R. Langer, C.T. Laurencin, J. Orthop. Res. 14 (1996) 445–454. [42] M.A. Attawia, K.E. Uhrich, E. Botchwey, M. Fan, R. Langer, C.R. Laurencin, J. Biomed. Mater. Res. 29 (1995) 1233–1240. [43] M.E. Hogan, D.H. Degaetano, K.L. Klomparens, J. Electron Microsc. Tech. 18 (1991) 106–116. [44] R. Singhvi, G. Stephanopolous, D.I.C. Wang, Biotech. Bioeng. 43 (1993) 764–771. [45] U. Ripamonti, J. Crooks, A.N. Kikbride, S. Afr. J. Sci. 95 (1999) 335–343. [46] C. Schiller, M. Siedler, F. Peters, M. Epple, Ceram. Trans., 114 (2001) 97–108. [47] S. Weihe, M. Wehmöller, C. Schiller, C. Rasche, H. Euﬁnger, M. Epple, Biomedizinische Technik 46 (Suppl. 1) (2001) 204–205. [48] S. Weihe, M. Wehmöller, A. Tschakaloff, R. von Oepen, C. Schiller, M. Epple, H. Euﬁnger, Mund-Kiefer- und Gesichtschirurgie 5 (2001) 299–304. [49] S. Weihe, M. Wehmöller, C. Schiller, C. Rasche, H. Euﬁnger, M. Epple, Biomedizinische Technik 46 (Suppl. 1) (2001) 214– 215.
+

@@ -1,0 +1,60 @@
+Shell finite element model for interactive fetal head deformation during childbirth
+M. Bailet*†, F. Zara‡ and E. Promayon†
+† UJF-Grenoble 1 / CNRS / TIMC-IMAG UMR 5525, Grenoble, F-38041, France ‡ Université de Lyon, CNRS, Université Lyon 1, LIRIS UMR5205, F-69622, Villeurbanne, France Keywords: Biomechanical Modeling, Shell, Finite Element Method, Childbirth Simulation.
+
+1. Introduction
+Obstetricians and midwifes practical training is mostly done through an apprenticeship on real parturient. In addition to the risks for the parturient and the fetus, this approach does not allow the student to see a large variety of cases and acquire related dexterity, especially for the least performed interventions such as forceps or ventouse delivery. For these reasons, the use of simulators appears to be a practical and safe approach to acquire task-oriented skills in obstetrics [1][2] as well as confidence. For this type of training the needed 3d biomechanical model should include the descent of the fetal head. Precision and computation time aspects have to be taken into account to provide an interactive simulation focused on the possible damages undergoing by the fetal head. In this paper, we design a flat shell finite element model in order to simulate the fetal head deformation during childbirth. This new method also guarantees the incompressibility of the fetal head enclosed volume.
+
+It has six Degrees of Freedom (DOF), to model the plane displacements at each node (Fig. 1, left). The DKT bending element is based on the well-known Kirchhoff thin plate theory where transverse shear deformations are neglected. This element has nine DOF to model the out-of-plane displacements and the two rotations around x and y axis (Fig. 1, right).
+
+Figure 1: Membrane (left) and bending (right) and their associated degrees of freedom The element stiffness matrix expressed in local coordinates (u , v , w ,θ x , θ y , θz ) is a 18x18 matrix that combines membrane and bending behavior : k mem 0 0 K= 0 k bend 0 0 0 ε where ε is a fictitious stiffness on the drilling DOF used to guarantee the invertibility of the system. In −3 general, it is set to 10 times the minimum diagonal value of K . Before assembling, the matrix K is expressed in terms of global coordinates ( ̄ , ̄ , w ,θ x , θ y , θz ) using cosine direction matrix T , u v ̄ T ̄ therefore : K =T K T . The matrix K can be precomputed to save computation time whenever a linear model is used. To approximate the effect of the biological matter inside the fetal head, an incompressibility constraint is enforced on the volume defined by the shell element mesh.
+
+(
+
+)
+
+2. Methods
+Shell models of the cranial bones have been used to statically simulate the fetal head molding during the first stage of labor [3]. In this paper, we design a linear co-rotational finite element model combined to a global enclosed volume constraint. The shell mechanical model integrates a membrane behavior using CST elements (Constant Strain Triangle) as well as bending behavior with DKT (Discrete Kirchhoff Triangle) elements [4] (see Fig. 1). The CST membrane element is a two dimensional triangular elements used for plane stress problem.
+
+*Corresponding author. Email: Mathieu.Bailet@imag.fr
+
+The discretized dynamic problem formulation is then defined by : M x +C x +K x= F ¨ ˙ under the constraint V 0−V ( x)= 0 where x is the generalized DOF vectors and V is the volume function. As V can be expressed in function of x using the divergence theorem, this problem can be solved using a Lagrange multiplier. The shell finite element model and incompressibility constraint are implemented in C++ and the visualization is done by the open-source CamiTK platform (http://camitk.imag.fr) [5].
+
+3. Results and Discussion
+The geometry of the head is reconstructed from a medical training manikin fetal head. Three diameters are considered : the maxillo-vertical diameter (MaVD), the orbito-vertical diameter (OrVD) and the suboccipito-bregmatic diameter (SOBD) (see Fig. 2). The head-to-cervix pressure during the first stage of labor is simulated by applying a 50 KPa constant pressure on the SOBD plane. We use a linear material with a Young Modulus of 50 MPa, a Poisson ratio of 0.22, a thickness of 1 mm and a density of 1.8. These values were taken from the literature [3], apart from the Young Modulus which is set to mimic the behavior of the different materials composing the surface of the head. When the dynamic simulation reaches its steady state (see Fig. 3), the absolute displacements of the three diameters are measured. The corresponding diameters observed by Sorbe and Dahlgreen Figure 2: Triangle mesh of in a clinical study in the fetal head, pressure load 1983 and by two other (in red) and mesured numerical experiments by Lapeer in 1990 and diameters. 2001 [3] are compared with our simulations in Table 1. Sorbe 83 Lapeer 99 Lapeer 01 Ours Ø MaVD OrVD SOBD
+140,5 126.9 117.1
+
+Our results are coherent with the previous static simulations by Lapeer. Using shells elements reduce the global number of DOF compared to using solid elements, and therefore reduce computation time. Our model seems to be more adapted to model thin biological tissues such as the fetal head because it can model the bending behavior of such structures. The choice of a linear model allows for a good trade-off between computational time and precision. We observed that the simulation is stable, keeps the volume constant and reaches its steady state in about 45 seconds. As Figure 3: fetal head at the displacements are steady state with relatively small when displacements color map. the fetal head is submitted to the cervix pressure, the infinitesimal strain hypothesis is acceptable. We also noticed that the volume constraint counteracts the bursting effect of the linear model caused by the rotational displacements and contributes to stabilize the system during the dynamic simulation.
+
+4. Conclusions
+The biomechanical model presented in this paper offers precise dynamic simulations of the fetal head molding in a reasonable computational time. These characteristics open the perspective to use our model in conjunction with haptic training simulators such as the one presented in [2].
+
+Acknowledgments
+This work is partly financed by a grant of the SIMED project of the cluster ISLE of the French Rhône-Alpes region. It is also a part of the SAGA project financed by the ANR French national research agency.
+
+References
+[1] R. Gardner and D.B. Raeme. 2008. Simulation in Obstetrics and Gynecology. Obstetrics and Gynecology Clinics. [2] M.T. Pham, T. Redarce, M. Betemps and O. Dupuis. 2004. A new mechanical birth simulator : BirthSIM. Intelligent Robots and Systems. [3] R.J. Lapeer and R.W. Prager. 2001. Fetal head moulding: finite element analysis of a fetal skull subjected to uterine pressures during the first stage of labour. Journal of Biomechanics. [4] J-L Batoz, K-J Bathe and L-W Ho. 1980. A study of three-node triangular plate bending elements. International Journal For Numerical Methods In Engineering. [5] C. Fouard, A. Deram, Y. Keraval, E. Promayon. CamiTK: a Modular Framework Integrating Visualization, Image Processing and Biomechanical Modeling. In Soft Tissue Biomechanical Modeling for Computer Assisted Surgery, Y. Payan (ed.), pp. 323-354, 2012.
+
+d
++1.90 +2.20 -1.70
+
+Ø
+129.3 119.3 88.7
+
+d
++0.30 +0.25 -1.07
+
+Ø
+129.3 119.3 88.7
+
+d
++1.43 +1.24 -2.52
+
+Ø
+124.6 110.9 107.4
+
+d
++1.17 +1.03 -3.57
+
+Table 1: Original diameters (Ø) and absolute displacements (d) in mm.
+
