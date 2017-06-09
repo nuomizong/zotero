@@ -1,15 +1,15 @@
 {
 	"translatorID": "6b0b11a6-9b77-4b49-b768-6b715792aa37",
+	"translatorType": 4,
 	"label": "Toronto Star",
 	"creator": "Adam Crymble, Avram Lyon",
 	"target": "^https?://www\\.thestar\\.com",
 	"minVersion": "3.0",
-	"maxVersion": "",
+	"maxVersion": null,
 	"priority": 100,
 	"inRepository": true,
-	"translatorType": 4,
 	"browserSupport": "gcsibv",
-	"lastUpdated": "2014-04-04 10:01:02"
+	"lastUpdated": "2017-05-23 23:05:00"
 }
 
 function detectWeb(doc, url) {
@@ -57,6 +57,7 @@ function scrape(doc, url) {
 
 	newItem.publicationTitle = "The Toronto Star";
 	newItem.ISSN = "0319-0781";
+	newItem.language = "en-CA";
 	
 	}
 	else{

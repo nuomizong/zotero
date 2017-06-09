@@ -1,0 +1,601 @@
+Report from Dagstuhl Seminar 14361
+
+Computational Aspects of Fabrication
+Edited by
+
+Marc Alexa1 , Bernd Bickel2 , Sara McMains3 , and Holly E. Rushmeier4
+1 2 3 4 TU Berlin, DE, marc.alexa@tu-berlin.de Disney Research â ZÃ¼rich, CH, bernd@disneyresearch.com University of California â Berkeley, US, mcmains@me.berkeley.edu Yale University, US, holly@acm.org
+
+Abstract
+This report documents the program and the outcomes of Dagstuhl Seminar 14361 âComputational Aspects of Fabricationâ. Seminar August 31 to September 5, 2014 â http://www.dagstuhl.de/14361 1998 ACM Subject Classiï¬cation I.3.8 [Computer Graphics] Applications, J.2 [Computer Applications] Physical Sciences and Engineering Keywords and phrases Fabrication, Manufacturing Process Characterization (Additive Machining), 3D printing, Layered Manufacturing, 3D Rasterization, Geometric Modeling, Shape Perception, Material Properties (Mechanical/Optical) Digital Object Identiï¬er 10.4230/DagRep.4.8.126
+
+1
+
+Executive Summary
+
+Marc Alexa Bernd Bickel Sara McMains Holly E. Rushmeier
+License
+
+Creative Commons BY 3.0 Unported license Â© Marc Alexa, Bernd Bickel, Sara McMains, and Holly E. Rushmeier
+
+As manufacturing goes digital, the current understanding of industrial production will change fundamentally1 . The digital age in manufacturing is coupled with new output devices that allow rapid customization and rapid manufacturing, revolutionizing the way we design, develop, distribute, fabricate, and consume products. We need to ï¬nd computational models that support this new way of production thinking and lead its technological understanding. This opens challenges for many areas of science research, such as material science, chemistry, and engineering, but also and perhaps foremost computer sciences. The currently available digital content creation pipelines, algorithms, and tools cannot fully explore new manufacturing capabilities. To meet these demands, we need a deep understanding of computer graphics fundamentals: Shape, appearance of shape and materials, and physically-based simulation and animation. When designing an object, there is an inherent interplay among all these fundamental aspects.
+
+1
+
+Special report: manufacturing and innovation. The Economist 403(8781):46, 2012.
+
+Except where otherwise noted, content of this report is licensed under a Creative Commons BY 3.0 Unported license Computational Aspects of Fabrication, Dagstuhl Reports, Vol. 4, Issue 8, pp. 126â150 Editors: Marc Alexa, Bernd Bickel, Sara McMains, and Holly E. Rushmeier Dagstuhl Reports Schloss Dagstuhl â Leibniz-Zentrum fÃ¼r Informatik, Dagstuhl Publishing, Germany
+
+Marc Alexa, Bernd Bickel, Sara McMains, and Holly E. Rushmeier
+
+127
+
+The purpose of this seminar is to bring together leading experts from academia and industry in the area of computer graphics, geometry processing, and digital fabrication. The goal is to address fundamental questions and issues related to computational aspects of fabrication and jump-start collaborations that will pioneer new approaches in this area.
+
+14361
+
+128
+
+14361 â Computational Aspects of Fabrication
+
+2
+
+Table of Contents
+
+Executive Summary Marc Alexa, Bernd Bickel, Sara McMains, and Holly E. Rushmeier . . . . . . . . . 126 Overview of Talks From Digital to Physical: My Biased View Moritz Baecher . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 131 Blue Sky â Computational Tissue Fabrication Bernd Bickel . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 131 Adobe Research: 3D Printing for the Masses Nathan Carr . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 131 Design of Functional Models Duygu Ceylan . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 132 Research and Thoughts on 3D Printing Yong Chen . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 132 Fabricating in constrained settings (with a human help) Paolo Cignoni . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 133 From animated characters to legged robots Stelian Coros . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 133 Design and Fabrication Using Wire Meshes Bailin Deng . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 133 Perceptually-driven fabrication Piotr Didyk . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 134 Computational Fabrication Education at MIT Piotr Didyk . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 134 On the Challenges of Manufacturing Gershon Elber . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 135 Fabricating Optics Wolfgang Heidrich . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 135 Zometool Shape Approximation Leif Kobbelt . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 135 Natural User Interfaces for Digital Fabrication Manfred Lau . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 136 Slicing for additive manufacturing: A computer graphics point of view Sylvain Lefebvre . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 136 Rendering, Animating, and Fabricating Volumetric Materials Steve Marschner . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 137 Geometric Analysis for Manufacturing: Conventional vs. Additive Manufacturing Sara McMains . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 137 Creating Works-Like Prototypes Of Mechanical Objects Niloy Mitra . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 137
+
+Marc Alexa, Bernd Bickel, Sara McMains, and Holly E. Rushmeier
+
+129
+
+Interacting with Personal Fabrication Devices â Current challenges from an HCI perspective. Stefanie MÃ¼ller . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 138 Computational Caustics Mark Pauly . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 139 Interactive modeling with developable NURBS surfaces Helmut Pottmann . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 139 Computational / Physical Light Routing: 3D Printed Fiber Optics Szymon Rusinkiewicz . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 139 3D Printing Tools in Meshmixer (Support Structures, Strength Analysis, etc) Ryan Schmidt . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 140 User-Guided Inverse 3D Modeling Carlo H. Sequin . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 140 Use the winding number to determine âinsideâ and âoutsideâ for each level in layered manufacturing Carlo H. Sequin . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 141 Modular Models of Mathematical Knots Carlo H. Sequin . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 141 Computational Design-to-Fabrication Kristina Shea . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 142 Flat Fabrication Karan Singh . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 142 Computational Design and Fabrication of Deformable Objects Melina Skouras . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 142 Designing Mechanical Characters Bernhard Thomaszewski . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 143 Interactive Design of Functional Shapes Nobuyuki Umetani . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 143 Crafting Light by Hacking Pixels Gordon Wetzstein . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 144 Crafting Light by Hacking Pixels Gordon Wetzstein . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 144 Appearance Fabrication Tim Weyrich . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 145 Structurally-Informed Geometry Emily Whiting . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 145 Small-scale Structure and Material Properties Denis Zorin . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 145 Open Problems and Panel Discussion Problems/Applications . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 146 Computational Fabrication and Computer Graphics . . . . . . . . . . . . . . . . . 148
+
+14361
+
+130
+
+14361 â Computational Aspects of Fabrication
+
+Targeted Fabrication Processes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 148 Design Systems . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 148 Open Questions and Future Research Directions . . . . . . . . . . . . . . . . . . . 149 Participants . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 150
+
+Marc Alexa, Bernd Bickel, Sara McMains, and Holly E. Rushmeier
+
+131
+
+3 3.1
+
+Overview of Talks From Digital to Physical: My Biased View
+
+Moritz Baecher (Disney Research â ZÃ¼rich, CH)
+Creative Commons BY 3.0 Unported license Â© Moritz Baecher Joint work of BÃ¤cher, Moritz; Whiting, Emily; Bickel, Bernd; Sorkine-Hornung, Olga; James, Doug L.; Pï¬ster, Hanspeter; Otaduy, Miguel A.; Lee, Hyunho R.; Matusik, Wojciech; Gross, Markus; Main reference M. BÃ¤cher, E. Whiting, B. Bickel, O. Sorkine-Hornung, âSpin-It: Optimizing Moment of Inertia for Spinnable Objects,â ACM Trans. on Graphics, 33(4):96, 2014. URL http://dx.doi.org/10.1145/2601097.2601157
+License
+
+Additive Manufacturing (AM) technologies have advanced enough to enable 3D printing at high resolution, in full-color, and with mixtures of soft and hard materials. As opposed to subtractive manufacturing (SM) such as milling or drilling, they can fabricate highly complex assemblies without the need for a manual assembly of individual components. Yet, one of the major issues holding back widespread use of AM is the lack of eï¬cient algorithms for the automated fabrication of digital CG, the reproduction of physical, and the computational design of content. I will talk about one instance of each: (1) a method to reproduce elastic deformation properties of real world objects, (2) the automated fabrication of articulated characters from skinned meshes, and (3) the computational design of spinnable objects by optimizing their moment of inertia.
+
+3.2
+
+Blue Sky â Computational Tissue Fabrication
+
+Bernd Bickel (Disney Research â ZÃ¼rich, CH)
+License
+
+Creative Commons BY 3.0 Unported license Â© Bernd Bickel
+
+In my talk I will report on very recent developments in the area of tissue engineering and 3D printing of tissue. I will give an overview of grand challenges current research groups are focusing on, such as creating a functional kidney and the technical challenges along this way, both from a hardware/materials and software perspective. Finally, I will highlight several computational challenges in this area and give my biased view on how the Computer Graphics community could contribute towards a BioCAD system, an essential component for designing and fabricating functional organs.
+
+3.3
+
+Adobe Research: 3D Printing for the Masses
+
+Nathan Carr (Adobe Inc. â San JosÃ©, US)
+License Joint work of Main reference
+
+URL URL
+
+Creative Commons BY 3.0 Unported license Â© Nathan Carr Tim Reiner, Nathan Carr, RadomÃ­r MÄch, Ondrej Stava, Carsten Dachsbacher, Gavin Miller T. Reiner, N. Carr, R. MÄch, O. Stava, C. Dachsbacher, G. Miller, âDual-Color Mixing for Fused Deposition Modeling Printers,â Computer Graphics Forum, 33(2):479â486, 2014; pre-print available from authorâs webpage. http://dx.doi.org/10.1111/cgf.12319 https://cg.ivd.kit.edu/publications/2014/DCM/DualColorMixing.pdf
+
+3D Printing is starting to become available for the masses. In this talk I will cover Adobeâs eï¬orts in this space and detail the 3D printing capabilities inside of its ï¬agship product Photoshop. The capabilities inside of Photoshop were built upon technology developed
+
+14361
+
+132
+
+14361 â Computational Aspects of Fabrication
+
+inside of Adobe Research. I will cover a number of these technologies including Dual-Color Mixing for fused depositing Modeling Printers which provides a cool way to get continuous tone prints from two headed FDM print devices such as the Makerbot Replicator 2x. I will conclude with frontiers and challenges that I see this industry facing and what might be done to address some of these problems.
+
+3.4
+
+Design of Functional Models
+
+Duygu Ceylan (EPFL â Lausanne, CH)
+Creative Commons BY 3.0 Unported license Â© Duygu Ceylan Joint work of Ceylan, Duygu; Li, Wilmot; Mitra, Niloy J.; Agrawala, Maneesh; Pauly, Mark Main reference D. Ceylan, W. Li, N. J. Mitra, M. Agrawala, M. Pauly, âDesigning and Fabricating Mechanical Automata from Mocap Sequences,â ACM Trans. on Graphics, 32(6):186, 2013. URL http://dx.doi.org/10.1145/2508363.2508400
+License
+
+Mechanical assemblies are collections of interconnected parts that move together to achieve speciï¬c functional goals. Such assemblies arise in various forms in our daily lives such as convertible furniture, kitchen supplies, mechanical toys etc. Enabling casual users to design such functional models requires to explore eï¬ective and intuitive ways of specifying the desired functionality. In this presentation, I will talk about our journey in experimenting with diï¬erent interaction metaphors for specifying the desired functionality. This journey has led us to the development of an automatic system that can generate mechanical automata capable of realizing input motion sequences such as dancing or walking.
+
+3.5
+
+Research and Thoughts on 3D Printing
+
+Yong Chen (University of Southern California, US)
+License
+
+Creative Commons BY 3.0 Unported license Â© Yong Chen
+
+The advent of 3D printing (additive manufacturing) and its use in rapid prototyping has drastically changed the design and manufacturing practice by enabling companies to prototype products faster and cheaper. With the price of 3D printers dramatically dropping in recent years, their accessibility is on the increase. However, signiï¬cant challenges remain to be addressed in order for 3D printing to be used in direct digital manufacturing. My talk will introduce some of our research results on 3D printing processes including: (1) a complex internal structure design system for additive manufacturing; (2) a smooth surface fabrication process that can signiï¬cantly improve the surface ï¬nish of curved surfaces; (3) a non-layer based 3D printing process named CNC accumulation for better part properties and building around inserts; (4) a deformation control strategy for 3D printing processes based on closed loop control and deformation simulation; (5) a support generation system for one of 3D printing processes (SLA); and (6) a digital material design method for multi- material 3D printing processes. I will also share some of my thoughts on some challenges and opportunities for computer graphics researchers.
+
+Marc Alexa, Bernd Bickel, Sara McMains, and Holly E. Rushmeier
+
+133
+
+3.6
+
+Fabricating in constrained settings (with a human help)
+
+Paolo Cignoni (CNR â Pisa, IT)
+License
+
+Creative Commons BY 3.0 Unported license Â© Paolo Cignoni
+
+In the talk I will discuss three main topics: fabricating illustrative shapes with planar slices (Mesh Joinery), decomposing objects into interlocking pieces that can be manufactured by CNC and the use of anisotropic Voronoi diagrams to design a class of architectural structures called grid shells. Beside the details of these topics I will try to highlight âhuman in the endâ issues that arise in digital fabrication techniques discussing how computational methods can improve the assembly problem.
+
+3.7
+
+From animated characters to legged robots
+
+Stelian Coros (Carnegie Mellon University â Pittsburgh, US)
+License
+
+Creative Commons BY 3.0 Unported license Â© Stelian Coros
+
+Computer graphics techniques allow artists to realize their imaginative visions, leading to immersive virtual worlds that capture the imagination of audiences world-wide. And now, thanks to advancements in rapid manufacturing devices, tangible links between these vivid virtual worlds and our own can be created. In order to unleash the full potential of this technology, however, a key challenge lies in determining the fundamental principles and design paradigms that allow digital content to be processed into forms that are suitable for fabrication. A particularly challenging task is that of creating physical representations of animated virtual characters in the form of complex robotic systems. In this talk, I will present evidence that control algorithms developed for physics-based character animation can also be applied to legged robots, allowing them to move with skill and purpose.
+
+3.8
+
+Design and Fabrication Using Wire Meshes
+
+Bailin Deng (EPFL â Lausanne, CH)
+Creative Commons BY 3.0 Unported license Â© Bailin Deng Joint work of Akash, Garg; Sageman-Furnas, Andrew O.; Deng, Bailin; Yue, Yonghao; Grinspun, Eitan; Pauly, Mark; Wardetzky, Max Main reference A. Garg, A. O. Sageman-Furnas, B. Deng, Y. Yue, E. Grinspun, M. Pauly, M. Wardetzky, âWire mesh design,â ACM Trans. on Graphics, 33(4):66, 2014. URL http://dx.doi.org/10.1145/2601097.2601106
+License
+
+Wire meshes consist of interwoven metal wires arranged in a regular grid. Despite their widespread use in art, architecture, and engineering, it is challenging to design and fabricate freeform shapes using wire mesh material. One major diï¬culty is the global nature of wire mesh shapes: small local changes might have drastic global eï¬ects. In this talk, I will show how wire meshes can be modeled as discrete Chebyshev nets, which helps us to gain insights into their shape space and develop a computational design system for wire meshes. Moreover, I will present a method to physically realize freeform wire mesh shapes with the help of digital fabrication. Finally, I will discuss some open problems in this domain.
+
+14361
+
+134
+
+14361 â Computational Aspects of Fabrication
+
+3.9
+
+Perceptually-driven fabrication
+
+Piotr Didyk (MIT â Cambridge, US)
+License
+
+Creative Commons BY 3.0 Unported license Â© Piotr Didyk
+
+In recent years there has been a tremendous development of new manufacturing technologies such as 3D printing. Despite the high quality of produced objects and the possibility of using multiple materials, reproducing 3D hardcopies of real objects is still a challenging task. Also the current level of understanding with regards to how these objects inï¬uence user experience is insuï¬cient to fully utilize this kind of technology. In this talk, I will discuss importance of better understanding and modeling of human visual and haptic perception. I will present a few examples of how such knowledge combined with carefully designed computational techniques may lead to improved quality of manufactured objects.
+
+3.10
+
+Computational Fabrication Education at MIT
+
+Piotr Didyk (MIT â Cambridge, US)
+Creative Commons BY 3.0 Unported license Â© Piotr Didyk Joint work of Matusik, Wojciech; Levin, David; Didyk, Piotr
+License
+
+Hardly a 21st century day goes by without a reference to 3D printing and the revolution it is projected to cause in engineering and manufacturing. This enthusiasm is shared among hobbyists and within a vibrant maker community. During the last two years professor Wojciech Matusik and Dr. David Levin taught a novel course on computational fabrication at the Electrical Engineering and Computer Science Department at MIT. This talk provides an overview of the course material, programming assignments, and labs. Formally designated computational fabrication, 6.S079 provides a broad overview of both hardware and software for additive manufacturing. In particular, students are introduced to methods for parametric modeling of solid objects that take into account fabrication constraints. In the lab, they master computing models of physical objects using real-time 3D scanning. They also study and implement advanced physically- based simulation methods. The students explore the kinematics of mechanisms, such as four-bar-linkages, and ï¬nite element methods in the context of deformable solids. These techniques are fundamental in the engineering community and are crucial for designing highly predictive tools for 3D print preview. Using these tools, many variations of a virtual solid object can be interactively analyzed without committing to fabrication. The course also covers optimization methods that are applied to automate the design process. After learning this basic toolset, students analyze many instances of recent computational fabrication systems that seamlessly blend interactive design, simulation, and optimization, for example, the interactive designing of printable automata. In the second part of the semester, students work in groups on large open-ended projects. The primary goal of the class is to give students both a practical and a theoretical knowledge of every stage in the computational fabrication pipeline â raising awareness about this rapidly expanding ï¬eld.
+
+Marc Alexa, Bernd Bickel, Sara McMains, and Holly E. Rushmeier
+
+135
+
+3.11
+
+On the Challenges of Manufacturing
+
+Gershon Elber (Technion â Haifa, IL)
+License
+
+Creative Commons BY 3.0 Unported license Â© Gershon Elber
+
+In this two-parts talk I will ï¬rst consider the major deï¬ciencies I see in modern geometric modeling tools, and give some insights into what the next generation geometric modeling abilities should be, as I see them. Then, I will exemplify the diï¬culties of manufacturing via a sequence of artifacts that went through the design-to-manufacturing process.
+
+3.12
+
+Fabricating Optics
+
+Wolfgang Heidrich (KAUST â Thuwal, SA)
+License
+
+Creative Commons BY 3.0 Unported license Â© Wolfgang Heidrich
+
+Modern fabrication methods show great promise for prototyping components for optical systems in computational imaging and display. In this talk I will report on some recent work in designing freeform lenses for goal-driven caustics, and then describe several experiments for fabricating these shapes on polyjet 3D printers as well as inexpensive 3-axis mills. I will report on issues with ï¬nishing the resulting shapes to optical grade. Finally I will descibe some initial approaches for fabricating custom diï¬ractive optical elements in KAUSTâs Nanofabrication Lab.
+
+3.13
+
+Zometool Shape Approximation
+
+Leif Kobbelt (RWTH Aachen, DE)
+Creative Commons BY 3.0 Unported license Â© Leif Kobbelt Joint work of Zimmer, Henrik; Florent, Lafarge; Alliez, Pierre; Kobbelt, Leif Main reference H. Zimmer, F. Lafarge, P. Alliez, L. Kobbelt, âZometool Shape Approximation,â Graphical Models, 76(5):390â401, 2014. URL http://dx.doi.org/10.1016/j.gmod.2014.03.009
+License
+
+We present an algorithm that approximates 2-manifold surfaces with Zometool models while preserving their topology. Zometool is a popular hands-on mathematical modeling system used in teaching, research and for recreational model assemblies at home. This construction system relies on a single node type with a small, ï¬xed set of directions and only 9 diï¬erent edge types in its basic form. While being naturally well suited for modeling symmetries, various polytopes or visualizing molecular structures, the inherent discreteness of the system poses diï¬cult constraints on any algorithmic approach to support the modeling of freeform shapes. We contribute a set of local, topology preserving Zome mesh modiï¬cation operators enabling the eï¬cient exploration of the space of 2-manifold Zome models around a given input shape. Starting from a rough initial approximation, the operators are iteratively selected within a stochastic framework guided by an energy functional measuring the quality of the approximation. We demonstrate our approach on a number of designs and also describe parameters which are used to explore diï¬erent complexities and enable coarse approximations.
+
+14361
+
+136
+
+14361 â Computational Aspects of Fabrication
+
+3.14
+
+Natural User Interfaces for Digital Fabrication
+
+Manfred Lau (Lancaster University, GB)
+Creative Commons BY 3.0 Unported license Â© Manfred Lau Joint work of Lau, Manfred; Saul, Greg; Mitani, Jun; Igarashi, Takeo; Weichel, Christian; Kim, David; Villar, Nicolas; Gellersen, Hans
+License
+
+I discuss three natural user interface tools for digital fabrication. The motivation for such interfaces is that easy-to-use tools for 3D modeling and fabrication is still lacking, despite years of research in developing modeling tools for novice users. The recent trend of rapid prototyping technologies such as 3D printers will lead to an increased demand for these interfaces for fabrication purposes. The ï¬rst system (SketchChair) is a sketch-based interface where the end-user can participate in the whole process of designing, modeling, and fabricating chairs with a laser cutter. The second system (Situated Modeling) has a tangible interface for modeling 3D shapes in an augmented reality environment. The user can immersively create and edit 3D shapes with a small number of physical primitive shapes, and with the guidance of the real-world environment and existing objects. The third system (MixFab) is a hand gesture based interface that takes advantage of a mixed reality environment to model small everyday objects that can be 3D printed. I end by speculating potential future interfaces for fabrication with the concept of Embodied Modeling and Fabrication.
+
+3.15
+
+Slicing for additive manufacturing: A computer graphics point of view
+
+Sylvain Lefebvre (LORIA & INRIA â Nancy, FR)
+Creative Commons BY 3.0 Unported license Â© Sylvain Lefebvre Joint work of Lefebvre, Sylvain; Hergel, Jean; Dumas, JÃ©rÃ©mie URL http://www.aracknea-core.com/sylefeb/research/
+License
+
+In this talk I will introduce our work on slicing for additive manufacturing. We build upon recent GPU rendering techniques to directly slice objects speciï¬ed using a Constructive Solid Geometry language. Our technique directly produces the code to drive the printer, without having to produce an intermediate mesh. This led us to several software improvements to make printing on low cost printing more reliably, in particular for multi-material prints and for the generation of stable support structures. References 1 Bridging the Gap: Automated Steady Scaï¬oldings for 3D Printing, J. Dumas, J. Hergel, S. Lefebvre, ACM SIGGRAPH, 2014 2 Clean color: Improving multi-ï¬lament 3D prints, J. Hergel, S. Lefebvre, EUROGRAPHICS 2014 3 IceSL: A GPU Accelerated modeler and slicer, S. Lefebvre, 18th European Forum on Additive Manufacturing, 2013
+
+Marc Alexa, Bernd Bickel, Sara McMains, and Holly E. Rushmeier
+
+137
+
+3.16
+
+Rendering, Animating, and Fabricating Volumetric Materials
+
+Steve Marschner (Cornell University â Ithaca, US)
+Creative Commons BY 3.0 Unported license Â© Steve Marschner Joint work of Bala, Kavita; Bickel, Bernd; Jakob, Wenzel; James, Doug; Jarosz, Wojciech; Kaldor, Jon; Matusik, Wojciech; Papas, Marios; Yuksel, Cem; Zhao, Shuang
+License
+
+For rendering and animation of textiles, detailed models of the material structure are useful in producing highly realistic results. For coarse knit fabrics, we have simulated both the structure and deformation of intricate lace patterns and complex garments in terms of the geometry and motion of individual yarns, producing texture and motion that closely resemble the real materials. For woven fabrics, we have used micro CT scans to model the geometric arrangement of ï¬bers at the microscopic scale, leading to highly realistic images that exhibit the distinctive texture and sheen of these materials. In both cases, the needs of realism have driven us to work directly in terms of the descriptions used to fabricate the materials: patterns for hand knitting and the binary images used by industrial Jacquard looms. This is a general trend in realistic rendering and animation, and translucent materials are another case where the descriptions used for rendering are quite direct speciï¬cations for the material itself. We have developed a system that calibrates a particular pigmentation system, then can measure a translucent material and uses rendering techniques inversely to compute a recipe for making a material that matches it.
+
+3.17
+
+Geometric Analysis for Manufacturing: Conventional vs. Additive Manufacturing
+
+Sara McMains (University of California â Berkeley, US)
+Creative Commons BY 3.0 Unported license Â© Sara McMains Joint work of McMains, Sara; Yasui, Yukuse; Li, Wei
+License
+
+I present computational geometry algorithms that we developed to support manufacturing process planning for waterjet cleaning (used to remove manufacturing byproducts in conventional manufacturing processes). Parallels with process planning for additive manufacturing are discussed.
+
+3.18
+
+Creating Works-Like Prototypes Of Mechanical Objects
+
+Niloy Mitra (University College London, GB)
+License Joint work of Main reference URL URL
+
+Creative Commons BY 3.0 Unported license Â© Niloy Mitra Koo, Bongjin; Li, Wilmot; Yao, JiaXia; Agrawala, Maneesh; Mitra, Niloy B. Koo, W. Li, J. Yao, M. Agrawala, N. J. Mitra, âCreating Works-Like Prototypes of Mechanical Objects,â ACM Trans. on Graphics, 33(6):217, 2014; pre-print available from authorâs webpage. http://dx.doi.org/10.1145/2661229.2661289 http://geometry.cs.ucl.ac.uk/projects/2014/works-like/
+
+Designers often create physical works-like prototypes early in the product development cycle to explore possible mechanical architectures for a design. Yet, creating functional prototypes
+
+14361
+
+138
+
+14361 â Computational Aspects of Fabrication
+
+requires time and expertise, which discourages rapid design iterations. Designers must carefully specify part and joint parameters to ensure that the parts move and ï¬t and together in the intended manner. We present an interactive system that streamlines the process by allowing users to annotate rough 3D models with high-level functional relationships (e. g., part A ï¬ts inside part B). Based on these relationships, our system optimizes the model geometry to produce a working design. We demonstrate the versatility of our system by using it to design a variety of works-like prototypes. References 1 Bongjin Koo, Wilmot Li, JiaXian Yao, Maneesh Agrawala, Niloy J. Mitra. Creating WorksLike Prototypes of Mechanical Objects. ACM Transactions on Graphics (Special issue of SIGGRAPH Asia 2014), 2014.
+
+3.19
+
+Interacting with Personal Fabrication Devices â Current challenges from an HCI perspective.
+
+Stefanie MÃ¼ller (Hasso-Plattner-Institut â Potsdam, DE)
+License Joint work of Main reference
+
+URL URL
+
+Creative Commons BY 3.0 Unported license Â© Stefanie MÃ¼ller MÃ¼ller, Stefanie; Baudisch, Patrick; GuimbretiÃ¨re, FranÃ§ois S. MÃ¼ller, S. Im, S. Gurevich, A. Teibrich, L. Pï¬sterer, F. Guimbretiere, P. Baudisch, âWirePrint: Fast 3D Printed Previews,â in Proc. of the 27th ACM User Interface Software and Technology Symposium (UISTâ14), pp. 273â280, ACM, 2014; pre-print available from authorâs webpage. http://dx.doi.org/10.1145/2642918.2647359 https://www.hpi.uni-potsdam.de/baudisch/home.html
+
+In this talk, I discuss three challenges when interacting with personal fabrication devices: (1) Personal fabrication machines, such as 3D printers, are so slow that many objects require printing overnight. This limits designers to a single design iteration per day even though the actual design work between each iteration was only a couple of minutes. With our projects, faBrickation and WirePrint, we address this problem by allowing designers to fabricate intermediate versions of a prototype as fast, low-ï¬delity previews, and to only create the ï¬nal version as a full 3D print. (2) Currently users use a digital editor to design physical objects. There are good reasons for doing this since the digital world allows for precise interaction and editing steps can be easily undone. However, having the input and output space separated is not intuitive for novice users. With our projects constructable and LaserOrigami, we show how to merge input and output space by letting users work directly on the physical workpiece and by creating physical output after every step. (3) Personal fabrication tools allow us to create more and more things. With our project Scotty, we question that more is always better as having more aï¬ects how we value a single object. With Scotty, we show how to relocate physical objects across distances by ensuring that there is never more than one copy at a time, i. e. the object disappears on the sender side and reappears on the receiver side, thereby preserving its value.
+
+Marc Alexa, Bernd Bickel, Sara McMains, and Holly E. Rushmeier
+
+139
+
+3.20
+
+Computational Caustics
+
+Mark Pauly (EPFL â Lausanne, CH)
+License Joint work of Main reference URL URL
+
+Creative Commons BY 3.0 Unported license Â© Mark Pauly Pauly, Mark; Yuliy Schwartzburg, Romain Testuz, Andrea Tagliasacchi Y. Schwartzburg, R. Testuz, A. Tagliasacchi, M. Pauly, âHigh-contrast Computational Caustic Design,â ACM Trans. on Graphics, 33(4):74, 2014. http://dx.doi.org/10.1145/2601097.2601200 http://lgg.epï¬.ch/publications/2014/HighContrastCaustics.pdf
+
+We present a new algorithm for computational caustic design. Our algorithm solves for the shape of a transparent object such that the re- fracted light paints a desired caustic image on a receiver screen. We introduce an optimal transport formulation to establish a correspon- dence between the input geometry and the unknown target shape. A subsequent 3D optimization based on an adaptive discretization scheme then ï¬nds the target surface from the correspondence map. Our approach supports piecewise smooth surfaces and non-bijective mappings, which eliminates a number of shortcomings of previous methods. This leads to a signiï¬cantly richer space of caustic images, including smooth transitions, singularities of inï¬nite light density, and completely black areas. We demonstrate the eï¬ectiveness of our approach with several simulated and fabricated examples.
+
+3.21
+
+Interactive modeling with developable NURBS surfaces
+
+Helmut Pottmann (KAUST â Thuwal, SA)
+Creative Commons BY 3.0 Unported license Â© Helmut Pottmann Joint work of Tang, Chengcheng; Pottmann, Helmut
+License
+
+Developable surfaces play an important role in various manufacturing technologies, since they model the natural behavior of materials which do not stretch. Although there is a rich literature on modeling these surfaces, the interactive design of developable NURBS surfaces is still a challenge. Employing a combination of the standard and the dual representation, we propose an eï¬cient numerical constraint solver which overcomes the limitations of previous work. While the user manipulates the B-spline control structure, the surfaces get automatically corrected in real time towards developable NURBS surfaces with high numerical accuracy. We illustrate our framework by various types of developable strip models and present initial results on models with curved folds. This is ongoing unpublished research.
+
+3.22
+
+Computational / Physical Light Routing: 3D Printed Fiber Optics
+
+Szymon Rusinkiewicz (Princeton University, US)
+Creative Commons BY 3.0 Unported license Â© Szymon Rusinkiewicz Joint work of Pereira, Thiago; Rusinkiewicz, Szymon; Matusik, Wojciech Main reference T. Pereira, S. Rusinkiewicz, W. Matusik, âComputational Light Routing: 3D Printed Fiber Optics for Sensing and Display,â ACM Trans. on Graphics, 33(3):24, 2014. URL http://dx.doi.org/10.1145/2602140
+License
+
+Despite recent interest in digital fabrication, there are still few algorithms that provide control over how light propagates inside a solid object. Existing methods either work only
+
+14361
+
+140
+
+14361 â Computational Aspects of Fabrication
+
+on the surface or restrict themselves to light diï¬usion in volumes. We use multi-material 3D printing to fabricate objects with embedded optical ï¬bers, exploiting total internal reï¬ection to guide light inside an object. We introduce automatic ï¬ber design algorithms together with new manufacturing techniques to route light between two arbitrary surfaces. Our implicit algorithm optimizes light transmission by minimizing ï¬ber curvature and maximizing ï¬ber separation while respecting constraints such as ï¬ber arrival angle. We also discuss the inï¬uence of diï¬erent printable materials and ï¬ber geometry on light propagation in the volume and the light angular distribution when exiting the ï¬ber. Our methods enable new applications such as surface displays of arbitrary shape, touch-based painting of surfaces and sensing a hemispherical light distribution in a single shot.
+
+3.23
+
+3D Printing Tools in Meshmixer (Support Structures, Strength Analysis, etc)
+
+Ryan Schmidt (AUTODESK Research â Toronto, CA)
+License
+
+Creative Commons BY 3.0 Unported license Â© Ryan Schmidt
+
+3D printing is becoming increasingly practical as a technique for one-oï¬ fabrication of customized objects and small-batch manufacturing. In many applications, the 3D printer provides a means to solve problems that would be prohibitively expensive to address in any other way. I will present three example use cases in aerospace, manufacturing, and prosthetics that illustrate how both professional and consumer-level 3D printers are being used today. However, the premise of automatically fabricating an arbitrary 3D design remains more hype than reality. Based on extensive observation of users of Autodesk meshmixer, discussion with domain experts, and personal experience, I have noted many issues which could be addressed with the mathematical tools of computer graphics and geometry processing. I will describe a set of current challenges in the 3D printing pipeline that hinder user creativity and prevent many seemingly-straightforward applications.
+
+3.24
+
+User-Guided Inverse 3D Modeling
+
+Carlo H. Sequin (University of California â Berkeley, US)
+Creative Commons BY 3.0 Unported license Â© Carlo H. Sequin Joint work of Andrews, James; Sequin, Carlo H. Main reference J. Andrews, âUser-Guided Inverse 3D Modeling,â Ph. D. Thesis, U. C. Berkeley, May 2013. URL http://www.eecs.berkeley.edu/Pubs/TechRpts/2013/EECS-2013-103.pdf
+License
+
+Few designs start from scratch in a vacuum. Often there is a previous artifact that provides inspiration or may even be close enough so that some high-level redesign might be the most eï¬ective approach. Unfortunately there may be no CAD ï¬les available or they may be at such a low level (100â000 triangles) that it is not a good starting point for a major redesign. âUser-Guided Inverse 3D Modelingâ is an approach to re-create a well-structured, high-level, parameterized, procedural description of some geometry very close to the inspirational artifact. Its hierarchical structure and the degree of its parameterization are imposed with some high-level instructions by the designer, so that the resulting description is most appropriate to make the intended design changes.
+
+Marc Alexa, Bernd Bickel, Sara McMains, and Holly E. Rushmeier
+
+141
+
+3.25
+
+Use the winding number to determine âinsideâ and âoutsideâ for each level in layered manufacturing
+
+Carlo H. Sequin (University of California â Berkeley, US)
+License
+
+Creative Commons BY 3.0 Unported license Â© Carlo H. Sequin
+
+Models of trusses consisting of many joining or intersecting beams, often with non-trivial cross sections, may result in a solid model that does not have a proper, oriented, 2-manifold boundary representation. Cleaning up such a 3D model is laborious and diï¬cult, even when the individual components (beams) themselves have perfectly good B-Reps. Sending such âuncleanâ models to a layered manufacturing machine will often produce unexpected result â or will simply be refused by the machineâs software. This problem could easily be remedied by slicing all components individually, paying careful attention to the orientation of the surface normals, and then forming the Boolean union of all the extracted slicing contours on each level while summing up their respective winding numbers.
+
+3.26
+
+Modular Models of Mathematical Knots
+
+Carlo H. Sequin (University of California â Berkeley, US)
+License
+
+Creative Commons BY 3.0 Unported license Â© Carlo H. Sequin
+
+The LEGO-Knot system is a collection of tubular parts with a 1" square cross-section that are compatible with the LEGO DUPLO blocks. It was originally inspired by the modular âBorsalinoâ sculpture by Henk van Putten presented in the art exhibition of the Bridges 2013 conference in Enschede, Netherlands. Currently this set of prototype parts is rich enough so that a wide variety of free-form tubular sculptures can be assembled, and simple mathematical knots like the Trefoil Knot and the Figure-8 Knot can be modeled in a graceful manner with the sweep curve closing smoothly onto itself. Recently I have given myself the challenge to design a single tubular element that would be versatile enough for modeling many of the simple mathematical knots in a similar graceful manner. The resulting tubular module is based on a cross-section in the form of a regular 16-gon and bends through an angle of 30 degrees. Now the remaining challenge is to develop an eï¬ective search algorithm that can ï¬nd elegant solutions for most of the simple knots. Through manual search stretching over a few hours, good solutions have been found for the Trefoil Knot, the Figuee-8 Knot, and the Knots 5-1 and 7-4, as well as for the Borromean Link. The challenge remains to ï¬nd a good automated search algorithm. This problem was presented at this seminar, because it has similarities with the design problem discussed by Leif Kobelt: How to best approximate an arbitrary 2-manifold such as the surface of the Stanford Bunny with a mesh made solely from Zome Tool parts.
+
+14361
+
+142
+
+14361 â Computational Aspects of Fabrication
+
+3.27
+
+Computational Design-to-Fabrication
+
+Kristina Shea (ETH ZÃ¼rich, CH)
+License
+
+Creative Commons BY 3.0 Unported license Â© Kristina Shea
+
+In this talk I will introduce Computational Design-to-Fabrication from an engineering and product design viewpoint, give an overview of our research on design automation and optimization of structural and mechanical systems and a glimpse into new research making the link to automated fabrication via additive manufacturing, mainly multi-material.
+
+3.28
+
+Flat Fabrication
+
+Karan Singh (University of Toronto, CA)
+License Joint work of Main reference
+
+URL URL
+
+Creative Commons BY 3.0 Unported license Â© Karan Singh Singh, Karan; McCrae, James J. McCrae, N. Umetani, K. Singh, âFlatFitFab: Interactive Modeling with Planar Sections,â in Proc. of the 27th Annual ACM Symp. on User Interface Software and Technology (UISTâ14), pp. 13â22, ACM, 2014. http://dx.doi.org/10.1145/2642918.2647388 http://ï¬atfab.com/
+
+Assembled planar section structures are common in art and engineering. This talk presents the state of the art on the computational abstraction of 3D shape using planar sections. It also describes a comprehensive drawing interface to author planar section structures from scratch, based on principles of inter-plane orthogonality, procedural regularity and frontoparallel drawing. Finally, a number of open problems and issues speciï¬c to ï¬at fabrication are described, along with speculated solutions and directions for future work.
+
+3.29
+
+Computational Design and Fabrication of Deformable Objects
+
+Melina Skouras (Disney Research â ZÃ¼rich, CH)
+Creative Commons BY 3.0 Unported license Â© Melina Skouras Joint work of Skouras, Melina; Thomaszewski, Bernhard; Bickel, Bernd; Coros, Stelian; Kaufmann, Peter; Bradley, Derek; Beeler, Thabo; Jackson, Phil; Marschner, Steve; Matusik, Wojciech; Gross, Markus
+License
+
+Deformable objects have a plethora of applications: they can be used for entertainment, advertisement, engineering or even medical purposes. However designing custom deformable objects remains a diï¬cult task. The designer must foresee and invert eï¬ects of external forces on the behavior of the ï¬gure in order to take the proper design decisions. In this talk, I will present novel approaches based on physics-based simulation and inverse optimization techniques which alleviate these diï¬culties and propose a complete framework to design custom deformable objects by automating some of the most tedious aspects of the design process. This framework is tailored to the design of various objects such as rubber balloons, skin for animatronics ï¬gures and custom actuated characters, for which optimization of diverse variables including rest shape, materials and actuation system is alternately considered. Validation of our method is performed by fabricating representative sets of physical prototypes designed with our method and compared to the results predicted by simulation.
+
+Marc Alexa, Bernd Bickel, Sara McMains, and Holly E. Rushmeier
+
+143
+
+References 1 M. Skouras, B. Thomaszewski, B. Bickel, and M. Gross. Computational Design of Rubber Balloons, Proceedings of Eurographics (Cagliari, Italy, May 13â18, 2012), Computer Graphics Forum, vol. 31, no. 2, pp. 835â844, 2012. 2 B. Bickel, P. Kaufmann, M. Skouras, B. Thomaszewski, D. Bradley, T. Beeler, P. Jackson, S. Marschner, W. Matusik and M. Gross. Physical Face Cloning, Proceedings of ACM SIGGRAPH (Los Angeles, USA, August 5-9, 2012), ACM Transactions on Graphics, vol. 31, no. 4, pp. 118:1â118:10, 2012. 3 M. Skouras, B. Thomaszewski, S. Coros, B. Bickel and M. Gross. Computational Design of Actuated Deformable Characters, Proceedings of ACM SIGGRAPH (Anaheim, USA, July 21-25, 2013), ACM Transactions on Graphics, vol. 32, no. 4, pp. 82:1â82:10, 2013.
+
+3.30
+
+Designing Mechanical Characters
+
+Bernhard Thomaszewski (Disney Research â ZÃ¼rich, CH)
+License
+
+Creative Commons BY 3.0 Unported license Â© Bernhard Thomaszewski
+
+The design of virtual characters has been in the focus of graphics research since its very beginnings. With the advent of 3D printers we now have the machinery to create tangible, physical counterparts of digital characters that can be used as input devices for video games, mechanical toys, or even animatronics. But besides progress in manufacturing technology, we need progress in software tools to facilitate the translation from virtual to real characters. This talk addresses a number of challenges that arise when designing mechanical characters, in particular the question of how to design mechanisms that are able to reproduce a desired motion.
+
+3.31
+
+Interactive Design of Functional Shapes
+
+Nobuyuki Umetani (Disney Research â ZÃ¼rich, CH)
+License
+
+Creative Commons BY 3.0 Unported license Â© Nobuyuki Umetani URL http://www-ui.is.s.u-tokyo.ac.jp/~ume
+
+Physical simulation allows validation of geometric designs without tedious physical prototyping. However, since geometric modeling and physical simulation are typically separated, simulations are mainly used for rejecting bad design, and, unfortunately, not for assisting creative exploration towards better designs. In this talk, I introduce several interactive approaches to integrate physical simulation into geometric modeling to actively support creative design process. More speciï¬cally, I demonstrate the importance of (i) presenting the simulation results in real-time during userâs interactive shape editing so that the user immediately sees the validity of current design, and to (ii) providing a guide to the user so that he or she can eï¬ciently explore the valid deign space. I present novel algorithms to achieve these requirements.
+
+14361
+
+144
+
+14361 â Computational Aspects of Fabrication
+
+3.32
+
+Crafting Light by Hacking Pixels
+
+Gordon Wetzstein (Stanford University, US)
+License
+
+Creative Commons BY 3.0 Unported license Â© Gordon Wetzstein
+
+Compressive image acquisition and display is an emerging architecture for consumer electronics that explores the co-design of optics, electronics, applied mathematics, and real-time computing. Together, these hardware/software systems exploit compressibility of the recorded or presented data to facilitate new device form factors and relax requirements on electronics and optics. For instance, light ï¬eld or glasses-free 3D displays usually show diï¬erent perspectives of the same 3D scene to a range of diï¬erent viewpoints. All these images are very similar and therefore highly compressible. By combining multilayer hardware architectures and directional backlighting with real-time implementations of light ï¬eld tensor factorization, limitations of existing displays, for instance in resolution, contrast, depth of ï¬eld, and ï¬eld of view, can be overcome. A similar design paradigm also applies to light ï¬eld and multi-spectral image acquisition, super-resolution and high dynamic range display, glasses-free 3D projection, computational lithography, microscopy, and many other applications. In this talk, we review the fundamentals of compressive camera and display systems and discuss their impact on future consumer electronics, remote sensing, scientiï¬c imaging, and human-computer interaction.
+
+3.33
+
+Crafting Light by Hacking Pixels
+
+Gordon Wetzstein (Stanford University, US)
+License Joint work of Main reference
+
+URL URL
+
+Creative Commons BY 3.0 Unported license Â© Gordon Wetzstein Wetzstein, Gordon; Raskar, Ramesh; Lanman, Douglas; Hirsch, Matthew M. Hirsch, D. Lanman, G. Wetzstein, R. Raskar, âTensor Displays,â in Proc. of the ACM SIGGRAPH 2012 Intâl Conf. on Computer Graphics and Interactive Techniques (SIGGRAPHâ12), 24 pages, ACM, 2012; pre-print available from authorâs webpage. http://dx.doi.org/10.1145/2343456.2343480 http://web.media.mit.edu/~gordonw/TensorDisplays/
+
+With the invention of integral imaging and parallax barriers in the beginning of the 20th century, glasses-free 3D displays have become feasible. Only today â more than a century later â glasses-free 3D displays are ï¬nally emerging in the consumer market. The technologies being employed in current-generation devices, however, are fundamentally the same as what was invented 100 years ago. With rapid advances in optical and digital fabrication, digital processing power, and computational models for human perception, a new generation of display technology is emerging: computational displays exploring the co-design of optical elements and computational processing while taking particular characteristics of the human visual system into account. This technology does not only encompass 3D displays, but also next-generation projection systems, high dynamic range displays, perceptually-driven devices, and computational probes. This talk serves as an introduction to the emerging ï¬eld of computational display fabrication. We will discuss a wide variety of diï¬erent applications and hardware setups of computational displays as well as their fabrication, including high dynamic range displays, advanced projection systems as well as glasses-free 3D display. We will only brieï¬y review conventional technology and focus on practical and intuitive demonstrations of how an
+
+Marc Alexa, Bernd Bickel, Sara McMains, and Holly E. Rushmeier
+
+145
+
+interdisciplinary approach to display design and fabrication encompassing optics, perception, computation, and mathematical analysis can overcome the limitations for a variety of applications.
+
+3.34
+
+Appearance Fabrication
+
+Tim Weyrich (University College London, GB)
+Creative Commons BY 3.0 Unported license Â© Tim Weyrich Joint work of Weyrich, Tim; Hullin, Matthias B.; Ihrke, Ivo; Fuchs, Martin; Papas, Marios; Jarosz, Wojciech; Jakob, Wenzel; Rusinkiewicz, Szymon; Matusik, Wojciech
+License
+
+Appearance fabrication aims at creating custom reï¬ectance properties on real- world surfaces. As the inverse of appearance acquisition, it starts from a digital description of spatio-angular reï¬ectance properties and seeks to alter physical surface to match that description. My talk provides an overview over working principles employed by prior art, and raises a number of questions on future directions of appearance fabrication.
+
+3.35
+
+Structurally-Informed Geometry
+
+Emily Whiting (Dartmouth College â Hanover, US)
+Creative Commons BY 3.0 Unported license Â© Emily Whiting Joint work of Whiting, Emily; Prevost, Romain; Lefebvre, Sylvain; Sorkine-Hornung, Olga; Baecher, Mortiz; Bickel, Bernd; Deuss, Mario; Panozzo, Daniele; Liu, Yang; Block, Philippe; Pauly, Mark
+License
+
+In computer graphics, many of the 3D objects we are interested in modeling are physicallyinspired or are designed with the intent of being built or manufactured. Yet many of the tools developed for geometric modeling are unaware of structural considerations, largely based on geometric surface characteristics alone. The motivation for my work is to use structural soundness and stability properties to enhance the traditional modeling pipeline. I will discuss recent work investigating structurally-informed design of 3D printed objects. Time permitting, I may also review topics in the design of masonry structures.
+
+3.36
+
+Small-scale Structure and Material Properties
+
+Denis Zorin (New York University, US)
+Creative Commons BY 3.0 Unported license Â© Denis Zorin Joint work of Zhou, James; Panetta, Julian; Zorin, Denis
+License
+
+Complex structures are widely used to achieve optimal mechanical performance (e. g., minimize weight for given strength). In traditional manufacturing, the cost is proportional to complexity; additive manufacturing makes complexity almost independent from cost, making much more complex with novel properties possible. In particular, one can create small-scale structures, approximating homogeneous material properities. Optimizing such structures directly is diï¬cult. I describe a multistage process process for optimizing small-scale structures,
+
+14361
+
+146
+
+14361 â Computational Aspects of Fabrication
+
+usually referred to as âoptimization by homogenizationâ: a map from material properties to structure parameters is constructed, then continuous material properties are optimized and mapped to a tiled structure using this map. Experiments show that a number of structure optimization problems can be solved in this way.
+
+4
+
+Open Problems and Panel Discussion
+
+Based on the ideas from the individual presentations, there were group discussions on four topics. First there was a discussion of particular problems that have been posed in fabrication, and the applications that motivate these problems. This list of problem deï¬nitions was a major outcome of the meeting. The group discussed particular issues that need to be resolved for these speciï¬c problems. Second, on a more general level, the role of computer graphics research in fabrication was discussed, in light of the activities in other disciplines. Third, the fabrication processes that the computer graphics community should consider working on was discussed. Finally, the need for systems to assist in the design of custom fabricated objects emerged as a major theme in the meeting. The group tried to deï¬ne the diï¬erent types of user populations, and their needs for design systems.
+
+4.1
+
+Problems/Applications
+
+Many overlapping ideas were identiï¬ed from the various presentations. These were combined to identify speciï¬c computations problems and the applications that motivate them. Problem: A general problem is the production of a particular shape from ï¬xed set of physical primitives. Problems related to this include how to produce a set of primitives that can express a wide variety of shape and how to produce instructions for assembling shape from primitives. Applications: Toys (e. g. Lego-type systems), sets of physical objects for illustrating concepts. Discussion: This is actually a large group of problems, and designing with orthogonal planar pieces is also in this set, as well as design with speciï¬c geometric constraints. As well as the toy and illustrative applications, systems based on ï¬xed primitives are useful in architectural design exploration. Problem: Design structures to achieve spatially varying physical properties (Youngâs modulus, Poisson ratio). One approach to this is to emulate complex designs previously found only in nature (e. g. bird bones). Solutions need to include not just one structure, but the description of the rest geometry and functionality, and these must stay within limits of manufacture. Achieving particular properties can be achieved with structure and by using mixes of material. Applications: Helmets, custom footwear. Discussion: To study material variation, we need collaborators in materials science and mechanical structures. Computer graphics can contribute models of humans that these objects need to ï¬t. Computer graphics can also contribute simpliï¬ed simulations of very complex structures. Manipulating and representing very complex geometries is an area of computer graphics. We need to create tools to design combinations for hard and soft materials â e. g. cases for phones etc.
+
+Marc Alexa, Bernd Bickel, Sara McMains, and Holly E. Rushmeier
+
+147
+
+Problem: Design assemblies with speciï¬c motions. The motions may be controlled in diï¬erent ways â for example with a single input crank or by being propelled by something. There are diï¬erent ways that motions can be described. Existing libraries of mechanisms can be used in the solutions. Beyond just rigid linkages, the motion of deformable surfaces can also be designed. Applications: Toys, animatronics, design of artiï¬cial limbs. Discussion: We need to model deformations in many settings to understand the manufacturing process. We now have the opportunity to put complex mechanisms in ANY object â how can we exploit this to make new useful things? Problem: Fabrication of new optical components. This can provide new dimensions in viewing (stereo/hi dynamic range, light ï¬eld). Displays can be made in arbitrary shapes. Are deposition methods good enough, or are they just a proof of concept technology? Applications: New displays, cameras. Discussion: Optical systems need post-processing, i. e. polishing and assembly. These operations need to be included in the design of the fabrication process. The human is part of the fabrication process. We need to model the role the human can play to a greater extent. We need to design work ï¬ows between stages in the fabrication process. In this an other applications, we need a place to document methods and best practices. Problem: UIâs for: Design of objects by function and manufacture technique (furniture, orthogonal planes). Design of objects in context of real objects (augmented reality). Design of objects with performance analysis built into design system (musical instruments). Applications: Universal. Discussion: We need UIâs for designing UIâs. We need more exploration of data driven techniques in place of simulations in the interface. We need a common language to communicate designs to printers, to communicate with modules for doing clean-up of models. Is the answer STL? Or AMF (Hod Lipsonâs initiative)? In the UI, when we are designing to ï¬t in the physical world, do we think of bringing the digital into the physical world, or the physical into the digital world? Problem: Drawbacks of FDM â Design alternative additive manufacture systems. Redesign system for obtaining smooth surfaces. Many manufacturing processes are not supported computationally. Applications: Optical systems where surface quality is critical. Discussion: In the near future more patents will expire, and additional types of fabrication will become cheap. However, those techniques may have their own drawbacks as far as materials required (cost, stability). In general we need to document the limitations of machines. This is a moving target with the technology changing. How do we abstract to the correct level? What can we learn from the more mature ï¬eld of 2D printing on how they have characterized machines? Problem: Appearance Reproduction. Is FDM too limited? Simulation for other manufacturing processes? What will be the role of perception? Applications: Prototype appearance, assist traditional manufacture. Discussion: While appearance reproduction is limited, as long as machines are being used for prototyping and evaluation it is important to do the best job possible reproducing appearance and haptic/tactile properties.
+
+14361
+
+148
+
+14361 â Computational Aspects of Fabrication
+
+4.2
+
+Computational Fabrication and Computer Graphics
+
+Computer graphics is still ï¬nding its place in computational fabrication research. To some extent we are solving new problems, but to some extent we are rediscovering problems other people have solved. A good way to speed up productive work is through community software initiatives. An open source library that can support low-end fabrication devices would quickly beneï¬t from the eï¬orts of many people who are studying fabrication. Currently G-code is the current common tool for software. Can we do better? Many people write their own slicers, but access to machine control is making this harder. Should we start a coordinated eï¬ort to develop open source software? CNC machines became easier to control and more open, will the same happen for 3D printing? Standardizing on a poor scheme like G-code could be dangerous and limiting. Other examples of systems that opened up are GPUs, and Epson printers. What motivates companies to make software that controls more open? We need to ï¬nd a way to demonstrate to them the ï¬nancial beneï¬t of openness. We need to provide a place (perhaps a wiki or similar site) to capture documentation of methods and best practices. Useful software could evolve from these methods and practices.
+
+4.3
+
+Targeted Fabrication Processes
+
+A lot of current fabrication work in computer graphics centers around FDM â fused deposition modeling. Other computer controlled machining processes, as well as hybrid FDM and computer controlled making processes could beneï¬t from advanced computational methods. In the 1980âs, computer graphics was closely tied with the CADAM (computer aided design and manufacturing) communities. The current interest in computational fabrication is an opportunity to renew ties with that community. The computer graphics community should avoid focussing on a single manufacturing technology.
+
+4.4
+
+Design Systems
+
+A major issue in computation for fabrication is the development of UIâs (user interfaces). UIâs need to be designed for diï¬erent types of users, and for diï¬erent phases of design. In fabrication, there are at least three diï¬erent groups of users â novices, âdo it yourselfâ users with a high level of expertise, and professional designers. For novices, a very restricted design space is useful. It may be that novices are really just customizing, not designing, objects. No one stays a novice. Is it the generality of the design vs a very constrained space? We need âscalableâ UIâs that move from general concepts to speciï¬cs. Design systems can simulate the fabrication process and the performance of the ï¬nal object. In the user interface we need to take into account what the users wants â just an object sent to them, or an object in which they have participated in the production. Professional designers move from general concepts to detail speciï¬cation. Design exploration needs rapid generation of variations. Speciï¬cation needs precision. We need bridges between systems to do this, to ï¬ow from concept to precision. Consider that another group that uses systems are decision makers. We need a seamless tool chain.
+
+Marc Alexa, Bernd Bickel, Sara McMains, and Holly E. Rushmeier
+
+149
+
+4.5
+
+Open Questions and Future Research Directions
+
+During the ï¬nal session of the workshop we again discussed important open questions and potential future research directions. Ten areas were discussed, as listed below, building on the discussion during Ryan Schmidtâs earlier presentation. Open questions that in many cases participants have done research on in the past, but that didnât lead to much additional discussion during this session, included: Better surface quality Better support structures Light-weighting and hollowing Multi-objective orientation optimization Open questions that inspired more discussion: Generation of G-code paths. Optimal paths for 3-D printing diï¬er from optimal paths for machining, where toolpath generation has been widely studied. The patterns are very diï¬erent for additive versus subtractive G-code. There are also aspects of ï¬uids that are relevant; approximate models could be very useful. We need a good simulator for 3-D printing (perhaps along the lines of the Vericut software that is widely used for CNC). Right now some designers will have the software generate a G-code path from a preliminary design, examine the path to gain insight about whether the design will print well, and redesign based on what they can see visually in the toolpath, but an actual simulator would give even more useful feedback. Ensuring printability. One example where there has been some research but more can be done is in the area of selective thickening of geometry. One example where this is very useful is for architectural models, where when an architect scales down a model of a house uniformly in order to print it, the banisters all break because they become too thin for the target printer. Tolerance and clearance analysis. Here one of the important diï¬erences compared to conventional manufacturing is the need for anisotropy-aware algorithms. Nesting and packing. There is lots of literature in two dimensions, but less in 3-D. The commercial system Magics supports 3-D packing, but it is slow. Residual stress estimation and correction. There has been some work on estimation, but no one at the workshop was aware of much work on correction. Active positioning with feedback is not enough, because the warping often happens later, as subsequent layers cool/solidify. With cheap printers, people have seen awful warping. Perhaps printing a calibration part for testing, evaluating it with a computer vision system, and setting parameters based on current working conditions surmised from the behavior of the calibration test part is an approach that is worth studying. Planning support material removal. This could include planning escape holes, or a series of orientations for emptying the part interior. For example, injection molds need to be designed with cooling channels. Now that people are 3-D printing molds, the geometry of the channels is suddenly getting much more complex because 3-D printing doesnât have tooling accessibility issues. But now the un-sintered powder or dissolved support material needs to be removed. Accessibility for cleaning the part to remove this excess material after printing becomes the issue instead.
+
+14361
+
+150
+
+14361 â Computational Aspects of Fabrication
+
+Participants
+Marc Alexa TU Berlin, DE Moritz BÃ¤cher Disney Research â ZÃ¼rich, CH Bernd Bickel Disney Research â ZÃ¼rich, CH Nathan Carr Adobe Inc. â San JosÃ©, US Duygu Ceylan EPFL â Lausanne, CH Yong Chen Univ. of Southern California, US Paolo Cignoni CNR â Pisa, IT Stelian Coros Carnegie Mellon University, US Bailin Deng EPFL â Lausanne, CH Piotr Didyk MIT â Cambridge, US Gershon Elber Technion â Haifa, IL Wolfgang Heidrich KAUST â Thuwal, SA Kristian Hildebrand TU Berlin, DE Leif Kobbelt RWTH Aachen, DE Manfred Lau Lancaster University, GB Sylvain Lefebvre LORIA & INRIA â Nancy, FR Steve Marschner Cornell University, US Sara McMains University of California â Berkeley, US Eder Miguel University Rey Juan Carlos â Madrid, ES Niloy Mitra University College London, GB Stefanie MÃ¼ller Hasso-Plattner-Institut â Potsdam, DE Mark Pauly EPFL â Lausanne, CH Nico Pietroni ISTI-CNR â Pisa, IT Helmut Pottmann KAUST â Thuwal, SA Holly E. Rushmeier Yale University, US Szymon Rusinkiewicz Princeton University, US Ryan Schmidt AUTODESK Res. â Toronto, CA Carlo H. Sequin University of California â Berkeley, US Kristina Shea ETH ZÃ¼rich, CH Karan Singh University of Toronto, CA Melina Skouras Disney Research â ZÃ¼rich, CH Bernhard Thomaszewski Disney Research â ZÃ¼rich, CH Nobuyuki Umetani Disney Research â ZÃ¼rich, CH Gordon Wetzstein Stanford University, US Tim Weyrich University College London, GB Emily Whiting Dartmouth College â Hanover, US Denis Zorin New York University, US
+

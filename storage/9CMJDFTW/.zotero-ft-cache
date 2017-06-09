@@ -1,0 +1,766 @@
+Computers and Structures 85 (2007) 404â418 www.elsevier.com/locate/compstruc
+
+Insight into 3-node triangular shell ï¬nite elements: the eï¬ects of element isotropy and mesh patterns
+Phill-Seung Lee a, Hyuk-Chun Noh b, Klaus-Jurgen Bathe Â¨
+b c
+
+c,*
+
+a Samsung Heavy Industries, 825-13 Yeoksam, Gangnam, Seoul 135-080, Korea Korea Concrete Institute Research Center, 635-4 Yeoksam, Gangnam, Seoul 135-703, Korea Department of Mechanical Engineering, Massachusetts Institute of Technology, 77 Massachusetts Avenue, Cambridge, MA 02139, USA
+
+Received 9 October 2006; accepted 30 October 2006 Available online 28 December 2006
+
+Abstract In this paper, we study the convergence characteristics of some 3-node triangular shell ï¬nite elements. We review the formulations of three diï¬erent isotropic 3-node elements and one non-isotropic 3-node element. We analyze a clamped plate problem and a hyperboloid shell problem using various mesh topologies and present the convergence curves using the s-norm. Considering simple bending tests, we also study the transverse shear strain ï¬elds of the shell ï¬nite elements. The results and insight given are valuable for the proper use and the further development of triangular shell ï¬nite elements. Ã 2006 Elsevier Ltd. All rights reserved.
+Keywords: Shell structures; Finite elements; Triangular elements; MITC elements
+
+1. Introduction For several decades, the ï¬nite element method has been used as a main tool to analyze shell structures in various engineering applications. However, there are still many important research challenges to increase the eï¬ectiveness of the analysis of shells [1â4]. Shells are three-dimensional structures with one dimension, the thickness, small compared to the other two dimensions. As the shell thickness decreases, shell structures can behave diï¬erently depending on the geometry, loading and boundary conditions of the shell, that is, the behavior of a shell structure belongs to one of three diï¬erent asymptotic categories: membrane-dominated, bendingdominated, or mixed shell problems [2â4]. A major diï¬culty in the development of shell ï¬nite elements is to overcome the locking phenomenon for bendingdominated shells. When the ï¬nite element approximations
+
+*
+
+Corresponding author. Tel.: +1 617 253 6645; fax: +1 617 253 2275. E-mail address: kjb@mit.edu (K.J. Bathe).
+
+cannot suï¬ciently well approximate the pure bending displacement ï¬elds, membrane and shear locking occur. Then, as the shell thickness decreases, the convergence of the ï¬nite element solution rapidly deteriorates. An ideal ï¬nite element formulation would uniformly converge to the exact solution of the mathematical model irrespective of the shell geometry, asymptotic category and thickness. In addition, the convergence rate should be optimal. Of course, it is extremely hard to reach ideal (or uniformly optimal) shell ï¬nite elements but continuous eï¬orts are highly desirable. When modeling general engineering structures, some triangular ï¬nite elements are frequently used. Typically, to mesh complex shell structures, the mesh generation scheme establishes by far mostly quadrilateral elements but when these become too distorted because of geometric complexities, triangular elements are used instead. Also, triangular shell elements may be eï¬ective when these are used to represent a thin structure within tetrahedral three-dimensional element meshes, like in the analysis of rubber media reinforced by thin steel layers, or in the solution of ï¬uid-structure interactions [5]. Of course, in general, quadrilateral
+
+0045-7949/$ - see front matter Ã 2006 Elsevier Ltd. All rights reserved. doi:10.1016/j.compstruc.2006.10.006
+
+P.S. Lee et al. / Computers and Structures 85 (2007) 404â418
+
+405
+
+elements can have a higher predictive capability, and therefore more research eï¬ort has been expended to develop quadrilateral shell ï¬nite element discretizations and more progress has also been achieved. Since quadrilateral elements have simpler coordinate systems and richer strain ï¬elds than triangular elements, quadrilateral shell ï¬nite elements that overcome the locking phenomenon are also easier to establish. Indeed, some quadrilateral shell elements are close to ââuniformly optimalââ [1,2]. The two basic approaches used to formulate general shell elements [1,2,6] are the formulations in which plate bending and membrane actions are superimposed and the formulations based on three-dimensional continuum mechanics [1,2,7]. However, discretizations based on elements in which the membrane and bending actions are superimposed may not converge in the solution of general shell problems [2], and we focus in our work on a general continuum mechanics based approach. The resulting elements are attractive because they can be used for any shell geometry and, also, a linear formulation can directly and elegantly be extended to general nonlinear formulations. However, the elements need be developed in mixed formulations, since the pure displacement formulation locks [1,2,8]. In particular, the displacement-based 3-node triangular shell ï¬nite element (QUAD3) locks severely. One approach is to use selective reduced integration resulting in the SRI3 element. Recently, using the MITC1 (Mixed Interpolation of Tensorial Components) technique for triangular shell ï¬nite elements, a 3-node MITC triangular shell ï¬nite element (MITC3) has been developed [9]. Its performance has been studied for various shell problems using well-established benchmark procedures. The element is very attractive because its formulation is simple and general, and, in particular, the behavior of the element is isotropic, that is, the stiï¬ness matrix of the triangular element does not depend on the sequence of node numbering. However, the element is not ââuniformly optimalââ, that is, some locking is present and seen in the solution of the clamped plate problem and the hyperboloid shell problem [9]. This deï¬ciency provides a motivation to further study the element behavior. It is well known that triangular shell ï¬nite elements give very diï¬erent solution accuracy depending on the mesh pattern used for a shell problem [1,10]. Hence, to evaluate a triangular shell ï¬nite element, speciï¬c diï¬erent meshes should be used to test the element performance. In addition also an appropriate norm need be used to measure the error [11]. Our objective in this paper is to further study the convergence behavior of the MITC3 shell ï¬nite element and some other 3-node triangular shell ï¬nite elements when using diï¬erent mesh patterns and the s-norm proposed by Hiller and Bathe [11]. Also, to obtain insight into the reasons why the diï¬erent results are obtained, we study
+The MITC technique has been successfully used for developing highperformance quadrilateral shell ï¬nite elements, namely the MITC4, MITC9 and MITC16 elements.
+1
+
+the transverse shear strain ï¬elds of the 3-node shell ï¬nite elements in simple bending problems. While we use exclusively 3-node triangular shell ï¬nite elements in these studies, we recognize that â as pointed out above already â in practice these elements will frequently not be used alone but only when necessary together with quadrilateral elements. However, this fact does not diminish the importance of our study. In the following sections, we ï¬rst review the formulations of four 3-node triangular shell ï¬nite elements and their strain ï¬elds. Next, considering a fully clamped plate problem and a hyperboloid shell problem, we study the convergence of the shell ï¬nite elements depending on the mesh patterns used. To further investigate the behavior of the shell ï¬nite elements, we then study the transverse shear strain ï¬elds in two simple plate bending problems. Since the s-norm is used in the convergence studies, we give in an Appendix, a general scheme for the numerical calculation of this norm. 2. Formulations of 3-node triangular shell ï¬nite elements We brieï¬y review the formulations of four diï¬erent 3node triangular shell ï¬nite elements: three isotropic elements and one non-isotropic element. Here, we only show the covariant strain ï¬elds of the elements since, once these ï¬elds are known, it is straightforward to establish the stiï¬ness matrices for the analysis of shell structures [1]. 2.1. Covariant strain ï¬elds of 3-node triangular shell ï¬nite elements The geometry of a q-node continuum mechanics based shell ï¬nite element is described by ~ s; nÃ Â¼ xÃ°r;
+q X iÂ¼1
+
+hi Ã°r; sÃ~i Ã¾ x
+
+q nX ~ ti hi Ã°r; sÃV in ; 2 iÂ¼1
+
+Ã°1Ã
+
+where hi(r,s) is the 2D shape function of the standard isoparametric procedure corresponding to node i, ~i is the pox sition vector for node i in the global Cartesian coordinate ~ system, and ti and V in denote the shell thickness and the director vector at node i, respectively (see Fig. 1). From Eq. (1), the displacement of the element is given by ~ s; nÃ Â¼ uÃ°r;
+q X iÂ¼1
+
+hi Ã°r; sÃ~i Ã¾ u
+
+q nX ~ ~ ti hi Ã°r; sÃÃ°ÃV i2 ai Ã¾ V i1 bi Ã; 2 iÂ¼1
+
+Ã°2Ã in which ~i is the nodal displacement vector in the global u ~ ~ Cartesian coordinate system, V i1 and V i2 are unit vectors ~ orthogonal to V in and to each other, and ai and bi are the rot~ ~ ~ ations of the director vector V in about V i1 and V i2 at node i. For a 3-node triangular shell ï¬nite element, q is 3 and the shape functions are h1 Â¼ 1 Ã r Ã s; h2 Â¼ r; h3 Â¼ s: Ã°3Ã
+
+406
+
+P.S. Lee et al. / Computers and Structures 85 (2007) 404â418
+
+3 1 Vn2 V22 V12 2
+iz ix iy
+
+â¢ The MITC3 element. With the assumption that the transverse shear strain be constant along the element edges, we construct the assumed transverse shear strain ï¬eld for the MITC3 element as [9] ~rn Â¼ ern Ã¾ cs; e
+Ã°2Ã Ã°1Ã Ã°1Ã
+
+~sn Â¼ esn Ã cr e
+Ã°3Ã Ã°3Ã
+
+Ã°2Ã
+
+with Ã°7Ã
+Ã°nÃ
+
+c Â¼ esn Ã ern Ã esn Ã¾ ern
+
+Fig. 1. A 3-node triangular continuum mechanics based shell ï¬nite element.
+
+and use the tying points shown in Fig. 2. In Eq. (7), ern Ã°nÃ and esn are the covariant transverse shear strains of Eq. (6) at tying point n. Note that the assumed transverse shear strain ï¬eld in Eq. (7) is spatially isotropic. â¢ The SRI3 element. The covariant transverse shear strain ï¬eld of the SRI3 shell element is assumed constant and given by Eq. (6) ^rn Â¼ ern Ã°1=3; 1=3; nÃ; e ^sn Â¼ esn Ã°1=3; 1=3; nÃ: e Ã°8Ã The transverse shear strain ï¬eld of this element is of course also spatially isotropic. Note that this element stiï¬ness matrix could be evaluated using one-point selective reduced integration for the transverse shear strains. However, this element displays a spurious zero energy mode and we would not use it in engineering analyses [1]. â¢ The NIT3 element. The three elements above are isotropic triangular shell ï¬nite elements. If we neglect the linear terms of the covariant transverse shear strains of the MITC3 element, a 3-node non-isotropic triangular shell ï¬nite element (referred herein as the NIT3 element) is obtained, â¬rn Â¼ ern ; e
+Ã°1Ã
+
+The linear part of the covariant strain components are directly calculated by 1 g u; eij Â¼ Ã°~i Ã ~ j Ã¾ ~j Ã ~ i Ã; g u; 2 where ~i Â¼ g o~ x ; ori ~i Â¼ u; o~ u ori with r1 Â¼ r; r2 Â¼ s; r3 Â¼ n: Ã°5Ã Ã°4Ã
+
+All 3-node shell elements considered here are ï¬at, and the in-plane strain components are directly calculated using Eq. (4). However, the transverse shear strains are evaluated diï¬erently for each element as we next summarize. â¢ The QUAD3 element. The covariant transverse shear strain ï¬eld of the original displacement-based 3-node triangular shell ï¬nite element is directly calculated by Eqs. (1), (2) and (4) as follows: 1 ern Â¼ Ã°~r Ã ~ n Ã¾ ~n Ã ~ r Ã; g u; g u; 2 1 g u; esn Â¼ Ã°~s Ã ~ n Ã¾ ~n Ã ~ s Ã: g u; 2 Ã°6Ã It is very well known that this element severely locks, that is, the element is too stiï¬ in bending-dominated shell problems. Of course, the strain ï¬eld of this element is spatially isotropic.
+
+â¬sn Â¼ esn : e
+
+Ã°2Ã
+
+Ã°9Ã
+
+This is a natural attempt, because if we use two such elements to represent a rectangular domain similar tying positions can be selected as used for the MITC4 element (see Section 3). The third tying point is not required for the strain interpolations. This 3-node triangular shell ï¬nite element can also be derived using the ââDiscrete Shear Gapââ concept and was referred to as the DSG3 element [12]. As for the SRI3 element, the NIT3 element also contains a spurious zero energy mode.
+
+s
+1 1
+
+s
+: Tying point
+
+~ eqÎ¾ = const. ~ esÎ¾ = const.
+
+~ es(Î¾2 )
+
+~ eq(Î¾3)
+
+r
+0
+
+r
+0
+
+~ erÎ¾ = const.
+
+1
+
+~ er(Î¾1)
+
+1
+
+â¬ pï¬ï¬ï¬ â¬ Ã°3Ã Ã°3Ã Ã°3Ã Fig. 2. Tying positions for the transverse shear strain of the MITC3 triangular shell element, eqn Â¼ esn Ã ern = 2.
+
+P.S. Lee et al. / Computers and Structures 85 (2007) 404â418
+
+407
+
+2.2. Transverse shear strain ï¬elds in ï¬at geometry In this section, we study the transverse shear strain ï¬elds of the 3-node triangular shell ï¬nite elements assuming the elements are used in plate bending problems, merely to obtain insight into the element behaviors. When the shell ï¬nite element is used for plate bending problems, with the plate of constant thickness deï¬ned in the XY-plane, we have the conditions 8 9 8 9 >0> > xi > < = < = ~ ~i Â¼ y i ; ~i Â¼ x u 0 ; V in Â¼ ~ ; V i1 Â¼ ~ ; V i2 Â¼ ~ iz ~ ix iy > > > > : ; : ; wi 0 and ti Â¼ t for all i; Ã°10Ã where ~ , ~ and ~ are the unit base vectors in the global ix iy iz Cartesian coordinate system. From Eqs. (1) and (2), we then have the geometry and displacement interpolations 9 8 3 9 8 > n P > > t Ã hi b > 3 > > > > i > > 2 >Ph x > > > > i i> > > > > iÂ¼1 > > > > iÂ¼1 > > > > = = < < 3 P n 3 ~Â¼ P Ã°11Ã ; ~ Â¼ Ã 2 t Ã hi ai : u x > > > > iÂ¼1 > > > hi y i > > > > > iÂ¼1 > > > > > > > P > 3 > > > > n > ; > : > t hi w i > ; :
+2 iÂ¼1
+
+â¢ The SRI3 element. Similarly, the SRI3 shell ï¬nite element has the transverse shear strains â¬ t 1 ^rn Â¼ ern jrÂ¼sÂ¼1=3 Â¼ w2 Ã w1 Ã¾ Ã°x2 Ã x1 ÃÃ°b1 Ã¾ b2 Ã¾ b3 Ã e 4 3 â¬ 1 Ã Ã°y 2 Ã y 1 ÃÃ°a1 Ã¾ a2 Ã¾ a3 Ã ; 3 â¬ t 1 ^sn Â¼ esn jrÂ¼sÂ¼1=3 Â¼ w3 Ã w1 Ã¾ Ã°x3 Ã x1 ÃÃ°b1 Ã¾ b2 Ã¾ b3 Ã e 4 3 â¬ 1 Ã Ã°y 3 Ã y 1 ÃÃ°a1 Ã¾ a2 Ã¾ a3 Ã : 3 Ã°15Ã â¢ The NIT3 element. Using Eq. (9), the transverse shear strain ï¬eld of the NIT3 shell ï¬nite element is â¬ t 1 â¬rn Â¼ w2 Ã w1 Ã¾ Ã°x2 Ã x1 ÃÃ°b1 Ã¾ b2 Ã e 4 2 â¬ 1 Ã Ã°y 2 Ã y 1 ÃÃ°a1 Ã¾ a2 Ã ; 2 â¬ Ã°16Ã t 1 â¬sn Â¼ w3 Ã w1 Ã¾ Ã°x3 Ã x1 ÃÃ°b1 Ã¾ b3 Ã e 4 2 â¬ 1 Ã Ã°y 3 Ã y 1 ÃÃ°a1 Ã¾ a3 Ã : 2
+
+We next consider the four diï¬erent 3-node triangular shell elements mentioned in the previous section for plate bending problems. â¢ The QUAD3 element. Using Eq. (11) in Eq. (6), we obtain the transverse shear strain ï¬eld of the 3-node displacement-based shell ï¬nite element " # 3 3 X X t ern Â¼ w2 Ã w1 Ã¾ Ã°x2 Ã x1 Ã Ã hi bi Ã Ã°y 2 Ã y 1 Ã Ã hi ai ; 4 iÂ¼1 iÂ¼1 " # 3 3 X X t hi bi Ã Ã°y 3 Ã y 1 Ã Ã hi ai : esn Â¼ w3 Ã w1 Ã¾ Ã°x3 Ã x1 Ã Ã 4 iÂ¼1 iÂ¼1 Ã°12Ã â¢ The MITC3 element. Using Eq. (7), the transverse shear strain ï¬eld of the MITC3 shell ï¬nite element is obtained
+â¬ â¬ t 1 1 w2 Ã w1 Ã¾ Ã°x2 Ã x1 ÃÃ°b1 Ã¾ b2 Ã Ã Ã°y 2 Ã y 1 ÃÃ°a1 Ã¾ a2 Ã Ã¾ cs; 4 2 2 â¬ â¬ t 1 1 ~sn Â¼ w3 Ã w1 Ã¾ Ã°x3 Ã x1 ÃÃ°b1 Ã¾ b3 Ã Ã Ã°y 3 Ã y 1 ÃÃ°a1 Ã¾ a3 Ã Ã cr e 4 2 2 ~rn Â¼ e
+
+3. Convergence studies Using a reliable ï¬nite element discretization scheme, the ï¬nite element solution converges to the exact solution of the underlying mathematical model as the element size decreases [2,3,13]. However, it is important to use an appropriate norm to measure the convergence of the ï¬nite element solutions. We use the s-norm proposed by Hiller and Bathe as a norm to measure convergence for mixed formulations [11] Z 2 jj~ Ã ~h jjs Â¼ u u D~T D~ dX; e r Ã°17Ã
+X
+
+where ~ denotes the exact solution and ~h denotes the soluu u tion of the ï¬nite element discretization. Here, ~ and ~ are e r the strain vector and the stress vector in the global Cartesian coordinate system, respectively, deï¬ned by ~ Â¼ Â½exx eyy ezz 2exy 2eyz 2ezx ÂT ; e ~ Â¼ Â½rxx ryy rzz rxy ryz rzx ÂT r and eÃ°~ x D~ Â¼ ~ Ã~h Â¼ ~ xÃ Ã Bh Ã°~h ÃUh ; e e e D~ Â¼ ~ Ã ~h Â¼ ~Ã°~ Ã Ch Ã°~h ÃBh Ã°~h ÃUh ; r r r r xÃ x x Ã°19Ã Ã°18Ã
+
+Ã°13Ã
+
+with t c Â¼ Â½Ã°y 2 Ã y 3 Ãa1 Ã¾ Ã°y 3 Ã y 1 Ãa2 Ã¾ Ã°y 1 Ã y 2 Ãa3 Ã¾ Ã°x3 Ã x2 Ãb1 8 Ã°14Ã Ã¾Ã°x1 Ã x3 Ãb2 Ã¾ Ã°x2 Ã x1 Ãb3 Â:
+
+where C denotes the material stressâstrain matrix, B is the strainâdisplacement operator and U is the vector of nodal degrees of freedom. The position vectors ~ and ~h x x
+
+408
+
+P.S. Lee et al. / Computers and Structures 85 (2007) 404â418
+
+correspond to the continuum domain and the discretized domain, respectively, and we have ~ Â¼ PÃ°~h Ã; x x Ã°20Ã
+
+Eh Â¼
+
+jj~ref Ã ~h jjs u u jj~ref jj2 u s
+
+2
+
+:
+
+Ã°23Ã
+
+where P deï¬nes a one-to-one mapping. In the practical use of this norm, a reliable ï¬nite element solution using a very ï¬ne mesh, ~ref , can be employed u instead of the exact solution. Using the reference solution, the s-norm in Eq. (17) is Z 2 jj~ref Ã ~h jjs Â¼ u u D~T D~ dXref ; e r Ã°21Ã
+Xref
+
+For a uniformly-optimal (and hence non-locking) element we would have for any shell problem Eh ï¬ chk ; Ã°24Ã
+
+with D~ Â¼ ~ref Ã~h Â¼ Bref Ã°~ref ÃUref Ã Bh Ã°~h ÃUh ; e e e x x D~ Â¼ ~ref Ã ~h Â¼ Cref Ã°~ref ÃBref Ã°~ref ÃUref Ã Ch Ã°~h ÃBh Ã°~h ÃUh r r r x x x x ~ref Â¼ PÃ°~h Ã: with x x Ã°22Ã To measure appropriately the performance of ï¬nite elements, it is necessary to study the relative error Eh deï¬ned as
+
+where c is independent of the shell thickness and k = 2. As mentioned above such a 3-node element is very diï¬cult to develop. But in such development, in order to properly see the qualities of an element, it is important to use an appropriate norm and to solve appropriate test problems decreasing the shell thickness [9,11]. A general numerical procedure to ï¬nd the one-to-one mapping in Eq. (22) and to calculate the s-norm is proposed in Appendix. Below we consider two problems for our convergence studies. We reported earlier that the MITC3 shell ï¬nite element shows excellent behavior in membrane-dominated problems [9]. Of course, the displacement-based 3-node shell ï¬nite element (QUAD3) gives optimal solutions in such problems. Since shell ï¬nite element solutions deteriorate in bending-dominated problems, we consider the fully
+y 2L
+
+z
+
+q
+
+t
+
+x
+
+D
+
+C
+
+2L
+h
+
+x
+A B
+
+y 2L
+
+y 2L
+
+D
+
+C
+
+2L
+
+D
+
+C
+
+2L
+
+x
+A B A B
+
+x
+
+Fig. 3. Fully clamped plate under uniform pressure load (L = 1.0, E = 1.7472 Â· 107, m = 0.3 and q = 1.0). (a) and (b) Regular meshes (c) Cross mesh.
+
+P.S. Lee et al. / Computers and Structures 85 (2007) 404â418
+0.5 0 -0.5 -1
+0.5 0 -0.5 -1
+
+409
+
+log Eh
+
+log Eh
+-1.5 -2 -2.5 -3 -1.8
+mesh(a), mesh(a), mesh(a), mesh(b), mesh(b), mesh(b), t/L=1/100 t/L=1/1000 t/L=1/10000 t/L=1/100 t/L=1/1000 t/L=1/10000
+
+-1.5 -2 -2.5 -3 -1.8
+mesh(c), t/L=1/100 mesh(c), t/L=1/1000 mesh(c), t/L=1/10000
+
+-1.2
+
+-0.6
+
+-1.2
+
+-0.6
+
+log h
+
+log h
+
+Fig. 4. Convergence curves of the QUAD3 shell ï¬nite element in the clamped plate problem (Left: regular mesh, Right: cross mesh).
+
+0.5 0 -0.5 -1
+
+0.5 0 -0.5 -1
+
+log Eh
+
+-1.5 -2 -2.5 -3 -1.8
+mesh(a), mesh(a), mesh(a), mesh(b), mesh(b), mesh(b), t/L=1/100 t/L=1/1000 t/L=1/10000 t/L=1/100 t/L=1/1000 t/L=1/10000
+
+log Eh
+
+-1.5 -2 -2.5 -3 -1.8
+mesh(c), t/L=1/100 mesh(c), t/L=1/1000 mesh(c), t/L=1/10000
+
+-1.2
+
+-0.6
+
+-1.2
+
+-0.6
+
+log h
+
+log h
+
+Fig. 5. Convergence curves of the SRI3 shell ï¬nite element in the clamped plate problem (Left: regular mesh, Right: cross mesh).
+
+clamped plate problem and the hyperboloid shell problem (as already solved in less extensive convergence studies in Ref. [9]). 3.1. Fully clamped plate problem We consider the plate bending problem shown in Fig. 3. The square plate of dimension 2L Â· 2L with uniform thickness t is subjected to a uniform pressure normal to the ï¬at surface and all edges are fully clamped. Due to symmetry, only one quarter model is considered (the region ABCD shown in Fig. 3) with the following symmetry and boundary conditions imposed: ux = hy = 0 along BC, uy = hx = 0 along DC and ux = uy = uz = hx = hy = 0 along AB and AD. Figs. 4â6 show the calculated convergence curves for the QUAD3, SRI3 and MITC3 shell ï¬nite elements, respec-
+
+tively, when t/L = 1/100, 1/1000 and 1/10,000, for the three diï¬erent mesh patterns of Figs. 3(a)â(c). Referring to the meshes in Fig. 3 as 4 Â· 4 element meshes, the convergence curves were obtained using 4 Â· 4, 8 Â· 8, 16 Â· 16 and 32 Â· 32 element meshes. The solutions were measured on the reference solutions, ~ref in Eq. (21), obtained using u the MITC92 shell ï¬nite element with a mesh of 48 Â· 48 elements. The solid thick line represents the optimal convergence rate which can be obtained from 3-node triangular shell ï¬nite elements, k = 2 in Eq. (24). The QUAD3 and SRI3 shell ï¬nite elements severely lock in all the cases of thickness and mesh patterns considered. The MITC3 shell ï¬nite element locks in the meshes of Figs. 3(a) and (b) but the solution accuracy is still good
+2 The reliable performance of the MITC9 shell ï¬nite element is reported in Refs. [2,11,14].
+
+410
+0.5 0 -0.5 -1
+
+P.S. Lee et al. / Computers and Structures 85 (2007) 404â418
+0.5 0 -0.5 -1
+
+log Eh
+
+-1.5 -2 -2.5 -3 -2.1
+mesh(a), mesh(a), mesh(a), mesh(b), mesh(b), mesh(b), t/L=1/100 t/L=1/1000 t/L=1/10000 t/L=1/100 t/L=1/1000 t/L=1/10000
+
+log Eh
+
+-1.5 -2 -2.5 -3 -1.8
+mesh(c), t/L=1/100 mesh(c), t/L=1/1000 mesh(c), t/L=1/10000
+
+-1.5
+
+-0.9
+
+-0.3
+
+-1.2
+
+-0.6
+
+log h
+
+log h
+
+Fig. 6. Convergence curves of the MITC3 shell ï¬nite element in the clamped plate problem (Left: regular mesh, Right: cross mesh).
+
+: Tying points of MITC4 element and element A : Tying points of element B
+
+r
+
+s
+r
+
+s
+r
+
+s
+
+s
+
+A B
+r
+
+A B
+
+s
+
+Fig. 7. Element orientations of the NIT3 element for the same mesh pattern: (a) Tying points of one MITC4 element, (b) Tying points of the NIT3 element in the element orientation-1, (c) Tying points of the NIT3 element in the element orientation-2.
+
+up to t/L = 1/1000. When the cross mesh in Fig. 3(c) is used, the MITC3 shell ï¬nite element shows the optimal convergence behavior independent of the shell thickness, and hence is uniformly optimal. As mentioned above, it is interesting to investigate the convergence characteristics of the NIT3 shell ï¬nite element when diï¬erent element orientations are used for the same mesh pattern. Since the element is not spatially isotropic, the behavior of the element depends on its orientation and the sequence of node numbering in a given mesh pattern. We use the mesh pattern of Fig. 3(a), see Fig. 7, and ï¬rst select the element orientation in Fig. 7(b), which results in the tying points used in the MITC4 shell ï¬nite element, see Fig. 7(a). We then consider the element orientation in Fig. 7(c). Fig. 8 displays the convergence curves of the NIT3 shell ï¬nite element when the element orientations of Figs. 7(b) and (c) are used. The element gives optimal convergence with the element orientation of Fig. 7(b) but locks with Fig. 7(c). Hence the NIT3 element shows diï¬erent solution accuracy depending on the element orientation (with the
+
+same mesh pattern). Here, we do not show convergence results in other cases of mesh patterns and element orientations, but locking is observed for such cases as well. Of course this solution dependency on the element orientation in a given mesh pattern does not occur in isotropic shell ï¬nite elements. 3.2. Hyperboloid shell problem This shell problem was also used in e.g. Refs. [2,9,11,13] to study shell elements. The problem is described in Fig. 9. The midsurface of the shell structure is given by x2 Ã¾ z2 Â¼ 1 Ã¾ y 2 ; y 2 Â½Ã1; 1Â Ã°25Ã
+
+and the loading imposed is the smoothly varying periodic pressure normal to the surface pÃ°hÃ Â¼ p0 cosÃ°2hÃ; Ã°26Ã
+
+where p0 = 1.0. We consider the bending-dominated problem obtained when both ends are free. Using symmetry, the analyses
+
+P.S. Lee et al. / Computers and Structures 85 (2007) 404â418
+0.5 0 -0.5 -1
+0.5 0 -0.5 -1
+
+411
+
+log Eh
+
+-1.5 -2 -2.5 -3 -1.8
+t/L=1/100 t/L=1/1000 t/L=1/10000
+
+log Eh
+
+-1.5 -2 -2.5 -3 -1.8
+t/L=1/100 t/L=1/1000 t/L=1/10000
+
+-1.2
+
+-0.6
+
+-1.2
+
+-0.6
+
+log h
+
+log h
+
+Fig. 8. Convergence curves of the NIT3 shell ï¬nite element in the clamped plate problem using the mesh pattern of Fig. 3(a): Left: element orientation-1 of Fig. 7(b), Right: element orientation-2 of Fig. 7(c).
+
+z
+0 1 1 0.5
+
+y
+D Î± C
+
+y
+
+0
+
+2L
+
+x
+
+-0.5 -1 -1
+
+Î²
+A 0 B
+1
+
+x
+
+z
+
+Center node
+
+Rectangular cell
+
+s
+
+B
+r
+
+r
+
+B A
+r
+
+A
+s
+
+s
+
+s
+
+Fig. 9. Hyperboloid shell problem (L = 1.0, E = 2.0 Â· 1011, m = 1/3 and p0 = 1.0) and mesh patterns used. (b) Regular mesh, (c) Cross mesh, (d) Tying points of the NIT3 element in the element orientation-1, (e) Tying points of the NIT3 element in the element orientation-2.
+
+are performed using one eighth of the structure, the shaded region ABCD in Fig. 9(a). Considering the boundary conditions, we have: uz = b = 0 along BC, ux = b = 0 along AD and uy = a = 0 along DC.
+
+For the convergence study we use the two diï¬erent mesh patterns shown in Figs. 9(b) and (c) and the reference solution obtained with a mesh of 48 Â· 48 MITC9 shell ï¬nite elements. The very thin boundary layer is not specially
+
+412
+
+P.S. Lee et al. / Computers and Structures 85 (2007) 404â418
+
+meshed. For the mesh in Fig. 9(c), the center node positions of rectangular cells are evaluated from the average of the positions of the corners; hence the center nodes are not quite on the midsurface of the shell given in Eq. (25). Figs. 10 and 11 show that the QUAD3 and SRI3 shell ï¬nite elements severely lock in the two types of meshes. Fig. 12 displays that, when the mesh of Fig. 9(b) is used, the MITC3 element also locks but the solution accuracy is useful in practice. When the mesh of Fig. 9(c) is used, the solutions using the MITC3 element become much better. In Fig. 13, we report that the convergence of the NIT3 element is uniformly optimal with the element orientation-1 of Fig. 9(d) but a very diï¬erent convergence behavior and much worse solution accuracy are obtained with the element orientation-2 of Fig. 9(e). It is important to note that there is a large diï¬erence in the solution accuracy
+0.5 0 -0.5 -1
+
+depending on the element orientation in a given mesh pattern when this non-isotropic triangular shell ï¬nite element is used. We can expect a similar undesirable behavior for other non-isotropic triangular shell ï¬nite elements, a behavior that needs to be understood and taken into account, automatically or otherwise, in practical analyses. 4. Simple bending test problems To this point, we presented the convergence behaviors of four diï¬erent triangular shell ï¬nite elements depending on mesh patterns and element orientations used. Considering a cantilever plate problem and a two-sided clamped plate problem modeled with two or four elements, we next further study the transverse shear strain ï¬elds of the QUAD3, MITC3 and SRI3 triangular shell elements and the locking phenomenon in diï¬erent meshes.
+0.5 0 -0.5 -1
+
+log Eh
+
+-1.5 -2 -2.5 -3 -1.8
+t/L=1/100 t/L=1/1000 t/L=1/10000
+
+log Eh
+
+-1.5 -2 -2.5 -3 -1.8
+t/L=1/100 t/L=1/1000 t/L=1/10000
+
+-1.2
+
+-0.6
+
+-1.2
+
+-0.6
+
+log h
+
+log h
+
+Fig. 10. Convergence curves of the QUAD3 shell ï¬nite element in the hyperboloid shell problem (Left: regular mesh, Right: cross mesh).
+
+0.5 0 -0.5 -1
+
+0.5 0 -0.5 -1
+
+log Eh
+
+-1.5 -2 -2.5 -3 -1.8
+t/L=1/100 t/L=1/1000 t/L=1/10000
+
+log Eh
+
+-1.5 -2 -2.5 -3 -1.8
+t/L=1/100 t/L=1/1000 t/L=1/10000
+
+-1.2
+
+-0.6
+
+-1.2
+
+-0.6
+
+log h
+
+log h
+
+Fig. 11. Convergence curves of the SRI3 shell ï¬nite element in the hyperboloid shell problem (Left: regular mesh, Right: cross mesh).
+
+P.S. Lee et al. / Computers and Structures 85 (2007) 404â418
+0.5 0 -0.5 -1
+0.5 0 -0.5 -1
+
+413
+
+log Eh
+
+-1.5 -2 -2.5 -3 -2.1
+t/L=1/100 t/L=1/1000 t/L=1/10000
+
+log Eh
+
+-1.5 -2 -2.5 -3 -1.8
+t/L=1/100 t/L=1/1000 t/L=1/10000
+
+-1.5
+
+-0.9
+
+-0.3
+
+-1.2
+
+-0.6
+
+log h
+
+log h
+
+Fig. 12. Convergence curves of the MITC3 shell ï¬nite element in the hyperboloid shell problem (Left: regular mesh, Right: cross mesh).
+
+0.5 0 -0.5 -1
+
+0.5 0 -0.5 -1
+
+log Eh
+
+log Eh
+-1.5 -2 -2.5 -3 -1.8
+t/L=1/100 t/L=1/1000 t/L=1/10000
+
+-1.5 -2 -2.5 -3 -1.8
+t/L=1/100 t/L=1/1000 t/L=1/10000
+
+-1.2
+
+-0.6
+
+-1.2
+
+-0.6
+
+log h
+
+log h
+
+Fig. 13. Convergence curves of the NIT3 shell ï¬nite element in the hyperboloid shell problem using the mesh pattern of Fig. 9(b): Left: element orientation-1 of Fig. 9(d), Right: element orientation-2 of Fig. 9(e).
+
+4.1. Cantilever plate problem Let us consider the cantilever plate of dimension L Â· L shown in Fig. 14. The structure is subjected to a uniform moment ma along its tip. This is a basic problem to test the pure bending behavior of beam/plate/shell ï¬nite elements. We use only two triangular shell ï¬nite elements to solve the problem: element-I and element-II in Fig. 14 are used to examine in detail the behavior of the QUAD3, MITC3 and SRI3 shell ï¬nite elements. The boundary condition of this plate problem along the clamped edge is wÂ¼aÂ¼bÂ¼0 and from the geometry, Ã°27Ã
+
+x1 Â¼ 1; y 1 Â¼ 0; and x1 Â¼ 0; y 1 Â¼ 1; and
+
+x2 Â¼ 1; y 2 Â¼ 1
+
+x3 Â¼ 0; y 3 Â¼ 0 for element-I; x2 Â¼ 1; y 2 Â¼ 1
+
+Ã°28Ã
+
+x3 Â¼ 0; y 3 Â¼ 0 for element-II; in which the subscripts are the element node numbers on the element level, see Figs. 1 and 14. Note that the node numbers used in the following equations correspond to the global node numbers given in Fig. 14. This is a pure bending problem, that is, the exact analytical solution corresponds to ern Â¼ esn Â¼ 0 in X; Ã°29Ã
+
+414
+
+P.S. Lee et al. / Computers and Structures 85 (2007) 404â418
+2 Î±tip
+
+z, w
+1 Î± tip 2 wtip
+
+y, v
+
+cla
+
+m
+
+pe
+
+d
+1 wtip
+
+Î²
+
+mÎ±
+L
+
+x, u
+t
+Î±
+
+L z, w
+w 3 = Î±3 = Î² 3 = 0
+s
+4
+
+y, v
+Î²
+
+pe lams c
+1
+
+d
+I
+r
+
+3
+
+II
+2
+
+r
+
+x, u
+Î±
+
+w1 = Î± 1 = Î² 1 = 0
+
+Fig. 14. Cantilever plate problem (L = 1.0, ma = 2/L, E = 1.7472 Â· 107, m = 0.0). The rotations b1 and b2 should be zero and are for clarity not shown in tip tip the ï¬gure.
+
+where X is the whole plate domain including the elements-I and -II, and the theoretical relationship between the deï¬ection wtip, rotation atip and rotation btip, which can be calculated from basic mechanics, is given by 1 wtip Â¼ atip ; 2 btip Â¼ 0: Ã°30Ã
+
+t eII Â¼ Ã°w2 Ã w4 Ã¾ h1 b4 Ã¾ h2 b2 Ã; rn 4 t eII Â¼ Ã°Ãw4 Ã¾ h1 a4 Ã¾ h2 a2 Ã: sn 4
+
+Ã°32Ã
+
+There is no anticlastic curvature since Poissonâs ratio m = 0.0. Hence the exact solutions for the nodal rotations and displacements in Fig. 14 must correspond to Eq. (30). We now summarize the resulting transverse shear strain ï¬elds obtained in the solution of this problem for the three shell ï¬nite elements. â¢ The QUAD3 element. Using the conditions in Eqs. (27) and (28) with Eq. (12), we obtain the transverse shear strain ï¬eld of element-I, t eI Â¼ Ã°w2 Ã a2 rÃ; rn 4 t eI Â¼ Ã b2 r; sn 4 Ã°31Ã
+
+Note that, in Eqs. (31) and (32), r and s are independently deï¬ned in each element, that is, r and s in element-I are independent of r and s in element-II. A necessary condition, but not suï¬cient, for an element to avoid locking is that the transverse shear strain ï¬eld can express the pure bending condition in Eq. (29) with the solution in Eq. (30). For the QUAD3 element, however, the solution in Eq. (30) does not make the transverse shear strain ï¬eld in Eqs. (31) and (32) vanish in elements-I and -II and therefore locking is expected in this case. â¢ The MITC3 element. Similarly, we obtain for the MITC3 element â¬ â¬ t 1 ~I Â¼ ern w2 Ã a2 Ã¾ cI s; ~I Â¼ ÃcI r with esn 4 2 t Ã°33Ã cI Â¼ b 2 ; 8 and
+
+and the transverse shear strain ï¬eld of element-II,
+
+P.S. Lee et al. / Computers and Structures 85 (2007) 404â418
+
+415
+
+~II Â¼ ern
+
+â¬ â¬ t 1 1 w2 Ã w4 Ã¾ b4 Ã¾ b2 Ã¾ cII s; 4 2 2 â¬ â¬ t 1 ~II Â¼ Ãw4 Ã¾ a4 Ã cII r with esn 4 2 t cII Â¼ Ã°a4 Ã a2 Ã b4 Ã 8
+
+Table 2 Strain energies for the cantilever plate problem t/L 1/100 1/1000 QUAD3 3.71728EÃ04 3.71849EÃ03 MITC3 1.37363E+00 1.37363E+03 SRI3 1.03040E+00 1.03022E+03
+
+Ã°34Ã rotations, whereas the QUAD3 and SRI3 elements do not give good results. Table 1 also shows that the QUAD3 and SRI3 elements each produce diï¬erent displacements at both tips and the nodal variables of the SRI3 element satisfy the above conditions. Note that excellent results would be obtained for any ratio of t/L using the MITC3 element. Also, if the cross mesh pattern of the MITC3 shell element is used for this cantilever plate problem, the same excellent results are obtained. The cantilever plate problem is a bending-dominated problem and the strain energy U stored in the structure is a function of the thickness, see Ref. [4], U Ã°tÃ / tÃ3 : Ã°40Ã
+
+Using the condition in Eq. (29), we obtain 1 1 1 w2 Ã a2 Â¼ 0; b2 Â¼ 0; w2 Ã w4 Ã¾ b4 Ã¾ b2 Â¼ 0; 2 2 2 1 Ã w4 Ã¾ a4 Â¼ 0; a4 Ã a2 Ã b4 Â¼ 0; Ã°35Ã 2 and Eq. (30) satisï¬es Eq. (35), that is, 1 1 w4 Â¼ w2 Â¼ a4 Â¼ a2 ; b4 Â¼ b2 Â¼ 0: 2 2
+
+Ã°36Ã
+
+Therefore, Eq. (30) is a solution of Eq. (35). As a result, the MITC3 shell ï¬nite element can express the pure bending condition. â¢ The SRI3 element. For the SRI3 element we obtain â¬ â¬ t 1 t ^I Â¼ w2 Ã a2 ; ^I Â¼ Ã b2 ern Ã°37Ã esn 4 3 12 â¬ â¬ t 1 1 w2 Ã w4 Ã¾ b4 Ã¾ b2 ; 4 3 3 â¬ â¬ t 1 1 ^II Â¼ Ãw4 Ã¾ a4 Ã¾ a2 ; esn 4 3 3 ^II Â¼ ern and
+
+Ã°38Ã
+
+Table 2 shows the strain energies of the cantilever plate problem for the thickness parameters t/L = 1/100 and t/L = 1/1000. As expected, the numerical results show that the MITC3 shell ï¬nite element works well in this plate problem but the QUAD3 element locks. Note that, although the SRI3 element is based on a transverse shear strain interpolation of lower order than the MITC3 element, the MITC3 element gives a more ï¬exible bending behavior. 4.2. Two-sided clamped plate problem We observed that in the cantilever plate problem the MITC3 shell ï¬nite element does not lock, but it shows some locking in the fully clamped plate problem and the hyperboloid shell problem. Considering a simple two-sided clamped plate problem, we further investigate the behavior of the MITC3 shell ï¬nite element. The clamped plate of dimension L Â· L shown in Fig. 15 is subjected to uniform moments ma and Ãmb along its free sides. The boundary conditions are w = a = b = 0 along the clamped edges. We consider three diï¬erent meshes, mesh A, mesh B and mesh C as shown in Fig. 15. Table 3 presents the strain energies calculated using the MITC3 shell ï¬nite element. The results show that the MITC3 element works well in the meshes B and C, but locks when using the mesh A. Considering the mesh A and using the notation of Section 4.1, the boundary conditions are a1 Â¼ a3 Â¼ a4 Â¼ b1 Â¼ b3 Â¼ b4 Â¼ w1 Â¼ w3 Â¼ w4 Â¼ 0: The transverse shear strain ï¬eld is given by â¬ â¬ t 1 t I ~rn Â¼ w2 Ã a2 Ã¾ cI s; ~I Â¼ ÃcI r with cI Â¼ b2 esn e 4 2 8 Ã°42Ã Ã°41Ã
+
+and the analysis shows that the SRI3 shell ï¬nite element can also not predict the pure bending displacement in Eq. (30) and, indeed, the transverse shear strains vanish with 1 w2 Ã a2 Â¼ 0; b2 Â¼ 0; 3 1 1 w4 Ã b4 Ã¾ a2 Â¼ 0 3 3 leading to locking. We next calculate the numerical results using the three shell ï¬nite elements for the cantilever plate problem with L = 1, ma = 2/L, E = 1.7472 Â· 107 and m = 0.0. Table 1 shows the tip deï¬ections and rotations when t/L = 1/1000. As expected, Table 1 shows that the MITC3 shell ï¬nite element produces the theoretical tip displacements and
+Table 1 Tip displacements of the cantilever plate problem (t/L = 1/1000) QUAD3 w1 tip w2 tip a1 tip a2 tip b1 tip b2 tip 1.27650EÃ03 2.24774EÃ03 3.13575EÃ03 4.30124EÃ03 5.54999EÃ04 1.66499EÃ03 MITC3 6.86813E+02 6.86813E+02 1.37363E+03 1.37363E+03 0.00000E+00 0.00000E+00 SRI3 4.57876E+02 6.86814E+02 1.37363E+03 6.86816E+02 2.06043EÃ03 6.86811E+02 Theoretical value 6.86813E+02 6.86813E+02 1.37363E+03 1.37363E+03 0.00000E+00 0.00000E+00
+
+a4 Ã b4 Â¼ 0; Ã°39Ã
+
+416
+
+P.S. Lee et al. / Computers and Structures 85 (2007) 404â418
+
+z, w
+Î±tip âÎ²tip
+
+clamped
+
+y, v
+Î²
+
+c
+
+lam
+
+p
+
+ed
+
+wtip
+âm Î²
+
+mÎ±
+L
+
+x, u
+Î±
+
+L
+
+Mesh A
+
+Mesh B
+
+Mesh C
+
+Fig. 15. Two-sided clamped plate (L = 1.0, ma = mb = 2/L, E = 1.7472 Â· 107, m = 0.0). Table 3 Strain energies using the MITC3 element for the two-sided clamped plate problem t/L 1/100 1/1000 Mesh A 4.11903EÃ04 4.12086EÃ03 Mesh B 6.86813EÃ01 6.86813E+02 Mesh C 6.86937EÃ01 6.86814E+02
+
+and
+~II ern â¬ â¬ t 1 w2 Ã¾ b2 Ã¾ cII s; Â¼ 4 2 ~II Â¼ ÃcII r esn t with cII Â¼ Ã a2 : 8 Ã°43Ã
+
+shell problem. Although the SRI3 and NIT3 elements contain a spurious zero energy mode â and can therefore not be recommended for practical use â we evaluated these elements in our study merely to obtain insight into element behaviors. Regarding the convergence behavior of the 3-node triangular shell ï¬nite elements, we have made the following observations: â¢ In the fully clamped plate problem, the QUAD3 and SRI3 shell ï¬nite elements severely lock regardless of the mesh patterns used. In the regular meshes, the MITC3 element shows some locking but frequently acceptable for practical analysis, and when the cross mesh of the MITC3 shell ï¬nite element is used, almost optimal convergence is obtained. The NIT3 shell ï¬nite element shows optimal convergence when for a speciï¬c mesh pattern the tying points of the element are aligned as used in the MITC4 element, but locking is seen in other cases, that is, the solution accuracy given by the NIT3 element highly depends on the mesh patterns used and on the element orientation in a given mesh pattern. â¢ In the hyperboloid shell problem, severe locking is seen for the QUAD3 and SRI3 shell ï¬nite elements. The MITC3 shell ï¬nite element shows alleviated locking in the regular mesh and much better results in the cross mesh. For the NIT3 element, the results highly depend on the element orientation in a given mesh pattern. We also studied the transverse shear strain ï¬elds and strain energies stored in two simple plate bending problems. This simple study gave some insight why there is the mesh-dependent behavior of the MITC3 shell ï¬nite element in the fully clamped plate problem and the hyperboloid shell problem.
+
+Clearly, the only nodal displacements and rotations that satisfy the pure bending condition are a2 Â¼ b2 Â¼ w2 Â¼ 0; Ã°44Ã
+
+and this implies locking in this case. Similarly, it is simple to show that the QUAD3 and SRI3 elements lock in this plate problem for all three meshes used. These results are in correspondence with the ï¬nding that, while of course the QUAD3, SRI3, and MITC3 elements pass the membrane patch tests, of these elements only the MITC3 element passes also the bending patch test [1]. 5. Conclusions Our objective was to obtain insight into the convergence behavior of 3-node triangular shell ï¬nite elements in bending-dominated problems depending on the mesh patterns used. We reviewed the formulations of four 3-node triangular shell ï¬nite elements and their strain ï¬elds, the QUAD3, SRI3, MITC3 and NIT3 elements, and presented the solutions of a fully clamped plate problem and a hyperboloid
+
+P.S. Lee et al. / Computers and Structures 85 (2007) 404â418
+
+417
+
+Based on the results of this study, it is obvious that for the benchmark tests of triangular shell ï¬nite elements, various mesh patterns need to be considered, and, in addition, when non-isotropic shell ï¬nite elements are tested, their performance should also be studied considering their various orientations in the given mesh patterns.
+
+Appendix. A general scheme for the numerical calculation of the s-norm We here propose a numerical procedure to calculate the s-norm for shell ï¬nite element solutions with general types of elements and general meshes. The reference numerical solution given by ~ref is u employed instead of the exact solution and the target numerical solution given by ~h is compared with this referu ence solution. The major diï¬culty of the s-norm calculation is to establish the mapping points between the reference mesh and the target mesh. We evaluate the integration in Eq. (21) using the Gauss integration technique in the reference domain. Figs. 16(a) and (b) shows the reference mesh and the target mesh. In the ï¬gures, (rref, sref, nref) are the isoparametric coordinates of the Gauss integration point of the element in the refer-
+
+ence mesh, and (rh, sh, nh) are the corresponding isoparametric coordinates of the corresponding element in the target mesh. Our goal is to ï¬nd the corresponding element and to establish (rh, sh) for the given (rref, sref) because nh = nref in shells. The ï¬rst step is to ï¬nd the corresponding element in the target mesh. From the given (rref, sref) of the element in the reference mesh, we calculate the global coordinates (xref, yref, zref) xref Â¼ zref Â¼
+nref X iÂ¼1 nref X iÂ¼1
+
+hi Ã°rref ; sref Ãxiref ; hi Ã°rref ; sref Ãziref ;
+
+y ref Â¼
+
+nref X iÂ¼1
+
+hi Ã°rref ; sref Ãy iref ; Ã°A:1Ã
+
+where nref is the number of nodes of the element in the reference mesh. Then in the target mesh we ï¬nd the element corresponding to the minimum of g Pm jS Ã iÂ¼1 S i j : Ã°A:2Ã gÂ¼ S Here S is the area of the element tested in the target mesh, Si is the area of the triangle which consists of the point (xref, yref, zref) and the edge i of that element in the target mesh and m is the number of edges on the boundary of that
+
+(xref,yref,zref) (rref , sref , Î¾ref )
+
+(rh , sh , Î¾ h )
+
+Î© ref
+
+Î©h
+
+( xre f , yre f , z re f )
+P
+
+Î¼
+
+1
+
+3
+
+s
+
+P
+
+sh
+2
+
+( xh , y h , z h ) rh
+r
+
+Fig. 16. Mapping between the reference mesh and the target mesh (The corresponding element in the target mesh is shaded in (b), (c) and (d).); (a) Reference mesh, (b) Target mesh, (c) Triangular areas of a tested 3-node element in the target mesh, (d) Finding (rh,sh) in the corresponding element.
+
+418
+
+P.S. Lee et al. / Computers and Structures 85 (2007) 404â418
+
+element. For example, in Fig. 16, S is given by the points 1-2-3 in Fig. 16(c), and S1 (by points 1-2-P), S2 (by points 2-3-P) and S3 (by points 3-1-P) in Fig. 16(c) are the triangular areas for the tested 3-node element in the target mesh. For a ï¬at element, if the point (xref, yref, zref) is inside the element, g = 0; otherwise g > 0. Considering general geometries, it is suï¬cient to ï¬nd the element for which g in Eq. (A.2) is minimized. To search for the element accurately in a general n-node element mesh, we divide each n-node element into triangular domains and proceed as above. The second step is to ï¬nd (rh, sh) in the element that was just found, see Fig. 16(d). We need to establish the solution (rh, sh) that minimizes l Â¼ Ã°xh Ã xref Ã Ã¾ Ã°y h Ã y ref Ã Ã¾ Ã°zh Ã zref Ã ; with xh Â¼ zh Â¼
+nh X iÂ¼1 nh X iÂ¼1 nh X iÂ¼1 2 2 2
+
+u s but it is important to note that in general k~ref Ã ~h k2 6Â¼ u u 2 u 2 k~ref ks Ã k~h ks .
+
+References
+[1] Bathe KJ. Finite element procedures. New Jersey: Prentice Hall; 1996. [2] Chapelle D, Bathe KJ. The ï¬nite element analysis of shells â fundamentals. Berlin: Springer; 2003. [3] Chapelle D, Bathe KJ. Fundamental considerations for the ï¬nite element analysis of shell structures. Comput Struct 1998;66:19â36, 711â712. [4] Lee PS, Bathe KJ. On the asymptotic behavior of shell structures and the evaluation in ï¬nite element solutions. Comput Struct 2002;80:235â55. [5] Bathe KJ, Zhang H. Finite element developments for general ï¬uid ï¬ows with structural interactions. Int J Numer Meth Eng 2004;60:213â32. [6] Bernadou M. Finite element methods for thin shell problems. New York: John Wiley & Sons; 1996. [7] Chapelle D, Bathe KJ. The mathematical shell model underlying general shell elements. Int J Numer Meth Eng 2000;48:289â313. Â´ [8] Bucalem ML, Nobrega SHS. A mixed formulation for general triangular isoparametric shell elements based on the degenerated solid approach. Comput Struct 2000;78:35â44. [9] Lee PS, Bathe KJ. Development of MITC isotropic triangular shell ï¬nite elements. Comput Struct 2004;82:945â62. [10] To CWS, Liu ML. Hybrid strain based three-node ï¬at triangular shell elements. Finite Elem Anal Des 1994;17:169â203. [11] Hiller JF, Bathe KJ. Measuring convergence of mixed ï¬nite element discretizations: an application to shell structures. Comput Struct 2002;81:639â54. [12] Bletzinger KU, Bischoï¬ M, Ramm E. A uniï¬ed approach for shearlocking-free triangular and rectangular shell ï¬nite elements. Comput Struct 2000;75:321â34. [13] Lee PS, Bathe KJ. Insight into ï¬nite element shell discretizations by use of the basic shell mathematical model. Comput Struct 2005;83:69â90. [14] Bathe KJ, Iosilevich A, Chapelle D. An evaluation of the MITC shell elements. Comp Struct 2000;75:1â30. [15] Kojic M, Bathe KJ. Inelastic analysis of solids and structures. Berlin: Springer; 2005.
+
+Ã°A:3Ã
+
+hi Ã°rh; sh Ãxih ; hi Ã°rh; sh Ãzih ;
+
+yh Â¼
+
+hi Ã°rh; sh Ãy ih ; Ã°A:4Ã
+
+where nh is the number of nodes of the corresponding element in the target mesh. We achieve this by employing, for example, a simple bisection algorithm [15]. Finally, we calculate the strains and stresses for (rref, sref, nref) in the reference solution and for (rh, sh, nh) in the target solution and, by Eq. (21), the s-norm is obtained. This scheme can be used for shell ï¬nite element solutions (reference and target) with general types of elements and general meshes. Also, of course Z 1 1 2 ~T ~ref dXref u e r k~ref ks Â¼ 2 2 Xref ref Â¼ the strain energy of the reference solution; 1 1 u s k~h k2 Â¼ 2 2 Z
+Xref
+
+Ã°A:5Ã ~T~h dXref eh r Ã°A:6Ã
+
+% the strain energy of the target solution;
+

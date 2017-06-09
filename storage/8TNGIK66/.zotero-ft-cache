@@ -1,0 +1,1696 @@
+The Finite Element Method Fifth edition Volume 2: Solid Mechanics
+
+Professor O.C. Zienkiewicz, CBE, FRS, FREng is Professor Emeritus and Director of the Institute for Numerical Methods in Engineering at the University of Wales, Swansea, UK. He holds the UNESCO Chair of Numerical Methods in Engineering at the Technical University of Catalunya, Barcelona, Spain. He was the head of the Civil Engineering Department at the University of Wales Swansea between 1961 and 1989. He established that department as one of the primary centres of Â®nite element research. In 1968 he became the Founder Editor of the International Journal for Numerical Methods in Engineering which still remains today the major journal in this Â®eld. The recipient of 24 honorary degrees and many medals, Professor Zienkiewicz is also a member of Â®ve academies Â± an honour he has received for his many contributions to the fundamental developments of the Â®nite element method. In 1978, he became a Fellow of the Royal Society and the Royal Academy of Engineering. This was followed by his election as a foreign member to the U.S. Academy of Engineering (1981), the Polish Academy of Science (1985), the Chinese Academy of Sciences (1998), and the National Academy of Science, Italy (Academia dei Lincei) (1999). He published the Â®rst edition of this book in 1967 and it remained the only book on the subject until 1971. Professor R.L. Taylor has more than 35 years' experience in the modelling and simulation of structures and solid continua including two years in industry. In 1991 he was elected to membership in the U.S. National Academy of Engineering in recognition of his educational and research contributions to the Â®eld of computational mechanics. He was appointed as the T.Y. and Margaret Lin Professor of Engineering in 1992 and, in 1994, received the Berkeley Citation, the highest honour awarded by the University of California, Berkeley. In 1997, Professor Taylor was made a Fellow in the U.S. Association for Computational Mechanics and recently he was elected Fellow in the International Association of Computational Mechanics, and was awarded the USACM John von Neumann Medal. Professor Taylor has written several computer programs for Â®nite element analysis of structural and non-structural systems, one of which, FEAP, is used world-wide in education and research environments. FEAP is now incorporated more fully into the book to address non-linear and Â®nite deformation problems.
+
+Front cover image: A Finite Element Model of the world land speed record (765.035 mph) car THRUST SSC. The analysis was done using the Â®nite element method by K. Morgan, O. Hassan and N.P. Weatherill at the Institute for Numerical Methods in Engineering, University of Wales Swansea, UK. (see K. Morgan, O. Hassan and N.P. Weatherill, `Why didn't the supersonic car Â¯y?', Mathematics Today, Bulletin of the Institute of Mathematics and Its Applications, Vol. 35, No. 4, 110Â±114, Aug. 1999).
+
+The Finite Element Method
+Fifth edition
+
+Volume 2: Solid Mechanics
+UNESCO Professor of Numerical Methods in Engineering International Centre for Numerical Methods in Engineering, Barcelona Emeritus Professor of Civil Engineering and Director of the Institute for Numerical Methods in Engineering, University of Wales, Swansea
+
+O.C. Zienkiewicz, CBE, FRS, FREng
+
+Professor in the Graduate School Department of Civil and Environmental Engineering University of California at Berkeley Berkeley, California
+
+R.L. Taylor
+
+OXFORD AUCKLAND BOSTON JOHANNESBURG MELBOURNE NEW DELHI
+
+Butterworth-Heinemann Linacre House, Jordan Hill, Oxford OX2 8DP 225 Wildwood Avenue, Woburn, MA 01801-2041 A division of Reed Educational and Professional Publishing Ltd
+
+First published in 1967 by McGraw-Hill Fifth edition published by Butterworth-Heinemann 2000 # O.C. Zienkiewicz and R.L. Taylor 2000
+All rights reserved. No part of this publication may be reproduced in any material form (including photocopying or storing in any medium by electronic means and whether or not transiently or incidentally to some other use of this publication) without the written permission of the copyright holder except in accordance with the provisions of the Copyright, Designs and Patents Act 1988 or under the terms of a licence issued by the Copyright Licensing Agency Ltd, 90 Tottenham Court Road, London, England W1P 9HE. Applications for the copyright holder's written permission to reproduce any part of this publication should be addressed to the publishers
+
+British Library Cataloguing in Publication Data A catalogue record for this book is available from the British Library Library of Congress Cataloguing in Publication Data A catalogue record for this book is available from the Library of Congress ISBN 0 7506 5055 9 Published with the cooperation of CIMNE, the International Centre for Numerical Methods in Engineering, Barcelona, Spain (www.cimne.upc.es)
+
+Typeset by Academic & Technical Typesetting, Bristol Printed and bound by MPG Books Ltd
+
+Dedication This book is dedicated to our wives Helen and Mary Lou and our families for their support and patience during the preparation of this book, and also to all of our students and colleagues who over the years have contributed to our knowledge of the Â®nite element method. In particular we would like to mention Professor Eugenio Onate and his group at CIMNE for Ã their help, encouragement and support during the preparation process.
+
+.......................................... Preface to Volume 2
+
+General problems in solid mechanics and ............................. non-linearity .............................. Introduction Small deformation non-linear solid mechanics ........................... problems Non-linear quasi-harmonic field problems ......... Some typical examples of transient ....................................... non-linear calculations .......................................... Concluding remarks
+
+Solution of non-linear algebraic equations ...... .............................. Introduction ........................................... Iterative techniques
+
+Inelastic and non-linear materials ..................... .............................. Introduction Viscoelasticity - history dependence of ............................... deformation Classical time-independent plasticity theory ..... Computation of stress increments ..................... ................................. Isotropic plasticity models Generalized plasticity - non-associative case ... Some examples of plastic computation ............. Basic formulation of................. creep problems Viscoplasticity - a generalization ....................... Some special problems of brittle materials ........ Non-uniqueness and localization in elasto-plastic deformations ................................ Adaptive refinement and localization ....................................... (slip-line) capture Non-linear quasi-harmonic field problems .........
+
+Plate bending approximation: thin (Kirchhoff) plates and C1 continuity .............................. requirements .............................. Introduction The plate problem: thick and thin ............................... formulations Rectangular element with corner nodes (12 .......................................... degrees of freedom) Quadrilateral and parallelograpm ...... elements Triangular element with corner nodes (9 .......................................... degrees of freedom) Triangular element of the simplest form (6 .......................................... degrees of freedom) The patch test - an analytical requirement ........ .......................................... Numerical examples ...................................... General remarks Singular shape functions for the simple ........................................ triangular element An 18 degree-of-freedom triangular element with conforming shape functions ....................... Compatible quadrilateral elements .................... Quasi-conforming elements .............................. Hermitian rectangle shape function ................... The 21 and 18 degree-of-freedom triangle ........ Mixed formulations - general remarks ............... ........................................ Hybrid plate elements Discrete Kirchhoff constraints ............................ ...................................... Rotation-free elements Inelastic material behaviour ............................... Concluding remarks - which elements? ............
+
+âThickâ Reissner - Mindlin plates - irreducible ...................................... and mixed formulations .............................. Introduction The irreducible formulation - reduced ............................. integration
+
+Mixed formulation for thick plates ...................... The patch test for plate bending elements ........ Elements with discrete collocation constraints .. Elements with rotational bubble or enhanced ...................... modes Linked interpolation - an improvement of .......................... accuracy Discrete âexactâ thin plate limit ........................... Performance of various âthickâ plate elements - limitations of twin plate theory ......................... Forms without rotation parameters .................... Inelastic material behaviour ............................... Concluding remarks - adaptive refinement ........
+
+Shells as an assembly of flat elements............ .............................. Introduction Stiffness of a plane element in local .............................. coordinates Transformation to global coordinates and ........................................ assembly of elements ...................................... Local direction cosines âDrillingâ rotational stiffness - 6 degree-of-freedom assembly ............................ Elements with mid-side slope connections .................. only ......................................... Choice of element .......................................... Practical examples
+
+.......................................... Axisymmetric shells .............................. Introduction ...................................... Straight element ....................................... Curved elements Independent slope - displacement interpolation with penalty functions (thick or ...................................... thin shell formulations)
+
+Shells as a special case of three-dimensional analysis Reissner-Mindlin assumptions .......................... .............................. Introduction Shell element with displacement and rotation .............................. parameters Special case of axisymmetric, curved, thick .....................shells Special case of thick plates ............................... ................................. Convergence .......................................... Inelastic behaviour ........................................ Some shell examples .......................................... Concluding remarks
+
+Semi-analytical finite element processes use of orthogonal functions and âfinite stripâ ....................... methods .............................. Introduction ................................. bar Prismatic Thin membrane box structures .......................... Plates............................ and boxes and flexure Axisymmetric solids with non-symmetrical .................. load Axisymmetric shells with non-symmetrical .................. load Finite strip method - incomplete decoupling ...... .......................................... Concluding remarks
+
+Geometrically non-linear problems - finite ............................. deformation .............................. Introduction ......................................... Governing equations Variational description for finitite deformation ... A three-field mixed finite deformation ............................. forumation
+
+A mixed-enhanced finite deformation ............................. forumation Forces dependent on deformation - pressure .................... loads Material constitution for finite deformation ......... ........................................ Contact problems .......................................... Numerical examples .......................................... Concluding remarks
+
+Non-linear structural problems - large displacement and instability .............................. .............................. Introduction Large displacement theory of beams ................ Elastic stability - energy interpretation ............... Large displacement theory of .........plates thick Large displacement theory of thin plates ........... Solution of large deflection problems ................ .....................Shells .......................................... Concluding remarks
+
+Pseudo-rigid and rigid-flexible bodies .............. .............................. Introduction ......................................... Pseudo-rigid motions ................................. Rigid motions Connecting a rigid body to a flexible body ......... Multibody coupling by joints .............................. .......................................... Numerical examples
+
+Computer procedures for finite element ...................... analysis .............................. Introduction Description of additional program features ........ Solution of non-linear problems ......................... ..................................option Restart Solution of example problems ........................... .......................................... Concluding remarks
+
+............................ Appendix A
+
+....................................... A1 Principal invariants ........................................ A2 Moment invariants A3 derivatives of invariants ...............................
+
+..............................index Author
+
+...............................index Subject
+
+Volume 1: The basis
+1. Some preliminaries: the standard discrete system 2. A direct approach to problems in elasticity 3. Generalization of the Â®nite element concepts. Galerkin-weighted residual and variational approaches 4. Plane stress and plane strain 5. Axisymmetric stress analysis 6. Three-dimensional stress analysis 7. Steady-state Â®eld problems Â± heat conduction, electric and magnetic potential, Â¯uid Â¯ow, etc 8. `Standard' and `hierarchical' element shape functions: some general families of C0 continuity 9. Mapped elements and numerical integration Â± `inÂ®nite' and `singularity' elements 10. The patch test, reduced integration, and non-conforming elements 11. Mixed formulation and constraints Â± complete Â®eld methods 12. Incompressible problems, mixed methods and other procedures of solution 13. Mixed formulation and constraints Â± incomplete (hybrid) Â®eld methods, boundary/TreÂtz methods 14. Errors, recovery processes and error estimates 15. Adaptive Â®nite element reÂ®nement 16. Point-based approximations; element-free Galerkin Â± and other meshless methods 17. The time dimension Â± semi-discretization of Â®eld and dynamic problems and analytical solution procedures 18. The time dimension Â± discrete approximation in time 19. Coupled systems 20. Computer procedures for Â®nite element analysis Appendix A. Matrix algebra Appendix B. Tensor-indicial notation in the approximation of elasticity problems Appendix C. Basic equations of displacement analysis Appendix D. Some integration formulae for a triangle Appendix E. Some integration formulae for a tetrahedron Appendix F. Some vector algebra Appendix G. Integration by parts Appendix H. Solutions exact at nodes Appendix I. Matrix diagonalization or lumping
+
+Volume 3: Fluid dynamics
+1. Introduction and the equations of Â¯uid dynamics 2. Convection dominated problems Â± Â®nite element approximations 3. A general algorithm for compressible and incompressible Â¯ows Â± the characteristic based split (CBS) algorithm 4. Incompressible laminar Â¯ow Â± newtonian and non-newtonian Â¯uids 5. Free surfaces, buoyancy and turbulent incompressible Â¯ows 6. Compressible high speed gas Â¯ow 7. Shallow-water problems 8. Waves 9. Computer implementation of the CBS algorithm Appendix A. Non-conservative form of NavierÂ±Stokes equations Appendix B. Discontinuous Galerkin methods in the solution of the convectionÂ± diÂusion equation Appendix C. Edge-based Â®nite element formulation Appendix D. Multi grid methods Appendix E. Boundary layer Â± inviscid Â¯ow coupling
+
+Preface to Volume 2
+The Â®rst volume of this edition covered basic aspects of Â®nite element approximation in the context of linear problems. Typical examples of two- and three-dimensional elasticity, heat conduction and electromagnetic problems in a steady state and transient state were dealt with and a Â®nite element computer program structure was introduced. However, many aspects of formulation had to be relegated to the second and third volumes in which we hope the reader will Â®nd the answer to more advanced problems, most of which are of continuing practical and research interest. In this volume we consider more advanced problems in solid mechanics while in Volume 3 we consider applications in Â¯uid dynamics. It is our intent that Volume 2 can be used by investigators familiar with the Â®nite element method in general terms and will introduce them here to the subject of specialized topics in solid mechanics. This volume can thus in many ways stand alone. Many of the general Â®nite element procedures available in Volume 1 may not be familiar to a reader introduced to the Â®nite element method through diÂerent texts. We therefore recommend that the present volume be used in conjunction with Volume 1 to which we make frequent reference. Two main subject areas in solid mechanics are covered here: 1. Non-linear problems (Chapters 1Â±3 and 10Â±12) In these the special problems of solving non-linear equation systems are addressed. In the Â®rst part we restrict our attention to non-linear behaviour of materials while retaining the assumptions on small strain used in Volume 1 to study the linear elasticity problem. This serves as a bridge to more advanced studies later in which geometric eÂects from large displacements and deformations are presented. Indeed, non-linear applications are today of great importance and practical interest in most areas of engineering and physics. By starting our study Â®rst using a small strain approach we believe the reader can more easily comprehend the various aspects which need to be understood to master the subject matter. We cover in some detail problems in viscoelasticity, plasticity, and viscoplasticity which should serve as a basis for applications to other material models. In our study of Â®nite deformation problems we present a series of approaches which may be used to solve problems including extensions for treatment of constraints (e.g. near incompressibility and rigid body motions) as well as those for buckling and large rotations.
+
+xiv Preface to Volume 2
+
+2. Plates and shells (Chapters 4Â±9) This section is of course of most interest to those engaged in `structural mechanics' and deals with a speciÂ®c class of problems in which one dimension of the structure is small compared to the other two. This application is one of the Â®rst to which Â®nite elements were directed and which still is a subject of continuing research. Those with interests in other areas of solid mechanics may well omit this part on Â®rst reading, though by analogy the methods exposed have quite wide applications outside structural mechanics. Volume 2 concludes with a chapter on Computer Procedures, in which we describe application of the basic program presented in Volume 1 to solve non-linear problems. Clearly the variety of problems presented in the text does not permit a detailed treatment of all subjects discussed, but the `skeletal' format presented and additional information available from the publisher's web site1 will allow readers to make their own extensions. We would like at this stage to thank once again our collaborators and friends for many helpful comments and suggestions. In this volume our particular gratitude goes to Professor Eric Kasper who made numerous constructive comments as well as contributing the section on the mixedÂ±enhanced method in Chapter 10. We would also like to take this opportunity to thank our friends at CIMNE for providing a stimulating environment in which much of Volume 2 was conceived. OCZ and RLT
+
+1 Complete source code for all programs in the three volumes may be obtained at no cost from the publisher's web page: http://www.bh.com/companions/fem
+
+1 General problems in solid mechanics and non-linearity
+1.1 Introduction
+In the Â®rst volume we discussed quite generally linear problems of elasticity and of Â®eld equations. In many practical applications the limitation of linear elasticity or more generally of linear behaviour precludes obtaining an accurate assessment of the solution because of the presence of non-linear eÂects and/or because of the geometry having a `thin' dimension in one or more directions. In this volume we describe extensions to the formulations previously introduced which permit solutions to both classes of problems. Non-linear behaviour of solids takes two forms: material non-linearity and geometric non-linearity. The simplest form of a non-linear material behaviour is that of elasticity for which the stress is not linearly proportional to the strain. More general situations are those in which the loading and unloading response of the material is diÂerent. Typical here is the case of classical elasto-plastic behaviour. When the deformation of a solid reaches a state for which the undeformed and deformed shapes are substantially diÂerent a state of Â®nite deformation occurs. In this case it is no longer possible to write linear strain-displacement or equilibrium equations on the undeformed geometry. Even before Â®nite deformation exists it is possible to observe buckling or load bifurcations in some solids and non-linear equilibrium eÂects need to be considered. The classical Euler column where the equilibrium equation for buckling includes the eÂect of axial loading is an example of this class of problem. Structures in which one dimension is very small compared with the other two deÂ®ne plate and shell problems. A plate is a Â¯at structure with one thin direction which is called the thickness, and a shell is a curved structure in space with one such small thickness direction. Structures with two small dimensions are called beams, frames, or rods. Generally the accurate solution of linear elastic problems with one (or more) small dimension(s) cannot be achieved eÂciently by using the three-dimensional Â®nite element formulations described in Chapter 6 of Volume 11 and conventionally in the past separate theories have been introduced. A primary reason is the numerical ill-conditioning which results in the algebraic equations making their accurate solution diÂcult to achieve. In this book we depart from past tradition and build a much stronger link to the full three-dimensional theory.
+
+2 General problems in solid mechanics and non-linearity
+
+This volume will consider each of the above types of problems and formulations which make practical Â®nite element solutions feasible. We establish in the present chapter the general formulation for both static and transient problems of a non-linear kind. Here we show how the linear problems of steady state behaviour and transient behaviour discussed in Volume 1 become non-linear. Some general discussion of transient non-linearity will be given here, and in the remainder of this volume we shall primarily conÂ®ne our remarks to quasi-static (i.e. no inertia eÂects) and static problems only. In Chapter 2 we describe various possible methods for solving non-linear algebraic equations. This is followed in Chapter 3 by consideration of material non-linear behaviour and the development of a general formulation from which a Â®nite element computation can proceed. We then describe the solution of plate problems, considering Â®rst the problem of thin plates (Chapter 4) in which only bending deformations are included and, second, the problem in which both bending and shearing deformations are present (Chapter 5). The problem of shell behaviour adds in-plane membrane deformations and curved surface modelling. Here we split the problem into three separate parts. The Â®rst, combines simple Â¯at elements which include bending and membrane behaviour to form a faceted approximation to the curved shell surface (Chapter 6). Next we involve the addition of shearing deformation and use of curved elements to solve axisymmetric shell problems (Chapter 7). We conclude the presentation of shells with a general form using curved isoparametric element shapes which include the eÂects of bending, shearing, and membrane deformations (Chapter 8). Here a very close link with the full three-dimensional analysis of Volume 1 will be readily recognized. In Chapter 9 we address a class of problems in which the solution in one coordinate direction is expressed as a series, for example a Fourier series. Here, for linear material behavior, very eÂcient solutions can be achieved for many problems. Some extensions to non-linear behaviour are also presented. In the last part of this volume we address the general problem of Â®nite deformation as well as specializations which permit large displacements but have small strains. In Chapter 10 we present a summary for the Â®nite deformation of solids. Basic relations for deÂ®ning deformation are presented and used to write variational forms related to the undeformed conÂ®guration of the body and also to the deformed conÂ®guration. It is shown that by relating the formulation to the deformed body a result is obtain which is nearly identical to that for the small deformation problem we considered in Volume 1 and which we expand upon in the early chapters of this volume. Essential diÂerences arise only in the constitutive equations (stressÂ±strain laws) and the addition of a new stiÂness term commonly called the geometric or initial stress stiÂness. For constitutive modelling we summarize alternative forms for elastic and inelastic materials. In this chapter contact problems are also discussed. In Chapter 11 we specialize the geometric behaviour to that which results in large displacements but small strains. This class of problems permits use of all the constitutive equations discussed for small deformation problems and can address classical problems of instability. It also permits the construction of non-linear extensions to plate and shell problems discussed in Chapters 4Â±8 of this volume. In Chapter 12 we discuss specialization of the Â®nite deformation problem to address situations in which a large number of small bodies interact (multiparticle or granular bodies) or individual parts of the problem are treated as rigid bodies.
+
+Small deformation non-linear solid mechanics problems
+
+3
+
+In the Â®nal chapter we discuss extensions to the computer program described in Chapter 20 of Volume 1 necessary to address the non-linear material, the plate and shell, and the Â®nite deformation problems presented in this volume. Here the discussion is directed primarily to the manner in which non-linear problems are solved. We also brieÂ¯y discuss the manner in which elements are developed to permit analysis of either quasi-static (no inertia eÂects) or transient applications.
+
+1.2 Small deformation non-linear solid mechanics problems
+1.2.1 Introduction and notation
+In this general section we shall discuss how the various equations which we have derived for linear problems in Volume 1 can become non-linear under certain circumstances. In particular this will occur for structural problems when non-linear stressÂ± strain relationships are used. But the chapter in essence recalls here the notation and the methodology which we shall adopt throughout this volume. This repeats matters which we have already dealt with in some detail. The reader will note how simply the transition between linear and non-linear problems occurs. The Â®eld equations for solid mechanics are given by equilibrium (balance of momentum), strain-displacement relations, constitutive equations, boundary conditions, and initial conditions.2Ã¿7 In the treatment given here we will use two notational forms. The Â®rst is a cartesian tensor indicial form (e.g. see Appendix B, Volume 1) and the second is a matrix form as used extensively in Volume 1.1 In general, we shall Â®nd that both are useful to describe particular parts of formulations. For example, when we describe large strain problems the development of the so-called `geometric' or `initial stress' stiÂness is most easily described by using an indicial form. However, in much of the remainder, we shall Â®nd that it is convenient to use the matrix form. In order to make steps clear we shall here review the equations for small strain in both the indicial and the matrix forms. The requirements for transformations between the two will also be again indicated. For the small strain applications and Â®xed cartesian systems we denote coordinates as x; y; z or in index form as x1 ; x2 ; x3 . Similarly, the displacements will be denoted as u; v; w or u1 ; u2 ; u3 . Where possible the coordinates and displacements will be denoted as xi and ui , respectively, where the range of the index i is 1, 2, 3 for three-dimensional applications (or 1, 2 for two-dimensional problems). In matrix form we write the coordinates as V W V W b x b b x1 b ` a ` a Â1:1Â x Â y Â x2 b b b b X Y X Y z x3 and displacements as V W V W b u b b u1 b ` a ` a u Â v Â u2 Â1:2Â b b b b X Y X Y w u3
+
+4 General problems in solid mechanics and non-linearity
+
+1.2.2 Weak form for equilibrium Â± Â®nite element discretization
+The equilibrium equations (balance of linear momentum) are given in index form as u i; j Â 1; 2; 3 Â1:3Â â¬ji; j Â bi Â â¬i ; where â¬ij are components of (Cauchy) stress, â¬ is mass density, bi are body force components and (Â) denotes partial diÂerentiation with respect to time. In the above, and in the sequel, we always use the convention that repeated indices in a term are summed over the range of the index. In addition, a partial derivative with respect to the coordinate xi is indicated by a comma, and a superposed dot denotes partial diÂerentiation with respect to time. Similarly, moment equilibrium (balance of angular momentum) yields symmetry of stress given indicially as â¬ij Â â¬ji Â1:4Â Equations (1.3) and (1.4) hold at all points xi in the domain of the problem â¬. Stress boundary conditions are given by the traction condition " ti Â â¬ji nj Â ti Â1:5Â for all points which lie on the part of the boundary denoted as Ã¿t . A variational (weak) form of the equations may be written by using the procedures described in Chapter 3 of Volume 1 and yield the virtual work equations given by1;8;9 Â Â Â Â " i dâ¬ Â â¬"ij â¬ij dâ¬ Ã¿ â¬ui bi dâ¬ Ã¿ â¬ui â¬ u â¬ui ti dâ¬ Â 0 Â1:6Â
+â¬ â¬ â¬ Ã¿t
+
+In the above cartesian tensor form, virtual strains are related to virtual displacements as â¬"ij Â 1 Ââ¬ui; j Â â¬uj;i Â Â1:7Â 2 In this book we will often use a transformation to matrix form where stresses are given in the order r Â Â â¬11 â¬22 â¬33 â¬12 â¬23 â¬31 ÂT Ã ÃT Â â¬xx â¬yy â¬zz â¬xy â¬yz â¬zx and strains by e Â Â "11 "22 "33 
+12 
+23 
+31 ÂT Ã ÃT Â "xx "yy "zz 
+xy 
+yz 
+zx Â1:9Â Â1:8Â
+
+where symmetry of the tensors is assumed and `engineering' shear strains are introduced asÃ 
+ij Â 2"ij Â1:10Â to make writing of subsequent matrix relations in a consistent manner. The transformation to the six independent components of stress and strain is performed by using the index order given in Table 1.1. This ordering will apply to
+Ã
+
+This form is necessary to allow the internal work always to be written as rT e.
+
+Small deformation non-linear solid mechanics problems
+Table 1.1 Index relation between tensor and matrix forms Form Matrix Tensor (1; 2; 3) Tensor (x; y; z) 1 11 xx 2 22 yy Index value 3 33 zz 4 12 21 xy yx 5 23 32 yz zy 6 31 13 zx xz
+
+5
+
+many subsequent developments also. The order is chosen to permit reduction to twodimensional applications by merely deleting the last two entries and treating the third entry as appropriate for plane or axisymmetric applications. In matrix form, the virtual work equation is written as (see Chapter 3 of Volume 1) Â Â Â Â T T T â¬u â¬ dâ¬ Â â¬e r dâ¬ Ã¿ â¬u b dâ¬ Ã¿ u â¬uT " dÃ¿ Â 0 t Â1:11Â
+â¬ â¬ â¬ Ã¿t
+
+Finite element approximations to displacements and virtual displacements are denoted by uÂx; tÂ Â NÂxÂ ~ÂtÂ and â¬uÂxÂ Â NÂxÂâ¬~ u u Â1:12Â or in isoparametric form as uÂn; tÂ Â NÂnÂ~ÂtÂY u â¬uÂnÂ Â NÂnÂâ¬~ u with ~ xÂnÂ Â NÂnÂ x Â1:13Â Â1:14Â and may be used to compute virtual strains as u u â¬e Â S â¬u Â ÂSNÂâ¬~ Â B â¬~ in which the three-dimensional strain-displacement matrix is given by [see Eq. (6.11), Volume 1] Q P N;1 0 0 T 0 N 0 U ;2 U T U T T 0 0 N;3 U U Â1:15Â BÂT U TN T ;2 N;1 0 U U T R 0 N;3 N;2 S N;3 0 N;1 ~ In the above, u denotes time-dependent nodal displacement parameters and â¬~ u represents arbitrary virtual displacement parameters. Noting that the virtual parameters â¬~ are arbitrary we obtain for the discrete u problemÃ ~ M Â PÂrÂ Â f u Â1:16Â where Â M Â NT â¬N dâ¬ Â1:17Â Â fÂ
+Ã
+
+â¬
+
+â¬
+
+NT b dâ¬ Â
+
+Â
+Ã¿t
+
+NT " dÃ¿ t
+
+Â1:18Â
+
+Â u For simplicity we omit direct damping which leads to the term C~ (see Chapter 17, Volume 1).
+
+6 General problems in solid mechanics and non-linearity
+
+and PÂrÂ Â
+
+Â
+â¬
+
+BT r dâ¬
+
+Â1:19Â
+
+The term P is often referred to as the stress divergence or stress force term. In the case of linear elasticity the stress is immediately given by the stressÂ±strain relations (see Chapter 2, Volume 1) as r Â De Â1:20Â when eÂects of initial stress and strain are set to zero. In the above the D are the usual elastic moduli written in matrix form. If a displacement method is used the strains are obtained from the displacement Â®eld by using e Â B~ u Equation (1.19) becomes PÂrÂ Â â¬Â
+â¬
+
+Â1:21Â
+
+â¬ B DB dâ¬ ~ Â K~ u u
+T
+
+Â1:22Â
+
+in which K is the linear stiÂness matrix. In many situations, however, it is necessary to use non-linear or time-dependent stressÂ±strain (constitutive) relations and in these cases we shall have to develop solution strategies directly from Eq. (1.19). This will be considered further in detail in later chapters. However, at this stage we simply need to note that r Â rÂeÂ Â1:23Â quite generally and that the functional relationship can be very non-linear and occasionally non-unique. Furthermore, it will be necessary to use a mixed approach if constraints, such as near incompressibility, are encountered. We address this latter aspect in Sec. 1.2.4; however, before doing so we consider Â®rst the manner whereby solution of the transient equations may be computed by using step-by-step time integration methods discussed in Chapter 18 of Volume 1.
+
+1.2.3 Non-linear formulation of transient and steady-state problems
+To obtain a set of algebraic equations for transient problems we introduce a discrete approximation in time. We consider the GN22 method or the Newmark procedure as being applicable to the second-order equations (see Chapter 18, Volume 1). Dropping the tilde on discrete variables for simplicity we write the approximation to the solution as ~Âtn Â 1 Â % un Â 1 u and now the equilibrium equation (1.16) at each discrete time tn Â 1 may be written in a residual form as u Ãn Â 1 Â fn Â 1 Ã¿ Mn Â 1 Ã¿ Pn Â 1 Â 0 Â1:24Â
+
+Small deformation non-linear solid mechanics problems
+
+7
+
+where Pn Â 1 â¬
+
+Â
+â¬
+
+BT rn Â 1 dâ¬ Â PÂun Â 1 Â
+
+Â1:25Â
+
+Using the GN22 formulae, the discrete displacements, velocities, and accelerations are linked by [see Eq. (18.62), Volume 1] Â un Â 1 Â un Â Ãt un Â 1 Â1 Ã¿ â¬2 ÂÃt2 n Â 1 â¬2 Ãt2 n Â 1 u u 2 2 Â Â u u un Â 1 Â un Â Â1 Ã¿ â¬1 ÂÃtn Â â¬1 Ãt n Â 1 Â1:26Â Â1:27Â
+
+where Ãt Â tn Â 1 Ã¿ tn . Equations (1.26) and (1.27) are simple, vector, linear relationships as the coeÂcient â¬1 and â¬2 are assigned a priori and it is possible to take the basic unknown in Eq. Â (1.24) as any one of the three variables at time step n Â 1 (i.e. un Â 1 , un Â 1 or n Â 1 ). u A very convenient choice for explicit schemes is that of n Â 1 . In such schemes we u take the constant â¬2 as zero and note that this allows un Â 1 to be evaluated directly from the initial values at time tn without solving any simultaneous equations. Immediately, therefore, Eq. (1.24) will yield the values of n Â 1 by simple inversion u of matrix M. If the M matrix is diagonalized by any one of the methods which we have discussed in Volume 1, the solution for n Â 1 is trivial and the problem can be considered solved. u However, such explicit schemes are only conditionally stable as we have shown in Chapter 18 of Volume 1 and may require many time steps to reach a steady state solution. Therefore for transient problems and indeed for all static (steady state) problems, it is often more eÂcient to deal with implicit methods. Here, most conÂ veniently, un Â 1 can be taken as the basic variable from which un Â 1 and n Â 1 can be u calculated by using Eqs (1.26) and (1.27). The equation system (1.24) can therefore be written as Â1:28Â ÃÂun Â 1 Â â¬ Ãn Â 1 Â 0 The solution of this set of equations will require an iterative process if the relations are non-linear. We shall discuss various non-linear calculation processes in some detail in Chapter 2; however, the NewtonÂ±Raphson method forms the basis of most practical schemes. In this method an iteration is as given below
+kÂ1 Ãn Â 1 % Ãk Â 1 Â n
+
+@Ãk duk Â 0 @un Â 1 n
+
+Â1:29Â
+
+where duk is an increment to the solutionÃ such that n
+Â1 uk Â 1 Â uk Â 1 Â duk n n n
+
+Â1:30Â
+
+For problems in which path dependence is involved it is necessary to keep track of the total increment during the iteration and write
+Â1 k uk Â 1 Â un Â Ãun Â 1 n
+
+Â1:31Â Â1:32Â
+
+Thus the total increment can be accumulated by using the same solution increments as
+kÂ1 Ãuk Â 1 Â un Â 1 Ã¿ un Â Ãuk Â duk n n n
+Ã
+
+Note that an italic `d' is used for a solution increment and an upright `d' for a diÂerential.
+
+8 General problems in solid mechanics and non-linearity
+
+in which a quantity without the superscript k denotes a converged value from a previous time step. The initial iterate may be taken as zero or, more appropriately, as the converged solution from the last time step. Accordingly, u1 Â 1 Â un n giving also duk Â ÂKk ÂÃ¿1 Ãk Â 1 n T n where the tangent matrix is computed as Kk Â Ã¿ T @Ãk @un Â 1 Ãu1 Â 0 n Â1:33Â
+
+A solution increment is now computed from Eq. (1.29) as Â1:34Â
+
+From expressions (1.24) and (1.26) we note that the above equations can be rewritten as Â @Pk @ u 2 Kk Â Â M n Â 1 Â BT Dk B dâ¬ Â M T T @un Â 1 @un Â 1 â¬2 Ãt2 â¬ We note that the above relation is similar but not identical to that of linear elasticity. Here Dk is the tangent modulus matrix for the stressÂ±strain relation (which T may or may not be unique but generally is related to deformations in a nonlinear manner). Iteration continues until a convergence criterion of the form jjÃk Â 1 jj 4 "jjÃ1 Â 1 jj n n Â1:35Â or similar is satisÂ®ed for some small tolerance ". A good practice is to assume the tolerance at half machine precision. Thus, if the machine can compute to about 16 digits of accuracy, selection of " Â 10Ã¿8 is appropriate. Additional discussion on selection of appropriate convergence criteria is presented in Chapter 2. Various forms of non-linear elasticity have in fact been used in the present context and here we present a simple approach in which we deÂ®ne a strain energy W as a function of e W Â WÂeÂ Â WÂ"ij Â and we note that this deÂ®nition gives us immediately rÂ @W @e Â1:36Â
+
+If the nature of the function W is known, we note that the tangent modulus Dk T becomes 2 3k @2W @e k DT Â and BÂ @e@e n Â 1 @u The algebraic non-linear solution in every time step can now be obtained by the process already discussed. In the general procedure during the time step, we have Â to take an initial value for un Â 1 , for example, u1 Â 1 Â un (and similarly for un Â 1 n and n Â 1 ) and then calculate at step 2 the value of Ãk Â 1 at k Â 1, and obtain u n
+
+Small deformation non-linear solid mechanics problems
+
+9
+
+du1 Â 1 updating the value of uk Â 1 by Eq. (1.30). This of course necessitates calculation n n of stresses at tn Â 1 to obtain the necessary forces. It is worthwhile noting that the solution for steady state problems proceeds on identical lines with solution variable Â chosen as un Â 1 but now we simply say n Â 1 Â un Â 1 Â 0 as well as the corresponding u terms in the governing equations.
+
+1.2.4 Mixed or irreducible forms
+The previous formulation was cast entirely in terms of the so-called displacement formulation which indeed was extensively used in the Â®rst volume. However, as we mentioned there, on some occasions it is convenient to use mixed Â®nite element forms and these are especially necessary when constraints such as incompressibility arise. It has been frequently noted that certain constitutive laws, such as those of viscoelasticity and associative plasticity that we will discuss in Chapter 3, the material behaves in a nearly incompressible manner. For such problems a reformulation following the procedures given in Chapter 12 of Volume 1 is necessary. We remind the reader that on such occasions we have two choices of formulation. We can have the variables u and p (where p is the mean stress) as a two-Â®eld formulation (see Sec. 12.3 or 12.7 of Volume 1) or we can have the variables u, p and "v (where "v is the volume change) as a three-Â®eld formulation (see Sec. 12.4, Volume 1). An alternative three-Â®eld form is the enhanced strain approach presented in Sec. 11.5.3 of Volume 1. The matter of which we use depends on the form of the constitutive equations. For situations where changes in volume aÂect only the pressure the twoÂ®eld form can be easily used. However, for problems in which the response is coupled between the deviatoric and mean components of stress and strain the three-Â®eld formulations lead to much simpler forms from which to develop a Â®nite element model. To illustrate this point we present again the mixed formulation of Sec. 12.4 in Volume 1 and show in detail how such coupled eÂects can be easily included without any change to the previous discussion on solving non-linear problems. The development also serves as a basis for the development of an extended form which permits the treatment of Â®nite deformation problems. This extension will be presented in Sec. 10.4 of Chapter 10.
+
+A three-Â®eld mixed method for general constitutive models
+
+In order to develop a mixed form for use with constitutive models in which mean and deviatoric eÂects can be coupled we recall (Chapter 12 of Volume 1) that mean and deviatoric matrix operators are given by V W b1b b b b b b b b1b b b b b b b `1a 1 Y Id Â I Ã¿ mmT ; mÂ Â1:37Â b0b 3 b b b b b b b0b b b b b b b X Y 0 where I is the identity matrix.
+
+10 General problems in solid mechanics and non-linearity
+
+As in Volume 1 we introduce independent parameters "v and p describing volumetric change and mean stress (pressure), respectively. The strains may now be expressed in a mixed form as e Â Id ÂSuÂ Â 1 m "v 3 and the stresses in a mixed form as ! r Â Id r Â mp Â1:39Â ! where r is the set of stresses deduced directly from the strains, incremental strains, or strain rates, depending on the particular constitutive model form. For the present we shall denote this stress by ! r Â rÂeÂ Â1:40Â where we note it is not necessary to split the model into mean and deviatoric parts. The Galerkin (variational) equations for the case including transients are now given by Â Â Â Â T T T â¬u â¬  dâ¬ Â â¬ÂSuÂ r dâ¬ Â â¬u b dâ¬ Â u â¬uT " dÃ¿ t
+â¬
+
+Â1:38Â
+
+Â Â
+â¬ â¬
+
+â¬
+
+â¬
+
+Ã¿t
+
+â¬"v
+
+Ã1
+3
+
+! mT r Ã¿ p dâ¬ Â 0
+
+Ã
+
+Â1:41Â
+
+Ã Ã â¬p mT ÂSuÂ Ã¿ "v dâ¬ Â 0
+
+Introducing Â®nite element approximations to the variables as u % Â Â N u ~; u u â¬u % â¬Â Â Nu â¬~; u u Â p p % p Â Np ~ â¬p % â¬Â Â Np â¬~ p p and and "v % Âv Â Nv~v e " â¬"v % â¬Âv Â Nv â¬~v " e and similar approximations to virtual quantities as the strain and virtual strain in an element become e Â Id B~ Â 1 mNv~v ; e u 3 â¬e Â Id B â¬~ Â 1 mNv â¬~v u 3 e Â1:42Â
+
+in which B is the standard strain-displacement matrix given in Eq. (1.15). Similarly, the stresses in each element may be computed by using ! p r Â Id r Â mNp ~ Â1:43Â ! where again r are stresses computed as in Eq. (1.40) in terms of the strains e. Substituting the element stress and strain expressions from Eqs (1.42) and (1.43) into Eq. (1.41) we obtain the set of Â®nite element equations ~ P Â M Â f u Pp Ã¿ C~ Â 0 p e Ã¿CT ~v Â E~ Â 0 u Â1:44Â
+
+Small deformation non-linear solid mechanics problems
+
+11
+
+where PÂ CÂ
+
+Â Â Â fÂ
+â¬
+
+BT r dâ¬; NT Np v dâ¬; Â
+Ã¿t
+
+Pp Â 1 3 EÂ NT " dÃ¿ ut
+
+Â
+â¬
+
+! NT mT r dâ¬ v Â1:45Â
+
+Â
+
+â¬
+
+â¬
+
+NT mT B dâ¬ p
+
+â¬
+
+NT b dâ¬ Â u
+
+If the pressure and volumetric strain approximations are taken locally in each element and Nv Â Np it is possible to solve the second and third equation of (1.44) in each element individually. Noting that the array C is now symmetric positive deÂ®nite, we may always write these as ~ Â CÃ¿1 Pp p ~v Â CÃ¿1 E~ Â W~ e u u The mixed strain in each element may now be computed as ! ! ! B 1 1 ~ e Â Id B Â mBv ~ Â Id u u m 3 Bv 3 where Bv Â Nv W Â1:48Â deÂ®nes a mixed form of the volumetric strain-displacement equations. From the above results it is possible to write the vector P in the alternative forms10;11 Â P Â BT r dâ¬ Â Â Â Â Â
+â¬
+
+Â1:46Â
+
+Â1:47Â
+
+â¬
+
+! BT Id r dâ¬ Â ! BT Id r dâ¬ Â
+T
+
+Â
+â¬
+
+BT mNp dâ¬ CÃ¿1 Pp ! WT NT mT r dâ¬ v Â1:49Â
+
+Â
+
+â¬
+
+â¬
+
+! 1 T T ! B Id Â Bv m r dâ¬ 3
+
+1 3
+
+Â
+â¬
+
+The computation of P may then be represented in a matrix form as 4 5 Â Ã T Ã Id T ! PÂ B Bv 1 T r dâ¬ â¬ 3m
+
+Â1:50Â
+
+in which we note the inclusion of the transpose of the matrices appearing in the expression for the mixed strain given in Eq. (1.47). Based on this result we observe that it is not necessary to compute the true mixed stress except when reporting Â®nal results where, for situations involving near incompressible behaviour, it is crucial to compute explicitly the mixed pressure to avoid any spurious volumetric stress eÂects.
+
+12 General problems in solid mechanics and non-linearity
+
+The last step in the process is the computation of the tangent for the equations. This is straightforward using forms given by Eq. (1.40) where we obtain d! Â DT de r ! Use of Eq. (1.47) to express the incremental mixed strains then gives 4 5 ! Â Ã Ã B Ã T Ã Id T ! KT Â dâ¬ D T Id 1 m B Bv 1 T 3 Bv â¬ 3m It should be noted that construction of a modiÂ®ed modulus term given by 4 5 4 5 1 ! ! Ã Ã Id Id D T Id Id D T m 3 " ! D T Â 1 T D T Id 1 m Â 3 1 T! ! m DT Id 1 mT DT m 3m
+3 9
+
+Â1:51Â
+
+Â1:52Â
+
+requires very few operations because of the sparsity and form of the arrays Id and m. Consequently, the multiplications by the coeÂcient matrices B and Bv in this form is " far more eÂcient than constructing a full B as " B Â Id B Â 1 mBv 3 Â1:53Â ! and operating on DT directly. The above form for the mixed element generalizes the result in Volume 1 and is valid for use with many diÂerent linear and non-linear constitutive models. In Chapter 3 we consider stressÂ±strain behaviour modelled by viscoelasticity, classical plasticity, and generalized plasticity formulations. Each of these forms can lead to situations in which a nearly incompressible response is required and for many examples included in this volume we shall use the above mixed formulation. Two basic forms are considered: four-noded quadrilateral or eight-noded brick isoparametric elements with constant interpolation in each element for one-term approximations to Nv and Np by unity; and nine-noded quadrilateral or 27-noded brick isoparametric elements with linear interpolation for Np and Nv .Ã Accordingly, in two dimensions we use Np Â Nv Â Â 1 â¬ and in three dimensions Np Â Nv Â Â 1 â¬ â¬ â¬Â or Â1 x y zÂ The elements created by this process may be used to solve a wide range of problems in solid mechanics, as we shall illustrate in later chapters of this volume. â¬Â or Â1 x yÂ
+
+1.3 Non-linear quasi-harmonic Â®eld problems
+In subsequent chapters we shall touch upon non-linear problems in the context of inelastic constitutive equations for solids, plates, and shells and in geometric eÂects
+Formulations using the eight-noded quadrilateral and twenty-noded brick serendipity elements may also be constructed; however, we showed in Chapter 11 of Volume 1 that these elements do not fully satisfy the mixed patch test.
+Ã
+
+Non-linear quasi-harmonic Â®eld problems 13
+
+arising from Â®nite deformation. In Volume 3 non-linear eÂects will be considered for various Â¯uid mechanics situations. However, non-linearity also may occur in many other problems and in these the techniques described in this chapter are still universally applicable. An example of such situations is the quasi-harmonic equation which is encountered in many Â®elds of engineering. Here we consider a simple quasi-harmonic problem given by (e.g. heat conduction) Â â¬câ¬ Â rT q Ã¿ QÂâ¬Â Â 0 Â1:54Â with suitable boundary conditions. Such a form may be used to solve problems ranging from temperature response in solids, seepage in porous media, magnetic eÂects in solids, and potential Â¯uid Â¯ow. In the above, q is a Â¯ux and generally this can be written as q Â qÂâ¬; râ¬Â Â kÂâ¬; râ¬Ârâ¬ or, after linearization, dq Â k0 dâ¬ Â k1 dÂrâ¬Â where k0 Â i @qi @â¬ and k1 Â ij @qi @â¬; j
+
+The source term QÂâ¬Â also can introduce non-linearity. A discretization based on Galerkin procedures gives after integration by parts of the q term the problem Â Â Â â¬Ã Â â¬â¬ â¬c â¬ dâ¬ Ã¿ Ârâ¬â¬ÂT q dâ¬
+â¬
+
+Â
+â¬
+
+â¬
+
+Â
+Ã¿q
+
+Ã¿
+
+â¬â¬ QÂâ¬Â dâ¬ Ã¿
+
+" â¬â¬ qn dÃ¿ Â 0
+
+Â1:55Â
+
+and is still valid if q and/or Q (and indeed the boundary conditions) are dependent on â¬ or its derivatives. Introducing the interpolations ~ ~ â¬ Â Nf and â¬â¬ Â N â¬f Â1:56Â a discretized form is given as Â ~ ~ ~ Ã Â fÂf Â Ã¿ Cf Ã¿ Pq Âf Â Â 0 where CÂ Â
+â¬
+
+Â1:57Â
+
+NT â¬c N dâ¬ NT q dâ¬ Â
+Ã¿q
+
+Â
+â¬
+
+Pq Â Ã¿ Â fÂ
+â¬
+
+Â1:58Â " NT qn dÃ¿
+
+NT QÂâ¬Â dâ¬ Ã¿
+
+Equation (1.57) may be solved following similar procedures described in Chapter 18, Volume 1. For instance, just as we did with GN22 we can now use GN11 as Â Â f n Â 1 Â f n Â Â1 Ã¿ â¬Âf n Â â¬ f n Â 1 Â1:59Â
+
+14 General problems in solid mechanics and non-linearity
+
+Â Once again we have the choice of using f n Â 1 or f n Â 1 as the primary solution variable. To this extent the process of solving transient problems follows absolutely the same lines as those described in the previous section (and indeed in the previous volume) and need not be further discussed. We note again that the use of f n Â 1 as the chosen variable will allow the solution method to be applied to static or steady state problems in which the Â®rst term of Eq. (1.54) becomes zero.
+
+1.4 Some typical examples of transient non-linear calculations
+In this section we report results of some transient problems of structural mechanics as well as Â®eld problems. As we mentioned earlier, we usually will not consider transient behaviour in latter parts of this book as the solution process for transients follow essentially the path described in Volume 1. The governing equation for this set of physical problems is discussed in the previous section, with â¬ being the temperature T now [Eq. (1.54)]. Non-linearity clearly can arise from the speciÂ®c heat, c, thermal conductivity, k, and source, Q, being temperature-dependent or from a radiation boundary condition k @T Â Ã¿â¬ÂT Ã¿ Ta Ân @n Â1:60Â
+
+Transient heat conduction
+
+with n TÂ 1. Here â¬ is a convective heat transfer coeÂcient and Ta is an ambient external temperature. We shall show two examples to illustrate the above. The Â®rst concerns the freezing of ground in which the latent heat of freezing is represented by varying the material properties with temperature in a narrow zone, as shown in Fig. 1.1. Further, in the transition from the Â¯uid to the frozen state a variation in conductivity occurs. We now thus have a problem in which both matrices C and P [Eq. (1.58)] are variable, and solution in Fig. 1.2 illustrates the progression of a freezing front which was derived by using the three-point (Lees) algorithm12;13 with C Â Cn and P Â Pn . A computational feature of some signiÂ®cance arises in this problem as values of the speciÂ®c heat become very high in the transition zone and, in time stepping can be missed if the temperature step straddles the freezing point. To avoid this diÂculty and keep the heat balance correct the concept of enthalpy is introduced, deÂ®ning ÂT HÂ â¬c dT Â1:61Â
+0
+
+Now, whenever a change of temperature is considered, an appropriate value of â¬c is calculated that gives the correct change of H. The heat conduction problem involving phase change is of considerable importance in welding and casting technology. Some very useful Â®nite element solutions of these problems have been obtained.14 Further elaboration of the procedure described above is given in reference 15.
+
+Some typical examples of transient non-linear calculations
+
+15
+
+k , Ïc , H
+
+H (T ) k (T )
+
+Ïc (T ) Ïc (T ) 2âT
+
+k (T )
+
+H (T ) T0 Tf
+
+Fig. 1.1 Estimation of thermophysical properties in phase change problems. The latent heat effect is approximated by a large capacity over a small temperature interval 2ÃT.
+
+The second non-linear example concerns the problem of spontaneous ignition.16 We will discuss the steady state case of this problem in Chapter 3 and now will be concerned only with transient cases. Here the heat generated depends on the temperature " Q Â â¬ eT Â1:62Â and the situation can become physically unstable with the computed temperature rising continuously to extreme values. In Fig. 1.3 we show a transient solution of a sphere at an initial temperature of T Â 290 K immersed in a bath of 500 K. The solu" tion is given for two values of the parameter â¬ with k Â â¬c Â 1, and the non-linearities are now so severe that an iterative solution in each time increment is necessary. For " the larger value of â¬ the temperature increases to inÂ®nite value in a Â®nite time and the time interval for the computation had to be changed continuously to account for this. The Â®nite time for this point to be reached is known as the induction time and is shown " in Fig. 1.3 for various values of â¬. The question of changing the time interval during the computation has not been discussed in detail, but clearly this must be done quite frequently to avoid large changes of the unknown function which will result in inaccuracies.
+
+Structural dynamics
+
+Here the examples concern dynamic structural transients with material and geometric non-linearity. A highly non-linear geometrical and material non-linearity generally occurs. Neglecting damping forces, Eq. (1.16) can be explicitly solved in an eÂcient manner. If the explicit computation is pursued to the point when steady state conditions are approached, that is, until  Â u % 0 the solution to a static non-linear problem is u Â obtained. This type of technique is frequently eÂcient as an alternative to the methods
+
+16 General problems in solid mechanics and non-linearity
+
+Fig. 1.2 Freezing of a moist soil (sand).
+
+Some typical examples of transient non-linear calculations
+
+17
+
+" " Fig. 1.3 Reactive sphere. Transient temperature behaviour for ignition Ââ¬ Â 16Â and non-ignition Ââ¬ Â 2Â cases: (a) induction time versus FrankÂ±Kamenetskii parameter; temperature proÂ®les; (b) temperature proÂ®les " " for ignition (â¬ Â 16) and non-ignition (â¬ Â 2) transient behaviour of a reactive sphere.
+
+described above and in Chapter 2 and has been applied successfully in the context of Â®nite diÂerences under the name of `dynamic relaxation' for the solution of non-linear static problems.17 Two examples of explicit dynamic analysis will be given here. The Â®rst problem, illustrated in Plate 3, is a large three-dimensional problem and its solution was obtained with the use of an explicit dynamic scheme. In such a case implicit schemes would be totally inapplicable and indeed the explicit code provides a very eÂcient solution of the crash problem shown. It must, however, be recognized that such
+
+18 General problems in solid mechanics and non-linearity
+
+Fig. 1.4 Crash analysis: (a) mesh at t Â 0 ms; (b) mesh at t Â 20 ms; (c) mesh at t Â 40 ms.
+
+Some typical examples of transient non-linear calculations
+
+19
+
+Â®nal solutions are not necessarily unique. As a second example Figure 1.4 shows a typical crash analysis of a motor vehicle carried out by similar means.
+
+Earthquake response of soil Â± structures
+
+We have mentioned in Chapter 19, Volume 1, the essential problem involving interaction of the soil skeleton or matrix with the water contained in the pores. This problem is of extreme importance in earthquake engineering and here again solution
+
+Fig. 1.5 Retaining wall subjected to earthquake excitation: comparison of experiment (centrifuge) and calculations.18
+
+20 General problems in solid mechanics and non-linearity
+
+of transient non-linear equations is necessary. As in the mixed problem which we referred to earlier, the variables include displacement, and the pore pressure in the Â¯uid p. In Chapter 19 of Volume 1, we have in fact shown a comparison between some centrifuge results and computations showing the development of the pore pressure arising from a particular form of the constitutive relation assumed. Many such examples and indeed the full theory are given in a recent text,18 and in Fig. 1.5 we show an example of comparison of calculations and a centrifuge model presented at a 1993 workshop known as VELACS19 . This Â®gure shows the displacements of a big retaining wall after the passage of an earthquake, which were measured in the centrifuge and also calculated.
+
+1.5 Concluding remarks
+In this chapter we have summarized the basic steps needed to solve a general smallstrain solid mechanics problem as well as the quasi-harmonic Â®eld problem. Only a standard NewtonÂ±Raphson solution method has been mentioned to solve the resulting non-linear algebraic problem. For problems which include non-linear behaviour there are many situations where additional solution strategies are required. In the next chapter we will consider some basic schemes for solving such non-linear algebraic problems. In subsequent chapters we shall address some of these in the context of particular problems classes. The reader will note that, except in the example solutions, we have not discussed problems in which large strains occur. We can note here, however, that the solution strategy described above remains valid. The parts which change are associated with the eÂects of Â®nite deformation on computing stresses and thus the stress-divergence term and resulting tangent moduli. As these aspects involve more advanced concepts we have deferred the treatment of Â®nite strain problems to the latter part of the volume where we will address basic formulations and applications.
+
+References
+1. O.C. Zienkiewicz and R.L. Taylor. The Finite Element Method: The Basis, Volume 1. Arnold, London, 5th edition, 2000. 2. S.P. Timoshenko and J.N. Goodier. Theory of Elasticity, McGraw-Hill, New York, 3rd edition, 1969. 3. I.S. SokolnikoÂ, The Mathematical Theory of Elasticity, McGraw-Hill, New York, 2nd edition, 1956. 4. L.E. Malvern. Introduction to the Mechanics of a Continuous Medium, Prentice-Hall, Englewood CliÂs, NJ, 1969. 5. A.P. Boresi and K.P. Chong. Elasticity in Engineering Mechanics, Elsevier, New York, 1987. 6. P.C. Chou and N.J. Pagano. Elasticity: Tensor, Dyadic and Engineering Approaches, Dover Publications, Mineola, NY, 1992; reprinted from the 1967 Van Nostrand edition. 7. I.H. Shames and F.A. Cozzarelli. Elastic and Inelastic Stress Analysis, Taylor & Francis, Washington, DC, 1997; revised printing.
+
+References
+8. J.C. Simo, R.L. Taylor and K.S. Pister. Variational and projection methods for the volume constraint in Â®nite deformation plasticity. Comp. Meth. Appl. Mech. Eng., 51, 177Â±208, 1985. 9. K. Washizu. Variational Methods in Elasticity and Plasticity, Pergamon Press, New York, 3rd edition, 1982. 10. T.J.R. Hughes. Generalization of selective integration procedures to anisotropic and nonlinear media. Int. J. Num. Meth. Eng., 15, 1413Â±18, 1980. 11. J.C. Simo and T.J.R. Hughes. On the variational foundations of assumed strain methods. J. Appl. Mech., 53(1), 51Â±4, 1986. 12. M. Lees. A linear three level diÂerence scheme for quasilinear parabolic equations. Maths. Comp., 20, 516Â±622, 1966. 13. G. Comini, S. Del Guidice, R.W. Lewis and O.C. Zienkiewicz. Finite element solution of non-linear conduction problems with special reference to phase change. Int. J. Num. Meth. Eng., 8, 613Â±24, 1974. 14. H.D. Hibbitt and P.V. Marcal. Numerical thermo-mechanical model for the welding and subsequent loading of a fabricated structure. Computers and Structures, 3, 1145Â±74, 1973. 15. K. Morgan, R.W. Lewis and O.C. Zienkiewicz. An improved algorithm for heat convection problems with phase change. Int. J. Num. Meth. Eng., 12, 1191Â±95, 1978. 16. C.A. Anderson and O.C. Zienkiewicz. Spontaneous ignition: Â®nite element solutions for steady and transient conditions. Trans ASME, J. Heat Transfer, 398Â±404, 1974. 17. J.R.H. Otter, E. Cassel and R.E. Hobbs. Dynamic relaxation. Proc. Inst. Civ. Eng., 35, 633Â±56, 1966. 18. O.C. Zienkiewicz, A.H.C. Chan, M. Pastor and B.A. SchreÂ¯er. Computational Geomechanics: With Special Reference to Earthquake Engineering, John Wiley, Chichester, Sussex, 1999. 19. K. Arulanandan and R.F. Scott (eds). Proceedings of VELACS Symposium, Balkema, Rotterdam, 1993.
+
+21
+
+2 Solution of non-linear algebraic equations
+2.1 Introduction
+In the solution of linear problems by a Â®nite element method we always need to solve a set of simultaneous algebraic equations of the form Ka Â f Â2:1Â
+
+Provided the coeÂcient matrix is non-singular the solution to these equations is unique. In the solution of non-linear problems we will always obtain a set of algebraic equations; however, they generally will be non-linear, which we indicate as ÃÂaÂ Â f Ã¿ PÂaÂ Â 0 Â2:2Â
+
+where a is the set of discretization parameters, f a vector which is independent of the parameters and P a vector dependent on the parameters. These equations may have multiple solutions [i.e. more than one set of a may satisfy Eq. (2.2)]. Thus, if a solution is achieved it may not necessarily be the solution sought. Physical insight into the nature of the problem and, usually, small-step incremental approaches from known solutions are essential to obtain realistic answers. Such increments are indeed always required if the constitutive law relating stress and strain changes is path dependent or if the load-displacement path has bifurcations or multiple branches at certain load levels. The general problem should always be formulated as the solution of Ãn Â 1 Â ÃÂan Â 1 Â Â fn Â 1 Ã¿ PÂan Â 1 Â Â 0 which starts from a nearby solution at a Â an ; Ãn Â 0; fn Â 1 Â fn Â Ãfn The determination of the change Ãan such that an Â 1 Â an Â Ãan Â2:6Â f Â fn Â2:4Â Â2:3Â
+
+and often arises from changes in the forcing function fn to Â2:5Â
+
+Iterative techniques
+
+23
+
+Fig. 2.1 Possibility of multiple solutions.
+
+will be the objective and generally the increments of Ãfn will be kept reasonably small so that path dependence can be followed. Further, such incremental procedures will be useful in avoiding excessive numbers of iterations and in following the physically correct path. In Fig. 2.1 we show a typical non-uniqueness which may occur if the function Ã decreases and subsequently increases as the parameter a uniformly increases. It is clear that to follow the path Ãfn will have both positive and negative signs during a complete computation process. It is possible to obtain solutions in a single increment of f only in the case of mild non-linearity (and no path dependence), that is, with fn Â 0; Ãfn Â fn Â 1 Â f Â2:7Â
+
+The literature on general solution approaches and on particular applications is extensive and, in a single chapter, it is not possible to encompass fully all the variants which have been introduced. However, we shall attempt to give a comprehensive picture by outlining Â®rst the general solution procedures. In later chapters we shall focus on procedures associated with rate-independent material non-linearity (plasticity), rate-dependent material non-linearity (creep and visco-plasticity), some non-linear Â®eld problems, large displacments and other special examples.
+
+2.2 Iterative techniques
+2.2.1 General remarks
+The solution of the problem posed by Eqs (2.3)Â±(2.6) cannot be approached directly and some form of iteration will always be required. We shall concentrate here on procedures in which repeated solution of linear equations (i.e. iteration) of the form Ki dain Â rin Â 1 Â2:8Â
+
+24 Solution of non-linear algebraic equations
+
+in which a superscript i indicates the iteration number. In these a solution increment dain is computed.Ã Gaussian elimination techniques of the type discussed in Volume 1 can be used to solve the linear equations associated with each iteration. However, the application of an iterative solution method may prove to be more economical, and in later chapters we shall frequently refer to such possibilities although they have not been fully explored. Many of the iterative techniques currently used to solve non-linear problems originated by intuitive application of physical reasoning. However, each of such techniques has a direct association with methods in numerical analysis, and in what follows we shall use the nomenclature generally accepted in texts on this subject.1Ã¿5 Although we state each algorithm for a set of non-linear algebraic equations, we shall illustrate each procedure by using a single scalar equation. This, though useful from a pedagogical viewpoint, is dangerous as convergence of problems with numerous degrees of freedom may depart from the simple pattern in a single equation.
+
+2.2.2 The NewtonÂ±Raphson method
+The NewtonÂ±Raphson method is the most rapidly convergent process for solutions of problems in which only one evaluation of Ã is made in each iteration. Of course, this assumes that the initial solution is within the zone of attraction and, thus, divergence does not occur. Indeed, the NewtonÂ±Raphson method is the only process described here in which the asymptotic rate of convergence is quadratic. The method is sometimes simply called Newton's method but it appears to have been simultaneously derived by Raphson, and an interesting history of its origins is given in reference 6. In this iterative method we note that, to the Â®rst order, Eq. (2.3) can be approximated as â¬ â¬i @Ã iÂ1 i ÃÂan Â 1 Â % ÃÂan Â 1 Â Â dai Â 0 Â2:9Â @a n Â 1 n Here the iteration counter i usually starts by assuming a1 Â 1 Â an n Â2:10Â
+
+in which an is a converged solution at a previous load level or time step. The jacobian matrix (or in structural terms the stiÂness matrix) corresponding to a tangent direction is given by KT Â @P @Ã ÂÃ¿ @a @a Â2:11Â
+
+Equation (2.9) gives immediately the iterative correction as KiT dain Â Ãin Â 1
+Ã
+
+Note the diÂerence between a solution increment da and a diÂerential da.
+
+Iterative techniques
+
+25
+
+Fig. 2.2 The NewtonÂ±Raphson method.
+
+or
+
+Ã¿ ÃÃ¿1 dain Â KiT Ãin Â 1 ainÂ 1 Â ain Â 1 Â dain Â 1 Â1 Â an Â Ãain
+
+Â2:12Â
+
+A series of successive approximations gives Â2:13Â
+
+where Ãain Â
+i Â kÂ1
+
+dak n
+
+Â2:14Â
+
+The process is illustrated in Fig. 2.2 and shows the very rapid convergence that can be achieved. The need for the introduction of the total increment Ãain is perhaps not obvious here but in fact it is essential if the solution process is path dependent, as we shall see in Chapter 3 for some non-linear constitutive equations of solids. The NewtonÂ±Raphson process, despite its rapid convergence, has some negative features: 1. a new KT matrix has to be computed at each iteration; 2. if direct solution for Eq. (2.12) is used the matrix needs to be factored at each iteration; 3. on some occasions the tangent matrix is symmetric at a solution state but unsymmetric otherwise (e.g. in some schemes for integrating large rotation parameters7 or non-associated plasticity). In these cases an unsymmetric solver is needed in general. Some of these drawbacks are absent in alternative procedures, although generally then a quadratic asymptotic rate of convergence is lost.
+
+26 Solution of non-linear algebraic equations
+
+2.2.3 ModiÂ®ed NewtonÂ±Raphson method
+This method uses essentially the same algorithm as the NewtonÂ±Raphson process but replaces the variable jacobian matrix KiT by a constant approximation " KiT % KT giving in place of Eq. (2.12), "T dain Â KÃ¿1 Ãin Â 1 Â2:16Â " Many possible choices exist here. For instance KT can be chosen as the matrix 1 corresponding to the Â®rst iteration KT [as shown in Fig. 2.3(a)] or may even be one corresponding to some previous time step or load increment K0 [as shown in Fig. 2.3(b)]. In the context of solving problems in solid mechanics the method is also known as the stress transfer or initial stress method. Alternatively, the approximation " can be chosen every few iterations as KT Â KjT where j 4 i. Obviously, the procedure generally will converge at a slower rate (generally a norm of the residual Ã has linear asymptotic convergence instead of the quadratic one in the full NewtonÂ±Raphson method) but some of the diÂculties mentioned above for the NewtonÂ±Raphson process disappear. However, some new diÂculties can also arise as this method fails to converge when the tangent used has opposite `slope' to the one at the current solution (e.g. as shown by regions with diÂerent slopes in Fig. 2.1). Frequently the `zone of attraction' for the modiÂ®ed process is increased and previously divergent approaches can be made to converge, albeit slowly. Many variants of this process can be used and symmetric solvers often can be employed " when a symmetric form of KT is chosen. Â2:15Â
+
+2.2.4 Incremental-secant or quasi-Newton methods
+Once the Â®rst iteration of the preceding section has been established giving "T n da1 Â KÃ¿1 Ã1 Â 1 n a secant `slope' can be found, as shown in Fig. 2.4, such that Ã¿ ÃÃ¿1 Ã¿ 1 Ã da1 Â K2 Ãn Â 1 Ã¿ Ã2 Â 1 n s n This `slope' can now be used to establish a2 by using n Ã¿ 2 ÃÃ¿1 2 da2 Â Ks Ãn Â 1 n Â2:17Â
+
+Â2:18Â
+
+Â2:19Â
+
+Quite generally, one could write in place of Eq. (2.19) for i > 1, now dropping subscripts, Ã¿ ÃÃ¿1 dai Â Kis Ãi Â2:20Â where ÂKis ÂÃ¿1 is determined so that Ã¿ ÃÃ¿1 Ã¿ i Ã¿ 1 Ã Ã¿ ÃÃ¿1 dai Ã¿ 1 Â Kis Ã Ã¿ Ãi Â Kis ci Ã¿ 1 Â2:21Â
+
+Iterative techniques
+
+27
+
+Fig. 2.3 The modiÂ®ed NewtonÂ±Raphson method: (a) with initial tangent in increment; (b) with initial problem tangent.
+
+For the scalar system illustrated in Fig. 2.4 the determination of Kis is trivial and, as shown, the convergence is much more rapid than in the modiÂ®ed NewtonÂ±Raphson process (generally a super-linear asymptotic convergence rate is achieved for a norm of the residual). For systems with more than one degree of freedom the determination of Kis or its inverse is more diÂcult and is not unique. Many diÂerent forms of the matrix Kis can satisfy relation (2.1) and, as expected, many alternatives are used in practice. All of these use some form of updating of a previously determined matrix or of its inverse in a manner that satisÂ®es identically Eq. (2.21). Some such updates preserve the matrix symmetry whereas others do not. Any of the methods which begin with
+
+28 Solution of non-linear algebraic equations
+
+Fig. 2.4 The secant method starting from a K0 prediction.
+
+a symmetric tangent can avoid the diÂculty of non-symmetric matrix forms that arise in the NewtonÂ±Raphson process and yet achieve a faster convergence than is possible in the modiÂ®ed NewtonÂ±Raphson procedures. Such secant update methods appear to stem from ideas introduced Â®rst by Davidon8 and developed later by others. Dennis and More9 survey the Â®eld extensively, while Matthies and Strang10 appear to be the Â®rst to use the procedures in the Â®nite element context. Further work and assessment of the performance of various update procedures is available in references 11Â±14. The BFGS update9 (named after Broyden, Fletcher, Goldfarb and Shanno) and the DFP update9 (Davidon, Fletcher and Powell) preserve matrix symmetry and positive deÂ®niteness and both are widely used. We summarize below a step of the BFGS update for the inverse, which can be written as Ã¿ i ÃÃ¿1 Ã¿ ÃÃ¿ ÃÃ¿1 Ã¿ Ã Â2:22Â K Â I Â wi vT Ki Ã¿ 1 I Â vi wT i i where I is an identity matrix and 4 5 Âdai Ã¿ 1 ÂT ci Ã¿ 1 i Ã¿ 1 vi Â 1 Ã¿ Ã¿ Ãi Ã dÂai ÂT Ãi Ã¿ 1 1 daÂi Ã¿ 1ÂT ci Ã¿ 1 da
+iÃ¿1
+
+Â2:23Â
+
+wi Â
+
+where c is deÂ®ned by Eq. (2.21). Some algebra will readily verify that substitution of Eqs (2.22) and (2.23) into Eq. (2.21) results in an identity. Further, the form of Eq. (2.22) guarantees preservation of the symmetry of the original matrix. The nature of the update does not preserve any sparsity in the original matrix. For this reason it is convenient at every iteration to return to the original (sparse) matrix K1 , used in the Â®rst iteration and to reapply the multiplication of Eq. (2.22) through s
+
+Iterative techniques
+
+29
+
+Fig. 2.5 Direct (or Picard) iteration.
+
+all previous iterations. This gives the algorithm in the form i ÂÃ¿ Ã b1 Â I Â vj wT Ãi j Ã¿ ÃÃ¿1 b2 Â K1 b1 s dai Â
+i Ã¿ 2Ã¿ Â j Â0 j Â2
+
+Â2:24Â
+
+Ã I Â wi Ã¿ j vTÃ¿ j b2 i
+
+This necessitates the storage of the vectors vj and wj for all previous iterations and their successive multiplications. Further details on the operations are described well in reference 10. When the number of iterations is large (i > 15) the eÂciency of the update decreases as a result of incipient instability. Various procedures are open at this stage, the most eÂective being the recomputation and factorization of a tangent matrix at the current solution estimate and restarting the process again. Another possibility is to disregard all the previous updates and return to the original matrix K1 . Such a procedure was Â®rst suggested by CrisÂ®eld11;15;16 in the s Â®nite element context and is illustrated in Fig. 2.5. It is seen to be convergent at a slightly slower rate but avoids totally the stability diÂculties previously encountered and reduces the storage and number of operations needed. Obviously any of the secant update methods can be used here. The procedure of Fig. 2.5 is identical to that generally known as direct (or Picard) iteration1 and is particularly useful in the solution of non-linear problems which can be written as ÃÂaÂ â¬ f Ã¿ KÂaÂa Â 0 Â2:25Â In such a case a1 Â 1 Â an is taken and the iteration proceeds as n Ã ÃÃ¿1 ainÂ 1 Â KÂain Â 1 Â fn Â 1 Â1 Â2:26Â
+
+30 Solution of non-linear algebraic equations
+
+2.2.5 Line search procedures Â± acceleration of convergence
+All the iterative methods of the preceding section have an identical structure described by Eqs (2.12)Â±(2.14) in which various approximations to the Newton matrix KiT are used. For all of these an iterative vector is determined and the new value of the unknowns found as ainÂ 1 Â ain Â 1 Â dain Â1 starting from a1 Â 1 Â an n in which an is the known (converged) solution at the previous time step or load level. The objective is to achieve the reduction of ÃinÂ 1 to zero, although this is not always Â1 easily achieved by any of the procedures described even in the scalar example illustrated. To get a solution approximately satisfying such a scalar non-linear problem would have been in fact easier by simply evaluating the scalar ÃinÂ 1 for Â1 various values of an Â 1 and by suitable interpolation arriving at the required answer. For multi-degree-of-freedom systems such an approach is obviously not possible unless some scalar norm of the residual is considered. One possible approach is to write ainÂ 1; j Â ain Â 1 Â â¬i; j dain Â1 Â2:28Â and determine the step size â¬i; j so that a projection of the residual on the search direction dain is made zero. We could deÂ®ne this projection as Ã¿ ÃT Gi; j â¬ dain ÃinÂ 1; j Â2:29Â Â1 where Ã¿ Ã ÃinÂ 1; j â¬ Ã ain Â 1 Â â¬i; j dain ; Â1 â¬i;0 Â 1 Â2:27Â
+
+Here, of course, other norms of the residual could be used. This process is known as a line search, and â¬i; j can conveniently be obtained by using a regula falsi (or secant) procedure as illustrated in Fig 2.6. An obvious
+
+Fig. 2.6 Regula falsi applied to line search: (a) extrapolation; (b) interpolation.
+
+Iterative techniques
+
+31
+
+disadvantage of a line search is the need for several evaluations of Ã. However, the acceleration of the overall convergence can be remarkable when applied to modiÂ®ed or quasi-Newton methods. Indeed, line search is also useful in the full Newton method by making the radius of attraction larger. A compromise frequently used10 is to undertake the search only if Ã¿ ÃT Gi;0 > " dain ÃinÂ 1; j Â2:30Â Â1 where the tolerance " is set between 0.5 and 0.8. This means that if the iteration process directly resulted in a reduction of the residual to " or less of its original value a line search is not used.
+
+2.2.6 `Softening' behaviour and displacement control
+In applying the preceding to load control problems we have implicitly assumed that the iteration is associated with positive increments of the forcing vector, f, in Eq. (2.5). In some structural problems this is a set of loads that can be assumed to be proportional to each other, so that one can write Ãfn Â Ãâ¬n f0 Â2:31Â In many problems the situation will arise that no solution exists above a certain maximum value of f and that the real solution is a `softening' branch, as shown in Fig. 2.1. In such cases Ãâ¬n will need to be negative unless the problem can be recast as one in which the forcing can be applied by displacement control. In a simple case of a single load it is easy to recast the general formulation to increments of a single prescribed displacement and much eÂort has gone into such solutions.11;17Ã¿23 In all the successful approaches of incrementation of Ãâ¬n the original problem of Eq. (2.3) is rewritten as the solution of Ãn Â 1 â¬ â¬n Â 1 f0 Ã¿ PÂan Â 1 Â Â 0 with an Â 1 Â an Â Ãan and â¬n Â 1 Â â¬n Â Ãâ¬n being included as variables in any increment. Now an additional equation (constraint) needs to be provided to solve for the extra variable Ãâ¬n . This additional equation can take various forms. Riks19 assumes that in each increment ÃaT Ãan Â Ãâ¬2 fT f0 Â Ãl 2 n 0 where Ãl is a prescribed `length' in the space of n Â 1 dimensions. CrisÂ®eld vides a more natural control on displacements, requiring that ÃaT Ãan Â Ãl 2 n Â2:33Â
+11;24
+
+Â2:32Â
+
+pro-
+
+Â2:34Â
+
+These so-called arc-length and spherical path controls are but some of the possible constraints.
+
+32 Solution of non-linear algebraic equations
+
+Direct addition of the constraint Eqs (2.33) or (2.34) to the system of Eqs (2.32) is now possible and the previously described iterative methods could again be used. However, the `tangent' equation system would always lose its symmetry so an alternative procedure is generally used. We note that for a given iteration i we can write quite generally the solution as Ãin Â 1 Â â¬in Â 1 f0 Ã¿ PÂain Â 1 Â ÃinÂ 1 % Ãin Â 1 Â dâ¬in Â 1 f0 Ã¿ KiT dain Â1 The solution increment for a may now be given as Ã¿ ÃÃ¿1 Ã i Ã dain Â KiT Ãn Â 1 Â dâ¬in f0 dain Â d!in Â dâ¬in dÂin a a where Ã¿ ÃÃ¿1 d!in Â KiT Ãin Â 1 a Ã¿ ÃÃ¿1 dÂin Â KiT f0 a Â2:35Â
+
+Â2:36Â
+
+Â2:37Â
+
+Now an additional equation is cast using the constraint. Thus, for instance, with Eq. (2.34) we have Ã¿ iÃ¿1 ÃT Ã¿ Ã Â2:38Â Ãan Â dain ÃainÃ¿ 1 Â dain Â Ãl 2 where ÃainÃ¿ 1 is deÂ®ned by Eq. (2.14). On substitution of Eq. (2.36) into Eq. (2.38) a quadratic equation is available for the solution of the remaining unknown dâ¬in (which may well turn out to be negative). Additional details may be found in references 11 and 24. A procedure suggested by Bergan20;23 is somewhat diÂerent from those just described. Here a Â®xed load increment Ãâ¬n is Â®rst assumed and any of the previously introduced iterative procedures are used for calculating the increment dain . Now a new increment Ãâ¬Ã is calculated so that it minimizes a norm of the residual n hÃ¿ ÃT Ã¿ Ã Ãi Ãâ¬Ã f0 Ã¿ PinÂ 1 Ãâ¬n f0 Ã¿ PinÂ 1 Â Ãl 2 Â2:39Â n Â1 Â1 The result is thus computed from dÃl 2 Â0 dÃâ¬Ã n and yields the solution Ãâ¬Ã Â n f T PinÂ 1 0 Â1 f T f0 0 Â2:40Â
+
+This quantity may again well be negative, requiring a load decrease, and it indeed results in a rapid residual reduction in all cases, but precise control of displacement magnitudes becomes more diÂcult. The interpretation of the Bergan method in a one-dimensional example, shown in Fig. 2.7, is illuminating. Here it gives the exact answers Â± with a displacement control, the magnitude of which is determined by the initial Ãâ¬n assumed to be the slope KT used in the Â®rst iteration.
+
+Iterative techniques
+
+33
+
+Fig. 2.7 One-dimensional interpretation of the Bergan procedure.
+
+2.2.7 Convergence criteria
+In all the iterative processes described the numerical solution is only approximately achieved and some tolerance limits have to be set to terminate the iteration. Since Â®nite precision arithmetic is used in all computer calculations, one can never achieve a better solution than the round-oÂ limit of the calculations. Frequently, the criteria used involve a norm of the displacement parameter changes jjdain jj or, more logically, that of the residuals jjÃin Â 1 jj. In the latter case the limit can often be expressed as some tolerance of the norm of forces jjfn Â 1 jj. Thus, we may require that jjÃin Â 1 jj 4 " jjfn Â 1 jj where " is chosen as a small number, and Ã¿ Ã1=2 jjÃjj Â ÃT Ã Â2:41Â
+
+Â2:42Â
+
+Other alternatives exist for choosing the comparison norm, and another option is to use the residual of the Â®rst iteration as a basis. Thus, jjÃin Â 1 jj 4 "jjÃ1 Â 1 jj n Â2:43Â The error due to the incomplete solution of the discrete non-linear equations is of course additive to the error of the discretization that we frequently measure in the energy norm (see Chapter 14 of Volume 1). It is possible therefore to use the same norm for bounding of the iteration process. We could, as a third option, require that the error in the energy norm satisfy â¬ â¬1=2 â¬ â¬1=2 dE i Â dai;T 1 Ãin Â 1 4 " da1;T 1 Ã1 Â 1 n nÂ nÂ 4 " dE 1 Â2:44Â
+
+34 Solution of non-linear algebraic equations
+
+In each of the above forms, problem types exist where the right-hand-side norm is zero. Thus a fourth form, which is quite general, is to compute the norm of the element residuals. If the problem residual is obtained as a sum over elements as Â e Ãn Â 1 Â wn Â 1 Â2:45Â
+e
+
+where e denotes an individual element and we the residual from each element, we can express the convergence criterion as jjÃin Â 1 jj 4 "jjwe Â 1 jj n where jjwe Â 1 jj Â n Â
+e
+
+Â2:46Â
+
+jjÂwe Â 1 Âi jj n
+
+Â2:47Â
+
+Once a criterion is selected the problem still remains to choose an appropriate value for ". In cases where a full Newton scheme is used (and thus asymptotic quadratic convergence should occur) the tolerance may be chosen at half the machine precision. Thus if the precision of calculations is about 16 digits one may choose " Â 10Ã¿8 since quadratic convergence assures that the next residual (in the absence of round-oÂ ) would achieve full precision. For modiÂ®ed or quasi-Newton schemes such asymptotic rates are not assured, necessitating more iterations to achieve high precision. In these cases it is common practice by some to use much larger tolerance values (say 0.01 to 0.001). However, for problems where large numbers of steps are taken, instability in the solution may occur if the convergence tolerance is too large. We recommend therefore that whenever practical a tolerance of half machine precision be used.
+
+2.2.8 General remarks Â± incremental and rate methods
+The various iterative methods described provide an essential tool-kit for the solution of non-linear problems in which Â®nite element discretization has been used. The precise choice of the optimal methodology is problem dependent and although many comparative solution cost studies have been published10;15;25 the diÂerences are often marginal. There is little doubt, however, that exact NewtonÂ±Raphson processes (with line search) should be used when convergence is diÂcult to achieve. Also the advantage of symmetric update matrices in the quasi-Newton procedures frequently make these a very economical candidate. When non-symmetric tangent moduli exist it may be better to consider one of the non-symmetric updates, for example, a Broyden method.11;26 We have not discussed in the preceding direct iterative methods such as the various conjugate direction methods27Ã¿31 or dynamic relaxation methods in which an explicit dynamic transient analysis (see Chapter 18 of Volume 1) is carried out to achieve a steady-state solution.32;33 These forms are often characterized by: 1. a diagonal or very sparse form of the matrix used in computing trial increments da (and hence very low cost of an iteration) and 2. a signiÂ®cant number of total iterations and hence evaluations of the residual Ã.
+
+Iterative techniques
+
+35
+
+These opposing trends imply that such methods oÂer the potential to solve large problems eÂciently. However, to date such general solution procedures are eÂective only in certain problems.34 One Â®nal remark concerns the size of increments Ãf or Ãâ¬ to be adopted. First, it is clear that small increments reduce the total number of iterations required per computational step, and in many applications automatic guidance on the size of the increment to preserve a (nearly) constant number of iterations is needed. Here such processes as the use of the `current stiÂness parameter' introduced by Bergan20 can be eÂective. Second, if the behaviour is path dependent (e.g. as in plasticity-type constitutive laws) the use of small increments is desirable to preserve accuracy in solution changes. In this context, we have already emphasized the need for calculating such changes by using always the accumulated Ãain change and not in adding changes arising from each iterative dain step in an increment. Third, if only a single NewtonÂ±Raphson iteration is used in each increment of Ãâ¬ then the procedure is equivalent to the solution of a standard rate problem incrementally by direct forward integration. Here we note that if Eq. (2.3) is rewritten as PÂaÂ Â â¬ f0 Â2:48Â we can, on diÂerentiation with respect to â¬ obtain dP da Â f0 da dâ¬
+f (Î»)
+
+Â2:49Â
+
+Possible divergence âf4 âf3
+
+âf2
+
+âf1
+
+a
+
+Fig. 2.8 Direct integration procedure.
+
+36 Solution of non-linear algebraic equations
+
+and write this as da Â KÃ¿1 f0 T dâ¬ Ãan Â Ãâ¬KÃ¿1 f0 Tn Â2:50Â
+
+Incrementally, this may be written in an explicit form by using an Euler method as Â2:51Â This direct integration is illustrated in Fig. 2.8 and can frequently be divergent as well as being only conditionally stable as a result of the Euler explicit method used. Obviously, other methods can be used to improve accuracy and stability. These include Euler implicit schemes and RungeÂ±Kutta procedures.
+
+References
+1. A. Ralston. A First Course in Numerical Analysis, McGraw-Hill, New York, 1965. 2. L. Collatz. The Numerical Treatment of DiÂerential Equations, Springer, Berlin, 1966. Ã 3. G. Dahlquist and A. Bjorck. Numerical Methods, Prentice-Hall, Englewood CliÂs, NJ, Ã 1974. 4. H.R. Schwarz. Numerical Analysis, John Wiley, Chichester, Sussex, 1989. 5. J. Demmel. Applied Numerical Linear Algebra, SIAM, Philadelphia, PA, 1997. 6. N. Bicanic and K.W. Johnson. Who was `Raphson'? Int. J. Num. Meth. Eng., 14, 148Â±52, Ã Ã 1979. 7. J.C. Simo and L. Vu-Quoc. A three-dimensional Â®nite strain rod model. Part II: geometric and computational aspects. Comp. Meth. Appl. Mech. Eng., 58, 79Â±116, 1986. 8. W.C. Davidon. Variable metric method for minimization. Technical Report ANL-5990, Argonne National Laboratory, 1959. 9. J.E. Dennis and J. More. Quasi-Newton methods Â± motivation and theory. SIAM Rev., 19, 46Â±89, 1977. 10. H. Matthies and G. Strang. The solution of nonlinear Â®nite element equations. Int. J. Num. Meth. Eng., 14, 1613Â±26, 1979. 11. M.A. CrisÂ®eld. Non-linear Finite Element Analysis of Solids and Structures. Volume 1, John Wiley, Chichester, Sussex, 1991. 12. M.A. CrisÂ®eld. Non-linear Finite Element Analysis of Solids and Structures. Volume 2, John Wiley, Chichester, Sussex, 1997. 13. K.-J. Bathe and A.P. Cimento. Some practical procedures for the solution of nonlinear Â®nite element equations. Comp. Meth. Appl. Mech. Eng., 22, 59Â±85, 1980. 14. M. Geradin, S. Idelsohn and M. Hogge. Computational strategies for the solution of large nonlinear problems via quasi-Newton methods. Comp. Struct., 13, 73Â±81, 1981. 15. M.A. CrisÂ®eld. Finite element analysis for combined material and geometric nonlinearity. In W. Wunderlich, E. Stein and K.-J. Bathe (eds), Nonlinear Finite Element Analysis in Structural Mechanics, Springer-Verlag, Berlin, 1981. 16. M.A. CrisÂ®eld. A fast incremental/iterative solution procedure that handles `snap through'. Comp. Struct., 13, 55Â±62, 1981. 17. T.H.H. Pian and P. Tong. Variational formulation of Â®nite displacement analysis. Symp. Ã on High Speed Electronic Computation of Structures, Liege, 1970. 18. O.C. Zienkiewicz. Incremental displacement in non-linear analysis. Int. J. Num. Meth. Eng., 3, 587Â±92, 1971. 19. E. Riks. An incremental approach to the solution of snapping and buckling problems. International Journal of Solids and Structures, 15, 529Â±51, 1979.
+
+References
+20. P.G. Bergan. Solution algorithms for nonlinear structural problems. In Int. Conf. on Engineering Applications of the Finite Element Method, pages 13.1Â±13.39, Computas, 1979. 21. J.L. Batoz and G. Dhatt. Incremental displacement algorithms for nonlinear problems. Int. J. Num. Meth. Eng., 14, 1261Â±66, 1979. 22. E. Ramm. Strategies for tracing nonlinear response near limit points. In W. Wunderlich, E. Stein and K.-J. Bathe (eds), Nonlinear Finite Element Analysis in Structural Mechanics, pp. 63Â±89. Springer-Verlag, Berlin, 1981. 23. P. Bergan. Solution by iteration in displacement and load spaces. In W. Wunderlich, E. Stein and K.-J. Bathe (eds), Nonlinear Finite Element Analysis in Structural Mechanics, Springer-Verlag, Berlin, 1981. 24. M.A. CrisÂ®eld. Incremental/iterative solution procedures for nonlinear structural analysis. In C. Taylor, E. Hinton, D.R.J. Owen and E. Onate (eds), Numerical Methods for NonÃ linear Problems, Pineridge Press, Swansea, 1980. 25. A. Pica and E. Hinton. The quasi-Newton BFGS method in the large deÂ¯ection analysis of plates. In C. Taylor, E. Hinton, D.R.J. Owen and E. Onate (eds), Numerical Methods for Ã Nonlinear Problems, Pineridge Press, Swansea, 1980. 26. C.G. Broyden. Quasi-Newton methods and their application to function minimization. Math. Comp., 21, 368Â±81, 1967. 27. M. Hestenes and E. Stiefel. Method of conjugate gradients for solving linear systems. J. Res. Natl. Bur. Stand., 49, 409Â±36, 1954. 28. R. Fletcher and C.M. Reeves. Function minimization by conjugate gradients. The Computer Journal, 7, 149Â±54, 1964. 29. E. Polak. Computational Methods in Optimization: A UniÂ®ed Approach, Academic Press, London, 1971. 30. B.M. Irons and A.F. Elsawaf. The conjugate Newton algorithm for solving Â®nite element equations. In K.-J. Bathe, J.T. Oden and W. Wunderlich (eds), Proc. U.S.Â±German Symp. on Formulations and Algorithms in Finite Element Analysis, pp. 656Â±72, MIT Press, Cambridge, MA, 1977. 31. M. Papadrakakis and P. Ghionis. Conjugate gradient algorithms in nonlinear structural analysis problems. Comp. Meth. Appl. Mech. Eng., 59, 11Â±27, 1986. 32. J.R.H. Otter, E. Cassel and R.E. Hobbs. Dynamic relaxation. Proc. Inst. Civ. Eng., 35, 633Â±56, 1966. 33. O.C. Zienkiewicz and R. Lohner. Accelerated relaxation or direct solution? Future Ã prospects for FEM. Int. J. Num. Meth. Eng., 21, 1Â±11, 1986. 34. M. Adams. Parallel multigrid solver algorithms and implementations for 3D unstructured Â®nite element problems. Supercomputing '99: High Performance Networking and Computing, http://www.sc99.org/proceedings, Portland, OR, November 1999.
+
+37
+
+3 Inelastic and non-linear materials
+
+3.1 Introduction
+In Chapter 1 we presented a framework for solving general problems in solid mechanics. In this chapter we consider several classical models for describing the behaviour of engineering materials. Each model we describe is given in a straindriven form in which a strain or strain increment obtained from each Â®nite element solution step is used to compute the stress needed to evaluate the internal force, Â T B r dâ¬ as well as a tangent modulus matrix, or its approximation, for use in constructing the tangent stiÂness matrix. Quite generally in the study of small deformation and inelastic materials (and indeed in some forms applied to large deformation) the strain (or strain rate) or the stress is assumed to split into an additive sum of parts. We can write this as e Â ee Â ei or r Â re Â ri Â3:2Â Â3:1Â
+
+in which we shall generally assume that the elastic part is given by the linear model ee Â DÃ¿1 r Â3:3Â
+
+in which D is the matrix of elastic moduli. In the following sections we shall consider the problems of viscoelasticity, plasticity, and general creep in quite general form. By using these general types it is possible to present numerical solutions which accurately predict many physical phenomena. We begin with viscoelasticity, where we illustrate the manner in which we shall address the solution of problems given in a rate or diÂerential form. This rate form of course assumes time dependence and all viscoelastic phenomena are indeed transient, with time playing an important part. We shall follow this section with a description of plasticity models in which times does not explicitly arise and the problems are time independent. However, we shall introduce for convenience a rate description of the behaviour. This is adopted to allow use of the same kind of algorithms for all forms discussed in this chapter.
+
+Viscoelasticity Â± history dependence of deformation
+
+39
+
+3.2 Viscoelasticity Â± history dependence of deformation
+Viscoelastic phenomena are characterized by the fact that the rate at which inelastic strains develop depends not only on the current state of stress and strain but, in general, on the full history of their development. Thus, to determine the increment of inelastic strain over a given time interval (or time step) it is necessary to know the state of stress and strain at all preceding times. In the computation process these can in fact be obtained and in principle the problem presents little theoretical diÂculty. Practical limitations appear immediately, however, that each computation point must retain this history information Â± thus leading to very large storage demands. In the context of linear viscoelasticity, means of overcoming this limitation were introduced by Zienkiewicz et al.1 and White.2 Extensions to include thermal eÂects were also included in some of this early work.3 Further considerations which extend this approach are also discussed in earlier editions of this book.4;5
+
+3.2.1 Linear models for viscoelasticity
+The representation of a constitutive equation for linear viscoelasticity may be given in the form of either a diÂerential equation or an integral equation.6;7 In a diÂerential model the constitutive equation may be written as a linear elastic part with an added series of partial strains q. Accordingly, we write rÂtÂ Â D0 eÂtÂ Â
+M Â mÂ1
+
+Dm qÂmÂ ÂtÂ
+
+Â3:4Â
+
+where for a linear model the partial stresses are solutions of the Â®rst-order diÂerential equations Â Â qÂmÂ Â Tm qÂmÂ Â e Â3:5Â with Tm a constant matrix of reciprocal relaxation times and D0 , Dm constant moduli matrices. The presence of a split of stress as given by Eq. (3.2) is immediately evident in the above. Each of the forms in Eq. (3.5) represents an elastic response in series with a viscous response and is known as a Maxwell model. In terms of a springÂ±dashpot model, a representation for the Maxwell material is shown in Fig. 3.1(a) for a single stress component. Thus, the sum given by Eq. (3.4) describes a generalized Maxwell solid in which several elements are assembled in a parallel form and the D0 term becomes a spring alone. In an integral form the stressÂ±strain behaviour may be written in a convolution form as Ât @e r Â DÂtÂeÂ0Â Â DÂt Ã¿ tH Â H dtH Â3:6Â @t 0 where components of DÂtÂ are relaxation moduli functions. Inverse relations may be given where the diÂerential model is expressed as M Â eÂtÂ Â J0 rÂtÂ Â Jm rÂmÂ ÂtÂ
+mÂ1
+
+Â3:7Â
+
+40 Inelastic and non-linear materials
+
+(a)
+
+(b)
+
+Fig. 3.1 SpringÂ±dashpot models for linear viscoelasticity: (a) Maxwell element; (b) Kelvin element.
+
+where for a linear model the partial stresses r are solutions of Â rÂmÂ Â Vm rÂmÂ Â r Â3:8Â in which Vm are constant reciprocal retardation time parameters and J0 , Jm constant compliances (i.e. reciprocal moduli). Each partial stress corresponds to a solution in which a linear elastic and a viscous response are combined in parallel to describe a Kelvin model as shown in Fig. 3.1(b). The total model thus is a generalized Kelvin solid. In an integral form the strainÂ±stress constitutive relation may be written as Ât @r e Â JÂtÂrÂ0Â Â JÂt Ã¿ tH Â H dtH Â3:9Â @t 0 where JÂtÂ are known as creep compliance functions. The parameters in the two forms of the model are related. For example, the creep compliances and relaxation moduli are related through Ât Ât @D @J JÂtÂDÂ0Â Â JÂt Ã¿ tH Â H dtH Â DÂtÂ JÂ0Â Â DÂt Ã¿ tH Â H dtH Â I Â3:10Â @t @t 0 0 as may easily be shown by applying, for example, Laplace transform theory to Eqs (3.6) and (3.9). The above forms hold for isotropic and anisotropic linear viscoelastic materials. Solutions may be obtained by using standard numerical techniques to solve the constant coeÂcient diÂerential or integral equations. Here we will proceed to describe a solution for the isotropic case where speciÂ®c numerical schemes are presented. Generalization of the methods to the anisotropic case may be constructed by using a similar approach and is left as an exercise to the reader.
+
+3.2.2 Isotropic models
+To describe in more detail the ideas presented above we consider here isotropic models where we split the stress as r Â s Â mp with p Â 1 mT r 3 Â3:11Â
+
+Viscoelasticity Â± history dependence of deformation
+
+41
+
+where s is the stress deviator,Ã p is the mean (pressure) stress and, for a threedimensional state of stress, m is given in Eq. (1.37). Similarly, a split of strain is expressed as e Â e Â 1 mâ¬ 3 with â¬ Â mT e Â3:12Â
+
+where e is the strain deviator and â¬ is the volume change. In the presentation given here, for simplicity we restrict the viscoelastic response to deviatoric parts and assume pressureÂ±volume response is given by the linear elastic model p Â Kâ¬ Â3:13Â
+
+where K is an elastic bulk modulus. A generalization to include viscoelastic behaviour in this component also may be easily performed by using the method described below for deviatoric components.
+
+Differential equation model
+
+The deviatoric part may be stated as diÂerential equation models or in the form of integral equations as described above. In the diÂerential equation model the constitutive equation may be written as 2 3 M Â ÂmÂ s Â 2G â¬0 e Â Â3:14Â â¬m q
+mÂ1
+
+in which â¬m are dimensionless parameters satisfying
+M Â mÂ0
+
+â¬m Â 1
+
+Â3:15Â
+
+and dimensionless partial deviatoric strains qÂmÂ are obtained by solving Â qÂmÂ Â 1 ÂmÂ Â q Âe â¬m Â3:16Â
+
+in which â¬m are relaxation times. This form of the representation is again a generalized Maxwell model (a set of Maxwell models in parallel). Each diÂerential equation set may be solved numerically by using any of the Â®niteelement-in-time methods described in Chapter 18 of Volume 1 (see Sec. 18.2). To solve numerically we Â®rst deÂ®ne a set of discrete points, tk , at which we wish to obtain the solution. For a time tn Â 1 we assume the solution at all previous points up to tn are known. Using a simple single-step method the solution for each partial stress is given by: â¬ â¬ â¬ â¬ â¬ Ãt ÂmÂ Â1 Ã¿ â¬ÂÃt ÂmÂ 1Â Â3:17Â qn Â 1 Â 1 Ã¿ qn Â e n Â 1 Ã¿ e n â¬m â¬m in which Ãt Â tn Â 1 Ã¿ tn .
+Ã In Volume 1 rd was used to denote the deviatoric stress, and ed the deviatoric strain. Here we use the alternate notation s and e to avoid the extra superscript d.
+
+42 Inelastic and non-linear materials
+
+We note that this form of the solution is given directly in a strain-driven form. Accordingly, given the strain from any Â®nite element solution step we can immediately compute the stresses by using Eqs (3.13), (3.14) and (3.17) in Eqs (3.11) and (3.12). Inserting the above into a Newton-type solution strategy requires the computation of the tangent moduli. The tangent moduli for the viscoelastic model are deduced from KT jn Â 1 Â @rn Â 1 @sn Â 1 @p Â Â m nÂ1 @en Â 1 @en Â 1 @en Â 1 Â3:18Â
+
+The tangent part for the volumetric term is elastic and given by m @pn Â 1 @p @â¬n Â 1 Â m nÂ1 Â KmmT @en Â 1 @â¬n Â 1 @en Â 1 Â3:19Â
+
+Similarly, the tangent part for the deviatoric term is deduced from Eq. (3.17) as P Q M Â @sn Â 1 @sn Â 1 @en Â 1 â¬m â¬ â¬UI Â Â 2GTâ¬0 Â Â3:20Â R â¬Ãt S d @en Â 1 @en Â 1 @en Â 1 mÂ1 1 Â â¬m where Id is deÂ®ned in Eq. (1.37). Using the above, tangent moduli are expressed as P Q M Â â¬m T â¬ â¬UI KT jn Â 1 Â Kmm Â 2GTâ¬0 Â Â3:21Â R â¬Ãt S d mÂ1 1 Â â¬m and we note that the only diÂerence from a linear elastic material is the replacement of the elastic shear modulus by the viscoelastic term P Q M Â â¬m â¬ â¬U G 3 GTâ¬0 Â R â¬Ãt S mÂ1 1 Â â¬m This relation is independent of stress and strain and hence when it is used with a Newton scheme it converges in one iteration (i.e. the residual of a second iteration is numerically zero). The set of Â®rst-order diÂerential equations (3.16) may be integrated exactly for speciÂ®ed strains, e. The integral for each term is given by Ât Ã Ã @e H qÂmÂ ÂtÂ Â exp Ã¿ Ât Ã¿ tH Â=â¬m dt Â3:22Â @tH Ã¿I An advantage to the diÂerential equation form, however, is that it may be extended to include ageing or other nonlinear eÂects by making the parameters time or solution dependent. The exact solution to the diÂerential equations for such a situation will then involve integrating factors, leading to more involved expressions. In the following parts of this section we consider the integral equation form and its numerical solution for linear viscoelastic behaviour. Models and their solutions for more general cases are left as an exercise for the reader.
+
+Viscoelasticity Â± history dependence of deformation
+
+43
+
+1.0 Relaxation function G (t)/G0 0.8 0.6 0.4 0.2 0 â5 â4 â3 â2 â1 0 1 log time t
+
+2
+
+3
+
+4
+
+5
+
+Fig. 3.2 Typical viscoelastic relaxation function.
+
+Integral equation model
+
+The integral equation form for the deviatoric stresses is expressed in terms of a relaxation modulus function which is deÂ®ned by an idealized experiment in which, at time zero (t Â 0), a specimen is subjected to suddenly applied and constant strain, e0 , and the stress response, sÂtÂ, is measured. For a linear material a unique relation is obtained which is independent of the magnitude of the applied strain. This relation may be written as sÂtÂ Â 2GÂtÂe0 Â3:23Â where GÂtÂ is deÂ®ned as the shear relaxation modulus function. A typical relaxation function is shown in Fig. 3.2. The function is shown on a logarithmic time scale since typical materials have time eÂects which cover wide ranges in time. Using linearity and superposition for an arbitrary state of strain yields the integral equation speciÂ®ed as Ât @e sÂtÂ Â 2GÂt Ã¿ tH Â H dtH Â3:24Â @t Ã¿I We note that the above form is a generalization to the Maxwell material. However, the integral equation form may be specialized to the generalized Maxwell model by assuming the shear relaxation modulus function in a Prony series form 4 5 M Â GÂtÂ Â G â¬0 Â â¬m expÂÃ¿ t=â¬m Â Â3:25Â
+mÂ1
+
+where the â¬m satisfy Eq. (3.15).
+
+Solution to integral equation with Prony series
+
+The solution to the viscoelastic model is performed for a set of discrete points tk . Thus, again assuming that all solutions are available up to time tn , we desire to
+
+44 Inelastic and non-linear materials
+
+Relaxation function G (t)/G0
+
+1.0 0.8 0.6 0.4 0.2 0 â5 â4 â3 â2 â1 0 1 log time t
+
+2
+
+3
+
+4
+
+5
+
+(a)
+
+(b)
+
+Fig. 3.3 Standard linear viscoelastic solid: (a) model for standard solid; (b) relaxation function.
+
+compute the next step for time tn Â 1 . Solution of the general form would require summation over all previous time steps for each new time; however, by using the generalized Maxwell model we may reduce the solution to a recursion formula in which each new solution is computed by a simple update of the previous solution. We will consider a special case of the generalized Maxwell material in which the number of terms M is equal to 1 [which deÂ®nes a standard linear solid, Fig. 3.3(a)]. The addition of more terms is easily performed from the one-term solution. Accordingly, we take GÂtÂ Â G Ââ¬0 Â â¬1 expÂÃ¿t=â¬1 ÂÂ Â3:26Â where â¬0 Â â¬1 Â 1. For the standard solid only a limited range of time can be considered, as can be observed from Fig. 3.3(b) for the model given by GÂtÂ Â G Â0:15 Â 0:85 expÂÃ¿tÂÂ To consider a wider range it is necessary to use terms in which the â¬m cover the total time by using at least one term for each decade of time (a decade being one unit on the log10 time scale). Substitution of Eq. (3.26) into Eq. (3.24) yields Ât Ã Ã @e â¬0 Â â¬1 expÂÃ¿Ât Ã¿ tH Â=â¬1 Â H dtH Â3:27Â sÂtÂ Â 2G @t Ã¿I which may be split and expressed as sÂtÂ Â 2G â¬0 eÂtÂ Â 2G â¬1 Ât
+Ã¿I
+
+expÂÃ¿ Ât Ã¿ tH Â=â¬1 Â
+
+@e H dt @tH Â3:28Â
+
+Â 2G Ââ¬0 eÂtÂ Â â¬1 q ÂtÂÂ
+Â1Â
+
+Â1Â
+
+where we note that q is identical to the form given in Eq. (3.22). Thus use of a Prony series for GÂtÂ is identical to solving the diÂerential equation model exactly.
+
+Viscoelasticity Â± history dependence of deformation
+
+45
+
+In applications involving a linear viscoelastic model, it is usually assumed that the material is undisturbed until a time identiÂ®ed as zero. At time zero a strain may be suddenly applied and then varied over subsequent time. To evaluate a solution at time tn Â 1 the integral representation for the model may be simpliÂ®ed by dividing the integral into Â tn Â 1 Â 0Ã¿ Â 0Â Â tn Â tn Â 1 ÂÃÂ dtH Â ÂÃÂ dtH Â ÂÃÂ dtH Â ÂÃÂ dtH Â ÂÃÂ dtH Â3:29Â
+Ã¿I Ã¿I 0Ã¿ 0Â tn
+
+In each analysis considered here the material is assumed to be unstrained before the time denoted as zero. Thus, the Â®rst term on the right-hand side is zero, the second term includes a jump term associated with e0 at time zero, and the last two terms cover the subsequent history of strain. The result of this separation when applied to Eq. (3.27) gives the recursion3 qn Â 1 Â expÂÃ¿ Ãt=â¬1 Â qÂ1Â Â ÃqÂ1Â n where ÃqÂ1Â Â
+Â1Â Â1Â
+
+Â3:30Â
+
+Â tn Â 1
+tn
+
+expÂÃ¿Âtn Â 1 Ã¿ tH Â=â¬1 Â
+
+@e H dt @tH
+
+Â3:31Â
+
+and q0 Â e0 . To obtain a numerical solution, we approximate the strain rate in each time increment by a constant to obtain Â 1 tn Â 1 Â1Â Ãqn Â 1 Â expÂÃ¿Âtn Â 1 Ã¿ tH Â=â¬1 ÂÂen Â 1 Ã¿ en Â dtH Â3:32Â Ãt tn The integral may now be evaluated directly over each time step as3 Ãqn Â 1 Â
+Â1Â
+
+â¬1 Â1Â Â1 Ã¿ expÂÃ¿Ãt=â¬1 ÂÂÂen Â 1 Ã¿ en Â Â Ãqn Â 1 Âen Â 1 Ã¿ en Â Ãt
+
+Â3:33Â
+
+This approximation is singular for zero time steps; however, the limit value at Ãt Â 0 is one. Thus, for small time steps a series expansion may be used to yield accurate values, giving â¬ â¬ â¬ â¬ â¬ â¬ 1 Ãt 1 Ãt 2 1 Ãt 3 Â1Â Ãqn Â 1 Â 1 Ã¿ Ã¿ ÂÃÃÃ Â3:34Â Â 2 â¬1 33 â¬1 43 â¬1 Using a few terms for very small time increment ratios yields numerically correct answers (to computer precision). Once the time increment ratio is larger than a certain small value the representation given in Eq. (3.33) is used directly. The above form gives a recursion which is stable for small and large time steps and produces very smooth transitions under variable time steps. A numerical approximation to Eq. (3.32) in which the integrand of Eq. (3.31) is evaluated at tn Â 1=2 has also been used with success.8 In the above recursion we note that a zero and inÂ®nite value of a time step produces a correct instantaneous and zero response, respectively, and thus is asymptotically accurate at both limits. The use of Â®nite diÂerence approximations on the diÂerential equation form directly does not produce this property unless â¬ Â 1 and for this value is much less accurate than the solution given by Eq. (3.33).
+
+46 Inelastic and non-linear materials
+
+Using the recursion formula, the constitutive equation now has the simple form sn Â 1 Â 2G Ââ¬0 en Â 1 Â â¬1 qn Â 1 Â
+Â1Â
+
+Â3:35Â
+
+The process may also be extended to include eÂects of temperature on relaxation times for use with thermorheologically simple materials.3 The implementation of the above viscoelastic model into a Newton type solution process again requires the computation of a tangent tensor. Accordingly, for the deviatoric part we need to compute @sn Â 1 @sn Â 1 Â I @en Â 1 @en Â 1 d Â3:36Â
+
+The partial derivative with respect to the deviatoric stress follows from Eq. (3.35) as 4 5 @s @qÂ1Â Â 2G â¬0 I Â â¬1 Â3:37Â @e @e Using Eq. (3.33) the derivative of the last term becomes @qn Â 1 Â1Â Â Ãqn Â 1 ÂÃtÂ I @en Â 1 Thus, the tangent tensor is given by @sn Â 1 Â1Â Â 2 G Ââ¬0 Â â¬1 Ãqn Â 1 ÂÃtÂÂ Id @en Â 1 Â3:39Â
+Â1Â
+
+Â3:38Â
+
+Again, the only modiÂ®cation from a linear elastic material is the substitution of the elastic shear modulus by G 3 G Ââ¬0 Â â¬1 Ãqn Â 1 ÂÃtÂÂ
+Â1Â
+
+Â3:40Â
+
+We note that for zero Ãt the full elastic modulus is recovered, whereas for very large increments the equilibrium modulus â¬0 G is used. Since the material is linear, use of this tangent modulus term again leads to convergence in one iteration (the second iteration produces a numerically zero residual). ÂmÂ The inclusion of more terms in the series reduces to evaluation of additional qn Â 1 ÂmÂ integral recursions. Computer storage is needed to retain the qn for each solution (quadrature) point in the problem and each term in the series.
+
+Example: a thick-walled cylinder subjected to internal pressure
+
+To illustrate the importance of proper element selection when performing analyses in which material behaviour approaches a near incompressible situation we consider the case of internal pressure on a thick-walled cylinder. The material is considered to be isotropic and modelled by viscoelastic response in deviatoric stressÂ±strain only. Material properties are: modulus if elasticity, E Â 1000; Poisson's ratio, â¬ Â 0:3; â¬1 Â 0:99; and â¬1 Â 1. Thus, the viscoelastic relaxation function is given by GÂtÂ Â 1000 Â0:01 Â 0:99 expÂÃ¿tÂÂ 2:6
+
+The ratio of the bulk modulus to shear modulus for instantaneous loading is given by K=GÂ0Â Â 2:167 and for long time loading by K=GÂIÂ Â 216:7 which indicates a
+
+Viscoelasticity Â± history dependence of deformation
+
+47
+
+(a)
+
+(b)
+
+Fig. 3.4 Mesh and loads for internal pressure on a thick-walled cylinder: (a) four-noded quadrilaterals; (b) nine-noded quadrilaterals.
+
+near incompressible behaviour for sustained loading cases (the eÂective Poisson ratio for inÂ®nite time is 0.498). The response for a suddenly applied internal pressure, p Â 10, is computed to time 20 by using both displacement and the mixed element described in Chapter 1. Quadrilateral elements with four nodes (Q4) and nine nodes (Q9) are considered, and meshes with equivalent nodal forces are shown in Fig. 3.4. The exact solution to this problem is one-dimensional and, since all radial boundary conditions are traction ones, the stress distribution should be time independent. During the early part of the solution, when the response is still in the compressible range, the solutions from the two formulations agree well with this exact solution. However, during the latter part of the solution the answers from a displacement element diverge because of near incompressibility eÂects, whereas those from a mixed element do not. The distribution of quadrature point radial stresses at time t Â 20 is shown in Fig. 3.5 where the highly oscillatory response of the displacement form is clearly evident. We note that extrapolation to reduced quadrature points
+10 5 Radial stress (Ï) 0 â5 â10 â15 â20 â25 â4.0 (a) Q4/1 - Mixed Q9/3 - Mixed Exact â3.5 â3.0 â2.5 r-coordinate â2.0 â1.5 Radial stress (Ï) 10 5 0 â5 â10 â15 â20 â25 â4.0 (b) â3.5 â3.0 â2.5 r-coordinate Q4/1 - Displ Q9/3 - Displ Exact â2.0 â1.5
+
+Fig. 3.5 Radial stress for internal pressure on a thick-walled cylinder: (a) mixed model; (b) displacement model.
+
+48 Inelastic and non-linear materials
+
+would avoid these oscillations; however, use of fully reduced integration would lead to singularity in the stiÂness matrix (as shown in Volume 1) and selective reduced integration is diÂcult to use with general non-linear material behaviour. Thus, for general applications the use of mixed elements is preferred.
+
+3.2.3 Solution by analogies
+The labour of step-by-step solutions for linear viscoelastic media can, on occasion, be substantially reduced. In the case of a homogeneous structure with linear isotropic viscoelasticity and constant Poisson ratio operator, the McHenryÂ±Alfrey analogies allow single-step elastic solutions to be used to obtain stresses and displacements at a given time by the use of equivalent loads, displacements and temperatures.9;10 Some extensions of these analogies have been proposed by Hilton and Russell.11 Further, when subjected to steady loads and when strains tend to a constant value at an inÂ®nite time, it is possible to determine the Â®nal stress distribution even in cases where the above analogies are not applicable. Thus, for instance, where the viscoelastic properties are temperature dependent and the structure is subject to a system of loads and temperatures which remain constant with time, long-term `equivalent' elastic constants can be found and the problem solved as a single, nonhomogeneous elastic one.12 The viscoelastic problem is a particular case of a creep phenomenon to which we shall return in Sect. 3.3 using some other classical non-linear models to represent material behaviour.
+
+3.3 Classical time-independent plasticity theory
+Classical `plastic' behaviour of solids is characterized by a non-unique stressÂ±strain relationship which is independent of the rate of loading but does depend on loading sequence that may be conveniently represented as a process evolving in time. Indeed, one deÂ®nition of plasticity is the presence of irrecoverable strains on load removal. If uniaxial behaviour of a material is considered, as shown in Fig. 3.6(a), a non-linear relationship on loading alone does not determine whether non-linear elastic or plastic behaviour is exhibited. Unloading will immediately discover the diÂerence, with an elastic material following the same path and a plastic material showing a historydependent diÂerent path. We have referred to non-linearity elasticity already in Sect. 1.2 [see Eq. (1.36)] and will not give further attention to it here as the techniques used for plasticity problems or non-linear elasticity show great similarity. Representation of non-linear elastic behaviour for Â®nite deformation applications is more complex as we shall show in Chapter 10. Some materials show a nearly ideal plastic behaviour in which a limiting yield stress, Y (or â¬y ), exists at which the strains are indeterminate. For all stresses below such yield, a linear (or non-linear) elastic relationship is assumed, Fig. 3.6(b) illustrates this. A further reÂ®nement of this model is one of a hardening/softening plastic material in which the yield stress depends on some parameter â¬ (such as the
+
+Classical time-independent plasticity theory
+Ï Ï Loading
+
+49
+
+Loading Unloading Non-linear elastic Plastic Îµ (a)
+
+Unloading Ïy = constant Îµ (b)
+
+Ï
+
+Îµp
+
+Ïy = Ïy (Îµp)
+
+Îµ (c)
+
+Fig. 3.6 Uniaxial behaviour of materials: (a) non-linear elastic and plastic behaviour; (b) ideal plasticity; (c) strain hardening plasticity.
+
+accumulated plastic strain " p ) [Fig. 3.6(c)]. It is with such kinds of plasticity that this section is concerned and for which much theory has been developed.13;14 In a multiaxial rather than a uniaxial state of stress the concept of yield needs to be generalized. It is important to note that in the following development of results in a matrix form all nine tensor components are used instead of the six `engineering' component form used previously. To distinguish between the two we introduce an underbar on the symbol for all nine-component forms. Thus, we shall use: Ã ÃT r Â â¬x â¬y â¬z â¬xy â¬yz â¬zx Ã ÃT r Â â¬x â¬y â¬z â¬xy â¬yx â¬yz â¬zy â¬zx â¬xz Â3:41Â Ã ÃT e Â "x "y "z 
+xy 
+yz 
+zx Ã ÃT e Â "x "y "z "xy "yx "yz "zy "zx "xz in which 
+ij Â 2 "ij . The transformations between the nine- and six-component forms needed later are obtained by using e Â Pe and r Â PT r Â3:42Â
+
+50 Inelastic and non-linear materials
+
+where
+
+2 T0 T T 1 T0 PT Â T 2 T0 T T R0
+
+P
+
+0 2 0 0 0
+
+0 0 2 0 0 0
+
+0 0 0 1 0 0
+
+0 0 0 0 0 0 1 0 0 1 0 0
+
+0 0 0 0 1 0
+
+0 0 0 0 0 1
+
+Q 0 0U U U 0U U 0U U U 0S 1
+
+0 0
+
+Accordingly, we Â®rst make all computations by using the nine `tensor' components of stress and strain and only at the end do we reduce the computations to expressions in terms of the six independent `engineering' quantities using P. This will permit Â®nal expressions for strain and equilibrium to be written in terms of B as in all previous developments. In addition we note that: Q P 2 U T 2 U T U 1T 2 T T U T P IP Â P P Â I0 Â3:43Â with I0 Â T U 1 2T U S R 1 1 (see Section 12.2, Volume 1).
+
+3.3.1 Yield functions
+It is quite generally postulated, as an experimental fact, that yielding can occur only if the stress satisÂ®es the general yield criterion FÂr; j; â¬Â Â 0 Â3:44Â
+
+Ï2 (Îµ2)
+
+Yield surface
+
+dÎµp
+p dÎµ1
+
+p dÎµ2
+
+Elastic behaviour
+
+F (Ï1 , Ï2 , Îº)
+Ï1 (Îµ1)
+
+Fig. 3.7 Yield surface and normality criterion in two-dimensional stress space.
+
+Classical time-independent plasticity theory
+
+51
+
+where r denotes a matrix form with all nine components of stress, j represents kinematic hardening parameters and â¬ an isotropic hardening parameter.13 We shall discuss these particular sets of parameters later but, of course, many other types of parameters also can be used to deÂ®ne hardening. This yield condition can be visualized as a surface in an n-dimensional space of stress with the position and size of the surface dependent on the instantaneous value of the parameters j and â¬ (Fig. 3.7).
+
+3.3.2 Flow rule (normality principle)
+Von Mises Â®rst suggested that basic behaviour deÂ®ning the plastic strain increments is related to the yield surface.15 Heuristic arguments for the validity of the relationship proposed have been given by various workers in the Â®eld16Ã¿23 and at the present time the following hypothesis appears to be generally accepted for many materials; if e p denotes the components of the plastic strain tensor the rate of plastic strain is assumed to be given byÃ Â Â ep Â â¬F;r where the notation F;r â¬ @F @r Â3:46Â Â3:45Â
+
+Â is introduced. In the above, â¬ is a proportionality constant, as yet undetermined, often referred to as the `plastic consistency' parameter. During sustained plastic deformation we must have Â Â F Â0 and â¬>0 Â3:47Â Â Â whereas during elastic loading/unloading â¬ Â 0 and F TÂ 0 leading to a general 14 constraint condition in KuhnÂ±Tucker form Â Â Fâ¬ Â 0 Â3:48Â The above rule is known as the normality principle because relation (3.45) can be interpreted as requiring the plastic strain rate components to be normal to the yield surface in the space of nine stress and strain dimensions. Restrictions of the above rule can be removed by specifying separately a plastic Â¯ow rule potential Q Â QÂr; â¬Â Â3:49Â which deÂ®nes the plastic strain rate similarly to Eq. (3.45); that is, giving this as Â Â ep Â â¬ Q;r ;
+Ã
+
+Â â¬50
+
+Â3:50Â
+
+Some authors prefer to write Eq. (3.45) in an incremental form dep Â dâ¬ F;r
+
+Â where then dep â¬ ep dt, and t is some pseudo-time variable. Here we prefer the rate form to permit use of common solution algorithms in which de will denote an increment in a Newton-type solution. (Also note the diÂerence in notation between a small increment `d' and a diÂerential `d'.)
+
+52 Inelastic and non-linear materials
+
+The particular case of Q Â F is known as associative plasticity. When this relation is not satisÂ®ed the plasticity is non-associative. In what follows this more general form will be considered initially (reductions to the associative case follow by simple substitution of Q Â F). The satisfaction of the normality rule for the associative case is essential for proving so called upper and lower bound theorems of plasticity as well as uniqueness. In the non-associative case the upper and lower bound do not exist and indeed it is not certain that the solutions are always unique. This does not prevent the validity of non-associated rules as it is well known that in frictional materials, for instance, uniqueness is seldom achieved but the existence of friction cannot be denied.
+
+3.3.3 Hardening/softening rules
+The parameters j and â¬ must also be determined from rate equations and deÂ®ne hardening (or softening) of the plastic behaviour of the material. The evolution of â¬, govern the size of the yield surface is commonly related to the rate of plastic work or directly to the consistency parameter. If related to the rate of plastic work â¬ has dimensions of stress and a relation of the type Â Âu Â â¬ Â rT ep Â YÂâ¬Â "p @Y @â¬ Â3:51Â
+
+Isotropic hardening
+
+is used to match behaviour to a uniaxial tension or compression result. The slope AÂ Â3:52Â
+
+provides a modulus deÂ®ning instantaneous isotropic hardening. In the second approach â¬ is dimensionless (e.g., an accumulated plastic strain14 ) and is related directly to the consistency parameter using Ã Ã1=2 Â ;r Â Â â¬ Â ÂÂ p ÂT e p e Â â¬ÂQT Q;r Â1=2 Â3:53Â A constitutive equation is then introduced to match uniaxial results. For example, a simple linear form is given by â¬y Ââ¬Â Â â¬y0 Â Hi0 â¬ where Hi0 is a constant isotropic hardening modulus.
+
+Kinematic hardening
+
+A classical procedure to represent kinematic hardening was introduced by Prager24 and modiÂ®ed by Ziegler.25 Here the stress in each yield surface is replaced by a linear relation in terms of a `back stress' j as |ÂrÃ¿j with the yield function now given as FÂr Ã¿ j; â¬Â Â FÂ|; â¬Â Â 0 Â3:55Â Â3:54Â
+
+Classical time-independent plasticity theory
+
+53
+
+during plastic behaviour. We note that with this approach derivatives of the yield surface diÂer only by a sign and are given by F;| Â F;r Â Ã¿ F;j Â3:56Â
+
+Accordingly, the yield surface will now translate, and if isotropic hardening is present will also expand or contract, during plastic loading. A rate equation may be speciÂ®ed most directly by introducing a conjugate work variable b from which the hardening parameter j is deduced by using a hardening potential r. This may be stated as j Â Ã¿r;b Â3:57Â which is completely analogous to use of an elastic energy to relate r and ee . A rate equation may be expressed now as Â Â b Â â¬ Q;j Â3:58Â It is immediately obvious that here also we have two possibilities. Using Q in the above expression deÂ®nes a non-associative hardening, whereas replacing Q by F would give an associative hardening. Thus for a fully associative model we require that F be used to deÂ®ne both the plastic potential and the hardening. In such a case the relations of plasticity also may be deduced by using the principle of maximum plastic dissipation.13;14;26;27 A quadratic form for the hardening potential may be adopted and written as r Â 1 bT H k b 2 Â3:59Â in which Hk is assumed to be an invertible set of constant hardening parameters. Now b may be eliminated to give the simple rate form Â Â j Â Ã¿ â¬ Hk @Q Â Â Ã¿â¬ Hk Q;j @j Â3:60Â
+
+Use of a linear shift in relation (3.54) simpliÂ®es this, noting Eq. (3.56), to Â Â j Â â¬Hk Q;| Â3:61Â
+
+In our subsequent discussion we shall usually assume a general quadratic model for both elastic and hardening potentials. For a more general treatment the reader is referred to references 14 and 28. Another approach to kinematic hardening was introduced by Armstrong and Frederick29 and provides a means of retaining smoother transitions from elastic to inelastic behaviour during cyclic loading. Here the hardening is given as Â Â j Â â¬ ÂHk Q;| Ã¿ HNL jÂ Â3:62Â Applications of this approach are presented by Chaboche30;31 and numerical comparisons to a simpler approach using a generalized plasticity model32;33 are given by Auricchio and Taylor.34 Many other approaches have been proposed to represent classical hardening behaviour and the reader is referred to the literature for additional information and discussion.19Ã¿21;35Ã¿37 A physical procedure utilizing directly the Â®nite element
+
+54 Inelastic and non-linear materials
+
+method is available to obtain both ideal plasticity and hardening. Here several ideal plasticity components, each with diÂerent yield stress, are put in series and it will be found that both hardening and softening behaviour can be obtained easily retaining the properties so far described. This approach was named by many authors as an `overlay' model38;39 and by others is described as a `sublayer' model. There are of course many other possibilities to deÂ®ne change in surfaces during the process of loading and unloading. Here frictional soils present one of the most diÂcult materials to model and for the non-associative case we Â®nd it convenient to use the generalized plasticity method described in Sect. 3.6.
+
+3.3.4 Plastic stressÂ±strain relations
+To construct a constitutive model for plasticity, the strains are assumed to be divisible into elastic and plastic parts given as e Â ee Â e p Â3:63Â
+
+For linear elastic behaviour, the elastic strains are related to stresses by a symmetric 9 Ã 9 matrix of constants D. DiÂerentiating Eq. (3.63) and incorporating the plastic relation (3.50) we obtain Â Â Â e Â DÃ¿1 r Â â¬ Q;r The plastic strain (rate) will occur only if the `elastic' stress changes Â Â re â¬ D e Â3:65Â Â3:64Â
+
+tends to put the stress outside the yield surface, that is, is in the plastic loading direction. If, on the other hand, this stress change is such that unloading occurs then of course no plastic straining will be present, as illustrated for the one-dimensional case in Fig 3.6. The test of the above relation is therefore crucial in diÂerentiating between loading and unloading operations and underlines the importance of the straining path in computing stress changes. When plastic loading is occurring the stresses are on the yield surface given by Eq. (3.44). DiÂerentiating this we can therefore write @F @F @F @F @F Â Â Â Â FÂ â¬Â0 â¬ Â Â â¬ Â ÃÃÃ Â Â â¬ Â â¬ Â ÃÃÃ Â @â¬x x @â¬y y @â¬x x @â¬y y @â¬ or
+T T Â Â Â Â F Â F;r r Â F;j j Ã¿ Hi â¬ Â 0
+
+Â3:66Â
+
+in which we make the substitution @F Â Â Â â¬ Â Ã¿ F;â¬ â¬ Hi â¬ Â Ã¿ @â¬ where Hi denotes an isotropic hardening modulus. Â3:67Â
+
+Classical time-independent plasticity theory
+
+55
+
+For the case where kinematic hardening is introduced, using Eq. (3.54) we can substitute Eq. (3.61) and modify Eq. (3.64) to Â Â Â D e Â | Â ÂD Â Hk Â â¬Q;| Similarly, introducing Eq. (3.56) into Eq. (3.66) we obtain
+T Â Â Â F Â F;| | Ã¿ Hi â¬ Â 0
+
+Â3:68Â
+
+Â3:69Â
+
+Equations (3.68) and (3.69) now can be written in matrix form as & ' 4 I ÂD Â H ÂQ 5 @ A Â k ;| | Â De Â T Â 0 F;| Ã¿Hi â¬
+
+Â3:70Â
+
+Â The indeterminate constant â¬ can now be eliminated (taking care not to multiply or divide by Hi or Hk which are zero in ideal plasticity). To accomplish the elimination Â we solve the Â®rst set of Eq. (3.70) for |, giving Â Â Â | Â D e Ã¿ ÂD Â Hk Â Q;| â¬ and substitute into the second, yielding the expression
+T T Â Â F;| D e Ã¿ ÂHi Â F;r ÂD Â Hk Â Q;| Â â¬ Â 0
+
+Equation (3.64) now results in an explicit expansion that determines the stress changes in terms of imposed strain changes. Using Eq. (3.43) this may now be reduced to a form in which only six-independent components are present and expressed asÃ Â r Â DÃ e ep Â and DÃ Â PT D P Ã¿ ep ÂDÃ¿ where
+T H Ã Â Hi Â F;| ÂD Â Hk Â Q;|
+
+Â3:71Â
+
+1 T T P D Q;| F;| D P HÃ
+
+1 T T P D Q;| F;| D P HÃ
+
+Â3:72Â
+
+The elasto-plastic matrix DÃ takes the place of the elasticity matrix DT in a continuum ep rate formulation. We note that in the absence of kinematic hardening it is possible to make reductions to the six-component form for all the computations at the very beginning. However, the manner in which the back stress enters the computation is not the same as that for the plastic strain and would be necessary to scale the two diÂerently to make the general reduction. Thus, for the developments reported here we prefer to carry out all calculations using the full nine-component form (or, in the case of plane stress, to follow a four-component form) and make Â®nal reductions using Eq. (3.72).
+We shall show this step in more detail below for the J2 plasticity model. In general, however, the Â®nal result involves only the usual form of the D matrix and six independent components from the derivative of the yield function.
+Ã
+
+56 Inelastic and non-linear materials
+
+For a generalization of the above concepts to a yield surface possessing `corners' where Q;r is indeterminate, the reader is referred to the work of Koiter17 or the multiple surface treatments in Simo and Hughes.14 An alternative procedure exists here simply by smoothing the corners. We shall refer to it later in the context of the MohrÂ±Coulomb surface often used in geomechanics and the procedure can be applied to any form of yield surface. The continuum elasto-plastic matrix is symmetric only when plasticity is associative and when kinematic hardening is symmetric. In general, non-associative materials present stability diÂculties, and special care is needed to use them eÂectively. Similar diÂculties occur if the hardening moduli are negative which, in fact, leads to a softening behaviour. This is addressed further in Secs 3.11 and 3.12. The elasto-plastic matrix given above is deÂ®ned even for ideal plasticity when Hi and Hk are zero. Direct use of the continuum tangent in an incremental Â®nite element context where the rates are approximated by Â en Â 1 Ãt % Ãen Â 1 and Â rn Â 1 Ãt % Ãrn Â 1
+
+was Â®rst made by Yamada et al.40 and Zienkiewicz et al.41 However, this approach does not give quadratic convergence when used in the NewtonÂ±Raphson scheme. For the associative case we can introduce a discrete time integration algorithm in order to develop an exact (numerically consistent) tangent which does produce quadratic convergence when used in the NewtonÂ±Raphson iterative algorithm.
+
+3.4 Computation of stress increments
+We have emphasized that with the use of iterative procedures within a particular increment of loading, it is important to compute always the stresses as rk Â 1 Â rn Â Ãrk n n Â3:73Â
+
+corresponding to the total change in displacement parameters Ãak and hence the total n strain change Ãek Â B Ãak n n Ãak Â n
+k Â iÂ0
+
+dain
+
+Â3:74Â
+
+which has accumulated in all previous iterations within the step. This point is of considerable importance as constitutive models with path dependence (namely, plasticity-type models) have diÂerent responses for loading and unloading. If a decision on loading/unloading is based on the increment dak erroneous results will n be obtained. Such decisions must always be performed with respect to the total increment Ãak . n In terms of the elasto-plastic modulus matrix given by Eq. (3.72) this means that the stresses have to be integrated as rk Â 1 Â rn Â n Â Ãek n
+0
+
+DÃ de ep
+
+Â3:75Â
+
+Computation of stress increments
+
+57
+
+incorporating into DÃ the dependence on variables in a manner corresponding to ep a linear increase of Ãek (or Ãak ). Here, of course, all other rate equations have to n n be suitably integrated, though this generally presents little additional diÂculty. Various procedures for integration of Eq. (3.75) have been adopted and can be classiÂ®ed into explicit and implicit categories.
+
+3.4.1 Explicit methods
+In explicit procedures either a direct integration process is used or some form of the RungeÂ±Kutta process is adopted.42 In the former the known increment Ãek is n subdivided into m intervals and the integral of Eq. (3.75) is replaced by direct summation, writing Ãrk Â n Â 1 mÃ¿1 Ã D Ãek m j Â 0 ÂnÂj=mÂ n Â3:76Â
+
+where DÃ Â j=mÂ denotes the tangent matrix computed for stresses and hardening Ân parameters updated from the previous increment in the sum. This procedure, originally introduced in reference 43 and described in detail in references 44 and 45, is known as subincrementation. Its accuracy increases with the number of subincrements, m, used. In general it is diÂcult a priori to decide on this number, and accuracy of prediction is not easy to determine. Such integration will generally result in the stress change departing from the yield surface by some margin. In problems such as those of ideal plasticity where the yield surface forms a meaningful limit a proportional scaling of stresses (or return map) has been practiced frequently to obtain stresses which are on the yield surface at all times.45;46 In this process the eÂects of integrating the evolution equation for hardening must also be treated. A more precise explicit procedure is provided by use of a RungeÂ±Kutta method. Here, Â®rst an increment of Ãe=2 is applied in a single-step explicit manner to obtain Ãrn Â 1=2 Â 1 DÃ Ãen 2 n Â3:77Â
+
+using the initial elasto-plastic matrix. This increment of stress (and corresponding jn Â 1=2 ) is evaluated to compute DÃ Â 1=2 and Â®nally we evaluate n Ãrn Â DÃ Â 1=2 Ãen n Â3:78Â
+
+This process has a second-order accuracy and, in addition, can give an estimate of errors incurred as Ãrn Ã¿ 2 Ãrn Â 1=2 Â3:79Â
+
+If such stress errors exceed a certain norm the size of the increment can be reduced. This approach is particularly useful for integration of non-associative models or models without yield functions where `tangent' matrices are simply evaluated (see Sect. 3.6).
+
+58 Inelastic and non-linear materials
+
+3.4.2 Implicit methods
+The integration of Eq. (3.75) can, of course, be written in an implicit form. For instance, we could write in place of Eq. (3.75), during each iteration k, that Ãrk Â 1 Â ÂÂ1 Ã¿ â¬ÂDÃ Â â¬ DÃ;k 1 ÂÃek Â 1 n n n nÂ Â3:80Â where here DÃ denotes the value of the tangential matrix at the beginning of the time n step and DÃ;k 1 the current estimate to the tangential matrix at the end of the step. nÂ This non-linear equation set could be solved by any of the procedures previously described; however, derivatives of the tangent matrix are quite complex and in any case a serious error is committed in the approximate form of Eq. (3.80). Further, there is no guarantee that the stresses do not depart from the yield surface.
+
+Return map algorithm
+
+In 1964 a very simple algorithm was introduced simultaneously by Maenchen and Sacks47 and by Wilkins.48 This algorithm uses a two-step process to compute the new stress and was originally implemented in an explicit time integration form, thus requiring no explicit construction of an elasto-plastic tangent matrix; however, later its versatility and robustness was demonstrated for implicit solutions.49;50 The steps of the algorithm are: 1. Perform a predictor step in which the entire increment of strain (for the present discussion we omit the iteration counter k for simplicity) en Â 1 Â en Â Ãen is used to compute trial stresses (denoted by superscript TR) assuming elastic behaviour. Accordingly, rTR 1 Â DÂen Â 1 Ã¿ e p Â nÂ n Â3:81Â
+
+where only an elastic modulus D is required. 2. Evaluate the yield function in terms of the trial stress and the values of the plastic parameters at the previous time: @ 40; elastic FÂrTR ; jn ; â¬n Â Â Â3:82Â >0; plastic (a) For an elastic value of F set the current stress to the trial value, accordingly rn Â 1 Â rTR 1 ; nÂ jn Â 1 Â jn and â¬n Â 1 Â â¬n
+
+(b) For a plastic state solve a discretized set of plasticity rate equations (namely, using any appropriate time integration method as described in Chapter 18 of Volume 1) such that the Â®nal value of Fn Â 1 is zero. A plastic correction can be most easily developed by returning to the original Eq. (3.64) and writing the relation for stress increment as Ãrn Â D ÂÃen Ã¿ Ãe p Â n Â3:83Â
+
+Computation of stress increments
+
+59
+
+Now integrating the plastic strain relation (3.50) using a form similar to that in Eq. (3.80) yields Ãe p Â Ãâ¬ ÂÂ1 Ã¿ â¬ÂQ;r jn Â â¬ Q;r jn Â 1 Â n Â3:84Â
+
+where Ãâ¬ represents an approximation to the change in consistency parameter over the time increment. Kinematic hardening is included by integrating Eq. (3.60) as Ãjn Â Ã¿ Ãâ¬Hk ÂÂ1 Ã¿ â¬ÂQ;j jn Â â¬ Q;j jn Â 1 Â Finally, during the plastic solution we enforce Fn Â 1 Â 0 Â3:86Â Â3:85Â
+
+thus ensuring that Â®nal values at tn Â 1 satisfy the yield condition exactly. The above solution process is particularly simple for â¬ Â 1 (backward diÂerence or Euler implicit) and now, eliminating Ãe p , we can write the above non-linear system in n residual form Riâ¬ Â Ãen Ã¿ DÃ¿1 Ãrin Ã¿ Ãâ¬ Q;r jin Â 1 Riâ¬ Â Ã¿HÃ¿1 Ãjin Ã¿ Ãâ¬ Q;j jin Â 1 k
+i r i Â Ã¿ Fn Â 1
+
+and seek solutions which satisfy Riâ¬ Â 0, Riâ¬ Â 0 and r i Â 0. Any of the general iterative schemes described in Chapter 2 can now be used. In particular, the full NewtonÂ±Raphson process is convenient. Noting that Ãen is treated here as a speciÂ®ed constant (actually, the Ãek from the current Â®nite element solution), we can write, on n linearization P Ã¿1 Qi V W V W D Â Ãâ¬ Q;rr Ãâ¬Q;rj Q;r b dri b b Riâ¬ b a ` a ` T U i i T Â3:87Â Ãâ¬Q;jr HÃ¿1 Â Ãâ¬Q;jj Q;j U k R S b dj b Â b Râ¬ b X iY X i Y T T dâ¬ r F;r F;j Ã¿Hi
+nÂ1
+
+where Hi is the same hardening parameter as that obtained in Eq. (3.67). Some complexity is introduced by the presence of the second derivatives of Q in Eq. (3.87) and the term may be omitted for simplicity (although at the expense of asymptotic quadratic convergence in the NewtonÂ±Raphson iteration). Analytical forms of such second derivatives are available for frequently used potential surfaces.14;28;49Ã¿51 Appendix A also presents results for second derivatives of stress invariants. It is important to note that the requirement that Fn Â 1 Â Ã¿ri [Eq. (3.87)] ensures that the r i residual measures precisely the departure from the yield surface. This measure is not available for any of the tangential forms if DÃ is adopted. ep For the solution it is only necessary to compute dâ¬i and update as Ãâ¬i Â
+i Â jÂ0
+
+dâ¬j
+
+Â3:88Â
+
+60 Inelastic and non-linear materials
+
+This solution process can be done in precisely the same way as was done in establishing Eq. (3.72). Thus, a solution may be constructed by deÂ®ning the following: 4 5 4 5 Râ¬ r RÂ fÂ ; Râ¬ j 4 5 4 5 F;r Q;r rF Â rQ Â Â3:89Â ; F;j Q;j 4 Ã¿1 5 4 5 Q;rr Q;rj D 0 i AÂ Â Ãâ¬ Q;jr Q;jj 0 HÃ¿1 k and expressing Eq. (3.87) as dfi Â AÃ¿1 Ri Ã¿ where AÃ Â Hi Â ÂrF i ÂT AÃ¿1 rQi Â3:91Â Immediately, we observe that at convergence Ri Â 0 and r i Â 0, thus, here we obtain a zero stress increment. At this point we have computed a stress state rn Â 1 which satisÂ®es the yield condition exactly. However, this stress, when substituted back into the Â®nite element residual [e.g. Eq. (1.24) or (1.44)] may not satisfy the equilibrium condition and it is now necessary to compute a new iteration k and obtain a new strain increment dek from which the process is repeated. We note that inserting n this new increment into Eq. (3.87) will again result in a non-zero value for Râ¬ , but that Râ¬ and r remain zero until subsequent iterations. Thus, Eq. (3.90) provides directly ~ ep now the required tangent matrix DÃ from 5& ' !& ' 4 ~Ã & ' de de dr 1 Ã¿1 Dep Ã Ã¿1 T Ã¿1 Â Â3:92Â Â A Ã¿ Ã A rQ ÂrFÂ A A dj 0 0 Ã Ã ~ ep Thus, we Â®nd the tangent matrix DÃ is obtained from the upper diagonal block of Eq. (3.92). We note that this development also follows exactly the procedure for computing DÃ in Eq. (3.72). At this stage the terms may once again be reduced to their sixep component form using P as indicated in Eq. (3.42). Some remarks on the above algorithm are in order: 1. For non-associative plasticity (namely, Q TÂ F) the return direction is not normal to the yield surface. In this case no solution may exist for some strain increments (in general, arbitrary selection of F and Q forms in non-associative does not assure stability) and the iteration process will not converge. 2. For associative plasticity the normality principle is valid, requiring a convex yield surface. In this case the above iteration process always converges for a hardening material. 3. Convergence of the Â®nite element equations may not always occur if more than one quadrature point changes from elastic to plastic or from plastic to elastic in subsequent iterations. Ã Ã 1 Ã¿1 i i T Ã¿1 i i Ã A rQ ÂrF Â A R Ã¿ r A Â3:90Â
+
+Isotropic plasticity models
+
+61
+
+Based on these comments it is evident that no universal method exists that can be used with the many alternatives which can occur in practice. In the next several sections we illustrate some formulations which employ the alternatives we have discussed above.
+
+3.5 Isotropic plasticity models
+We consider here some simple cases for isotropic plasticity-type models in which both a yield function and a Â¯ow rule are used. For an isotropic material linear elastic response may be expressed by moduli deÂ®ned with two parameters. Here we shall assume these to be the bulk and shear moduli, as used previously in the viscoelastic section (Sec. 3.2). Accordingly, the stress at any discrete time tn Â 1 is computed from elastic strains in matrix form as rn Â 1 Â pn Â 1 m Â sn Â 1 Â K m m ee Â 1 Â 2 G ÂI Ã¿ 1 m mT Â ee Â 1 n n 3 Ã¿ Ã p Â D en Â 1 Ã¿ en Â 1 D Â K m mT Â 2G ÂI Ã¿ 1 m mT Â 3 and I is the 9 Ã 9 identity matrix and m is the nine-component matrix m Â Â1 1 1 0 0 0 0 0 0 ÂT Â3:95Â Using Eqs (3.42) and (3.43) immediately reduces the above to D Â K m mT Â 2 G ÂI0 Ã¿ 1 m mT Â 3 The above relation yields the stress at the current time provided we know the current total strain and the current plastic strain values. The total strain is available from the Â®nite element equations using the current value of nodal displacements, and the plastic strain is assumed to be computed with use of one of the algorithms given above. In the discussion to follow we consider relations for various classical yield surfaces. Â3:93Â Â3:94Â
+
+where the elastic modulus matrix for an isotropic material is given in the simple form
+
+3.5.1 Isotropic yield surfaces
+The general procedures outlined in the previous section allow determination of the tangent matrices for almost any yield surface applicable in practice. For an isotropic material all functions can be represented in terms of the three stress invariants:Ã I1 Â â¬ii Â mT r 2J2 Â sij sji Â sT s Â jsj2 3J3 Â sij sjk ski Â det s where we can observe that deÂ®nition of all the invariants is most easily performed in indicial notation.
+Ã
+
+Â3:96Â
+
+Appendix A presents a summary of invariants and their derivatives.
+
+62 Inelastic and non-linear materials
+
+One useful form of these invariants for use in yield functions is given by43 3â¬m Â I1 pÂÂÂÂÂ â¬ Â J2 " 3 â¬ Â sin
+Ã¿1
+
+2
+
+pÂÂÂ 1=3 3 3 J3 Ã¿ 2â¬ "
+
+3 with Ã¿ â¬ â¬ 4â¬4 6 6
+
+Â3:97Â
+
+Using these deÂ®nitions the surface for several classical yield conditions can be given as: 1. Tresca: F Â 2 â¬ cos â¬ Ã¿ YÂâ¬Â Â 0 " 2. HuberÂ±von Mises: pÂÂÂ F Â 2â¬ Ã¿ " rÂÂÂ rÂÂÂ 2 2 YÂâ¬Â Â jsj Ã¿ YÂâ¬Â Â 0 3 3 Â3:98Â
+
+Â3:99Â
+
+Both conditions 1 and 2 are well veriÂ®ed in metal plasticity. For soils, concrete and other `frictional' materials the MohrÂ±Coulomb or DruckerÂ±Prager surfaces is frequently used.52 3. MohrÂ±Coulomb: â¬ â¬ 1 pÂÂÂ sin â¬ sin â¬ Ã¿ c cos â¬ Â 0 F Â â¬m sin â¬ Â â¬ cos â¬ Ã¿ " Â3:100Â 3 where cÂâ¬Â and â¬Ââ¬Â are the cohesion and the angle of friction, respectively, which can depend on an isotropic strain hardening parameter â¬. 4. DruckerÂ±Prager: F Â 3 â¬H Ââ¬Ââ¬m Â â¬ Ã¿ KÂâ¬Â Â 0 " where 2 sin â¬ â¬H Â pÂÂÂ 3Â3 Ã¿ sin â¬Â 6 cos â¬ K Â pÂÂÂ 3Â3 Ã¿ sin â¬Â Â3:101Â
+
+and again c and â¬ can depend on a strain hardening parameter. These forms lead to a convenient deÂ®nition of the gradients F;r or Q;r , irrespective of whether the surface is used as a yield condition or a Â¯ow potential. Thus we can always write F;r Â F;â¬m and upon noting that @ â¬ @ â¬ @J2 " " 1 @J2 Â Â pÂÂÂÂÂ @r @J2 @r 2 J2 @r @â¬ @â¬ @J2 @â¬ @J3 1 @J 1 @J Â Â Â tan 3â¬ J3 3 Ã¿ J2 2 @r @J2 @r @J3 @r 9 @r 6 @r @â¬m @â¬ " @â¬ Â F;" Â F;â¬ â¬ @r @r @r Â3:102Â
+
+!
+
+Â3:103Â
+
+Isotropic plasticity models
+Table 3.1 Invariant derivatives for various yield conditions pÂÂÂÂÂ Yield condition F;â¬m J2 F;J2 Tresca HuberÂ±von Mises MohrÂ±Coulomb DruckerÂ±Prager 0 0 sin â¬ 3â¬H 2 cos â¬Â1 Â tan â¬ tan 3â¬Â pÂÂÂ 3
+
+63
+
+J2 F;J3 pÂÂÂ 3 sin â¬ cos 3â¬ 0 pÂÂÂ 3 sin â¬ Â sin â¬ cos â¬ 2 cos 3â¬ 0
+
+! 1 1 cos â¬ 1 Â tan â¬ sin 3â¬ Â pÂÂÂ sin â¬Âtan 3â¬ Ã¿ tan â¬Â 2 3 1
+
+Alternatively, we can always write: F;r Â F;â¬m @â¬m @J @J Â F;J2 2 Â F;J3 3 @r @r @r Â3:104Â
+
+which can be put into a matrix form as shown in Appendix A. The values of the three derivatives with respect to the invariants are shown in Table 3.1 for the various yield surfaces mentioned. The form of the various yield surfaces given above is shown with respect to the principal stress space in Fig. 3.8, though many more elaborate ones have been developed, particularly for soil (geomechanics) problems.53Ã¿55
+DruckerâPrager Ï > 0 âÏ3 Ï1 = Ï2 = Ï3 Von Mises Ï=0 âÏ2 âÏ1 (a) (b) âÏ1 âÏ3 MohrâCoulomb Ï > 0 Ï1 = Ï2 = Ï3
+
+â3c cot Ï
+
+â3c cot Ï
+
+Tresca Ï=0 âÏ2
+
+Fig. 3.8 Isotropic yield surfaces in principal stress space: (a) DruckerÂ±Prager and von Mises; (b) MohrÂ±Coulomb and Trexa.
+
+3.5.2 J2 model with isotropic and kinematic hardening (PrandtlÂ±Reuss equations)
+As noted in Table 3.1 a particularly simple form results if we assume the yield function involves only the second invariant of the deviatoric stresses J2 . Here we present a more detailed discussion of results obtained by using an associated form and the return map algorithm. Since the yield function involves deviatoric quantities only we can initially make all the calculations in terms of these. Accordingly, the elastic deviatoric stressÂ±strain relation is given as s Â 2 G ee Â 2 G Â e Ã¿ e p Â Â3:105Â
+
+64 Inelastic and non-linear materials
+
+Continuum rate form
+
+Before constructing the return map solution we Â®rst consider the form of the plasticity equations in rate form for this simple model. The plastic deviatoric strain rates are deduced from Â Â @F Â â¬F;s Â ep Â â¬ @s Â3:106Â
+
+Including the eÂects of isotropic and kinematic hardening the HuberÂ±von Mises yield function may be expressed as qÂÂ Â3:107Â F Â js Ã¿ jj Ã¿ 2 YÂâ¬Â Â 0 3 in which j are back stresses from kinematic hardening and â¬ is an isotropic hardening parameter. We assume linear isotropic hardening given byÃ YÂâ¬Â Â Y0 Â Hi â¬ Â3:108Â Here a rate of â¬ is computed from a norm of the plastic strains, by using Eq. (3.53), as qÂÂ Â Â â¬ Â 2â¬ Â3:109Â 3 pÂÂÂÂÂÂÂÂ in which the factor 2=3 is introduced to match uniaxial behaviour given by Eq. (3.108). On diÂerentiation of F it will be found that @F @F ÂÃ¿ Ân @s @â¬ where nÂ sÃ¿j js Ã¿ jj Â3:110Â
+
+Using the above, the plastic strains are given by Â Â e p Â â¬n and, when substituted into a rate-of-stress relation, yield Ã Ã Â Â Â s Â 2 G e Ã¿ â¬n A rate form for the kinematic hardening is taken as Â Â 3 j Â 2 Hk â¬ n The rate of the yield function becomes Â Â Â Â F Â nT Âs Ã¿ jÂ Ã¿ 2 Hi â¬ 3 Â3:114Â Â3:113Â Â3:111Â Â3:112Â
+
+and when combined with the other rate equations gives the expression for the plastic consistency parameter as (noting that with the nine-component form nT n Â 1) G Â â¬ Â Ã nT e G Â3:115Â
+
+Ã More general forms of hardening may be approximated by piecewise linear segments, thus making the present formulation quite general.
+
+Isotropic plasticity models
+
+65
+
+where GÃ Â G Â 1 ÂHi Â Hk Â 3 Â3:116Â
+
+Substitution of Eq. (3.115) into Eq. (3.112), and using Eq. (3.42) to reduce to the sixcomponent form, gives the rate form for stressÂ±strain deviators as ! 2G Â Â s Â 2G I0 Ã¿ Ã n nT e Â3:117Â G We note that for perfect plasticity Hi Â Hk Â 0 leading to 2G=GÃ Â 1 and, thus, the elasticÂ±plastic tangent for this special case is also here obtained. Use of Eq. (3.117) in the rate form of Eq. (3.93) gives the Â®nal continuum elasticÂ± plastic tangent ! 1 2G T Ã T T Dep Â K m m Â 2 G I0 Ã¿ m m Ã¿ Ã nn Â3:118Â 3 G This then establishes the well-known PrandtlÂ±Reuss stressÂ±strain relations generalized for linear isotropic and kinematic hardening.
+
+Incremental return map form
+
+The return map form for the equations is established by using a backward (Euler implicit) diÂerence form as described previously (see Sec. 3.4.2). Omitting the subscript on the n Â 1 quantities the plastic strain equation becomes, using Eqs (3.106) and (3.110), e p Â e p Â Ãâ¬n n and the accumulated (eÂective) plastic strain qÂÂ â¬ Â â¬n Â 2 Ãâ¬ 3 Thus, now the discrete constitutive equation is s Â 2G Âe Ã¿ e p Â the kinematic hardening is j Â jn Â 2 Hk Ãâ¬n 3 and the yield function is F Â js Ã¿ jj Ã¿ qÂÂ Â3:122Â Â3:121Â Â3:119Â
+
+Â3:120Â
+
+Â3:123Â pÂÂÂÂÂÂÂÂ where Yn Â Y0 Â 2=3 â¬n . The trial stress, which establishes whether plastic behaviour occurs, is given by sTR Â 2 G Âe Ã¿ e p Â n s Â sTR Ã¿ 2G Ãâ¬ n Â3:124Â Â3:125Â which for situations where plasticity occurs permits the Â®nal stress to be given as
+
+2 3 Yn
+
+Ã¿ 2 Hi Ãâ¬ 3
+
+66 Inelastic and non-linear materials
+
+Using the deÂ®nition of n, we may now combine the stress and kinematic hardening relations as Ã¿ Ã js Ã¿ jjn Â jsTR Ã¿ jn j nTR Ã¿ 2 G Â 2 Hk Ãâ¬n Â3:126Â 3 and noting from this that we must have nTR Â n Â3:127Â
+
+we may solve the yield function directly for the consistency parameter as14;34 pÂÂÂÂÂÂÂÂ jsTR Ã¿ jn j Ã¿ 2=3 Yn Ãâ¬ Â Â3:128Â 2GÃ where GÃ is given by Eq. (3.116). We can also easily establish the relations for the consistent tangent matrix for this J2 model. From Eqs (3.121) and (3.119) we obtain the incremental expression ds Â 2 G Âde Ã¿ n dâ¬ Ã¿ Ãâ¬ dnÂ The increment of relation (3.127) gives14 dn Â dnTR Â and from Eq. (3.128) we have dâ¬ Â G T n de GÃ Â3:131Â Ã 2G Ã I Ã¿ n nT de js Ã¿ jj Â3:130Â Â3:129Â
+
+Substitution into Eq. (3.129) gives the consistent tangent matrix â¬ â¬ â¬ â¬ ! 2G Ãâ¬ G 2G Ãâ¬ T ds Â 2 G 1 Ã¿ TR IÃ¿ Ã¿ nn de GÃ jsTR Ã¿ jn j js Ã¿ jn j
+
+Â3:132Â
+
+This may now be expressed in terms of the total strains, combined with the elastic volumetric term and reduced to six-components to give â¬ â¬ â¬ â¬ ! 2G Ãâ¬ G 2G Ãâ¬ DÃ Â K m mT Â 2 G 1 Ã¿ TR Ã¿ TR I0 Ã¿ nnT Â3:133Â ep GÃ js Ã¿ jn j js Ã¿ jn j We here note also that when Ãâ¬ Â 0 the tangent for the return map becomes the continuum tangent, thus establishing consistency of form.
+
+3.5.3 J2 plane stress
+The discussion in the previous part of this section may be applied to solve problems in plane strain, axisymmetry, and general three-dimensional behaviour. In plane strain and axisymmetric problems it is only necessary to note that some strain components are zero. For problems in plane stress, however, it is necessary to modify the algorithm to achieve an eÂcient solution process. In a plane stress process only the four stresses â¬x , â¬y , â¬xy and â¬yx need be considered. When considering deviatoric
+
+Isotropic plasticity models
+
+67
+
+components, however, there are Â®ve components, sx , sy , sz , sxy and syx . The deviators may be expressed in terms of the independent stresses as W V Q P 2 Ã¿1 0 0 V W b sx b b b b b bs b U b â¬x b T b b y b b 2 0 0 Ub b b b a 1 T Ã¿1 ` U ` â¬y a T sz Â T Ã¿1 Ã¿1 0 0 U sÂ Â3:134Â U b â¬ b Â Ps r b 3T b b b b b U b xy b T b sxy b 0 3 0 SX b Y b R 0 b b b b â¬yx Y X syx 0 0 0 3 The HuberÂ±von Mises yield function may be written as ÂÂ Ã Ã1=2 q2 F Â Âr Ã¿ jÂT PT Ps Âr Ã¿ jÂ Ã¿ 3 YÂâ¬Â40 s Expanding Eq. (3.135) gives the plane stress yield function Ã 2 Ã1=2 2 2 2 F Â &x Ã¿ &x &y Â &y Â 1:5 Â&xy Â &yx Â Ã¿YÂâ¬Â40 where & x Â â¬x Ã¿ â¬ x ; &y Â â¬y Ã¿ â¬y ; &xy Â â¬xy Ã¿ â¬xy ; &yx Â â¬yx Ã¿ â¬yx Â3:137Â Â3:136Â
+
+Â3:135Â
+
+deÂ®ne stresses which are shifted by the kinematic hardening back stress. Plastic strain rates may now be computed by direct diÂerentiation of the yield function, giving W W V P QV Â 2 Ã¿1 0 0 b â¬x b b "x b b b b b b b b b `" a Â T Â Ây 2 0 0 U ` â¬y a â¬ T Ã¿1 â¬ U p Â F;r Â Â Â Â As r e Ââ¬ Â3:138Â T U b "xy b 2 j|j R 0 0 3 0 S b â¬xy b j|j b bÂ b b b b b b Y Y X X Â â¬yx "yx 0 0 0 3 where As Â PT Ps . Similarly, the rate of the back stress for the kinematic hardening s case is given by Â 1 â¬ Â Ar jÂ Hk j|j s Â3:139Â
+
+The elastic components are computed by using the plane stress relation. Accordingly, for a plastic step the constitution is given by Â Â Â r Â D Âe Ã¿ e p Â where for isotropic behaviour P DÂ E 1 Ã¿ â¬2 Tâ¬ T T R0 0 1 â¬ 1 0 0 0 0 1Ã¿â¬ 0 0 0 0 1Ã¿â¬ Q U U U S Â3:141Â Â3:140Â
+
+with E the modulus of elasticity and â¬ the Poisson's ratio.
+
+68 Inelastic and non-linear materials
+
+We note that for a J2 model the volumetric plastic strain must always be zero; consequently, we can complete the determination of plastic strains at any instant by using "p Â Ã¿ "p Ã¿ "p z x y This may be combined with the elastic strain given by Ã â¬Ã¿ â¬ Â â¬y "e Â Ã¿ x E x Â3:142Â
+
+Â3:143Â
+
+to compute the total strain "z and, thus, the thickness change. The solution process now follows the procedures given for the general return mapping case. A procedure which utilizes a spectral transformation on the elastic and plastic parts is given in references 14 and 50. The process given there is more elegant but lacks the clarity of working directly with the stress and plastic strain increments.
+
+3.6 Generalized plasticity Â± non-associative case
+Plastic behaviour characterized by irreversibility of stress paths and the development of permanent strain changes after a stress cycle can be described in a variety of ways. One form of such description has been given in Sec. 3.3. Another general method is presented here.
+
+3.6.1 Non-associative case Â± frictional materials
+This approach assumes a priori the existence of a rate process which may be written directly as Â Â r Â DÃ e Â3:144Â in which the matrix DÃ depends not only on the stress r and the state of parameters j, Â Â but also on the direction of the applied stress (or strain) rate r (or e).56 A slightly less ambitious description arises if we accept the dependence of DÃ only on two directions Â± those of loading and unloading. If in the general stress space we specify a `loading' direction by a unit vector n given at every point (and also depending on the state parameters j), as shown in Fig. 3.9, we can describe plastic loading and unloading Â by the sign of the projection nT r. Thus & >0 for loading Â nT r Â3:145Â <0 for unloading Â while nT r Â 0 is a neutral direction in which only elastic straining occurs. One can now write quite generally that & Ã Â DL e for loading Â Â r Â3:146Â DÃ e for unloading UÂ where the matrices DÃ and DÃ depend only on the state described by r and j. L U
+
+Generalized plasticity Â± non-associative case
+Ï2 n
+
+69
+
+Ï (load) Ï (unload)
+
+.
+
+.
+
+Ï1
+
+Fig. 3.9 Loading and unloading directions in stress space.
+
+The speciÂ®cation of DÃ and DÃ must be such that in the neutral direction of the L U Â stress increment r the strain rates corresponding to this are equal. Thus we require Â Â e Â ÂDÃ ÂÃ¿1 r Â DÃ Ã¿1 r L U Â A general way to achieve this end is to write ÂDÃ ÂÃ¿1 â¬ DÃ¿1 Â L 1 n nT HL gL and ÂDÃ ÂÃ¿1 â¬ DÃ¿1 Â U 1 n nT HU gU Â3:148Â Â when nT r Â 0 Â3:147Â
+
+where D is the elastic matrix, ngL and ngU are arbitrary unit stress vectors for loading and unloading directions, and HL and HU are appropriate plastic moduli which in general depend on r and j. The value of the tangent matrices DÃ and DÃ can be obtained by direct inversion L U if HL=U TÂ 0, but more generally can be deduced following procedures given in Sect. 3.3.4 or can be written directly using the ShermanÂ±MorrisonÂ±Woodbury formula57 as: DÃ Â D Ã¿ L 1 T Ã D ngL n D HL
+Ã HL Â HL Â nT D ngL
+
+Â3:149Â
+
+This form resembles Eq. (3.72) and indeed its derivation is almost identical. We note further that ÂDÃ ÂÃ¿1 is now well behaved for HL zero and a form identical to that of L perfect plasticity is represented. Of course, a similar process is used to obtain DÃ . U This simple and general description of generalized plasticity was introduced by Ã Mroz and Zienkiewicz.58;59 It allows: 1. the full model to be speciÂ®ed by a direct prescription of n, ng and H for loading and unloading at any point of the stress space; 2. existence of plasticity in both loading and unloading directions; 3. relative simplicity for description of experimental results when these are complex and when the existence of a yield surface of the kind encountered in ideal plasticity is uncertain. For the above reasons the generalized plasticity forms have proved useful in describing the complex behaviour of soils.60Ã¿64 Here other descriptions using various
+
+70 Inelastic and non-linear materials
+
+interpolations of n and moduli form a unique yield surface, known as bounding surface plasticity models, are indeed particular forms of the above generalization and have proved to be useful.65 Classical plasticity is indeed a special case of the generalized models. Here the yield surface may be used to deÂ®ne a unit normal vector as nÂ 1 ÂF T F;r Â1=2 ;r 1 ÂQT Q;r Â1=2 ;r F;r Â3:150Â
+
+and the plastic potential may be used to deÂ®ne ng Â Q;r Â3:151Â
+
+where once again some care must be exercised in deÂ®ning the matrix notation. Substitution of such values for the unit vectors into Eq. (3.149) will of course retrieve the original form of Eq. (3.72). However, interpretation of generalized plasticity in classical terms is more diÂcult. The success of generalized plasticity in practical applications has allowed many complex phenomena of soil dynamics to be solved.66;67 We shall refer to such applications later but in Fig. 3.10 we show how complex cyclic response with plastic loading and unloading can be followed. While we have speciÂ®ed initially the loading and unloading directions in terms of Â the total stress rate r this deÂ®nition ceases to apply when strain softening occurs and the plastic modulus H becomes negative. It is therefore more convenient to Â check the loading or unloading direction by the elastic stress increment re of
+Experimental 100 50 0 â50 â100 0 50 100 150 200 250 Mean effective pressure p' (kPa) 100 50 0 â50 â100 â10 â8 â6 â4 â2 0 Axial strain (%) 2 Computational model 100 50 0 â50 â100 0 50 100 150 200 250 Mean effective pressure p' (kPa) 100 50 0 â50 â100 â10 â8 â6 â4 â2 0 Axial strain (%) 2
+
+Deviatoric stress (kPa)
+
+Fig. 3.10 A generalized plasticity model describing a very complex path, and comparison with experimental data. Undrained two-way cyclic loading of Nigata sand.68 (Note that in an undrained soil test the Â¯uid restrains all volumetric strains, and pore pressures develop; see Sec. 19.3.5 of Volume 1).
+
+Deviatoric stress (kPa)
+
+Deviatoric stress (kPa)
+
+Deviatoric stress (kPa)
+
+Some examples of plastic computation
+
+71
+
+Eq. (3.65) and to specify Â n re
+T
+
+&
+
+>0 <0
+
+for loading for unloading
+
+Â3:152Â
+
+This, of course, becomes identical to the previous deÂ®nition of loading and unloading in the case of hardening.
+
+3.6.2 Associative case Â± J2 generalized plasticity
+Another modiÂ®cation to the classical rate-independent approach is one in which the transition from an elastic to a fully plastic solution is accomplished with a smooth transition. This approach is useful in improving the match with experimental data for cyclic loading. A particularly simple form applicable to the J2 model was introduced by Lubliner.32;33 In this approach, the yield function is modiÂ®ed to a rate form directly and is expressed as Â Â hÂFÂ F Ã¿ â¬ Â 0 where hÂFÂ is given by the function hÂFÂ Â F Ââ¬ Ã¿ FÂ â¬ Â H â¬ Â3:154Â Â3:153Â
+
+in which H Â Hi Â Hk , and â¬, â¬ are two positive parameters with dimension of stress. In particular, â¬ is a distance between a limit plastic state and the current radius of the yield surface, and â¬ is a parameter controlling the approach to the limit state with increasing accumulated plastic strain. On discretization and combination with the return map algorithm a rate-independent process is evident and again only minor modiÂ®cations to the algorithm presented previously is necessary. A full description of the steps involved is given by Auricchio and Taylor.34 Their paper also includes a development for the non-linear kinematic hardening model given in Eq. (3.62). In the case where the yield function is associative (i.e. F Â Q) the use of the non-linear kinematic hardening model leads to an unsymmetric tangent stiÂness when used with the return map algorithm. On the other hand, the generalized plasticity model is fully symmetric for this case. In the next section we present further discussion on use of generalized plasticity to model the behaviour of frictional materials. In general, these involve use of nonassociative models where the return map algorithm cannot be used eÂectively.
+
+3.7 Some examples of plastic computation
+The Â®nite element discretization technique in plasticity problems follows precisely the same procedures as those of corresponding elasticity problems. Any of the elements already discussed can be used for problems in plane stress; however, for plane strain, axisymmetry, and three-dimensional problems it is usually necessary to use elements which perform well in constrained situations such as encountered for near incompressibility. For this latter class of problems use of mixed elements is generally recommended,
+
+72 Inelastic and non-linear materials
+
+although elements and constitutive forms that permit use of reduced integration may also be used. The use of mixed elements is especially important in metal plasticity as the HuberÂ± von Mises Â¯ow rule does not permit any volume changes. As the extent of plasticity spreads at the collapse load the deformation becomes nearly incompressible, and with conventional (fully integrated) displacement elements the system locks and a true collapse load cannot be obtained.69;70 Finally, we should remark that the possibility of solving plastic problems is not limited to a displacement and mixed formulation alone. Equilibrium Â®elds and, indeed, most of the formulations described in Chapters 11 and 12 of Volume 1 form a suitable vehicle,71Ã¿73 but owing to their convenient and easy interpretation displacement and mixed forms are most commonly used.
+
+3.7.1 Perforated plate Â± plane stress solutions
+Figure 3.11 shows the conÂ®guration and the division into simple triangular and quadrilateral elements. In this example plane stress conditions are assumed and
+(a) (b)
+
+(c)
+
+(d)
+
+Fig. 3.11 Perforated plane stress tension strip: mesh used and development of plastic zones at loads of 0.55, 0.66, 0.75, 0.84, 0.92, 0.98, 1.02 times â¬y . (a) T3 triangles; (b) plastic zone spread; (c) Q4 quadrilaterals; (d) Q9 quadrilaterals.
+
+Some examples of plastic computation
+
+73
+
+1.0 0.8 Ïmean/Ïy 0.6 0.4 0.2 0 T3 â Mises Experimental
+
+0
+
+0.5 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0 E (Îµy/Ïy)
+
+Fig. 3.12 Perforated plane stress tension strip: load deformation for strain hardening case (H Â 225 kg/mm2 ).
+
+solution is obtained for both ideal plasticity and strain hardening. This problem was studied experimentally by Theocaris and Marketos74 and was Â®rst analysed using Â®nite element methods by Marcal and King75 and Zienkiewicz et al.41 (See reference 5 for discussion on these early solutions.) The von Mises criterion is used and, in the case of strain hardening, a constant slope of the uniaxial hardening curve, H, is taken. Data for the problem, from reference 74, are E Â 7000 kg/mm2 , H Â 225 kg/mm2 and â¬y Â 24:3 kg/mm2 . Poisson's ratio is not given but is here taken as in reference 41 as â¬ Â 0:3. To match a conÂ®guration considered in the experimental study a strip with 200 mm width and 360 mm length containing a central hole of 200 mm diameter. Using symmetry only one quadrant is discretized as shown in Fig. 3.11. Displacement boundary restraints are imposed for normal components on symmetry boundaries and the top boundary. Sliding is permitted, to impose the necessary zero tangential traction boundary condition. Loading is applied by a uniform non-zero normal displacement with equal increments. Displacement elements of type T3, Q4, and Q9 are used with the same nodal layout. Results for the three elements are nearly the same, with the extent of plastic zones indicated for various loads in Fig. 3.11 obtained using the Q4 element. The loadÂ±deformation characteristics of the problem are shown in Fig. 3.12 and compared to experimental results. The strain "y is the peak value occurring at the hole boundary. This plane stress problem is relatively insensitive to element type and load increment size. Indeed, doubling the number of elements resulted in small changes of all essential quantities.
+
+3.7.2 Perforated plate Â± plane strain solutions
+The problem described above is now analysed assuming a plane strain situation. Data are the same as for the plane stress case except the lateral boundaries are also restrained to create a zero normal displacement boundary condition. This increases
+
+74 Inelastic and non-linear materials
+2500
+
+2000
+
+Axial load
+
+1500
+
+1000 T3 â Displ Q4 â Displ Q9 â Displ
+
+500
+
+0
+
+0
+
+5
+
+10
+
+15
+
+20 25 30 Step number (a)
+
+35
+
+40
+
+45
+
+50
+
+2500
+
+2000
+
+Axial load
+
+1500
+
+1000 Q4/1 â Mixed Q9/3 â Mixed
+
+500
+
+0
+
+0
+
+5
+
+10
+
+15
+
+20 25 30 Step number (b)
+
+35
+
+40
+
+45
+
+50
+
+Fig. 3.13 Limit load behaviour for plane strain perforated strip: (a) displacement (displ.) formulation results; (b) mixed formulation results.
+
+the conÂ®nement on the mesh and shows more clearly the locking condition cited previously. In Fig. 3.13 we plot the resultant axial load for each load step in the solution. Figure 3.13(a) shows results for the displacement model using T3, Q4, and Q9 elements and it is evident that the T3 and Q4 elements result in an erroneous increasing resultant load after the fully plastic state has developed. The Q9 element shows a clear limit state and indicates that higher order elements are less prone to locking (even though we have shown that for the fully incompressible state the Q9 displacement element will lock!). Figure 3.13(b) presents the same results for the Q4/1 and Q9/3 mixed elements and both give a clear limit load after the fully plastic state is reached.
+
+Basic formulation of creep problems
+
+75
+
+3.7.3 Steel pressure vessel
+This Â®nal example, for which test results obtained by Dinno and Gill76 are available, illustrates a practical application, and the objectives are twofold. First, we show that this problem which can really be described as a thin shell can be adequately represented by a limit number (53) of isoparametric quadratic elements. Indeed, this model simulates well both the overall behaviour and the local stress concentration eÂects [Fig. 3.14(a)]. Second, this problem is loaded by an internal pressure and a solution is performed up to the `collapse' point (where, because there is no hardening, the strains increase without limit) by incrementing the pressure rather than displacement. A comparison of calculated and measured deÂ¯ections in Fig. 3.14(b) shows how well the objectives are achieved.
+
+3.8 Basic formulation of creep problems
+The phenomenon of `creep' is manifested by a time-dependent deformation under a constant stress. Indeed the viscoelastic behaviour described in Sect. 3.2 is a particular model for linear creep. Here we shall deal with some non-linear models. Thus, in addition to an instantaneous strain, the material develops creep strains, ec , which generally increase with duration of loading. The constitutive law of creep will usually be of a form in which the rate of creep strain is deÂ®ned as some function of stresses and the total creep strains Âec Â, that is, Â ec â¬ @ec Â bÂr; ec Â @t Â3:155Â
+
+If we consider the instantaneous strains are elastic Âee Â, the total strain can be written again in an additive form as e Â ee Â ec with ee Â DÃ¿1 r Â3:157Â Â3:156Â
+
+where we neglect any initial (thermal) strains or initial (residual) stresses. A special case of this form was considered for linear viscoelasticity in Sec. 3.2. Here we consider a more general non-linear approach commonly used in modelling behaviour of metals at elevated temperatures and in modelling creep in cementitious materials. We can again use any of the time integration schemes considered above and approximate the constitutive equations in a form similar to that used in plasticity as rn Â 1 Â D Âen Â 1 Ã¿ ec Â 1 Â n ec Â 1 Â ec Â Ãtbn Â â¬ n n where bn Â â¬ is calculated as bn Â â¬ Â Â1 Ã¿ â¬Âbn Â â¬ bn Â 1 Â3:158Â
+
+76 Inelastic and non-linear materials
+E D 1080
+
+1000
+
+E = 29120000 lb/in2 Î½ = 0.3 Ïy = 40540 lb/in2 No strain hardening
+
+1.60 in 0.125 in 2.8125 in 19.30 in
+
+900 760 900 Weld region 60Â°
+
+E A B
+
+D C 0.25 in
+
+Pressure P
+
+8.687 in 1000 A 1080
+
+C 0.545 Contours for plastic zone at different pressures (lb/in2) (a)
+
+B
+
+1400 1200 Pressure p (lb/in2) 1000 800 600 400 200 0 (b) 0 10
+
+Experimental results â Dinno and Gill76
+
+Finite element analysis
+
+20 30 40 Vertical deflection of point A (x 10â3 in)
+
+50
+
+Fig. 3.14 Steel pressure vessel: (a) element subdivision and spread of plastic zones; (b) vertical deÂ¯ection at point A with increasing pressure.
+
+Basic formulation of creep problems
+
+77
+
+On eliminating Ãec we have simply a non-linear equation Rn Â 1 â¬ en Â 1 Ã¿ DÃ¿1 rn Â 1 Ã¿ ec Ã¿ Ãt bn Â â¬ Â 0 n Â3:159Â The system of equations can be solved iteratively using, say the NewtonÂ±Raphson procedure. Starting from some initial guess, say rn Â 1 Â rn and an increment of strain is given by the Â®nite element process, the general iterative/incremental solution can be written as Ri Â 1 Â 0 Â Ri Ã¿ ÂDÃ¿1 Â ÃtCn Â 1 Âdrin Â 1 where Cn Â 1 Â â¬ â¬ â¬ @bâ¬ â¬ Â â¬ @bâ¬ â¬ @r n Â â¬ @râ¬n Â 1 Â3:160Â
+
+Â3:161Â
+
+Solving this set of equations until the residual R is zero we obtain a set of stresses rn Â 1 and tangent matrix Ã ÃÃ¿1 Â3:162Â DÃ Â 1 â¬ DÃ¿1 Â ÃtCn Â 1 n which may once again be used to perform any needed iterations on the Â®nite element equilibrium equations. The iterative computation that follows is very similar to that used in plasticity, but here Ãt is an actual time and the solution becomes rate dependent. While in plasticity we have generally used implicit (backward diÂerence) procedures; here many simple alternatives are possible. In particular, two schemes with a single iterative step are popular.
+
+3.8.1 Fully explicit solutions
+`Initial strain' procedure: â¬ Â 0
+Cn Â 1 Â 0 Thus, from Eq. (3.159) we obtain rn Â 1 Â DÂen Â 1 Ã¿ ec Ã¿ Ãt bn Â n Â3:164Â Here, from Eqs (3.161) and (3.162) we see that and DÃ Â 1 Â D n Â3:163Â
+
+which may be used in Eq. (1.19) of Chapter 1 to satisfy a discretized equilibrium equation. We note that this form will lead to a standard elastic stiÂness matrix. This, of course, is equivalent to evaluating the increment of creep strain from the initial stress values at each time tn and is exceedingly simple to calculate. While the process has been popular since the earliest days of Â®nite elements77Ã¿79 it is obviously less accurate for a Â®nite step than other alternatives. Of course accuracy will improve if small time steps are used in such calculations. Further, if the time step is too large, unstable results will be obtained. Thus it is necessary for Ãt4Ãtcrit where Ãtcrit is determined in a suitable manner (see Chapter 18, Volume 1). Â3:165Â
+
+78 Inelastic and non-linear materials
+
+A `rule of thumb' that proves quite eÂective in practice is that the increment of creep strain should not exceed one half the total elastic strain80 Ã Ã1=2 1 Ã e T e Ã1=2 Ãt bT bn 4 2 Âe Â e Â3:166Â n
+
+Fully explicit process with modiÂ®ed stiffness: 1 4â¬ 41 â¬ 2
+
+Here the main diÂerence from the Â®rst explicit process is that the matrix C is not equal to zero but within a single step is taken as a constant, that is, â¬ @bâ¬ Â3:167Â Cn Â 1 % â¬ â¬ @râ¬n This is equivalent to a modiÂ®ed NewtonÂ±Raphson scheme in which the tangent is held constant at its initial value in the step. Now Ã ÃÃ¿1 DÃ Â 1 Â DÃ¿1 Â ÃtCn Â 1 n This process is more expensive than the simple explicit one previously mentioned, as the Â®nite element tangent matrix has to be formed and solved for every time step. Further, such matrices can be non-symmetric, adding to computational expense. Neither of the simpliÂ®ed iteration procedures described above give any attention to errors introduced in the estimates of the creep strain. However, for accuracy the iterative process with â¬5 1 is recommended. Such full iterative procedures were 2 introduced by Cyr and Teter,81 and later by Zienkiewicz and co-workers.82;83 We shall note that the process has much similarity with iterative solutions of plastic problems of Sec. 3.3 in the case of viscoplasticity, which we shall discuss in the next section.
+
+3.9 Viscoplasticity Â± a generalization
+3.9.1 General remarks
+The purely plastic behaviour of solids postulated in Sec. 3.3 is probably a Â®ction as the maximum stress that can be carried is invariably associated with the rate at which this is applied. A purely elasto-plastic behaviour in a uniaxial loading is described in a model of Fig. 3.15(a) in which the plastic strain rate is zero for stresses below yield, that is, Â "p Â 0 if jâ¬ Ã¿ â¬y j < 0 and jâ¬j > 0
+
+Â and " p is indeterminate when â¬ Ã¿ â¬y Â 0. An elasto-viscoplastic material, on the other hand, can be modelled as shown in Fig. 3.15(b), where a dashpot is placed in parallel with the plastic element. Now stresses can exceed â¬y for strain rates other than zero. The viscoplastic (or creep) strain rate is now given by a general expression â¬ â¬ Â "vp Â 
+ â¬Ââ¬ Ã¿ â¬y Â Â3:168Â
+
+Viscoplasticity Â± a generalization
+Ï Ï Ï Îµe ÎµÎ½p ÎµÎ½p
+
+79
+
+(a)
+
+(b)
+
+(c)
+
+Îµp
+
+Îµp â  0 Ï = Ïy (at yield)
+
+ÎµÎ½p â  0 Ï â¥ Ïy (at yield)
+
+0
+
+ÎµÎ½p n
+
+Fig. 3.15 (a) Elastoplastic; (b) elasto-viscoplastic; (c) series of elasto-viscoplastic models.
+
+where the arbitrary function â¬ is such that â¬ â¬ â¬Ââ¬ Ã¿ â¬y Â Â 0 â¬ â¬ â¬Ââ¬ Ã¿ â¬y Â Â â¬Ââ¬ Ã¿ â¬y Â
+
+if jâ¬ Ã¿ â¬y j4 0 if jâ¬ Ã¿ â¬y j > 0
+
+Â3:169Â
+
+The model suggested is, in fact, of a creep-type category described in the previous sections and often is more realistic than that of classical plasticity. A viscoplastic model for a general stress state is given here and follows precisely the arguments of the plasticity section. In a three-dimensional context â¬ becomes a function of the yield condition FÂr; j; â¬Â deÂ®ned in Eq. (3.44). If this is less than zero, no `plastic' Â¯ow will occur. To include the viscoplastic behaviour we modify Eq. (3.44) as Â 
+ h â¬ÂFÂ i Ã¿ â¬ Â 0 Â3:170Â and use Eq. (3.45) to deÂ®ne the plastic strain. Equation (3.175) implies & 0 if F 4 0 h â¬ÂFÂ i Â â¬ÂFÂ if F > 0
+
+Â3:171Â
+
+and 
+ is some `viscosity' parameter. Once again associated or non-associated Â¯ows can be invoked, depending on whether F Â Q or not. Further, any of the yield surfaces described in Sec. 3.3.1 and hardening forms described in Sec. 3.3.3 can be used to deÂ®ne the appropriate Â¯ow in detail. For simplicity, â¬ÂFÂ Â F m where m is a positive power often used to deÂ®ne the viscoplastic rate eÂects in Eq. (3.170).84 The concept of viscoplasticity in one of its earliest versions was introduced by Bingham in 192285 and a survey of such modelling is given in references 86 and 88. The computational procedure of using the viscoplastic model can follow any of the general methods described in Sec. 3.4. Early applications commonly used the straightforward Euler (explicit) method.89Ã¿93 The stability requirements for this approach have been considered for several types of yield conditions by Cormeau.94 A tangential process can again be used, but unless the viscoplastic Â¯ow is associated (F Â Q), nonsymmetric systems of equations have to be solved at each step. Use of an explicit method will yield solution for the associative and non-associative cases and the system matrix remains symmetric. This process is thus similar to that of a modiÂ®ed NewtonÂ± Raphson method (initial stress method) and is quite eÂcient. Indeed within the stability limit it has been shown that use of an over relaxation method leads to rapid convergence.
+
+80 Inelastic and non-linear materials
+
+3.9.2 Iterative solution
+The complete iterative solution scheme for viscoplasticity is identical to that used in plasticity except for the use of Eq. (3.170) instead of Eq. (3.44). To underline this similarity we consider the constitutive model without hardening and use the return map implicit algorithm. The linearized relations are identical except for the treatment of relation (3.175). The form becomes P Qi @ A @ A DÃ¿1 Â Ãâ¬ Q;rr Q;r dri Riâ¬ T U Â Â3:172Â R 1 S T â¬H F;r Ã¿Hi Ã¿ dâ¬i ri 
+ Ãt n Â 1 where the discrete residual for Eq. (3.171) is given by 1 Ãâ¬n Â3:173Â rn Â Ã¿â¬ÂFÂn Â 
+ Ãt and dâ¬ â¬H Â dF Now the equations are almost identical to those of plasticity [see Eq. (3.87)], with diÂerences appearing only in the â¬H and 1=Â
+ÃtÂ terms. Again, a consistent tangent can be obtained by elimination of the dâ¬i and a general iterative scheme is once more available. Indeed, as expected, 
+ Ãt Â I will now correspond to the exact plasticity solution. This will always be reached by any solution tending to steady state. However, for transient situations this is not the case and use of Â®nite values for 
+ Ãt will invariably lead to some rate eÂects being present in the solution. The viscoplastic laws can easily be generalized to include a series of components, as shown in Fig. 3.15(c). Now we write Â Â1 Â2 ev Â ev Â ev Â Ã Ã Ã Â3:179Â and again the standard formulation suÂces. If, as shown in the last element of Fig. 3.15(c), the plastic yield is set to zero, a `pure' creep situation arises in which Â¯ow occurs at all stress levels. If a Â®nite value is in a term a corresponding Â rate equation for the associated â¬j must be used. This is similar to the Koiter treatment for multi-surface plasticity.17;95 The use of the Duvaut and Lions88 approach modiÂ®es the return map algorithm for a rate-independent plasticity solution. Once this solution is available a reduction in the value of Ãâ¬ is computed to account for rate eÂects. The interested reader should consult references 14 and 28 for additional information on this approach.
+
+3.9.3 Creep of metals
+If an associated form of viscoplasticity using the von Mises yield criterion of Eq. (3.99) is considered the viscoplastic strain rate can be written as Â Â evp Â â¬ @jsj Â Â â¬n @r Â3:175Â
+
+Viscoplasticity Â± a generalization
+
+81
+
+with the rate expressed again as
+
+â¬ â¬ Â â¬ Â 
+ â¬ Ã¿ â¬y " Â evp Â 
+ â¬m n "
+
+Â3:176Â Â3:177Â
+
+If â¬y , the yield stress, is set to zero we can write the above as and we obtain the well-known NortonÂ±Soderberg creep law. In this, generally the parameter 
+ is a function of time, temperature, and the total creep strain (e.g. the analogue to the plastic strain e p ). For a survey of such laws the reader can consult specialized references.96;97 An example initially solved using a large number of triangular elements83 is presented in Fig. 3.16, where a much smaller number of isoparametric quadrilaterals are used in a general viscoplastic program.93
+
+Fig. 3.16 Creep in a pressure vessel: (a) mesh end effective stress contours at start of pressurization; (b) effective stress contours 3 h after pressurization.
+
+82 Inelastic and non-linear materials
+
+3.9.4 Soil mechanics applications
+As we have already mentioned, the viscoplastic model provides a simple and eÂective tool for the solution of plasticity problems in which transient eÂects are absent. This includes many classical problems which have been solved in references 93 and 98, and the reader is directed there for details. In this section some problems of soil mechanics are discussed in which the facility of the process for solving non-associated behaviour is demonstrated.99 The whole subject of the behaviour of soils and similar porous media is one in which much yet needs to be done to formulate good constitutive models. For a fuller discussion the reader is referred to texts, conferences, and papers on the subject.100;101
+Prescribed load q
+
+Stiff platen
+
+Î½ Applied pressure q (kN/m2)
+
+90 80 70 60 50 40 30 20 10
+
+Î¸ = 45Â°, Î± = 3.52 Î¸ = 30Â°, Î± = 3.35 Î¸ = 15Â°, Î± = 3.11 Î¸ = 00Â°, Î± = 2.77 Smooth platen (associated and non-associated) q Î±= c NÏ
+
+D=1
+
+NÏ =
+
+1 + sin Ï 1 â sin Ï
+
+B=1 Material properties c = 10 kN/m2 Ï = 45Â° E = 2 x 105 kN/m2 Î½ = 0.25
+(a) (b)
+
+0 0 1.0 2.0 3.0 4.0 5.0 6.0 7.0 Displacement Î½ (m x 10â4)
+
+Associated (Î¸ = Ï = 45Â°) (c)
+
+Non-associated (Î¸ =0Â°, Ï = 45Â°)
+
+Fig. 3.17 Uniaxial, axisymmetric compression between rough plates: (a) mesh and problem; (b) pressure displacement result; (c) plastic Â¯ow velocity patterns.
+
+Viscoplasticity Â± a generalization
+
+83
+
+One particular controversy centres on the `associated' versus `non-associated' nature of soil behaviour. In the example of Fig. 3.17, dealing with an axisymmetric sample, the eÂect of these diÂerent assumptions is investigated.86 Here a MohrÂ±Coulomb law is used to describe the yield surface, and a similar form, but with a diÂerent friction " angle, â¬, is used in the plastic potential, thus reducing the plastic potential to the " Tresca form of Fig. 3.8 when â¬ Â 0 and suppressing volumetric strain changes. As can be seen from the results, only moderate changes in collapse load occur, although very appreciable diÂerences in plastic Â¯ow patterns exist. Figure 3.18 shows a similar study carried out for an embankment. Here, despite quite diÂerent Â¯ow patterns, a prediction of collapse load was almost unaÂected by the Â¯ow rate law assumed.
+
+5
+
+20 40 30 1 (a) 2 3
+
+10
+
+4
+
+1 3 2
+
+20 20 30 10 5
+
+4
+
+3
+
+2
+
+1 (b)
+
+2 3
+
+4
+
+Fig. 3.18 Embankment under action of gravity, relative plastic Â¯ow velocities at collapse, and effective shear strain rate contours at collapse: (a) associative behaviour; (b) non-associative (zero volume change) behaviour.
+
+84 Inelastic and non-linear materials
+
+The non-associative plasticity, in essence caused by frictional behaviour, may lead to non-uniqueness of solution. The equivalent viscoplastic form is, however, always unique and hence viscoplasticity is on occasion used as a regularizing procedure.
+
+3.10 Some special problems of brittle materials
+3.10.1 The no-tension material
+A hypothetical material capable of sustaining only compressive stresses and straining without resistance in tension is in many respects similar to an ideal plastic material. While in practice such an ideal material does not exist, it gives a reasonable approximation of the behaviour of randomly jointed rock and other granular materials. While an explicit stressÂ±strain relation cannot be generally written, it suÂces to carry out the analysis elastically and wherever tensile stresses develop to reduce these to zero. The initial stress (modiÂ®ed NewtonÂ±Raphson) process here is natural and indeed was developed in this context.102 The steps of calculation are obvious but it is important to remember that the principal tensile stresses have to be eliminated. The `constitutive' law as stated above can at best approximate to the true situation, no account being taken of the closure of Â®ssures on reapplication of compressive stresses. However, these results certainly give a clear insight into the behaviour of real rock structures.
+
+An underground power station
+
+Figure 3.19(a) and (b) shows an application of this model to a practical problem.102 In Fig. 3.19(a) an elastic solution is shown for stresses in the vicinity of an underground power station with `rock bolt' pre-stressing applied in the vicinity of the opening. The zones in which tension exists are indicated. In Fig. 3.19(b) a no-tension solution is given for the same problem, indicating the rather small general redistribution and the zones where `cracking' has occurred.
+
+Reinforced concrete
+
+A variant on this type of material may be one in which a Â®nite tensile strength exists but when this is once exceeded the strength drops to zero (on Â®ssuring). Such an analysis was used by Valliappan and Nath103 in the study of the behaviour of reinforced concrete beams. Good correlation with experimental results for underreinforced beams (in which development of compressive yield is not important) have been obtained. The beam is one for which test results were obtained by Krahl et al.104 Figure 3.20 shows some relevant results. Much development work on the behaviour of reinforced concrete has taken place, with various plasticity forms being introduced to allow for compressive failure and procedures that take into account the crack-closing history. References 105 and 106 list some of the basic approaches on this subject. The subject of analysis of reinforced concrete has proved to be of great importance in recent years and publications in this Â®eld are proliferating. Publications 107 to 110 guide the reader to current practice in this Â®eld.
+

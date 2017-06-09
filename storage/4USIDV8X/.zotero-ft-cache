@@ -1,0 +1,546 @@
+Computers and Structures 87 (2009) 1451â1460
+
+Contents lists available at ScienceDirect
+
+Computers and Structures
+journal homepage: www.elsevier.com/locate/compstruc
+
+A triangular six-node shell element
+Do-Nyun Kim, Klaus-JÃ¼rgen Bathe *
+Department of Mechanical Engineering, Massachusetts Institute of Technology, Cambridge, MA 02139, USA
+
+a r t i c l e
+
+i n f o
+
+a b s t r a c t
+We present a triangular six-node shell element that represents an important improvement over a recently published element [1]. The shell element is formulated, like the original element, using the MITC procedure. The element has the attributes to be spatially isotropic, to pass the membrane and bending patch tests, to contain no spurious zero energy mode, and is formulated without an artiï¬cial constant. In particular, the improved element does not show the instability sometimes observed with the earlier published element. We give the convergence behavior of the element in discriminating membraneand bending-dominated benchmark problems. These tests show the effectiveness of the element. Ã 2009 Elsevier Ltd. All rights reserved.
+
+Article history: Received 15 February 2009 Accepted 1 May 2009 Available online 3 June 2009 Keywords: Shells Finite element Triangular element Spatial isotropy MITC method Six-node element
+
+1. Introduction A large amount of research has been expended over the past four decades on the development of shell ï¬nite elements, and yet more effective triangular shell elements are still much needed, see Refs. [1â3] and the references therein. In particular, the search for a general and uniformly effective six-node triangular shell element continues, and indeed the development of such an element represents one of the remaining key challenges in ï¬nite element analysis. While such an element is, in the ï¬rst instance, sought for linear analysis, of course, the formulation should, as well, be directly extendable to general nonlinear analysis. Numerous shell analyses are conducted routinely but very ï¬ne discretizations and quadrilateral elements are typically used [4]. An effective general curved six-node shell element would be very useful in that: (i) it can be employed to discretize virtually any shell geometry, (ii) it can be used to model shells overlaid on three-dimensional solids that are represented in free-form meshing by 10 or 11-node tetrahedral solid elements, and (iii) it would give accurate solutions when using relatively coarse meshes. Originally, to a large extent, shell elements were developed by simply superimposing plate bending and in-plane membrane behavior, and ï¬at facet-shell elements were proposed. As now well known, such elements are not truly representing shell behavior and indeed may not even converge depending on which shell problem is solved [2]. The most promising formulation approach for a general shell element is based on the use of the ââbasic shell modelâ [2,5,6]. This mathematical model is obtained from the 3D contin* Corresponding author. Tel.: +1 617 253 6645. E-mail address: kjb@mit.edu (K.J. Bathe). 0045-7949/$ - see front matter Ã 2009 Elsevier Ltd. All rights reserved. doi:10.1016/j.compstruc.2009.05.002
+
+uum by introducing the ReissnerâMindlin kinematical hypothesis and the plane stress assumption for the mid-surface and the material layers parallel to that surface. Ideally, the shell element should then converge reliably and optimally to the exact solution of the mathematical model and for any well-posed shell problem. However, the usual displacement interpolation leads to locking and a scheme needs to be used to alleviate this detrimental behavior. Successful quadrilateral general shell elements have been developed using the mixed-interpolated-tensorial-component approach, that is, the MITC procedure [7â11]. The advantage of this approach is that the elements are general, that is, they can be used for general shell geometries in linear and nonlinear analyses, and the elements have only the degrees of freedom of displacementbased elements with negligible additional computational cost. The MITC4 element is now widely used [4] and can also be employed in a hierarchical manner to model additional 3D effects [12]. While tight mathematical convergence proofs of the MITC shell elements are not available, and indeed for general geometries may be out of reach, the elements have been thoroughly tested on appropriate âdiscriminating and revealingâ test problems [2,11â16]. However, these studies largely focused on the use of quadrilateral elements, equally successful general triangular shell elements are more difï¬cult to develop. On the other hand, the family of MITC plate bending elements contains quadrilateral and triangular elements that are very effective, and for plate bending solutions practically optimal [17â19]. Thorough mathematical convergence analyses and results of numerical studies have been published, see e.g. Refs. [20â23]. However, except for the MITC4 element, the elements contain internal nodes with rotational degrees of freedom only, which renders them not effective for extension to shell analyses and general
+
+1452
+
+D.-N. Kim, K.J. Bathe / Computers and Structures 87 (2009) 1451â1460
+
+s
+1
+
+s
+
+s2
+
+err ess eqq
+r1 r2
+1
+
+1
+
+s2 s3 s1
+0
+
+ert est eqt
+common
+
+s1
+0
+
+r
+
+r1 r3
+
+r2
+
+1
+
+r
+
+1 1 Fig. 1. Interpolations and tying points used for the MITC6 shell element; r1 Â¼ s1 Â¼ 1 Ã 2pï¬ï¬ ; r 2 Â¼ s2 Â¼ 1 Ã¾ 2pï¬ï¬ 2 2 3 3
+
+and
+
+r 3 Â¼ s3 Â¼ 1 3
+
+Free
+
+y
+
+x
+
+Clamped
+
+z
+
+Î¸
+
+Fig. 2. Analysis of a hyperboloid shell problem. The mid-surface is given by x2 Ã¾ z2 Â¼ 1 Ã¾ y2 ; Ã°Ã1 y 1Ã. The shell is ï¬xed at its bottom and free at its top; E = 2.0 Ã 1011, m = 1/3, t/L = 1/10000 (where t denotes the thickness of the shell, see Section 4, and L = 1); the loading is the pressure loading p(h) = p0cos(2h), p0 = 1.0 Ã 106. The problem is solved using the original MITC6 shell element of Ref. [1].
+
+nonlinear analysis. Still, the fact that excellent MITC triangular plate bending elements exist encourages the search for an effective MITC triangular shell element. A triangular six-node shell element based on the MITC approach was recently presented by Lee and Bathe [1].1 This element has the desirable properties of not containing a spurious zero energy mode or artiï¬cial factor, being spatially isotropic, having the same degrees of freedom at every node, passing the plate bending and membrane patch tests, showing good convergence behavior in plate bending analyses, and reasonable convergence behavior in the analysis of
+
+1 When we refer to the MITC6 shell element of Ref. [1], we mean the MITC6a shell element formulated and tested in that reference.
+
+âdiscriminating and revealingâ shell test problems. In particular, these shell test problems include the analysis of a hyperboloid shell with, at both ends, either clamped or totally free conditions. We consider these two problems to be excellent benchmark problems to test an element formulation for its capacity to predict membranedominated and bending-dominated shell behaviors. However, additional testing of the element by Chapelle et al. [24,25] showed a surprising element peculiarity. Namely, when used to model certain shell geometries and boundary conditions, the solution becomes unstable, although the single element does not contain a spurious zero energy mode. An unphysical oscillatory response is predicted, somewhat like observed in some solutions with the 4/1 element of the displacementâpressure formulation for incompressible materials [19]. Chapelle et al. stabilized the formulation by replacing a part of the mixed-interpolated shear strain energy by the unreduced displacement-based shear strain energy. As is typical in such techniques of stabilization, a factor is introduced to allocate the amount of stabilization [2,19,24]. Depending on the shell problem solved, if the factor is too large the element behavior deteriorates signiï¬cantly and if the factor is too small, the instability shows up. While the magnitude of the stabilizing factor is based on some analysis, ideally, we would have a stable and effective formulation without such factor. This is particularly desirable when the element formulation is to be used in general nonlinear analysis. Hence we continued our search for a more reliable and accurate triangular shell element. In the search for more effective elements, the fundamental difference between the MITC formulation approach and the âenhanced assumed strainâ, or EAS, formulation approach is important [26], although, of course, they are theoretically related. Both techniques start with the displacement formulation and aim to improve its predictive capability. Then, in the MITC formulation, the strain assumptions inherently used in the displacement formulation are improved by not including certain terms of the displacement-based strain space. In this way, many MITC elements can, in principle, be developed even for the same displacement assumptions, and the key is to identify the optimal formulation. Hence, when searching for an effective six-node MITC triangular shell element, many possibilities arise, some of which were studied in Refs. [1,24,25]. On the other hand, in the EAS formulations, new strain ï¬elds are added to those already inherently used in the displacement formulation, like ï¬rst proposed by Wilson et al. with incompatible displacement modes, see Refs. [27,19] and the references therein. The EAS approach is generally implemented using static condensation for the additional strain terms on the element level. This results into some additional cost, and complexity in nonlinear
+
+D.-N. Kim, K.J. Bathe / Computers and Structures 87 (2009) 1451â1460
+
+1453
+
+(0.0,1.0,1.2)
+
+(0.5,0.5,0.8)
+
+(1.0,0.0,0.7)
+
+(0.7,0.3,0.5)
+
+(0.7,1.2,0.5)
+
+(1.0,1.0,0.0)
+Fig. 3. Isotropic element test of the six-node triangular shell element, taken from Ref. [1].
+
+y
+
+Table 1 Basic test results of MITC6 shell elements.
+
+(0,10)
+
+(10,10)
+
+Element The original MITC6 The improved MITC6
+
+Isotropic element test Pass Pass
+
+Zero energy mode test Pass Pass
+
+Membrane patch test Pass Pass
+
+Bending patch test Pass Pass
+
+(4,7)
+
+(8,7)
+
+(8,3) (2,2)
+
+(0,0)
+
+(10,0)
+
+x
+
+Fig. 4. Mesh used for patch tests.
+
+analysis, not present in the MITC formulations. While there exists potential in developing elements based on the EAS method, a difï¬culty encountered is that stable formulations in linear analysis may become unstable in nonlinear analysis [28,29]. In an additional approach to obtain more effective elements, the âdiscontinuous Galerkin (DG) methodâ can be pursued and shell elements can be formulated within this framework [30,31]. In this approach, stability parameters are used and signiï¬cant additional computational cost is present, even when static condensation can be employed. The performance of such shell elements in nonlinear solutions need also still be studied. An important point is that any newly formulated element should not only be tested on rather simple shell analysis problems,
+
+but also on the discriminating problems proposed in Refs. [2,13] and used, for example, in Refs. [1,2,6,11,15,24,25]. The actual performance of a shell element formulation will only be revealed when solving these or equivalent problems and measuring the solution errors in appropriate norms. The objective in this paper is to present a further development of the MITC6 shell element of Ref. [1]. The improved MITC6 shell element represents a simple but effective extension of the original development. The element is not based on a stabilization scheme and does not contain any factor to be set. The same membrane strain and transverse shear strain interpolations as in Ref. [1] are used, but the interpolated covariant strain components are referred to an element constant contravariant basis. Of course, the geometry and the displacement-based strains used in the tying process are calculated using the varying quantities, as deï¬ned through the discretization of the âbasic shell mathematical modelâ. For plate problems, the improved element reduces to the original element and hence the results obtained using the original and the improved elements are identical. Indeed, this is one reason why we use this speciï¬c interpolation of strain components. In the next sections we ï¬rst brieï¬y review the original MITC6 shell element, then we present the formulation of the improved element, and ï¬nally we give the numerical results obtained in the solution of the test problems. These benchmark tests include the discriminating test problems referred to above. While we consider in this paper only linear analysis, the element formulation can directly be extended to general nonlinear analysis, which is an inherent property of the MITC formulations [2,8,19].
+
+1454
+
+D.-N. Kim, K.J. Bathe / Computers and Structures 87 (2009) 1451â1460
+
+0.0 t/L=1/100 -0.6 t/L=1/1000 t/L=1/10000
+
+-1.2 log (relative error)
+
+-1.8
+
+Fig. 5. Shell problem of Fig. 2 solved with the improved MITC6 shell element.
+
+-2.4
+
+2. The formulation of the MITC6 shell element
+-3.0
+
+As for displacement-based shell elements, the geometry of the six-node shell element is interpolated using
+
+~ s; tÃ Â¼ xÃ°r;
+
+6 X iÂ¼1
+
+hi Ã°r; sÃ~i Ã¾ x
+
+6 t X ai hi Ã°r; sÃ~in V 2 iÂ¼1
+
+-3.6
+
+Ã°1Ã
+-4.0 -1.8 -1.2 log(h) -0.6
+
+where hi is the 2D interpolation function of the standard isoparametric procedure corresponding to node i, ~i is the position vector x V at node i in the global Cartesian coordinate system, and ai and ~in denote the shell thickness and the director vector at node i, respectively. The displacements of the element are given by
+
+Fig. 7. Convergence curves for the clamped plate problem. The bold line shows the optimal convergence rate.
+nij X kÂ¼1
+
+~Ã°r; s; tÃ Â¼ u
+
+6 X iÂ¼1
+
+6 t X hi Ã°r; sÃ~i Ã¾ u ai hi Ã°r; sÃÃ°Ã~i2 ai Ã¾ ~i1 bi Ã V V 2 iÂ¼1
+
+~ij Ã°r; s; tÃ Â¼ e Ã°2Ã
+
+â¬ k hij Ã°r; sÃeij â¬Ã°rk ;sk ;tÃ
+ij ij
+
+Ã°5Ã
+
+where for node i, ~i is the nodal displacement vector in the global u V Cartesian coordinate system, ~i1 and ~i2 are unit vectors orthogonal V to ~in and to each other, and ai and bi are the rotations of the direcV V V tor vector ~in about ~i1 and ~i2 , respectively. V The covariant strain components are calculated using
+
+where nij is the number of tying points for the covariant strain comk ponent ~ij and the hij are the assumed interpolation functions e satisfying
+
+hij Ã°r lij ; slij Ã Â¼ dkl ;
+
+k
+
+l Â¼ 1; . . . ; nij
+
+Ã°6Ã
+
+1 eij Â¼ Ã°~i Ã ~;j Ã¾ ~j Ã ~;i Ã g u g u 2
+where
+
+Ã°3Ã
+
+with dkl the Kronecker delta. This tying procedure is carried out on the elemental level for each individual element. We next express the displacement-based covariant strain components in terms of the nodal displacements and rotations
+
+eij Â¼ Bij U @~ u and ~;i Â¼ u @ri with r 1 Â¼ r; r 2 Â¼ s; r3 Â¼ t Ã°4Ã
+
+Ã°7Ã
+
+@~ x ~i Â¼ g @r i
+
+where B is the strainâdisplacement matrix and U is the nodal displacement/rotation vector. Thus we obtain
+
+The basic step in the MITC formulation is to select a set of tying points k = 1, . . ., nij on the shell mid-surface with coordinates e Ã°r k ; sk Ã, and deï¬ne the assumed covariant strain components ~ij as ij ij
+
+~ij Â¼ e
+
+"n ij X
+kÂ¼1
+
+â¬ k hij Ã°r; sÃBij â¬Ã°rk ;sk ;tÃ
+ij ij
+
+# e U Â¼ B ij U Ã°8Ã
+
+Fig. 6. Clamped plate subjected to uniform pressure; L = 1.0, E = 1.7472 Ã 107, m = 0.3 and q = 1.0.
+
+D.-N. Kim, K.J. Bathe / Computers and Structures 87 (2009) 1451â1460
+
+1455
+
+z
+
+(a)
+
+(b)
+
+C Î² D Î¸ B x Î±
+Fig. 8. Cylindrical shell problem; pressure loading p(h) = p0 cos(2h); both ends are either clamped or free, see Refs. [1,2]; L = R = 1.0, E = 2.0 Ã 105, m = 1/3 and p0 = 1.0 Fig. 10. Meshes used for 1/8th of the hyperboloid shell (8 Ã 8 element mesh) with symmetry boundary conditions applied. The geometry, material properties and loading are as in Fig. 2. (a) The graded mesh is used when both ends are ï¬xed and (b) the uniform mesh is used when both ends are free. The boundary layer of width pï¬ï¬ 6 t is meshed in the graded mesh [1].
+
+A
+
+2L
+
+y
+
+The strainâdisplacement matrix in Eq. (8) gives the covariant strain components as a function of the element coordinates r, s, and t. The constitutive tensor is deï¬ned with respect to the local Cartesian coordinate system in which the plane stress assumption holds. Hence the assumed covariant strains in Eq. (8) are transformed into that coordinate system at each integration point to obtain the stiffness matrix. The local Cartesian coordinate axes are given by (~r , ~s , ~t ) where [19] E E E
+
+g g ~r Â¼ ~s Ã ~t ; ~s Â¼ ~t Ã ~r ; ~t Â¼ ~t E E E E E E k~s k g k~t k g
+
+The key ingredients in the element formulation are the speciï¬c interpolations used for the membrane and transverse shear strains. Many different possibilities are available but the difï¬culty is to obtain an effective element that does not contain a spurious zero energy mode, is spatially isotropic, passes the patch tests, and performs well in bending-dominated and in membrane-dominated
+
+log (relative error)
+
+-1.8
+
+log (relative error)
+
+Fig. 9. Convergence curves for the cylindrical shell problem (a) when both ends are clamped and (b) when both ends are free. The bold lines show the optimal convergence rate.
+
+R
+
+problems. The interpolations presented in Ref. [1] are leading to quite an effective element and are,
+
+~rr Â¼ a1i Ã¾ b1i r Ã¾ c1i s e ~ss Â¼ a2i Ã¾ b2i r Ã¾ c2i s e ~qq Â¼ a3i Ã¾ b3i r Ã¾ c3i Ã°1 Ã r Ã sÃ e
+
+Ã°10Ã
+
+for the in-plane strains, as denoted by the subscript i on the coefï¬e e e cients, where ~qq Â¼ 1 f~rr Ã¾ ~ss g Ã ~rs , and e 2
+
+~rt Â¼ a1t Ã¾ b1t r Ã¾ c1t s Ã¾ sÃ°dt r Ã¾ et sÃ e ~st Â¼ a2t Ã¾ b2t r Ã¾ c2t s Ã rÃ°dt r Ã¾ et sÃ e
+
+Ã°11Ã
+
+Ã°9Ã
+
+for the transverse shear strains, as denoted by the subscript t on the coefï¬cients. We refer to Ref. [1] for details on how to obtain the coefï¬cients in Eqs. (10) and (11). The interpolations with the tying points used are shown in Fig. 1. However, as mentioned above already, and reported ï¬rst in Ref. [24] the resulting element shows an instability in the analysis of certain shell problems, depending on the curvature and the boundary conditions of the shell structure. Fig. 2 shows this instability in the analysis of a hyperboloid shell, clamped at the bottom and free at the top. These instabilities, even when seen only in the solution
+
+(a)
+
+0.0 t/L=1/100 -0.6 t/L=1/1000 t/L=1/10000
+
+(b) 0.0
+t/L=1/100 t/L=1/1000 -0.6 t/L=1/10000
+
+-1.2
+
+-1.2
+
+-1.8
+
+-2.4
+
+-2.4
+
+-3.0
+
+-3.0
+
+-3.6 -4.0 -1.8
+
+-3.6 -4.0 -1.8
+
+-1.2 log(h)
+
+-0.6
+
+-1.2 log(h)
+
+-0.6
+
+1456
+
+D.-N. Kim, K.J. Bathe / Computers and Structures 87 (2009) 1451â1460
+
+of certain problems, are clearly undesirable and a remedy needs to be introduced. Chapelle et al. [24,25] discussed in depth the difï¬culty to obtain an improved triangular shell element that shows all the desirable properties and no instability, and presented a stabilization of the MITC6 element. However, as is typical in stabilized formulations [2,19] a stabilization factor is introduced. In the next section we improve the original element formulation in a different way, without the use of a factor, while preserving the other desirable properties of the original element. 3. The improved MITC6 shell element The basic approach in this formulation is as presented above. However, instead of using Eq. (5), we use the interpolation
+
+Considering shell analyses, we note that when the element size becomes small, the base vectors are almost constant within the element, and hence the improved shell element must be expected to perform like the original element. We shall see in the tests given below that the improved element does not display the instability of the original element and performs quite well. The reason is the coupling of strain components used in Eqs. (12) and (13). In some respects, a more natural approach is to use membrane and shear strain interpolations as in Eq. (5), but with different interpolation functions and tying points than employed in the original MITC6 shell element. Many different schemes can be explored but â with the criteria to be satisï¬ed â it appears difï¬cult to reach in this way a signiï¬cantly improved shell element, see Refs. [1,25]. 4. Solution of test problems
+
+~ Ã°r; s; tÃ Â¼ ^ij e
+where
+
+nij X kÂ¼1
+
+â¬ k hij Ã°r; sÃ^ij â¬Ã°rk ;sk ;tÃ e
+ij ij
+
+Ã°12Ã
+
+^ ^ ^ ^ij Â¼ ekl Ã°~k Ã ~i ÃÃ°~l Ã ~j Ã with ~i Ã°r; s; tÃ Â¼ ~i Ã°1=3; 1=3; tÃ g g g g g g e
+
+Ã°13Ã
+
+Here we imply summation over the indices k and l, and the interpolation functions are those introduced in Ref. [1], see Fig. 1. Therefore, the same form of interpolation as given in Eqs. (5) and (6), is used in the improved element, but the interpolated strains ^ ^ ^ e are given in the basis Ã°~r ; ~s ; ~t Ã and the ^ij are employed instead g g g of the eij to evaluate the coefï¬cients of the interpolation functions. ^ ^ ^ Except for using the base vectors Ã°~r ; ~s ; ~t Ã, constant in r and s, in g g g the interpolations instead of the base vectors Ã°~r ; ~s ; ~t Ã, there is g g g no difference in the element formulations. Using Eq. (12) the strain terms in the Cartesian basis aligned with the normal shell direction are calculated for use of the plane stress constitutive law. Note that, when the element is ï¬at and straight-sided, the base vectors Ã°~r ; ~s ; ~t Ã are constant throughout the element, and the g g g interpolations given in Eqs. (12) and (13) reduce to those of the original MITC6 element. Hence identical results are obtained when plate problems are solved.
+
+In this section we report on the performance of the improved MITC6 shell element. As mentioned already, the element is isotropic, hence the test of Fig. 3 is passed. The element contains only the rigid body modes, no spurious zero energy mode, and passes the membrane and bending patch tests, see Fig. 4 and Table 1. Of particular interest is the solution of the problem considered in Fig. 2, to see whether spurious displacements are obtained. Fig. 5 shows the result using the improved MITC6 shell element and we see that no spurious displacements occur. In the further tests, we evaluate the s-norm introduced in Ref. [15] to measure the rate of convergence, since this norm can be applied in bending-dominated and membrane-dominated shell problems. The relative error is deï¬ned as [1,2,15]
+
+relative error Â¼
+
+k~ref Ã ~h k2 u u s k~ref k2 u s
+
+Ã°14Ã
+
+where ~ref denotes the reference solution. We consider below the u problems solved in Ref. [1]. For each problem, we use as ~ref the u solution obtained with a ï¬ne enough reference mesh. In these tests we consider only structures of constant thickness t and t/L denotes the thickness over length ratio, as e.g. in Refs. [1,2].
+
+(a)
+
+0.0 t/L=1/100 -0.6 t/L=1/1000 t/L=1/10000
+
+(b) 0.0
+-0.6
+
+-1.2 log (relative error)
+
+-1.2
+log (relative error)
+
+-1.8
+
+-1.8
+
+-2.4
+
+-2.4
+
+-3.0
+
+-3.0
+
+-3.6 -4.0 -1.8
+
+-3.6 -4.0 -1.8
+
+t/L=1/100 t/L=1/1000 t/L=1/10000
+
+-1.2 log(h)
+
+-0.6
+
+-1.2 log(h)
+
+-0.6
+
+Fig. 11. Convergence curves for the hyperboloid shell problem (a) when both ends are clamped and (b) when both ends are free. The bold lines show the optimal convergence rate.
+
+D.-N. Kim, K.J. Bathe / Computers and Structures 87 (2009) 1451â1460
+
+1457
+
+(a)
+
+2.4 1.8 1.2 0.6 0.0 t/L=1/100 t/L=1/1000 t/L=1/10000
+
+log (relative error)
+
+-0.6 -1.2 -1.8 -2.4 -3.0 -3.6 -4.2 -4.8
+
+-1.8 log(h)
+
+-1.2
+
+(b)
+
+2.4 1.8 1.2 0.6 0.0
+
+(c)
+
+2.4 1.8 1.2 0.6 0.0
+
+log (relative error)
+
+-0.6 -1.2 -1.8 -2.4 -3.0 -3.6 -4.2 -4.8 t/L=1/100 t/L=1/1000 t/L=1/10000 -1.8 log(h) -1.2
+
+log (relative error)
+
+-0.6 -1.2 -1.8 -2.4 -3.0 -3.6 -4.2 -4.8 t/L=1/100 t/L=1/1000 t/L=1/10000 -1.8 log(h) -1.2
+
+Fig. 12. Convergence curves in the Am norm for the fully clamped hyperboloid shell problem solved using (a) the displacement-based six-node element, (b) the original MITC6 element and (c) the improved MITC6 element. Graded meshes are used as shown in Fig. 10(a).
+
+4.1. Analysis of clamped plate problem The plate problem considered is shown in Fig. 6 and the convergence results are given in Fig. 7. These results should be identical to those reported for the MITC6 shell element in Ref. [1], and indeed are for individual nodal displacements. However, slight differences in the relative errors are observed because the s-norms were calculated using different implementations. 4.2. Analysis of cylindrical shell problems The geometry and the loading of the problems are deï¬ned in Fig. 8. Depending on the boundary conditions used, a membrane-
+
+dominated problem (clamped boundary conditions) and a bending-dominated problem (free ends) are obtained [1,2]. We solve both problems and the results are given in Fig. 9. The same good convergence behavior as reported in Ref. [1] is seen. 4.3. Analysis of hyperboloid shell problems The MITC6 shell element performs very well in the analysis of the plate and cylindrical shell problems. However, these shells have rather simple surfaces, the plate is ï¬at and the cylinder has one principal curvature equal to zero. Two much more discriminating problems are obtained when considering the hyperboloid shell shown in Fig. 2. A membrane-
+
+1458
+
+D.-N. Kim, K.J. Bathe / Computers and Structures 87 (2009) 1451â1460
+
+(a)
+
+0.0 t/L=1/100 -0.6 t/L=1/1000 t/L=1/10000 -1.2
+
+-1.8 log (relative error)
+
+-2.4
+
+-3.0
+
+-3.6
+
+-4.2
+
+-4.8
+
+-5.4
+
+-1.8 log(h)
+
+-1.2
+
+(b)
+
+0.0 t/L=1/100 -0.6 t/L=1/1000 t/L=1/10000 -1.2
+
+(c)
+
+0.0 t/L=1/100 t/L=1/1000 t/L=1/10000 -1.2
+
+-0.6
+
+-1.8
+log (relative error) log (relative error)
+
+-1.8
+
+-2.4
+
+-2.4
+
+-3.0
+
+-3.0
+
+-3.6
+
+-3.6
+
+-4.2
+
+-4.2
+
+-4.8
+
+-4.8
+
+-5.4
+
+-1.8 log(h)
+
+-1.2
+
+-5.4
+
+-1.8 log(h)
+
+-1.2
+
+Fig. 13. Convergence curves in the Am norm without shear terms for the fully clamped hyperboloid shell problem solved using (a) the displacement-based six-node element, (b) the original MITC6 element and (c) the improved MITC6 element. Graded meshes are used as shown in Fig. 10(a).
+
+dominated problem is obtained by considering clamped-clamped conditions and a bending-dominated problem is obtained when considering both edges to be free. It is important to mesh appropriately the boundary layer in the case of the clamped case [2,32], and we use the meshing of Ref.pï¬ï¬ where half the mesh is used in the [1], boundary layer of width 6 t , see Fig. 10. The very thin boundary layer present in the free case is not specially meshed. Fig. 11 shows the results obtained which are quite close to those reported for the original MITC6 shell element [1]. While the convergence behavior is quite good, of course, the element does not show optimal behavior, which would correspond to the optimal rate of convergence and no shift in the convergence curves when the ratio t/L decreases.
+
+Finally we calculate the convergence curves of the element in the solution of the clamped hyperboloid in the Am norm, that is, we evaluate
+
+relative error Â¼
+
+Am Ã°~ref Ã ~h ; ~ref Ã ~h Ã u u u u Am Ã°~ref ; ~ref Ã u u
+
+Ã°15Ã
+
+where Am( Ã , Ã ) is the exact bilinear form containing the membrane and shear strain contributions. As well known, displacement-based elements show excellent convergence in this norm when membrane dominated problems are solved, and indeed display optimal behavior when properly graded meshes are used [2]. To calculate u Am and ~ref we use the displacement-based six-node triangular shell element with a mesh of 128 Ã 128 elements.
+
+D.-N. Kim, K.J. Bathe / Computers and Structures 87 (2009) 1451â1460
+
+1459
+
+(a)
+
+(b)
+
+(c)
+
+qï¬ï¬ï¬ï¬ï¬ï¬ï¬ï¬ï¬ï¬ï¬ï¬ï¬ï¬ï¬ï¬ Fig. 14. Rotation magnitudes ( a2 Ã¾ b2 ) of the fully clamped hyperboloid shell problem solved using (a) the displacement-based six-node element, (b) the original MITC6 element and (c) the improved MITC6 element. The 16 Ã 16 graded mesh is used with t/L=1/10000.
+
+Fig. 15. Shell problem of Fig. 2 solved with the stabilized MITC6 shell element. (a) C = 0.1, (b) C = 0.2 and (c) C = 0.4
+
+Since the solution ~h obtained with the MITC6 shell element u will be different from the displacement-based solution, this measure for convergence is very discriminating. Any small difference in the calculated shell section displacements and rotations is magniï¬ed in the norm by the fact that the displacement-based element formulation locks when solving bending dominated problems. Figs. 12 and 13 show the results obtained using Eq. (15). We also show the behaviors of the displacement-based six-node triangular shell element and the original MITC6 shell element, and the results when excluding the transverse shear strain effects. The ï¬gures show that reasonable convergence is measured with the improved MITC6 shell element, and that the errors are substantially less when the shear strain effects are excluded. The shear strain error is largely due to errors in the nodal rotations which cause spurious shear stresses. Fig. 14 displays the rotations for one case of number of elements used, and we see that the improved MITC6 shell element result, compared with the original element result, is closer to the displacement-based solution. 4.4. A brief study using a stabilized shell element formulation Here we want to brieï¬y show how a formulation like the one given in Ref. [24] based on stabilization performs in the solution of the problem of Fig. 2. As pointed out already above, the major con-
+
+Table 2 Normalized maximum displacements of the clamped plate problem in Fig. 6. Improved MITC6 4Ã4 8Ã8 16 Ã 16 Stabilized MITC6 (C = 0.1) 4Ã4 8Ã8 16 Ã 16 Stabilized MITC6 (C = 0.4) 4Ã4 8Ã8 16 Ã 16 t/L = 1/10000 1.020307 1.012138 1.006941 t/L = 1/10000 1.019691 1.012110 1.006935 t/L=1/10000 1.010283 1.011874 1.006914 t/L = 1/10000 1.014698 1.009567 1.005911 t/L = 1/10000 0.967412 1.008506 1.005893 t/L=1/10000 0.698071 0.996715 1.005626 t/L = 1/10000 1.014628 1.009512 1.005839 t/L = 1/10000 0.306133 0.964094 1.004342 t/L=1/10000 0.026907 0.673236 0.994437
+
+cern using a stabilization approach is that a factor has to be set. Hence we focus on the use of different values of the stabilization factor. We obtain a stabilized shell element of the original MITC6 shell element by replacing a part of the mixed-interpolated shear strain by the unreduced displacement-based shear strain, see Refs. [2,19,24].
+
+1460
+
+D.-N. Kim, K.J. Bathe / Computers and Structures 87 (2009) 1451â1460
+
+â¬ â¬ h h ~rt Â¼ 1 Ã C T ~MITC6 Ã¾ C T eDI e e L rt L rt â¬ â¬ h h ~st Â¼ 1 Ã C T ~MITC6 Ã¾ C T eDI e e L st L st
+
+Ã°16Ã
+
+MITC6 shell element, and Dr. D. Chapelle of INRIA, Rocquencourt, France, for his comments on this work. References
+[1] Lee PS, Bathe KJ. Development of MITC isotropic triangular shell ï¬nite elements. Comput Struct 2004;82:945â62. [2] Chapelle D, Bathe KJ. The ï¬nite element analysis of shellsfundamentals. Springer; 2003. [3] Lee PS, Noh HC, Bathe KJ. Insight into 3-node triangular shell ï¬nite elements: the effects of element isotropy and mesh patterns. Comput Struct 2007;85:404â18. [4] Bathe KJ. The ï¬nite element method. In: Encyclopedia of computer science and engineering. J. Wiley and Sons; 2009. p. 1253â64. [5] Chapelle D, Bathe KJ. The mathematical shell model underlying general shell elements. Int J Numer Meth Eng 2000;48:289â313. [6] Lee PS, Bathe KJ. Insight into ï¬nite element shell discretizations by use of the basic shell mathematical model. Comput Struct 2005;83:69â90. [7] Dvorkin E, Bathe KJ. A continuum mechanics based four-node shell element for general nonlinear analysis. Eng Comput 1984;1:77â88. [8] Bathe KJ, Dvorkin EN. A formulation of general shell elements â the use of mixed interpolation of tensorial components. Int J Numer Meth Eng 1986;22:697â722. [9] Bucalem ML, Bathe KJ. Higher-order MITC general shell elements. Int J Numer Meth Eng 1993;36:3729â54. [10] Bucalem ML, Bathe KJ. Finite element analysis of shell structures. Arch Comput Meth Eng 1997;4:3â61. [11] Bathe KJ, Lee PS, Hiller JF. Towards improving the MITC9 shell element. Comput Struct 2003;81:477â89. [12] Kim DN, Bathe KJ. A 4-node 3D-shell element to model shell surface tractions and incompressible behavior. Comput Struct 2008;86:2027â41. [13] Chapelle D, Bathe KJ. Fundamental considerations for the ï¬nite element analysis of shell structures. Comput Struct 1998;66:711â2. [14] Bathe KJ, Iosilevich A, Chapelle D. An evaluation of the MITC shell elements. Comput Struct 2000;75:1â30. [15] Hiller JF, Bathe KJ. Measuring convergence of mixed ï¬nite element discretizations: an application to shell structures. Comput Struct 2003;81: 639â54. [16] Bathe KJ, Iosilevich A, Chapelle D. An inf-sup test for shell ï¬nite elements. Comput Struct 2000;75:439â56. [17] Bathe KJ, Dvorkin E. A four-node plate bending element based on Mindlin/ Reissner plate theory and a mixed interpolation. Int J Numer Meth Eng 1985;21:367â83. [18] Brezzi F, Bathe KJ, Fortin M. Mixed-interpolated elements for Reissner/Mindlin plates. Int J Numer Meth Eng 1989;28:1787â801. [19] Bathe KJ. Finite element procedures. Prentice-Hall; 1996. [20] Bathe KJ, Brezzi F, Cho SW. The MITC7 and MITC9 plate bending elements. Comput Struct 1989;32:797â814. [21] Iosilevich A, Bathe KJ, Brezzi F. On evaluating the inf-sup condition for plate bending elements. Int J Numer Meth Eng 1997;40:3639â63. [22] Lyly M, Niiranen J, Stenberg R. A reï¬ned error analysis of MITC plate elements. Math Models Meth Appl Sci 2006;16:967â77. [23] Lyly M, Niiranen J, Stenberg R. Superconvergence and postprocessing of MITC plate elements. Comput Meth Appl Mech Eng 2007;196:3110â26. [24] BeirÃ£o da Veiga L, Chapelle D, Paris Suarez I. Towards improving the MITC6 triangular shell element. Comput Struct 2007;85:1589â610. [25] Chapelle D, Paris Suarez I. Detailed reliability assessment for triangular MITC elements for thin shells. Comput Strut 2008;86:2192â202. [26] Simo J, Rifai MS. A class of mixed assumed strain methods and the method of incompatible modes. Int J Numer Meth Eng 1990;29: 1595â638. [27] Wilson EL, Ibrahimbegovic A. Use of incompatible displacement modes for the calculation of element stiffness and stresses. Finite Elements Anal Des 1990;7:229â41. [28] Wriggers P, Reese S. A note on enhanced strain methods for large deformations. Comput Meth Appl Mech Eng 1996;135:201â9. [29] Pantuso D, Bathe KJ. On the stability of mixed ï¬nite elements in large strain analysis of incompressible solids. Finite Elements Anal Des 1997;28: 83â104. [30] GÃ¼zey S, Stolarski HK, Cockburn B, Tamma KK. Design and development of a discontinuous Galerkin method for shells. Comput Meth Appl Mech Eng 2006;195:3528â48. [31] GÃ¼zey S, Cockburn B, Stolarski HK. The embedded discontinuous Galerkin method: application to linear shell problems. Int J Numer Meth Eng 2007;70:757â90. [32] PitkÃ¤ranta J, Sanchez Palencia E. On the asymptotic behavior of sensitive shells with small thickness. Comptes Rendus de lâAcademie des Sciences Serie II Fascicule B-Mechanique Physique Chimie 1997;325:127â34.
+
+where ~MITC6 and ~MITC6 are the shear strains calculated from the ert est MITC6 strain interpolation in Eq. (11) and eDI and eDI are the strains rt st obtained from the displacement interpolation in Eq. (3). In Eq. (16) C is the stabilization factor to be set, hT is a measure of the element size and L is the characteristic length. For the problems we consider, L = 1 and we use hT to be the radius of the circumscribed circle around the corner points of the triangular element. This stabilization operates on the transverse shear strains whereas the procedure of Ref. [24] operates on the shear strain energy. We expect that a similar stabilization is achieved with the two techniques. Fig. 15 shows the deformations of the shell considered in Fig. 2 when three different values of C are used. As seen, the deformations of the shell are quite sensitive to the value of C, but once the stabilization factor is large enough, the instability of the original MITC6 element is no longer present. Hence it appears that simply a large enough value of C needs to be selected. However, clearly, if the stabilization factor is too large, the error in the response prediction (displacements and stresses) is signiï¬cant, see Ref. [24]. We demonstrate this deterioration of the response prediction in Table 2 for the analysis of the clamped plate problem of Fig. 6. Here the stabilization is not needed but when used with values as in Fig. 15, the response prediction is much deteriorating. Hence a major difï¬culty when using this stabilization approach is to choose the optimal stabilization factor automatically for each element for any shell analysis, including nonlinear analysis. This is hardly possible but assuming that it is achieved, we may ï¬nd thereafter that the accuracy of the solution is not acceptable. 5. Conclusions The objective in this paper was to present a triangular shell element which represents a signiï¬cant improvement over an earlier published element [1]. Like the earlier presented element, the improved six-node element is based on the MITC formulation approach and has all the attractive attributes of MITC shell elements, with respect to ease of use and computational effectiveness. Actually, the changes in the formulation of the earlier element to reach the improvements are quite simple. The formulation of the improved MITC6 shell element given here speciï¬cally addresses the peculiar unstable behavior reported in Ref. [24] observed with the earlier published six-node element [1] in the solution of certain shell problems. Speciï¬c shell geometries and boundary conditions allow the instability to occur. The improved MITC6 shell element does not show this behavior and in the other test problems performs practically as well as the earlier published element. In plate analyses the same results as earlier are obtained. While the shell element does not show uniformly optimal behavior in all analyses, a property that is extremely difï¬cult to reach [2], the element shows good convergence behavior. A mathematical analysis of the discretization scheme would be very valuable and could yield insight into how the element might be further improved. Acknowledgements The authors would like to thank Prof. P. S. Lee of KAIST, Korea, for sharing his experiences in the implementation of the original
+

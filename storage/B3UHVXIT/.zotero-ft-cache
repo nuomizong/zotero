@@ -1,0 +1,455 @@
+Circular Arc Structures
+Pengbo Bo Univ. Hong Kong, TU Wien Helmut Pottmann KAUST, TU Wien Martin Kilian Evolute, TU Wien Wenping Wang Univ. Hong Kong Johannes Wallner TU Graz, TU Wien
+
+Abstract
+The most important guiding principle in computational methods for freeform architecture is the balance between cost efï¬ciency on the one hand, and adherence to the design intent on the other. Key issues are the simplicity of supporting and connecting elements as well as repetition of costly parts. This paper proposes so-called circular arc structures as a means to faithfully realize freeform designs without giving up smooth appearance. In contrast to non-smooth meshes with straight edges where geometric complexity is concentrated in the nodes, we stay with smooth surfaces and rather distribute complexity in a uniform way by allowing edges in the shape of circular arcs. We are able to achieve the simplest possible shape of nodes without interfering with known panel optimization algorithms. We study remarkable special cases of circular arc structures which possess simple supporting elements or repetitive edges, we present the ï¬rst global approximation method for principal patches, and we show an extension to volumetric structures for truly threedimensional designs. CR Categories: I.3.5 [Computer Graphics]: Computational Geometry and Object ModelingâGeometric algorithms, languages, and systems; I.3.5 [Computer Graphics]: Computational Geometry and Object ModelingâCurve, surface, solid, and object representations Keywords: architectural geometry, circular arc, repetitivity, congruent nodes, cyclides, volumetric meshes, double-curved and single-curved panels, discrete differential geometry Links: DL PDF
+
+Figure 1: Architectural freeform designs based on circular arc structures exhibit smooth skin, congruent node elements, and simple shapes of beams. In special cases like for the cyclidic CAS shown here, they also admit offsets at constant distance.
+
+Much work deals with decomposing a freeform surface design into ï¬at panels with straight beams between them. However, this process of approximating a smooth surface by a polyhedral surface inevitably shifts complexity to the nodes (vertices): In general no two nodes are congruent and, which is worse, a typical node exhibits torsion, i.e., is a truly spatial object whose manufacturing is challenging (see Figure 2). It is possible to optimize nodes to make them torsion-free, which simpliï¬es production and enhances the aesthetic appearance (cf. [Liu et al. 2006; Pottmann et al. 2007] for quad meshes and [Schiftner et al. 2009] for hexagonal meshes). Often the faceted appearance of planar panels is not intended, and as a natural next step, rationalization with single-curved panels has been proposed by [Pottmann et al. 2008]. This method leads to a surface which is smooth in one direction, but non-smooth in the other. Setting aside the cladding of surfaces by bendable panels (e.g. made of wood and useful for interior design, cf. [Pottmann et al. 2010]), the faithful reproduction of a smooth outer skin necessitates very costly manufacturing of double curved panels. Figure 2: Node complexity. Manufacturing the connecting element (yellow) via plasma cutting requires much effort if the node has âtorsionâ, because of its truly spatial shape. This task can be rendered feasible by employing repetitive elements which recently have become a focus of study: Eigensatz et al. [2010] show how a given smooth surface with given panel boundaries may be decomposed into panels whose production requires as few costly molds as possible, such that all changes to the original design are within prescribed tolerances. Thus not the panels themselves are repeated, but the auxiliary elements needed for their manufacturing. During this panel optimization the given curve network remains unchanged. The design of curve networks is not addressed by [Eigensatz et al. 2010]. Both [Singh and Schaefer 2010] and [Fu et al. 2010] derive structures which aim at repetitive (i.e., congruent) panels. These panels
+ACM Transactions on Graphics, Vol. 30, No. 4, Article 101, Publication date: July 2011.
+
+1
+
+Introduction
+
+Our work is motivated by the geometric challenges posed by freeform architecture, and, in particular, by the problem of rationalization of a freeform design. This means its decomposition into smaller parts, thereby meeting two competing objectives: feasibility, and consistency with the designerâs intentions. Depending on what constitutes the design, there have been different approaches to this problem which have led to different kinds of speciï¬c geometric and computational questions. Mostly these questions involve replacing smooth surfaces (possibly with an additional curve network on them) by other structures like meshes with special properties. The guiding thought in all considerations is the efï¬cient manufacturing of the surface parts and their respective necessary supporting/connecting elements. Both simple geometry and repetition of elements contribute to this goal of efï¬ciency.
+ACM Reference Format Bo, P., Pottmann, H., Kilian, M., Wang, W., Wallner, J. 2011. Circular Arc Structures. ACM Trans. Graph. 30, 4, Article 101 (July 2011), 11 pages. DOI = 10.1145/1964921.1964996 http://doi.acm.org/10.1145/1964921.1964996. Copyright Notice Permission to make digital or hard copies of part or all of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for proï¬t or direct commercial advantage and that copies show this notice on the ï¬rst page or initial screen of a display along with the full citation. Copyrights for components of this work owned by others than ACM must be honored. Abstracting with credit is permitted. To copy otherwise, to republish, to post on servers, to redistribute to lists, or to use any component of this work in other works requires prior speciï¬c permission and/or a fee. Permissions may be requested from Publications Dept., ACM, Inc., 2 Penn Plaza, Suite 701, New York, NY 10121-0701, fax +1 (212) 869-0481, or permissions@acm.org. Â© 2011 ACM 0730-0301/2011/07-ART101 $10.00 DOI 10.1145/1964921.1964996 http://doi.acm.org/10.1145/1964921.1964996
+
+101:2
+
+â¢
+
+P. Bo et al.
+
+(a)
+
+(b)
+
+(c)
+
+Figure 3: Circular arc structures. (a) Quadrilateral CAS with an edge angle of 90â¦ covering an architectural design. (b) Hexagonal CAS (edge angle 120â¦ ) covering the top of the Lilium Tower, Warszaw, by Zaha Hadid Architects. (c) Triangular CAS (edge angle 60â¦ ) on the Eindhoven âBlobâ by M. Fuksas.
+
+are triangular or quadrilateral, with the quadrilaterals not necessarily planar. These papers show that repetitive panels impose limitations: in the case of triangles, the aesthetic quality is reduced if the number of repetitions increases. Fu et al. [2010] take fairness into account, but in general signiï¬cantly change the original geometry to reach their goal. This paper takes up the idea of repetitivity and applies it to panel boundaries and nodes. Our guiding principle is: if we are to have a smooth surface and therefore cannot avoid double-curved panels anyway, we are still very interested in other signiï¬cant contributions to manufacturing efï¬ciency which do not interfere with the manufacturing of panels.
+Circular arc structures.
+
+been observed already by E. Huhnen-Venedey in his thesis [2007], later published as [Bobenko and Huhnen-Venedey 2011]. The geometric structures considered in this paper belong to the conformal geometry of surfaces [Gu and Yau 2008]. In their construction we also make use of conformal mappings (e.g. the method of [Zeng et al. 2009]).
+Contributions of the present paper.
+
+Our contributions in detail
+
+are the following: â¢ We introduce circular arc structures (CAS) which have circular arcs as basic elements and which possess congruent nodes. â¢ We show how freeform surfaces may be rationalized (for the purposes of architectural design), using circular arc structures. This rationalization preserves surface smoothness, and exhibits properties which are key for efï¬cient manufacturing: planar and simple edge elements; repetition in the nodes. â¢ We consider repetitions not only in the nodes, but also in the radii of circular edges. This in particular has applications for freeform designs realized in concrete, and is furthermore relevant to 5-axis CNC machining. â¢ We consider the subclass of cyclidic structures, thus providing the ï¬rst real solution of freeform modeling with Dupin cyclides. Cyclidic structures lead to derived structures which can be very useful for freeform architecture, e.g. for supporting elements. â¢ We extend our constructions to fully three-dimensional structures (cyclidic cells, variable distance offsets, and others). â¢ These constructions have nice relations to discrete differential geometry and to the sphere geometries: e.g. they provide a discretization of orthogonal curve networks on surfaces.
+
+We propose the class of circular arc structures which are built from circular arcs meeting smoothly at congruent nodes. In particular we think of two-dimensional structures of quad mesh or hex mesh combinatorics and circular arcs as edges, but we also consider triangular and three-dimensional combinatorics. This way we enhance the state of the art concerning the realization of architectural freeform designs: (i) We provide structures with smooth appearance, congruent nodes, and the simplest possible elements for the curved edges. (ii) Our cost-effective construction of smooth curve networks and supporting elements does not interfere with an optimized skin panelization according to [Eigensatz et al. 2010].
+Previous work. Work concerned with rationalization of architectural freeform designs has been reviewed in the introduction above. Our work speciï¬cally deals with structures composed of circular arcs, which in the univariate case are well-studied in ComputerAided Geometric Design. There are many contributions to curves made of circular arcs (arc splines). See e.g. [Leopoldseder 2001] for space curves and numerous papers by D. Meek and D. Walton for planar curves (cf. e.g. [Walton and Meek 1995]). Approximation with arc splines has been addressed by [Song et al. 2009].
+
+2
+2.1
+
+Circular arc structures
+Deï¬nition and computation of CAS
+
+Special arc structures can have panels which are part of a cyclide. Introduced to Geometric Modeling by [Martin et al. 1986], they play a role e.g. in the construction of blending surfaces. The most general surfaces carrying circles which seem to have been considered for geometric modeling are the Dupin cyclides (whose principal curves are circles), and to a lesser extent some of their generalizations. We do not give detailed references but refer to the survey paper [Degen 2002] instead. We are not aware of any previous work on general discrete structures with circular arcs as edges. Our work constitutes a new type of discretization of surfaces, with obvious relations to discrete differential geometry (see e.g. the monograph [Bobenko and Suris 2008]). We employ a connection between circular and conical meshes on the one hand, and smooth surfaces consisting of cyclidic panels on the other hand, which has
+ACM Transactions on Graphics, Vol. 30, No. 4, Article 101, Publication date: July 2011.
+
+D EFINITION 1. A circular arc structure consists of 2D mesh combinatorics (V, E), where edges are realized as circular arcs, such that in each vertex the adjacent arcs touch a common tangent plane. We require congruence of interior vertices, and we consider the following three cases: â Hexagonal CAS have valence 3 vertices. Angles between edges equal 120 degrees; â Quadrilateral CAS have valence 4 vertices. Angles between edges have values Î±, Ï â Î±, Î±, Ï â Î±, if one walks around a vertex; â Triangular CAS have valence 6 vertices. Angles between edges equal 60 degrees. For boundary vertices appropriately modiï¬ed conditions are imposed. The three cases are illustrated by Figure 3. A quadrilateral
+
+Circular Arc Structures
+
+â¢
+
+101:3
+
+CAS with an edge angle of 60 degrees is shown in Figure 5. For quadrilateral CAS we only really consider the case that at each vertex the two pairs of opposite edges are joined smoothly. Thus we have smooth ï¬ow lines of edges (the deï¬nition would allow rather irregular structures). Also in the triangular and hexagonal cases we could allow different angles, but for aesthetic reasons we stick to 60â¦ and 120â¦ . The notion of âarcâ employed here includes the limit case of inï¬nite radius, i.e., straight line segments. Most images show arcs as pipes with circular cross-section, which incidentally is also a way of realization in practice. A circular arc structure is uniquely determined by the combinatorics (V, E), the position of each vertex v â V , and by the collection of edge vectors avw (see Figure 4): avw is the unit vector attached to the vertex v which is tangent to the arc vw. These variables are not independent, but for purposes of optimization are treated as if they were â the constraints which apply are built into the target functional. This target functional is a rather straightforward collection of nonlinear least squares terms, which turns out to be sufï¬cient for our purposes. In the following we describe the setup, numerical methods employed in optimization, and how to initialize optimization. The computation of circular arc structures with special properties which are introduced later is discussed in the respective subsections.
+Data structure.
+
+Accordingly we deï¬ne a contribution to the target functional, which expresses this relation between vectors avw , awv , by X fcons = Ïvw (avw ) â awv 2 . vwâE u v For regularization it is not enough to employ second order differences of vertices; in order to suv punish a wiggly sequence of arcs we use auxiliary points suv which are deï¬ned as the intersection points of end tangents of the arc uv. We let X X fâ = u â 2v + w 2 + suv â 2svw + swz 2 (2) .
+smooth union uv, vw smooth union uv, vw, wz
+
+In a hexagonal CAS there are no smoothly joining edges, so the contribution of fâ is zero. We use the graph Laplacian X
+vâV
+
+â âv â
+
+â2 1 X uâ u:uvâE deg(v)
+
+for regularization instead. Finally we deal with the various constraints on angles between edges. With the temporary notation Ïuv,uw for the desired angle between edges uv and uw we let X ` Â´2 auv , auw â cos Ïuv,uw . fang =
+angles Ïuv,uw
+
+nu u nv v avw
+
+The sum is taken over all edge pairs where an angle is prescribed. w awv Figure 4: Quadrilateral CAS with vertices u, v, w, normal vectors nu , . . . (red), and edge vectors avw , . . . (blue).
+Numerical optimization. To compute a minimizer of (1) we employ a classical Gauss-Newton method. All required ï¬rst or-
+
+For optimization we employ a composite target functional which has the general form
+Setting up a target functional.
+
+F = Î»1 fprox + Î»2 fpl + Î»3 fcons + Î»4 fâ + Î»5 fang ,
+
+(1)
+
+where Î»1 , Î»2 . . . are nonnegative weights. The individual contributions to this target functional are as follows. The term fprox penalizes deviation of vertices from a reference surface Î¦, and likewise deviation of the boundary vertices from the reference surfaceâs boundary. We use the symbol Ï(v) for the point in Î¦ which is closest to v, and similar Ïâ (v) for the closest point to v in the reference surfaceâs boundary âÎ¦. The symbols TÏ(v) , TÏâ (v) denote the tangent plane or tangent, respectively. We deï¬ne X X fprox = dist(v, TÏ(v) )2 + dist(v, TÏâ (v) )2 .
+vâV vâVâ
+
+der derivatives are calculated exactly (i.e., are not approximated). The linear systems to be solved in each round of iteration are sparse, since the single contributions to (1) involve only local operations deï¬ned in terms of small vertex neighborhoods. We employ Levenberg-Marquardt regularization [Kelley 1999], so the occurring matrices are positive deï¬nite, and we can employ sparse Cholesky factorization, using the TAUCS library [Toledo 2003]. In order to enforce the geometric constraints, the weights of terms fpl , fcons , fang , are increased in each round of iteration.
+
+conformal mapping ââ â â â ââ ââââââ and optimization
+
+As for smoothness, the term fpl ensures that edges sharing a vertex have a common tangent plane. This is expressed by linear dependence of the initial tangent vectors of such edges: X X fpl = det(avwiâ1 , avwi , avwi+1 )2 .
+vâV vwi âE
+
+Figure 5: Sketch of initialization via conformal mapping. Here a quadrilateral CAS with edge angle 60â¦ covers a 3D scan of a piece of cloth.
+
+For geometric consistency we must deal with the fact that the vectors avw , awv , serving as end tangent vectors of an arc, are not independent. There exists a circular arc connecting vertices v, w which ï¬ts these vectors if and only if the entire conï¬guration of vertices and edge vectors is mirror-symmetric: Ïvw (avw ) = awv , where E vâw D vâw ,x . Ïvw (x) = x â 2 vâw vâw
+
+Most components of our target functional (1) are highly nonlinear and there is no guarantee that standard numerical methods like Gauss-Newton converge. Fortunately we are able to start our optimization from a conï¬guration which is already very close to the solution. This is because any CAS on a reference surface Î¦ can be seen as a discrete version of a curve network with prescribed angles of intersection. We therefore construct a mesh in a planar domain with the desired intersection angles between edges and use a conformal mapping to transfer it to Î¦. Optimization is initialized from the resulting curve network in Î¦ (see Figure 5). We tried various types of conformal mapping from a planar domain to
+Initialization.
+ACM Transactions on Graphics, Vol. 30, No. 4, Article 101, Publication date: July 2011.
+
+101:4
+
+â¢
+
+P. Bo et al.
+
+surfaces. One is the method of [Zeng et al. 2009], which has been used for Figures 3c and 8. Another method is the as rigid-as-possible mapping of [Alexa et al. 2000], which is used for Figure 5, because in this example the reference surface is isometric to a planar domain. Another method of initialization, which from the abstract viewpoint contains a discrete-conformal mapping, is to approximate Î¦ by a mesh which enjoys the circle-packing property according to [Schiftner et al. 2009]. Such a mesh can be directly used to initialize optimization of a triangular CAS; a hex mesh dual to it can be used to initialize optimization of a hexagonal CAS (this has been done for Figure 3b). Just to mention yet another way: Figure 3a has been initialized from the diagonals of a conical mesh whose faces happened to be roughly square. There are as many ways to initialize a CAS as there are ways to ï¬nd curve networks on surfaces which have the prescribed intersection angles. For a quadrilateral CAS, which is initialized by two families of curves, it is possible to choose the ï¬rst family arbitrarily and ï¬nd the second one by the condition of constant intersection angle (this method has been used for Figure 6, supported by the conformal mapping of [Zeng et al. 2009]). Later we discuss CAS with special properties whose initialization is different. In any case the decision on how many CAS mesh elements to use in each direction has to be made in the initialization phase. A typical constraint which arises in applications is maximum panel size.
+
+that the edge vectors of the edge uu are actually taken from the bigger arc vw, which means auu = Ïwu (awv ), au
+u
+
+= Ïvu (avw ).
+
+An appropriate sum of squares, which expresses this condition for every sub-edge adjacent to a T vertex is added to the objective function (1). v avw u auu au
+u
+
+u awv
+
+w
+
+Figure 7: CAS can have T-junctions. Here T-vertices u, u sit on a circular edge vw. Also shown are normal vectors (red) and edge vectors (blue). The edge uu is part of the arc vw.
+
+2.3
+
+Geometry and curvatures of CAS
+
+Recall the geometric data deï¬ning a circular arc structure (Figure 4): Each vertex v of a CAS is equipped with a unit normal vector nv . For each edge vw, the unit vectors avw , awv are respectively attached to vertices v, w and serve as initial tangent vectors of that curved edge. It is not difï¬cult to obtain a smooth surface by ï¬lling each quadrilateral face by an appropriate surface patch (for methods to do this, see e.g. [Farin et al. 2002]). Each such surface has the same normal vectors as the CAS. However, there is in general no curvature-continuous surface which contains a given CAS if vertex valences are 4 or higher. This is because the curvatures of the arcs adjacent to a vertex do not match. For a hexagonal CAS, where only three arcs meet in a vertex, this is different and we can actually ï¬nd, for each vertex, not only a normal vector but a second fundamental form (i.e., a curvature element) which matches the three arcs emanating from this vertex. This is because in 2D any symmetric quadratic form is uniquely determined by its values at three linearly independent vectors.
+
+Figure 6: Quadrilateral CAS with edge angle 90â¦ which covers the design by Zaha Hadid Architects for the National Holding Headquarters, Abu Dhabi. This CAS exhibits one family of âhorizontalâ ï¬ow lines, which implies either Tjunctions or a very uneven distribution of the second family of ï¬ow lines (we decided for the former). Note that in the âsteepâ part, where no T-junctions occur, load-bearing elements can follow the CAS.
+
+2.2
+
+Generalizations
+
+Hv = 0.2
+
+Hv = 0.8
+
+Deï¬nition 1 is sometimes too restrictive. It is important in applications to extend the notion of CAS to slightly more general situations such as combinatorial singularities (i.e., vertices which do not have the same valence as the majority of other vertices, cf. Figure 6), or other vertices where the edge angle condition is either modiï¬ed or is absent. They are otherwise treated in the same way as other vertices and are easily incorporated into our optimization framework. Another important generalization is quad meshes with T-junctions. Those are usually avoided for load-bearing elements because of the high bending stresses they cause. For pure panelization, however, T-junctions make perfect sense, see Figure 6. As regards computation, Figure 7 shows such a mesh together with its geometric data. We still require that each face is bounded by four circular arcs. This leads to the situation that we have circular arcs (like vw in Figure 7) which contain certain smaller edges (like uu in Figure 7). In our optimization we must take care of the fact
+ACM Transactions on Graphics, Vol. 30, No. 4, Article 101, Publication date: July 2011.
+
+Figure 8: Soap ï¬lms under pressure. A sequence of CAS was produced by ï¬rst covering a minimal surface by a hexagonal CAS which is optimized for vanishing mean curvature (Hv = const. = 0). Subsequently we recursively initialize the computation of a i hexagonal CAS with mean curvature Hv = 10 , i = 1, 2, . . . by iâ1 a hexagonal CAS with mean curvature 10 . We require proximity to the given boundary, but not to any reference surface.
+
+It turns out that we can ï¬nd a nice formula for the mean curvature which has an interesting interpretation in MÂ¨ bio us geometry. This is the content of the following paragraphs which have no direct relation to applications, but which are interesting from the viewpoint of discrete differential geometry. We start with a well known lemma.
+Mean curvature.
+
+Circular Arc Structures
+
+â¢
+
+101:5
+
+L EMMA 2. Consider a regularly arranged collection of m directions tangent to a C 2 surface in a common point. Using coordinates w.r.t. the principal frame, these directions are indicated by vectors `cos Ïj Â´ , sin Ï
+j
+
+Ïj = Ï + j 2Ï m
+
+(j = 0, . . . , m â 1).
+
+Each direction having normal curvature Îºj,n , the mean curvature 1 of the surface equals m (Îº1,n + Â· Â· Â· + Îºm,n ), provided m â¥ 3. Proof. Elementary surface theory implies that normal curvatures can be expressed in terms of the principal curvatures Îº1 , Îº2 as Îºj,n = Îº1 cos2 Ïj + Îº2 sin2 Ïj [do Carmo 1976]. Observing P 1 1 cos2 Î± = 2 (1 + cos 2Î±), we get m m Îºj,n = Îº1 +Îº2 . j=1 2 L EMMA 3. For any curvature-continuous surface containing a hexagonal CAS, the value of mean curvature in the vertex v equals Hv = 1 3 X D wâv Îºn (e), where Îºn (vw) = 2 wâv
+2
+
+Â¨ Mobius-geometric properties of CAS. Circular arc structures are entities of MÂ¨ bius geometry. This is because MÂ¨ bius transforo o mations preserve smoothness, angles, and the property of being a circular arc. It turns out that even the average normal curvature Îº = (Îº + Îº )/2 according to Deï¬nition 4 is a MÂ¨ bius invario ant, if it is encoded as the âMeusnier sphereâ of radius 1/Îº (cf. the proof of Lemma 3). In the same sense the mean curvature, found by a further round of averaging, is a MÂ¨ bius invariant if geometo rically encoded as a sphere. This is an instance of a well known MÂ¨ bius-invariant construction with spheres, based on the fact that o three spheres which are in contact and which have radii 1/Îº , 1/Îº , 1/( Îº +Îº ) together with their common point of contact (with ra2 dius 0), constitute a harmonic quadruple [Hertrich-Jeromin 2003].
+
+2.4
+
+Supporting elements
+
+, nv .
+
+E
+
+e=vwâE
+
+Here nv is the unit normal vector in the vertex v. The symbol Îºn (e) means normal curvature of the edge e. Proof. We employ coordinates w.r.t. a principal frame attached to the vertex v, with the normal vector nv as the third axis. Meusnierâs theorem implies that the osculating circle of any curve in a surface lies in the sphere with radius 1/Îºn and center (0, 0, 1/Îºn ), where Îºn is the curveâs normal curvature [do Carmo 1976]. We now use the following geometric trick: The inversion mapping Î¹(x) = x/ x 2 maps this sphere to the plane with equation x3 = Îºn /2. Since the arc vw coincides with its own osculating circle, we can read off its normal curvature from the third coordinate of Î¹(w). This immediately yields the expression for the normal curvature, and Lemma 2 concludes the proof. Even for a quadrilateral CAS, where curvatures are not compatible we may use the procedure suggested by Lemmas 2 and 3 to deï¬ne a mean curvature. D EFINITION 4. If two edges uv, vw join smoothly in the vertex v, having normal curvatures Îº , Îº there, we assign the average normal curvature 1 (Îº +Îº ) to this pair. In a right-angled CAS the 2 arithmetic mean of the two occurring average curvatures is deï¬ned to be the mean curvature of the CAS â resulting in the formula Hv = 1 X Îºn (e). e=vwâE deg(v)
+
+In building construction statics is essential, and freeform designs require special care in this area. Even with straight load-bearing elements, both the necessary analysis and the assembly under partial load have to be done with care. The manufacturing of curved loadbearing elements is more difï¬cult and costly than making straight ones, and it is therefore very important to know which kinds of simple shapes of support elements can be used. A closely related matter is the manner of connection of support elements in the vertices: We want to avoid torsion in the node (cf. Figure 2), which would entail the manufacturing of truly 3D node elements. We show that by insisting on âsymmetricâ edges we can give a solution to this problem. We deï¬ne:
+Symmetric edges.
+
+D EFINITION 5. An edge vw is symmetric if and only if reï¬ection in the bisector plane of v, w maps the respective normal vectors nv , nw onto each other: Ïvw (nv ) = nw , Ïvw (nw ) = nv . (3)
+
+nv avw v vw awv nw w
+
+Figure 9: Symmetric edges (like vw in this picture) can be supported by a piece of right circular cone which is shown in red.
+
+Figure 10: Avoiding node torsion with symmetric edges. Conical support elements intersect in a node axis spanned by the surface normal. Such a situation is illustrated in Figure 9. The condition of symmetry of an edge vw means that the normals in vertices v, w intersect each other, and that there is a right circular cone containing the arc vw as well as both normals at the endpoints v, w (this manner of speaking includes the limit case that normals are parallel and the cone becomes a right circular cylinder). That cone serves as a support element of simple shape. Moreover, if such supports meet in a vertex v, they are going to intersect in a common axis spanned by the normal vector nv (see Figure 10). An actual construction which is based on the existence of symmetric edges and conical support elements is shown in Figure 11. Remark. The cone of normals which is associated with a symmetric edge deï¬nes a normal vector n in every point of that edge. As we proceed along a ï¬ow line, having a unit tangent vector t at each moment, the motion of the orthonormal frame (t, n, t Ã n) is the natural or rotation-minimizing one [Bishop 1975], because the surface traced out by the vector n is developable.
+ACM Transactions on Graphics, Vol. 30, No. 4, Article 101, Publication date: July 2011.
+
+If we are to optimize a hexagonal CAS such that the mean curvature assumes a given value (see Figure 8), we create a sum of squares from Lemma 3 which penalizes deviation from this value and add it to the target function (1). Unfortunately this approach is capable only of small optimization tasks like the one shown by Figure 8, where we successively increment the value of Hv . It is not possible to solve more difï¬cult problems this way, such as the boundary value problem for surfaces with constant mean curvature. It turns out that optimization needs an additional regularization term. We used
+Optimization involving curvatures.
+
+fâ,hex =
+
+X
+(u,v,w)
+
+2(u â v) â (v â w) , w v u
+
+2
+
+where summation is over all triples u, v, w which are arranged as the ï¬gure shows.
+
+101:6
+
+â¢
+
+P. Bo et al.
+
+Figure 11: Supporting elements in the shape of cones along symmetric edges form part of this construction detail. This CAS is special and has an accompanying planar quad mesh (cf. Section 4) used for the mounting of glass panels. Construction and rendering courtesy M. Reis.
+
+Figure 12: Symmetric edges. A CAS with edge angle 60â¦ (yellow, at left, part of Figure 5) is optimized such that one family of ï¬ow lines becomes symmetric. The result is shown at right, with symmetric edges in blue. Since these ï¬ow lines did not follow the original principal curvature lines, optimization entails a signiï¬cant shape change.
+
+Optimization towards symmetric edges. We add condition (3) to our objective function (1) by adding the term
+
+fsymm =
+
+X
+symmetric edges vw
+
+Ïvw (nv ) â nw
+
+2
+
+.
+
+transverse edges of constant radius is optimized with relaxed angle constraints (i.e., a low weight for all angle terms involving the transverse edges). The many edges of constant radius now serve as curved supports for the pouring of concrete.
+Computational issues: Initialization.
+
+However, if vertices v, w are contained in a curvature-continuous surface, and their respective normals intersect, then the vector v â w approximately follows a direction of principal curvature. This is one of the guiding principles in discretizing principal curvature lines, see e.g. [Sauer 1970] and [Liu et al. 2006]. We conclude: in order to approximate a reference surface Î¦ with a CAS with a family of symmetric edges, we must initialize optimization such that these edges follow Î¦âs principal curvature lines. Figure 12 shows an example where this rule has not been observed.
+
+3
+
+CAS with repetitive elements
+
+The condition of certain edges having equal radii is easily incorporated into our objective function (1). The main computational problem here is initialization. We show a method based on level sets which in itself is an optimization problem. The ï¬rst repetitivity property implies that the ï¬ow lines are arc splines of constant radius, i.e., curves of constant curvature. We therefore have to initialize optimization with curves of constant curvature which lie in the reference surface. A CAS with the transverse repetitivity property (constant radii across ï¬ow lines) is best initialized from a family of curves where the normal curvature across that curve does not change as we proceed along the curve. For computational purposes the reference surface is represented as a triangle mesh, and a real-valued function Ï is deï¬ned by its values on the vertices. We wish to ï¬nd Ï such that its level sets enjoy one of the curvature properties mentioned above. We follow [Pottmann et al. 2010] and express the normal curvature Îºn , the geodesic curvature Îºg , and the total curvature Îº of level sets by Îºn = II(J Ï) , Ï 2 Îºg = div â Ï â , Ï Îº 2 = Îº2 + Îº2 . n g
+
+Repetition is a key ingredient in all considerations of manufacturing efï¬ciency. Circular arc structures as given by Deï¬nition 1 already have a repetitive feature, namely congruence of nodes. In the interest of cost reduction we study further repetitions. It turns out that the radii of edges are both easy to handle computationally and important for manufacturing. This leads to the following deï¬nition. D EFINITION 6. A quadrilateral CAS is radius-repetitive along a ï¬ow line, if the radius of its edges is constant. It is transversely radius-repetitive for a pair of neighbouring âparallelâ ï¬ow lines, if the edges which connect these ï¬ow lines have constant radius.
+Application: double-curved concrete.
+
+The repetitivity properties mentioned by Deï¬nition 6 contribute to simpler manufacturing of edges. There is a particular application where it is hugely beneï¬cial to have the reference surface densely covered by arcs of constant radius, namely the making of double-curved surfaces in concrete. Figure 13 shows an example of this. A transverserepetitive CAS with a few dominant smooth ï¬ow lines and many
+
+Here II is the second fundamental form of the reference surface, and J is rotation by 90 degrees. The normal curvature across a level set is given by the expression Îºacross = II( Ï)/ n Ï 2.
+
+For the example of Figure 13, the function Ï was constrained to assume prescribed values in 2 vertices, and optimized such that the L2 norm of Îºcross â Îº0 is minimal (up to regularization; for more n
+
+Zoom view:
+
+Figure 13: A surface densely covered by arcs of constant radius which stem from a transverse-repetitive CAS can be made in concrete, with wooden supports along the transverse edges (design surface by Mario Bellini Architects and Rudy Ricciotti, for the Museum of Islamic Arts, in the Louvre, Paris; realized in steel/glass).
+
+ACM Transactions on Graphics, Vol. 30, No. 4, Article 101, Publication date: July 2011.
+
+Circular Arc Structures
+
+â¢
+
+101:7
+
+Figure 14: CAS which is radius-repetitive along ï¬ow lines (blue).
+
+Figure 15: Dupin cyclides. Three different shapes of Dupin cyclides which by applying a MÂ¨ bius transform can be mapped to a o torus, a cylinder, or a cone. Left: The normals along a line of curvature lie in a right circular cone (two cones are shown in red).
+
+details of this optimization procedure we refer to [Pottmann et al. 2010]). The value Îº0 has been chosen interactively such that we get a suitable result. Note that in this special example the value Îºacross n is not only constant along ï¬ow lines, but constant for the entire surface. The level sets of Ï then yield one family of curves which is needed for initializing CAS optimization. Other desired curvature properties lead to similar optimization procedures (cf. Figure 14). If necessary the second family can also be found as level sets of a function Ï: The condition of constant intersection angle Î± reads Ï, Ï = cos Î± Â· Ï Â· Ï . For the example in Figure 13, however, the âtransverseâ family has been found as orthogonal trajectories of the ï¬rst family which amounts to solving a ï¬rst order ODE. It would be possible to use ODEs to obtain curves with the above-mentioned curvature properties, but this is rather unstable. Once initialization is done, we must incorporate the desired radius constraints into our optimization. Suppose all edges contained in some set E1 â E are to have the same radius r1 , and similarly for edge sets E2 , . . . , Ek . We introduce the inverse radii as new variables and augment our target functional by
+Computational issues: Optimization.
+
+(a) The rectangular network of principal curvature lines consists of circles (illustrated in Figure 15). (b) The normals along such a principal circle constitute a right circular cone, including the limit cases of cylinder and plane (see Figure 15). (c) The vertices of a principal quadrilateral, whose edges are principal circles, possess a circumcircle (see Figure 16). (d) A quadrilateral with circular edges is a principal quadrilateral of a cyclide, if and only if edges intersect orthogonally and each edge is symmetric in the sense of Deï¬nition 5. (e) For each boundary edge of a cyclidic principal patch there is a right circular cone which is tangent to the patch along that edge (see Figure 20). nu u
+
+auv uv avu nv v Figure 16: A cyclidic patch. The vertices have a circumcircle, and all normal vectors are symmetric w.r.t. reï¬ections: nu = Ïuv (nv ).
+
+frad =
+
+Xk
+i=1
+
+X
+uvâEi
+
+â1 ri
+
+â2
+
+auv auv
+
+Ã (u â v) â2 . Â· uâv 2
+Cyclidic CAS.
+
+It is easy to see that the expression in brackets vanishes if and only if the edge uv has radius ri . Covering a freeform surface by circular arcs of constant radius is highly relevant for 5-axis CNC machining of such surfaces as the arcs directly correspond to the position of a ï¬at-endmill. This application geometrically amounts to ï¬nding a transverse-repetitive CAS, with a few additional considerations speciï¬c to milling. We do not go into details.
+Application: CNC machining.
+
+Properties (b) and (e) above imply that the union of two cyclidic principal patches with a common boundary arc and common normal vectors in its endpoints actually is a single smooth surface. Together with Property (d), this shows the following: P ROPOSITION 7. A quadrilateral CAS with an edge angle of 90 degrees and symmetric edges is converted into a smooth surface by ï¬lling each face with its corresponding principal cyclidic patch. Moreover, the vertices of this CAS constitute a circular mesh. A freeform design whose skin is modelled as a cyclidic CAS possesses nicely shaped associated support elements: see Section 2.4 for the right circular cones orthogonal to the surface along edges, and Figure 11 for a construction detail based on this fact.
+
+4
+
+Cyclidic structures
+
+Dupin cyclides.
+
+The Dupin cyclides are an interesting class of surfaces which have sufï¬ciently many degrees of freedom to make them useful for geometric design. This class is generated by applying MÂ¨ bius transformations to tori (cf. Figure 15), and includes o the cylinders and right circular cones. By deï¬nition, it also includes the limit cases of spheres and planes. Introduced to geometric modeling by [Martin et al. 1986] and studied in many papers, they have recently occurred in a discrete differential geometry context: [Bobenko and Huhnen-Venedey 2011] show how a circular quad mesh may be converted into a smooth surface consisting of cyclide patches. That paper also contains proofs of the following facts about cyclides (part of which are well known), and which are relevant for our purposes.
+
+Figure 17: Cyclidic CAS which follows the principal curvature lines of a surface Î¦. Optimization has been initialized from a circular mesh which approximates Î¦.
+ACM Transactions on Graphics, Vol. 30, No. 4, Article 101, Publication date: July 2011.
+
+101:8
+
+â¢
+
+P. Bo et al.
+
+Figure 18: Cyclidic CAS and tangentially circumscribed developable strip model. Left: Apart from isolated singularities, a freeform design is covered by principal patches derived from a cyclidic CAS. Right: Using tangent cones of cyclidic patches we obtain smooth developable strips consisting of right circular cones (the same cyclidic CAS is used in Figures 1 and 24, where the holes have been closed by non-cyclidic patches).
+
+Computational issues. If a CAS with symmetric edges is to cover a reference surface Î¦ we must let the ï¬ow lines follow the principal curvature lines (cf. our previous remarks in Section 2.4). If all edges are symmetric, the CAS itself is a discrete version of the network of principal curvature lines, and we may initialize CAS optimization from any other discrete version of the same geometric entity. In particular a circular mesh or a conical approximating Î¦ serves this purpose [Liu et al. 2006; Bobenko and Suris 2008]. This is how Figures 17 and 18 have been produced.
+
+Developable strip models circumscribed to cyclidic CAS. A cyclidic patch possesses a right circular cone which is tangent to the patch along a boundary edge (this includes the limit case of cylinders and planes; see Property (e) above and Figure 20).
+
+By joining the tangent cones of all edges of a smooth ï¬ow line we get a smooth developable surface. Doing this for an entire family of ï¬ow lines yields a semidiscrete surface â a developable strip model in the sense of [Pottmann et al. 2008], see Figure 18: P ROPOSITION 8. A cyclidic CAS can be converted into a developable strip model, with each smooth developable being a union of right circular cones tangent to the cyclidic surface, and such that the common boundary of neighbouring strips consists of conics. Proof. Let us recap the well known rational BÂ´ zier representation e ` Â´ k of cyclidic patches. We use the symbol Bi (t) = k (1 â t)kâi ti i (0 â¤ i â¤ k) for the degree k Bernstein polynomials. With control points bij and weights wij , a rational degree (m, n) BÂ´ zier surface e P reads f (s, t) =
+i,j P i,j m n wij bij Bi (s)Bj (t) , n m wij Bi (s)Bj (t)
+
+Remark. The cyclidic CAS as a geometric object is essentially fully discussed by [Huhnen-Venedey 2007] and [Bobenko and HuhnenVenedey 2011]. There it is also shown that taking the vertices from a circular quad mesh and choosing two edge vectors avu , avw uniquely determines a cyclidic CAS. The contribution of the present paper is to solve the approximation problem and to identify applications in freeform architecture.
+Offsets and Lie geometry.
+
+It is well known that the offset at constant distance of a cyclidic patch is again a cyclidic patch, so the offsetting operation of cyclidic CAS is well deï¬ned. The construction details of Figures 1, 11, and 19 are based on this fact. The above-mentioned geometric result about offsetting is a special case of a more general invariance property: Dupin cyclides are objects of Lie geometry, if they are interpreted as a set of oriented spheres which are in contact with the oriented surface. Any contact-preserving transformation in sphere-space maps cyclides to cyclides [Cecil 1992]. This is even true for cyclidic CAS, which follows from [Bobenko and Huhnen-Venedey 2011]. Thus cyclidic CAS are objects of Lie geometry.
+
+where i â {0, . . . , m},
+
+j â {0, . . . , n}, and s, t run in the inveral [0, 1]. Cyclidic patches have degree (2, 2), with control points according to Figure 20. For the weights, see e.g. [Pratt 1995]. The control mesh with vertices bij has planar faces, with b11 as the intersection point of tangent planes in the boundary vertices b00 , b20 , b22 , b02 . It follows from elementary properties of BÂ´ zier surfaces that the e lines passing through f (0, t) spanned by the derivative vectors â f (0, t) generate a rational degree (1, 2) BÂ´ zier surface, which e âs shares control points {bij }i=0,1;j=0,1,2 and corresponding weights with the cyclidic patch. An analogous surface is tangent to the patch along the curve f (1, t). Obviously these two surfaces are the right circular cones tangent to the cyclidic patch. From the BÂ´ zier representation we know that their intersection is e a rational BÂ´ zier curve deï¬ned by control points b10 , b11 , b12 and e corresponding weights (i.e., a conic, see Figure 20). b12 b02 b11 b01 b00 b22 b10 b21 b20
+
+Figure 19: Combining smooth and polyhedral elements. This construction is based on 3 offset layers of a cyclidic CAS and exhibits conical support elements. The boundary vertices of any cyclidic patch are co-planar, which is exploited for the mounting of planar glass panels (courtesy M. Reis).
+ACM Transactions on Graphics, Vol. 30, No. 4, Article 101, Publication date: July 2011.
+
+Figure 20: Left: Two right circular cones tangent to a cyclidic patch along opposite edges. Right: Control points {bij } of the rational BÂ´ zier representation of a cyclidic patch. Note that e b10 , b11 , b12 serve as control points of the intersection curve of tangent cones.
+
+Circular Arc Structures
+
+â¢
+
+101:9
+
+uv u v
+
+(a)
+
+(b)
+
+(c)
+
+(d)
+
+Figure 21: Cyclidic cell and cyclidic 3D structures. (a) A combinatorial cube where each of the 12 edges is symmetric, with cyclidic patches as faces. (b) Derived families of orthogonally intersecting cyclides. (c) Cyclidic 3D structures consist of cyclidic cells and can be interpreted as variable-distance offsets of a cyclidic CAS. (d) A construction detail of a variable-distance offset based on part of (c).
+
+Remark. Since symmetric edges of a CAS follow the principal curvature lines of the underlying surface, it does not make too much sense to consider right-angled CAS where only one family of edges is symmetric.
+
+the remaining vertices). The known degrees of freedom of circular meshes (cf. [Bobenko and Suris 2008]) show, for instance, a d.o.f. count for 3 + m + n for m Ã n cyclidic cells which extend a given cyclidic CAS consisting of m Ã n patches. Remark. Any orthogonal 3D CAS consisting of combinatorial cubes is a discretization of three families of orthogonally intersecting surfaces. By Dupinâs theorem their intersection curves are principal curvature lines. So it makes sense to consider only such rightangled three-dimensional CAS which are cyclidic.
+
+5
+
+Three-dimensional structures
+
+Volumetric meshes in connection with freeform architecture play an important role in offset constructions and more general multilayer constructions [Liu et al. 2006; Pottmann et al. 2007]. The rigidity of the occurring geometric constraints, such as constant distances, makes truly three-dimensional geometric modeling difï¬cult. This paper shows how cyclidic CAS may be extended to three-dimensional geometric structures, and that we are able to do geometric modeling to a limited extent.
+Cyclidic cells and 3D cyclidic structures. It is well known that a Dupin cyclide can be non-uniquely embedded into three families
+
+6
+
+Discussion
+
+of cyclides which mutually intersect at right angles, the intersection curves being the principal circles. Figure 21 shows a cyclidic cell bounded by 6 principal cyclidic patches which occur in this way. It has been observed by [Huhnen-Venedey 2007] that a combinatorial cube whose edges are orthogonally intersecting circular arcs is a cyclidic cell if and only if each edge is symmetric, i.e., the three edge vectors at either end are mapped into each other by a reï¬ection (cf. Deï¬nition 5). Figure 21a illustrates such a symmetric collection of 24 edge vectors (two to each edge of the cube, and three to each vertex). A 3D cyclidic structure is a combinatorial cube mesh where each face is a cyclidic patch, serving as a common boundary of two adjacent cyclidic cells. Figure 21 illustrates an example alongside a construction detail.
+Computational issues. Apart from the 3D combinatorics, the optimization of a three-dimensional cyclidic structure is not differ-
+
+Throughout this paper we address ï¬tting or approximation problems with CAS. It is essential for solving such problems that we do not try to ï¬nd vertices ï¬rst and subsequently interpolate them by arcs. To see that interpolation would be a bad idea, we perform sample d.o.f. counts: For a cyclidic CAS we can choose one edge vector and normal vector and propagate these data by reï¬ection, which determines all edges. Thus, interpolating vertices by a cyclidic CAS has only 3 d.o.f. in total. For the weaker condition of orthogonally intersecting edges in a quadrilateral CAS, it is not difï¬cult to see that there are in total 4 d.o.f. (because edge vectors in 2 neighbouring vertices determine the remaining edge vectors).
+On the approximation problem.
+
+The degrees of freedom at our disposal are therefore essentially the vertex positions. Optimization moves both vertices and edges, thereby penalizing the verticesâ deviation from the reference surface Î¦. It does not seem to be necessary to penalize the edgesâ deviation from Î¦ as well; regularization by (2) proved sufï¬cient. We emphasize again that the conceptually simple minimization of (1) succeeds only because we pay special attention to geometrically meaningful initialization. Once this is done, Gauss-Newton optimization has to move the vertices only a little bit. The two-stage process consisting of initialization and optimization moves interactive design to the initialization phase. We have mentioned to ways: For cyclidic CAS which are initialized e.g. from a circular or conical mesh, we propose to design the latter, e.g. using [Liu et al. 2006]. General CAS are initialized from a curve network in the reference surface, and design of the CAS amounts to design of this network, e.g. making use of conformal mappings.
+Design problems.
+
+ent from the case of cyclidic CAS. If the 3D structure is an extension of a 2D cyclidic CAS which is to approximate a reference surface Î¦, then we propose to initialize optimization from principal curvature lines of Î¦ together with those of appropriate offsets. Unfortunately there are only few degrees of freedom in 3D cyclidic structures. We derive this information as follows. The vertices of such a structure constitute a 3D circular mesh (each 2D face has a circumcircle). Conversely a 3D circular mesh can be interpolated by a cyclidic structure, which is determined by the choice of a single orthonormal frame of edge vectors (by edge symmetry we can propagate the edge vectors to
+Available degrees of freedom.
+
+As usual, realworld applications may entail creative extension and modiï¬cation of the methods described above. Often the freedom provided by the initialization phase allows us to introduce further constraints.
+Further constraints related to architecture.
+ACM Transactions on Graphics, Vol. 30, No. 4, Article 101, Publication date: July 2011.
+
+101:10
+
+â¢
+
+P. Bo et al.
+
+â
+
+(a)
+
+(b)
+
+(c)
+
+Figure 22: Flexibility of CAS optimization. We show a sequence of deformed reference surfaces and circular arc structures approximating them.
+
+An example is Figure 6 where one family of ï¬ow lines in a quadrilateral CAS should correspond to ï¬oor levels and is therefore constrained to be âhorizontalâ. The other family is orthogonal to the ï¬rst. Optimization includes a term which tries to make equal the z coordinates of vertices which belong to the same level.
+Fig. |V | 3b 22a 22b 22c 3c 5 6 12 13 17 1,18 25 2304 2304 2304 2304 486 649 3845 312 3054 2091 1535 3097 sprox 0.004 0.003 0.007 0.02 0.04 0.01 0.01 0.3 0.007 .008 â 0.002 spl 7Â·10â6 7Â·10â6 7Â·10â6 2Â·10â5 0.16 3Â·10â6 2Â·10â4 2Â·10â13 3Â·10â2 2Â·10â2 3Â·10â4 1Â·10â4 scons 2Â·10â7 3Â·10â7 3Â·10â7 1Â·10â6 ssymm â â â â â sang 1Â·10â4 1Â·10â4 1Â·10â4 1Â·10â4 0.09 2Â·10â5 9Â·10â6 1Â·10â6 â 2Â·10â3 2Â·10â5 2Â·10â4 sâ,v sâ,e 0.6 â â â â 2.4 0.07 1.5 0.08 0.09 0.06 1.7 0.007 â â â â 2.2 0.07 1.3 0.06 0.13 0.1 1.4 0.01 T 1200 100 100 100 100 60 10 450 5 600 500 200 225
+
+3a 6008 0.01 1Â·10â5 1Â·10â6
+
+7Â·10â5 0.3
+
+study a deformation sequence (Figures 3b and 22abc). We cover each surface by a triangle mesh combinatorially equivalent to the others and optimize it for the circle-packing property [Schiftner et al. 2009], which deï¬nes a discrete conformal mapping between those surfaces. By dualizing we generate hexagonal meshes which serve as initial values for circular arc structure optimization. The quality of these CAS, as seen in the table of Figure 23, is almost constant. In the ï¬nal stage of deformation the surface exhibits curvature radii comparable to mesh edgelength and approximation quality reaches only 2% of the bounding box diameter, as opposed to the previous 0.4%. We have shown the applicability of circular arc structures in freeform architecture (congruent nodes, smooth skin, simple edge elements) and we have demonstrated that certain special circular arc structures have even more properties which are relevant for freeform building construction (support elements, offsets, derived developable strip models). Computation of circular arc structures is done by nonlinear optimization with geometrically meaningful initial guesses.
+Conclusion and future research.
+
+2Â·10â3 â 7Â·10â7 â 7Â·10â7 â 2Â·10â7 3Â·10â7 5Â·10â4 â 1Â·10â3 5Â·10â2 2Â·10â6 2Â·10â5 5Â·10â5 â
+
+Figure 23: Optimization details. This table uses the symbols sprox , scons , ssymm , sang , which mean the respective maximum values of terms whose squares form the contributions fprox , fcons , fsymm , fang to the target function (1). We deï¬ne spl = max | Ï â (avw , nv )| as 2 a smoothness measure (given in degrees). As to the regularization terms, we give sâ,v = max u â 2v + w , sâ,s = max suv â 2svw +swz in the notation of (2). Objects are scaled for bounding box size 1. T means computing time in seconds on a laptop with a dual core CPU with 2.4 GHz and 3GB memory.
+
+As to future research, we are convinced that circular arc structures represent an interesting object of discrete differential geometry, since they provide a discrete MÂ¨ bius-invariant version of orthogo onal parametrizations. CAS represent a certain kind of âsurfaces of circlesâ, which have already proved their geometric capability (see e.g. [Bobenko and SchrÂ¨ der 2005]). Regarding applications and geo ometry processing, the architectural aspects have not yet been fully explored (we mention better initialization, design, further repetitions). The connection to CNC milling mentioned above deï¬nitely deserves further study.
+
+Computation details.
+
+Figure 23 gives a detailed account of CAS quality. One can clearly see that optimization of triangular CAS does not work as well as the quad and hex cases, but still well enough for purposes of freeform architecture. For each CAS, optimization took 10â20 iterations. The weights of the individual contributions to (1) equal 100 for fprox , fâ , while the other weights, which correspond to geometric constraints, are set to 1 in the ï¬rst round of iteration and are multiplied by 10 in every round. The main limitation in computing CAS is the loss of shape ï¬exibility when additional geometric conditions are imposed. While general CAS can approximate general curve networks in surfaces, provided they have the right connectivity and the right intersection angles, edge symmetry implies that ï¬ow lines of the CAS must follow principal curvature lines. This can lead to uneven panel sizes or alternatively to the introduction of T-junctions (for a similar problem, see Figure 6). 3D cyclidic structures have only a few more d.o.f. than 2D cyclidic CAS, so their âspatialâ component is rather too inï¬exible to allow freeform modeling.
+Limitations.
+
+In order to demonstrate the ï¬exiblity of circular arc structures, we
+ACM Transactions on Graphics, Vol. 30, No. 4, Article 101, Publication date: July 2011.
+
+Figure 24: Cyclidic CAS with offset, interior view. This CAS is also employed by Figures 1 and 18. Here the combinatorial singularities have been closed by non-cyclidic patches (courtesy H. Schmiedhofer).
+
+Circular Arc Structures
+
+â¢
+
+101:11
+
+(a)
+
+(b)
+
+Figure 25: Statics properties. (a) Panel boundaries (as built) of Dongdaemun Design Plaza (Seoul) by Zaha Hadid Architects, have been optimized to become an orthogonal CAS. (b) Directions of panel boundaries suggested by statics properties [Schiftner and Balzer 2010] agree with (a) apart from the obvious notch disturbance.
+
+This research has been supported by the Austrian Science Fund (FWF) under grants No. S92-06 and S9209 (National Research Network Industrial Geometry). We want to express our thanks to Zaha Hadid Architects, London, to Waagner Biro Stahlbau, Vienna, and to Evolute Gmbh, Vienna, to be able to work on data which come from some of their recent projects. We are grateful to Martin Reis and Heinz Schmiedhofer for their help with construction details and illustrations.
+Acknowledgments
+
+K ELLEY, C. T. 1999. Iterative Methods for Optimization. SIAM. L EOPOLDSEDER , S. 2001. Algorithms on cone spline surfaces and spatial osculating arc splines. Comput. Aided Geom. Design 18, 505â530. L IU , Y., P OTTMANN , H., WALLNER , J., YANG , Y.-L., AND WANG , W. 2006. Geometric modeling with conical meshes and developable surfaces. ACM Trans. Graphics 25, 3, 681â689. M ARTIN , R. R., DE P ONT, J., AND S HARROCK , T. J. 1986. Cyclide surfaces in computer aided design. In The Mathematics of Surfaces, J. A. Gregory, Ed. Clarendon Press, Oxford, 253â268. P OTTMANN , H., L IU , Y., WALLNER , J., B OBENKO , A., AND WANG , W. 2007. Geometry of multi-layer freeform structures for architecture. ACM Trans. Graphics 26, 3, #65, 1â11. P OTTMANN , H., S CHIFTNER , A., B O , P., S CHMIEDHOFER , H., WANG , W., BALDASSINI , N., AND WALLNER , J. 2008. Freeform surfaces from single curved panels. ACM Trans. Graphics 27, 3, #76, 1â10. P OTTMANN , H., H UANG , Q., D ENG , B., S CHIFTNER , A., K I LIAN , M., G UIBAS , L., AND WALLNER , J. 2010. Geodesic patterns. ACM Trans. Graphics 29, 4, #43, 1â10. P RATT, M. J. 1995. Cyclides in computer aided geometric design II. Comput. Aided Geom. Design 12, 131â152. S AUER , R. 1970. Differenzengeometrie. Springer. S CHIFTNER , A., AND BALZER , J. 2010. Statics-sensitive layout of planar quadrilateral meshes. In Advances in Architectural Geometry 2010, C. Ceccato et al., Eds. Springer, 221â236. Â¨ S CHIFTNER , A., H OBINGER , M., WALLNER , J., AND P OTTMANN , H. 2009. Packing circles and spheres on surfaces. ACM Trans. Graphics 28, 5, #139, 1â8. S INGH , M., AND S CHAEFER , S. 2010. Triangle surfaces with discrete equivalence classes. ACM Trans. Graphics 29, 4, #46, 1â7. Â¨ S ONG , X., A IGNER , M., C HEN , F., AND J UTTLER , B. 2009. Circular spline ï¬tting using an evolution process. J. Comp. Appl. Math. 231, 423â433. T OLEDO , S., 2003. TAUCS, a library of sparse linear solvers. C library, http://www.tau.ac.il/â¼stoledo/taucs/. WALTON , D. J., AND M EEK , D. S. 1995. Approximating smooth planar curves by arc splines. J. Comp. Appl. Math 59, 221â231. Z ENG , W., Y IN , X., Z HANG , M., L UO , F., AND G U , X. D. 2009. Generalized Koebeâs method for conformal mapping multiply connected domains. In Proc. Geom. Phys. Modeling, 89â100.
+ACM Transactions on Graphics, Vol. 30, No. 4, Article 101, Publication date: July 2011.
+
+References
+A LEXA , M., C OHEN -O R , D., AND L EVIN , D. 2000. As-rigidas-possible shape interpolation. In Proceedings of SIGGRAPH 2000, K. Akeley, Ed., 157â164. B ISHOP, R. L. 1975. There is more than one way to frame a curve. Amer. Math. Monthly 82, 246â251. B OBENKO , A. I., AND H UHNEN -V ENEDEY, E. 2011. Curvature line parametrized surfaces and orthogonal coordinate systems. Discretization with Dupin cyclides. arXiv preprint 1101.5955. Â¨ B OBENKO , A., AND S CHR ODER , P. 2005. Discrete Willmore ï¬ow. In Symp. Geometry Processing, M. Desbrun and H. Pottmann, Eds., Eurographics, 101â110. B OBENKO , A., AND S URIS , Y U . 2008. Discrete differential geometry: Integrable Structure. American Math. Soc. C ECIL , T. 1992. Lie Sphere Geometry. Springer. D EGEN , W. 2002. Cyclides. In Handbook of Computer Aided Geometric Design, G. Farin, J. Hoschek, and M.-S. Kim, Eds. Elsevier, 575â601.
+DO
+
+C ARMO , M. 1976. Differential Geometry of Curves and Surfaces. Prentice-Hall.
+
+E IGENSATZ , M., K ILIAN , M., S CHIFTNER , A., M ITRA , N., P OTTMANN , H., AND PAULY, M. 2010. Paneling architectural freeform surfaces. ACM Trans. Graphics 29, 4, #45, 1â10. FARIN , G., H OSCHEK , J., AND K IM , M.-S., Eds. 2002. Handbook of Computer Aided Geometric Design. Elsevier. F U , C.-W., L AI , C.-F., H E , Y., AND C OHEN -O R , D. 2010. K-set tilable surfaces. ACM Trans. Graphics 29, 4, #44, 1â6. G U , X. D., AND YAU , S.-T. 2008. Computational Conformal Geometry. International Press. H ERTRICH -J EROMIN , U. 2003. Introduction to MÂ¨ bius differential o geometry. Cambridge University Press. H UHNEN -V ENEDEY, E. 2007. Curvature line parametrized surfaces and orthogonal coordinate systems. Discretization with Dupin cyclides. Masterâs thesis, TU Berlin.
+

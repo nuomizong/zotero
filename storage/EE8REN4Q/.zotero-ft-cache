@@ -1,0 +1,357 @@
+Interactive Skeleton-Driven Dynamic Deformations
+Steve Capell Seth Green Brian Curless Tom Duchamp Zoran PopoviÂ´ c
+
+University of Washington
+
+Abstract
+This paper presents a framework for the skeleton-driven animation of elastically deformable characters. A character is embedded in a coarse volumetric control lattice, which provides the structure needed to apply the ï¬nite element method. To incorporate skeletal controls, we introduce line constraints along the bones of simple skeletons. The bones are made to coincide with edges of the control lattice, which enables us to apply the constraints efï¬ciently using algebraic methods. To accelerate computation, we associate regions of the volumetric mesh with particular bones and perform locally linearized simulations, which are blended at each time step. We deï¬ne a hierarchical basis on the control lattice, so for detailed interactions the simulation can adapt the level of detail. We demonstrate the ability to animate complex models using simple skeletons and coarse volumetric meshes in a manner that simulates secondary motions at interactive rates. CR Categories: I.3.5 [Computer Graphics]: Computational Geometry and Object ModelingâPhysically Based Modeling I.3.7 [Computer Graphics]: Three-Dimensional Graphics and Realismâ Animation; Keywords: animation, deformation, physically-based animation, physically-based modeling
+
+1 Introduction
+Physical simulation is central to the process of creating realistic character animations. In the ï¬lm industry, animators require detailed control of the motion of their characters, but creating physically-based secondary motions is difï¬cult and time consuming to do by hand. Recently, techniques have been developed for automatically simulating these secondary motions. These methods are built atop skin, muscle, and bone models and can generate detailed, dynamic motions. However, constructing these models is time consuming, and the simulations are computationally expensive. By contrast, in video game or virtual reality applications where interactivity is critical, character animation is built atop much simpler models. The shapes are composed of convenient primitives and are controlled by line segment based skeletons. Deformations of body parts are purely kinematically driven, using, e.g., blended coordinate frames. Incorporating realistic physically-based dynamics using the ï¬lm industryâs approach is currently impractical.
+
+In this paper, we attempt to bring dynamic simulation into the realm of real-time, skeleton-driven animation. The challenge is to ï¬nd the right combination of physical principles, geometric modeling, computational tools, and simplifying assumptions that yield compelling animations at interactive rates. Our approach is based on the equations of motion of elastic solids, simulated in a ï¬nite element setting. The volumetric ï¬nite element mesh need only be speciï¬ed coarsely, subject to the requirement that it encompass the geometric model on which simulation will be performed. This last requirement is necessary in order to ensure complete integration over the interior of the object. In fact, as long as the interior of the object is well-deï¬ned, simulation of its elastic deformation is possible regardless of the the surface representation or complexity. The volumetric mesh we choose is not restricted to a regular grid; rather, it is comprised of elements such as tetrahedra and hexahedra. This ï¬exibility permits construction of meshes that conform better to the surface of the object, improving simulation quality. In addition, to support adaptive level of detail during simulation, we construct a hierarchical basis, which allows detail to be introduced or removed as needed. Since our ultimate goal is simulation of skeletally controlled characters, our framework supports line constraints, where lines correspond to bones. In order to incorporate these constraints easily, we require the volumetric mesh to contain edges coincident with the bones. Finally, to achieve interactive rates, we linearize the equations of motion, solve them over volumetric regions associated with each bone, and blend the deformations where regions overlap. We believe that this work makes a number of contributions. Our crafting of the function space in order to make constraint handling easier is, to our knowledge, novel. We introduce blended local linearization of nonlinear equations, in the context of deformable animated characters. We generalize a method of solving constraints using linear subspace projection. We also introduce a constraint that allows one-dimensional bones to behave as threedimensional bones. Finally, we believe our most important contribution is putting together a collection of techniques that allows us to interactively animate arbitrary shapes with skeletal controls while generating realistic dynamic deformations.
+
+2 Related Work
+Probably the most common technique for deforming articulated characters is to deï¬ne the position of the surface geometry as a function of an underlying skeletal structure or set of control parameters. Recent advances in this area can be found in the work of Lewis et al. [2000], Singh and Kokkevis [2000], and Sloan et al. [2001]. Our work builds on the notion of skeletal control, but within a physically-based framework. In the late 1980âs, Terzopoulos et al. pioneered the ï¬eld of physically-based deformable models for computer graphics. Using Lagrangian equations of motion and ï¬nite differences they simulated elastic [1987] and inelastic [1988] behaviors, combined with a rigid body motion term to compensate for instabilities with stiff bodies [1988].
+
+Copyright Â© 2002 by the Association for Computing Machinery, Inc. Permission to make digital or hard copies of part or all of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for commercial advantage and that copies bear this notice and the full citation on the first page. Copyrights for components of this work owned by others than ACM must be honored. Abstracting with credit is permitted. To copy otherwise, to republish, to post on servers, or to redistribute to lists, requires prior specific permission and/or a fee. Request permissions from Permissions Dept, ACM Inc., fax +1-212-869-0481 or e-mail permissions@acm.org. Â© 2002 ACM 1-58113-521-1/02/0007 $5.00
+
+586
+
+Much of the research that followed sought to add more sophisticated constraint solvers, accelerate the solutions under a variety of approximations, and add stability to permit larger timesteps. Platt and Barr [1988] improved on existing constraint methods (e.g., the penalty method) by introducing reaction constraint and augmented Lagrangian constraint approaches. Applying these constraints to already complex simulations, however, was not a step toward interactivity. Pentland and Williams [1989] simpliï¬ed the problem by solving for the vibrational modes of a body and keeping only the lower frequency modes and obtained realtime simulations of physically plausible deforming bodies. Witkin and Welch [1990] used Lagrangian dynamics to solve for low-order polynomial, global deformations, coupled with constraints enforced through Lagrange multipliers. Baraff and Witkin [1992] later extended this method for better handling of non-penetration constraints. Finally, Metaxas and Terzopoulos [1992] combined Witkin and Welchâs global deformation framework with local ï¬nite element surface deformations and Lagrange multiplier constraints to animate superquadric surfaces. In each of these examples, while achieving interactive rates, the deformations were substantial approximations to detailed volumetric deformations and were not demonstrated on complex shapes. To accelerate computations, some hierarchical methods have also been employed. Terzopoulos et al. [1988] use a multigrid solver for a surface-based inelastic simulation. The approach of Metaxas and Terzopoulos [1992] is analogous to a two level simulation that uses global deformations at the coarse level and ï¬nite elements for ï¬ner surface deformations. More recently, Debunne et al. [1999] built an octtree of particles that interact according to LamÂ´ âs e equation, resulting in interactive simulations. The particles are simulated using an explicit Euler solver that steps each particle adaptively in time and at differing spatial resolutions. To animate a surface, the particles are linked to each surface point by a weighting scheme. Their approach was recently extended to use unstructured tetrahedral hierarchies [Debunne et al. 2001]. To add stability to computations, implicit solvers have proven to be quite effective. Terzopoulos et al. [1987; 1988] used semiimplicit solvers in their initial work. Baraff and Witkin [1998] used an implicit scheme to permit large timesteps in notoriously unstable cloth simulations. Desbrun et al. [1999], also working with cloth models, showed that the implicit solution method acts as a ï¬lter that stabilizes stiff systems. They also add a rotation term to preserve angular momentum and a correction term after each time step to simulate nonlinear elasticity. Free-form deformation (FFD), introduced by Sederberg and Parry [1986], is also closely related to our work. FFD involves embedding an object in a domain that is more easily parameterized than the object itself. The main advantages of FFD are that arbitrary objects can be easily deformed and the space of deformations can be crafted independently of the representation and resolution of the object. Since its introduction, the ï¬exibility of FFD has been improved by introducing lattices of arbitrary topology [MacCracken and Joy 1996], and dynamic free-form deformation has been introduced to apply FFD to animation [Faloutsos et al. 1997]. Our framework builds on FFD by also embedding the object in a coarse control lattice. But unlike the work of Faloutsos et al., where a diagonal stiffness matrix was used, we use the principles of continuum elasticity to compute the dynamics of the object being deformed. Another approach to fast, physically-based deformations is to solve quasi-static solutions, i.e., compute the equilibrium state of the system given forces and constraints, and then animate by adjusting the forces and constraints over time. Gourret et al. [1989] explored such a technique for volumetric ï¬nite elements, and James and Pai [1999] developed an interactive boundary element solution under the assumption of constant material properties inside the volume. Other quasi-static approaches have also been favored for sur-
+
+S K = K0 â¦ (a) (b)
+
+Figure 1: (a) An object â¦ â R3 instrumented with a skeletal complex S and a control lattice K = K0 . Functions on â¦ are deï¬ned in terms of K, which forms a neighborhood of the object. A trilinear basis function is associated with each vertex of K (including the red vertices on the skeleton). (b) The control lattice subdivided once to form K1 (which includes the black, red, and green vertices and edges). Additional basis functions are associated with newly introduced vertices (shown in green).
+
+gical planning and simulation [Bro-Nielsen and Cotin 1996; Koch et al. 1996; Roth et al. 1998]. Quasi-static solutions, however, are approximations that do not capture the true dynamics of motion. In some cases, interactivity has been achieved without resorting to signiï¬cant simpliï¬cations in the dynamic model. Recently, Picinbono et al. [2000] described an interactive surgery simulation using a nonlinear ï¬nite element method. They were able to achieve interactive rates for a virtual liver composed of about 2000 tetrahedra. However, more complex objects such as the ones used in our work would require many more tetrahedra. There are also a number of papers that approach the problem of deforming humans and animals using anatomical modeling [Aubel and Thalmann 2000; Wilhelms and Gelder 1997]. They differ from our approach in that we are more concerned with interactivity and the appearance of realism than actual anatomical modeling. Another possibility for deformation is to perform thin-shell computations. Recent work by Cirak and Ortiz [2001] demonstrates the use of subdivision elements for computing the dynamics of thin shells. However, thin shells are insufï¬cient for modeling the interior of solid objects. In the next section we introduce the basic mathematical and physical formulation that underlies our framework. We then describe our simulation and control methodology (Section 4), discuss results (Section 5), and conclude (Section 6).
+
+3 Formulation
+Each object that we wish to animate is represented as a domain â¦ â R3 . We make no assumptions about â¦ other than we know its interior. We instrument each object with a skeleton, i.e. an annotated transformation hierarchy suitable for animation. We refer to each transformation in the hierarchy, as well as its associated origin point, as a joint. The skeleton deï¬nes a graph S, whose vertices correspond to joints and whose edges correspond to line segments between two joints that share a parent-child relationship. Joints and bones are located interior to the object, so the graph S is a piecewise linear subset S â â¦, that we call a skeletal complex (see Figure 1). Motion of the object is represented by a time dependent function p : â¦ Ã R â R3 : (x, t) â p(x, t) . Let pS : S Ã R â R 3 (2) (1)
+
+denote the restriction of the map to S. Rigidity of the bones implies that pS is an isometry on each edge of S. In particular, pS is a piecewise linear function on S. Our goal is to solve for the dynamic motion of the object given the motion of the skeleton. Since we model the object as an elastic
+
+587
+
+body, the function p(x, t) is then the solution of a system of partial differential equations, subject to the constraint p(x, t) = pS (x, t) for x â S. To solve the system numerically, we apply the ï¬nite element method (see, e.g., [Prenter 1975]). We separate the map p(x, t) into a constant rest state r(x) and a dynamic displacement d(x, t), each of which is represented as a ï¬nite sum. The rest state of the object is given by the identity map r : â¦ â R3 , which has the expansion: r(x) =
+a
+
+ra Ïa (x) = ra Ïa (x) = x
+
+(3)
+
+where the functions Ïa (x) are elements of a ï¬nite basis B, and ra â R3 . As demonstrated in the above equation, we use the Einstein summation convention throughout this paper: whenever a term contains the same index as both a subscript and a superscript, the term implies a summation over the range of that index. The displacement is expanded similarly: d(x, t) = qa (t) Ïa (x) . (4)
+
+in B if the restriction of Ïa to â¦ is non-zero. Proceed inductively as follows. Let a be a vertex of KJ+1 that is not a vertex of KJ and let Ïa be the unique function in VJ+1 such that Ïa (a) = 1 and that vanishes at all other vertices of KJ+1 . Include Ïa in B if its restriction to â¦ is non-zero and if its restriction to S is zero. Although the elements of B are deï¬ned on all of K, we are only interested in their values on â¦; we will, therefore, interpret B as collection of functions on â¦. One can show that the set B is linearly independent set of functions, which we call the hierarchical basis. By construction Ïa â B for each joint vertex a â S, and the restriction of Ïa to S is linear on each bone of S. Moreover if Ïa â B, for a not a joint vertex, then Ïa vanishes identically on S. Consequently, the function pS (x, t) can be written in the form pS (x, t) =
+aâS
+
+(ra + qa (t))Ïa (x) .
+
+(6)
+
+and because Ïa (a) = 1, the vector (ra + qa (t)) is the location of the joint vertex a at time t.
+
+where qa (t) â R3 are the dynamically evolving coefï¬cients that determine the deformation of the object over time. The state of the system is simply the sum of the rest state and the displacement: p(x, t) = (ra + qa (t))Ïa (x) (5)
+
+3.2
+
+Equations of Motion
+
+By virtue of Equation (5), we can express the kinetic energy T and Ë elastic potential energy V as functions of q and q, respectively, Ë where q denotes the time derivative of q. The equations of motion are then the Euler-Lagrange equations d dt Ë âT(q) Ë âq + âV(q) Ë + Qext â Âµq = 0 âq (7)
+
+We represent the state of the body at time t as a column vector of generalized coordinates q = q(t) whose a-th component is the coefï¬cient qa (t) in Equation (4), and we model the dynamics of the body as a system of second order ordinary differential equations. The system is obtained by applying the ï¬nite element method to the Lagrangian formulation of the equations of elasticity (see, e.g., [Shabana 1998]). In the remainder of the section we describe the basis B and formulate the ï¬nite element problem.
+
+3.1
+
+The Hierarchical Basis
+
+In order to allow our simulations to adapt to local conditions, we employ a hierarchical basis. Such bases are well established as useful tools for numerical computation (see, e.g., [Bank 1996]). Our construction mirrors that of what are referred to as lazy wavelets in [Stollnitz et al. 1996]. The basis B is deï¬ned in terms of repeated subdivision of a control lattice surrounding the object (see Figure 1). It is desirable that the control lattice conform to the shape of the object while being as coarse as possible. An advantage of using an unstructured lattice instead of a regular grid to deï¬ne the deformation function space is that the lattice can be tailored to ï¬t the object. More precisely a control lattice K is a ï¬nite union K = âªi Ci of convex cells Ci satisfying the following conditions: (i) For all i, j, i = j the intersection Ci,j = Ci âª Cj is either empty or a face, edge, or vertex of both Ci and Cj . (ii) The edges of S are edges of cells of K. (iii) The domain â¦ is contained in the interior of K. (iv) For all i, each vertex of Ci has valence 3 (within Ci ). Condition (iv) still allows a variety of cell shapes including hexahedra, tetrahedra and triangular prisms. We now show how to construct a collection of functions B = {Ïa } on K whose restriction to â¦ is a linearly independent set of continuous functions on â¦. Let V0 â V1 â V2 â . . . be the nested sequence of function spaces described in appendix A.1. The set VJ consists of the piecewise trilinear functions on the complex KJ obtained from K by J hexahedral subdivisions. For each vertex a of K, positioned at xa , let Ïa denote the unique function in V0 such that Ïa (xa ) = 1 and Ïa (xb ) = 0 for b = a a vertex of K. Include Ïa
+
+Ë Ë where âT/â q and âV/âq denote gradients with respect to q and q, respectively. The term Qext is a generalized force arising from external body forces, such as gravity. The last term is a generalized dissipative force, added to simulate the effect of friction. We will now derive each of the ï¬rst three terms of Equation 7, ultimately yielding a system of ODEs to be solved in generalized coordinates. The kinetic energy of a moving body is a generalization of the 1 familiar 2 mv2 : T= 1 2 Ë Ë Ï(x) p Â· p dâ¦ =
+â¦
+
+1 ab Ë Ë M qa Â· qb 2
+
+(8) =
+
+where Ï(x) is the mass density of the body, and Mab Ï Ï Ï dâ¦. Equation (8) yields the formula
+â¦ a b
+
+d dt
+
+âT Ë âq
+
+Â¨ = Mq.
+
+(9)
+
+The matrix M composed of the elements Mab is called the mass matrix. We discuss its computation in Section 3.3. The elastic potential energy of a body captures the amount of work required to deform the body from the rest state into the current conï¬guration. It is expressed in terms of the strain tensor and stress tensor. Strain is the degree of metric distortion of the body. A standard measure of strain is Greenâs strain tensor: eij = âdk âdl âdi âdj + i + Î´kl i j âx âx âx âxj (10)
+
+The diagonal terms of the strain tensor represent normal deformations while those off the diagonal capture shearing. Forces acting on the interior of a continuum appear in the form of the stress tensor, which is deï¬ned in terms of strain: Ïij = 2G Î½ tr(e)Î´ij + eij 1 â 2Î½ (11)
+
+588
+
+where tr(e) = Î´ ij eij . The constant G, called the shear modulus or modulus of rigidity, determines how hard the body resists deformation. The coefï¬cient Î½, called Poissonâs ratio, determines the extent to which strains in one direction are related to those perpendicular to it. This gives a measure of the degree to which the body preserves volume. The elastic potential energy V(q), which is analogous to the familiar deï¬nition of work as force times distance, is given by the formula V=G
+â¦
+
+Î½ tr2 (e) + Î´ ij Î´ kl eik ejl dâ¦ 1 â 2Î½
+
+(12)
+
+By combining Equations 4, 10, and 12 we can express the elastic potential V and its derivatives (with respect to q) as polynomial functions of q. The coefï¬cients of these polynomials are integrals that can be precomputed. Details are described in appendix A.2. â2V The matrix S = âqâq is referred to as the stiffness matrix. To add realism, we include the force of gravity in our formulation. Gravity is an example of a body force that affects all points inside the body. We treat gravity as a constant acceleration ï¬eld speciï¬ed by the vector g. The gravitational potential energy is then the integral Vg =
+â¦
+
+Ïg Â· p =
+â¦
+
+ÏÏa g Â· qa .
+
+(13)
+
+The generalized gravitational force is the gradient Qg = a âVg = âqa ÏÏa
+â¦
+
+g
+
+(14)
+
+The above force can be interpreted as the familiar mg except that the mass term represents all of the mass associated with a particular basis function.
+
+Figure 2: The upper left image shows an input model instrumented with a skeleton and local coordinate systems. The upper right image shows the model embedded in (half of) a control lattice. The lower left image shows how the skeleton coincides with edges and vertices of the control lattice. The lower right image shows the entire control lattice, as well as the division of the object into regions for local linearization. Each region is associated with one of the local coordinate systems in the upper left image. Note the color blending where regions overlap.
+
+3.3
+
+Numerical Integration
+
+4.1
+
+Instrumentation
+
+In order to compute the gravity terms and the mass and stiffness matrices we precompute the integrals in equations (8), (14), and (29). The integration is done numerically using the following steps: 1. Subdivide K to the desired level for numerical integration. 2. Compute the values of the basis functions at each vertex. 3. Tetrahedralize the domain. After subdividing once, the domain is composed of only hexahedral cells. We then divide each of these cells into tetrahedra in order to approximate functions on the domain as piecewise linear. 4. Compute the integrals over each domain tetrahedron using piecewise linear approximations to the basis functions. If all four vertices of a tetrahedron fall outside the surface of the object, its contribution to the integrals is neglected. With the integrals computed, equation (7) can now be solved using a nonlinear Newton-Raphson solver.
+
+Prior to simulation, a model must be instrumented with a skeleton and control lattice. Although recent work by Teichmann and Teller addresses automated skeleton construction [1998], we currently let the animator specify the skeleton in order to achieve the desired level of control. We have implemented a simple system that allows a skeleton to be constructed manually in just a few minutes. The user creates a joint by clicking on the object with the mouse. If the ray through the mouse point (from the camera projection center) intersects the object at least twice, a joint is placed midway between the ï¬rst two intersections. This positioning scheme produces joints that are centrally located inside the object. Two joints can be selected to deï¬ne a bone, and with the selection of a root joint, a transformation hierarchy can be created automatically. We currently use a constructive procedure that allows the user to build the control lattice interactively by adding cells incrementally and repositioning the control vertices as needed. Several hours are required for an experienced user to create a moderately complex control lattice. The abundance of volumetric meshing schemes suggests that automatic creation of the control lattice is possible, and we hope to address this problem in the future. Figure 2 shows the skeleton and control mesh for a kangaroo model.
+
+4 Skeletal Simulation
+The fully nonlinear elastic formulation described in the previous section is computationally expensive, and does not take into consideration the skeleton. In this section we introduce a set of techniques, tailored for fast skeleton-driven animation, that approximate the nonlinear dynamics.
+
+4.2
+
+Solving the System
+
+Due to the computational expense of solving the full nonlinear equations of elasticity, we seek simpliï¬cations that make the equations easier to solve. One possibility is to linearize the equations of motion at the beginning of each timestep as was done by Baraff
+
+589
+
+and Witkin in their work on cloth simulation [1998]. In our experience, simulations using this method are essentially indistinguishable from results obtained using a nonlinear implicit method to solve the system, as long as the timestep is not so large as to allow radical shape change during a single step. After applying their implicit solver to our formulation, the resulting equations are: âq (M â hÂµI + h2 S)âv = = Ë h(q + âv) âV Ë Ë â Qext â hSq h Âµq â âq (15) (16)
+
+x, y, and z components of the 3-vectors ac into the n-vectors aÎ± , where Î± â {x, y, z}, deï¬ne the matrix Cac = Ïa (xc ), and separate âv into its x, y, and z components âvÎ± , equation (20) becomes: CT âvÎ± = aÎ± , Î± â {x, y, z} (21)
+
+So each constraint requires that âv be constant along three particular directions in R3n . Maintaining the constraints involves the following steps: 1. At the beginning of each timestep, âv is initialized so that equation (21) holds. This is accomplished by computing the QR-decomposition of C and transforming equation (21) into RT bÎ± = aÎ± , âvÎ± = QbÎ± , from which âv can be easily computed. Although QR-decomposition of an n Ã m matrix requires O(nm2 ) time, in our case the number of constraints m is typically small, so the computational cost is low. 2. Each column c of C has an associated projection matrix P = I â ccT /cT c, which, when applied to a vector, eliminates the component in the direction of c. These projectors are applied during CG such that incremental updates to âv are orthogonal to the vectors c, ensuring that equation (21) remains true (for details see [Baraff and Witkin 1998]). In our current framework, conï¬icting constraints can be detected during QR-decomposition and removed. In the future we hope to augment this method to solve over-constrained systems more elegantly, as was done for FFD by Hsu et al. [1992].
+
+where h is the timestep, Âµ is the damping coefï¬cient, I is the identity Ë matrix, âv is the change in the velocity q during the timestep, âq is the change in q during the timestep, M is the mass matrix, and S is the stiffness matrix. All quantities are evaluated at the beginning of the timestep. Equation (16) is a sparse linear system that can be solved for âv using a Conjugate Gradients (CG) solver. Then âv is substituted into equation (15) to obtain âq.
+
+4.3
+
+Bone Constraints
+
+In our framework the skeleton is controlled directly by keyframe data or some other source external to the dynamic simulation. From the viewpoint of the simulation, the skeleton is simply a complicated constraint. Because we have restricted the bones to lie along edges in the control lattice, and the basis is interpolating, it is especially easy to handle the bone constraints algebraically. Each control point that lies on a bone corresponds to a component of âv that is known a priori, rather than having to be computed. Simplifying equation (16) to the form Aâv = b, we can sort the variables into known (âvk and bk ) and unknown quantities (âvu and bu ) and form the following system: A11 A21 A12 A22 âvk âvu = bu bk (17)
+
+4.5
+
+Blended Local Linearization
+
+The reason that some components of the vector b are now unknown arises from the fact that the external forces required to enforce the bone constraints are unknown, and they appear on the r.h.s. of equation (16). In order to solve for âvu we simply solve the system: A22 âvu = bk â A21 âvk (18)
+
+The advantage of this approach is that adding skeletal constraints actually reduces the computational cost by shrinking the system that must be solved.
+
+4.4
+
+Linear Subspace Constraints
+
+Because we would like our objects to interact with other objects, position constraints are also important. The framework of Baraff and Witkin [1998] provides an elegant solution for particle systems. During each internal step of a CG solver, they project out certain components of âv corresponding to constrained particles. Here we show that this technique can be extended to include position constraints at any point in a continuous body. Position constraints in our framework are of the form: dc (t) = qa Ïa (xc ) (19)
+
+which simply says that the displacement at xc conforms to some known function dc . Evaluating equation (15) at xc results in: âva Ïa (xc ) = dc (t + h) â dc (t) Ë â qa Ïa (xc ) h (20)
+
+The r.h.s. of the above equation is simply a constant ac that can be computed at the beginning of each timestep. If we accumulate the
+
+A major bottleneck in our system is the computation of the stiffness matrix at the beginning of each timestep (the elastic potential is a quartic function of q). A well-known simpliï¬cation is to linearize the strain tensor by dropping the last term in equation (10), which results in a quadratic elastic potential and thus a constant stiffness matrix (which is composed of the ï¬rst three addends in equation (28)). As compared to other simpliï¬cations such as using a mass-spring-based elastic potential, linearization of strain has the advantage that it is a very good approximation, but only when the deformation is small; for large deformations, severe distortions occur. A notable case for the linear strain model is when the object undergoes a large rigid rotation, coupled with a small deformation. While the elastic potential based on nonlinear strain does not penalize rotations, the linear strain model does, while failing to penalize certain shearing deformations. Terzopoulos et al. [1988] addressed this case by modeling the deformation relative to a frame of reference that follows the gross motion of the object. Since the relative deformation is assumed to be small, the linearized strain is a reasonable approximation. This approach is common practice in the engineering literature, such as in the textbook of Shabana [1998], in which multibody systems composed of interconnected parts are considered. In such systems, the deformation of each part can be measured from a local reference conï¬guration that factors in the rotation of the part. As long as the deformation of each part is small relative to its rotated reference conï¬guration, the linear strain model is a good approximation. To apply these ideas to articulated characters, we ï¬rst recognize that the soft tissues of vertebrates do not typically undergo large deformations relative to nearby bones. Based on this assertion, our approach is to divide the object into regions, each of which can be simulated using the linear strain model. The user divides the object into regions by assigning weights to the control vertices, forming a partition of unity over the object. A piece of the object can belong to a single region or can be divided fractionally among several regions. We encode the weights
+
+590
+
+i for region i in a diagonal square matrix W i , where Waa is the weight associated with vertex a in region i. The lower right image in Figure 2 shows a partitioned object, colored according to the region assignments. Our current system requires that the user select individual weights for each control vertex, but a more intuitive painting interface would be straightforward to implement. It would also be helpful to automate the task of region assignment (recent work by Li et al. [2001] may be adaptable to our problem domain). From the region assignments we form a cell complex K i corresponding to region i: i K i = {C â K : â va â v(C), Waa > 0}
+
+(22)
+Figure 3: The left image shows the kangaroo at rest. Brown spheres represent active basis functions. The cyan sphere represents a position constraint. On the right, the position constraint has been moved causing adaptation of the basis. The red spheres in the right image represent newly introduced detail coefï¬cients.
+
+where v(C) is the set of control vertices on cell C. Each region has an associated function space: Bi = { Ïa |K i : Ïa â B, Ïa |K i = 0} (23)
+
+where Ïa |K i denotes the restriction of Ïa to K i . We deï¬ne a rectangular matrix Qi to select the basis functions that have nonzero restrictions to region i. The element Qiab = 1 if and only if Ïa â B corresponds to Ïb â B i . The pseudocode for taking a single simulation step is: foreach region i do Ë Ë [ri , qi , qi ] â [Qi r, Qi q, Qi q] foreach a do qia := qia â Ti (ria ) + ria end Construct Ai and bi from equation (18) Solve Ai âvi = bi end âv â i Wi QiT âvi Ë Ë q â q + âv Ë q â q + hq
+
+denote this region â¦Î² â â¦. The following potential describes the constraint: U= 1 2 d Â· ddâ¦
+â¦Î²
+
+(25)
+
+The above potential is quadratic, so its Hessian is simply a constant that can be added to the stiffness matrix: â2U =I âqa âqb Ïa Ïb
+â¦Î²
+
+1 2 3 4 5 6 7
+
+(26)
+
+where I is a 3 Ã 3 identity matrix. The above constraint must be computed relative to the rigidly transformed bone, which ï¬ts well into our local computation framework.
+
+4.7
+
+Adaptation
+
+Line 1 extracts the regional variables from the global system. Line 2 converts qi so that it corresponds not to displacement from the rest state, but to displacement from the rest state transformed according to the transformation of the bone coordinate system. The homogeneous transformation Ti , extracted from the current conï¬guration of the skeleton, represents the transformation of the bone from its rest position to its current position. But it is not enough to simply transform qi , because the transformation itself must be subtracted from qi . A displacement ï¬eld dT that transforms the object x according to the transformation T(x), has the following form: dT + x = T(x) (24)
+
+It is from the above expression that line 2 is derived. Line 3 builds the linear system required to solve for the local equations of motion, including the extraction of bone constraints, and line 4 solves the linear system using CG. Line 5 merges the solutions from each region, each weighted according to the user-assigned weights in W i . Finally, the state of the global system is updated in lines 6 and 7.
+
+4.6
+
+Twist Constraint
+
+In natural creatures with three-dimensional bones, the ï¬esh cannot twist (i.e. rotate) around the axis of the bone without causing the ï¬esh to deform. Such deformations are resisted by emergent elastic forces, so the twisting is limited. But ï¬esh can rotate about a line constraint without deforming. To avoid such unnaturally free movement, we introduce a soft constraint to penalize all displacement (not just deformation) within a ï¬xed radius of the bones. We
+
+Because we use a hierarchical basis, our simulator can add detail where needed. We apply the simple heuristic that detail is more helpful where there are large deformations (similar to, e.g., [Debunne et al. 2001]). If the object is sufï¬ciently deformed over the support of a particular basis function, then all of the basis functions in the next ï¬ner level with support overlapping the area of high distortion are introduced into the simulation. Likewise, basis functions are removed when there is little deformation in their support. Each level of the basis has an associated threshold for determining when to reï¬ne and another for determining when to coarsen. As noted in [Debunne et al. 2001], a lower threshold is required for coarsening than reï¬ning in order to prevent the simulation from oscillating between levels of resolution. Regardless of the criteria employed, adapting the basis is straightforward in our framework. Most of this simplicity comes from reï¬ning the basis, not the geometry, as was done by Gortler and Cohen [1995] and recently generalized by Grinspun et al. [2002]. For some ï¬xed number of basis levels we precompute the mass and stiffness matrices and store them in a sparse data structure. Adapting the basis simply corresponds to extracting and relinquishing certain components from these matrices, which can be done very quickly. The resultant subsets of the basis are linearly independent regardless of which basis functions we choose. Figure 3 shows adaptation of the kangaroo model. For more details regarding our adaptation methodology see [Capell et al. 2002].
+
+5 Results
+The accompanying video shows the results of applying our framework to two triangle meshes that we acquired from the Internet.
+
+591
+
+It may be possible to address this problem by using nonlinear elasticity near the joints. The deformations near joints might also be improved by speciï¬cally tailoring adaptation to the problem. Finally, it would be convenient to include dynamic, not just fully constrained, bones. Acknowledgments The authors would like thank Chris Twigg, Mira Dontcheva and Samantha Michel for their instrumental work in creating and converting Maya skeletal animations, and Shawn Bonham and Sean Smith for additional help. This work was supported by the Animation Research Labs, Microsoft Research, NSF grants DMS-9803226 and CCR-0092970, and an Intel equipment donation.
+
+Figure 4: Frames from an interactive animation. There is no noticeable warping due to strain linearization, and the different materials (e.g., ears, horns) behave distinctly.
+
+A
+A.1
+
+Appendix
+Review of Trilinear Functions
+
+A trilinear function on the standard unit cube C 3 = {x = (x, y, z) : 0 â¤ x, y, z â¤ 1} is a function of the form f (x, y, z) = a0 + a1 x + a2 y + a3 z + a4 xy + a5 xz + a6 yz + a7 xyz.
+Figure 5: On the left is the global linear solution, which shows signiï¬cant warping when the cow turns its head to one side. In the center is the fully nonlinear solution. On the right is the blended local linear solution, which shows no noticeable warping of the head. A slight protrusion can be seen in the neck of the right image due to region blending.
+
+The function f is determined by its values at the vertices of C 3 : let Ë Ï(s) denote the hat function Ë Ï(s) = 1 â |s| 0 for |s| â¤ 1 . for |s| > 1.
+
+The control mesh for the kangaroo model has 448 cells and 177 vertices; the cow control mesh has 572 cells and 214 vertices. On a 1 Ghz PC, both the cow and kangaroo animated at about 100 Hz using only the coarse basis functions, which is clearly within range for interactive applications (with adaptation, simulation time varies depending on the degree of adaptation required). Figure 4 shows frames of an animation of the cow model (using the coarse basis), which demonstrates the ability of our system to handle variable material properties; the ears ï¬op around realistically while the horns stay rigid. This feature is possible to do interactively because the control mesh can be carefully crafted to respect material boundaries, and because our computation of the stiffness matrix takes variable material properties into account. For our datasets, the blended local linear and global linear solutions required about the same amount of computation time. Yet the blended local linear solution produced much more pleasing results, as demonstrated in Figure 5. The blended local linear solution looks similar to the fully nonlinear solution, while the global linear solution is badly warped.
+
+Ë Ë Ë and let Ï0 (x, y, z) = Ï(x)Ï(y)Ï(z). Then f (x) =
+0â¤i,j,kâ¤1
+
+fi,j,k Ï0 (x â i, y â j, z â k)
+
+where fi,j,k = f (i, j, k). It is easy to check that trilinear functions satisfy the following interpolation or hexahedral subdivision rules: (i) The value of f at the midpoint of an edge of C 3 is the average of its values at the endpoints of the edge. (ii) The value of f at the centroid of a face of C 3 is the average of its values at the corners of the face. (iii) The value of f at the centroid of C 3 is the average of its values at the eight vertices of C 3 . If we subdivide the unit cube into 8 sub-cubes in the standard way, we can use these subdivision rules to determine the value of f at the vertices of each sub-cube. Repeatedly subdividing and applying the subdivision rules yields the value of f at each diadic point (i/2J , j/2J , k/2J ) of C3 . Because the diadic points are dense in C 3 , the subdivision rules completely determine f from its values at the vertices of C3 . More generally, starting with values of a function at the vertices of the standard cubic tiling of R3 and applying the subdivision rules to each cubic cell determines a piecewise trilinear function on R3 . We can generalize this construction to deï¬ne piecewise trilinear functions on any control lattice in which the vertices of each 3-cell of K have valence 3. Starting with the values of f at the vertices of K, we infer its values at the centroid of every edge, face and 3-cell of K. This gives values of f at every vertex of the reï¬ned complex K1 obtained by subdivision (see [MacCracken and Joy 1996] for details). Because the vertices of each 3-cell of K have valence 3, the subdivided complex K1 has only hexahedral cells, so after one subdivision, the subdivision process behaves just as for cubes in R 3 . There is a corresponding nested sequence of function spaces V0 â V 1 â V 2 â . . .
+
+6 Conclusion
+We have introduced a method for interactive simulation of deformable bodies controlled by an underlying skeleton. By choosing a volumetric mesh that aligns with the bones, we are able to meet the bone constraints rapidly. We extend a fast constraint solver that works directly within an iterative solver. We also introduce a twist constraint that mimics the effects of three-dimensional bones when only one-dimensional bones are being modeled. Our method performs with the speed of simple linear-strain models of elasticity, but does not suffer from distortions arising from global linearity. There are many avenues for future work. We would like to automatically generate skeletons and especially control lattices, the latter being the most labor intensive aspect of our framework. Our assumptions about small deformations break down near the joints.
+
+592
+
+deï¬ned on K. To deï¬ne VJ , subdivide J-times to obtain the complex KJ and specify values at each vertex of KJ . The subdivision rules then determine a function on all of K. Thus, each function in VJ , for J = 0, 1, 2 . . . , is determined by its values at the vertices of K.
+
+FALOUTSOS , P., VAN DE PANNE , M., AND T ERZOPOULOS , D. 1997. Dynamic freeform deformations for animation synthesis. IEEE Transactions on Visualization and Computer Graphics 3, 3 (JulyâSept.), 201â214. G ORTLER , S. J., AND C OHEN , M. F. 1995. Hierarchical and variational geometric modeling with wavelets. Symposium on Interactive 3D Graphics, 35â42. G OURRET, J.-P., T HALMANN , N. M., AND T HALMANN , D. 1989. Simulation of object and human skin deformations in a grasping task. Computer Graphics (Proceedings of SIGGRAPH 89) 23, 3 (July), 21â30. Â¨ G RINSPUN , E., K RYSL , P., AND S CHR ODER , P. 2002. Charms: A simple framework for adaptive simulation. To appear in the Proceedings of SIGGRAPH 2002. H SU , W. M., H UGHES , J. F., AND K AUFMAN , H. 1992. Direct manipulation of free-form deformations. Computer Graphics (Proceedings of SIGGRAPH 92) 26, 2 (July), 177â184. JAMES , D. L., AND PAI , D. K. 1999. Artdefo - accurate real time deformable objects. Proceedings of SIGGRAPH 99 (August), 65â72. Â¨ KOCH , R. M., G ROSS , M. H., C ARLS , F. R., VON B UREN , D. F., FANKHAUSER , G., AND PARISH , Y. 1996. Simulating facial surgery using ï¬nite element methods. Proceedings of SIGGRAPH 96 (August), 421â428.
+
+A.2
+
+Derivatives of Elastic Potential
+
+The gradient and Hessian of V from equation (12) are: 2Aca qa 1 âV = âqc + Aac qa + Bac qa 2 adc cab +2qd qa Â· C1 + (qa Â· qb ) C1 acd cad +qa qd Â· C2 + qa qd Â· C2 + (qa +qd (qa Â· qb ) Dabcd + qa (qd Â· qe ) Dadce 2 1
+afc 2Acf + Afc + IBfc + 2I qa Â· C1 1 2
+
+Â·
+
+bac qb ) C 2
+
+(27)
+
++2qd â + â q b + I qd Â· â2V acf cfd caf = +qa â C2 + I qd Â· C2 + qa â C2 âqc âqf fac bfc +C2 â qa + C2 â qb + I (qa Â· qb ) Dabcf 1 +2 (qd â qa ) Dafcd + I (qd Â· qe ) Dfdce 1 2 + (qa â qd ) Dadcf + (qa â qe ) Dafce 2 2 where I is a 3 Ã 3 identity matrix and Aab = 1 Aab = 2 B
+ab 4GÎ½ â¦ 1â2Î½ â¦ â¦ âÏa âx âÏ âx âÏ âx
+a
+
+fdc C1
+
+cfb 2C1
+
+fcd C2
+
+(28)
+
+L EWIS , J. P., C ORDNER , M., AND F ONG , N. 2000. Pose space deformation: A uniï¬ed approach to shape interpolation and skeleton-driven deformation. In Proceedings of SIGGRAPH 2000, 165â172. L I , X., W OON , T. W., TAN , T. S., AND H UANG , Z. 2001. Decomposing polygon meshes for interactive applications. In ACM Symposium on Interactive 3D Graphics, 35â42. M AC C RACKEN , R., AND J OY, K. I. 1996. Free-form deformations with lattices of arbitrary topology. Computer Graphics (Proceedings of SIGGRAPH 96) 30, 181â 188.
+
+â
+âÏb âx
+
+âÏb âx
+b
+
+dâ¦ dâ¦
+
+4G 4G
+
+â Â·
+
+âÏ âx
+
+M ETAXAS , D., AND T ERZOPOULOS , D. 1992. Dynamic deformation of solid primitives with constraints. Computer Graphics (Proceedings of SIGGRAPH 92) 26, 2 (July), 309â312. P ENTLAND , A., AND W ILLIAMS , J. 1989. Good vibrations: Modal dynamics for graphics and animation. Computer Graphics (Proceedings of SIGGRAPH 89) 23, 3 (July), 215â222.
+
+=
+
+a
+
+dâ¦ (29)
+âÏd âx
+
+abc C1 = abc C2
+
+=
+
+c âÏb 4GÎ½ âÏa Â· âÏ dâ¦ âx âx â¦ 1â2Î½ âx a b c 4G âÏ âÏ Â· âÏ dâ¦ âx âx âx â¦
+
+Dabcd = 1 Dabcd 2 Aab i =
+
+4GÎ½ â¦ 1â2Î½
+
+âÏa âx âÏa âx
+
+Â·
+
+âÏb âx
+
+âÏc âx âÏc âx
+
+P ICINBONO , G., D ELINGETTE , H., AND AYACHE , N. 2000. Real-time large displacement elasticity for surgery simulation: Non-linear tensor-mass model. In Proceedings of the Third International Conference on Medical Robotics, Imaging and Computer Assisted Surgery: MICCAI 2000, 643â652. P LATT, J. C., AND BARR , A. H. 1988. Constraint methods for ï¬exible models. Computer Graphics (Proceedings of SIGGRAPH 88) 22, 4 (August), 279â288. P RENTER , P. M. 1975. Splines and Variational Methods. John Wiley and Sons.
+
+Â·
+
+dâ¦ dâ¦
+ab
+
+4G â¦
+
+Â·
+
+âÏb âx
+
+Â·
+
+âÏd âx
+
+Note that is a 3 Ã 3 matrix, are scalar quantities.
+
+Ciabc
+
+is a 3-vector, and B and
+
+Dabcd i
+
+ROTH , S. H. M., G ROSS , M. H., T URELLO , S., AND C ARLS , F. R. 1998. A bernstein-bÂ´ zier based approach to soft tissue simulation. Computer Graphics Foe rum 17, 3, 285â294. S EDERBERG , T. W., AND PARRY, S. R. 1986. Free-form deformation of solid geometric models. Computer Graphics (Proceedings of SIGGRAPH 86) 20, 4 (Aug.), 151â160. S HABANA , A. 1998. Dynamics of Multibody Systems. Cambridge University Press. S INGH , K., AND KOKKEVIS , E. 2000. Skinning characters using Surface-Oriented Free-Form deformations. In Proceedings of the Graphics Interface 2000, 35â42. S LOAN , P.-P. J., ROSE , C. F., AND C OHEN , M. F. 2001. Shape by example. In Symposium on Interactive 3D Graphics, 135â144. S TOLLNITZ , E. J., D E ROSE , T. D., AND S ALESIN , D. H. 1996. Wavelets for Computer Graphics: Theory and Applications. Morgan Kaufmann, San Francisco, CA. T EICHMANN , M., AND T ELLER , S. 1998. Assisted articulation of closed polygonal models. In Computer Animation and Simulation â98, 87â101. T ERZOPOULOS , D., AND F LEISCHER , K. 1988. Modeling inelastic deformation: Viscoelasticity, plasticity, fracture. Computer Graphics (Proceedings of SIGGRAPH 88) 22, 4 (August), 269â278. T ERZOPOULOS , D., AND W ITKIN , A. 1988. Physically based models with rigid and deformable components. IEEE Computer Graphics and Applications 8, 6 (Nov.), 41â51. T ERZOPOULOS , D., P LATT, J., BARR , A., AND F LEISCHER , K. 1987. Elastically deformable models. Computer Graphics (Proceedings of SIGGRAPH 87) 21, 4 (July), 205â214. W ILHELMS , J., AND G ELDER , A. V. 1997. Anatomically based modeling. In Proceedings of SIGGRAPH 97, 173â180. W ITKIN , A., AND W ELCH , W. 1990. Fast animation and control of nonrigid structures. Computer Graphics (Proceedings of SIGGRAPH 90) 24, 4 (August), 243â 252.
+
+References
+AUBEL , A., AND T HALMANN , D. 2000. Realistic deformation of human body shapes. In Proceedings of Computer Animation and Simulation 2000, 125â135. BANK , R. E. 1996. Hierarchical bases and the ï¬nite element method, vol. 5 of Acta Numerica. Cambridge University Press, Cambridge, 1â43. BARAFF , D., AND W ITKIN , A. 1992. Dynamic simulation of non-penetrating ï¬exible bodies. Computer Graphics (Proceedings of SIGGRAPH 92) 26, 2, 303â308. BARAFF , D., AND W ITKIN , A. 1998. Large steps in cloth simulation. In Proceedings of SIGGRAPH 98, 43â54. B RO -N IELSEN , M., AND C OTIN , S. 1996. Real-time volumetric deformable models for surgery simulation using ï¬nite elements and condensation. Computer Graphics Forum (Proceedings of Eurographics â96) 15, 3, 57â66. Â´ C APELL , S., G REEN , S., C URLESS , B., D UCHAMP, T., AND P OPOVI C , Z. 2002. A multiresolution framework for dynamic deformations. University of Washington, Department of Computer Science and Engineering, Technical Report 02-04-02. C IRAK , F., AND O RTIZ , M. 2001. Fully c1 -conforming subdivision elements for ï¬nite deformation thin-shell analysis. International Journal for Numerical Methods in Engineering 51, 7 (July), 813â833. D EBUNNE , G., D ESBRUN , M., BARR , A., AND C ANI , M.-P. 1999. Interactive multiresolution animation of deformable models. Eurographics Workshop on Animation and Simulation. D EBUNNE , G., D ESBRUN , M., C ANI , M.-P., AND BARR , A. H. 2001. Dynamic real-time deformations using space & time adaptive sampling. In Proceedings of SIGGRAPH 2001, 31â36. Â¨ D ESBRUN , M., S CHR ODER , P., AND BARR , A. 1999. Interactive animation of structured deformable objects. Graphics Interface â99 (June), 1â8.
+
+593
+

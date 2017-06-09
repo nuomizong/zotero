@@ -1,0 +1,375 @@
+Tangential Torque Effects on the Control of Grip Forces When Holding Objects With a Precision Grip
+¨ ¨ HIROSHI KINOSHITA, 2 LARS BACKSTROM, 1 J. RANDALL FLANAGAN, 3 AND ROLAND S. JOHANSSON 1 1 Department of Physiology, University of Umea, S-901 87 Umea, Sweden; 2 Faculty of Health and Sports Science, ˚ University of Osaka, Toyonaka, Osaka 562, Japan; and 3 Department of Psychology, Queen’s University Kingston, Ontario K7L 3N6, Canada
+Kinoshita, Hiroshi, Lars Backstrom, J. Randall Flanagan, and ¨ ¨ Roland S. Johansson. Tangential torque effects on the control of grip forces when holding objects with a precision grip. J. Neurophysiol. 78: 1619–1630, 1997. When we manipulate small objects, our ﬁngertips are generally subjected to tangential torques about the axis normal to the grasp surface in addition to linear forces tangential to the grasp surface. Tangential torques can arise because the normal force is distributed across the contact area rather than focused at a point. We investigated the effects of tangential torques and tangential forces on the minimum normal forces required to prevent slips (slip force) and on the normal forces actually employed by subjects to hold an object in a stationary position with the use of the tips of the index ﬁnger and thumb. By changing the location of the object’s center of gravity in relation to the grasp surface, various levels of tangential torque (0–50 Nrmm) were created while the subject counteracted object rotation. Tangential force (0–3.4 N) was varied by changing the weight of the object. The ﬂat grasp surfaces were covered with rayon, suede, or sandpaper, providing differences in friction in relation to the skin. Under zero tangential force, both the employed normal force and the slip force increased in proportion to tangential torque with a slope that reﬂected the current frictional condition. Likewise, with pure tangential force, these forces increased in proportion to tangential force. The effects of combined tangential torques and tangential forces on the slip force were primarily additive, but there was a signiﬁcant interaction of these variables. Speciﬁcally, the increase in slip force for a given increment in torque decreases as a function of tangential force. A mathematical model was developed that successfully predicted slip force from tangential torque, tangential force, and an estimate of coefﬁcient of static friction in the digitsurface interface. The effects of combined tangential torques and forces on the employed normal force showed the same pattern as the effects on the slip force. The safety margin against frictional slips, measured as the difference between the employed normal force and the slip force, was relatively small and constant across all tangential force and torque levels except at small torques ( õ10 Nrmm). There was no difference in safety margin between the digits. In conclusion, tangential torque strongly inﬂuences the normal force required for grasp stability. When controlling normal force, people take into account, in a precise fashion, the slip force reﬂecting both tangential force and tangential torque and their interaction as well as the current frictional condition in the object-digit interface.
+
+INTRODUCTION
+
+Successful manipulation of objects generally requires that we establish and maintain grasp stability against internally and externally generated forces at the object-digit interfaces.
+
+To accomplish grasp stability adequately, large grip forces, normal to the grasp surfaces, must be supplied to prevent slips and accidental loss of the object due to force tangential to the surfaces. However, excessive normal forces must also be avoided because they may cause unnecessary muscle fatigue or impoverished sensory function and may even damage the object or hand. When we lift, pull, restrain, or move grasped objects, grip force is adjusted to both the tangential load ( Cole and Abbs 1988; Flanagan and Tresilian 1994; Flanagan and Wing 1993; Johansson and Westling 1988; Johansson et al. 1992a,b; Jones and Hunter 1992; Kinoshita et al. 1993, 1996; Westling and Johansson 1984 ) and the frictional status at the digit-object interface ( Cadoret and Smith 1996; Cole and Johansson 1993; Edin et al. 1992; Flanagan and Wing 1995; Hager-Ross et al. 1996; Johansson and West¨ ling 1984a; Westling and Johansson 1984 ) such that an adequate safety margin against frictional slips is maintained. Normal force increases and decreases in parallel with tangential force and the slope of this relationship ( force rate ratio ) is adjusted to current frictional conditions. During initial contact with the object, the employed ﬁngertip forces reﬂect predictions based on sensorimotor memory from previous manipulations ( Edin et al. 1992; Johansson and Westling 1984a ) . However, if the friction has changed, the force rate ratio is rapidly updated by sensory information. Thereafter, the ratio may be intermittently updated on the basis of tactile sensory information reﬂecting discrete mechanical events at the digit-object interface, such as local frictional slips ( Johansson and Westling 1984a, 1987; also see Maceﬁeld et al. 1996 ) . Similar mechanisms may also operate in nonhuman primates ( Espinoza and Smith 1990; Milner et al. 1991; Picard and Smith. 1992 ) . To date, studies of the control of grasp stability in biological hands have been limited to tasks in which forces tangential to the grasp surfaces are linear, e.g., forces applied by the subject to overcome the force of gravity acting on the object when lifted. However, in our daily activities, we often grasp objects such that tangential torques are generated about the axes normal to the contact surfaces. For example, tangential torques would be present if we grasped an object between the tips of the thumb and index ﬁnger such that the line joining the ﬁngertips did not intersect a vertical line through the object’s center of gravity. Tangential torques can arise because the normal fore is distributed across the skin-object
+
+Downloaded from http://jn.physiology.org/ by 10.220.33.4 on June 6, 2017
+
+0022-3077/97 $5.00 Copyright
+
+1997 The American Physiological Society
+
+1619
+
+/ 9k19$$se21
+
+j854-6
+
+08-11-97 13:28:58
+
+neupas
+
+LP-Neurophys
+
+1620
+
+¨ ¨ H. KINOSHITA, L. BACKSTROM, J. R. FLANAGAN, AND R. S. JOHANSSON
+
+contact area rather than focused at a point. Not only can we handle tangential torques, we can also exploit them to change the position of grasped objects in the hand with the use of controlled torsional slips. This implies that the normal force required to prevent slip (primarily torsional) in the presence of tangential torques is greater than that required to prevent slip when tangential torque is zero but tangential force remains constant. There were two broad objectives in this study. The ﬁrst deals with grasp mechanics and the second with neural control mechanisms. Thus the ﬁrst goal was to determine how the minimum grip force required to prevent frictional slip (slip force) was inﬂuenced by tangential torque during various tangential force loads. To this end, we developed a regression model to predict slip force from tangential torque and force and an easily obtained estimate of the coefﬁcient of friction. The second aim was to examine how subjects adapt their normal force to the slip force during various combinations of tangential torques, tangential forces, and frictional conditions to maintain grasp stability.
+METHODS
+
+Subjects and general procedures
+Six healthy right-handed men (age Å 23–51 yr), who gave their informed consent, served as subjects for the study. The room temperature was 21–22 C and the humidity was fairly low. Subjects washed their hands with soap and water 5–10 min before the experiment. The subject sat on a height-adjustable chair with the upper arm vertical and the forearm extended anteriorly. In this position, the subject held a test object against the right side of a vertical support plate that was attached 0.6 m above the ﬂoor to a wooden post anchored between the ﬂoor and ceiling. Either the tip of the right index ﬁnger or the tip of the left thumb was used to contact the object’s grasp surface ( Fig. 1A ) . The tip of the opposing digit was placed on a grasp surface attached to the left side of the support plate. The distance between the two parallel grasp surfaces was 46 mm.
+
+Apparatus
+The apparatus is illustrated in Fig. 1, A and B. The test object, built on a circular Perspex plate (50 mm diam, 3 mm thick, labeled c), was equipped with an exchangeable grasp surface (30 mm diam, labeled d), a lightweight force-torque sensor (e) located beneath the grasp surface, a position-angle sensor ( f ), and an exchangeable weight (g) attached to the object by a thin rod (h). The force-torque sensor (Nano F/T transducer, Assurance Technologies, Garner, NC) measured three orthogonal force components (Fxo , Fyo and Fzo ) and torques (Txo , Tyo and Tzo ) around the corresponding force axes intersecting the center of the grasp surface (Fig. 1C). Sensing ranges for Fxo , Fyo (tangential to the grasp surface), and Fzo (normal to the grasp surface) were {25, {25, and {45 N with 0.025, 0.025 and 0.05 N resolution, respectively. The torque sensing range was {250 Nrmm for all axes with 0.125 Nrmm resolution. The electromagnetic position-angle sensor (FASTRAK Polhemus: Kaiser Aerospace & Electronics, Cholchester, VT) measured the angle about the axis normal to the grasp surface (Z-axis) with 0.025 resolution. Figure 1C shows the coordinate system for measured and computed forces and torques. The force applied normal to the grasp surface, Fn , was deﬁned simply as 0 Fzo . The force tangential to
+
+grasp surface was computed as the vector sum of the measured tangential force components: Ft Å (F 2 / F 2 ) 1 / 2 (not illustrated xo yo in Fig. 1C). The tangential torque, Tzo , measured by the sensor, reﬂected both the torque at the ﬁngertip, Tz , and the off-axis torque that arose if the point representation of tangential force application was not located at the center of the grasp surface. This point was assumed to coincide with the center of normal force application, {Px ,Py }. Thus, to determine Tz , the off-axis torque had to be subtracted from the measured torque: Tz Å Tzo 0 (Fyo ∗ Px 0 Fxo ∗ Py ), where Px Å 0Tyo /Fzo and Py Å Txo /Fzo . The tangential force was experimentally controlled by adjusting the weight of the test object. However, to prevent the development of tangential torques, the friction between the object and its support plate needed to be minimized. To achieve this, we developed an air-bearing device (labeled j in Fig. 1), which was located between the circular plate of the test object (c) and the vertical support plate (b). This device consisted of a hollow Perspex cylinder (50 mm diam, 20 mm long, labeled j). One base of the cylinder was ﬁxed to the vertical support plate, and the wall of the opposite base had eight small holes symmetrically located on a circle close to the periphery of the cylinder. The diameter of the holes was 1 mm during their ﬁrst 6 mm of length. It then gradually increased up to 7 mm at the opening of the holes at the base of the cylinder facing the circular plate of the test object. A connecting tube (k) provided compressed air (0.4 MPa) into the cylinder. An air bearing was thus created between this base of the cylinder and the circular plate of the object. To vary the friction between the skin and object, the covering of the grasp surface could be altered. We used ﬁnely textured rayon, suede, and sandpaper (No. 220) coverings to obtain low, intermediate, and high levels of friction representing the range of common surface materials (Johansson and Westling 1984). The grasp surface on the support plate was always sandpaper. Experiments were run with four tangential force levels. By varying the exchangeable weight (g), three tangential force levels of 1.2, 2.2, and 3.4 N were created. In addition, we obtained zero tangential force with the use of a pulley (only partially shown in Fig. 1A) and a weight (l) that, through a string (m), counterbalanced the weight of the test object. However, because of some residual friction between the test object and the support plate and some friction in the bearing of the pulley in the zero tangential force condition, the actual tangential force could vary slightly from trial to trial. The four tangential force levels were 0.07 { 0.05 (mean { SD) N, 1.16 { 0.05 N, 2.22 { 0.06 N, and 3.41 { 0.08 N, respectively. The length of the rod attaching the weight to the object was adjusted for each weight to obtain the same range of tangential torques for each level of tangential force.
+
+Downloaded from http://jn.physiology.org/ by 10.220.33.4 on June 6, 2017
+
+Experimental procedure
+The experiment consisted of a series of test runs. At the start of a test run, the subject grasped the object that was rotated such that the torque had an initial value close to 50 Nrmm. (Figure 1A shows the object in the initial position.) After a 6-s hold phase in which the object was held in a constant position, the subject was verbally instructed to allow the object to rotate slightly to a new angular position. This new position was associated with a smaller tangential torque because of the change in the object’s center of gravity in relation to the digit-object contact area. After being held in this position for 6 s, the object was again rotated slightly to a new position providing an even lower tangential torque. This rotate-andhold sequence was repeated a number of times until the end of the test run, when the object no longer rotated and the tangential torque was close to zero and the rod holding the exchangeable weight pointed downward. Torque target positions were indicated by markers on the circular plate of the test object (n) that could be
+
+/ 9k19$$se21
+
+j854-6
+
+08-11-97 13:28:58
+
+neupas
+
+LP-Neurophys
+
+GRASP STABILITY AND FRICTION AGAINST TORQUE
+
+1621
+
+Downloaded from http://jn.physiology.org/ by 10.220.33.4 on June 6, 2017
+
+FIG . 1. Schematic drawing of the apparatus and the coordinate system for measured and computed forces and torques. A and B: apparatus shown from a side view and from top, respectively. B: dashed contours of the Perspex cylinder ( j) outline its hollow parts. Because the compressed air fed into the cylinder came out through 8 holes in the base of the cylinder facing the circular plate (c) of the test object, an air bearing was created between the base of the cylinder and this plate (only 5 of the holes are indicated in the drawing). To improve clarity, the markers on the circular plate of the test object (labeled n in A) and the pointer (o in A) as well as the angle sensor ( f in A) have been omitted in B. C: force-torque sensor measured 3 orthogonal force components (Fxo , Fyo , and Fzo ) and torques (Txo , Tyo , and Tzo ) around the corresponding force axes intersecting the center of the grasp surface. Fn indicates the force applied normal to the grasp surface and equals 0 Fzo . The torque at the ﬁngertip (Tz ) was determined by subtracting from the measured torque ( Tzo ) the off-axis torque that arose if the point representation of the force application was not located at the center of the grasp surface. The force tangential to grasp surface was computed as the vector sum of the measured tangential force components (not illustrated). For further details see METHODS .
+
+aligned with a pointer attached to the cylinder of the air-bearing device (o). The distance between successive markers corresponded to 5-Nrmm steps in tangential torque from 50 to 0 Nrmm. A maximum torque of 50 Nrmm was chosen because subjects had difﬁculty holding the test object at higher torques with a slippery rayon surface. At the end of each test run with tangential forces greater than zero (1.2, 2.2, and 3.4 N), the subject was verbally instructed to let the object drop by slowly separating the digits. The subject then regrasped the object at the zero torque position (with the rod holding the exchangeable weight pointed downward) and dropped it two to four times. Each subject completed test runs at 24 different surface (n Å 3) 1 digit (n Å 2) 1 tangential force level (n Å 4) combinations. The sequence of the surface conditions presented was rayon, suede, and sandpaper for each of the two digits, and the tangential forces were changed in a random order between test runs with constant surface conditions. Before data collection, the experimenter demonstrated several test runs and the subjects performed one to two practice test runs for each of the 24 experimental conditions. The subject rested for a few minutes between test runs and for Ç10 min between the various experimental conditions. Although there were 11 torque levels coded by the markers, subjects had difﬁculty matching these markers. During the rotation phase of each trial, the object often rotated beyond the marker, especially with higher tangential torque and force levels and the more slippery rayon surface. Additional test runs were therefore carried out to obtain an adequate sampling of torque levels. A total of 403–481 rotate-and-hold trials was collected for each subject and these were approximately evenly distributed across the 24 experimental conditions.
+
+Data collection and analysis
+Signals from the force-torque and position-angle sensors were sampled with 12-bit resolution at 400 Hz for each channel with
+
+the use of a ﬂexible data acquisition and analysis system (SC/ ˚ ZOOM, Department of Physiology, Umea University, Umea, Sweden). The forces applied normal and tangential to the grasp surface (Fn and Ft ) and the tangential torque at the ﬁngertip (Tz ) were computed as indicated above. For each trial, the forces and torques during the time period between 2.5 and 3.5 s before the instruction to rotate the object were averaged to obtain estimates of normal force and tangential force and torque during the hold phase (see horizontal bars in Fig. 3). To facilitate the identiﬁcation of torsional slips, angular velocity was calculated with the use of a {12.5-ms moving window (bandwidth: DC, 25 Hz). The onset of torsional slip was determined by a sudden fall in tangential torque and a marked increase in the angular velocity. The onset of linear slip that occurred when the subject dropped the object after each test run was determined by the sudden fall in tangential force. The ratio between the normal force and the tangential force at slip (slip ratio) was determined (Johansson and Westling 1984a). The inverse of the slip ratio was used as an estimate of the coefﬁcient of linear friction ( mlin ). Ideally, the linear slip force should be measured at zero tangential torque. However, there was always some residual torque ( 07.5–14 Nrmm) when the object was dropped. To minimize the inﬂuence of torque in estimating linear friction, we selected trials in which the residual torque was less than {6 Nrmm. The mean absolute value of tangential torque at the onset of these slips was 2.0 { 0.53 Nrmm. A separate mlin was estimated for each subject-digit-surface combination. On average Ç10 measures were used to estimate each coefﬁcient and data were averaged across trials with 1.2, 2.2, and 3.4 N tangential force. A normal force safety margin was computed for each rotateand-hold trial as the difference between the normal force during the hold phase and the slip force measured at the end of the trial. A relative safety margin, the safety margin expressed as a percentage of employed normal force, was also computed.
+
+/ 9k19$$se21
+
+j854-6
+
+08-11-97 13:28:58
+
+neupas
+
+LP-Neurophys
+
+1622
+
+¨ ¨ H. KINOSHITA, L. BACKSTROM, J. R. FLANAGAN, AND R. S. JOHANSSON
+
+For each subject, we recorded the area of contact between the grasp surface and each of the digits as a function normal force. The test object was ﬁxed on the support plate during the measurement. We asked the subjects to grip the object with normal forces between 0.5 and 20 N (20–30 trials per digit); to ensure measurements at different force levels, we used a visual tracking paradigm providing force feedback to the subjects. The ﬁngertip was stained with ink and the surface disk of the test object was covered by paper that was changed between each measurement. The shape of the obtained ﬁngerprints was approximated as an ellipse and the contact area was computed from the length of the ﬁngerprint in the ulnar-radial and distal-proximal directions. STATISTICAL ANALYSIS. Pearson product-moment correlations and repeated-measures analyses of variance (ANOVAs) were performed to evaluate the possible effects by tangential force, tangential torque, surface, and digit. The speciﬁc method used and variables involved are described in the RESULTS section. The level of probability selected as statistically signiﬁcant was P õ 0.01. In particular, all reported correlation coefﬁcients are signiﬁcant.
+RESULTS
+
+The present results deal with two main points. One concerns the manner in which the slip force (normal force at the point of incipient frictional slip) depends on levels of tangential force and tangential torque in the digit-object contact area. The force tangential to grasp surface was generated by the subject holding the test object against the force of gravity and was measured as the vector sum of the recorded orthogonal force components in the plane of the grasp surface (Fxo and Fyo in Fig. 1C). Tangential torque was created when the subject counteracted object rotation when the position of the object’s center of gravity tended to produce a rotation motion about an axis normal to the grasp surface (Tz in Fig. 1C). The other point concerns how subjects regulate the employed normal forces to obtain grasp stability when holding an object under various combinations of tangential force and torque loads. The results are divided into ﬁve sections. In the ﬁrst two sections we examine how the slip force and the normal force employed by the subjects are inﬂuenced by tangential force in the absence of tangential torque and by tangential torque in the absence of tangential force, respectively. Having described these two baseline conditions, we then characterize the combined effects of tangential force and torque on slip force and employed normal force. Then we analyze safety margins employed by the subjects for grasp stability under varying load conditions. Finally, we present a regression model that predicts slip force from tangential force, tangential torque, and an easily obtained estimate of the coefﬁcient of friction. Coordination of normal forces and tangential force in the absence of tangential torque Because of the unusual test conﬁguration used in the present study (Fig. 1A), it is important to establish that the observed coordination of normal force and force tangential to the grasp surface, in the absence of tangential torque, is consistent with the results of previous studies in which standard tasks and test objects have been employed. In this section, we show that this is the case.
+
+In accordance with previous ﬁndings ( Westling and Johansson 1984 ) , the slip force ( Fig. 2, A and D ) and the normal force during static holding ( Fig. 2, B and E ) increased in proportion to the tangential force for both digits and all three surface materials. mlin varied with surface material [ F ( 2,10 ) Å 93.0, P õ 0.001, see Table 1 ] but did not depend on the digit [ F ( 1,5 ) Å 0.54, P Å 0.50 ] , and there was no interaction between material and digit [ F ( 2,10 ) Å 2.54, P Å 0.13 ] . The relationship between slip force and normal force was also nearly linear, providing a relatively small normal force safety margin against slips ( Fig. 2, C and F ) . The vertical distance between the dashed unity line in Fig. 2, C and F, and the regression provides an estimate of the safety margin. Again, in agreement with previous ﬁndings ( Westling and Johansson 1984 ) , the normal force safety margin tended to increase with increased slip force associated with either an increase in tangential force or a change to a more slippery surface material. There was not a reliable difference between digits in terms of the safety margin [ F ( 1,5 ) Å 5.40, P Å 0.06 ] . Coordination of normal force and tangential torque in the absence of tangential force Figure 3 shows a series of rotate-and-hold trials from a single subject under the zero tangential force condition, i.e., when the weight of the test object was counterbalanced by means of a weight attached to the object via a pulley (Fig. 1A). The object was covered by suede and held with the
+
+Downloaded from http://jn.physiology.org/ by 10.220.33.4 on June 6, 2017
+
+FIG . 2. Slip force (A and D) and normal force during static holding (B and E) as a function of tangential force for 3 surface materials: rayon, suede, and sandpaper. C and F: relationship between slip force and employed normal force. Vertical distance between the dashed unity line and the regression lines provides an estimate of the normal force safety margin. A–C: data from index ﬁnger. D–F: data from thumb. A–F: vertical and horizontal bars represent means { SE for data pooled across all subjects.
+
+/ 9k19$$se21
+
+j854-6
+
+08-11-97 13:28:58
+
+neupas
+
+LP-Neurophys
+
+GRASP STABILITY AND FRICTION AGAINST TORQUE
+TABLE
+
+1623
+
+1.
+
+Average static mlin and mrot estimated for each subject
+mlin mrot , mm mrot /mlin , mm
+
+Surface Material
+
+Index ﬁnger
+
+Thumb
+
+Index ﬁnger
+
+Thumb
+
+Index ﬁnger
+
+Thumb
+
+Rayon Suede Sandpaper
+
+0.42 { 0.07 0.61 { 0.10 1.67 { 0.24
+
+0.45 { 0.07 0.61 { 0.06 1.54 { 0.27
+
+3.05 { 0.57 3.84 { 0.74 10.11 { 1.50
+
+3.32 { 0.60 4.68 { 0.79 10.81 { 3.29
+
+7.39 { 0.91 6.37 { 0.88 6.20 { 1.54
+
+7.36 { 0.72 7.65 { 0.57 6.98 { 1.97
+
+Values are means { SD. mlin , coefﬁcient of linear friction; mrot , coefﬁcient of rotational friction.
+
+index ﬁnger. During the hold phase the normal force was fairly constant. To initiate rotation, the subject decreased the normal force until the slip force was reached (vertical - - -). This was followed by a sharp, brief pulse in normal in Fig. 3) responsible for the braking of the force (see rotation. There was also a pulse in tangential torque associated with the breaking of the rotation. The normal force and tangential torque during the hold phase decreased in parallel across successive rotate-and-hold trials and the slip force decreased with decreasing torque. The vertical height of the shaded areas in Fig. 3 represents the normal force safety margins to prevent rotation. Occasionally the normal force showed an abrupt increase to a new, higher level during the hold phase (not shown in Fig. 3). These sudden normal force increases were often preceded by a small but distinct torsional slip as revealed by a small change in the angle of the object. We measured the latency between the slip onset (estimated from a local minimum of the normal force-to-tangential torque ratio occurring before angular change) and the onset of the increase in normal force for 23 trials. The latencies varied between 63 and 105 ms, with mean of 83 ms. These values are similar to those reported for normal force upgrading triggered by
+
+slips due to tangential force (60–110 ms) (Johansson and Westling 1987). SLIP FORCES AND ROTATIONAL FRICTION. Figure 4, A and D, shows the relation between tangential torque and slip force for the index ﬁnger and thumb for a single subject at zero tangential force. This relationship could efﬁciently be described by a line with a slope that varied with the material of the grasp surface (rayon, suede, or sandpaper). In fact, a strong linear relationship was observed in all 36 subjectsurface-digit (6 1 3 1 2) combinations (r 2 Å 0.55–0.98) and the intercepts were close to zero. The scatter plots in Fig. 4, A and D, provide representative examples of the within-subject intertrial variability. The rayon surface exhibited the greatest slope between slip force and torque, followed by suede and then sandpaper. This effect by surface material is illustrated in Fig. 5A, which shows linear regression lines based on data from the index ﬁnger pooled across all subjects. (Shaded areas represent 95% conﬁdence inter-
+
+Downloaded from http://jn.physiology.org/ by 10.220.33.4 on June 6, 2017
+
+FIG . 3. Series of rotate-and-hold trials from a single subject under the 0 tangential force condition, i.e., when the weight of the object was counterbalanced by another weight as indicated in Fig. 1 A. (The force tangential to grasp surface was computed as the vector sum of the measured tangential force components Fxo and Fyo as indicated in Fig. 1B.) The grasp surface was covered by suede and held with the index ﬁnger. The hold phases were terminated by the subject decreasing the normal force until the object began to rotate (vertical - - -). A sharp, brief pulse in normal force accounted for the braking of the rotation ( ) and a new hold phase started at the end of ). Vertical height of the shaded areas: normal each rotation (vertical force safety margin to prevent rotation. Horizontal bars at top: time periods used to compute average values of normal force and tangential force and torque during the hold phase.
+
+FIG . 4. Slip force (A and D) and normal force employed in the hold phase (B and E) as a function of tangential torque at 0 tangential force. C–F: relationship between the employed normal force and slip force. Data points refer to single trials from a single subject obtained for the index ﬁnger (A–C) and the thumb (D–F). Solid lines: linear regression lines. r 2 values ranged from 0.88 to 0.96 in A and D, from 0.69 to 0.94 in B and E, and from 0.68 to 0.95 in C and F. Dashed unity lines in C and F: minimum normal force required to prevent frictional slip. Vertical distance between the dashed unity line and the regression lines provides an estimate of the normal force safety margin.
+
+/ 9k19$$se21
+
+j854-6
+
+08-11-97 13:28:58
+
+neupas
+
+LP-Neurophys
+
+1624
+
+¨ ¨ H. KINOSHITA, L. BACKSTROM, J. R. FLANAGAN, AND R. S. JOHANSSON
+
+tween normal force and torque increased with increasing surface slipperiness (Figs. 4, B and E, and 5B). As shown in Figs. 4, C and F, and 5, C and F, the normal force during the hold phase was linearly related to the slip force determined by the tangential torque and the friction of the digit-object interface (r 2 Å 0.61–0.98 across 34 of all 36 subject-surface-digit conditions). The vertical distance between the regression line and the dashed unity line represents an estimate of the normal force safety margin against torsional slips. Adaptation of normal force to various combinations of tangential torque and tangential force In the presence of tangential forces, the subjects’ performance during the test runs was similar to that shown in Fig. 3 except that they used stronger normal forces. In these test runs, to maintain grasp stability during the hold phase, subjects had to use higher normal forces than with the pure tangential torque because of the slip force increases with the addition of a tangential force.
+SLIP FORCES AS A FUNCTION OF COMBINATION OF TANGENTIAL TORQUE AND TANGENTIAL FORCE. For all levels of tan-
+
+Downloaded from http://jn.physiology.org/ by 10.220.33.4 on June 6, 2017
+
+FIG . 5. Slip force (A and D) and normal force employed in the hold phase (B and E) as a function of tangential torque at 0 tangential force, and the relationship between the employed normal force and the corresponding slip force (C and F). A–C: linear regression lines for each of the 3 surface materials (rayon, suede, and sandpaper) based on data from the index ﬁnger pooled across all subjects. Shaded areas: 95% conﬁdence interval of the regression line estimate. D–F: linear regression lines obtained for each of the 6 subjects while the grasp surface was covered by suede and the index ﬁnger was used.
+
+vals of the estimated regression lines.) Because the intercepts are approximately zero, the slope is equivalent to the ratio between normal force and tangential torque. This ratio reﬂects the rotational friction between the surface and the digit, and the inverse of the ratio provides a coefﬁcient of rotational friction ( mrot ). Figure 5D shows the regression lines obtained for each individual subject while subjects used the index ﬁnger. The slope differences indicate that there was appreciable interindividual variation in the rotational friction with suede; the variation was greater with the more slippery rayon surface and less for the less slippery sandpaper surface. Mean mrot values for each surface and digit are given in Table 1, which also gives the ratio of mrot and mlin . On average, mrot given in millimeters was Ç7 times higher than mlin . We expected that mrot would be higher for the thumb than for the index ﬁnger because models that have been developed to estimate torsional slip force from torque predict that slip force will increase with the radius of the contact area (see DISCUSSION ). However, as was the case for mlin , the mrot values for the thumb and the index ﬁnger did not differ [F(1,5) Å 0.59, P Å 0.48], even though the contact areas of these digits were different. Our measurements revealed that the thumb contact area for all subject was Ç1.5 times the area of the index ﬁnger regardless of the applied normal force (Fig. 6). A linear relationship between normal force and tangential torque during the hold phase was observed in all 36 subject-surfacedigit combinations (r 2 Å 0.53–0.98). Thus both the slip force and the employed normal force were proportional to tangential torque. In addition, the slope of the relation beNORMAL FORCES EMPLOYED UNDER TORQUE LOADS.
+
+gential force, the relationship between the slip force and torque was fairly well described by a linear function [r 2 Å 0.55–0.99 across all 144 subject–tangential force level– surface–digit (6 1 4 1 3 1 2) combinations]. The goodness of ﬁt was similar to that observed for the relation between tangential torque and slip force in the absence of tangential force (see Fig. 4). Importantly, as described in the following text, tests of nonlinear effects did not improve the ﬁt. Figure 7, A, D, and G, shows the relation between slip force and tangential torque for each surface material for data pooled across subjects and digits. As expected, the intercept of the regression line describing the relation between slip force and tangential torque increased in proportion to the magnitude of the tangential force and was inﬂuenced by the slipperiness of the grasp surface. The mean intercepts for the 0-, 1.2-, 2.2-, and 3.4-N tangential forces for the rayon surface were 00.33, 1.81, 4.56, and 7.04 N, respectively. The corresponding values for suede were 00.28, 1.38, 2.99, and 4.85 N, and those for sandpaper were 0.12, 0.66, 1.00, and 1.86 N.
+
+FIG . 6. Area of contact as a function of normal force for the index ﬁnger and thumb for a single subject. Regardless of the force level, the thumb contact area was appreciably greater for the thumb. A similar pattern was observed in all subjects.
+
+/ 9k19$$se21
+
+j854-6
+
+08-11-97 13:28:58
+
+neupas
+
+LP-Neurophys
+
+GRASP STABILITY AND FRICTION AGAINST TORQUE
+
+1625
+
+FIG . 7. Normal forces at various combinations of tangential torque and tangential force for each surface material (rayon, suede, and sandpaper). A, D, and G: linear functions describing the relation between slip force and tangential torque at different tangential force levels. B, E, and H: linear functions describing the relation between the normal force during the hold phase and tangential torque at different tangential force levels. C, F, and I: linear functions describing the relation between the normal force during the hold phase and slip force at all tangential forces. A–I: data pooled across subjects and digits. Note that the intercept of the regression lines describing the relation between slip force and tangential torque increased in proportion to the magnitude of the tangential force and that the slopes of the regression lines were inﬂuenced by tangential force. Also note that the same patterns also applied to the relation between the normal force during the hold phase and the tangential torque.
+
+function provided a good description of the normal force– tangential torque relationship for all levels of tangential force (r 2 Å 0.53–0.98 across all 144 subject–tangential force level–surface–digit combinations). Likewise, for all surfaces, the intercept of the normal force–tangential torque relationship increased with tangential force and the slope decreased as a function of tangential force (Fig. 7, B, E, and H). Accordingly, a signiﬁcant tangential torque 1 tangential force interaction was revealed by a three-way repeated-measures ANOVA (surface 1 tangential force 1 tangential torque; ﬁve 10-Nrmm tangential torque bins) [F(12,60) Å 3.08, P õ 0.002]. Signiﬁcant main effects were observed for tangential torque [F(4,20) Å 326.0, P õ 0.001], tangential force [F(3,15) Å 74.6, P õ 0.001], and surface material [F(2,10) Å 90.6, P õ 0.001]. The relationship between the normal force during the hold phase and slip force at all tangential forces was also described well with a linear function (r 2 Å 0.61 – 0.99 for 140 of all 144 subject – tangential force level – surface – digit combinations, Fig. 7, C, F, and I ) . These regression lines were remarkably similar across the range of slip forces generated by various tangential torque and tangential force combinations. Consequently, the subjects used similar safety margins over a variety of tangential force – torque combinations. Safety margin against frictional slip Figure 8 shows both the normal force safety margin (A) and the relative safety margin (B) employed during the hold phase for the three surfaces and for various combinations of tangential force and torque. The tangential torques have been sorted in ﬁve bins 10 Nrmm wide. As can be seen in Fig. 8A, the normal force safety margin increased with tangential force at small torque values (0–10 Nrmm) observed in the zero torque condition (see Fig. 2, C and F). However, the normal force safety margin was quite constant across tangential force and torque levels at torques between 10 and 50 Nrmm. A four-way repeated-measures ANOVA (surface 1 digit 1 tangential force level 1 torque level) with the use of the upper four tangential torque bins (10–50 Nrmm) revealed a reliable main effect of surface [F(2,10) Å 14.73, P õ 0.002]; there were no reliable effects of tangential torque, tangential force, or digit, and no interaction between torque and force. A separate three-way ANOVA (surface 1 digit 1 tangential force level) addressing the range of small torques (0–10 Nrmm) revealed reliable effects of tangential force [F(3,15) Å 5.28, P Å 0.011] and surface [F(2,10) Å 21.4, P õ 0.001] but no effect of digit. The normal force safety margin increased with the slipperiness of the surface material and with tangential force at low tangential torques (Fig. 8A). However, the relative safety margin decreased with tangential force and was smallest with rayon and largest with sandpaper (Fig. 8B). Thus the subject adopted an intermediate strategy between maintaining a constant normal force safety margin across surfaces and maintaining a constant relative safety margin. Models predicting slip force from tangential torque and tangential force Three different mathematical functions were used to model the slip force on the basis of tangential torque and
+
+Downloaded from http://jn.physiology.org/ by 10.220.33.4 on June 6, 2017
+
+The slopes of the regression lines were also inﬂuenced by tangential force ( Fig. 7, A, D, and G ) . The slopes tended to decrease with tangential force. For rayon, the mean slopes were 0.33, 0.30, 0.28, and 0.26 mm01 for tangential forces of 0, 1.2, 2.2, and 3.4 N. The corresponding values with suede were 0.25, 0.22, 0.21, and 0.21 mm01 , and those with sandpaper were 0.11, 0.10, 0.10, and 0.10 mm01 . The results suggest that the effects of tangential force and tangential torque on slip force are not simply additive and that slip force depends to some extent on the interaction of tangential force and torque. Indeed, a signiﬁcant tangential torque 1 tangential force interaction was revealed by a three-way repeated-measures ANOVA ( surface 1 tangential force 1 tangential torque ) [ F ( 12,60 ) Å 3.18, P Å 0.002 ] . In this analysis the effect by tangential torques was accessed by sorting torque data in ﬁve bins Nrmm wide. In addition, there were signiﬁcant main effects by tangential torque [ F ( 4,20 ) Å 731.5, P õ 0.001] , tangential force [ F ( 3,15 ) Å 181.6, P õ 0.001] , and surface material [ F ( 2,10 ) Å 96.5, P õ 0.001] .
+NORMAL FORCES EMPLOYED IN THE HOLD PHASE UNDER COMBINATION OF TANGENTIAL TORQUE AND FORCE LOADS.
+
+As with the slip force–tangential torque relationship, a linear
+
+/ 9k19$$se21
+
+j854-6
+
+08-11-97 13:28:58
+
+neupas
+
+LP-Neurophys
+
+1626
+
+¨ ¨ H. KINOSHITA, L. BACKSTROM, J. R. FLANAGAN, AND R. S. JOHANSSON
+
+FIG . 8. Safety margins against frictional slips during the hold phase for the 3 grasp surfaces (rayon, suede, and sandpaper) and for various combinations of tangential force and torque. A and B: columns refer to normal force safety margin and to the relative safety margin, respectively. The tangential torques have been sorted in 5 bins 10 Nrmm wide; the mean tangential torque values for each bin were 5.0, 14.9, 24.9, 35.0, and 44.9 Nrmm. Data pooled across the index ﬁnger and thumb of all subjects. Column height gives the mean value and the unilaterally represented error bars give the mean { SD (right bar) and the mean { SE (left bar).
+
+Downloaded from http://jn.physiology.org/ by 10.220.33.4 on June 6, 2017
+
+force ( Table 2 ) . To evaluate these models, the predicted slip forces were computed with the use of coefﬁcients estimated separately for each of all 36 subject-surface-digit combinations ( 6 1 3 1 2 ) by the least-squares ﬁt method. ( For model 3 the exponents were determined by an iterative process.) The predicted slip forces were then correlated with the measured slip forces for all surfaces ( data pooled across subjects, digits, and surfaces ) and separately for rayon, suede, and sandpaper ( data pooled across subjects and digits ) . Model 1 is linear and assumes that the tangential torque and tangential force effects are additive. Model 2 also includes the product of torque and tangential force to accommodate interactions between the tangential torque and force noted above. Model 3 further accommodates possible nonlinear effects of tangential force and torque on slip force. Curvilinear relationships between the tangential force and slip force have been reported in humans for low normal forces ( õ1 N) (Comaish and Bottoms 1971; El-Shimi 1977). Curvilinear relationships between tangential torque and normal force have also been indicated in artiﬁcial ﬁngers (Brock 1988; Howe et al. 1988). All three models provide a reasonably good ﬁt to both the combined data and the data for each surface, and they accounted for between 89 and 94% of the variance not accounted for by the mean. The improvement in ﬁt from model 1 to model 2 was statistically signiﬁcant for all three surfaces and for all surfaces combined [F(12,842) Å 11.1, F(12,865) Å 7.6, F(12,710) Å 6.9, and F(36,2417) Å 9.11 for rayon, suede, sandpaper, and all surfaces combined, reTABLE
+
+spectively; P õ 0.0001 in all instances]. Partial r 2 values ranged from 0.10 to 0.14. The percentage of variance unexplained by model 2 that was accounted for by model 3 was in a similar range (partial r 2 values between 0.08 and 0.13).
+PREDICTION OF SLIP FORCES DURING TANGENTIAL TORQUE AND FORCE LOADS WITH THE USE OF mlin . The measure-
+
+ment of slip forces in the presence of tangential torques may be difﬁcult in some manipulation tasks or may interfere with the task. In contrast, it is often quite easy to obtain a measure of slip force under conditions in which the tangential load is primarily linear by asking subjects either to slide the digit across the surface of the object or to drop the object at the end of the trial as in the present study. Thus it would be useful if one could accurately predict slip forces in the presence of tangential torques with the use of the coefﬁcient of friction estimated from linear slips. We developed models for this purpose by transforming the regression models in Table 2 by the inverse of the mlin values measured for each of the 36 subject-surface-digit combinations. By normalizing by mlin , we obtained regression coefﬁcients that successfully predicted slip forces for any surface, digit, and subject, i.e., factors that inﬂuence the friction between the digit and object. Once again, all three models shown in Table 3 yielded high r 2 values. Comparison of models 1 and 2 revealed that the addition of the force-torque interaction term produced a signiﬁcant improvement in ﬁt [F(1,2523) Å 430.6, P õ 0.0001] and accounted for 15% of the variance unexplained by the additive model (partial r 2 Å 0.15). Only 4% of the
+
+2.
+
+Comparison of three models to predict Fslip from Tz and Ft
+Model k r 2 All Surfaces (n Å 2,525) r 2 Rayon (n Å 878) r 2 Suede (n Å 901) r 2 Sandpaper (n Å 746)
+
+1: Fslip Å aFt / bÉTzÉ 2: Fslip Å aFt / bÉTzÉ / cFtÉTzÉ 3: Fslip Å aF m / bÉTzÉn / cFtÉTzÉ t
+
+72 108 180
+
+0.924 0.932 0.939
+
+0.886 0.900 0.910
+
+0.900 0.907 0.918
+
+0.888 0.895 0.903
+
+All r 2 values describe the relationship between the predicted slip forces (Fslip) and the measured slip forces. The number of parameters (k) for each model reﬂects the number of coefﬁcients in the function times the 36 subject-surface-digit combinations. The models were applied to data from individual surfaces and all surfaces combined. T2 , tangential torque; Ft , tangential force. n, number of trials.
+
+/ 9k19$$se21
+
+j854-6
+
+08-11-97 13:28:58
+
+neupas
+
+LP-Neurophys
+
+GRASP STABILITY AND FRICTION AGAINST TORQUE
+TABLE
+
+1627
+
+3.
+
+Comparison of three models to predict Fslip from Tz , Ft , and an estimate of mlin
+Model k r2 a, mm01 b, N01mm01
+00.01143 00.01002
+
+m
+
+n
+
+1 : Fslip Å 1/mlin (Ft / aÉTzÉ) 2 : Fslip Å 1/mlin (Ft / aÉTzÉ / bFt ÉTzÉ) 3 : Fslip Å 1/mlin (F m / aÉTzÉn / bFtÉTzÉ) t
+
+1 2 4
+
+0.869 0.884 0.889
+
+0.11543 0.13328 0.09172
+
+0.9711
+
+1.1038
+
+Values for Fslip are in N; those for T2 are in Nrmm; those for Ft are in N. For abbreviations, see Tables 1 and 2. The models were applied to data from all surfaces combined. k, number of parameters in the model. a, b, m, and n, coefﬁcients in the model.
+
+variance not explained by model 2 was accounted for by model 3 (partial r 2 Å 0.04). Given this marginal improvement in ﬁt and the complexity of this exponential model, we advocate model 2 as the best model. The inverse of the a coefﬁcient in model 2 (1/0.133 Å 7.51) is very similar to the ratios of mrot to mlin reported in Table 1, which ranged from 6.2 to 7.65. In other words, model 2 closely corresponds to the following equation
+Fslip Å Ft / mlin / ÉTzÉ /mrot / cFtÉTzÉ
+
+where the value of coefﬁcient c, which quantiﬁes the degree of coupling between the tangential force and torque, would be the b value in model 2 divided by the coefﬁcient of static friction, i.e., c Å 00.011/ mlin , (Nrmm) 01 . (In contrast, the a coefﬁcients in models 1 and 3 are outside the range of the observed mrot : mlin ratios and thus the Tz coefﬁcients in these models cannot easily be interpreted as 1/ mrot .) Figure 9A shows the relationship between the measured slip force and predicted slip force on the basis of model 2 . Each dot represents a single trial and all trials are shown. The solid unity line represents the model prediction. The data scatter indicates that the accuracy of the estimate decreases with slip force. Figure 9B shows the absolute values of the residuals as a function of the predicted slip force sorted into 3-N bins, given as the 25th, 50th, 75th, and 90th percentiles. The size of the median absolute residual error was Ç10% of the predicted slip force regardless of the value of the latter. Although this heterogeneity of residuals violates the assumption of homogeneity of arrays, this does not appreciably bias the estimation of regression coefﬁcients.
+DISCUSSION
+
+tial torque has not been previously documented for human digits. Some theoretical work aimed at characterizing this relationship for artiﬁcial ﬁngertips has been done. However, the nature of the obtained relationship depends on numerous assumptions related to the material of the digit, the pressure distribution, and frictional properties ( e.g., Brock 1988; Howe and Cutkosky 1996; Howe et al. 1988 ) , and it is questionable whether these assumptions hold for human digits. For example, Brock ( 1988 ) has shown that if the ﬁngertip is modeled as an elastic sphere, then the slip force will be proportional to tangential torque raised to the power 3 / 4. However, in our effort to predict slip force from tangential torque and tangential force, the
+
+Downloaded from http://jn.physiology.org/ by 10.220.33.4 on June 6, 2017
+
+We have demonstrated that tangential torque at the contact surface exerts a powerful inﬂuence on the normal forces employed by subjects when holding a stationary object. The normal force employed increases with tangential torque. We have also shown that the minimum normal force required to prevent slip, slip force, increases with tangential torque. In addition to tangential torque, the slip force reﬂected tangential force and the frictional condition at the object-digit interface. The increase in employed normal force with tangential torque is roughly proportional to the associated increase in slip force, preserving a relatively small normal force safety margin to guard against accidental (torsional) slips. Factors inﬂuencing slip force We found that slip force increases linearly with tangential torque applied in the absence of tangential force. To our knowledge, the relation between slip force and tangenFIG . 9. Relationship between the measured slip force and predicted slip force based on model 2 (see Table 3). A: each dot represents a single trial and trials from all subject-surface-digit-tangential force combinations are included. Solid unity line: model prediction. B: absolute values of the residuals as a function of the predicted slip force sorted into 3-N bins, given as the 25th, 50th, 75th, and 90th percentiles.
+
+/ 9k19$$se21
+
+j854-6
+
+08-11-97 13:28:58
+
+neupas
+
+LP-Neurophys
+
+1628
+
+¨ ¨ H. KINOSHITA, L. BACKSTROM, J. R. FLANAGAN, AND R. S. JOHANSSON
+
+torque exponent was found to be close to 1 ( see models 3 and 3 in Tables 2 and 3 ) . A common feature of models that have been developed to estimate slip force from torque is the prediction that slip force will increase with the radius of the contact area (Brock 1988; Howe and Cutkosky 1996). We found that the contact area of the thumb was Ç1.5 times the area of the index ﬁnger regardless of the normal force. This corresponds to 1.22 times the average radius. Despite this difference between the digits in the contact area, we found no statistically signiﬁcant difference between the coefﬁcients of rotational friction for the thumb and index ﬁnger. A similar rotational friction across the digits may have the advantage that in standard opposition grips involving the index ﬁnger and thumb the torsional slip forces will be similar at both contact surfaces. This may facilitate the ﬁne control of rotation slips because both digits can simultaneously function near the slip margin. Conversely, it may be argued that different torsional slip limits also would facilitate control because the normal force range where low-velocity slips might occur would be larger and the control of normal force would not need to be as precise. Eventually it may be questioned whether the presence or absence of a modest rotational friction difference between the digits would be a large factor in real tasks, because there are so many other variables that inﬂuence sliding manipulation (Howe and Cutkosky 1996). For instance, ﬁnger pad compliance, passive load redistribution between the digits, and velocity dependence of friction are factors that may strongly inﬂuence the control of rotation slips. The actual capacity of humans to control low-velocity torsional slips in real tasks remains to be investigated. We found that tangential force and torque do not inﬂuence slip force in a purely additive fashion; slip force also depends to some extent on the interaction of tangential force and torque. That is, the increase in slip force for a given increment in torque decreases as a function of tangential force. Interactions between tangential force and torque in determining slip have also been documented for soft artiﬁcial ﬁngers, and various models have been proposed in an attempt to account for this interaction (Howe and Cutkosky 1996; Howe et al. 1988). Interestingly, the nature of the interaction exhibited by these models is qualitatively similar to the interaction we observed, although most speciﬁc assumptions involved regarding digit mechanics would not apply to human digits. On the basis of an estimated mlin value at the digit-object interface, the present results offer a simple mathematical function (model 2 in Table 3) to predict the slip force for various tangential torque and force combinations covering a range of magnitudes representative for many manipulative tasks. The residual errors in this prediction are of the same order of magnitude as the residuals obtained in the linear regression of sampled data for each of the 144 subject– digit–surface material–tangential force combinations (cf. Figs. 4, A and D, and 9). Thus the scatter in the measured slip forces largely reﬂected random trial-to-trial variations in the slip force and was not accounted for by systematic effects of tangential torque and tangential force. This variability in frictional conditions between trials may have been related to variation in the particular area of the ﬁngertip skin that was in contact with the test object and to anisotropic
+
+mechanical properties of ﬁngertips (Hager-Ross et al. 1996; ¨ Jones and Hunter 1992). Frictional variation in the skinobject interface may also have been due to biological factors related to the skin itself, such as variation in rate of sweating (Johansson and Westling 1984b; Smith and Scott 1996). Furthermore, errors may have been introduced by the experimenters in determining the moment of initiation of torsional slips during the test runs and in the initiation of slips used to estimate mlin . Control of normal force during the hold phase The present results suggest that the sensory-motor mechanisms involved in the adaptation of normal force to tangential torque are organized in a manner similar to those that adapt the normal forces to tangential force. That is, normal force appears to be constrained to increase and decrease in parallel with changes in tangential torque in a manner similar to the increase and decrease in normal force with changes in tangential force. Furthermore, the mechanisms that adapt normal force to tangential torque appear to operate independently of those that adapt the normal forces to tangential forces, because subjects efﬁciently controlled the normal force for grasp stability in the absence of tangential force. To adjust the normal force for grasp stability while at the same time providing computational simplicity, Howe et al. (1988) recommended that a robot controller use an estimate of slip force in which the effects of tangential torque and tangential force are linear and additive (corresponding to our model 1; see Table 1). This implies that normal force is controlled without taking into account interactions between the tangential torque and tangential force on the slip force. However, the nonlinear features of the relationship between the slip force and the tangential force and torque in the present rotate-and-hold task were clearly reﬂected in the normal force employed during the hold phase (cf. Fig. 7, A, D, and G and B, E, and H). The parametric adaptation of the normal force to the prevailing frictional conditions could have been implemented by globally scaling the magnitude of the employed normal force according to a predictive feedforward strategy as demonstrated for tasks with tangential force loads (Cole and Johansson 1993; Johansson and Westling 1984a). By control policies termed discrete event, sensory-driven control, and anticipatory parameter control, described for manipulative tasks (for an overview see Johansson 1996), signals in tactile afferents during the initial contact with the grasp surface update a frictional-related memory that parametrically scales the normal forces to the current frictional condition (Jenmalm and Johansson 1997; Johansson and Westling 1984a, 1987). Given the operation of these control policies also in tasks with tangential torques, predictive mechanisms that control the grip forces would take into account not only tangential force and tangential torque but also their interaction in addition to the memory information about friction. Although the torque changes were self paced in the present rotate-and-hold task, it is likely that the tangential torque could not be fully controlled and thereby precisely anticipated in terms of normal force requirements; in many rotateand-hold trials, the subjects clearly missed the target torque
+
+Downloaded from http://jn.physiology.org/ by 10.220.33.4 on June 6, 2017
+
+/ 9k19$$se21
+
+j854-6
+
+08-11-97 13:28:58
+
+neupas
+
+LP-Neurophys
+
+GRASP STABILITY AND FRICTION AGAINST TORQUE
+
+1629
+
+because of excessive torsional slippage (see METHODS ). Thus sensory information reﬂecting the prevailing tangential torque during the subsequent hold phase could have played a role in the control of the normal force in a manner similar to the use of afferent information about tangential force when subjects restrain objects subjected to unpredictable tangential loads (Maceﬁeld et al. 1996). To date, there are no studies that have addressed the encoding by somatosensory mechanoreceptors of tangential torque generated about the axis normal to the skin-object contact area. However, information about tangential torque should be available from signals in populations of tactile afferents that have receptive ﬁeld in the contact area, because individual tactile afferents can encode local tangential forces (and normal forces) (Maceﬁeld et al. 1996; Srinivasan et al. 1990; Westling and Johansson 1987). Furthermore, other sensors (e.g., joint receptors and muscles and tendon receptors) may also contribute tangential torque cues that may be useful in adjusting normal force, although the sensitivity of these sensors to mechanical events at the ﬁngertips during grip tasks is much lower than that of tactile afferents (Hager-Ross and Johansson 1996; Maceﬁeld ¨ and Johansson 1996). Sensory information more directly reﬂecting the actual slip force during hold phases of the present task could also have played a role in the control of the normal force. Because most hold phases were preceded by an episode of torsional slip, subjects may have obtained information related to the current slip force before the hold phase. Likewise, at the torsional slips the ‘‘frictional memory’’ that scales the normal force magnitude to the prevailing friction could have been updated. Indeed, our ﬁndings indicate that discrete event sensory-driven control policies are used also when manipulating torque loads to update a friction-related memory system. That is, we observed normal force upgradings to accidental torsional slips during hold phases that were similar to those observed in response to accidental linear slips. The manner in which the employed normal force reﬂected the actual slip force underscores the seemingly ubiquitous goal of producing normal forces during dexterous manipulation that are adequate to prevent accidental slips but not exceedingly large. With tangential torque higher than Ç10 Nrmm, the normal force safety margin was rather constant regardless of the level of tangential force. However, at low torques (less than Ç10 Nrmm) this margin tended to increase with tangential force (Figs. 2, C and D, and 8) (see also Westling and Johansson 1984) and with tangential torque, especially at low tangential forces (Figs. 4, C and F, and 8). One likely explanation for these effects is that the force safety margin was related to the magnitude of normal force employed. That is, once the normal force exceeds some 10 N (which soon happens in the presence of a signiﬁcant tangential torque), the relationship between the slip force and the employed normal force changes from a proportional relation with slope ú1 to one that has approximately unity slope (cf. Figs. 4, C and F, and 2, C and F; also see Fig. 5C). In earlier studies of human prehension in which safety margins against frictional slips were estimated, the possible
+SAFETY MARGIN AGAINST FRICTIONAL SLIPS.
+
+impact of tangential torque on the slip force was not taken into account. Although the tasks examined were designed to minimize tangential torque, it cannot be excluded that some tangential torque was involved; even in trials especially designed for pure tangential loads in this study, subjects generated some tangential torque (see METHODS ). If so, the safety margins reported may be higher (and perhaps more variable) than the true safety margins because the true slip forces may have been underestimated when not taking the torque into account. In particular, the relatively large and variable safety margin reported for young children during precision lifting tasks (Forssberg et al. 1995) might to some extent have reﬂected adjustments to tangential torques because small children often tilt the lifted object, which typically has a low center of gravity.
+We thank Dr. G. Westling for technical support. This study was supported by the Swedish Medical Research Council (project 08667), Department of Naval Research Grant N00014-92-J-1919, and the Goran Gustafsson Foundation for Research in Natural Sciences and ¨ Medicine. Address reprint requests to H. Kinoshita. Received 28 October 1996; accepted in ﬁnal form 14 May 1997. REFERENCES BROCK, D. L. Enhancing the dexterity of a robot hand using controlled slip. Proc. 1988 IEEE Int. Conf. Robotics Automation 1: 249–251, 1988. CADORET, G. AND SMITH, A. M. Friction, not texture, dictates grip forces used during object manipulation. J. Neurophysiol. 75: 1963–1969, 1996. COLE, K. J. AND ABBS, J. H. Grip force adjustments evoked by load force perturbations of a grasped object. J. Neurophysiol. 60: 1513–1522, 1988. COLE, K. J. AND JOHANSSON, R. S. Friction in the digit-object interface scales the sensorimotor transformation for grip responses to pulling loads. Exp. Brain Res. 95: 523–532, 1993. COMAISH, S. AND BOTTOMS, E. The skin and friction: deviations from Amonton’s laws, and the effects of hydration and lubrication. Br. J. Dermatol. 84: 37–43, 1971. EDIN, B. B., WESTLING, G., AND JOHANSSON, R. S. Independent control of ﬁngertip forces at individual digits during precision lifting in humans. J. Physiol. (Lond.) 450: 547–564, 1992. EL-SHIMI, A. F. In-vivo skin friction measurements. J. Soc. Cosmet. Chem. 28: 37–51, 1977. ESPINOZA, E. AND SMITH, A. M. Purkinje cell simple spike activity during grasping and lifting objects of different textures and weights. J. Neurophysiol. 64: 698–714, 1990. FLANAGAN, J. R. AND TRESILIAN, J. R. Grip load force coupling: a general control strategy for transporting objects. J. Exp. Psychol. Hum. Percept. Perform. 20: 944–957, 1994. FLANAGAN, J. R. AND WING, A. M. Modulation of grip force with load force during point-to-point arm movements. Exp. Brain Res. 95: 131–143, 1993. FLANAGAN, J. R. AND WING, A. M. The stability of precision grip forces during cyclic arm movements with a hand-held load. Exp. Brain Res. 105: 455–464, 1995. FORSSBERG, H., ELIASSON, A. C., KINOSHITA, H., WESTLING, G., AND JOHANSSON, R. S. Development of human precision grip. IV. Tactile adaptation of isometric ﬁnger forces to the frictional condition. Exp. Brain Res. 104: 323–330, 1995. ¨ HAGER-ROSS, C., COLE, K. J., AND JOHANSSON, R. S. Grip force responses to unanticipated object loading: load direction reveals body- and gravityreferenced intrinsic task variables. Exp. Brain Res. 110: 142–150, 1996. ¨ HAGER-ROSS, C. AND JOHANSSON, R. S. Non-digital afferent input in reactive control of ﬁngertip forces during precision grip. Exp. Brain Res. 110: 131–141, 1996. HOWE, R. D. AND CUTKOSKY, M. R. Practical force-motion models for sliding manipulation. Int J. Robotics Res. 15: 557–572, 1996. HOWE, R. D., KAO, I., AND CUTKOSKY, M. R. The sliding of robot ﬁngers
+
+Downloaded from http://jn.physiology.org/ by 10.220.33.4 on June 6, 2017
+
+/ 9k19$$se21
+
+j854-6
+
+08-11-97 13:28:58
+
+neupas
+
+LP-Neurophys
+
+1630
+
+¨ ¨ H. KINOSHITA, L. BACKSTROM, J. R. FLANAGAN, AND R. S. JOHANSSON KINOSHITA, H., IKUTA, K., KAWAI, S., AND UDO, M. Effects of lifting speed and height on the regulation of forces during lifting tasks using a precision grip. J. Hum. Mov. Stud. 25: 151–175, 1993. KINOSHITA, H., KAWAI, S., IKUTA, K., AND TERAOK A, T. Individual ﬁnger forces acting on a grasped object during shaking actions. Ergonomics 39: 243–256, 1996. ¨ MACEFIELD, V. G., HAGER-ROSS, C., AND JOHANSSON, R. S. Control of grip force during restraint of an object held between ﬁnger and thumb: responses of cutaneous afferents from the digits. Exp. Brain Res. 108: 155– 171, 1996. MACEFIELD, V. G. AND JOHANSSON, R. S. Control of grip force during restraint of an object held between ﬁnger and thumb: responses of muscle and joint afferents from the digits. Exp. Brain Res. 108: 172–184, 1996. MILNER, T. E., DUGAS, C., PICARD, N., AND SMITH, A. M. Cutaneous afferent activity in the median nerve during grasping in the primate. Brain Res. 548: 228–241, 1991. PICARD, N. AND SMITH, A., Primary motor cortical activity related to the weight and texture of grasped objects in the monkey. J. Neurophysiol. 68: 1867–1881, 1992. SMITH, A. M. AND SCOTT, S. H. Subjective scaling of smooth surface friction. J. Neurophysiol. 75: 1957–1962, 1996. SRINIVASAN, M. A., WHITEHOUSE, J. M., AND LAMOTTE, R. H. Tactile detection of slip: surface microgeometry and peripheral neural codes. J. Neurophysiol. 63: 1323–1332, 1990. WESTLING, G. AND JOHANSSON, R. S. Factors inﬂuencing the force control during precision grip. Exp. Brain Res. 53: 277–284, 1984. WESTLING, G. AND JOHANSSON, R. S. Responses in glabrous skin mechanoreceptors during precision grip in humans. Exp. Brain Res. 66: 128–140, 1987.
+
+under combined torsion and shear loading. Proc. 1988 IEEE Int. Conf. Robotics Automation 1: 103–105, 1988. JENMALM, P. AND JOHANSSON, R. S. Visual and somatosensory information about object shape control manipulative ﬁnger tip forces. J. Neurosci. 17: 4486–4499, 1997. JOHANSSON, R. S. Sensory control of dextrous manipulation in humans. In: Hand and Brain: The Neurophysiology and Psychology of Hand Movements, edited by A. M. Wing, P. Haggard, and J. R. Flanagan. San Diego, CA: Academic, 1996, p. 381–414. ¨ JOHANSSON, R. S., HAGER, C., AND RISO, R. Somatosensory control of precision grip during unpredictable pulling loads. II. Changes in load force rate. Exp. Brain Res. 89: 192–203, 1992a. ¨ ¨ ¨ JOHANSSON, R. S., RISO, R., HAGER, C., AND BACKSTROM, L. Somatosensory control of precision grip during unpredictable pulling loads. I. Changes in load force amplitude. Exp. Brain Res. 89: 181–191, 1992b. JOHANSSON, R. S. AND WESTLING, G. Roles of glabrous skin receptors and sensorimotor memory in automatic control of precision grip when lifting rougher or more slippery objects. Exp. Brain Res. 56: 550–564, 1984a. JOHANSSON, R. S. AND WESTLING, G. Inﬂuences of cutaneous sensory input on the motor coordination during precision manipulation. In: Somatosensory Mechanisms, edited by C. von Euler, O. Franzen, U. Lindblom, and D. Ottoson. London: Macmillan, 1984b, p. 249–260. JOHANSSON, R. S. AND WESTLING, G. Signals in tactile afferents from the ﬁngers eliciting adaptive motor responses during precision grip. Exp. Brain Res. 66: 141–154, 1987. JOHANSSON, R. S. AND WESTLING, G. Coordinated isometric muscle commands adequately and erroneously programmed for the weight during lifting task with precision grip. Exp. Brain Res. 71: 59–71, 1988. JONES, L. A. AND HUNTER, I. W. Changes in pinch force with bidirectional load forces. J. Mot. Behav. 24: 157–164, 1992.
+
+Downloaded from http://jn.physiology.org/ by 10.220.33.4 on June 6, 2017
+
+/ 9k19$$se21
+
+j854-6
+
+08-11-97 13:28:58
+
+neupas
+
+LP-Neurophys
+

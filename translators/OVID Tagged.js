@@ -1,15 +1,15 @@
 {
 	"translatorID": "59e7e93e-4ef0-4777-8388-d6eddb3261bf",
+	"translatorType": 1,
 	"label": "OVID Tagged",
 	"creator": "Sebastian Karcher",
 	"target": "txt",
 	"minVersion": "4.0",
-	"maxVersion": "",
+	"maxVersion": null,
 	"priority": 100,
 	"inRepository": true,
-	"translatorType": 1,
-	"browserSupport": "gcs",
-	"lastUpdated": "2015-10-22 05:25:37"
+	"browserSupport": "gcsibv",
+	"lastUpdated": "2017-06-04 14:50:00"
 }
 
 /*

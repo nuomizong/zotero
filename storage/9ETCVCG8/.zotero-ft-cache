@@ -1,0 +1,342 @@
+Computational Tools for 3D Printing
+Nobuyuki Umetani Bernd Bickel Wojciech Matusik
+
+Part 2: Appearance Fabrication for 3D Printing
+Bernd Bickel
+
+The Appearance Of Objects
+
+Aspects of Appearance
+â¢ Shape (geometry) â¢ Surface structure (meso-geometry) â¢ Material (reflectance)
+â color, gloss, anisotropy, scattering properties, translucency,â¦
+
+macro meso micro
+
+â¢ Effects take place at different scales â¢ Modelled using different representations
+
+Appearance Fabrication Pipeline
+
+model creation
+Manual Acquisition from real-word objects -
+
+manipulation
+
+fabrication
+
+Intuitive Expressive
+
+-
+
+Physically realizable
+(image: [Li et al. 2013])
+
+Direct Specification
+â¢ Decompose into regions â¢ Assign one material for each region
+
+Functional Specification
+
+Appearance Properties
+
+Texture
+
+From Functional 2 Direct Specification
+
+Base Materials
+Fabrication
+
+Mapping / Optimization
+Output Target Object
+
+From Functional 2 Direct Specification
+Choice of base materials
+
+Compute
+Target Object
+
+Material Distribution
+
+Small-scale Geometry
+
+? ?
++
+
+?
+
+Fabrication - Challenges
+â¢ Get a high quality match between virtual and real model â¢ Simulation of printed appearance
+â Choice of representation â Speed â Accuracy
+
+â¢ Solve inverse problem
+â Problem parametrization â Optimization â Physical fabrication constraints
+
+Existing 3D Color Printing Devices
+Powder-binder/ Laminated
+[3D Systems Zprinter 650]
+
+FDM
+[http://mcortechnologies.com/]
+
+Poly-jet
+
+[Stratasys Connex 3]
+
+Hydrographic [FDM Color Mixing] Printing
+
+Many other methods existâ¦
+â¢ Milling: [Weyrich et al. 2007], [Weyrich et al. 2009], [Alexa and Matusik 2010], [Regg et al. 2010] â¢ Etching: [Levin et al. 2013] â¢ Printing on sheets: [Malzbender et al. 2012] (printing reflectance functions on a mirrorlet array substrate); [Wetzstein et al. 2011] [Holroyd 2011] [Baran et al. 2012] (layered attenuators); [Matusik et al. 2009] (printing spatiallyvarying reflectance) â¢ Free-form lenses: [Siedow 2008] [Finckh et al. 2010] [Papas et al. 2011] [Kiser et al. 2013] [Schwartzburg et al. 2014] â¢ Holograms: [Mann 1995] â¢ â¦
+
+potential combination with 3D printing possible but not part of this course
+
+Overview
+Texture proprietary Subsurface Scattering Powder-binder/ Laminated FDM
+Subsurface Scattering [Hasan et al. 2010] [Dong et al. 2010]
+
+Layer Shifting [Reiner et al. 2014] Error Diffusion with translucent materials [Brunton et al. 2015] Hydrographic Printing [Panozzo et al. 2015] [Zhang et al. 2015]
+
+Poly-jet
+
+Hydrographic Printing
+
+Overview
+Texture proprietary Subsurface Scattering Powder-binder/ Laminated FDM
+Subsurface Scattering [Hasan et al. 2010] [Dong et al. 2010]
+
+Layer Shifting [Reiner et al. 2014] Error Diffusion with translucent materials [Brunton et al. 2015] Hydrographic Printing [Panozzo et al. 2015] [Zhang et al. 2015]
+
+Poly-jet
+
+Hydrographic Printing
+
+Low-cost consumer 3D printers
+â¢ Continous (two-tone) imagery
+
+[Reiner et al. 2014]
+
+Active Color Mixing
+
+Layer Shifting
+
+Dual-Color Mixing for Fused Deposition Modeling Printers Reiner, T., Carr, N., MÄch, ., Stava, O., Dachsbacher, C., Miller, G. Computer Graphics Forum (Proc. Eurographics), 33(2), 2014
+
+[Reiner et al. 2014]
+
+Layer Shifting - Impression of a Gradient
+
+[Reiner et al. 2014]
+
+23
+
+Results
+
+[Reiner et al. 2014]
+
+Results
+
+[Reiner et al. 2014]
+
+Overview
+Texture proprietary Subsurface Scattering Powder-binder/ Laminated FDM
+Subsurface Scattering [Hasan et al. 2010] [Dong et al. 2010]
+
+Layer Shifting [Reiner et al. 2014] Error Diffusion with translucent materials [Brunton et al. 2015] Hydrographic Printing [Panozzo et al. 2015] [Zhang et al. 2015]
+
+Poly-jet
+
+Hydrographic Printing
+
+Polyjet 3D Printers
+Stratasys Connex3 X-axis: 600 dpi; Y-axis: 600 dpi
+
+Challenges: â¢ Multi-jet printing allows exactly one material per voxel â¢ Amount of data â typical prints require billions of voxels â¢ Highly translucent colored tints
+
+Error Diffusion with Translucent Materials
+
+[Brunton et al. 2015]
+
+Reproducing Albedo Texture
+â¢ Problem: Multi-jet printing allows exactly one material per voxel â¢ Approach: Halftoning a signal defined on a surface
+
+3D printed model ([Brunton et al. 2015])
+
+Brunton, A., Arikan, C. A., & Urban, P. (2015). Pushing the Limits of 3D Color Printing: Error Diffusion with Translucent Materials. arXiv preprint arXiv:1506.02400.
+
+Background: 2D Error Diffusion
+
+1 # 2 4 1 1
+Example of a simple kernel where "#" denotes the pixel currently being processed.
+[https://en.wikipedia.org/wiki/File:Neighborhood_watch_bw.png]
+
+Error Diffusion with Translucent Materials
+
+[Brunton et al. 2015]
+
+Error Diffusion with Translucent Materials
+
+â¢ Consistent traversal algorithm, which maps 2D error diffusion filters onto surface â¢ Layered halftoning, performing error diffusion on multiple layers [Brunton et al. 2015]
+
+Results
+
+[Brunton et al. 2015]
+
+Overview
+Texture proprietary Subsurface Scattering Powder-binder/ Laminated FDM
+Subsurface Scattering [Hasan et al. 2010] [Dong et al. 2010]
+
+Layer Shifting [Reiner et al. 2014] Error Diffusion with translucent materials [Brunton et al. 2015] Hydrographic Printing [Panozzo et al. 2015] [Zhang et al. 2015]
+
+Poly-jet
+
+Hydrographic Printing
+
+Subsurface Scattering
+
+Base Materials Fabrication
+
+Optimize stack of base materials Target Material
+
+Volumetric Model
+
+Output
+
+[Hasan et al. 2010]
+
+Inverse Problem
+
+min ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+All
+
+â
+target reflection
+
+2
+
+forward unknown problem stacking
+
+[Hasan et al. 2010]
+
+A Combinatorial Search Problem
+â¢ Node: A stacking of blocks â¢ Edge: Addition of a block to the bottom of a stacking
+
+Node
+
+Edge
+
+Need efficient pruning strategies!
+Root node: empty stacking
+[Hasan et al. 2010]
+
+Pruning Strategy 1: âToo Brightâ
+
+any material
+
+If reflection is too high, no added material at the bottom will decrease it. We can prune the node.
+
+[Hasan et al. 2010]
+
+Pruning Strategy 2: âToo Darkâ
+
+100% white
+
+If even 100% white does not increase reflection enough, we deem the search node too dark and prune it.
+
+[Hasan et al. 2010]
+
+Heterogeneous Scattering
+
+?
+
+Convert heterogeneous problem to many homogeneous ones
+
+[Hasan et al. 2010]
+
+Heterogeneous Problem: Factorization
+â¢ Song et al [2009]: BSSRDF factorization for artistic editing â¢ Approximation:
+â Transport between x and y only depends on local material columns
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+[Hasan et al. 2010]
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ â
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+
+Fabricating Heterogeneous Materials
+Stone Chess Board Marble
+
++â¦+
+
+[Hasan et al. 2010]
+
+Heterogeneous Materials: Arbitrary Geometry
+Chess Board Marble Stone
+
++
+
++
+
++â¦+
+[Hasan et al. 2010]
+
+Overview
+Texture proprietary Subsurface Scattering Powder-binder/ Laminated FDM
+Subsurface Scattering [Hasan et al. 2010] [Dong et al. 2010]
+
+Layer Shifting [Reiner et al. 2014] Error Diffusion with translucent materials [Brunton et al. 2015] Hydrographic Printing [Panozzo et al. 2015] [Zhang et al. 2015]
+
+Poly-jet
+
+Hydrographic Printing
+
+Texturing as a Post-Process
+
+Hydrographic Printing
+Intersecting Free
+
+Attached
+
+1. 2. 3. 4.
+
+Film-Object Collision Lowering Quasi-static Elasticity Labels update [Panozzo et al. 2015]
+
+Computational Approches to Hydrographic Printing
+
+Texture Mapping Real-World Objects with Hydrographics Daniele Panozzo, Olga Diamanti, Sylvain Paris, Marco Tarini, Evgeni Sorkine, Olga Sorkine-Hornung Symposium of Geometry Processing, 2015
+
+Computational Hydrographic Printing
+
+Yizhong Zhang, Chunji Yin, Changxi Zheng, Kun Zhou ACM Transactions on Graphics (SIGGRAPH), 2015
+
+parametrization based (quasi-static) approach
+
+dynamic simulation film-model registration and multiple dips
+
+[Zhang et al. 2015]
+
+Conclusion
+â¢ From Functional 2 Direct Specification
+â Small-scale geometry â Material distribution
+
+â¢ Solve inverse problem
+â Problem parametrization â Optimization â Physical fabrication constraints
+
+â¢ Hardware
+â More materials â Better resolution, surface structure difficult to control
+
+Thank you!
+Acknowledgements
+Tim Weyrich, Nathan Carr, Daniele Panozzo, and Hongzhi Wu for providing slides/image material.
+
+References
+â¢ â¢ â¢ â¢ Hullin, M. B., Ihrke, I., Heidrich, W., Weyrich, T., Damberg, G., & Fuchs, M. (2012). Computational fabrication and display of material appearance. InEurographics 2013-State of the Art Reports (pp. 137-153). The Eurographics Association. Brunton, A., Arikan, C. A., & Urban, P. (2015). Pushing the Limits of 3D Color Printing: Error Diffusion with Translucent Materials. arXiv preprint arXiv:1506.02400. Zhang, Y., Yin, C., Zheng, C., & Zhou, K. Computational Hydrographic Printing. In ACM TOG, 34, 4. Daniele Panozzo, Olga Diamanti, Sylvain Paris, Marco Tarini, Evgeni Sorkine, Olga Sorkine-Hornung. Texture Mapping Real-World Objects with Hydrographics. Symposium of Geometry Processing, 2015 Reiner, T., Carr, N., MÄch, R., Å t'ava, O., Dachsbacher, C., & Miller, G. (2014, May). Dualâcolor mixing for fused deposition modeling printers. In Computer Graphics Forum (Vol. 33, No. 2, pp. 479-486). HaÅ¡an, M., Fuchs, M., Matusik, W., Pfister, H., & Rusinkiewicz, S. (2010, July). Physical reproduction of materials with specified subsurface scattering. In ACM Transactions on Graphics (TOG) (Vol. 29, No. 4, p. 61). ACM.
+
+â¢ â¢
+

@@ -1,0 +1,584 @@
+Computational Materials Science 49 (2010) S383âS389
+
+Contents lists available at ScienceDirect
+
+Computational Materials Science
+journal homepage: www.elsevier.com/locate/commatsci
+
+Finite element modeling and experimental study on bending and vibration of laminated stiffened glass ï¬ber/polyester composite plates
+Tran Ich Thinh *, Tran Huu Quoc
+School of Mechanical Engineering, Hanoi University of Science and Technology, Viet Nam
+
+a r t i c l e
+
+i n f o
+
+a b s t r a c t
+In this paper, free vibration and bending failure of laminated stiffened glass ï¬ber/polyester composite plates with laminated open section (rectangular or T-shaped) and closed section (hat shaped) of stiffeners have been studied by ï¬nite element method and experiment. A 9-noded isoparametric element with 9 degrees of freedom per node is developed for the plates. The stiffener element is a 3-noded isoparametric beam element with 5 degrees of freedom per node and the stiffeners can be positioned anywhere within the plate element. The natural frequencies of the laminated stiffened plates are determined experimentally by Dewebook device and DasyLab 7.0 software. The results calculated by computational model for above plates under different boundary conditions are in good agreement with experiments. The failure problems of these stiffened glass ï¬ber/polyester composite plates are also investigated. Ã 2010 Elsevier B.V. All rights reserved.
+
+Article history: Received 25 November 2009 Received in revised form 26 April 2010 Accepted 6 May 2010 Available online 6 July 2010 Keywords: Finite element method Free vibration Progressive failure Stiffened glass ï¬ber/polyester composite plates
+
+1. Introduction Laminated stiffened composite plates are extensively used in aircraft structures, ship and boat hulls, bridge decks and other industrial applications due to their high stiffnessâweight ratio and high strength weight ratio. Stiffeners can achieve greater strength with relatively less material, which improves the strength/weight ratio and makes the structure cost efï¬cient. Consequently, many sophisticated models and methods (grillage model, orthotropic model, RayleighâRitz method, ï¬nite difference method, semi-analytic ï¬nite different method and ï¬nite element method) have been developed over the years for an appropriate structural analysis for these plates. Among them, ï¬nite element method has widely used because it has been found to be reasonably accurate with less complexity to model stiffened plates. Chattopadhyay et al. [1] have developed a ï¬nite element method based on ï¬rst-order shear deformation theory to analyze free vibration behaviour of composite stiffened plates. An 8-noded isoparametric quadratic stiffened plate bending element has been used in their formulation. The same shape function is used for the shell and stiffener element. The formulation restricts itself to model stiffeners which are required to pass through two adjacent edges of the plate element. The FE model of Kolli and Chandrashekhara [2] consists of the 9-noded rectangular plate element and 3-noded beam element has been used to investigate the free vibration characteristics of
+* Corresponding author. Tel.: +84 04 38692775. E-mail addresses: tranichthinh@yahoo.com (T.I. Thinh), thquocmc4@yahoo.com (T.H. Quoc). 0927-0256/$ - see front matter Ã 2010 Elsevier B.V. All rights reserved. doi:10.1016/j.commatsci.2010.05.011
+
+laminated stiffened plates. The formulation requires the nodal lines of the plate elements to pass through the stiffener. Therefore, arbitrary oriented stiffeners cannot be analyzed using this formulation. Only open section stiffeners can be modeled by this formulation. Edward Sadeck and Samer Tawï¬k [3] used a stiffened plate element that is composed of a rectangular 9-noded rectangular plate element and a number of 3-noded stiffener elements placed within the plate element and parallel to the element edges. Lee and Lee [4] used 9-noded quadrilateral element with 5Â° of freedom per node for analysis of vibration of anisotropic plates with eccentric stiffeners. The existing ï¬nite element techniques stimulate the stiffener to pass along the plate nodal lines. Satsangi and Mukhopadhyay [5] used 8-noded serendipity elements as the plate element and assumed that the stiffeners follow the same displacement ï¬eld as that of the plates. In their investigation, arbitrarily oriented rectangular stiffeners made up of composite laminates have been considered and an efï¬cient formulation has been presented. However, the stiffener formulation does not have the capability to incorporate for other shapes such as closed section stiffeners, which has tremendous practical applications. In [6] Satish Kumar and Mukhopadhyay used a new ï¬nite element for buckling analysis of laminated stiffened plates, the model based on ï¬rst-order shear deformation theory so both the plate element and the stiffener element include transverse shear deformation based on ReissnerâMindlin theory. Koko and Olson [7] applied a numerical technique for vibration analysis of isotropic stiffened plates. They used a super element which is macro-element having analytical as well as the usual ï¬nite element shape functions. Peng et al. [8] applied the
+
+S384
+
+T.I. Thinh, T.H. Quoc / Computational Materials Science 49 (2010) S383âS389
+
+element-free Galerkin (EFG) method to the static analysis of concentrically and eccentrically stiffened plates, the stiffeners need to be placed along the mesh lines. Akhras and Li [9] developed the progressive failure analysis for thick composite plates using the spline ï¬nite strip method based on Choâs higher order zigzag laminate theory and Leeâs failure criterion. However, only inï¬nitesimal strain was considered in the formulation of the spline ï¬nite strip equations. Qing et al. [10] developed a novel mathematical model based on the semi-analytical solution of the state-vector equation theory for free vibration analysis of stiffened laminated plates. The method accounts for the compatibility of displacements and stresses on the interface between the plate and stiffeners, the transverse shear deformation, and naturally the rotary inertia of the plate and stiffeners. Meanwhile, there is no restriction on the thickness of plate and the height of stiffeners. Prusty [11] performed a progressive failure analysis by ï¬nite element method based on ï¬rst-order shear deformation theory for laminated unstiffened and stiffened composite panels under transverse loads and the failure loading was predicted by using the TsaiâWu criterion and the total discount stiffness reduction model. Zahari and El-Zafrany [12] developed a progressive damage analysis methodology for stress analysis of composite laminated shells using new derivations of ï¬nite strip methods based on Mindlinâs plate-bending theory, where the non-linear equations (ï¬nite strain) were derived using the tangential stiffness matrix approach, with all integrations over the plate thickness carried out analytically. In the previous works, we have used ï¬nite element method for free vibration and bending analysis of laminated stiffened composite plates with laminated open section (rectangular and T) and closed section (hat or U) stiffeners [13]. In that paper, the natural frequencies calculated by our model were compared with those published by other authors but were not compared with experiment. In [14], we analyzed progressive failure of laminated stiffened composite plates by using total discount material properties of failed layer approach. In this study, ï¬nite element model and experiment on free vibration and progressive failure of stiffened laminated composite plates reinforced by laminated open section and closed section stiffeners under various boundary conditions are investigated. Our model is based on a higher-order displacement theory which eliminates the need to use shear correction coefï¬cients and make the model applicable for both thick and thin stiffened composite plates. The stiffeners with different types of section can be positioned anywhere within the plate element. The natural frequencies measured by our experiment are compared with the results calculated by our ï¬nite element model. The failure problems of these stiffened glass ï¬ber/polyester composite plates are also investigated by using failure mode in action to discount the mechanical properties of failed layer.
+
+ap
+
+bp
+
+hs
+
+ht bs
+
+Fig. 1. Laminated stiffened composite plates.
+
+The displacement ï¬eld based on third-order shear deformation plate theory is given as
+
+Ã°u; v ; wÃ Â¼ Ã°uo ; v o ; wo Ã Ã¾ zÃ°hx ; hy ; 0Ã Ã¾ z2 Ã°uÃ ; v Ã ; 0Ã Ã¾ z3 Ã°hÃ ; hÃ ; 0Ã x y o o Ã°1Ã
+The displacement ï¬eld of Ox-stiffener:
+
+Ã°ust ; v st ; wst Ã Â¼ Ã°ust ; v st ; wst Ã Ã¾ zÃ°hst ; hst ; 0Ã Ã¾ z2 Ã°ustÃ ; v stÃ ; 0Ã x y o o o o o Ã¾ z3 Ã°hstÃ ; hstÃ ; 0Ã x y Ã°2Ã
+
+where u0, v0, w0 are displacements of a generic point in the middle plane of the laminate referred to the local axes, x, y, z, directions and hx, hy are the rotations of the normal to the middle plane about x axis and y axis. The functions uÃ ; v Ã ; hÃ ; hÃ are higher order terms 0 0 x y in the Taylor series expansion, deï¬ned also in the middle plane. 2.2. Finite element formulation Using 9-noded isoparametric ï¬nite element with 9 degrees of freedom per node for plate element and 3-noded beam with 5 degrees of freedom per node for stiffener element as in Fig. 2. The element stiffness of the plate is determined by:
+
+Kp e
+Ã°81Ã81Ã
+
+Â¼
+
+Z
+A
+
+BT DBdA
+
+Ã°3Ã
+
+And the element mass matrix of plate is obtained as follow:
+
+Mp Â¼ e
+Ã°81Ã81Ã
+
+Z
+A
+
+NT mNp dA p
+
+Ã°4Ã
+
+where B and Np have been presented in [15] and D can be in the following expression:
+
+A C B D 0 6C E D F 0 6 6 6B D C E 0 6 6 D Â¼ 6D F E G 0 6 6 0 0 0 0 As 6 6 4 0 0 0 0 Bs 0 0 0 0 Cs
+
+2
+
+0 0 0 0 Bs Cs Ds
+
+3 0 07 7 7 07 7 7 07 7 Cs 7 7 7 Ds 5 Es
+
+Ã°5Ã
+
+2. Theoretical formulation
+y(v)
+
+2.1. Displacement ï¬eld The geometry of the laminated stiffened composite plate is similar to that shown in Fig. 1. A stiffened plate is composed of a plate and a number of stiffeners placed inside the plate. Both plate and stiffeners are made up of laminated composites. Consider a laminated composite plate which is parallel to the xây plane. The upper and lower surfaces of the plate are deï¬ned by z = h/2 and z = Ãh/2, respectively, where h is the thickness of the plate.
+
+7
+
+6
+
+5 3â
+
+xâ(uâ)
+
+yâ(vâ) 8 9 2â 1 1â 2
+
+4
+
+3
+
+x(u)
+
+Fig. 2. Plate-stiffener system.
+
+T.I. Thinh, T.H. Quoc / Computational Materials Science 49 (2010) S383âS389
+
+S385
+
+and
+
+I0 60 6 60 6 6 6 I1 6 Â½mÂ Â¼ 6 0 6 6I 6 2 6 60 6 4 I3 0
+
+2
+
+0 I0 0 0 I1 0 I2 0 I3
+
+0 0 I0 0 0 0 0 0 0
+
+I1 0 0 I2 0 I3 0 I4 0
+
+0 I1 0 0 I2 0 I3 0 I4
+
+I2 0 0 I3 0 I4 0 I5 0
+
+0 I2 0 0 I3 0 I4 0 I5
+
+I3 0 0 I4 0 I5 0 I6 0
+
+0 I3 7 7 07 7 7 07 7 I4 7 7 07 7 7 I5 7 7 05 I6
+
+3
+
+Ã°6Ã
+
+The most difï¬culty in analysis of stiffened laminated composite plates is to establish the model which allows the stiffeners can be positioned anywhere within the plates and the stiffener laminations can be either parallel or perpendicular or make any angle to the laminations of the plates. In this paper, we propose an approach for that problem as follows: â Considering the Ox-directional stiffener (Fig. 3a) is the basic stiffener. â Other directional stiffeners (Fig. 3b) will be obtained by rotating Ox-directional stiffener about z-axis by c angles then about yaxis by b angles. The nodal displacements of the stiffener element are transformed to the plate element nodes by using the transformation matrix as:
+
+The element stiffness matrix of the stiffener can be expressed in following equation:
+
+K stiffener Â¼
+Ã°15Ã15Ã
+
+Z
+l
+
+BT Dst Bst dx st Ã°15Ã7Ã Ã°7Ã7Ã Ã°7Ã15Ã 3
+
+Ã°7Ã
+
+where
+
+Â½Dst Â7Ã7
+
+As 6 Cs 6 6 6 Bs 6 Â¼ 6 Ds 6 6 60 6 40 0
+
+2
+
+Cs Es Ds Fs 0 0 0
+
+Bs Ds Cs Es 0 0 0
+
+Ds Fs Es Gs 0 0 0
+
+0 0 0 0 Ass Bss C ss
+
+0 0 0 0 Bss C ss Dss
+
+0 0 7 7 7 0 7 7 0 7 7 7 C ss 7 7 Dss 5 Ess
+
+8 9 8 9 > Us > > Up > < = < = Vs Â¼ Ryz V p > > > > : ; : ; Wp Ws Ã°8Ã
+where Ryz is the rotation matrix about z-axis and y-axis:
+
+Ã°17Ã
+
+2
+
+6 Ryz Â¼ 4 Ãs2
+
+c1 c2 s1 c 2
+
+c1 s2 c2 s1 s2
+
+Ãs2
+
+3
+
+7 0 5 c1
+
+Ã°18Ã
+
+where
+
+Â½A; B; C; D; E; F; GÂ Â¼
+
+n X Â½H1 ; H2 ; H3 ; H4 ; H5 ; H6 ; H7 ÂQ m kÂ¼1
+
+In which c1, s1, c2, s2 are cosine and sine of the rotational angle about Oz-axis and Oy-axis.
+
+Ã°9Ã
+
+So we have :
+
+fqst g Â¼ Kfqg
+uÃ s hÃ s
+T
+
+Ã°19Ã
+
+n X Â½As ; Bs ; C s ; Ds ; Es Â Â¼ Â½H1 ; H2 ; H3 ; H4 ; H5 ÂQ s kÂ¼1 n X Â½H1 ; H2 ; H3 ; H4 ; H5 ; H6 ; H7 ÂQ 11 kÂ¼1 n X Â½H1 ; H2 ; H3 ; H4 ; H5 ÂQ 44 Â½Ass ; Bss ; C ss ; Dss ; Ess Â Â¼ kÂ¼1
+
+Ã°10Ã
+
+where fqst g Â¼ f uos wos hxs g are nodal degrees of freedom of the stiffeners. v Ã hÃ hÃ gT are nofqg Â¼ f u0p v 0p w0p hxp hyp uÃ 0p 0p xp yp dal degrees of freedom of the plates.
+
+2 Ã°11Ã
+
+Â½As ; Bs ; C s ; Ds ; Es ; F s ; Gs Â Â¼
+
+Ã°12Ã
+
+6 6 s2 c1 6 KÂ¼6 0 6 6 4 0 0
+
+c 1 c2
+
+c 2 s1 s2 s1 0 0 0
+
+s2 c2 0 0 0
+
+0 0 c2 c1 0 0
+
+0 0 c2 s1 0 0
+
+0 0 0 c2 c1 0
+
+0 0 0 c 2 s1 0
+
+0 0 0 0 c2 c1
+
+0
+
+3
+
+7 0 7 7 0 7 7 7 0 5 c 2 s1 Ã°20Ã
+
+Hi Â¼ Ã°zikÃ¾1 Ã zik Ã=i with i Â¼ 1; 2; 3; 4; 5; 6; 7 and n is number of layers: Ã°13Ã
+And the element mass matrix of the stiffener can be expressed in following equation:
+
+Since the nodes of the beam element are within the plate element, it is possible to interpolate the nodal displacements of the beam element from the plate element nodal displacements by
+3 3 9 X X X fqst gj Â¼ Â½KÂj Â½CÂ fqgi jÂ¼1 jÂ¼1 iÂ¼1
+
+M stiffener Â¼
+Ã°15Ã15Ã
+
+Z
+S
+
+Â½Nst Â Â½mst ÂÂ½Nst ÂdS 2 I0 0 I1 0 0 0 I2 0 I3 0 I4 I2 0 I3 I4 I5 I3 3
+
+T
+
+Ã°14Ã
+
+Ã°21Ã
+
+6 60 6 where Â½mst Â Â¼ 6 I1 6 6 4 I2 I3
+2
+
+7 07 n X Z ZlÃ¾1 7 I4 7 and Ii Â¼ ql zi dz 7 Zl 7 lÂ¼1 I5 5 I6 Ã°15Ã
+3
+
+where [C] is the transformation matrix of the nodal displacements from the beam element into the plate element nodes deï¬ned as follows:
+
+Â½CÂ Â¼
+
+3 9 XX jÂ¼1 iÂ¼1
+
+Ã°Ni Â½I9 ÂÃ
+
+Ã°22Ã
+
+z
+
+6 6 0 N1 0 0 0 6 Â½NÂ Â¼ 6 0 0 N1 0 0 6 6 4 0 0 0 N1 0 0 0 0 0 N1
+
+N1
+
+0
+
+0
+
+0
+
+0 N2 0 0 0
+
+0
+
+0 0
+
+0 0
+
+0 N3 0 0 0 0 0 0
+
+0
+
+0 0
+
+0 0
+
+0
+
+(a)
+
+y
+
+z
+
+(b)
+
+y
+
+0 N2
+
+0 N3
+
+0 N2 0 0 0 N2 0 0
+
+0 N2
+
+7 0 7 7 0 N3 0 0 7 7 7 0 0 N3 0 5 0 0 0 N3 Ã°16Ã
+
+Î²
+x
+Fig. 3. Inclination of stiffeners.
+
+Î³
+x
+
+S386
+
+T.I. Thinh, T.H. Quoc / Computational Materials Science 49 (2010) S383âS389
+
+where Ni are the plate element shape functions and [I9] is a nine by nine identity matrix. P And we obtain the transformation matrix V Â¼ 3 Â½KÂj Â½CÂ. jÂ¼1
+Ã°15Ã81Ã
+
+y
+
+500
+
+All dimensions are in mm hp
+
+T is the transformation matrix which considers the equal displacements at the stiffener-plate junction has been presented in [15]. Finally, the element stiffness matrix of the stiffened plate is determined by:
+
+12
+
+A
+
+A
+
+250
+
+tst x Section A-A
+
+K sp e Ã°81Ã81Ã
+
+Â¼
+
+n X Kp Ã¾ K st e i Ã°81Ã81Ã Ã°81Ã81Ã iÂ¼1
+
+Ã°23Ã
+Fig. 4. Composite plate with one Ox-stiffener.
+
+where
+
+KP e Ã°81Ã81Ã
+
+is element stiffness matrix of plate and K st i
+Ã°81Ã81Ã
+
+are the frequencies of the plates with different size of composite stiffeners are compared with those in [4] and shown in Table 1. From Table 1, we can see that for the studied plate the natural frequencies of a plate with one Ox-stiffener are in good agreement with those of [4], in which the author used ï¬nite element method based on the ï¬rst shear deformation theory with shear correction factor k = 5/6. Five ï¬rst natural frequencies calculated by our program are almost smaller than that in [4] because this based on third-order shear deformation theory. This theory no needs using the shear correction factor.
+
+opened stiffness matrix of the ith stiffener:
+
+K st i Ã°81Ã81Ã
+
+Â¼
+
+Ã°81Ã81Ã Ã°81Ã15Ã
+
+TT
+
+VT
+
+K stiffener
+Ã°15Ã15Ã
+
+Ã°15Ã81Ã Ã°81Ã81Ã
+
+V
+
+T
+
+Ã°24Ã
+
+2.3. The mass matrix The mass matrix of a stiffened plate element:
+
+Msp Â¼ M p Ã¾ e e
+Ã°81Ã81Ã Ã°81Ã81Ã
+
+ns X
+
+M st i iÂ¼1 Ã°81Ã81Ã
+
+Ã°25Ã
+
+where ns is number of stiffener elements in the plate element; Msp e
+Ã°81Ã81Ã
+
+is the mass matrix of the stiffened plate; Mp is the mass matrix of e
+Ã°81Ã81Ã
+
+3.2. Free vibration of laminated stiffened glass ï¬ber/polyester composite plates In this study, composite materials in ship building are used: Eglass ï¬bers and polyester resin. The plates with lamination [0Â°/90Â°/ 0Â°/90Â°] reinforced by one Ox-stiffener of U, T or rectangular sections of equal cross-sectional areas are made for our free vibration tests like in Fig. 5. The ï¬at plates are made out of four unidirectional plies and polyester; the stiffeners are made of glass ï¬ber in mat and polyester. Material properties of the plates and stiffeners are determined by experiment [16]: E1p = 10,580 MPa; E2p = 2640 MPa; G12p = 1020 MPa; G23p = 528 MPa; m12p = 0.19; qp = 1600 kg/m3; XTp = 381.0 MPa; XCp = 271.6 MPa; YTp = 40.0 MPa; Tp = 20.0 MPa; Sp = 20.0 MPa; Rp = 145.2 MPa; E1s = 4807 MPa; E2s = 4807 MPa; G12s = 2054 MPa; G23s = 961 MPa; m12s = 0.17; qs = 1400 kg/m3; XTs = 78.8 MPa; XCs = 142.9 MPa; YTs = 78.8 MPa; YCs = 84.7 MPa; Ts = 25.0 MPa; Ss = 25.0 MPa; Rs = 69.4 MPa. The plates and stiffeners are under different boundary conditions. The plates and stiffeners are under different boundary conditions. The results on three ï¬rst natural frequencies for 6 Ã 10 ninenode elements are compared with experimental ones in Tables 3 and 4. Three vibration modes of clamped composite plates with different shape of stiffeners are shown in Fig. 6.
+
+the plate; and M st is the opened mass matrix of the ith stiffener. i
+Ã°81Ã81Ã
+
+M st i Ã°81Ã81Ã
+
+Â¼
+
+Ã°81Ã81Ã Ã°81Ã15Ã
+
+TT
+
+VT
+
+Mstiffener
+Ã°15Ã15Ã
+
+Ã°15Ã81Ã Ã°81Ã81Ã
+
+V
+
+T
+
+Ã°26Ã
+
+2.4. Governing equation The equilibrium equation for an undamped stiffened structural system can be expressed as
+
+â¬ Â½MÂfQg Ã¾ Â½KÂfQg Â¼ fFg
+
+Ã°27Ã
+
+where [M], [K] and are the assembled consistent mass and stiffness â¬ matrices, {F} is the assembled nodal load vector, [Q] and Â½Q Â are the nodal displacement and acceleration vectors. From the equilibrium Eq. (27), let {F} = 0 we obtain the equation of the free vibration problem as
+
+â¬ Â½MÂfQg Ã¾ Â½KÂfQg Â¼ 0
+
+Ã°28Ã
+
+And the equation for static problem is obtained as follows:
+
+Â½KÂfQ g Â¼ fFg
+3. Numerical results 3.1. Validation of the model
+
+Ã°29Ã
+
+Table 1 Effect of size of stiffeners on free vibration frequencies of laminated stiffened composite plates. Model no. 1 2 3 4 5 Size of stiffener tst Ã hst 0Ã0 1.56 Ã 4.5 2.06 Ã 7.5 3.64 Ã 10.5 5.20 Ã 15.0 [4] Present [4] Present [4] Present [4] Present [4] Present Five-ï¬rst frequencies of the plate (Hz) 1 85.1 85.1 108.3 107.7 170.6 168.4 213.8 212.2 227.8 228.4 2 134.0 134.1 207.3 205.1 209.2 207.2 229.4 225.3 270.2 263.4 3 207.4 207.9 214.9 211.9 257.7 255.4 270.2 268.8 294.5 293.7 4 216.1 216.5 252.3 249.9 292.9 287.9 313.8 308.6 321.8 316.1 5 252.5 253.1 329.2 326.1 338.4 335.5 354.0 352.0 373.7 371.5
+
+In order to check the reliability and accuracy of the present element, we consider the free vibration of clamped stiffened plates (Fig. 4) made of graphite/epoxy (ASI/3501-6) and studied by Dong-Min Lee. The geometry of the stiffened laminated plate are a Ã b Ã hp = 500 Ã 250 Ã 1.04 (mm3), the lamination of plate is (0Â°/Â±45Â°/90Â°)s. The ply properties are E1 = 128 GPa; E2 = 11 GPa; G12 = G13 = 1.48 GPa; G23 = 1.53 GPa; m12 = 0.25; q = 1500 kg/m3 for both the plate and the stiffener. The stiffeners are the crossply laminated beam which has the same lamination ratio of 90Â°/ 0Â° ply and perpendicular to the lamination of the plate. The thickness of the stiffener is tst, the height of stiffener is hst. The ï¬ve-ï¬rst
+
+hst
+
+T.I. Thinh, T.H. Quoc / Computational Materials Science 49 (2010) S383âS389
+y 0Â° /90Â° /0 Â° /90Â°
+
+S387
+
+125
+
+A
+
+250
+
+40
+
+1.8
+
+3.6
+
+2
+
+450
+
+0Â° /90Â° /0Â° /90Â°
+
+30
+
+30 Section A-A
+
+4.8
+
+(a)
+
+A
+
+x
+
+(b)
+
+All dimensions are in mm
+
+Fig. 5. Laminated stiffened glass ï¬ber/polyester composite plates.
+
+Table 2 Natural frequencies (Hz) of stiffened glass ï¬ber/polyester composite plates clamped at four edges. Mode no. Rec stiffener Fem 1 2 3 185.6 244.53 249.03 Exp 172.1 223.3 225.4 (%) 7.8 9.5 10.5 T-shaped stiffener Fem 213.5 251.2 269.9 Exp 196.8 229.4 236.1 (%) 8.5 9.5 14.3 U-shaped stiffener Fem 251.2 255.6 275.7 Exp 226.6 231.2 238.5 (%) 10.9 9.5 15.6
+
+Table 3 Natural frequencies (Hz) of stiffened glass ï¬ber/polyester composite plates clamped at 2 Oy edges and two other edges are free. Mode no. Rec stiffener Fem 1 2 3 41.4 52.2 87.1 Exp 39.1 48.0 79.9 (%) 5.9 8.8 9.0 T-shaped stiffener Fem 46.9 52.2 89.5 Exp 44.0 48.5 80.9 (%) 6.6 7.6 10.6 U-shaped stiffener Fem 51.5 52.2 90.1 Exp 47.7 48.9 81.2 (%) 8.0 6.7 11.0
+
+From above mode shapes of stiffened plate with open and closed sections of stiffeners, we can see that three mode shapes of the plate reinforced by U-stiffener are different from those of the plate reinforced by T and rectangular stiffeners. 3.3. Experimental study on free vibration of laminated stiffened glass ï¬ber/polyester composite plates
+
+Stiffeners
+
+Mode 1
+
+Mode 2
+
+Mode 3
+
+Rec. (185.6 Hz) T shaped (244.53 Hz) (249.03 Hz)
+
+In order to validate above calculated results by our model, some experimental tests (Fig. 7) on free vibration were performed for those specimens which were shown in Section 3.2. Three ï¬rst natural frequencies of stiffened plates clamped at four edges and clamped at 2 Oy edges were measured by using a Multi-vibration measuring machine (DEWE BOOK-DASYLab 5.61.10) and are given in Tables 2 and 3. Remark: (. . .%) denotes the error percent between FE results and experimental ones. From Tables 2 and 3, it is seen that natural frequencies obtained from numerical calculations are in good agreements with those of
+
+(213.5 Hz) U shaped (251.2 Hz)
+
+(251.2 Hz)
+
+(269.9 Hz)
+
+(255.6 Hz)
+
+(275.7 Hz)
+
+Fig. 6. Mode shapes of clamped stiffened plate.
+
+the experimental investigation, the difference ranges from 7.8% to 15.6% in case of the plates clamped at all four edges and from 5.9% to 11% in case of the plates clamped at 2 oy edges and 2 other edges
+
+Table 4 First ply failure loads and ultimate failure loads (MPa) of a stiffened plate with U, T and rectangular sections of stiffeners under uniformly distributed load. Boundary conditions Stiffener proï¬le FFL M. stress Tsaiâ Wu M. stress Tsaiâ Wu Simply support Rec. 0.4058 0.4070 0.5635 0.5641 Top of layer 4; bottom of layer 1; mid of stiffener T-shaped 0.4126 0.4139 0.7675 0.9200 Top of layer 4; bottom of layer 1; mid of stiffener U-shaped 0.4687 0.4701 0.7326 0.7349 Top of layer 4; bottom of layer 1; edge of stiffener Clamped on four edges Rec. 0.8010 0.8100 1.6314 1.6365 Top of layer 4; bottom of layer 1; edge of stiffener T-shaped 0.8015 0.8108 1.7473 2.0944 Top of layer 4; bottom of layer 1; mid of stiffener U-shaped 0.8724 0.8864 1.7241 1.7300 Top of layer 4; bottom of layer 1, bottom; edge of stiffener
+
+UFL
+
+Failed location
+
+S388
+
+T.I. Thinh, T.H. Quoc / Computational Materials Science 49 (2010) S383âS389
+
+Fig. 7. Experimental set-up.
+
+free. Both numerical and experimental results show that among three studied stiffened plates having an equal volume of materials, the stiffened plate with U-stiffener has bigger frequency than the plate with T or rectangular stiffeners. 3.4. Progressive failure of stiffened laminated composite plates Under a given bending load, the stresses at each integration point in the laminate are calculated in the material coordinate system. Then, the stresses are substituted into the failure criterion. If any failure occurs, the material properties of the lamina at that point are degraded according to the mode of failure as follows: â Matrix failure: E22, m12 are degraded. â Shear failure: G12, G23 and m12 are degraded. â Fiber failure: E11, E22, m12, G12, G23 are degraded. where E11 and E22 are the elastic moduli; G12, G23 are the shear moduli; m12 is Poissonâs ratio. The load is increased step-by-step, and the above analysis is repeated, until no additional lamina failure is detected. Finally after a ply-by-ply analysis, the ultimate failure load of a laminate is achieved. Two failure criteria usually used for analysis of failure of composite structure are Maximum stress criterion and TsaiâWu criterion. 3.4.1. Maximum stress criterion In the maximum stress criterion, failure of any composite layer is assumed to occur if any one of the following conditions is satisï¬ed:
+
+The plates and stiffeners are under different boundary conditions and subject to bending uniform load. The results on ï¬rstply failure loads and ultimate loads are shown in Table 4. It can be seen from Table 4 that after the initial failure, the loads can be increased by about from 38% to 86% in case of simply supported boundary condition and the load can be increased by about 110% in case of clamped at four edges. The ï¬rst-ply failure loads of the plates with U-stiffener are biggest and much more bigger than that of the plates with T or rectangular stiffener. The failure loads of the stiffened plates under clamped on four edges boundary condition are much bigger than ones under simply supported on four edges. Failed position occurs at different locations depending on different types of sections of stiffeners. 4. Conclusion Finite element model for analysis of laminated stiffened composite plates based on higher-order deformation theory have established. Experimental studies on vibration of laminated stiffened composite plates with different types of section of stiffeners are also performed. Based on the numerical and experimental results presented in this paper the following conclusions can be drawn: â Experimental natural frequencies are in good agreement with those calculated by ï¬nite element model. â For three studied glass ï¬ber/polyester stiffened plates which have an equal volume of materials, the laminated stiffened plate with one U-stiffener shows bigger frequency than the plate with T and rectangular sections of stiffeners. Mode shapes of stiffened plate with U-stiffener are different with those of stiffened plate with T or rectangular stiffener. â After the ï¬rst-ply failure, laminated stiffened composite plates can carry out more and more additional bending load. Failed positions depend on the types of sections of stiffeners so it is noted when designing laminated stiffened composite plates.
+
+r1 > X T r2 > Y T r4 > R r5 > S r6 > T
+
+Ã°30Ã
+
+where r1, r2 are the normal stress components, r4, r5 and r6 are shear stress components, XT, YT are the lamina tensile strengths in the 1, 2 directions and R, S and T are the shear strengths in the 23, 13 and 12 planes, respectively. When r1, r2 are of a compressive nature they should be compared with XC, YC, which are normal strengths in compression along the 1, 2 directions, respectively. 3.4.2. The TsaiâWu criterion According to this theory, failure of a composite layer is assumed to occur if the following condition is satisï¬ed: â¬ â¬ â¬ â¬ Ã Ã2 1 1 Ã X1C r1 Ã¾ Y1T Ã Y1C r2 Ã¾ X T1X C r2 Ã¾ Y T1Y C r2 Ã pï¬ï¬ï¬ï¬ï¬ï¬ï¬ï¬ï¬ï¬ï¬ï¬ï¬ï¬ï¬ï¬ r1 r2 Ã¾ r6 P 1 1 2 T XT
+XT XC Y T Y C
+
+Acknowledgement This work was supported by the National Foundation for Science & Technology Development of Vietnam. References
+[1] B. Chattopadhyay, P.K. Sinha, M. Mukhopadhyay, Journal of Reinforced Plastics and Composites 11 (1992) 1003â1034. [2] M. Kolli, K. Chandrashekhara, Composites Science and Technology 56 (1996) 1355â1361.
+
+Ã°31Ã
+
+In this example, we use two above criteria to calculate ï¬rst-ply failure loads (FFL) and ultimate failure loads (UFL) of the stiffened plates which have considered in the example 2.
+
+T.I. Thinh, T.H. Quoc / Computational Materials Science 49 (2010) S383âS389 [3] A. Edward Sadeck, A. Samer Tawï¬k, Computers and Structures (2000) 369â383. [4] Dong-Min Lee, In Lee, Computers and Structures 57 (1995) 99â105. [5] S.K. Satsangi, M. Mukhopadhyay, International Association for Bridge Structural Engineering 17 (1987) 65â94. [6] Y.V. Satish Kumar, Madhujit Mukhopadhyay, Composite Structures 46 (1999) 321â331. [7] T.S. Koko, M.D. Olson, Journal of Sound and Vibration 158 (1992) 149â167. [8] L.X. Peng, S. Kitipornchai, K.M. Liew, International Journal of Mechanical Sciences 47 (2005) 251â276. [9] G. Akhras, W.C. Li, Composite Structures 79 (2007) 34â43. [10] Guanghui Qing, Jiajun Qiu, Yanhong Liu, International Journal of Solids and Structures 43 (2006) 1357â1371.
+
+S389
+
+[11] B.G. Prusty, Journal of Reinforced Plastics and Composites 24 (2005) 633â642. [12] R. Zahari, A. El-Zafrany, Composite Structures 87 (2009) 63â70. [13] Tran Ich Thinh, Tran Huu Quoc, Trinh Minh Cong, Free vibration and bending analyses of stiffened composite structures with laminated open and closed section stiffeners, in: Proceedings of the International Conference on Computational Solid Mechanics, 2008. [14] Tran Ich Thinh, Tran Huu Quoc, Progressive failure analysis of laminated stiffened composite plates by ï¬nite element method, in: Proceedings of National Conference on Mechanics, 2009. [15] Tran Ich Thinh, Tran Huu Quoc, Vietnam Journal of Mechanics 30 (2008) 112â124. [16] Nguyen Van Dat, Study on designing bilge machine platform of composite ship in vibration suppression, Ph.D. Thesis, Nha Trang University, 2005.
+

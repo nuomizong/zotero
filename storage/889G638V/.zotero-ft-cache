@@ -1,0 +1,2092 @@
+Solid Freeform Fabrication Proceedings
+September, 1993
+
+ADA 4q 7779/f
+The breadth of Solid Freeform Fabrication as an important and totally integrated approach to design, materials processing and manufacturing is contained in this proceedings of the SFF Symposium held in Austin, Texas on August 9-11, 1993 SFF Topics covered in the Symposium include:
+
+Accesion For
+
+NTIS CRA&I
+Unan,â¢ounced
+
+â¢Machine
+[]
+
+Computer Sectioning Design
+Materials Processing:
+Metals Ceramics Waxes
+
+TIoc rAaâ¢
+
+"By Di~s~iu â¢Polymers
+â¢ ,.odes
+
+Composites Dist
+
+Applications
+
+A4
+Harris L. Marcus, Joseph J. Beaman, Joel W. Barlow, David L. Bourell,
+
+(
+
+and Richard H. Crawford, Editors
+
+o
+
+Â© 1993 The University of Texas at Austin All rights of reproduction in any form are protected by U.S. Copyright Laws. Permission to copy all or portions of the proceedings contents must be obtained from the authors and The University of Texas at Austin. Library of Congress ISSN 1053-2153
+
+3 DTC QtUALTry INSpECTMD
+
+Best
+
+Available
+Copy
+
+BUREAU OF ENGINEERING RESEARCH
+
+S-THE UNIVERSITY OF TEXAS AT AUSTIN
+CenterforMaterialsScience andEngineering-ETC 9.104 Austin, Texas 78 712-1063 (512)471-1504 -FAX (512)471-7681 Telex 405 705 UT GRAD AUSUD
+
+March 31, 1994
+
+Scientific Office Code: 113IN Steven G. Fishman Office of Naval Research 800 North Quincy Street Arlington VA 22217-5000 REF: Grant no.: N00014-93-1-0371 Dear Steve:
+
+o04- 7
+
+g
+
+Enclosed are three copies of the Solid Freef, m Fabrication Symposium Proceedings 1993 submitted to fulfill the final report requirement of the referenced grant. Copies of the Proceedings were originally distributed in fall of 1993. A full list of attendees is included in the Proceedings. Please call me at 512-471-3188 if you have any questions. Sincerely,
+
+T
+
+or Higher Education
+
+a HLM/vl cc: Office of Sponsored Projects, UT
+
+wed Professorship in Engineering #1
+
+Table of Contents
+P r e fa c e ..........................................................................................................................................
+Material Issues in Layered Form ing ...................................................................................... Christina Amon, Jack Beuth, Helmut Kirchner, Robert Merz, Fritz Prinz, Kevin Schmaltz and Lee Weiss; CarnegieMellon University StereoLithography Epoxy Resin Development: Accuracy and D im ensional Stability .................................................................................................................. Thomas H. Pang; 3D Systems, Inc. Vibratory Finishing of StereoLithography Parts ................................................................ John D. Spencer, Richard C. Cobb, and Phillip M. Dickens; The University of Nottingham Structural Ceramic Components by 3D Printing ............................................................... J. Yoo, Michael J. Cima, S. Khanuja, and E. M. Sachs; MassachusettsInstitute of Technology D irect Laser Sintering of M etals ........................................................................................... William T. Carter, Jr., and Marshall G. Jones; GE CorporateResearch & Development Solid Freebody Forming of Ceramics From Polymerizable Slurry ................................... K. Stuffle, and A. Mulligan; Advanced Ceramics Research Company Paul Calvert, and John Lombardi; Arizona MaterialsLaboratories Development of Nanocomposites for Solid Freeform Fabrication ..................................... Arumugam Manthiram, F. Chi, L. F. Johnson, B. R. Birmingham, and H. L. Marcus; The University of Texas at Austin Part Fabrication Using Laser Machining and Welding ..................................................... M. S. Pridham, and G. Thomson; University of Dundee Picoliter Solder Droplet Dispensing ...................................................................................... Ronald E. Marusak; MicroFabTechnologies, Inc. Control Parameters and Material Selection Criteria for Rapid Prototyping System s .................................................................................................................... James W. Comb, and William R. Priedeman; Stratasys, Inc. Reducing or Eliminating Curl on Wax Parts Produced in the SinterstationTm 2000 System ................................................................................................... Paul Forderhase, and Richard Corden; DTM Corporation Computer Aspects of Solid Freeform Fabrication: Geometry, Process C ontrol, and Design ..................................................................................................... Richard H. Crawford; The University of Texas at Austin Virtual Reality and Rapid Prototyping: Conflicting or Complementary? .......................... Ian Gibson, D. Brown, S. Cobb and R. Eastgate; The University of Nottingham
+
+v
+1
+
+11 27
+
+40
+
+51
+
+60
+
+64
+
+74 81
+
+86
+
+94
+
+102 113
+
+Optimization of 2D CT Data Sets for Three-Dimensional Craniofacial Imaging and Modeling .............................................................................................................. Richard A. Levy; The University of Michigan Hospitals Some Efficient Procedures for Correcting Triangulated Models ......................................... Ismo Mdikeli, and A. Dolenc; Helsinki University of Technology Robust Prototyp ing ................................................................................................................... Jana K. Chari, and J. L. Hall; Iowa State University Sim ulation of Solid Freeform Fabrication .............................................................................. Stuart B. Brown; MassachusettsInstitute of Technology Automated 4 Axis Adaptive Scanning With the Digibotics Laser Digitizer ........................ Stephen Koch; Digibotics,Inc. t StereoLithography 1993: QuickCas TM .............................................. Thomas H. Pang, and Paul F. Jacobs; 3D Systems, Inc.
+.......................... .. .. .......
+
+121 126 135 143 150 158 168
+
+FFF at Ford Motor Com pany .................................................................................................. Sean O'Reilly; FordMotor Company An Experimental Study of the Parameters Affecting Curl in Parts Created Using Stereolithography ........................................................................................................... Leslie Horton, and Michael Keefe; University of Delaware; E. P. Gargiulo; E. L duPontde Nemours & Co., Inc. Homogenization Design and Layered Manufacturingof a Lower Control Arm in Project MA X W E L L ............................................................................................................. Roy Johanson, N. Kikuchi, and P. Papalambros; University of Michigan; Fritz Prinz, and Lee Weiss; Carnegie Mellon University An Evaluation of the Mechanical Behavior of Bronze-NI Composites Produced by Selective Laser Sintering .................................................................................... Mukesh Agarwala, D. L. Bourell, B. Wu, and J. J. Beaman; The University of Texas at Austin
+M T Silicon Carbide Preforms for Metal Infiltration by Selective Laser Sintering of Pol, iner Encapsulated Powders .......................................................................................... N. K. Vail, J. W. Barlow,and H. L. Marcus; The University of Texas at Austin
+
+178
+
+186
+
+193
+
+204
+
+Fabrication of Ceramic and Metal Matrix Composites From Selective Laser Sintered C eram ic Preform s ...................................................................................................... Lucy Deckard, and T. Dennis Claar; Lanxide Corporation Powder Layer Position Accuracy in Powder-Based Rapid Prototyping .............................. Sang-Joon John Lee, E. Sachs, and M. Cima; MassachusettsInstitute of Technology The Physics of Digital Microfabrication with Molten Microdrops ...................................... Fuquan Gao, and A. A. Sonin; MassachusettsInstitute of Technology
+
+215 223
+
+237
+
+Material and Process Parameters That Affect Accuracy in Stereolithography .................. 245 Richard P. Chartoff, Lawrence Flach and Peter Weissman; University of Dayton Thermal Analysis and Modeling of Steady-State Rod Growth During G as-Phase Solid Freeform Fabrication ................................................................................... James L. Maxwell, Joseph Pegna, and Alexander Ostrogorsky; Rensselaer Polytechnic Institute Potential Application of Solid Freeform Fabrication (SFF) Process in Ceracon P/M Forging ............................................................................................................... Ramas V. Raman, S. V. Rele, and R. L. Anderson; Ceracon, Inc. M achine Vision for Rapid Geometric M odeling .................................................................... Visa Koivunen, and R. Bajcsy; University of Pennsylvania Strategy for Composite Development in Rapid Prototyping ................................................ R. Charan, A. Bagchi, T. Renault, and A. A. Ogale; Clemson University Direct Generation of Contour Files from Constructive Solid G eometry Representations ....................................................................................................... Sashidhar Guduri, R. H. Crawford, and J. J. Beaman; The University of Texas at Austin Indirect Metal Composite Part Manufacture Using the SLS Process .................................. James R. Tobin, B. Badrinarayan, J. W. Barlow, J. J. Beaman, and D. L. Bourell; The University of Texas at Austin Solid Freeform Fabrication of Silicon Carbide Shapes by Selective Laser Reaction Sintering (SLRS) ............................................................................................. Britton R. Birmingham, and H. L. Marcus; The University of Texas at Austin Supersolidus Liquid Phase Selective Laser Sintering of Prealloyed B ronze Pow der ........................................................................................................................... Gopalakrishna Prabhu, and D. L. Bourell; The University of Texas at Austin Selective Area Laser Deposition of Silicon Carbide ............................................................... James V. Tompkins, and H. L. Marcus; The University of Texas at Austin 253
+
+271 275
+
+283
+
+291
+
+303
+
+308
+
+3 17
+
+325
+
+Drying of Colloidal Binder Infiltrated Ceramic Green Parts Produced .. .. .. .... .. .. .. .. .. .. .. .. ................. 333 M by Selective Laser Sintering T ...................................................... M. Glazer, N. K. Vail, and J. W. Barlow; The University of Texas at Austin Synthesis, Selective Laser Sintering and Infiltration of High Tc Dual Phase Ag-YBa 2 Cu 3 O7.x Superconductor Composites .................................................................... Mukesh Agarwala, D. L. Bourell, A. Manthiram, B. R. Birmingham, and H. L. Marcus; The University of Texas at Austin 339
+
+iii
+
+Selective Laser Sintering of A12 0 3 ................................................... P. K. Subramanian, G. Zong, N. Vail, J W. Barlow, and H. L. Marcus; The University of Texas at Austin
+
+.. .. .. .. .. .. .. .. .. .. .. .................. 350
+
+Laser Sintering Model for Composite Materials .................................................................... James C. Nelson, N. K. Vail, and J. W. Barlow; The University of Texas at Austin Measurement of the Thermal Conductivity of Powders by Two D ifferent Methods ..................................................................................................................... Samuel Sumin Sih, and J. W. Barlow; The University of Texas at Austin Selective Laser Sintering of Bioceramic Materials for Implants .......................................... Goonhee Lee, and J. W. Barlow; The University of Texas at Austin
+
+360
+
+370
+
+376
+
+K ey W ord Ind ex ...................................................................................................................
+
+381
+
+A u th or/A ttend ee List ..........................................................................................................
+
+383
+
+iv
+
+PREFACE This Proceedings of the Fourth Solid Freeform Fabrication Symposium, held at The University of Texas in Austin on August 9-11, 1993, reaffirms the dynamic nature of the research area. The interest shown by researchers over the wide range of disciplines and subdisciplines that make up Solid Freeform Fabrication (SFF) highlights this technical Symposium. The speakers addressed problems in computer software, in machine design, materials synthesis and processing, and SFF in integrated manufacturing. The exponential growth in the research, application and development of SFF approaches was readily apparent from the attendees from industrial users, SFF machine manufacturers, universities, and government. This Symposium is the first where real progress toward structurally sound samples and parts was demonstrated as SFF moves from "feelie" to "non-structural" to "structural" real parts over a range of materials. This advancement in the state-of-the-art of SFF will continue to drive the exponential growth of the area. The excitement amongst the Symposium participants will continue to serve as the catalyst for the continued growth and the availability of Solid Freeform Fabrication. The Symposium organizers look forward to its being a continued source of technical exchange among the growing body of researchers involved in SFF. The Symposium was organized in a manner to allow the multi-disciplinary nature of the SFF research to be presented coherently, with various sessions emphasizing computer aspects, machine topics, and the variety of materials aspects of SFF. Application-related efforts were scattered throughout the Symposium. To avoid parallel sessions a poster session was organized, aud the panel session on SFF was held in the evening, after a visit with Texas barbecue. The dynamic panel discussion on Future Directions in SFF was led by Marshall Burns, Michael J. Cima, Tom Latham, Greg Sanders and Joel W. Barlow. The written versions of the presented papers are incorporated into these Proceedings. The editors would like to thank the speakers for their timely delivery of the manuscripts that expedited the publication of these Proceedings. The constantly changing state of the SFF art as represented by these Proceedings will serve both the people presently involved in this fruitful area as well as new researchers and users coming into Solid Freeform Fabrication. The editors would also like to extend a warm thank you to Renee Loyless-May for her extensive efforts in the detailed handling of the logistics of the meeting and the Proceedings. We would also like to thank the organizing committee, the speakers, the session chairmen, panel members, and the attendees for their enthusiastic contributions. We look forward to the continued close cooperation of the SFF community in organizing the Symposium. We also want to thank ONR through Grant No. N00014-93-1-0371, ARPA, and The Minerals, Metals and Materials Society for co-sponsoring the Symposium as well as DTM Corporation for hosting the reception. The editors Organizing Committee: Dick Aubin, United Technologies Joel W. Barlow, The University of Texas at Austin Joseph J. Beaman, The University of Texas at Austin David L. Bourell, The University of Texas at Austin Robert L. Brown, The Gillette Company William Coblenz, ARPA Richard Crawford, The University of Texas at Austin Samuel Drake, University of Utah Steven Fishman, Office of Naval Research Harris L. Marcus, The University of Texas at Austin Fritz Prinz, Carnegie Mellon University Emanuel Sachs, Massachusetts Institute of Technology Greg Sanders, General Motors Corporation Sean O'Reilly, Ford Motor Company Ralph Wachter, Office of Naval Research Michael Wozny, Rennselaer Polytechnic Institute
+V
+
+Material Issues in Layered Forming
+Christina Amon, Jack Beuth, Helmut Kirchner, Robert Merz, Fritz Prinz, Kevin Schmaltz, Lee Weiss Carnegie Mellon University Pittsburgh, PA Abstract A brief everview of key issues in layered thermal processing is given. Incremental sintering and layered fusion of powder and molten droplets are discussed. The criteria for remelting the solid substrate are derived from a one dimensional heat transfer model. Temperature gradients which occur during solidification and subsequent cooling are responsible for the build up of internal stresses which can be estimated through establishing an elastic beam model. The difficulties as well as opportunities regarding the generation of multi-layer multi-material structures are also described in this article. Key Words Layered manufacturing, sintering, melting, thermal modeling, residual stress, multi material structures, stress cracking. Introduction Solid freeform fabrication through layered material deposition appears to be an attractive method for 3D object generation[ 1,2,3]. This method offers the possibility of expanding the design space with respect to geometric complexity, material diversity, and traditional cost/time constraints. However, building up materials in layeres poses significant challenges from material science, heat transfer and applied mechanics viewpoint. Depositing materials onto a solid substrate can typically be accomplished through sintering, local melting, chemical synthesis (e.g. photo polymerization), or otherwise gluing, brazing, and soldering. The issues associated with each of these processes can be summarized as follows: "* Local melting requires significant energy input to the semi-finished part which may result in the buildup of internal stresses and consequently distortions. "* Sintering requires less energy to establish bonding of the added layers but local voids may be left unless external forces are applied "* practical applicability of chemical synthesis is limited to certain derivatives of organic The substances "* Gluing, brazing, and soldering have the disadvantage of adding bonding materials to the part which are not necessarily desirable for its function or performance. Some of these difficulties can be overcome by adopting post processing steps such as annealing, sintering, and material infusion. Building parts through layered forming is further complicated if one attempts to deposit dissimilar materials on to the substrate. In particular, differences in the coefficient of thermal expansion (CTE), and misfit dislocations (due to differences in atomic radii) can lead to even greater distortions of the atomic lattice in comparison with layered material structures of the same kind. This paper discusses some of these underlying issues in layered forming rather than attempting to offer specific solutions to these problems. Process Classification Common to all layered forming techniques is the incremental nature of the material build up process. Stepwise material build up requires bonding between layers. Obviously, the material
+
+quality of a part is determined by the quality of each deposited layer as well as the quality of the bond between the layers. The following classification for material deposition processing in layered manufacturing is chosen. Processes are listed with respect to the temperature regimes in which they operate at and issues of concern regarding the resulting articles. This list is by no means exhaustive with important problems like speed, surface quality and accuracy not being addressed.
+
+Process
+Sintering Melt On
+
+T<TM
+
+aTnqtatC
+
+Issues
+
+Density Postprocessing Residual Stress Warpage Debonding Postprocessing Strength Postprocessing Limited Material Range Residual Stress
+
+T>TM
+
+Glueing Powder Sheet Photocuring
+
+T-TR T-TR
+
+In the following, we limit our discussion mostly to thermal processing issues (e.g.sintering, melting) some of which are also relevant for processes occurring at room temperature. Sintering Layered powder deposition followed by laser sintering has become an established prototyping process; for more details see [1]. The physics of any sintering process is based on particle fusion at temperatures below the material melting point. During sintering necks form between adjacent powder particles thus reducing the surface area and increasing the density of the powder aggregate. The driving force for this process is the reduction of the particle surface free energy. The densification rate is proportional to that reduction. In order to change the shape of the powder particles, matter or vacancies need to flow. (Vacancy flow can be considered as the counterflow of matter, both concepts are equivalent). The densification rate depends further on the combination of the transport path of the matter as well as the source of the matter. Ashby [4] distinguishes six different path/source combinations e.g.: surface diffusion from surface, boundary diffusion from boundary, or volume diffusion from boundary. At different temperatures different path/source combinations dominate the flow of matter. During pressureless sintering (i.e., no external force applied) the densification rate decreases as the aggregate density increases due to a decreasing rate of surface reduction. A quick inspection of the theoretically established sintering maps by Ashby such as the example of copper in Figure 1 indicate that close to full density (i.e. when the neck radius is comparable to the particle radius) can only be reached asymptotically. Also, the times required to achieve high densities are significantly higher than the mean time that a selective heat source (e.g. laser) will for practical reasons dwell in a certain location. Hence, selectively sintered powder aggregates need to be subjected to further postprocessing procedures such as hot isostatic pressing to achieve full density.
+
+2
+
+TEMPERATURE
+
+C
+
+7W
+BO0UNDARY D4F1FUIUI1N
+
+M
+IOM4UDAIRy
+
+m "a
+/ 3zill")
+
+-SP
+
+*1.0
+
+0
+
+1
+
+000
+
+SURFACE DIFFUSIO FROM SURFACE
+-0 -'-PURE
+
+COPPER
+
+10-'
+
+ADHESION 0.. 0.70 6S.1O 0.90 1.00
+
+HOMOLOGOUS TEMPERATURE TfiT
+
+Figure 1: Sintering map of copper particles [4]. Melting On To further enhance and accelerate the bonding of a layer to the substrate one can locally melt already deposited powder particles or deposit molten droplets as done for example in thermal spraying [21. Two scenarios can be envisioned: In the first one the molten droplet adapts to the shape of the underlying substrate. In the second the particle has sufficient energy to remelt the substrate and form a solid bond. In the first case two possibilities for bonding exist. The molten droplets simply form a mechanical interlock as commonly observed in thermal spraying [4]. Alternatively, the droplets may also bond to the substrate through a sinter mechanism in which necking occurs by shape adaptation of the molten droplet and diffusion within or on the surface of the substrate. The rate of bond formation will obviously be higher compared to the pure sinter case as described earlier. In addition to the structure of the bond, the microstructure resulting from the solidification of the droplets is key to the strength of the layered article. Therefore an understanding of the entire temperature history is important for planing layered manufacturing processes. Also, higher temperature gradients involved in melting compared to pure sintering tends to lead to the formation of higher residual stresses. In the following sections we address the issue of predicting the thermal history of the melting process as well as the build up of residual stresses after solidification. Thermal Modelhng This section presents a numerical modeling of the thermal history of a molten metal particle on a solidified substrate. The particle can be melted by a laser or plasma alternatively, molten droplets can be sprayed on a solidified substrate.as depicted in Figures 2a and 2b. This model is useful for investigating the conditions needed to achieve partial substrate remelting, to create an accurate predictive tool of the particle melt of the thermal spray process, and to investigate the effect of operating conditions such as initial molten particle/droplet and substrate temperatures, 3
+
+size, surface heat transfer and sprayed material properties on the resulting melting front migration rate and thickness, temperature distribution, and overall cooling rates.
+
+ILaser,
+Plasma molten droplet
+Solid Substraie
+
+Solid Substrate
+
+(a)
+
+(b)
+
+Figure 2 (a) molten powder particle (b) molten droplet deposition. In the following we refer to molten particles as well as droplets from sprayin- just as droplets. Application parameters such as laser energy or spray gun power input, and deposition rates may then be modified to optimize the deposited material microstructure. The numerical model for determining process temperatures and remelting conditions is simplified to a one-dimensional, heat transfer problem by assuming that the impacted droplet width is sufficiently greater than height, and that the droplet flattening time scale is much shorter than the droplet solidification time scale.This phenomena is modeled by the governing equation of the form: aoT 2 ok(T) M [oâ¢2 T] oaT
+
+P Cp
+
+= k+
+
+(
+
+for temperature T, density r, specific heat cp, and thermal conductivity k. The ak/lT term is omitted since the thermal conductivity variation is slight for the materials and temperature ranges considered, although temperature dependent thermal properties are used [61. This equation is valid for both the liquid region as well as the solid region. Above the top liquid surface, combined convective and radiative boundary conditions exist, while the energy balance: p L a at = ksol T a)t
+-
+
+kliq
+
+-a
+
+at
+
+(2)
+
+is applied at the interface between the liquid and solid regions, balancing the energy flux into and out of the interface with the release of latent heat (L) For the lower boundary of the solid region a constant substrate temperature is assumed at a remote distance from the surface. The energy equation is discretized using an Eulerian explicit formulation. To track the location of the melting front during the solidification process, a three-point Lagrange interpolation formula is used to approximate the temperature function [71 at the nodes preceding and following the melting point. This assumes a torm that can be readily incorporated into the finite difference formulation used, but permits the location of a varying "node" point corresponding to the melting front. The new front location is calculated after each iteration using the discretized interface energy balance equation. To approximate the initial interface temperature when the known liquid droplet first strikes the known solid substrate the analytical Stefan interface solution is used: Tinter.
+=
+
+[RATIO*Tliq + Tsol]/[l+ RATIO] 4
+
+(3)
+
+RATIO
+
+=
+
+/(k cp p)liq / (k cp p),so
+
+(4)
+
+For the complete duration of the thermal system modeling, the Stefan solution is not an accurate representation of the actual boundary conditions. However, for the initial interface condition the solution above can be used because boundary conditions corresponding to two semi-infinite bodies in contact remain valid until the temperature fluctuation propagates to the liquid surface. For the first droplet, the initial conditions assumed are uniform droplet and ambient substrate temperatures. When prior molten droplets heat the substrate, the model is then modified to incorporate the two-dimensional effects of substrate preheating arising from the diffusion of energy from previously molten droplets:
+
+p Cp at
+
+=
+
+k(T)
+
+[2 Lx
+
++aT]
+
+(5)
+
+This model reflects the process where the laser source or spray gun is moving across the substrate. As with the one-dimensional solidification model, an Eulerian explicit algorithm is used to solve the two-dimensional energy equation. Because remelting does not occur with this lateral case there is no Lagrangian approximation terms required. The substrate temperature profile resulting from this two-dimensional model is then used as the substrate initial condition for the solidification model. Simulations are made for the model of single droplets of carbon steel, stainless steel and zinc which are residing or have landed on similar substrates, and for a steel droplet on a zinc substrate. This latter case simulates the building up of sprayed materials onto a sacrificial substrate. Parametric studies of remelting sensitivity to surface convection and radiation changes, variations of impacting droplet temperature, droplet size and existing substrate temperature have been performed. The solidification process is completed so rapidly (on the order of milliseconds) that the heat transfer is basically a conductive process, and the surface convective and radiative effects are negligible. Numerical results also indicate that substrate remelting will not occur with realistic droplet temperatures (having less than several hundred degrees centigrade of superheating) on an unheated substrate. A remelting condition requires a substrate heated several hundred degrees above ambient temperature. This condition does exist when the preheating effect caused by previous droplets is included with the two-dimensional model. For the case of a stainless steel droplet landing on a stainless steel substrate, numerical simulations are performed with initial "droplet" thickness of 100 microns and substrate temperature of 1100TC. The time-dependent solidification of this layer is shown in Figure 3 for two cases: a 1550'C and a 1650*C initial droplet temperature. The y-axis of Figure 3. indicates the location of the melting front; 0 represents the interface between the impinging droplet and the substrate, with the droplet extending in the positive direction.
+
+5
+
+6
+
+Melting Location (Microns) -- - - - - -
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+0
+
+0
+
+1
+
+2
+Time (IE-4 sec.)
+
+3
+
+4
+
+nlid-al Droplet Temperature 1550 Degrees
+
+Melting Location (Microns)
+
+---------------.------------------------------
+
+2 --
+
+-
+
+--
+
+-
+
+--
+
+-- 2--
+
+-3-
+
+-
+
+--
+
+-
+
+--
+
+4- --
+
+I-~ -~ ~
+
+-~- ~ ~--~
+
+---Tm --- sec.)-ere
+
+ILiquildroltTmeaue15
+
+substrat shown.
+
+are3
+Mel4taingeLocation (Mirohaen ubtae eio ro ie1) irn
+
+Attestr solid. the 150T For
+
+f h eprtr
+
+imltonteeniepoiie osbtaermligocrwiefrte15Tcs
+
+sliud1n0h0ngtvergo m
+
+*50
+
+-00 -150
+
+-200 0 5 10 Tume (IE-4 see.)
+
+I 15
+
+-F Zinc Melting Front: Stainless Steel (initial 1450 Degree SS droplet on 25 Degree zintc substrate)
+
+Figure 4: Substrate Remelting (Stainless steel on zinc substrate) 6
+
+The stainiess Steel druplet, initial.y at its melting temperature, solidifies whilc the lower melting zinc melts and actwally vwporizes slightly. Thb: result demenstrates the need to protect sacrificial support material. Mechanics Issues in Shape Deposition Processes A current limitation of layered processing is the build-up of residual stresses as artifacts are manufactured. Residual stresses can affect artifact performance (response and life) and are also the root cause of specific deleterious effects including artifact warping, artifact delamination and stress cracking of brittle layers. Understanding the build-up of residual stresses and how to minimize them and their effects are thus the focus of current mechanics research into layered manufacturing. Residual Stresses and Artifact Warping In the layered processing, residual stresses are built up as new layers are deposited onto existing layers of the artifact. This build-up is due to the contraction each new layer experiences as it solidifies and cools and occurs even in the successive application of layers of the same material. The process is illustrated in Figure 5 where, for simplicity, a single layer of one material is shown applied to a single existing layer of another material. The layer thicknesses may differ, however, it is assumed that each layer is beam-shaped. It is also assumed that the new layer experiences a uniform contraction as it solidifies on the existing layer and that the contraction can be char. erized by a temperature-independent coefficient of thermal expansion, ax. Under these assumptions, the elementary analysis of Timoshenko [81 for the stresses in a uniformly heated bimaterial strip can be applied to predict the residual stresses in each layer and the curvature of the two-layered artifact caused by the contraction of the newly applied layer. The predicted curvature, Kc, takes the form
+K 1
+
+( lh3 E It -aAT
+
+(6)
+1
+(,Elhi
+
+p
+
+(h, +h 2 )E2h>
+2 6(h,+h
+
+h)" 2
+2)
+
+E~h 2 )
+
+where p is the radius of curvature of the artifact. In eq (6) a is the coefficient of thermal expansion of the new layer and AT is the difference (negative in sign) between the solidification temperature of the new layer and the operating temperature. The layer thickness is designated by h and E is the Young's modulus of the layer.
+Additional Layer (Material #2) Thicknes
+
+-h
+
+Existing Layer (Material #1)
+Thickness = h,
+
+a) At solidification temperature of new layer
+
+b) After new layer cools
+
+Figure 5 Curvature induced by the thermal contraction of a new layer (material #2) after its application to an existing layer (material #1). For this simple model the stresses in each layer of the bilayer artifact are composed of axial and bending components and thus vary linearly through the thickness of each layer. In layered manufacturing, this interaction between newly applied and existing layers is repeated for each additional layer applied. The curvature of the artifact and the residual stresses in it are increased with the addition of each new layer. 7
+
+There is a need in layered manufacturing to experimentally quantify residual stresses created during the process by measuring curvature changes caused by the addition of new layers. Results can be compared to simple models of layer interaction such as the one above. It is expected that enhancements to the model will be necessary, including accounting for the temperature dependency of coefficients of thermal expansion and the modeling of non-uniform thermal contraction of individual layers. In particular, results from thermal modeling of the solidification of layers (see previous section) is expected to yield more precise layer residual stress distributions for use in the solid mechanics model. The goal would be to not only predict residual stress and curvature effects in geometrically complex artifacts, but to also shed light on material combinations and process procedures that minimize them. An example of a layered copper steel tube manufactured by Carnegie Mellon's MD* process [21 is shown in Figure 6
+
+Figure 6. Layered copper steel tube manufactured in MD* InterfacialDebonding In addition to warping, residual stresses can cause delaminations between layers by acting as the driving force in the propagation of interfacial cracks from the edges of the artifact toward its center (see Figure 7 a). The delamination may propagate through the entire length of the artifact, separating it into two pieces. This is particularly a problem in the case of artifacts made of layers of different materials, due to the large stress concentrations that exist at the intersection of an uncracked bimaterial interface and a free edge. Delaminations
+
+Stiff Material Compliant Material!
+Stiff Material
+
+(a)
+
+(b)
+
+Figure 7 a) Edge delaminations and b) Untailored and tailored bimaterial interfaces 8
+
+A fully elastic asymptotic analysis of a bimaterial interface intersecting a free edge (see Bogy [91 or Hein and Erdogan [101) predicts that stresses are, in general, singular there. Using the notation that the stresses vary as r (1-1) as r approaches zero, where r is measured from the intersection point, Xcan take on values from X= 1.0 (no singularity) to roughly X=0.60. The value of X is a function of the relative mismatch in elastic properties of the two materials and the angle that the interface makes with the free edge. The stress singularities that result from an elastic analysis of the bimaterial problem are important for two reasons. First, they indicate that actual interfaces in manufactured artifacts exhibit very high concentrations of stress at their free edges. Second, from an analysis standpoint, because the strength of the singularity in the elastic stresses is a function of the material combination studied, analytical comparisons of delamination driving force between different material combinations is difficult if an uncracked interface model is used. We are investigating several approaches to help minimize delaminations. For example, one approach involves attempting to tailor the geometry of the interface to eliminate undesirable elastic stress singularities. This approach was suggested to the authors by G. B. Sinclair and follows the work of Okajima [11 on the bimaterial interface problem and the role of interface geometry in adhesive tensile tests. In Okajima [1 1] it is shown that the stress singularity at a bimaterial free edge in adhesive specimens can be eliminated if the interface is made to intersect the free edge tangentially, as shown in Figure 2b. In fact, the angle of intersection with the free edge need not be tangential and is a function of the relative elastic mismatch between the layers. Stress Cracking Another problem associated with residual stresses layered manufacturing is the cracking of newly applied brittle layers as they cool and contract after being applied to existing layers of the artifact (see Figure 8). A separate but related problem is the cracking of brittle layers after they are embedded between ductile layers within the artifact, typically due to a combination of residual and applied tensile stress. It is important to predict, for a particular brittle material, the maximum allowable thickness of a newly applied layer so that stress cracking will not occur. Similarly, for embedded layers, it is desired to determine the relative thickness of an embedded layer so that no cracking will occur.
+Stress Cracks
+
+Figure 8. Stress cracking in a newly applied brittle layer. Summary Layered manufacturing offers new opportunities for product design. This is true from a geometry and from a materials perspective. Objects of arbitrary geometric complexity can be built from a larger variety of material combinations than with conventional manufacturing methods. However, frequently the quality of the built articles (bond strength between layers and material density) and the rate at which they are created does not meet industrial demands. A better insight into the physics of the underlying bonding processes between layers and the resulting residual stress accumulation due to temperature gradients is expected to lead to improved performance of ojects my through layered manufacturing. 9
+
+Acknoledgements Financial support of this work by the Advanced Research Project Agency (ARPA/ ESTO) is gratefully acknowledged. References I. Bourell, D.L. ,Beaman, J.J., Marcus, H.L., and Barlow, J. W., (1990) "Solid Freeform Fabrication: An Advanced manufacturing Approach," Proc. Solid Freeform Fabrication Symposium, The University of Texas at Austin, Aug. 6-8, 1-7 (1990). 2. Weiss, L. E., Prinz, F. B., Adams, D. A., and Siewiorek, D. P., (1992)"Thermal Spray Shape Deposition", Journalof Thermal Spray Technology, Vol. 1, pp. 231-237. 3. Sachs E., Cima, M., Cornie J., (1990) "Three Dimensional Printing: Rapid Tooling and Prototypes Directly from CAD Representation," Proc. Solid Freeform Fabrication Symposium, The University of Texas at Austin, Aug. 6-8, 27-33. 4. Ashby M. F., (1974) "A first Report on Sintering Diagrams," Acta MetVol. 22, pp. 275-286. 5. Herman, H., "Plasma-sprayed Coatings," (1988) Scientific American, Sept. 1988, pp. 112117. 6. Amon, C.H., Prinz, F.B., and Schmaltz, K.S.," (1993) Numerical Modeling of Thermal Spray Systems," Tecnical Report EDRC 24-10693, Carnegie Mellon University, Pittsburgh, PA 7. Y.S. Touloukian, Y.S. (1967) "Thermophysical Properties of High Temperature Solid Materials," Vol. 3, 1967, Macmillan, New York. 8. Timoshenko, S. (1925), "Bending and Buckling of Bimetal Strips," J. OpticalSoc. Am., Vol. 11, p. 233-255. 9. Bogy, D.B. (1971), "Two Edge-Bonded Elastic Wedges of Different Materials and Wedge Angles Under Surface Tractions," J. Appl. Mech., Vol. 38, pp. 377-386. 10. Hein, V.L. and Erdogan, F. (1971), "Stress Singularities in a Two-Material Wedge," Int. J. Fract.Mech., Vol. 7, pp. 317-330. 11. Okajima, M. (1985), "Analysis of Tensile Testing Configurations for Assessing the Strength of Butt Joints," Ph.D. thesis, Department of Mechanical Engineering, Carnegie Mellon University.
+
+10
+
+StereoLithography Epoxy Resin Development: Accuracy and Dimensional Stability Dr. Thomas IL Pang
+Research & Development Department 3D Systems, Inc. 26081 Avenue Hall Valencia, California 91355
+
+Abstract Recently, a new class of StereoLithography (SL) resins was developed that provide significantly improved overall part accuracy and dimensional stability relative to earlier SL resins. The new resin formulation, XB 5170, is based on epoxy chemistry and has many substantial advantages over conventional acrylate SL resins. In addition to excellent mechanical properties, the epoxy resin has very low shrinkage, resulting in extremely low curl and distortion. A standard UserPart built in XB 5170 achieved the highest level of dimensional accuracy to date from a statistically significant number of measurements taken in the x, y, and z directions. SL parts built in XB 5170 also exhibit superb dimensional stability in the laser-cured state as demonstrated by a new creep test. Dimensional stability in the laser-cured state is critical, especially for parts built in the new QuickCastm build style. In addition to the epoxy resin, QuickCast is the key to successfully utilizing SL parts for direct shell investment casting applications. Background The StereoLithography (SL) process involves building 3-dimensional objects by sequentially generating thin layers of selectively cured liquid resin on top of each other. The current StereoLithography Apparatus (SLA) uses a focused UV laser beam directed by a computer-controlled X-Y scanning mirror system that has an extremely high pointing accuracy. High laser pointing accuracy is undoubtedly a prerequisite to generating an accurate part. However, high pointing accuracy alone does not automatically translate into building accurate parts. Many variables such as resin type, laser spot size and symmetry, and the process used to build a part also affect part accuracy. Therefore, the accuracy of final SLA parts, in addition to inherent machine accuracy, is very important to SL users. The process parameters required to build accurate SL parts are quite complex in nature. However, insights obtained from fundamental research at 3D Systems in 19901 led to a substantial improvement in SL part accuracy. WEAVE TH and STAR-WEAVE ,, laser drawing styles developed in 1990 and 1991, respectively, increased the accuracy of acrylate resin by more than 40% based on a statistically significant number of measurements taken on a standard accuracy part called the UserPart. The SL UserPart was designed, not by 3D Systems, but by the SLA user group in 1990 to determine the overall dimensional accuracy of SL parts.2 From a significant number of UserPart measurements accumulated since then, SL has achieved a relatively high level of accuracy even in 11
+
+the conventional acrylate resins. 3 However, it appeared as if the accuracy of SL parts made in acrylate resins and the process optimization techniques were approaching a plateau. Substantial improvements in part accuracy and resin properties were necessary to apply SL to new markets beyond conventional form, fit, and function prototypes. For instance, a higher level of accuracy is necessary to expand the applications of SLA into the manufacturing arena. Dimensional stability is also essential for a rapid prototyping part for almost any application. Without sufficient dimensional stability even a part initially built accurately becomes inaccurate over time. A rapid prototyping part would have limited use without high accuracy sustained for a period of time characteristic of the application. For form, fit, and function applications, dimensionally unstable parts may not fit properly. Holes and other intricate features may become misaligned with time. A high level of dimensional stability becomes especially crucial in an application such as direct shell investment casting. This process requires an efficient conversion of prototype parts from plastic to metal with maximum preservation of accuracy. In shell investment casting, a rapid prototyping part is normally subjected to periods of days up to even weeks before it is shelled. Only rapid prototyping sites with an in-house foundry are capable of initial face-coat shelling within hours after the parts are built. Otherwise, a nontrivial amount of time, typically on the order of days, is required for shipping the part to an appropriate foundry and for the foundry to actually shell the part. Any dimensional instability within this period leads to an inaccurate shell investment casting pattern, rendering the resulting metal cast prototype unacceptable. Clearly, a new type of resin with high accuracy and excellent dimensional stability was needed. New Epoxy Resin XB 5170 Ciba-Geigy (Switzerland) and the Research and Development Department at 3D Systems have been involved in a program of joint SL photopolymer research and development since 1988. Ciba-Geigy, one of the leading chemical companies in the area of epoxy chemistry, had been looking at SL epoxy resins for sometime. In July, 1993, Ciba-Geigy released a new resin for the SLA-250 based on epoxy chemistry. The characteristics of this epoxy formulation, XB 5170, are given in table 1. The properties of two conventional SL acrylate resins are also listed for comparison. StereoLithographic properties of the epoxy resin, XB 5170, compare well with those of acrylate resins except that the photospeed is a little slower. The epoxy resin has an excellent set of physical properties that exceed those of acrylate resins in almost every single category. Namely, XB 5170 has: 1) 2) 3)
+4) 5)
+
+very low viscosity high laser-cured (green) modulus high postcured modulus
+good elongation at break good impact strength
+
+However, the high achievements in accuracy and dimensional stability are what makes this new epoxy resin so special. According to the diagnostic accuracy measurements performed, XB 5170 shows:
+
+12
+
+6) 7)
+
+8) 9)
+
+substantially reduced thin flat slab distortion almost twice the overall UserPart accuracy compared to XB 5081-1 acrylate resin (Note: XB 5081-1 was formerly the most accurate SL resin until XB 5170 was introduced.) negligible Cantilever curl during the SL building process. superb dimensional stability as measured by the CreepBar diagnostic test.
+
+build style, is especially In addition, the epoxy resin, when built in the new QuickCast IN 4 Many metal parts with high accuracy and suited for direct shell investment casting applications. smooth surfaces have been cast successfully in the epoxy resin, XB 5170.5 Even though the physical properties of XB 5170 are important and definitely deserve discussion of their own, this report will focus on the first three diagnostic tests given in Table 1, that determine the accuracy and dimensional stability of the epoxy resin.
+
+StereoLithography Resin Characteristics
+Resin Type Resin Name UserPart Accuracy* Error) Cantilever Curl* Green Creep Rate* Linear Shrinkage Flat Slab Distortion Acrylate Urethane Acrylate XB 5149 XB 5081-1 Dimensional Properties and Accuracy 6.1 mils 5.3 mils 10 % 10 % 3.7 mil/log,n, t 11.5 mil/log,n t 0.6 % 0.7 % 70 mils 71 mils Physical Properties 2,400 cps 620 MPa 3,000 MPa 2,000 cps 310 MPa 1,150 MPa Epoxy XB 5170 2.8 mils 1% 0.5 mil/log, t 1 0.06 % 20 mils 180 cps 1700 MPa 2,700 MPa 9% 30 kJ/m2
+9 mJ/cm2
+
+(R.M.S.
+
+Viscosity @ 30Â°C Green Flexural Modulus** Cured Tensile Modulus*** Elongation@Break*** Impact Strength***
+
+Critical Exposure, Ec Penetration Depth, Dp * Discussed in Text. ** 2.5 mm Thick strip built on SLA. Specimens cast between glass & UV cured. ** *
+
+2.5 % 10 % 23 kJ/m2 3 kJ/m2 StereoLithographic Properties 6 mJ/cm2 7 mJ/cm2 7 mils 5.5 mils
+
+4.5 mils
+
+Table 1.
+
+13
+
+UserPart, Cantilever, and CreepBar Accuracy Diagnostic Parts Diagnostic tests are essential tools used to compare the achievable level of performance for new resin systems or new process techniques. Diagnostic tests allow one to compare new resin or process systems with earlier ones in a quantitative manner. The dimensional properties of the epoxy SL resin, XB 5170, were determined by the following diagnostic tests. Three diagnostic test parts, UserPart, Cantilever, and CreepBar, shown in figure 1, are representative diagnostic test parts used to determine dimensional properties. The UserPart and the Cantilever parts, discussed in detail elsewhere 6 .7 are a measure of overall dimensional accuracy, and curl distortion during the building process, respectively. The CreepBar test was recently developed specifically to determine the dimensional stability of an SL part over a given period of time.
+
+Part Accuracy Diagnostic Tests
+
+n UserPart
+*Cantilever * CreepBar
+
+[-a 1Am]
+Cur-
+
+Creep Distonon]
+
+Figure 1.
+
+Three accuracy diagnostic parts used to test StereoLithography resins.
+
+UserPart Accuracy
+The UserPart is intended as a metric of overall SL part accuracy. It is 9.5 inches long by 9.5 inches wide and about 2 inches high. Many small and large features are included. The accuracy data is obtained by measuring a statistically significant number of dimensions of the features that have varying thicknesses and lengths. From a single UserPart, 78 measurements are taken in the x and y directions and 14 measurements are taken in z. The total number of dimensional measurements per part is 170. These dimensions include thin, medium, and thick walls, short and long dimensions, as well as holes of various sizes. All measurements are taken using a Coordinate Measuring Machine (CMM) that has a repeatability of_+5 microns, or +0.2
+
+14
+
+mils. The accuracy data obtained from the UserPart includes the normal shrinkage of the resin that takes place in the vat during the SL building process. It also takes into account the dimensional changes that occur during the postcuring process. In other words, the UserPart is subjected to all of those processes incurred when building real SL parts. To analyze overall part accuracy, the measured UserPart dimensions are compared to the nominal CAD dimensions and dimensional error values are calculated. A histogram called an Error Distribution Function is then constructed from compiling individual error values. The Error Distribution Function for the conventional acrylate SL resin, XB 5081-1, is given in figure 2. The curve is a result of 2550 total data points obtained from 15 UserParts all measured by CMM. The peak occurs at error=0 and the distribution curve is quite symmetrical. The fact that the general shape resembles a Gaussian distribution suggests that the errors on the plot are random events and are not due to systematic errors. The overall dimensional accuracy of the SL UserPart built in XB 5081-1 can be extracted from the error distribution curve. However, it is usually more convenient to convert the curve into a Cumulative Error Distribution, as shown in figure 3. This is done by simply flipping all the data points in the negative error region to the positive error region and taking a running sum at each specified error window. Using the Cumulative Error Distribution the probability that any dimension will lie within a certain range of error can be immediately interpolated. For example, a commonly quoted characteristic error value is the root-mean-square (R.M.S.) error or equivalently, the standard deviation. The R.M.S. error corresponds to a 68% probability of occurrence. For XB 5081-1 resin, the R.M.S. dimensional error is +135 microns or +5.3 mils. This means that 68% of the dimensional measurements taken on the UserPart made in XB 5081-1 are expected to lie within +5.3 mils. XB 5081-1 was formerly the most accurate SL resin, until the epoxy resin was recently introduced. Now, what about the new epoxy resin XB 5170? The Error Distribution Function for a UserPart built in XB 5170 is given in figure 4. Because this resin is just being released, the curve was generated from a single UserPart. Nevertheless, the error distribution curve generated from 170 dimensional measurements already looks quite Gaussian. The peak of the curve is also centered at about error=0. The Cumulative Error Distribution for XB 5170 is plotted in figure 5. It is clear that the error for the epoxy resin is a lot less than XB 5081-1. The maximum error at 100% probability, is about 500 microns or 20 mils for XB 5081-1, compared to less than 355 microns or 14 mils for the new epoxy resin, XB 5170. The R.M.S. error for XB 5170 is only 71 microns or 2.8 mils. XB 5170 resin provides almost twice the overall accuracy. It should be appreciated that the degree of improvement in the R.M.S. error from 5.3 mils to 2.8 mils, based upon a statistical number of data points, is truly significant. A history of progress in SL UserPart accuracy is shown in figure 6. In 1989 the R.M.S. error for a UserPart built in the original 50-mil Tri-Hatch build style was about + 9 mils. With the introduction of WEAVE - and STAR-WEAVE " build styles in 1990 and 1991, and subsequent optimization in 1992, the R.M.S. error was reduced by a factor of two to + 4.5 mils using the same resin. This was comparable to the accuracy achieved by a UserPart machined from an engineering plastic (Perspex) by a CNC milling machine.8 This level of accuracy is marked by the horizontal line in figure 6. With the introduction of the epoxy resin, XB 5170, the UserPart R.M.S. error was dramatically reduced to Â±2.8 mils. This improvement brings the accuracy of SL generated UserParts into the same ballpark as an Aluminum UserPart machined by CNC milling 9 , a significant advance in the accuracy of SL parts.
+
+15
+
+USERPART (250)
+ERROR DISTRIBUTION FUNCTION XB 5081-1
+
+N =2650
+
+400 Sao 300 noo
+
+160
+100
+
+0
+
+ID
+
+-0o
+
+-15
+
+-10
+
+-I 0 a ERROR (mils)
+
+o0
+
+to
+
+3O
+
+Figure 2.
+
+Error Distribution Function for fifteen UserParts made in XB 5081-1 resin.
+
+F
+
+StereoLithography Userpart
+CUMULATIVE ERROR DISTRIBUTION Function XB 5081-1
+
+100 --. 14
+
+6"D
+INS 30 I. o 1 3 5 4 6 & S 8 10i1 It 13 14 I 10 TI0 I 1S 0
+
+ERROR (mile)
+
+Figure 3.
+
+Cumulative Error Distribution for fifteen UserParts made in XB 5081-1 resin.
+
+16
+
+ERROR DISTRIBUTION FUNCTION
+
+StereoLithography USERPART (250)
+XB 5170
+RMS Ã½ 2.80 Milon
+
+[~mI~]
+
+cc40
+125
+
+UIII
+... ||
+30 to
+
+1.2
+
+ERROR
+
+(mils)
+
+Figure 4.
+
+Error Distribution Function for one UserPart built in XB 5170, epoxy resin.
+
+InI
+
+StereoLithography USERPART
+CUJMULATIVE ERROR DISTRIBUTION XB 5170
+RuaI - 8.00 mile N ERROR - l'/ Cmil.)
+
+100
+
+Figure 4.
+
+Cmltvo DistributinFntion for one UserPart built in XB 5170, epoxy resin. Error s
+.00
+
+Sso
+W1
+
+2
+
+517
+
+S40
+
+30
+
+0
+
+1
+
+a8
+
+4
+
+6
+
+B
+
+S 8
+
+0
+
+10 13tI
+
+13 4 If
+
+1B 17? 1019
+
+0
+
+ERROR (mile)
+
+Figure 5.
+
+Cumulative Error Distribution for one UserPart made in XB 5170, epoxy resin.
+
+17
+
+10
+
+10
+
+Improved StereoLithography Part Accuracy 1989 to 1993 77
+0 I. 6
+
+a
+
+*
+C'
+
+5
+USZI ART CN 4 SER-PAR CNC mllii Al umnum
+(f
+
+6
+milling in Istic 7 4
+
+Â° a
+0 0 CA 2
+Accuracy llinit I present SLA Syste .
+
+2
+
+0
+
+[.9
+TRIjATC
+
+]
+
+[,90
+V9V
+XB 5081-1
+
+10
+
+1991 1992
+7TN-We~vi3
+
+1993
+3?An-VKAVE" Qluickcant"â¢
+
+"Figure 6.
+
+X3 5170 (Epoxy Resin)
+
+(Acrylate Resin)
+
+StereoLithography's progress in UserPart Accuracy from 1989 to 1993.
+
+Unsupported Cantilever Curl The Cantilever diagnostic test, shown in Figure 7, tells us how much the protruding Cantilever areas of a part curl if they are not properly supported. Therefore, cantilever curl is one type of distortion that happens in the vat during the building process. This was a useful measure
+
+in the past when feasibility studies were performed to see whether or not parts could be built with minimal supports. Today, cantilever sections of real SL parts are usually supported such that negligible cantilever sections occur. Therefore, while the Cantilever diagnostic part is still very useful in comparing different resin systems, it has some limitations in comparing real parts built with proper supports. Nonetheless, Cantilever curl is indeed a measure of the inherent tendency for the resin to undergo warpage during the building process. The curl values (rise at 6-mm run) for the conventional acrylate resins manufactured by Ciba-Geigy are typically between 8-13%. As a specific example, for XB 5081-1 it is 10%. However, the Cantilever curl for the epoxy resin, XB 5170, is extremely small. The curl value for XB 5170 is only 1 %. This result indicates that the epoxy resin has a very small, almost negligible tendency to undergo curl distortion during the building process.
+
+18
+
+Cantilever Curl Phenomenon
+
+Free Can&leverCOWi
+
+Figure 7.
+
+Cantilever free (unsupported) curl phenomenon.
+
+CreepBar Creep Distortion So what types of accuracy problems do the supported parts typically have? Experience with the conventional acrylate resins has shown that when SL parts are left in the laser-cured or so-called "green" state for a long time without postcuring, their dimensional errors increase. The longer they stay in the laser-cured state, the more inaccurate the parts become. This indicated that SL parts built in acrylate resins are not completely dimensional stable in the laser-cured state. For visualization purposes, the degree of dimensional change with time for SL parts is relatively small and causes no problems. However, dimensional instability and its time dependence must be identified and understood in order to build highly accurate and more dimensionally stable parts that meet the requirements for direct shell investment casting applications. Furthermore, resins and specific build processes must be found that can indeed generate parts with high dimensional stability. While layer-addition fabrication offers many advantages such as the ability to build complex geometries; curl distortion has traditionally been one of the major disadvantages. When additional layers are cured or solidified on top of each other, physical or chemical transformation takes place in the material. For SL, it is a photochemical crosslinking reaction, and for rapid prototyping methods that use solidification of a molten material, it is changes in the density of the materials due to temperature gradients. Both of these changes involve some degree of volumetric shrinkage and lead to the build up of internal stress in the part. This built-in internal stress ultimately manifests itself in a type of warpage known as creep distortion. Creep distortion may take place quickly or slowly with time. The exact creep behavior depends on many parameters including the part geometry, type of resin and its laser-cured glass transition temperature, ambient temperature, and build parameters. Creep distortion becomes worse for parts having flat geometries and high aspect ratios when the long axis coincides with the building surface. In this report, time dependent creep distortion measurements are presented for a number of SL resins.
+
+19
+
+The CreepBar is a new diagnostic test that was designed to measure the dimensional stability of an SL part. In the CreepBar diagnostic test, a thin rectangular part, shown in figure 8, having a high aspect ratio, is built fully supported on an SLA. The supports prevent any distortion from occurring in the vat. The CreepBar is then taken off the platform, cleaned, and is allowed to undergo deformation with time. The CreepBar is laid such that the direction of creep distortion is horizontal, to minimize the effect of gravity. An optical creep measurement (OCM) device, shown in figure 9, is used to track the rate of creep distortion with time. The data is recorded on a computer. The resulting creep distortion is a quantitative measure of the dimensional stability of the test part, for a particular resin built in a particular way. Laser-cured and postcured CreepBar behaviors are expected to be very different. They should be clearly distinguished from each other. For most resin systems, the great majority of the creep distortion occurs in the laser-cured state. Therefore, only laser-cured CreepBar data was considered at this time. The CreepBar, thus, is NOT postcured for the data presented here. Laser-cured creep distortion arises from built-in stresses generated during the building process on the SLA. Postcured creep distortion is more complex because it involves stresses that are introduced into the part during UV or thermal postcuring in addition to the original laserinduced stresses. Both classes of creep distortion depend strongly on the geometry of the part, on the resin, and the SL build parameters used, as well as temperature. The experimental results for creep distortion should be compared only for the creep tests performed under a controlled environment. It should be noted that the creep test presented here is distinctively different from the ASTM creep test that involves an externally applied standard weight as a source of stress. In the SL creep test, the internal build stresses serve as the distortion mechanism, and may not be constant throughout the creep phenomena.
+
+CreepBar and Creep Phenomenon
+I I I I i I I I
+(Dimensio a x 114 x 114 inck) :
+
+On platform
+
+"-CreepDbii
+
+ovi
+
+Off platform
+
+creep (latent curl)
+
+Figure 8.
+
+CreepBar diagnortic part dimensions and a schematic of the test sequence and the creep phenomenon.
+
+20
+
+OCM Configuration
+Fhacudelsteo amttppd to klht
+
+Volt=age Radout
+
+Figure 9.
+
+Optical Creep Measurement (OCM) Device configuration. CreepBar at time= 0 after it was removed from the supports.
+
+Creep Experiment Creep Distortion is a deformation of an SL part that takes place with time. It is the degree of deformation that happens after the SL part is taken off the platform and the supports are removed. The deformation does not begin until this instant because the supports and the platform restrict the SL part from deforming. The built-in stresses begin to affect the dimensional stability of the SL part only after these restrictions are relieved. In the creep test a high aspect ratio (8 X 1/4 X 1/4 inch) rectangular bar called the CreepBar, is built on an SIA. It is supported completely during the building process in the SLA to prevent it from distorting in the vat. It is then removed from the SLA platform. The degree of out-of-plane curl distortion of the laser-cured bar, marked by the small downward arrow shown at the bottom of figure 8, is measured over a period of 24 hours. A CreepBar of length = 200mm, width = 6.35mm, and height = 6.35mm is built on an SLA, as shown in figure 8, with supports such that the part does not undergo distortion during the building process. When the CreepBar is complete, it is rinsed in TPM (no solvent cleaning is required for the QuickCast " build style) and then is taken off the platform with the supports removed as soon as possible. The time that the CreepBar is taken off the platform is taken as time t=0. As shown in figure 8, the CreepBar begins to undergo creep distortion with time. Because of the way the layers are cured in the SL process, the direction of the stresses force the CreepBar to distort concave upward. This may be thought of as a "latent curl" effect that manifests itself only after the supports are removed. As soon as the part is cleaned and removed from the supports, it is placed on a custombuilt optical device called the OCM (Optical Creep Measurement). An optical approach was 21
+
+elected because mechanical means of measurement for small displacement distances are both tedious and unreliable. Even a small mechanical force applied to the CreepBar could distort it. A schematic drawing of the OCM device is given in figure 9. The OCM consists of flat supporting plates that are co-linear, a photo detector, a small section of Aluminum foil attached to the CreepBar, and an IR photodiode light source shining down on the photodetector. (The light source is not shown in the schematic drawing.) The IR photodiode does not initiate further photopolymerization. The principle of OCM operation depends on the variation in total optical power received by the photodetector as the result of displacement by the CreepBar. The voltage reading from the photodetector depends on the total amount of incident light. At time=0, when the CreepBar has not undergone any distortion, the voltage reading is low because most of the IR light is blocked by the CreepBar and the Aluminum foil. After some elapsed time, the CreepBar distorts and the aluminum foil moves away from the photodetector. A larger area of the photodetector is now exposed to the light source and the voltage reading increases accordingly. From a carefully constructed calibration curve, shown in figure 10, the voltage reading can be directly converted into creep distortion. The creep distortion
+data is then collected as a function of elapsed time on the computer.
+
+Calibration Curve
+Por
+
+Optical Creep Ideasurement Device
+
+soi -o5o
+,.0
+
+----
+
+Sensitivity = 16.7 mV / mil Voltage Range = 1.5 - 6.0 Volts
+
+I
+
+i-I'
+
+i
+
+J-
+
+0 > 3Â° Ã½O
+
+-
+
+3.5
+
+4
+
+0.0
+
+--
+
+_
+
+0
+
+25
+
+50
+
+75
+
+100
+
+125
+
+10
+
+17
+
+200
+
+Z25
+
+250
+
+Dd. Creep Distortion (mil)
+
+Figure 10.
+
+Calibration curve for the Optical Creep Measurement Device relating voltage output to creep distortion.
+
+22
+
+Creep Distortion of 8-inch CreepBar Diagnostic Part
+
+45 40
+
+o
+
+â¢
+
+10
+
+02 .. 5i to lb 20 25 Time (hour)
+
+Epoxy Resin
+
+Figure 11.
+
+Creep distortion of laser-cured SL resins as a function of time at 2 1 0C.
+
+35
+
+50
+
+Creep Distortion of Laser-Cured 1 .
+
+5
+
+CreepBar Diagnostic Partl
+
+fl-i70
+
+0
+
+203
+
+Creep Data Green Creep Data for acrylate resins, XB 5143, XB 5149, XB 5081-1, and the new epoxy resin XB 5170 were collected on the OCM. All creep measurements were taken at room temperature ranging from 20 to 22Â°C, typically at 21TC. The results are presented on figure 11. All creep data show a rapid increase in creep distortion at short times. The creep data appear to reach a plateau at long times. For most of the resins presented here, more than 60% of the 24-hour creep distortion is virtually complete within an initial period of 2 hours. With respect to absolute magnitude, CreepBars made in XB 5143 have the largest creep distortion. They distort to about 50 mils/ 8-inch length in 24 hours. This suggests that laser-cured parts should be postcured as soon as possible in order to preserve accuracy. This precaution is usually taken by most SL users. XB 5143 is then followed by XB 5149, XB 5081-1 and XB 5170. XB 5081-1 shows a dimensional instability of about 15 mils/ 8 inches over 24 hours. However, the new epoxy resin, XB 5170, has the least creep distortion at every point in time. This creep data shows that the epoxy resin is, by far, the most dimensionally stable resin in the laser-cured state. At every point in time, the creep distortion for XB 5170 is less than 5 mils/ 8-inch length over a period of 24 hours. Because the rate of creep distortion was found to be rapidly decelerating with time, the creep data was plotted as a function of the logarithm of time in figure 12. Interestingly, all of the creep data was found to be very nearly a log-linear function of time in the 24-hour period. Note the linearity of the data in figure 12. From this observation, a single useful parameter called "creep rate" could be defined for purposes of comparing the creep properties of various SL resins. Creep rate, defined by the symbol CR, is basically the slope of the creep data when it is plotted as a function of the logarithm of time. Thus, CR is the creep distortion that takes place for every multiple of 10 in time. For example, consider an SL resin CreepBar that was built in a particular build style and was found to have CR = 15 mils. As the elapsed time increases from 1 hour to 10 hours (one multiple of 10), the creep distortion would increase by 15 mils. As the elapsed time then increases from 10 hours to 100 hours (another multiple of 10), the creep distortion would increase by an additional 15 mils. The total distortion, as time elapses from 1 to 100 hours (two multiples of 10 in time), is twice the CR, or 30 mils. Thus, a single parameter, CR, or creep rate, characterizes the dimensional stability of SL parts. A summary of CR values for SL resins is presented in table 2. Creep Rates of StereoLithography Resins SL Resin XB 5170 XB 5081-1 XB 5149 XB 5143 CR (mils / log,,, time) 0.5 mils 3.7 mils 11.5 mils 14.4 mils Table 2. 24
+
+It is important to remember, though, that SL parts do not continue to creep indefinitely even in the laser-cured state. Internal stress is relieved as the parts undergo creep. When it becomes negligibly small, an equilibrium is reached. Once a distorted equilibrium position is attained the part no longer creeps. The rate at which equilibrium is reached depends on the resin and involves photochemical, process, and viscoelastic parameters, as well as temperature. Also, when SL parts are postcured, their creep rates decrease tremendously. Nevertheless, it is clear, from the CreepBar data shown above, that the new epoxy resin, XB 5170, shows extremely low creep. Consequently, SL parts made from XB 5170 exhibit superior dimensional stability in the laser-cured state. Conclusion A StereoLithography epoxy resin, XB 5170, intended for use in the SLA-250 system was recently released by Ciba-Geigy. This resin has excellent physical properties and outstanding dimensional properties. Namely, it is highly accurate and dimensionally stable. The dimensional properties of this epoxy resin were presented in comparison to the conventional SL acrylate resins. Accuracy and dimensional stability values were obtained from three diagnostic tests called the UserPart, Cantilever, and CreepBar.
+The UserPart showed that dimensional accuracyfor XB 5170 was almost twice as good as
+
+the next best acrylate resin. This SL UserPart was found to have the dimensional accuracy comparable to a UserPart built in aluminum by a CNC milling machine.8 The Cantilever curl diagnostic test showed that XB 5170 has a negligible tendency to curl during the SLA building process. For conventional acrylate resin, the best curl value was about 7% curl. XB 5170 curled only 1%, which is an improvement of a factor of seven, and indicates that negligible internal stress is introduced into parts when they are made in this epoxy resin. A new diagnostic test was introduced to demonstrate dimensional stability of SL parts. The test, called CreepBar distortion test, involved the measurement of the out-of-plane creep distortion of an 8-inch long bar built on an SLA. This test also showed that XB 5170 undergoes
+minimal creep distortion in the laser-cured state. According to the CreepBartest, XB 5170 is at least 7 times more dimensionallystable than XB 5081-1, which itself had been historically known
+
+as a relatively dimensionally stable SL resin. An improved level of accuracy and dimensional stability was achieved by the new epoxy resin, XB 5170. The diagnostic tests showed superb overall accuracy, low cantilever curl, and very high dimensional stability. These properties, together with outstanding physical properties such as low viscosity and high green strength, make XB 5170 the resin of choice for StereoLithography, especially when high accuracy is required. An additional advantage is that SL parts built in the new QuickCast TN build style with XB 5170, have been proven to be effective in direct shell investment casting applications. 4,5 Therefore, SL users can expect XB 5170 parts to have greatly improved accuracy and dimensional stability as well as direct shell investment casting capability.
+
+25
+
+References
+I Jacobs, P. F., Chapter 4 & 8, "RapidPrototyping& Manufacturing: Fundamentalsof 2 Gargiulo, E. P., "StereoLithographyProcessAccuracy: User Experience", Proceedings of the
+
+StereoLithography", Society of Manufacturing Engineers, Dearborn, Michigan, July 1992. Second International Conference on Rapid Prototyping, Dayton, Ohio, June 23-26, 1991, pp.311-326. of the Third International Conference on Rapid Prototyping, Dayton, Ohio. June 1992. Freeform Fabrications Symposium, University of Texas, Austin, August 9-11, 1993.
+
+3 Gargiulo, E. P., "StereoLithographyProcessAccuracy: Further User Experience", Proceedings 4 Pang, T. H., Jacobs, P. F., "StereoLithography1993: QuickCast 7m",, Proceedings of the Solid 5 Jacobs, P. F., Kennerknecht, S., Smith, J., Hanslits, M., Andre, L. ,"QuickCast " Foundry
+
+Reports", 3D Systems R & D report, April 1993.
+6 Jacobs, P. F., Chapter 11, "RapidPrototyping& Manufacturing: Fundamentalsof
+
+StereoLithography", Society of Manufacturing Engineers, Dearborn, Michigan, July 1992, p. 306. 7 ibid., Chapter 10, p.256.
+8 Gargiulo, E. P., "StereoLithography ProcessAccuracy: UserExperience", Proceedings of the
+
+First European Conference on Rapid Prototyping, University of Nottingham, England, July 6-7, 1992, pp. 187-201. 9 ibid.
+
+26
+
+VIBRATORY FINISHING OF STEREOLITHOGRAPHY PARTS
+
+John D Spencer, Richard C Cobb and Philip M Dickens Department of Manufacturing Engineering and Operations Management, University of Nottingham, UK.
+SUMMARY Rapid Prototype polymer resin models produced by Stereolithography have, by the nature of the process, a relatively poor surface roughness, particularly on concave and convex surfaces. In many cases this is unacceptable, and slow and tedious manual finishing techniques are often used to improve the surface. An investigation has been conducted into a range of automated finishing techniques with the aim of producing an acceptable surface roughness. This paper presents the results from two techniques, Vibratory Bowl Abrasion and Ultrasonic Abrasion using components made from Ciba-Geigy XB5081-1 and XB 5143 resins. Initial results from Scanning Electron Microscopy and surface topography analyses suggest that both techniques are capable of improving the model surfaces. INTRODUCTION Since its introduction Stereolithography has become established as the leading commercial Rapid Prototyping (RP) system (Jacobs 1992). A 3D CAD model of the desired component is mathematically 'sliced' into layers which are typically 150lm thick. The slice data is then used to control a UV laser which is guided over a vat of liquid photopolymer and is selectively cured as the laser tracks over it. In this way the part is built up layer by layer with the laser curing the required regions of each subsequent photopolymer layer. A post curing operation is then used to fully solidify the part. Prototype models produced from the process exhibit a relatively poor surface finish, particularly on concave and convex surfaces. For many applications the usual practice is to sandpaper and polish the models by hand which is a tedious and time consuming operation and also presents a potential health hazard from the resin dust. Although prototypes can be rapidly manufactured, parts can end up after finishing with poorly defined features, and the more complex the model the more difficult it becomes to finish. Where parts are intended for testing, finishing becomes a critical factor. For example, parts tested in say, fluid or gas chambers may not be representative of the final component as the layer steps could disrupt gas flows. Furthermore, in the production of tooling a poor surface on the model will be reproduced on the tool and removal of the model may be difficult if the tool material keys into the surface roughness. When manufacturing stereolithography parts layers are produced that can form a curved (or angled) surface and it may be either the internal or the external corners that define the required profile. If the external corners define the profile their removal will cause the profile to become undersize. However if the profile is defined by the internal corners then it will be oversize until the steps are removed, see Figure 1. Where material removal takes 27
+
+place, it is important that the internal corners of the layers are specified as defining the surface, (this is the default setting with 3D Systems machines). Vertical faces also exhibit a step effect due to the manner in which the laser solidifies the resin. Although the power of the laser spot has a gaussian distribution the resin cures in a parabolic form, thus at the edge of a vertical face it is found that a stack of parabola curves occur, these cause steps on the surface, as seen in Figure 2, (Jacobs, 1992). Even if the model is supplied with a draft angle it is still likely to 'key' into a mating surface as a series of small undercuts will remain. One of the problems with curved surfaces on SL models is that the size of the steps change as the angle of the curve changes, that is the closer the angle is to the vertical then the smaller the step in the horizontal ('X/Y') plane, as shown in Figure 3. Also, the closer the angle becomes to horizontal, the larger the step in the horizontal 'X/Y' plane. This effect causes problems when using material removal methods as the larger steps, because they require more work to remove them, will still be evident after the smaller ones have been removed, thus effecting the form of the curve. An experimental programme was therefore constructed with the aim of investigating a range of automated finishing techniques and their potential for smoothing Stereolithography parts without causing any detrimental effect to the 'form' of the part. Although a wide range of options are available to treat the resin surfaces including chemical dissolution and the use of coatings it was decided to concentrate upon the mechanical removal processes and hence test samples were sent to specialist finishing companies. The first stage of the work detailed three techniques, Abrasive blasting, Barrel tumbling and Centrifugal tumbling (Spencer et al 1993). It was found that abrasive blasting severely eroded models made from two different types of polymer resin, but that centrifugal tumbling was able to smooth the surfaces with improvements in Ra values of up to 81 %. However, the process does generate significant damage and the time to process is excessive. This paper presents the findings from a further two finishing techniques, Vibratory Bowl Abrasion and Ultrasonic Abrasion both of which were applied to the same type of models as in the previous study.
+TRIAL COMPONENTS A standard Stereolithography demonstration component, approximately 50mm diameter, was supplied by Texas Instruments, see Figure 4 and was provided in two different material types :Material type 1 Material type 2 Ciba Geigy XB5143 Ciba Geigy XB5081-1 (durable resin) (general purpose resin)
+
+As indicated below the component provided a range of different design features that any potential finishing technique may have to cope with. Vertical and horizontal faces External corner Internal corner Restricted corners The steps on the peripheral radius
+
+(area 1) (area 2) (areas 3 & 4) (radius)
+
+28
+
+To assess the ability and limitations of each of the finishing processes, specific areas of the component test piece were identified (areas 1 - 4). Following the surface treatment, each area could be compared with as-cured reference samples of each material. EXPERLMENTAL PROCEDURE Experimental Techniques In order to investigate the effect of each finishing process upon the component, two experimental techniques were adopted. Specific features of the finished models and as-cured reference samples were examined and photographed on a JEOL JSM 6400 WINSEM Scanning Electron Microscope (SEM). Measurements of the surface roughness (Ra) of all of the samples were made and recorded in the X, Y & Z axis using a Rank Taylor Hobson Taly Surf 4. In all cases the same region of the component photographed on the SEM was measured for surface roughness. The Ra value of the irregularities on a surface is defined as the average value of the departures, both above and below it's centre line, for a prescribed sampling length. In the case of both the X and Y plane measurements the section was accurately mounted on a micro X/Y adjustable table. The surface topography was traced before indexing the sample across 0.07mm and another reading and trace of the surface taken; this was repeated for 5 passes on each section in the X,Y and Z planes. The average of the values measured in each axis was calculated and recorded as was the average of all the readings. RESULTS Reference Samples As-cured reference samples of materials type 1 (XB5143) and 2 (XB5081-1) were mounted and examined on the SEM (see Figures 5-8). By viewing the component in this way the individual slices can be clearly seen, and the surface finish in the W' (vertical height) plane consists of a series of small steps. The size of these steps will depend on the thickness of each layer which can vary between 64-760zm. This stepping effect is most noticeable on faces that make an angle to the normal (vertical/horizontal) plane (eg 450 slope). On further examination it can be seen that in addition to the step formations, the component exhibits a texture on the horizontal surfaces. The surface consists of lines of solidified resin, each - 200Am in width, running parallel to one another in the 'X' plane, 10Ojâ¢m apart with an identical layer, in the 'Y' plane beneath it. The micrograph indicates that approximately 50-75,um of the surface material would need to be removed for the horizontal surface to become smoother, Figures 5 & 6. Comparison of the photographs for each of the materials, Figures 5 - 8, shows that, although the test piece is the same geometry and dimensions, and the layer thicknesses are the same, the two parts are quite different. In contrast to reference material 1 , material 2 has much 'smoother' vertical faces with steps of width 13014m for the former and 50/im for the latter. Another feature of the component made from material type 1, again on the vertical face, is the two pitch cyclic pattern of 'bumps' which step across a one half pitch each layer, Figure 5. These two pitch cyclic bumps are thought to be a fault of the machine control in 29
+
+that it would seem that the laser beam used to cure the resin has scanned too far (Galvanometer overshoot). Vibratory Bowl Abrasion Finishing is achieved for this process by vibrating, at constant speed, a 'U' shaped bowl containing the abrasive media and the model. As the media recirculates around the bowl the surfaces become abraded. This is a less aggressive process than the tumbling processes which caused damage to the models in the earlier study, (Spencer et al 1993). Samples of each material were sent to Invicta Super Finishers Ltd, Grantham, UK, who processed them using two different media types, 30mm diameter x 10mm angle cut cylinders and 13mm green plastic cones. Material type 1 (XB5143) was processed for 1 /4 hours using 30mm diameter x 10mm angle cut cylinders. On the exposed vertical walls, 'steps' and 'bumps' have been partially removed, and localised abrasion is clearly evident, see Figure 9. At exposed external edges and corners abrasion is also apparent together with a loss of definition; an approximate radius of 0.5mm is seen. Toward confined regions such as the basal internal corners illustrated in Figure 10, wear is reduced probably as a result of the large size of media used. With â¢413mm Green plastic cones as the processing media and for an equivalent exposure time of 1 '/ hours, results were not as favourable in smoothing the vertical walls and steps could still be identified. However, the horizontal surfaces did receive a smoothing effect but damage also took place on exposed corners, see Figure 11. Material type 2 (XB5081 - 1) was processed under the same conditions as for XB5143 but, for both forms of media the process was too aggressive creating extensive damage to the corners of the model. ULTRASONIC ABRASION Experiments were conducted at Branson Ultrasonics, Hayes, Middlesex, UK to investigate the use of ultrasonic abrasion as a means of finishing. Carborundum abrasive grit, particle size 25014m was used to partially fill a small 100mm diameter containing vessel. The resin model was then laid upturned on the surface of the grit and the ultrasonic horn contacted to the model. A frequency of 20kHz was used at an amplitude of 80%m. Material type 1 (XB5143) was processed under these conditions for 2 seconds. The main beneficial effect of the process has been on the horizontal surfaces where some smoothing has occurred with localised abrasion evident. Some of the original roughness still remains, as indicated in Figures 12 and 13. There appears to be more erosion at the exposed vertical edge, and as with the models processed by the vibratory bowl method holes have been exposed as a result of the 'skin fill' top surface being removed. Unfortunately,material type 2 was completely destroyed on the application of 7 seconds exposure with no apparent improvement to the areas under investigation.
+
+30
+
+Surface roughness results Table 1 shows the mean Ra values of surface roughness measurement of components in the X, Y and Z directions. The mean of the three mean values has then been calculated to allow direct comparison between the processes. From the overall mean values the overall
+
+percentage improvement of each of the processes has been calculated, compared against the original value.
+From the table the reference material XB5143 appears rougher than the general purpose resin XB5081 - 1. Furthermore, it can be seen that the Vibratory Bowl abrasion process has achieved a good surface finish in a reasonable amount of time with improvements of around 73% for the XB5143 material. However, there has been a degradation of the form
+
+as radiusing of corners and edges has taken place in addition to the exposing of underlying
+holes in the surface. The application of Ultrasonics for finishing these models has resulted in a mixed
+
+improvement to the surface finish. In the best case an improvement of 66% has been achieved with little degradation to the component form, in a very short space of time (2 seconds). However, from the photographic evidence it can be seen that this has been at the
+expense of the external corners and edges which were destroyed by the process. DISCUSSION Examination of the components with the Scanning Electron Microscope has clearly illustrated the difference in resin types for similar designs of part and for similar build patterns. From the investigation it is evident that, of the materials initially employed, Ciba Geigy XB5143 was the most responsive to surface abrasion with Ciba Geigy XB508 1-1 being more resistant and too brittle for both processes. Both of the processes examined have demonstrated improvements to the surface finish for material XB5143 smoothing the surfaces by up to 73%. Vibratory Bowl Abrasion produced a good finish in a reasonable amount of time and even though the selection of media for this technique was not optimum it provides encouraging results for future work as different medias sizes and types will be examined. The short unmanned processing time is very attractive compared with traditional hand finishing. Ultrasonic Abrasion removed material very quickly but as the abrasive media was unconstrained wear took place mainly on the horizontal surfaces although vertical edges were badly abraded. Further work will address a range of conditions so that all parts of the models can be accessed. The short processing times were fast and the high energy levels applied had a detrimental effect on the material causing local melting in the area of the component at the centre of the ultrasonic horn. CONCLUSIONS 1) Components manufactured from XB5143 are more responsive to surface finishing techniques than XB5081-1 which appears to be unsuited to most of the abrasive processes due to its brittleness. Both Vibratory Bowl Abrasion and Ultrasonic Abrasion have demonstrated that they are potential techniques for deburring polymer Stereolithography parts with encouraging results at short processing times. 31
+
+2)
+
+3)
+
+Further investigations need to be undertaken into all of the finishing techniques with regard to the abrasive medias used. ACKNOWLEDGMENTS
+
+The authors are indebted to Paul Blake and Owen Baumgardner of Texas Instruments for supplying the Stereolithography models used in this work.
+
+REFERENCES 1. Jacobs, P.F., "Rapid Prototyping and Manufacture: Fundamentals of Stereolithography", Society of Manufactr ring Engineers, 1992. 2. Spencer, J.D., Cobb, R.C., and Dickens, P.M, "Surface Finishing Techniques for Rapid Prototyping", Proceedings of the SME Rapid Prototyping and Manufacturing Conference, Dearborn, Michigan, 11-13 May 1993.
+
+TABLE I
+PROCESS
+
+SURFACE TEXTURE READINGS (Ra VALUES)
+MEDIA
+
+I MATERIAL
+TYPE
+
+Ra VALUE
+
+______ REFERENCE SAPEXB5081
+
+5.35 6.46
+1.22
+
+AREA
+
+% IMPROVEMENT
+
+XB5 143
+-
+
+7.34 7.68
+2.62
+
+7.0 3.0
+1.2
+
+6.56 5.771
+1.68 74
+
+1
+
+VIBRATORY BOWL ABRASION
+
+30m xl omm angle cut cylinders l3mm diameter plastic cones
+2
+
+XB5143
+
+XB5143 XB5143
+_
+
+1.32 1.74
+
+2.3 3.0
+
+1.9 2.0
+
+1.84 2.25
+
+72 66
+
+ULTRASONIC ABRASION
+
+50Am Carborundum
+
+grit
+
+XB5143
+
+132
+
+3.32
+
+3.0
+
+2.75
+
+58
+
+32
+
+Edge before finishing
+
+,I.
+
+required edge
+
+Horizontal, X/Y Figure I Showing how on removal of steps the component will be the required size when internal corners define the component profile.
+
+.Z.
+
+4th LAYER Steps 3rd LAYER
+
+â¢__ 1
+
+1st LAYER
+
+Figure 2 Showing how steps are caused on vertical faces due to the 'parabolic' nature of resin cure (Jacobs 1992)
+
+33
+
+70'
+0' , 45" . - " 20
+
+" ,i/|, /LAYERS
+
+Horizontal, X/Y
+
+Figure 3 Showing how steps increase in the X/Y plane as arc tends towards horizontal.
+
+AREA I
+
+AREA 3
+
+E
+
+AREA 4
+
+AXIS
+
+- Z.-.- -------
+
+CUT LINE FOR SEW ACCESS
+
+Figure 4
+
+areas of Standard test component supplied by Texas Instruments showing
+
+particular interest.
+
+34
+
+Imm
+
+Figure 5 (area 1) Exposed, external corner, showing cyclic 'bumps' and 'steps' on vertical face, as well as a texture on horizontal surfaces. Material XB5143.
+
+1mm
+
+Figure 6 (area 2) Exposed internal corner. Again note the 'steps' and 'bumps' as well as the definition of corners and edges. Material XB5143.
+
+35
+
+1mm
+
+Figure 7 (area 1) Exposed external corner showing 'steps' in vertical 'Z' axis and texture
+on X,Y surface for material XB5081-1
+
+1mm
+
+Figure 8 (area 2) View showing exposed internal corner. Of particular note is the definition
+
+of the internal edges and corner, also the edge definition into the corner. Material XB508 1-1.
+36
+
+lmm
+
+Figure 9 (area 1) Partial removal of steps and rounding to the corner is evident. Material XB5143, media__angle cutc linders.
+
+1mm
+
+Figure 10 (area 2)
+
+View of internal corner showing partial removal of steps but little 37
+
+penetration to the basal junction. Material XB5143.
+
+100pm
+
+Figure 11 (area 4) Some damage is evident on the corner and little smoothing of the 'steps' is seen. Material XB5143.
+
+-mm
+
+Figure 12 (area 1) Horizontal surfaces have been partially smoothed but some abrasion occurs on the edge. Material XB5143, media Carborundum grit. 38
+
+1mm
+
+Figure 13 (area 2) Limited abrasion on the internal surfaces. Carborundum grit.
+
+Material XB5143, media
+
+39
+
+STRUCTURAL CERAMIC COMPONENTS BY 3D PRINTING J. Yoo, M.J. Cima, S. Khanuja, E.M. Sachs Departments of Materials Science and Engineering and Mechanical Engineering, Massachusetts Institute of Technology, Cambridge, MA 02139 Abstract The Three Dimensional Printing (3DP) Process has been adapted for processing of fine
+
+ceramic powders to prepare structural ceramic components. Our preliminary study was designed to reveal those aspects of the 3DP process which must be modified for use with fine ceramic powders. The basic elements of the modified process are to spread submicron alumina powder and print latex binder. Several methods were used to spread thin layers of submicron powders. Green parts are isostatically pressed followed by thermal decomposition prior to sintering to remove the polymer. The fired alumina components are greater than 99.2% dense and have average flexural strength of 324 MPa. This is lower than the best conventionally prepared alumina, but we believe that the strength results will improve as we learn more about the relationship between strength limiting flaws and the 3DP build process. Introduction 3D printing creates solid objects from a CAD representation by selective binding of ceramic or metal powders with "ink-jet" printing of binder droplets. Earlier work has demonstrated the effectiveness of 3DP as a rapid prototyping tool for investment casting tooling[l-4]. 3DP is, however, a flexible process in which any type of material in the form of powder can be used to create complex shapes. The effort involved in processing new materials systems using 3DP is minimal as compared to other SFF processes. 3DP is one of the few rapid prototyping technologies that involves the deposition of matter during the build process. Powder/binder combinations that are used for conventional powder processing can often be used in 3DP since ink-jets can be adapted to print a variety of binders. In principle, simultaneous control of the component microstructure and macrostructure can also be achieved by varying the amount and composition of binder printed into different locations within a layer. Thus, composition and porosity can be varied from point to point by specification in the original CAD file. This paper reports on the first use of 3DP for fabrication of structural ceramic parts. It also represents the first use of submicron powder in the 3DP process. Submicron ceramic powders are necessary since the 3DP process produces a porous parts which must be fired to attain full density. The relative particle packing density or "green density" of the unfired part must be sufficiently high in order to sinter to full density when fired [5]. Green densities of at least 60% are often required for ceramics which sinter by solid-state diffusion. Fine powders pose several challenges for direct application in the 3DP process. First, the current generation of 3DP machines spread dry powder across a piston in thin layers. 40
+
+Fine powders do not generally flow well enough to spread into defect-free layers. Their high surface area causes increased cohesive strength of the unpacked powder and a decreased flowability. Simple modifications were made to the conventional spreading method to overcome the difficulties of fine powder. A press-rolling technique was devised for this purpose and using the initial low packing of the fine agglomerates and the load applied to the powder bed by stream rolling the spreader rod, we were able to spread uniform thin layers of fine powder. Uniformity in the microstructure of green samples is necessary to ensure the elimination of defects upon sintering. Isostatic pressing techniques were used to enhance the density before firing. The effects of this post treatment will be discussed. Laminated building processes have the potential for producing structural parts that are superior to those prepared by other fabrication methods. Powder molding processes involve deformation of powder masses into dies to form complex shapes. The mass typically includes rather large amounts of organic binder to increase plastic flow into the mold, as is done in powder injection molding. The shear history of each volume element of the component is different beacuse of the complex shape of the mold. This results in nonuniform powder packing in the green part and uncontrolled shrinkage and distortion during sintering. Each volume element of a laminated object is, however, prepared in the same way, regardless of shape or dimension. Secondly, binder removal is often accompanied by the formation of defects and adds considerably to the cycle time for component production [6]. Much less binder is required in the 3DP process, since the binder is used only to hold the green part together rather than plasticize the powder mass. A process to make complex structural ceramic parts without the need for complex tooling will have a great impact on many applications of ceramics. One of the countless possible applications of this technology is the implementation of an accurate testing method for brittle materials. The theta specimen, first proposed by Durelli, Morse and Parks in 1962 is one such example (Figure 1). The special shape of the specimen allows one to test the tensile strength of brittle materials by diametrical compression. The load is transferred to the central bridge due to the outward motion of the ring on the horizontal axis. The test method eliminates the need for complex gripping schemes often required when testing brittle materials. It is a common practice to use 3 or 4 point bending tests for brittle materials for this reason. Theta specimen testing is not often used, however, because of the difficulty in fabricating the complex shape required. The development of 3DP process for fully dense ceramic parts makes the fabrication of theta specimens a trivial matter and a new standard for mechanical testing of brittle materials can be implemented with the help of 3DP technology. Experimental Procedure The powder used for this study was Reynolds RC I72-DBM alumina, both undoped and MgO doped, with the mean primary particle size of 0.8ptm. Through sieving of asreceived powder, agglomerates of sizes between 75 and 150 ptm were screened to be used in the experiments. The apparent density and the tap density of the selected agglomerates were measured by using the apparatus and the techniques described by J. Lee [7]. 41
+
+Centi C
+
+Figure 1. Theta Specimen
+
+Lower the Platform by One layer Spacing Plus Excess and Dispense Powder
+
+Spread powder, while Counter-rotating and Vibrating the Rod
+
+â¢7
+Raise the Platform by the Excess Height to Present a Uniform Distribution Level the Surface by Press-rolling the Excess while Vibrating the Rod
+
+Figure 2. Press-rolling Sequence. 42
+
+The binder used for this study was the Acrysol WS-24 (Rohm and Haas Company, Philadelphia, PA) which is an acrylic copolymer dispersion resin. Three different concentrations of the binder were used for printing, namely 3, 6, 12 wt%. The 3D printing machine and the process by which the complex shapes are built is described in earlier publications [!-4]. Spreading of the sieved agglomerates was done by using a press-rolling method which is a modification of our conventional spreading technique. Figure 2 shows the schematic of the process. In the first step, the piston is lowered and a layer of loosely, but fairly uniformly packed agglomerates is produced by traversal of a counter-rotating spreader rod over the piston. On the second pass, the piston is raised to expose part of the loosely packed layer. The spreader rod is then forward rotated across the piston to pack the powder rather than shearing away the excess powder. This procedure results in a well packed uniform layer that is ready for printing. A continuous jet of Acrysol droplets was made by passing the liquid through a 45gm diameter ceramic nozzle vibrated at 60kHz by piezoelectric transducers. The binder flow rate was 1.25cc/min. The printhead was rastered across the piston with a velocity of 1.65m/sec with 178gm spacing between the lines. The layer thickness was 127gm. The piston containing the powder bed after the entire build operation was removed and heated at 125Â°C for one hour to remove water from the bed and cure the binder. The printed parts were then separated from the unprinted region by gently brushing away the matrix powder with soft brushes. The retrieved parts were then isostatically pressed either at room temperature or in heated hydraulic fluid. These processes are called cold isostatic pressing (CIP) and warm isostatic pressing (WIP), respectively. The samples were put in a latex bag, evacuated, and sealed before being placed in the chamber of the isostatic press. Successfully isopressed samples were then placed in a furnace for binder removal at 4500 C and then further fired for densification at 16500 C for 4 hours. The bulk densities of the green, isopressed, and fired samples were measured by using an automated mercury porosimeter.(Micromeritics, Norcross, GA). Shrinkages of rectangular samples were measured with micrometers. Four point bending tests were conducted to find the flexural strength of the fabricated material. Precision grinding of the surface of bending specimens was performed prior to testing in order to measure the intrinsic strength of the material and eliminate effects due to surface defects. Grinding was performed by Bomas Machine Specialties Inc. (Sommerville, MA). The size and the shape of the specimens, and the testing procedures were in strict compliance with the ASTM standard C 1161-90. Results and Discussion The fine alumina powder used for this study has considerably lower apparent and tap density than other common powders used for 3DP, as shown in Figure 3. Spreading these agglomerates with the conventional spreading sequence resulted in layers that are inhomogeneous and had low particle packing density. Since the uniformity of packing is
+
+43
+
+0. 0.6 OA _ 0.3 0.2
+0.1
+
+o10.62 . 64 0.61
+
+0.64
+
+A
+
+0
+
+0.36
+
+Alumina 30micron
+
+Alumina 320 grit
+
+Nunu 10 micron
+
+Stainles 30 micron
+
+Almina sutuntcron
+
+Figure 3. Apparent and tap densities of various powders crucial for shrinkage control and in preventing the formation of defects in the final component, modifications have been made to the spreading sequence. The press-rolling technique, as described in the previous section has proven to be very effective in creating
+not only a homogeneous but also well packed layers of dry fine powder. The packing
+
+density of the resulting powder bed was 40% which is even higher than the tap density of
+the material. This phenomena is not observed with any other powders examined in this study. The cohesive strength of the resulting powder bed was quite remarkable and ballistic ejection of particles upon impact of binder droplets was completely eliminated. Ballistic ejection is a common observation for highly flowable powders used in 3DP and must be overcome by increasing the cohesive strength of the powder bed by adding moisture prior to printing [8,9]. The top surface finish was excellent due to the absence of both the ballistic ejection and particle rearrangement caused by capillary force. The strength of the green parts varied with the concentration of the Acrysol. Samples printed with 3wt% Acrysol were strong enough to hold their shape, but not enough to be handled casually. Samples with 6wt% binder, however, had adequate strength for both loose powder removal and subsequent handling. Excess polymer from the samples with 12wt% Acrysol was found to segregate at the surface of each layer and is detrimental to the lamination of the layers (Figure 4). The excess binder exhibited other adverse effects on the properties of the samples, as will be discussed later. The green density of the as-printed samples was found to range from 33 to 36% of alumina's theoretical density which is too low to fire to full density by sintering. As described earlier, we have incorporated an isostatic pressing of these 3DP green bodies to effectively increase the green density without sacrificing our ability to make complex shapes. CIP and WIP at 80Â°C of the parts were effective in increasing the green density of the samples, as shown in Figure 5. Isostatic pressing dramatically increases the final density of the material. The final density also depends on the binder content as can be shown by comparing the samples with I2wt% and 6wt% binder in the green state. Excess binder between the laminates contributes porosity that can not be removed by sintering. A polished cross section of the higher binder content sample in Figure 6 shows huge cracks between fully dense laminates obviously caused by the presence of excess binder.
+
+44
+
+Fig'ure4. Polished cross se,,tuon of as-printed part with l2wt% Acrysol.
+
+100 90 so3 70
+
+rite M After Firing 62.5
+
+95.9
+
+97.
+
+92
+
+100 0Afte Presing37.9
+
+so
+S 60
+30
+
+45
+4
+
+61
+
+Jt
+
+20 10
+
+No CIP Pure Alumina
+
+Il2wtO/.
+
+l2wt%
+
+6wt%
+
+6Wt%
+
+6wt%
+
+CiPed Pure Alumina
+
+CiPed Pure Alumina
+
+WiPed Pure Alumina
+
+Wiped MgO Doped
+
+Figure 5. Bulk densities of parts at each stages.
+
+45
+
+Figure 6. Polished cross section of CIP and fired sample with 12wt% Acrysol (I Indoped)
+
+Figure 7. Polished cross section of WIP and fired sample with 6wt% Acrysol (Undoped)
+
+Figure 8. Polished cross section of WIP and fired sample with 6wt% Acrysol(MgO doped)
+
+46
+
+Density measuremenKs on the samples with same binder content but different isopressing technique also show interesting behavior. Warm isostatic pressing is carried out above the glass transition temperature (46'C) of the Acrysol binder. Thus, the polymer viscosity decreases and results in redistribution of the binder while the pressure induced densification is in progress. The final densities of the subsequently fired parts have shown average value of 98% of the theoretical density of alumina. Figure 7 shows the cross section of a sample produced by WIP and sintering at 1650'C. No defects associated with lamination are apparent in the micrograph. The results with the MgO doped alumina powder have shown the effectiveness of its role as the grain growth inhibitor and resulted in parts with 99.2% density. Figure 8 shows the MgO doped sample fabricated by the identical conditions as the above mentioned undoped samples. Sintering shrinkages in different directions were also found to be strongly dependent on process parameters. As shown in Figure 9, the excess polymer present in between the laminates in the case with the 12wt% Acrysol caused more shrinkage in the direction normal to the build plane and thus caused very anisotropic shrinkage. Reduction in the anisotropy was achieved by the elimination of the excess binder content as shown in the case for 6wt% Acrysol. Further improvements and near isotropic shrinkage was obtained by implementing the WIP technique in conjunction with the reduction in binder content.
+
+33
+
+35
+30 19.5 21.5 (0.1) (0.2)
+
+(0.8)
+â¢
+
+FOFastaxis r Slowaxis 1Zaxis
+
+S
+(0.4)
+
+27.2
+
+2
+
+26.5
+(0.4)
+
+28.6 (0.8)
+(0.6)
+
+31.2
+
+(1.7)
+
+30.4
+
+247(.4) 24.7 (0.4) (0.2)
+
+24 (0.5)
+
+246. (0.4)
+
+U!
+
+15
+" 10 5 0
+--. 1|--I--4---
+
+12wt% CIPed
+
+6wt% CIPed
+
+6wt% WIPed
+
+6wt% WiPed
+
+Pure Alumina
+
+Pure Alumina
+
+Pure Alumina
+
+MgO Doped Alumina
+
+Figure 9. Total linear shrinkage in different directions. (Numbers inside the parentheses indicate the standard deviation of the shrinkage data) Optimization of the amount of binder and the isopressing technique have allowed us to obtain a near fully dense pure alumina parts with 3DP. Although our current practice of wet-bag isostatic pressing does limit the topologies which can be pressed, alternative procedures are being investigated for isopressing of more complex parts. They include the dipping of the 3DP parts in a latex solution for forming a protective coating, and an in situ bagging technique of the samples by printing excess binder only at the edges of the part. 47
+
+Figure 10. Thermally etched cross section of undoped sample. (6wt% binder, WIPed)
+
+Figure i i. Thermally etched cross section ,MgO doped sample.(6wt% binder, WIPed) 48
+
+The WIP procedure has also demonstrated effectiveness in improving the green density of other powde- systems. In a preliminary experiments, WIPing parts made from printing Acrysol on a powder bed of spray dried alumina have resulted in a fully dense fired part. Further investigation with this system is also being conducted. The mean flexural strengths of the 3D printed bars upon four point bending was 231.6MPa and 324MPa for undoped and MgO doped samples, respectively. MgO normally is added as an alumina grain growth inhibitor. Absence of MgO caused obvious signs of discontinuous grain growth which accounts for the 1.5% residual porosity and the relatively low strength in the case of undoped samples. (Figure 10) Samples with MgOdoped alumina powders do not exhibit discontinuous grain growth, as shown in Figure 11. Although conventionally prepared alumina has a slightly higher flexural strength of 350 to 450MPa, [10] we view our results as very promising since the microstructure of our samples exibit signs of slight under-sintering. Optimization of the sintering schedule is under investigation and promises to yield improved properties. Conclusions Fine powders coupled with appropriate modifications in the powder spreading mechanism allowed us to fabricate the first near fully dense ceramic parts by 3D printing. The parts also benefited from the absence of particle movement during the printing cycle, thus drastically improving the surface finish of their top surfaces. The amount of binder printed into each layer has been found to play an important role in formation of defects between laminates and shrinkage anisotropy. The WIP method was also effective for enhancing the final density of the parts, as well as, in eliminating the interlaminar defects. Flexural strengths of the bend bars have shown 324MPa and higher upon four point bending tests. MgO-doped alumina powder brought improvements in the strength of the material by inhibiting the abnormal grain growth during firing which increased the final density of the component and decreased the grain size. Sintering schedules are being studied to further improve properties. Successful completion of these investigations will enable us to manufacture complex ceramic parts for structural applications directly by 3D printing.
+
+Acknowledgments
+This reseach was sponsored by the Advanced Research Projects Agency under contract N00014-92-J-1902. The authors also wish to acknowledge the support of the MIT/Industry Consortium for 3D Printing.
+
+49
+
+References 1. Sachs E., M. J. Cima, J. Cornie, "Three Dimensional Printing: Rapid Tooling and
+
+Prototypes Directly from a CAD Model.", CIRP Annals, vol. 39/1, p.210-204, 1990
+2. Sachs E., et al, "Three Dimensional Printing: Ceramic Tooling and Parts Directly From a CAD Model.", Nat. Conf. on Rapid Prototyping, p. 35-37, 1990 3. Sachs E. et al, "Three Dimensional Printing: Ceramic Shells and Cores for Casting and Other Applications.", 2nd Int. Conf. on Rapid Prototyping, p.39-53, 1991 4. Ashley S., "Rapid Mold-Making For Investment Casting.", Mechanical Engineering, 1992, vol. 114, no.11, p. 4 9 -5 1 5. Brunch C. A.,Am. Ceram. Soc. Bull., vol. 41, no. 12, p.799, 1962 6. Lewis J. A., M. J. Cima, J. of Am. Ceram. Soc.,vol. 73, no.9, p.2702-2707, 1990 7. Lee J., "Powder Layer Generation for Three Dimensional Printing" S.M. Thesis, Dept. of Mechanical Engineering, Massachusetts Institute of Technology, June 1992 8. Lauder A. M. J. Cima, E. Sachs, and T. Fan, "Three Dimensional Printing: Surface Finish and Microstructure of Rapid Prototyped Components"; in Proceedings, Synthesis and Processing of Ceramics: Scientific Issues, Boston, MA, 1991 9. Fan T., A. Lauder, E. Sachs, M. J. Cima, "The Surface Finish in Three Dimensional Printing," presented at the 3rd Int. Conf. on Rapid Prototyping, 1992 10. Schwartz M., Ed., "Handbook of Structural Ceramics", McGraw-Hill, 1992
+
+50
+
+Direct Laser Sintering of Metals
+William T. Carter, Jr. and Marshall G. Jones General Electric Corporate Research & Development Center
+Abstract The use of a directed laser beam source to selectively sinter multiple layers of binderless metal powder for the purposes of rapid prototyping is descri bed. The work in this paper is restricted to -325 mesh iron powder, which was sintered using a CW 50 W Nd:YAG laser to approximately 35% density. A subsequent post-treatment was performed to achieve a fully dense sample. It is envisioned that such a system call be used to manufacture functional metallic prototypes directly from CAD without part-specific tooling.
+
+1
+1.1
+
+Background
+Rapid Prototyping
+
+The use of rapid proto yoing in a. concurrent engineering environment results in reduced product development cycle time-a natural consequence of the quick availability of working testable hardware. A functional prototype allows the identification of design deficiencies or areas for design improvement; it allows experimental stress analysis, vibrations testing, and other design performance tests with a very low lead-time. In some cases, experimental analysis of prototypes has proven to be less expensive than computer-based analysis techniques such as finite element analysis [1]. A common characteristic of rapid prototyping methods is that no part-specific tooling, such as a mold or die, is required to make the part. Several reviews of rapid prototyping are available in the literature [2][3][4]. Use of rapid prototyping technology is expected to grow as more materials can be processed using the techniques. Many systems are commercially available; the most popular technique to date is stereolithography,which generates a. part from a bath of laser-cured photopolymer resin. Selective laser sintering,the topic of this paper, is gaining popularity; it generates a part from multiple layers of powder. Commercial systems for SLS are currently limited to ABS plastic, wax, nylon and polycarbonate materials.
+
+51
+
+To date, no commercial freeform fabrication system is available for metallic materials. The preliminary results of an effort to address this issue are described in this paper.
+
+1.2
+
+Selective Laser Sintering (SLS)
+
+SLS generates a part by selectively bonding multiple layers of powder to build a threedimensional part in a layer-by-layer manner. The process has been commercially applied to ABS plastic, nylon, polycarbonate, and wax[5][61[71. The process is very appealing for applications involving metals and ceramics. It is anticipated that SLS of metals will be less expensive and less time-consuming than conventioral production methods for metals, such as sand casting or investment casting, when the number of parts required is reasonably small. Therefore, the system will be used by designers and engineers during the prototyping stages of product development. A complete SLS apparatus will allow designers to quickly generate three-dimensional functional prototypes of various parts. The process is also attractive to builders of custom tooling, dies and molds since these industries represent one-of-a-kind applications. Though there are no commercial systems for applying this technique to metals, research is under way at the University of Texas at Austin.' One of their techniques is to coat the metal particles with a binder; the binder is selectively cured with a laser, and the part is later fired to buru out the binder and densify the part. Parts of final densities of 48% [81 and higher have been reported. Other work is ongoing to directly sinter metals by using a liquid-phase metallic material to fill the voids in a solid-phase powder, such as copper in nickel. Higher densities (82%) have been reported using this technique [9]. The approach reported here differs in that the metal powder is sintered directly, without the introduction of a binder or a low-melting-temperature liquid phase. A two-step process is proposed: The laser will not be used to generate a fully-dense final part; instead, the laser apparatus will be used to generate a "green" part that requires subsequent processing such as Hot Isostatic P'essing(HIPing), oven firing, or infiltration. The goal of this effort is to assess the process by laser sintering a simple cubic sample of iron, performing a HIP densification treatment, and evaluating the density of the resulting material.
+
+2
+
+Experimental Apparatus
+
+A laboratory scale system was constructed for evaluation of the SLS process. The system is capable of making parts up to I in. by I in. by 3 in. using lase" ',eating.
+'The SLS process is patented by the University of Texas in Austin and has been reduced to practice by DTM, a subsidiary of B.F. Goodrich.
+
+52
+
+Hopper
+
+Metering Plate
+
+McAdjustable -e
+
+Actuator
+Actuator Pin
+Rack and Pinion
+
+PinMetering
+Working Section Transport Chamber
+-
+
+Plate,
+
+Sh tteDrv
+
+-
+
+Waste Bin
+Shuttle
+
+Elevator Elevator Stepper
+Motor
+
+Stepper !Motor
+
+F
+
+_
+
+Figure 1: Powder handling system.
+
+2.1
+
+Powder Handling System
+
+The powder handling system is shown schematically in Figure 1. This system includes two stepper motors: one to control the height of an elevator under the working section, another to control the location of a powder shuttle. To add a layer of powder, the elevator is lowered the desired distance, and the shuttle is moved until the actuator opens a powder metering device. A measured amount of powder is dropped through the transfer plate and into the shuttle transport chamber. The shuttle then returns to its home position. As the shuttle returns, a layer of powder is spread over the working section. Excess powder is dumped into the waste bin. The shuttle stops momentarily, completely covering the working section, and the powder is compacted by temporarily raising the elevator. During a laser sintering experiment, the p)owder handler is housed in a glove-box with an over-pressure of inert gas or forming gas to avoid oxidation of the metal powder.
+
+53
+
+Controllable parameters include: "* Powder composition, size and shape. "* Laser power (0 to 50 W) "* Laser spot size (>1 nmn dia.) "* Scan speed (<20 in./inin.) "* Layer thickness "* Process environment (inert gas, forming gas, etc.)
+
+2.2
+
+Laser System
+
+The laser used in this process is a 50 W continuous wave (CW) neodymium:yttriumaluminum-garnet (Nd:YAG) laser with a computer-controlled shutter. The 1.06 pm wavelength laser beam is channeled through a 600 pam single core step index quartz fiber optic to the powder handling system. At the terminal end of the fiber optic, an output coupler and a lens focus the beam to approximately 0.5 mm diameter on the metal powder. The Nd:YAG laser is the better laser choice when compared with a C0 2 laser because the 1.06 pim heat source couples with metals more efficiently than a 10.6 ym heat source. See Figure 2. The Nd:YAG laser has the further advantage that, at higher powers, the beam is efficiently transmitted through fiber optics. This allows for more flexible SLS machine design. The output coupler assembly is mounted on'an x-y table, which is translated via two additional stepper motors. The laser's shutter and the four stepper motors (two in the powder handling system and two in the x-y table) are controlled using a single 80386 computer.
+
+2.3
+
+Secondary Processing (HIPing)
+
+The green form generated using the SLS system requires a post-treatment to render a fully dense part. Since the part will, in general, be quite brittle and will possibly contain many small sections, some means of supporting the part during the treatment is required. Furthermore, it is expected that the green structure will contain interconnected porosity that makes conventional gas HIPing impossible. The following technique was successfully implemented to HIP laser-sintered specimens: 1. The specimen was suspended in alumina powder in a Pyrex tube. 2. The tube was evacuated and baked at 3000 C for three hours to drive out all moisture and organic material. The tube was then sealed while still under
+vacuum.
+
+54
+
+1.0
+Ag 0.8
+>t 0.
+
+TTrT 0
+
+Al
+
+Ni
+
+Carbon Steel
+
+z~0.4<
+0.2
+0.0 , , , ,
+
+I
+1
+
+,
+
+,
+
+,,,
+
+I
+10
+
+Wavelength (Arm)
+Figure 2: Wavelength dependence of reflectivity for various metals. 3. The sealed tube was HIPed at 15 ksi and 11000 C for 15 minutes. The temperature was linearly increased from room temperature at a rate of 50' C/min. and pressure was kept at I atm until a temperature of 9000 C was reached. 4. After cooling, the Pyrex tube was broken and the metal part was grit-blasted clean.
+
+3
+3.1
+
+Findings
+Properties
+
+A laser sintered specimen with a corresponding as-HlPed geometry is shown in Figure 3 along with the cross-sectional metallography of each part. This part was made from 44 tim (-324 mesh) iron powder in an environment of 10% hydrogen and argon using 7.5 W of laser power focused to a 0.5 mm spot. A scan speed of 5 in./min. was used with a scan spacing of 0.020 in. Each powder layer was approximately 0.004 in. thick. The as-sintered part is approximately 35% dense, making it a brittle structure; however, it was able to withstand the small amount of handling necessary to place it
+
+55
+
+(a)
+
+4b)
+
+Figure 3: Selective laser-sintered iron sample (a) before and after HIP; (b) and (c) microstructure. in a HIP vessel. The as-tlPed structure is very dense (> .99.9'X) as shown in Figure 3c, with only a small number of remaining voids.
+
+3.2
+
+Environment
+
+The most significant problem associa.led with SLS of iron encountered in this rc,, ,'ch effort is the control of the sintering environment and the formation of oxide. 1,. his reason, the powder handling system was placed inside a glovebox and an overpressure of inert or forming gas was applied inside the box. Additionally, the powder was "precleaned" by placing it in a fluidized bed charged with the same inert or forming gas.
+
+56
+
+3.2.1
+
+Inert Environment
+
+When using -325 mesh iron powder, it was founld that a good single layer could be generated in all inert environment of argon. Untfort unately, the bond bwctwn tihe layers was generally inadequat( for the following reasons:
+
+"* The free energy of formation for oxide increases with decreasing temperature
+[10]. Thus, in cooling to room temperature from a high homologous temperature, a period of high oxidation growth can be e'xpected. This oxide is particularly undesirable in the SLS process because it prevents effective sintering or wetting.
+
+" During the sintering of each layer, the temperature of the powder was brought
+to a value above the melting temperature of the metal. Each laser scan was performed relatively quickly. This. adjacent scans occurred before the material cooled and simultaneously oxidized. For this reason, the bonds within the layers (between scans) were acceptable.
+
+" Between layers, the material was allowed to return to room temperature. Thus,
+each layer ran through a temperature cycle that is very conducive to oxide formation as discussed above. (Oxide was observed in SEN! EDAX probing.) Though the atmosphere was free of oxide, enough residual oxygen was present in the powder to form aln oxide layer on the upper surface and prevent good bonds between the layers. 3.2.2 Reducing Atmosphere
+
+A common reducing atmosphere for ferrous materials is an mixture of hydrogen and nitrogen; this mixture is often called "forming gas." Laser sintering in this atmosphere proved to be unsatisfactory because of the for'mation of nitrides between each layer, preventing inter-layer bonds. (Nitriding is a common surface hardening technique for steels.) When the same iron material was sintered in a reducing atmosphere of 10% hydrogen and argon, excellent bonds between the la'vers were achieved. It should be noted that all other process p)arameters (laser power density. scan spacing, layer thickness, etc.) were kept constant between the tests iin argon, nitrogen and hydrogen, and those in argon and hydrogen.
+
+3.3
+
+Post-Treatments
+
+From the materials standpoint,, HIPing proved to be satisfactory for these preliminary tests-it achieved a dense sample with a predicted reduction in the (limnensions of the specimen. From the standpoint of FIF, IllPing is not attractive without a model that gives a "process compensated" geometry for the sintering op)eration. A model of
+
+57
+
+the HIPing process is required to defiine anl -as-sintered' l)art ge-Omletr\. ThI's mnodel i not straighit-forward because(, for exampille. holes and cavilties whuich are templorarily filled with alumina powder will deinsify at a (hilferenti rate during II IPing than thle
+
+adjacent mnetal.
+
+3.4
+
+Warping
+
+Because thle heat is applied at the to 1 ) surface, the to)) densities to a greater extent than does the bottomn surface of each layer. Additionally, the upper surface cools from a higher temperature thani material b~elow, causing More thermial contraction onl the upper surface. for these reasons, each layer of sintered p)ow~der tend~s to warp up)ward, which is undesirable troin a jpowdler-hand~ling sta~iilpoint, because the thickness of each layer is not uiniformi. The Solution adopted for this work was to build anl 'anchior" of thin sinteredl layers onto whli' h! the actual striict tire was couust ructedl. This thin framle gives somne stiffness to the overall structure and~ avoilds warping Ilinmanly situations. Various other tech nicJ 1 aMe possi ble: ueS
+
+"* Heating the powder bed.
+
+This method has been imp~lemnented [11] for laser sintering of mnetals with good success; it reduces the thermial strain by) reducing the teinperatutre excursion. This method has the add~edl benefit that it helps prevent oxide b~uild-1up betw~~eenu layers. to fill the gaps left, by the (lensi tied mnaterial.
+
+"* "Knitting" thle structure inl such a way that thle loose powder is allowedi to flow "* Bonding the prototype to a rigidl sampuIle of thle samne mat erial during the first stages of the sintering p~roce~ss, effVctively building anl anchor. This may be
+acceptable for somec applications where the anichor canl becomne anl integral part of the laser-sinterecl structure.
+
+4
+
+Conclusions
+
+The proof-of-concept. goal that, stimulated this work effort was successfully achieved. Binclerless iron p~owd'er wvas sintered iiit~o at cub~ic shape of 35(X dlensity in a r'educing atmosphere using a. directedl laser b~eamI. The cube was later I-Ill~ed to full dentsity with a predicted reductioni in overall chinuensions. It was dhenmonstratedh that the control of the sintering environment is crit~ica~l for successful laser sintering. In this p~articular case, anl environmnent, of 10%, hydrogeni andI argon vieldech the best inter-layer bonds.
+
+5
+
+Acknowledgments
+
+The work and advice of several p~eop~le is acknowledged: Leon Behla., Jerry H-arrison. Jim Resue, Steve Rut kowski. Pauil Sicumers. Cosinio Montanaro, and Mark Brun.
+
+58
+
+References
+[1] G.W. Royal, " Application of Stereolithography to Gas Turbine Design," Proceedings of the National (Conferenct on Rapid Prototyping, June, 1990. [2] S. Ashley, "Rapid Prototyping Systems." pp. 36-43. [3] B.A. Beckert, "Cutti., Sept. 1991, pp. 28-40. hcehanical Engincering, April 1991.
+
+it iii Rapid Prototyping," C'omputer-Aided Engine ring,
+
+[4] J.P. Kruth, "Material Incress Mauflacturillg by Rapid Prototyping Techniques," Annals of the CIRP, 40-2, 1991, pp. 603-614. [5] H.L. Marcus, et al., "Solid Freeform Fabrication: Powder Processing," Ceramics Bulletin, 69-6, 1990, pp. 1030-1031. [6] 1I.L. Marcus, et al., "From Computer to (Comlponent in 15 Minutes: The Integrated Manufacture of Three-Dimensional Objects," Journal of Metals, April 1990. pp. 8-10. [7] K. Nutt, "The Selective Laser Sintering Process," Photonics Spectra, Sept. 1991, pp. 102-104. [8] B. Badrinarayan and ,J.W. Barlow, "Metal Parts from Selective Laser Sintering of Metal-Polymer Powders." Solid 1"rfeform FabricationSymposium, Austin, 1992, pp. 141-116. [9] G. Zong, et. al., "Direct, Selective Laser Sinterinmg of High Teml)erature Materials," Solid Freeform FabricationSymposium, Austin, 1992, pp. 72-85 [10] F.V. Lenel, Powder Mctallurgy: Principlhi and Applications, Metal Powder Industries Federation, Princeton, New Jersey, 1980. [11] J. McWilliams, C. Hysinger, J.J. Beaman, "Design of a High Temperature Process Chamber for the Selective Laser Sintering Process," Solid Freeform Fabrication Symposium, Austin, 1992, pp. 110-117.
+
+59
+
+SOLID FREEBODY FORMING OF CERAMICS FROM POLYMERIZABLE SLURRY Kevin Stuffle, Anthony Mulligan, Paul Calvert* and John Lombardi* ACR, Tucson, Arizona; *Arizona Materials Laboratories, Tucson Arizona.
+
+INTRODUCTION In solid free body forming a component is described by a CAD system as a series of slices. The slices are deposited as a sequence of layers which are cured or solidified by a moving head such that a three dimensional part is built up. Systems have been developed based on photocurable polymers, solidifying polymer melts, laser fused powder layers, polymer-bound powders and others. Difficulties with such systems to date include the low strength of many of the polymer systems and poor resolution. The polymeric components can be used as forms to make molds for later casting of metals or ceramics. The powder components can be sintered to higher density. In the system described here, the part is built up by deposition of a slurry of ceramic powder in liquid acrylic monomer. As each layer is deposited the monomer is heat-cured. When the whole component is formed, the polymer is burnt-out and the ceramic is sintered. DELIVERY SYSTEM The slurry was contained in a 50 ml polypropylene syringe which was connected to an argon pressure line to drive the liquid through a needle of 0.3-1.3 mm diameter. The delivery was started and stopped by a shut-off valve with pressure venting in the air line.
+
+SLURRY Slurries of Alumina (A12 0 3-0.5 wt% MgO, Ceralox Corp.) in liquid acrylic monomers were prepared. The formulations, based on the work of Janney [1], are shown in Table 1. Similar monomer systems have been used for tape casting of ceramic sheets by various workers [2]. Alumina solids loadings up to 53 vol% were used. The acrylate monomers have the advantage of curing very rapidly. Since they are polyfunctional, high degrees of polymerization are not necessary to achieve high molecular weight or gelation. The polymerization rate and brittleness of the resin was controlled by addition of dibasic esters, a mixture of primarily dimethyl glutarate and succinate. Viscosity increases with solids loading as shown in Figure 1. Figure 2 shows 60
+
+slurry flow rates as a function of applied pressure through a 0.33 mm needle, 1.27 cm long. Table 1: Composition of Acrylic Monomer Formulations Alumina, wt% Triton X-100, wt% TMPTA, wt% HODA, wt% DBE, wt% Mill time, hr Density, g/ml Viscosity, P 26.2 7.8 3.4 29.6 32.9 24 1.54 6 34.0 10.1 4.4 38.3 13.1 24 1.75 12 TMPTA: 39.5 10.3 4.0 34.5 39.5 21 2.01 29 42.5 9.8 3.8 32.8 11.2 21 9.00 50 45.1 9.3 3.6 31.3 10.7 41 2.16 112 47.7 10.8 3.6 28.2 9.7 49 2.19 127 48.9 10.5 3.2 27.9 9.5 49 2.23 146 DBE:
+
+HODA: Hexanedioldiacrylate, Dibasic ester, plasticizer.
+
+Trimethylolpropanetriacrylate,
+
+DEPOSITION AND CURING Thin layers of slurry were deposited onto a heated platen at about 1200C. The temperature was adjusted to give rapid curing and good shape definition. Oxygen inhibition of the polymerization leaves the surface tacky and improves the degree of bonding between successive layers. FIBER REINFORCEMENT Carbon fibers 1 pm in diameter were milled for 30 hours with the slurry, to produce fibers with a length of about 200 pm. With 1% fiber content these slurries flowed readily through the needle and were formed into parts. Fibers tended to align horizontally in each layer. The resulting green parts appeared to be tougher and easier to handle than unreinforced parts.
+
+61
+
+Figure 1:
+160
+
+Viscosity vs volume % ceramic loading
+4
+
+140
+
+120
+
+"z
+CL
+
+100
+80 60 4 6
+
+>0
+
+0
+
+20
+0 +
+
+010
+
+20
+
+30
+
+40
+
+s
+
+Solids Loading Vol%
+
+Figure 2:
+7.60
+
+Flow rate vs. pressure profiles for alumina slurries
+
+6.08
+C
+
+23 Gauge
+
+E =
+
+E
+cc
+0
+
+4.56
+
+3.04
+
+1.52 -
+
+0.00 0 6 12 18 24 30
+
+Pressure (psig)
++
+
+26.2 v% 45.1 v%
+
+A
+0
+
+33.9 v% 47.8 v%
+
+0 V
+
+39.5 v% 49.7 v%
+
++
+
+42.5 v%
+
+*
+
+62
+
+PART PRODUCTION Flat plates and thin walled cylinders were produced in monolithic alumina using simple machine instructions to a head mounted on an X-Y table. A nozzle of 0.33 mm was used with a slurry pump pressure of 22 psig and a nozzle linear speed of 100 cm/min. PART PROPERTIES Green parts had a density of about 60% of theoretical, based on pure alumina. After firing densities range from 3.64 to 3.94 (90-99% of theoretical). Flexural modulus was measured to be 358 GPa and strengths ranged from 431-606 MPa for 12 samples in three point bend for a sample 2"xl.5"x0.2". This compares favorably with commercial alumina.
+
+REFERENCES 1. 2. M.A.Janney, "Method for molding ceramic powders" U.S. Patent 4,894,194; Jan 16 1990. R.R.Landham, P.Nahass, D.K.Leung, M.Ungereit, W.E.Rhine, H.K.Bowen and P.D.Calvert, "Potential use of polymerizable solvents for tape casting ceramics", Amer. Ceram.Soc. Bull. (1987) 66, 1513.
+
+63
+
+DEVELOPMENT OF NANOCOMPOSITES FOR SOLID FREEFORM FABRICATION A. Manthiram, F. Chi, L. F. Johnson, B. R. Birmingham and H. L. Marcus Center for Materials Science and Engineering, ETC 9.104 The University of Texas at Austin Austin, TX 78712
+
+ABSTRACT Nanocomposites in which the constituents are mixed on a nanometer scale can provide important advantages in the Selective Laser Sintering (SLS) and Selective Laser Reactive Sintering (SLRS) processes. The larger surface area and grain boundaries in the nanocomposites compared to that in the conventional microcomposites are expected to enhance the solid state diffusion during laser irradiation as well as during any other subsequent processes. Our strategy is to design and develop nanocomposites in which one nanosize component has a lower melting point than the other nanosize component, either of which can serve as the matrix phase. The nanoscale dispersion of the low melting component can aid the sintering process during SLS or SLRS. Nanocomposite powders of A120 3 -CoOx, A12 0 3 -NiO, A120 3 -Co and A1203-Ni have been synthesized by sol-gel processing and are evaluated by SLS. INTRODUCTION Nanostructured materials are characterized by ultrasmall building blocks whose sizes are of the order of 1-100 nanometers. These materials offer potentially useful and unusual combinations of mechanical, electrical, magnetic and optical properties that are otherwise unachievable in conventional materials [1]. The properties are controlled by a complex interplay among the building blocks and the interfaces between them that are determined primarily by the synthesis and processing conditions. Nanostructured materials promise to advance a range of technologies and there is intensive worldwide activity on these materials both from scientific and technological points of view. While the terms "nanocrystalline" and "nanophase" materials refer generally to single phase solids of nanometer size, the term "nanocomposite" refers to multiphase solids of nanometer size [2]. The solid phases in a nanocomposite could be of different nature. They could be metals, inorganic ceramics or polymers or combinations thereof but all mixed on a truly nanometer scale. The phases could be amorphous, semicrystalline or crystalline. Nanocomposites exhibit ultraheterogeneity or nanoheterogeneity, which offer several processing advantages. Because the different phases are mixed on a nanoscale, the diffusion length for solid-solid reaction is much smaller than that in conventional materials. The larger surface and grain boundary energies associated with nanocomposites provide the driving force for enhanced reactions. These factors reduce the reaction temperature as well as time. Nanocomposites have been shown to sinter close to theoretical densities in several systems such as A12 0 3-SiO 2 , A120 3 -TiO 2 , SiO2-MgO, etc. [3]. Nanocomposite gels store much higher metastable energy than homogeneous gels, and this extra energy enhances
+
+64
+
+densification. In addition, nanocomposites seem to undergo crystallization and densification simultaneously unlike homogeneous gels. Homogeneous gels, due to their atomic scale mixing, often undergo crystallization before densification occurs which either leads to lower densities or necessitates higher temperatures for sintering. It is clear that nanocomposites have the potential to offer lower processing temperatures and flaw-free parts with higher densities. Our objective is to design and develop nanocomposites that can optimize Selective Laser Sintering (SLS) and selective Laser Reactive sintering (SLRS). Nanocomposites can be synthesized by sol-gel processing or other "soft chemistry" techniques. Although both sol-gel processing and solid freeform fabrication are well known, the idea of utilizing solgel derived nanocomposite powders that are specifically designed and synthesized to optimize SLS or SLRS have not been exploited. Our strategy is to select ceramic-ceramic or ceramic-metal nanocomposite systems in such a way that one nanosize component has a lower melting temperature than the other nanophase component, either of which can serve as the matrix phase. The objective is to achieve sintering aid from the low melting phase during SFF processing. Because the low melting component is dispersed on a nanoscale in the matrix phase, it is expected to aid the sintering process, during SFF or any other secondary processing, in a much better way than the mechanically mixed microcomposite powders. By proper selection of composite systems and control of agglomeration during sol-gel processing, the ability to achieve full density SFF parts can be enhanced. We present in this paper our preliminary results with AI20 3 -CoOx, A12 0 3 -NiO, A1203-Co and A12 0 3 -Ni nanocomposites. CoO, NiO, Co and Ni have melting points of respectively, 1795, 1984, 1495 and 1455 oC, which are lower than that of A120 3 (2050 oC). EXPERIMENTAL The ceramic-ceramic nanocomposite powders of A1203-CoOx, and A12 0 3 -NiO were synthesized by a sol-gel method [4]. The steps involved in the synthesis of A12 0 3 CoOx are summarized in Fig. 1. To an aqueous solution of Co(N03)2. 6H 2 0 maintained at about 80 OC, required amount of a solution of aluminum tri-sec-butoxide in iso-propyl alcohol was added under constant stirring. Aluminum-tri-sec-butoxide hydrolyzes during this process to give large suspended particles of AI(OH) 3 , which was then dissolved by adding nitric acid to obtain a homogeneous sol of A13+ and Co 2 +. The sol was heated gently on a hot plate to form a gel, which was then dried rapidly on the hot plate. The dry gel was then heated in a muffle furnace to decompose the nitrate and hydroxide, which resulted in a mixture of A120 3 -Co 3 0 4 . A similar procedure was adopted to obtain A120 3 NiO also. The A120 3 -Co 3 04, and A12 0 3 -NiO powders were also fired at different temperatures ranging from 300-1250 Â°C to evaluate the reaction process. The ceramicceramic nanocomposites so obtained were reduced in a stream of hydrogen at 400-1100 oC to obtain the ceramic-metal nanocomposites A12 0 3 -Co, and A12 0 3 -Ni. The composite powders were characterized by x-ray diffraction, electron microscopy and density measurements. Since the large surface area associated with the nanosize powders lead to an adsorption of water, CO 2 etc. on the surface, the powders were baked at about 200 Â°C for about 24 h before scanning with the laser beam. Single layer tests were performed with various power levels and scan speeds. The specimens obtained were characterized by x-ray diffraction and microscopy.
+
+65
+
+AI(OC 4 H9 )3 in isopropyl alcohol
+
+Co(NO 3 )2 . 6H 2 0 in water Mixed under stirring at 80 Â°C AI(OH) 3 precipitate
++
+
+Cobalt nitrate solution Peptization with HNO3 at 80 Â°C
+A13+ + Co 2 + sol I
+
+Dry on a hot-plate Dry gel I Calcination at various temperature
+A120
+3
+
++ Co 3 0 4 powder
+
+mixture
+
+Fig. 1 Synthesis scheme for A1203-Co 30 4 nanocomposite powder
+
+RESULTS AND DISCUSSION Powder synthesis and characterization: The phase identification by x-ray of a nominal composition containing an atom ratio of AI:Co = 2:1 is summarized in Table 1. It can be seen that Co304 is formed during the initial stages of drying on the hot plate. Although the exact temperature of hot-plate was not measured, it was presumed that C0304 formation can occur at temperatures as low as 200 OC because firing of pure Co(N03)2.6H 2 0 at 200 OC for 20 h gives C0304. Up to about 450 OC, mostly the reflections of Co304 are discernible in the x-ray pattern. Aluminum oxide or A1OOH present are very small in particle size and could not be detected In the region 580-900 oC, aluminum oxide was found to exist as by x-ray diffraction. y-A120 3 having a cation-deficient spinel structure. The presence of 'y-A1203 is, for example, seen in the x-ray pattern (Fig. 2) of a powder mixture fired first at 580 0 C in air and then at 700 OC in hydrogen atmosphere. A small reflection corresponding to '-A120 3
+is seen around 20 = 67 0 among strong reflections of Co metal. Above 1000 oC, any
+
+aluminum oxide present is in the form of a-A120 3 having the corundum structure.
+
+66
+
+Table 1 Phase identification by x-ray diffraction of the A120 3 -Co3 0 4 nanocomposites after heating at various temperatures for a constant time of 20 h Temperature (oC) Dried on a hot-plate 300 450 580 650 700 800 900 1000 1250 Phase identification Color
+
+Co 30 4 Co 3 0 4 Co 3 0 4 Co304 + y-A12 03 Co3 0 4 + Y-A12 03 Co30 4 + y-A12 03 Co304 + y-A12 03 + CoA120 Co 3 0 4 + â¢y-A1 2 0 3 + CoA120 CoA1204 + a-A1203 CoA120 4
+
+4 4
+
+Black Black Black Black Black Black Dark blue Dark blue Dark blue Blue
+
+CoZ
+
+kGO
+
+â¢
+
+â¢
+
+A1203
+
+7S
+
+74
+
+70
+
+66
+
+62
+
+55
+
+54
+
+50
+
+46
+
+42
+
+38
+
+2-Theta in degr"
+
+Fig. 2 X-ray diffraction pattern of 75 mole % A12 0 3 - 25 mole % Co304 (Al : Co ratio = 2:1) nanocomposite after firing first at 580 Â°C in air and then at 700 oC in H2 for 20 h The oxides of cobalt and aluminum can react to give the spinel oxide CoA1204, which is blue in color. The change in color from black to blue around 800 Â°C (Table 1) seems to suggest that the formation of CoA1204 occurs around this temperature. However, the formation of CoA120 4 spinel can start much below 800 oC and we cannot rule out its presence below 800 oC from x-ray data since both Co 3 0 4 and CoA1204 have spinel structure with close lattice parameters. The broad nature of the reflections at lower temperatures and their overlap make it extremely difficult to determine the exact temperature
+
+67
+
+at which CoA1204 formation begins. Nevertheless, we could clearly see the formation of the spinel NiAI204 in the analogous system A1203-NiO at temperatures as low as 320 OC (Fig. 3). Formation of spinel phases around 3WX OC has also been shown in several other systems such as NiMn 2 0 4 [51. Furthermore, formation of CoAI20 4 has been suggested to occur around 5(M Â°C from an observation of a decline in the catalytic activity of Co304 supported on y-A120 3 161. The catalytic activity in this system is due to Co304 and the degradation of catalytic activity corresponds to a conversion of Co30 4 to CoA1204. So, it is likely that the formation of the CoA120 4 spinel occurs at temperatures below 5(M) (1.
+
+A
+
+SiiAI204
+
+IA!
+
+Ni
+100
+
+AA
+
+320 C
+
+70
+
+62
+
+54 2-Theta in
+
+46 degrees
+
+38
+
+30
+
+Fig. 3 X-ray diffraction pattern of 50 mole % A12 03 - 50 mole 7cNiO (Al Ni ratio = 2:1) nanocomposite after firing at various temperatures for about 20 h
+
+68
+
+50
+
+nm
+
+Fig. 4 TEM micrograph of 75 mole % A120 3 - 25 mol % Co304 (Co: Al ratio = 1:2) nanocomposite after firing at 580 Â°C in air for 20 h The TEM micrograph of the A12 03-Co 3 0 4 nanocomposite powder after heating at 580 OC in air for 20 h is shown in Fig. 4. The large particles are about 50 nm in size and were presumed to be Co304 since they were shown to be rich in Co by EDS analysis. The small particles are less than 10 nm and were shown to be rich in Al by EDS analysis. These observations are consistent with the x-ray results. The TEM image of the nanocomposite powder after heating at 700 OC for 20 h is shown in Fig. 5. The particles have grown significantly to about 150 nm during this process. However, the rise in firing temperature did not have any significant influence on the size and distribution of the agglomerates. An SEM micrograph of the powder heated at 7(X) OC is shown in Fig. 6, which indicates an agglomerate size of about 100 pm. Selective laser sintering: Preliminary SLS experiments with the A12 0 3 -Co 30 4 nanocomposites indicated blowing up of the powder under the laser beam. A low powder density of about 20 7 together with the adsorbed moisture seem to cause this problem. The powder was then ball-milled for about 30 min and subjected to SLS under an in situ baking around 200 oC. This modification allowed use of high enough laser power without the powder being blown. During this process, the color of the powder changed from black to blue indicating the reaction of A12 03 and Co304 under the laser beam to form the spinel oxide COA1204. Co304 nanocomposite is A top view after SLS of a 83.2 mole % A12 0 3 - 16.8 mol 7V shown in Fig. 7. The corresponding SEM micrograph of the cross section is shown in Fig. 8. Although the powder sinters locally during the SLS process to give relatively higher density , large cracks were found to occur. The low density of the initial powder with large porosity was suspected to cause this problem. Similar results were also obtained with A12 03-NiO.
+
+69
+
+50 nm
+
+Fig. 5 TEM micrograph of 75 mole % A1 0 3 - 25 mole % Co304 (Co â¢ Al ratio = 2 1:2) nanocomposite after firing at 700 OC in air for 20 h
+
+Fig. 6 SEM micrograph of 75 mole % A12 0 3 - 25 mole % Co304 (Co: Al ratio = 1:2) nanocomposite after firing at 700 oC in air for 20 h
+
+70
+
+Fig. 7 Photograph of the top view of 83.2 mole % A120 3 - 16.8 mole % Co304 nanocomposite after firing at 580 OC in air for 20 h and subjecting to SLS.
+MTop _m 1 U g._ surface of the layer
+
+Fig. 8 SEM micrograph of 83.2 mole % A1203 - 16.8 mole % Co304 nanocomposite after firing at 580 OC in air for 20 h and subjecting to SLS.
+
+71
+
+In order to circumvent the above difficulties, strategies to increase the density of the initial powders without sacrificing much of the nanoscale mixing were pursued. One way to achieve higher densities in the powder is to anneal the nanocomposites at relatively higher temperatures (- 10(X) OC). However, such an annealing around I(XX) Â°C of the A12 03-Co304 nanocomposite will result in the formation of the spinel oxide CoAl2 () 4 . which will in essence consume the low melting component Co30 4 and jeopardize our approach to SLS. Therefore, to demonstrate the feasibility of our objective, we decided to pursue the ceramic-metal nanocomposite A120 3 -Co, which will not undergo any chemical reaction during the preannealing of the powder at higher temperatures. Accordingly. A12 03-Co nanocomposites were first obtained by reducing the Al203-Co304 oxide nanocomposite in hydrogen around 10(X) OC. The powder was then annealed in N- atm at 1350 Â°C for 8 h to increase the density, and reduced again in hydrogen around 10(X) 0C to convert back any cobalt oxide that might have formed by reaction with the residual oxygen during N2 annealing. The resulting A12 03-Co powder was found to have a density of about 42 % and sinter under the laser beam. The single layer test coupons appear to have better structural integrity with much reduced macrocrack formation. An SEM photograph of the powder after SLS is shown in Fig. 9.
+
+Fig. 9 SEM micrograph of 50 mole % A1203 - 50 mole % Co nanocomposite after firing at 1350 0 C in N2 for 8 h, 1(0) (C in H2 for 8 h and subjecting to SLS
+
+72
+
+CONCLUSIONS have been successfully synthesized by sol-gel processing. The powders have been investigated by SLS. Low densities (about 20 %) of the initial powders not only lead to a formation of macrocracks during SLS, but also prevent use of high enough laser power that can cause sintering. Increasing the initial powder densities to about 40 % seems to avoid this difficulty significantly and give structurally sound specimens. Further increase in the densities of the initial powders promises to enhance the success of our strategy, and such experiments are currently being pursued. ACKNOWLEDGEMENT Financial support by the DARPA-ONR grant No. N(*)0 14-92-J- 1394 and ONR grant No. N00014-92-J-1514 is gratefully acknowledged. REFERENCES R. P. Andres et al, J. Mater. Res. 4, 704 (1989). S. Komarneni, J. Mater. Chem. 2, 1219 (1992). A. M. Kazakos, S. Komarneni and R. Roy, J. Mater. Res. 5, 1095 (1990). E. Breval, Z. Deng, S. Chiou and C. G. Pantano, J. Mater. Sci. 27, 1464 (1992). X. X. Tang, A. Manthiram and J. B. Goodenough, J. Less-Common Metals 156, 357 (1989). 6. E. Garbowski et al, Appl. Catalysis, 64, 209 (1990). 1. 2. 3. 4. 5.
+Nanocomposite powders of A1203-C0Ox, A1203-NiO, A12 03-Co and A12 03-Ni
+
+73
+
+PART FABRICATION USING LASER MACHINING AND WELDING
+
+M S Pridham and G Thomson Department of Applied Physics and Electronic and Manufacturing Engineering University of Dundee Dundee DDI 4HN UK
+
+Abstract This paper describes the current work on a laser cutting and welding system for the fabrication of prototype parts in mild and stainless steels. The relationship to other rapid prototyping systems and to laminated tool production techniques is discussed, the progress 'o date is described. Difficulties with current welding procedures are outlined and alternative joining techniques are considered. Introduction Despite the tremendous progress made in the whole field of rapid prototyping and the development of processes, the majority of systems remain concentrated on non metals. However work is now being carried out on laser sintering of mild steel and stainless steel powders as well as on 3-D welding processes (1,2). Success in these developments will expand on the current prototype possibilities by enabling the direct production of prototypes in metal, when this is required. This will offer benefits in certain situations, cutting out the need for secondary processing of plastic or wax prototypes, such as in producing investment casting moulds. Laminate Processes Work at Dundee has centered on using a laser machining centre to cut and fabricate components in mild and stainless steels, using layer cutting procedures and joining techniques. Work in a similar area is also being undertaken by a European consortium under the BRITE initiative. There has been considerable work in the field of laminating laser or EDM cut sheet and plate to form tooling such as injection mould cavities (3), drawing dies (4) and blanking tools (5,6). These tools have then been exploited in a number of ways for various applications. The motives for the undertaking of this type of work have been varied, and not all in prototyping, but in all cases reductions in production or development times and costs have been realised. A recent paper by Glover and Brevick (3) argues that whilst current commercial rapid prototyping systems such as Stereolithography, Selective Laser Sintering Laminated Object Manufacture and Fused Deposition Modelling, have their place in the early stages of design, they rarely provide a full range of pre-production information. For example the prototype material is rarely the same as the required part, production processes, and therefore mechanical and physical properties of the prototype, differ from those intended for production, and prototype tolerances and surface finishes are not usually representative of those obtainable by the eventual production processes. 74
+
+Many of these points are substantive and undoubtedly there are applications and potential for the further exploitation of laminated tool manufacture in a variety of areas. The drawback, if it can be called that, is that much as the "conventional" rapid prototyping techniques require secondary processes to produce a metal part, the laminated tool production processes by their very nature do not result in a part Thus most of the until the tool is then used in a production situation. applications of lamination have meant using at least one additional process in the creation of the part. However the process is very useful when the tool is required for a proven process and product design, perhaps replacing and old or worn tool, but clearly it A process which is not so advantageous at providing a first stage prototype part. could produce parts or tooling as required, directly in metal, would generate considerable interest. Part Fabrication by Lamination As previously stated work at Dundee is aiming towards metal prototype part production, in a direct process, in a similar way to the 3-D welding work, but here using lamination and fabrication techniques. The objective is to produce parts in a layer by layer manner where each layer is cut in turn from plate or sheet by laser machining, and the layers are then joined by In respect of the joining technique, the process differs laser welding. Laminated tool techniques almost significantly from most laminated tool processes. Clearly all use mechanical locations and fixtures to hold the assembly together. Most when dealing with tooling this is a sensible and straight forward approach. tool systems allow for this type of fastening by having a significant "flange" area around the tool or cavity, as indicated in Figure 1, to allow bolts or fastening The fastenings being located such that they do not interfere screws to be used. with the operation of the tool.
+
+Fixing
+SMould
+
+F-
+
+Cavity
+
+Laminations
+
+Figure 1. Typical arrangement for holding/fixing laminated tooling. 75
+
+This approach could also be acceptable in prototyping of large solid but it is not suitable for fabricating parts with complex geometries, thin walls partswebs or or hollow sections. Laser Cutting The laser used in the work to date is a "Ferranti MFK 1000" 1000W Co, gas laser. Cutting profiles are currently being programmed using an Anorad X-Y control system. The laser machining centre is shown in Figure 2.
+
+Figure 2. Ferranti MFK 1000 CO 2 laser
+
+To date the materials used have been 18% Cr 8% Ni ASI 304 stainless and medium carbon mild steel, in thicknesses of up to 2mm. A full investigation of the limiting values of cutting speeds possible for a variety of sheet thicknesses and material types is yet to be carried out, but cutting speeds are entirely satisfactory without pushing the system to anywhere near its limits. Typically a cutting speed of 1 metre per minute is used with a pulsed beam of 20 x 10-5 s. on and 20 x 10-5 s. off, with oxygen assist gas at a back pressure of 2 bar. Figure 3 shows representative examples of laser cut geometries, in this case in 1mm thick stainless steel.
+
+76
+
+.,â¢
+
+j~iq7
+
+Tli-
+
+Figure 3. Laser cut parts in stainless steel Laser Welding The laser welding aspect of this technique is now the main focus of attention since weld performance and quality are not yet at a level to make the laser cutting and welding route viable as a process. Conventional keyhole laser welding procedures have proved difficult due to the focused beam tending to cut rather than weld. Also the narrow beam means that multiple weld tracks are required to join the layers uniformly. Complete section welding is also desirable to take advantage of obtaining homogeneous or near homogeneous material properties throughout the artifact. Excessive oxidation also resulted in some trials largely due to using compressed air as the assist gas, this should be considerably reduced by using helium gas. Welding trials were also conducted using a much broader defocused beam, in an attempt to produce a uniform broad conduction weld across the wall section of the parts. This technique shows promise in trials, using a straight weld on large sheet, with the beam focused 50mm off the job, a feed rate of 150mm/minute and 20/20 pulsing it was highly successful. However it was less successful, when using smaller finer laminae, due to proble,.'s associated with work holding, heat dissipation and distortion. Experimentation with welding parameters and development of a system are ongoing and in addition alternative joining methods such as soldering, brazing and structural adhesives are being explored. Figures 4, 5 and 6 illustrate some test pieces which have been laser cut and adhesively bonded together. Figure 4 shows an approximation of a 60mm diameter sphere fabricated using circular layers of 2mm thick mild steel sheet. This specimen is made up of some thirty layers. The "stepping" observed in the polar regions indicates that for a sphere of this diameter the 2mm thick material is substantially too thick to give a smooth curvature in these zones. A further stage of development of this system would be to have various thicknesses of sheet available to optimise the build. For example vertical sections 77
+
+could be cut from relatively thick material thus minimising the number of layers and therefore tie number of welding/joining operations necessary, whilst complex geometries and tight radii could be better and more accurately built using thinner layers. Figure 5 shows a square based hollow pyramid section built from thirty four layers of 1mm thick stainless steel. The sides of each layer are Imm shorter than the previous layers. The total cutting time for this part was approximately 10 minutes.
+
+Figure 4. Sphere, produced in 2mm mild steel.
+
+S/
+
+Figure 5. Square based hollow pyramid in 1mm thick stainless steel. 78
+
+Figure 6. Square to circle transformation in 1mm thick stainless steel.
+The section illustrated in Figure 6 is produced in lmm thick stainless steel and has a wall thickness of 1mm. Over a height of 22mm the section transforms from a This section could, for example have 22mm side square to a 22mm diameter circle. been produced using thick (e.g 5mm) plate for the square base, thin sheet for the transformation region and then reverting to thick section to build on the circular
+
+geometry. Future Developments Clearly a number of areas investigation. They include: 1. 2. 3. in this work require considerable further
+
+Development and understanding of required welding conditions, if this technique is to be pursued as the joining method. Suitability in terms of strength, Evaluation of alternative joining methods. ease of production and versatility will dictate possibilities. Automation of layer feed, selection and alignment; currently each layer is cut In a viable individually and when all the layers are prepared they are joined. system the joining operation would be integrated and synchronized with the
+cutting operations produced. so that each layer is joined immediately after it is
+
+Conclusion Laser cutting and welding offers potential as a means of directly fabricating a Further development, particularly in the area of laser prototype part in metal. welding is underway. A fully developed system will help service a requirement for prototypes which may need to display high levels of mechanical properties, high 79
+
+thermal or electrical conductivity or have the weight and feel of the planned metallic production material. References 1. 3-D Welding: P M Dickens, M S Pridham, R C Cobb, I Gibson and G Dixon. Proceedings of the First European conference on Rapid Prototyping pp 81-93, ISBN 0951975900, Nottingham University, UK. 6-7 July 1992. Rapid Prototyping Using 3-D Welding: P M Dickens, M S Pridham, R C Cobb, I Gibson and G Dixon. Proceedings of the Solid Freeform Fabrication Symposium 1992, pp 280-290, ISSN 1053-2153 University of Texas, Austin, USA. 3-5 August 1992. Laminate Tooling for Injection Moulding: G R Glover and J R Brevick. Proceedings of the Institution of Mechanical Engineers, Vol 207, Part B Journal of Engineering Manufacture, pp 9-14, 1993. Development ofLaminatedDrawingDiesby Laser Cutting:M Kunieda and T Nakagawa Bull, Japan, Soc. of Prec. Engg, Vol 18, No 4, December 1984, pp 353-354. Laser Cut Blanking Tool: T Nakagawa, K Suzuki and K Sakaue, Bull, Japan, Soc Prec Engg, Vol 17, No 1, Mar 1983, pp 45-46. Blanking Tools Manufactured by Laminating Laser Cut Steel Sheet: K GotzscheLarsen. Second European Conference on Rapid Prototyping, University of Nottingham, July 1993.
+
+2.
+
+3.
+
+4. 5. 6.
+
+80
+
+Picoliter Solder Droplet Dispensing
+Ronald E. Marusak, Ph.D. MicroFab Technologies, Inc. 1104 Summit, Suite 110 Piano, Texas 75074 (214) 578-8076 A device based on ink-jet printing technology was used to produce and place molten solder droplets, approximately 25-125pm in diameter, onto substrates. The advantages of an ink-jet based system are direct production of metallic objects, no postcure, low cost, and the repeatability and resolution for small feature sizes. This paper describes the device, the supporting hardware, and experimental procedures. Results show that bump size can be varied by placing in quick succession, multiple droplets as well as by resizing the device and by altering the signal.
+
+Introduction The technology that was developed for forming droplets of ink in printing has been applied, over the past several years, in the dispensing of materials during the manufacture of microelectronics (see References). This work has resulted in the development of print heads that can, at elevated temperatures, deliver precise amounts of molten solder with exacting positional control. This paper presents the results of forming bumps of solder using ink-jet printing technology. Initial applications for solder droplet dispensing include the bumping of chips for flip-chip bonding and tape-automated bonding (TAB), the bumping of substrates for TAB or fine pitch surface mounting, and the repair of solder joints. Potential applications include the formation of metal layers, reinforcement of metal joints, and the freeform fabrication of metal parts. Description of the Droplet Generator The device that was used to dispense the liquid solder is based on early ink-jet print heads. A schematic of this droplet generator is shown in Figure 1. The end of the 0.75 mm diameter tube is formed into an orifice of approximately 50 pm. The other end is attached to a fluid supply. Fluid at essentially ambient pressure fills the glass tube, and surface tension prevents the fluid from leaking out of the orifice. A tube-shaped piezoelectric crystal is adhesively bonded to the outer diameter of the glass. The assembly is mounted in a protective shell. 81
+
+Fluid Connection
+
+Outer Shell
+
+Piezo Crystal Glass Tube
+
+Orifice
+
+Fluid Cavity Figure 1 - Schematic of droplet generator. When a voltage is applied to the piezoelectric crystal, the crystal squeezes the glass tube and entrained fluid. A voltage pulse causes, in the fluid, transient pressure waves which travel toward the orifice. The pressure wave ejects a small drop of fluid from the orifice. The size and velocity of the ejected droplet is determined by the shape and construction of the device, the fluid properties, and the shape and duration of the applied voltage pulse. Typical droplet volumes are -100 picoliters and typical ejection velocities are from 1 to 5 m/s. This design is called "drop-on-demand" because drops are formed only when a voltage pulse is applied. Other ink-jet designs use a pressurized stream to form droplets continuously. These "continuous" mode devices require hardware to deflect unv-tted droplets away from the target and into a gutter for recirculation or disposal. Although the continuous type can form droplets at higher rates than the drop-on-demand type, the deflection and recirculation hardware complicates matters. Prototype Liquid Metal Printer The printing system used in this study is shown in Figure 2. The system was designed to provide oxide and contaminant-free molten solder at a controlled temperature to the droplet generator. The solder was melted in the upper-reservoir, where the dross/impurities could rise to the surface while the molten solder was gravity fed to the main reservoir. Teflon coating of the reservoir and the nitrogen environment prevented oxidation/degradation. The ink-jet device was also housed in a controlled heater. Patterns were formed by dispensing droplets raster style onto a copper substrate, which was mounted on an x-y stage.
+
+R2
+
+Upper reservoir Heater valve
+
+Inlet
+Filter â¢Droplet
+
+reservoir
+nitrogen--â¢!::::!i.
+
+nt e .........
+inlet Heater ,Substrate Thermocouple
+
+generator X-Y stage
+
+Molten solder
+
+Figure 2 - Schematic of liquid metal printer. The solder selected for this study was Indalloy-58, a low melting temperature eutectic solder. A eutectic solder composition was selected because it directly transitions from liquid to solid without an intermediate solid/liquid phase. The melting point of Indalloy-158 is 70'C, and the composition is 50 Bi, 26.7 Pb, 13.3 Sn, 10 Cd.
+
+Test Patterns Using a single drop per location, an array of 60 pm diameter bumps on 200 pm centers was produced and is shown in Figure 3. Multiple droplets (2-10) per location were dispensed at a rate of 500 droplets/second to produce larger bumps, up to 160 pm in diameter, on 200 pm centers (Figure 4). At the dispensing rate used in these tests, the solder droplets dispensed onto a single site merge into one another before they solidify, forming a single, large bump. If sufficient time for cooling is allowed between consecutive droplets dispensed onto the same location, the individuality of the droplets can be maintained, and a three-dimensional structure created. Moreover, since solidification is due to phase change, no further cure is needed.
+
+83
+
+Figure 3 - 60 pm diameter bumps of Indalloy-158 deposited on 200 pm centers on copper using drop-on-demand dispensing.
+
+Figure 4 - 90 and 120 pm diameter bumps of Indalloy-158 deposited on 200 pm centers on copper using drop-on-demand dispensing. The photo of Figure 5 is evidence of the flexibility, control and resolution of the solder bumps. Conclusion The ability to dispense molten solder droplets, as small as 60 pm in diameter, in a controlled manner, to create reproducible solder bumps has been demonstrated.
+
+84
+
+[" LI-C
+
+5
+
+00~ 11111 (IJI11CtCl-
+
+humps )' I lJk\-I 5) .
+
+":\I1Iik,:ation of Ink-Jet 'Icchnol(ok 2 it Dlilpci11\Ã½,I In1
+Mi l t (t ~,'( ( 'tu
+cr('f(T
+
+II: InlIcI C&Eli&
+
+AiiI
+
+SIJ ~
+
+.
+
+i
+
+A.
+.\
+
+12LN1
+
+~
+
+7
+
+A~ppjIIcait Ion of' IAk-Jct 'I ctch11) no At I\ I \Ih I Id\cYs. ltcedlim. SIiL dhi;'\T(ncccStIIiI
+\,0 111 SJI~ICCio O c
+Yt..(Ufl
+
+I)I~\n p,
+
+I)\
+
+cI~ [IM I,
+
+{.
+
+1
+
+JC Inu 11' SI.V
+
+B1.1fi Ik .1C" c..hlt
+
+11
+
+11.!1:111
+
+ISI-S76( IP.)1. June INS "A'utonlnltc(I I;Ictrou ic ('ircuit \V ILut~i ttuIl I[
+F~it,( O iCd ti P
+It
+
+I \,III! 111k IcJC1 10,1111010n
+cc i c
+
+.1L f 1,: W
+2
+
+Iika-Iim Io lcl oC Ik c V u'
+
+t
+
+\
+
+IU.,:
+
+I
+
+.
+
+[
+
+i I
+
+*'ApII\
+
+ct,iw
+
+tlti
+
+u~Ink
+
+Xlt hI
+
+111,'(
+
+tt
+
+Ã½/c k. lkC M '.
+
+-
+
+cii" ,
+
+1'\t
+
+P .,
+
+>%dIt~IidI
+
+Scicncc
+
+Dit1ucIul' D I'IiaCHNI ,L'n~' ~ SII
+
+ulu\
+
+.uiic11,11 111'
+
+Ir 1
+
+dli ii
+
+I"f
+
+I( I((C.5
+
+S~dcpiuhv )[oit I
+
+)
+
+"c
+
+CONTROL PARAMETERS AND MATERIAL SELECTION CRITERIA FOR RAPID PROTOTYPING SYSTEMS James W. Comb/William R. Priedeman Stratasys, Inc.
+
+Abstract
+Since the introduction of rapid prototyping technology as a tool for time compression and concurrent engineering in the design and maniufacturing process, many enhancements and refinements have been made based on the experience of users and manufacturers of rapid prototyping equipment. These improvements contribute significantly to faster production of quality output from rapid prototyping systems. There are diverse control and material selection parameters that affect prototype models built using the Fused Deposition Modeling (FDMÂ®) process. This paper reviews the role of several of these parameters in the process. Data will be presented to help the user choose the appropriate material for specific applications including density, tensile stiffness, flexural stiffhess, tensile strength, flexural strength, tensile ductility, shock resistance, and hardness.
+
+Introductin
+With the commercial Stratasys system now in customer locations for more than two years, we have built a substantial base of real life experience with the equipment. The FDMÂ® process has been an asset to the installed customer base and an acknowledged improvement over previous model building *echniques. This experience has prompted design enhancements to better meet the needs of our customers. As is true for all rapid prototyping manufacturers, we are continually seeking improvements which will deliver more accurate models, of superior surface finish, in increasingly attractive materials, for a
+
+better price. Early in 1993, Stratasys released a major enhancement package for the FDMÂ® process which was a direct response to this quest for higher quality models.
+The intricacies of the control parameters and the interdependency of the variables which collectively work to produce models were sorted out in a methodical approach in
+
+order to deliver improvements to the existing machine. The FDMÂ® process allows user control of the envelope temperature, the liquefier temperature, the modeling speeds and the materials to name just a few variables. Each of these variables can alter the resulting model. The appropriate setting of these parameters by the operator is key to quality model production. Without proper limits being set, negative results will occur. Additionally, several other features of the system were modified to improve overall performance.
+
+86
+
+The Stratasys FDMÂ® process extrudes material via a simple filament drive system. If the capacity of the filament drive system is exceeded, the filament can break, bulge, or buckle, causing a plug in the lower filament guide when using certain modeling materials. Other materials may not break, but slipping of the drive wheels may cause improper filament feed (Reference Figure 4a). To address these issues, modifications of the drive system were developed to increase the overall drive capacity and extensive testing was performed to determine the operating limits to ensure reliable operailon. Additional testing was pertormed to determine the temperature set points for the liquefier and modeling environment for each material. This information led to the redesign of the FDMÂ® process liquefier and cabinet. A heater box package and improved seal system were added to the cabinet to improve the uniformity of the modeling air temperature. A longer and more powerful liquefier was added to increase the volumetric flow rate and improve the temperature consistency of the delivered material. Additionally, this liquefier was made to be easily exchanged when changing materials to eliminate cleaning and material "build-up" within the liquefier which contributed to plugging. An improved hold-down method for the modeling foundation was developed to allow the build of larger, thicker models without foundation warping. A firmware solution was implemented to eliminate the "oozing" that occurred at the tip FDMÂ®& after shut-off of the material flow. Oozing is the overflow of material that produces small irregularities and loss of detail in the resulting model.
+
+Experimental Results Figure 1 is a diagram showing the relative increase in traction to drive the filament that was achieved with the implementation of the 1/2" elastomeric wheels. The figure shows two curves: the lower curve is a plot of traction force versus filament diameter for the original 1" steel wheels; the upper curve shows the same for the 1/2" elastomeric wheels. As seen in the figure, the available traction force of the I" steel wheels is significantly lower than the 1/2" elastomeric wheels. The 1" wheels are more sensitive to changes in filament diameter; i.e., normal variations in the filament diameter would produce large variations in the available traction leading to slipping at high material flow rates. The 1/2" wheels, due to their rubber-like behavior, are less sensitive to filament diameter changes and produce more traction in the feed mechanism. This gives the FDMÂ® filament drive system a higher flow rate capacity. In Figure 2, the pressure flow relationship for various tip sizes and temperatures are shown. The relationship shown is characteristic of each of the modeling materials offered by Stratasys. Curves representing liquefier pressure (P) versus volumetric flow rate (V) are depicted. The liquefier pressure is created by the drive traction force acting on the filament divided by the filament's cross-sectional area. For a given tip diameter (di) and liquefier temperature(Ti), the relationship between pressure and flow is roughly linear. As
+
+87
+
+tip diameter is decreased the pressure required to produce a specific flow rate increases dramatically. As temperature decreases, the pressure required increases due to the increased viscosity of the material. In the Stratasys filament drive system the liquefier pressure attained is limited by: a) the force at which the filament drive slips (Fs); b) the compressive strength of the filament (sc); and c) the stress at which the filament buckles (Sb). The force levels for each of these limits differ in magnitude and relative order for various materials. Therefore, the system is bounded in pressure by the lowest of these values per material. The system is further bounded by the available liquefier heat exchanger capacity. If operated beyond this maximum flow rate (Vmax), the material delivered will not attain the desired set point temperature. To produce a model, tip diameter, process temperature, road width (w), z-slice thickness (z), and speed (s) are selected. The volumetric flow rate is the road width times the z-slice thickness times the speed of the head (V-w*z*s). In order to not exceed the operating bounds of the system, the speed must be selected so that pressure and flow rate remain within the operating limits. V I and V2 represent the maximum allowable flow rates for the upper two curves in Figure 2. The operating parameters discussed above are hard barriers to the modeling process. The system must be operated within these limits to ensure reliable plug-free, slipfree operation. Figure 3 is a diagram representing the required set points for liquefier temperature and air temperature to achieve good models. In general, there are upper and lower liquefier and air temperature limits for each material. Exceeding these limits do not necessarily mean the model will fail but poor surface quality or low part strength may result. Typically, rippling of the model surface is caused by the air temperature being set too high and, to a lesser degree, by the liquefier temperature being set too high. Conversely, low modeling air temperatures result in poor bonding strength between the layers for some materials and actual delamination of the model in extreme cases. Low liquefier temperatures result in low limits for material flow rates due to the high viscosity of the material and also poor bonding. Therefore, experiments were conducted for each material to define the guidelines to achieve the optimum balance between part strength and surface finish.
+
+System Enhancements As a result of these experiments several design changes were made to the Stratasys FDMÂ® process to improve its performance. These changes were delivered to all customers during the first quarter of 1993. This enhancement package consisted of the following design modifications: 1. Addition of Seals and Fan Heater Boxes and A New Cabinet Door Design to Improve Air Temperature Uniformity. The combination of these three items improves the
+
+88
+
+uniformity of the air temperature within the FDM0 process during the modeling
+
+process. This improved air temperature uniformity eliminates cold spots within the environment that could cause poor bonding or delamination of the model. Additionally, the existing auxiliary heat circuit used to ramp the cabinet up to temperature now operates automatically.
+2. Longer, More Powerful Liquefier to Improve Material Delivery and Set Point
+
+Temperature Consistency. The longer liquefier achieves two things: there is less
+variation in the temperature for both high and low flow rates and higher flow rates are attainable while maintaining the material set point temperature. This liquefier was also designed to be easily exchanged when changing materials. This attribute allows liquefiers to be dedicated to each material type, thereby eliminating the possibility of residual material coatings from previously used materials. The previous design required cleaning operations to be performed on a regular basis to ensure trouble-free operation. (Reference Figures 4a and 4b.) 3. Smaller, Elastomeric Wheels and Larger Filament Diameter to Increase the Buckling Strength and Available Drive Traction. The buckling strength of the filament is a function of its diameter (d) and its compressed length (i). (Reference Figures 4a and 4b.) An increase of the filament diameter and a reduction of the compressed length increases significantly the filament's resistance to buckling. The decrease in the compressed length was achieved by the use of smaller wheels and the elimination of the lower filament guide. The previous 1" steel wheels were unable to conform to varying filament diameters. Smaller, 1/2" elastomeric wheels are better able to conform to the filament thereby reducing stress concentration and increasing drive traction due to their higher coefficient of friction. 4. Improved Hold-Down Tray to Prevent Warping. The Stratasys FDMÂ® process deposits material on a removable foam foundation. Previous methods to retain this foam base were limited in their ability to prevent the foam from warping during the construction of large, thick parts. The new design rigidly holds the foam in an aluminum tray by the use of steel spears. The tray is easily removed from the machine to allow model removal and replacement during pauses in the modeling process. This feature gives the operator the flexibility to perform interim operations on the model not previously possible. 5. Enhanced Firmware to Eliminate "Ooze." A roll-back feature was incorporated into the firmware design which rolls back the filament drive wheels at the end of each curve. This feature eliminates the deposition of excess material at the tip, thereby improving the model quality.
+
+89
+
+Materia Selection Four different materials are currently available for use with the FDMO process: 1) machinable wax; 2) investment casting wax; 3) P200, a polyolefin; and 4) P300, a polyamide. Material selection for a particular model is dependent, in part, upon the end use of the model, part design, part size, and material properties. Models created on rapid prototyping systems typically are used for concept models for design verification and marketing presentations, prototypes for form, fit, and function testing, or patterns for mold making and investment casting. P200 and P300 are most frequently used for concept models and prototypes while machinable wax and investment casting waxes are used for pattern creation. Part design and size will determine material selection in the building of a part. Good part design reduces the amount of stress in the part and leads to better model quality; i.e., less warpage and delamination. In the case of designs that require supports for the build process, the lamination strength of materials will vary and affect ease of support removal. Higher strength materials are required where thin wall sections are involved and greater lamination strengths are required for large parts due to the inherent shrinkage factors of the individual materials. Material properties of interest to model builders include tensile strength, flexural strength, tensile modulus, flexural modulus, notched impact, unnotched impact, elongation, and hardness.
+
+Properties/Material Tensile Strength (psi) Flexural Strength (psi)
+
+Machinable Wax 1,114 1,293
+
+P300 (Polyamide) 1,765 2,113
+
+P200 (Polyolefin) 1,324 1,537
+
+Tensile Modulus (psi) Flexural Modulus (psi) Notched Impact
+(ft*lb/in)
+
+70,000 50,000 0.72 12.9 6.65 40
+
+80,000 60,000 0.24 1.46 3.48 70
+
+90,000 90,000 0.17 1.37 4.68 58
+
+Unnotched Impact (ft*lb/in) Elongation (%) Hardness (Shore D)
+
+Table 1. Material Specifications (based on ASTM tests)
+
+90
+
+The selection of the appropriate material for a model must consider all of the above factors. We are continually researching new materials with improved properties and modeling characteristics. New materials currently under investigation include powdered ceramics, powdered metals, elastomers, and water-soluble materials.
+
+SnmaMw
+The nature and properties of each model are affected by a multitude of modeling parameters. The recent design enhancements to the FDMÂ® process better define and control these modeling conditions and relationships. We will continue to incorporate enhancements and materials into the FDMÂ® system as our knowledge base grows.
+
+Â© 1993 Stratasys, Inc.
+
+91
+
+1/2*
+
+Elaastoomerricc Wheels
+
+LL 0
+
+0
+
+C
+Ca
+
+/
+
+Steel Wheels
+
+Filament Diameter
+Hgure 1. Drive traction vs. filament diLa. for two different pinch roller drives.
+
+[d1<
+0 o
+b.......................
+
+(di,Ti) (dl,T2)
+.........
+
+/./Fs
+S...............
+a)...........................
+
+...............
+
+C
+) .adT
+
+0)0
+
+--
+
+Volumetric Flow Rate --V = w*z*s
+Pressure vs. flow for various tip sizes and process temperatures. 92
+

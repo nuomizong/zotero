@@ -1,0 +1,615 @@
+Materials Science and Engineering A362 (2003) 81â105
+
+Processing techniques for functionally graded materials
+B. Kieback a , A. Neubrand b,c,â , H. Riedel c
+a
+
+Institut fÃ¼r Werkstoffwissenschaft der TU Dresden, MommsenstraÃe 13, 01062 Dresden, Germany b FB 11, Technische UniversitÃ¤t Darmstadt, Petersenstr. 23, 64287 Darmstadt, Germany c Fraunhofer-Institut fÃ¼r Werkstoffmechanik, WÃ¶hlerstr. 11, 79108 Freiburg, Germany Received 18 July 2002; received in revised form 7 February 2003
+
+Abstract An overview of the achievements of the German priority program âFunctionally Graded Materials (FGM)â in the ï¬eld of processing techniques is given. Established powder processes and techniques involving metal melts are described, and recent developments in the ï¬eld of graded polymer processing are considered. The importance of modeling of gradient formation, sintering and drying for the production of defect-free parts with predictable gradients in microstructure is discussed, and examples of a successful application of numerical simulations to the processing of functionally graded materials are given. Â© 2003 Elsevier B.V. All rights reserved.
+Keywords: Functionally graded materials; Powder metallurgy; Sintering; Melt processing; Process simulation
+
+1. Introduction In a functionally graded material (FGM) the properties change gradually with position. The property gradient in the material is caused by a position-dependent chemical composition, microstructure or atomic order. In the case of a position-dependent chemical composition the gradient can be deï¬ned by the so-called transition function ci (x, y, z) which describes the concentration of the component ci as a function of position. Already in 1972, the usefulness of functionally graded composites with a graded structure was recognized in theoretical papers by Bever and Duwez [1], and Shen and Bever [2]. However, their work had only limited impact, probably due to a lack of suitable production methods for FGMs at that time. It took 15 more years until systematic research on manufacturing processes for functionally graded materials was carried out in the framework of a national research program on FGMs in Japan. Since then, a major part of the research on FGMs was dedicated to processing of these materials and
+
+This is an overview of parts of the key results obtained within the Priority Program âFunctionally Graded Materialsâ funded by the German Research Foundation (DFG) in the years 1995â2002. â Corresponding author. Tel.: +49-761-5142282; fax: +49-761-5142403. E-mail address: neu@iwm.fhg.de (A. Neubrand). 0921-5093/$ â see front matter Â© 2003 Elsevier B.V. All rights reserved. doi:10.1016/S0921-5093(03)00578-1
+
+a large variety of production methods has been developed [3â6]. The manufacturing process of a FGM can usually be divided in building the spatially inhomogeneous structure (âgradationâ) and transformation of this structure into a bulk material (âconsolidationâ). Gradation processes can be classiï¬ed into constitutive, homogenizing and segregating processes. Constitutive processes are based on a stepwise build-up of the graded structure from precursor materials or powders. Advances in automation technology during the last decades have rendered constitutive gradation processes technologically and economically viable. In homogenizing processes a sharp interface between two materials is converted into a gradient by material transport. Segregating processes start with a macroscopically homogeneous material which is converted into a graded material by material transport caused by an external ï¬eld (for example a gravitational or electric ï¬eld). Homogenizing and segregating processes produce continuous gradients, but have limitations concerning the types of gradients which can be produced. Usually drying and sintering or solidiï¬cation follow the gradation step. These consolidation processes need to be adapted to FGMs: processing conditions should be chosen in such a way that the gradient is not destroyed or altered in an uncontrolled fashion. Attention also has to be paid to uneven shrinkage of FGMs during free sintering. Since the sintering behavior is inï¬uenced by porosity, particle size and shape
+
+82
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105
+
+and composition of the powder mixture, these problems must be handled for each materials combination and type of gradient individually referring to the existing knowledge about the sintering mechanisms [7]. It has been demonstrated that the introduction of a controlled grain size gradient in addition to the composition gradient can balance different sintering rates [8]. In general, this optimization results in unjustiï¬able limitations for the gradients design. Additionally, variations in the particle packing density can lead to deformation of the part. To overcome some of these limits, the superposition of the internal driving forces for sintering with an external pressure by hot pressing [9â11] or hot isostatic pressing [12] is possible. If the temperature regions for densiï¬cation are very different, application of a temperature gradient during consolidation [13], liquid-phase sintering [14], laser assisted sintering [15], and spark plasma sintering [16,17] have been proposed. Although many of these methods for functionally graded materials were already developed in the early 1990s, there were still limitations concerning material combinations, specimen geometry and cost in 1995. One of the goals of the German priority program âFunctionally Graded Materialsâ was thus the improvement of existing and the development of new processing techniques for functionally graded materials. Besides the well established powder metallurgical techniques other production processes suitable for metals and polymers with a low melting point were investigated in the priority program. Particular emphasis was also placed on modeling of production processes. Process simulations may allow the prediction of suitable processing parameters for FGMs in the future and reduce the considerable amount of experimental effort which is still necessary to produce a graded material free of macrodefects. In the following sections on powder metallurgy, melt and polymer processing and modeling, the achievements of the priority program are described. Each ï¬eld is introduced with basic background information and literature, but a comprehensive literature review of the international literature is not attempted.
+
+suggest the use of powder mixtures with changing average particle size or composition during deposition of the material prior to the forming operation. It depends on the method applied for powder deposition whether a smooth change or a stepwise variation is obtained in the green body. Since the consolidation of the green parts during sintering or hot pressing requires high temperatures at which diffusion processes are fast enough to enable densiï¬cation, chemical reactions between particles of different compositions and the inï¬uence of particle size on the sintering behavior [7] have to be taken into account for the ï¬nal microstructure and dimensional control of the part. On the other hand thermodynamic factors acting during sintering may be used to create a gradient, e.g. during liquid-phase sintering. By the powder metallurgy route the following types of gradients can be processed: (i) Porosity and pore-size gradients: Porosity gradients may be created either by the deposition of powder mixtures with different particle shape or by varying the deposition parameters including the use of space holders. Pore-size gradients in general are produced by the variation of particle size. The different sintering behavior of the powders requires special attention to manage the problems of part distortion but may also be used to produce a porosity gradient. (ii) Gradients in chemical composition of single phase materials: The deposition of powders with a continuous change in the composition of the mixture during sintering will lead to a single phase material with a smooth change in the distribution of elements if the phase diagram shows solubility over the chosen range of composition. The condition that has to be fulï¬lled is that the diffusion length of the different atoms is bigger than the average particle size or the characteristic width of the layered structure if stepwise deposition is applied. The starting powders may be elemental or chosen in the range of compositions between which the gradient should be formed. No application has been reported for a single phase material so far, but gradients in the microstructure and properties after cooling and heat treatment caused by small changes in the elemental composition might be interesting for intermetallic phase materials based on gamma titanium aluminide. The amount of 2 and -phase in these two phase materials and the type of microstructure (lamellar, globular or duplex) obtained after thermal treatment depend directly on the Ti/Al ratio. (iii) Gradients of the volume content of phases and grain size gradients in two or multiphase materials: Most of the published literature focuses on gradients of the volume content of different phases. The phase diagram of such a multi-component system is characterized by no or limited solubility. In the latter case grain growth of the soluble phase during the heat treatment has to be taken into account, in particular if a liquid
+
+2. Powder metallurgy The powder metallurgy (PM) or ceramic technology route for processing of materials and engineering parts includes powder production, powder processing, forming operations and sintering or pressure assisted hot consolidation. Powders of many metals, alloys, compounds and ceramic materials with particle sizes ranging from nanometers to several hundred micrometers are available from industrial sources or may be produced by the methods developed over decades in the ï¬eld of PM [18] or ceramics. Since the material used to form the sintered part is dispersed into very small portions of individual powder particles nearly ideal conditions exist to build-up graded materials with varying chemistry or microstructure by using the particles as building blocks. Practical considerations towards an efï¬cient process design
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105
+
+83
+
+phase is used for activated sintering. The resulting microstructure consists of two or more phases with gradients in volume content or in grain size which were predetermined during the deposition of the powders. The combinations of phases can include metalâmetal, metalâceramic and ceramicâceramic systems. Microstructural gradients can also be produced by controlling the phase equilibrium during liquid-phase sintering with gradients of the components [19â24]. The techniques to obtain a graded material by the powder metallurgy route [4,25â29] are classiï¬ed in the following section according to their capability to produce a stepwise or continuous change of the composition of the powder compact. 2.1. Formation of graded powder compacts 2.1.1. Deposition of layers of powder mixtures with stepwise changes in the mixture 2.1.1.1. Die compaction of layers (powder stacking). In this simple and well established method a gradient is formed by the deposition of powder layers with changing compositions in the compacting die [30â35]. The disadvantages of the process are obvious: discrete changes, limited number of layers (up to 10 in laboratory scale, but not more than two or three in potential fabrication), limited thickness of individual layers (normally not less than 1 mm), limited size of the part (<100 cm2 ) due the limits of compaction forces, discontinuous manufacturing with low productivity. Nevertheless this method allows effective laboratory studies of functionally graded systems. 2.1.1.2. Continuous dry deposition of layers. A continuous process for the deposition of the powder mixture with changing compositions on a conveyor belt was developed in [36]. Sequential deposition of powders results in a stepped gradient. Therefore a special synchronized distributor was designed which makes a continuous change of the composition feasible. 2.1.1.3. Sheet lamination. Thin sheets with different compositions can be produced by dry or wet powder techniques (powder rolling [18] or tape casting) and joined to form a stepped gradient [37,38]. Powder rolling is a well developed process giving green sheets with a thickness in the range of 1 mm. Tape casting of very ï¬ne powders even allows a sheet thickness in the double-digit micrometer range. The high productivity of the green sheet production offers a high potential for up-scaling by laminating sheets with different compositions. The number of sheets would be limited mainly by the costs of fabrication. Complex FGM parts can be varied by stamping or laser-cutting the sheets to different sizes [39]. For powder rolling only powders which result in good green strength are suitable, while tape casting needs a binder that has to be removed before sintering. Hot press-
+
+ing is used to join the layers during the ï¬nal consolidation step. In some studies [39,40], this step was accompanied by a simultaneous SHS-reaction. 2.1.1.4. Wet powder spraying. Powder suspensions suitable for deposition with an air brush system were originally developed to deposit thin powder layers on a substrate [41]. By including a mixing system and controlled feeding of two or more suspensions graded powder layers can be deposited on a ï¬at, curved or rotating substrate [42,43]. Simultaneous drying allows building up parts reaching millimeter thickness with only small variations from layer to layer. The minimum thickness of the layers is controlled by the size of the sprayed droplets and may be less than 50 m. A German research group used wet powder spraying for the manufacture of pore-size gradient microï¬lters [44]. 2.1.1.5. Slurry dipping and slip casting. If a porous body is sequentially dipped into slurries with varying powder characteristics, liquid drag into pores by capillary forces leaves surface layers with a stepped gradient behind [45]. The same principles are valid for sequential slip casting [46,47]. These methods have a high potential for series production if a limited number of layers fulï¬ls the needs of the application. 2.1.1.6. Solid freeform processes. This class of computercontrolled, tool-less manufacturing methods can be readily adapted to the production of FGMs. In the jet solidiï¬cation process a hot powder-binder mixture with suitable ï¬ow properties is deposited with an extrusion jet moved in two dimensions. During cooling the mixture solidiï¬es and a free-standing body is formed. If the powder composition is varied from layer to layer three dimensional graded bodies can be formed. In a project of the priority program a two piston construction with constant volume ï¬ow combined with a static mixing chamber with a very small mixing volume for a volume ï¬ow rate of 32 mm3 /s (Fig. 1) was developed for this purpose [48,49]. A CAD model of a part was sliced into individual layers and a deï¬ned composition was associated with each layer. By changing the feedstock composition for
+
+Fig. 1. Two piston construction for the multiphase jet solidiï¬cation equipment.
+
+84
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105
+
+each layer gradients were produced. SiCâTiC was chosen as a non-reacting system. The viscosity of the feedstock (solid content: 47 vol.%) and the sintering behavior had to be adjusted for varying compositions. With 8â10% liquid-phase sintering additives ï¬nal densities of 97â99.5% were obtained regardless of the SiC:TiC ratio. For smaller parts and thinner individual layers the three-dimensional printing process is more appropriate. In this process, each layer of the part is created by spreading a thin layer of powders and selectively joining the powder by ink-jet printing a binder material. After repeated operations the unbound loose powder is removed to reveal a 3D green body. If the sprayed material contains a component that is not removed during the burnout process, microstructural gradients can be manufactured by 3D printing [50,51]. 2.1.1.7. Other methods. The laser sintering process combines the deposition of powder layers and subsequent sintering [52] and can be modiï¬ed into a stepped gradient processing method. Gravity or centrifugal sedimentation, electrophoretic deposition, pressure ï¬ltration, and centrifugal powder deposition may be used for the stepped type of gradient structures, but have a bigger potential since they can be applied to achieve continuous changes in the material. 2.1.2. Deposition of powders with continuous changes in the mixture 2.1.2.1. Centrifugal powder forming (CPF) and impeller-dry blending. In CPF, powder mixtures with a continuous and computer-controlled change of the composition are fed onto a rotating distributor plate which accelerates them towards the inner wall of a rotating cylinder. A green body of sufï¬cient strength is formed by simultaneously spraying an organic binder onto the wall. The method is limited to cylindrical parts but offers a great ï¬exibility in gradient design which is independent of the powder characteristics [53,54]. Centrifugal powder forming in combination with liquid-phase sintering was used in the priority program for the production of W/Cu FGMs [55] with a ring diameter of 120 mm, 40 mm height and up to 8 mm wall thickness. A tube like geometry may be produced by moving the form or the distributor plate along the axis of rotation during deposition. A related process is impeller-dry blending where dry powders are mixed and homogenized in an impeller chamber prior to sedimentation in a mold [56]. No binder is required, and the process is restricted to ï¬at FGM parts. 2.1.2.2. Gravity sedimentation. During sedimentation in a column differences in the particle velocity caused by different density or size of the powder particles lead to de-mixing of the different particle types [57â59]. As a result, a pore size or composition gradient is produced. If sedimentation occurs in a liquid column free of particles a gradient with a continuous increase or decrease of the concentration of one particle type will be formed. If the sediment is directly formed from
+
+the suspension a complicated transition function is retained. The bottom layer will still have the average composition of the suspension followed by an increase of de-mixing and the top of the sediment contains only the powder fraction with the lowest sedimentation velocity. A similar gradient will be obtained for a ï¬ltration process accompanied by sedimentation [60]. If sedimentation is carried out in highly loaded suspensions, problems due to interparticle interactions occur frequently. Another obvious disadvantage of sedimentation processes are limitations of the types of gradients that can be produced. The laboratory equipment used in [58] was designed for small cylindrical FGM parts of 50 mm diameter. The sample height after the ï¬nal consolidation was 10 mm or more. In spite of its limitations this method has a potential for the manufacture of tile-type FGM products with bigger dimensions due to its simplicity and reproducibility. 2.1.2.3. Centrifugal sedimentation. The formation of a graded structure by de-mixing of a powder suspension can be achieved for ï¬ner particles using centrifugation [61]. Due to the limited concentration in the suspension only thin layers can be produced. Centrifugal sedimentation was used in one project of the priority program aiming at the development of ceramic ï¬ltration elements with a pore-size gradient. Pore-size graded ï¬lters of 18 mm diameter and a thickness between 0.1 and 1 mm were made by centrifugal deposition of TiO2 powders from aqueous suspensions containing a mixture of particle sizes between 10 nm and 5 m [62,63]. 2.1.2.4. Electrophoretic deposition. Electrophoretic deposition from suspensions containing more than one component can be used to produce graded bodies. In the simplest case an external mixing system supplies suspensions with the variable concentrations of the components or the second component is added with time in calculated proportions [64â67]. The feasibility to produce a graded green body from homogeneous suspensions using the difference in the electrophoretic mobility of different powders was investigated in the course of a priority program project [68]. The velocity of ceramic particles in suspensions Î½ depends on the electrophoretic mobility Âµ and the electric ï¬eld strength E, Î½ = ÂµE (1)
+
+The mobility is deï¬ned by the properties of the dispersant and the zeta potential of the particles Î¶: Îµ0 Îµr Âµ= Î¶ (2) Î· where Î· is the viscosity and Îµ0 Îµr the dielectric constant of the dispersant. In a project of the priority program [68] the higher mobility of Al2 O3 compared to ZrO2 was used to prepare a gradient from a 2 vol.% suspension containing Al2 O3 and ZrO2 . Electrolytic decomposition of the aqueous electrolyte and the resulting formation of gas bubbles in the deposited layer were prevented by deposition of the particles on
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105
+
+85
+
+a porous membrane. A proper choice of the surfactants and pH was necessary to guarantee stability of the suspension and to achieve differences in electrophoretic mobility which were sufï¬cient for de-mixing. Diluted suspensions were essential to prevent agglomeration and collective deposition due to particle interactions at higher concentrations. Despite the resulting longer deposition times graded deposits with several mm thickness could be produced. Due to the higher mobility of Al2 O3 , it deposited faster and its concentration in the suspension and deposit decreased with time. Accordingly, the zirconia concentration increased with time. After sintering, the gradient of the zirconia concentration was accompanied by a grain size gradient because zirconia inhibits the grain growth of Al2 O3 . 2.1.2.5. Pressure ï¬ltration/vacuum slip casting. By continuously changing the powder composition supplied to the ï¬ltration system it is easy to obtain a deï¬ned one dimensional gradient in the deposit [69]. The same principles can be applied to slip casting [47,70]. The aim of one priority program project was the development of a SiC fuel evaporator tube for a gas turbine combustor. If the surface of the evaporator tube is porous a dramatic increase of the evapo-
+
+ration rate can be achieved, however a direct transition from porous to dense SiC leads to operating stresses exceeding the strength of the SiC. FEM calculations [60] showed that a properly designed porosity gradient leads to a decrease of the failure probability at operating conditions by a factor of 106 compared to a non-graded tube, if the permeability and evaporation rate are kept constant. Pressure ï¬ltration with a variable concentration of space holder particles was selected to fabricate the required porosity gradients. Two experimental set-ups, one using gas pressure (Fig. 2a) and one using liquid pressure (Fig. 2b) were tested. A variation of space holder concentration from 0 to 40 vol.% could be achieved. After sintering the porosity in the tube was graded from 10 to 50% over a distance of several millimeters (Fig. 3). By using segmented ï¬lter plates that allow for a local adjustment of the ï¬ltrate ï¬ow the production of axial and radial gradients is possible [71,72]. 2.2. Sintering The gradient that has been formed in the powder compact needs to be preserved during sintering. In solid state sintering of bulk specimens diffusion lengths are usually small
+
+Fig. 2. Design of the ï¬ltration apparatus (a) using controlled gas pressure; (b) using controlled liquid pressure.
+
+86
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105
+
+Fig. 3. Porosity gradient in a sintered ceramic sample produced by pressure ï¬ltration with PMMA beads as space holders.
+
+enough to fulï¬l this condition. During liquid-phase sintering, however, macroscopic ï¬ow of the liquid phase can easily occur, and a gradient in the liquid phase is easily destroyed. Nevertheless, it has been demonstrated by Colin et al. [73] that it is possible to preserve concentration gradients during liquid-phase sintering of WC/Co hard metals. On the other hand, it is possible to make conscious use of liquid ï¬ow during liquid-phase sintering for gradient formation. In a priority program project, this was studied extensively. If the particle size of the solid component was graded, liquid redistribution by capillary forces occurred and produced a concentration gradient [20]. The same effect was found if the proportion of cubic and hexagonal carbides is graded or if the carbon or nitrogen content varied in the green compact [20]. These redistribution processes are driven by the tendency of the system to minimize the free energy of internal surfaces and interfaces. The gradient formation starts with melting of the liquid phase and is fast. Gradients in binder content and hardness can extend up to several millimeters (Fig. 4). Distortions of the parts can be prevented by carefully adjusted green densities of the different regions. In hard metals the interaction of the gas atmosphere with the compact during sintering produces chemical gradients with a strong inï¬uence on the phase content in a near-surface layer. Tough surface layers free of mixed carbides for steel cutting tools have been obtained and studied [74â76] and the role of nitrogen was described [22]. In WC/Co hard metals a carbon gradient obtained by decarburizing results in a Co-rich graded surface layer [23,24]. A detailed study performed in the priority program project showed a very complex behavior for the gradient formation [20]. A continuous change of W, Ti, Zr, and Co or Ni content was obtained by slow diffusion controlled processes if carbon or nitrogen changes were produced by interactions with the sintering atmosphere. It was found that the cooling regime after liquid-phase sin-
+
+tering is very important, and that a surface layer of up to 60 m thickness enriched or depleted of binder metal could be adjusted. 2.3. Methods not requiring a sintering step Coating techniques using powders for the materials supply easily can be adopted to gradient fabrication by including a mixing unit in the powder supply chain (e.g. [77,78]). Another possibility is the use of two spraying guns with deï¬ned deposition rate and motion of the guns (e.g. [79]). Feeding of mixed powders with controlled compositions is also the basis of the laser cladding technique for building up graded coatings or graded freeform components [80â87]. Two
+
+V24/8: WC0,6Âµm6Co WC11Âµm15Co 20 Co-Content/Hardness/Fracture Toughness 18 16 14 12 10 8 6 4 2 0 1 2 3 4 5 6 7 8 9 10 Distance [mm]
+
+Fig. 4. Co-concentration ( ), hardness ( ) and fracture toughness ( ) gradient in a hard metals with a gradient of the carbide grain size. Lines are guides for the eye only.
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105
+
+87
+
+Fig. 5. Left: generation of a metalâcarbide composite with compositional gradient by laser beam cladding. Right: graded NiCrBSi tube with 0â80 vol.% Cr3 C2 .
+
+avoided and a thick wear resistant graded coating can be manufactured by laser cladding. Other methods using powders as starting materials or PM-related techniques that can be modiï¬ed for gradient processing are the Osprey-Process and centrifugal casting with a SHS-reaction. In conclusion the disperse state of the materials in powder metallurgy and ceramics processing offers a great variety of methods to obtain a graded microstructure or composition in the ï¬nal part. Most methods create a one dimensional gradient, but developments in free form manufacturing and special deposition units open up the three dimensional design of gradients. The main difï¬culties to produce graded parts by powder technology arise from the consolidation of the inhomogeneous powder compact during sintering. Each graded system requires carefully selected powders and sintering conditions or the application of external pressure to reach full density without distortion. Some of the methods described are very cost-effective and have a good potential for industrial application. Others will be reserved for laboratory studies or special applications.
+
+separately controlled pneumatic powder hoppers were used to feed Ni-alloy and Cr3 C2 powder simultaneously to deposit tracks with a height 100â400 m and a width 400â800 m with a 600 W Nd-YAG laser (Fig. 5). Subsequent cladding of overlapping tracks and deposition of tracks onto each other with a changing ratio of the powder feed rates produces a graded freeform component. The carbide content was increased from 0 to 80 vol.%. Laser and process parameters have to be optimized to obtain crack and pore free samples and to control the microstructure. For this study NiBSi, NiCrBSi and NiCr50 alloys and ï¬ne (10â45 m) and coarse (45â106 m) Cr3 C2 powder were tested. As an example the hardness proï¬le of a cylindrical part with wide change of the carbide content (ï¬ne grade) is shown in (Fig. 6). FEM calculations demonstrated that stress concentrations at the interface with the carbide free substrate are
+950 850 750 Hardness HV0,3 650 550 450 350 250 0 10 20 30 40 50 60 Carbide Content [vol-%] 70 80 90 NiBSi + Cr3C2 NiCrBSi + Cr3C2 NiCr50 + Cr3C2
+
+3. Melt processing Gradient formation can be conveniently achieved by transport processes in the molten state and subsequent consolidation. Melt processing is widespread for FGMs containing a metal as one constituent. 3.1. Centrifugal casting In centrifugal casting, particles of a refractory phase are dispersed in a metal melt. These particles may be formed in situ during cooling of the melt [88] or dispersed in a preceding step. The density difference between particles and the melt leads to the formation of a particle concentration gradient if the melt is cast in a centrifuge. Particles with a lower density (Mg2 Si, [88]) and a higher density (Al3 Ti, [89]) than the melt have been used to prepare functionally graded aluminum tubes which are selectively particle reinforced at the inner or outer surface of the tube. If platelets are used as particles a gradient in particle orientation can be produced during the casting process [90]. 3.2. Sedimentation casting In the framework of the priority program, gradient formation by sedimentation of particles was investigated [91]. The goal of the project was the production of a one dimensional FGM with an acoustic impedance gradient (the acoustic impedance is deï¬ned as the product of density and sound velocity). Impedance graded FGMs can reduce the acoustic mismatch between a high impedance PZT ultrasound transducer and a low impedance material such as body tissue. The impedance gradient material was produced by dispersing WC particles in a Cu/Mn alloy and subsequent
+
+Fig. 6. Hardness proï¬le of graded NiBSi + Cr3 C2 , NiCrBSi + Cr3 C2 and NiCr50 + Cr3 C2 cylinders obtained by laser beam cladding.
+
+88
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105
+
+Fig. 7. Micrograph of a WC/Cu/Mn alloy gradient and the corresponding spatial distribution of the WC particle concentration.
+
+sedimentation. In this way a particle concentration gradient from 0 to 60% WC was produced (Fig. 7). The high impedance WC side matched the impedance of PZT exactly. Efforts to produce W/Al and W/Sn FGMs with this method failed due to solubility problems (W/Al) or poor wetting of the particles with the melt (W/Sn). 3.3. Controlled mold ï¬lling In a further project of the priority program, the functionally graded material was produced by successive casting of two melts [92]. In a gravity casting process, the mold was partially ï¬lled with the ï¬rst melt, and in a further step, the second melt was cast on the partially solidiï¬ed ï¬rst material (Fig. 8). Gradient formation occurred by forced and thermal convection, and the width of the graded interface was predominantly controlled by the degree of solidiï¬cation of the ï¬rst melt at the time when the second melt was cast. In a modiï¬cation of this process casting was carried out in a rotating mold, and components with a cylindrical shape could be obtained. The controlled casting process was used to produce AlSi7 /AlSi18 and A356/Duralcan graded materials. In a thermal shock experiment, graded and un-
+
+graded A356/Duralcan composites were heated to 400 â¦ C and quenched in water. After 700 thermal cycles a graded specimen showed no damage (Fig. 9a). In contrast, an ungraded specimen displayed cracks already after 300 cycles which eventually lead to a complete destruction of the specimen (Fig. 9b).
+
+Fig. 8. Multi-alloy gravity casting process.
+
+Fig. 9. A356/Duralcan composites after 700 thermal cycles at 400 â¦ C: (a) specimen with graded interface; (b) specimen with ungraded interface.
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105
+
+89
+
+Fig. 10. Set-up for directional solidiï¬cation experiments with natural convection (a) and forced convection (b).
+
+3.4. Directional solidiï¬cation The possibilities of generating a macroscopic, onedimensional concentration gradient with radial symmetry by directional solidiï¬cation were also investigated in the framework of the priority program. In this process, the difference between the solidus and liquidus composition during directional solidiï¬cation of an alloy is used to prepare a FGM. In order to avoid solidiï¬cation under steady state with constant solid concentration, the melt in front of the solidiï¬cation front must be stirred as effectively as possible. This can be achieved by natural convection in a vertical resistance furnace (Fig. 10a). A temperature gradient was generated by inserting cooling coils in the top end of the furnace. Samples were melted inside the furnace and then moved toward the chilled zone with a constant velocity. The solidiï¬cation direction was thus upwards, and for alloying elements with higher density than the matrix element, a solutally and thermally unstable density gradient in the melt was generated. For alloying elements with similar density as
+
+the matrix element, an induction furnace was used. A large temperature gradient was established by submerging the tip of the sample in cooling water causing forced convection in the melt (Fig. 10b). Using natural convection, complete mixing could not be achieved during directional solidiï¬cation of an Al-4 wt.%Cu alloy even at the lowest sample velocity of 0.34 m/s. Better mixing could be realized with forced convection in the induction furnace for specimens with 8 mm diameter (Fig. 11). The minimum concentration at a velocity of 0.9 m/s was 0.56 wt.%, which is close to the theoretical value of 0.48 wt.% for complete mixing. For this velocity, a Scheil type concentration proï¬le with the maximum possible degree of segregation was obtained. The main reason for the higher stirring efï¬ciency in the induction furnace was the radial temperature gradient introduced by the preferential heating of the sample surface. The degree of segregation in the induction furnace decreased with increasing sample velocity and segregation-free microstructures were generated at velocities above 0.3 mm/s (Fig. 11).
+
+Fig. 11. Concentration distributions in Al-4 wt.%Cu alloys, solidiï¬ed with ( ) 0.9 m/s, ( ) 9.0 m/s, ( ) 46 m/s, ( ) 264 m/s velocity in an induction furnace.
+
+90
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105
+
+3.5. Inï¬ltration processing Inï¬ltration is a suitable processing method for functionally graded materials containing phases of very different melting points. In this process a preform of the more refractory phase possessing a porosity gradient is produced and inï¬ltrated with the melt of the lower melting component at elevated temperatures. The preform must contain only open pores and must be insoluble in the melt. Inï¬ltration processing is particularly attractive for metal/ceramic and glass/ceramic FGMs. However, metal/ceramic systems are generally non-wetting (with a wetting angle Î > 90â¦ ) and the preforms are not inï¬ltrated spontaneously. Larger pores can be inï¬ltrated by applying pressure during inï¬ltration. The required pressure p for a complete inï¬ltration of a cylindrical pore of radius rp is given by p= â2Î³LV cos Î rp (3)
+
+where Î³ LV is the surface tension of the melt. For a cylindrical pore in a ceramic/metal system with a pore radius of 5 m, a wetting angle of 120â¦ and a surface tension of 1 J/m2 a pressure of 0.2 MPa is necessary for inï¬ltration. Pressures required for complete inï¬ltration of real pore structures are higher, but can be reached using squeeze casting or gas-pressure sintering equipment. An alternative to pressure application is the improvement of the wettability by precoating the preform, by suitably alloying the melt or changing the composition of the gas atmosphere. However, even for a wetting angle of about 30â¦ a pressure of about 1 atm is necessary for complete inï¬ltration of a particulate preform [93]. Further limitations of inï¬ltration processing are caused by the restricted availability of graded porous preforms which must not contain closed porosity and need to have a sufï¬cient mechanical strength at high porosity in order to resist the pressure applied during inï¬ltration. One processing method for such preforms is based on powder compacts with a graded particle size. During sintering, the particle size gradient leads to the formation of a porosity gradient [94]. Since this is accompanied by distortion, shape stabilization during sintering is required. Other methods which have been used to produce graded preforms include sintering of green bodies with a graded content of short ï¬bres [95], transformation of a Al/Al2 O3 gradient into a porosity gradient during sintering [96], transformation of a gradient in carbon content in TiCx into a porosity gradient during sintering [97], plasma spraying with varying process parameters during coating deposition [98], coating of a polymer foam with ceramic slip in a centrifuge and burn-out of the polymer [99], and solid freeform fabrication [100]. In a project of the priority program a combination of centrifugal powder forming and liquid-phase sintering was used to prepare a porosity gradient. For this purpose the amount of liquid forming Cu was graded in a W/Cu green body by centrifugal powder forming, and the movement of the liquid Cu towards a more homogeneous distribution caused a
+
+Fig. 12. W/Cu gradient formation: (a) starting condition after centrifugal forming; (b) porosity gradient after liquid-phase sintering; (c) W/Cu gradient after Cu-inï¬ltration.
+
+porosity gradient in the W/Cu composite [54,55]. Inï¬ltration of the pre-sintered body with additional Cu leads to a fully dense graded W/Cu composite (Fig. 12). Electrochemical dissolution of porous precursor materials as a route to produce graded preforms has been investigated in a different project of the priority program. The experimental set-up consists of a simple electrolysis cell with a porous anode material that undergoes dissolution (Fig. 13). If a current passes through the cell, potential gradients inside the porous anode develop and lead to a local variation in the
+porous anode cathode
+
+contact
+
+electrolyte
+
+contact
+
+z
+0
+
+y x
+L
+
+Fig. 13. Sketch of the experimental conï¬guration for electrochemical gradation.
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105
+
+91
+
+Fig. 14. Microstructure of a graded W/Cu composite produced by electrochemical gradation.
+
+rate of dissolution and porosity of the anode. A quantitative description of the porosity evolution was possible by an electrokinetic model described in Section 5. Electrochemical gradation has been used to introduce porosity gradients in materials such as bronze [101] and copper [102]. Porosity graded tungsten preforms also have been produced by this process [103]. After anodization the tungsten preforms were inï¬ltrated with molten copper applying 10 MPa Ar pressure to yield a fully dense W/Cu FGM (Fig. 14). Electrochemical gradation was also used to produce porosity graded ceramic preforms. In this case porous carbon was used as an anode material and sacriï¬cial preform. After electrochemical gradation and inï¬ltration with an alumina slip of sufï¬ciently small particle size, the carbon was burnt out [104]. The retained ceramic preform was inï¬ltrated with Al to produce a Al/Al2 O3 functionally graded material. A very versatile method to produce porosity graded sacriï¬cial preforms is also the inhomogeneous compaction of polymer foams as ï¬rst described by Cichocki et al. [105]. In this so-called âgradient materials by foam compactionâ (GMFC) process open-celled polymer foam of a low initial density is used as a starting material. Porosity graded foams are produced by warm pressing foam wedges of different shape to a homogeneous thickness or by stacking compacted foam plates with different compaction ratios. With both methods a well controlled macroscopic porosity distribution inside the foam with minimum values of 40% open porosity and maximum values of 97% open porosity can be
+
+Fig. 15. Manufacture of a Cu/Al2 O3 FGM by the GMFC process (processing stages are numbered consecutively): (1) uncompressed polymer foam; (2) foam plates compressed with different compaction ratios; (3) stacked foam plates; (4) foam stack inï¬ltrated with Al2 O3 ; (5) graded Al2 O3 preform after sintering; (6) preform material cut to specimen dimensions; (7) retained Cu/Al2 O3 FGM after inï¬ltration of the preform with molten Cu; (8) specimen for burner rig test after grinding and polishing.
+
+produced [106,107]. The compacted foams are inï¬ltrated with a ceramic suspension. After water removal by ï¬ltration and drying, the polymer foam is burnt out and the ceramic is sintered. The retained porosity graded ceramic preform can be inï¬ltrated with a metal to produce a metal/ceramic FGM. Fig. 15 illustrates the processing steps on the example of a graded Cu/Al2 O3 material for burner rig testing [108]. In a further priority program project, ï¬ber preforms with graded ï¬ber spacing were produced by impregnating carbon ï¬bers with slurry [109]. The principle of this method is to introduce ceramic particles into the ï¬ber bundle thereby acting as spacers. Fig. 16 shows an illustration of the used impregnation set-up. It was found that the suspension concentration and the winding speed of the ï¬bers are the most important parameters to determine the ï¬ber volume content of the preform (Fig. 17). Higher particle concentrations and lower winding speeds result in a distinctly more pronounced accumulation of spacer particles between the ï¬ber ï¬laments and consequently lower ï¬ber volume fractions. After inï¬ltration of the ï¬ber preforms with different magnesium alloys carbon ï¬ber reinforced composites with graded ï¬ber content were obtained. The volume content of the reinforcing ï¬bers could be continuously varied between 25 and 60%
+
+Fig. 16. Schematic diagram showing the impregnation process used for the introduction of spacer particles into the ï¬ber bundle.
+
+92
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105
+
+Fig. 17. Inï¬uence of the winding speed on the ï¬ber volume content for several Al2 O3 particle concentrations. The ï¬ber content increases with higher winding speeds, whereas the amount of spacer particles in the ï¬ber bundle decreases.
+
+by adjusting the winding speed during the impregnation process. 3.6. Reactive inï¬ltration In reactive inï¬ltration the preform reacts with the inï¬ltrated material to form a graded composite. The advantages of reactive inï¬ltration are low-cost processes and raw materials and improved wetting. The gradient may be formed by incomplete inï¬ltration of a homogeneous porous body or by complete inï¬ltration of a preform that contains a porosity or composition gradient. Partial inï¬ltration is usually combined with a reaction and sintering step after inï¬ltration in which a dense body containing the new phases is formed. Mullite/alumina [110], mullite/aluminumtitanate/alumina [111] and alumina/calcium-hexaluminate [112] FGMs were formed by partially inï¬ltrating precursors such as silica sols or calcium acetate into alumina preforms. Partial inï¬ltration is a very simple method to produce continuous gradients, but lacks ï¬exibility in the shape of the composition proï¬le. If complete reactive inï¬ltration is used to produce gradients, the composition proï¬le of the product can be controlled by the gradient in the preform. An example is the so-called i-3A process [113], in which Al is inï¬ltrated into porous preforms consisting of Al2 O3 and a metal oxide. The metal oxide is reduced by the liquid aluminum, and Al2 O3 and the respective metal aluminides are formed according to the reaction aMeu Ov + bAl â cAl2 O3 + dMex Aly (4)
+
+4. Processing of polymer-based FGMs In polymers, like in other materials, compositional and microstructural gradients are intended to allow an optimum combination of component properties, for example weight, surface hardness, wear resistance, impact resistance and toughness. Polymers with a porosity gradient, so-called polyurethane integral skin foams provide high impact strength at low weight and have been used since long for instrument panels or head rests in cars [115]. Graded polymers that have been processed so far include graded ï¬ber composites [116], graded interpenetrating polymer networks [117], graded biodegradable polyesters [118] and graded index polymer ï¬bers and microlenses [119]. Compared to ceramic or metal based systems, the knowledge on processing methods for polymer FGMs is limited. In the following, some important processing methods for polymer FGMs are described where particular attention is given to the methods used in the priority program. In polymer composites, a gradient of the reinforcement can be introduced by centrifuging prior to polymerization [120]. This method was studied in detail by Klingshirn et al. in a priority program project [121]. Two resins were used as matrix materials, while SiC particles, aramide particles, glass ï¬bers and carbon ï¬bers were used as ï¬ller materials. Rings and tubes with a gradient in ï¬ller content were produced by centrifuging a dispersion of particles in a resin prior to hardening. The average ï¬ller content was chosen between 5 and 45%. After centrifugation the ï¬ller content in the outer portions of the rings increased up to 27% for glass ï¬bers and to 45% for SiC particles, for an average ï¬ller content of 20%. This signiï¬cant difference between different ï¬ller materials was primarily attributed to the aspect ratio of the ï¬ller particles, which was about 200 for the glass ï¬bers and 1 for the SiC particles. A smooth gradient in the ï¬ller concentration could be produced by adjusting the rotation speed of the centrifuge and the viscosity of the resin. The latter could be increased by gelation for a given time before
+
+For the production of FGMs by the i-3A process graded Al2 O3 /TiO2 and Al2 O3 /Fe2 O3 bodies were produced by powder stacking or slip casting. After gas-pressure inï¬ltration with Al, the graded green bodies were converted into Al2 O3 /TiAl3 and Al2 O3 /FeAlx FGMs [114]. The aluminide content in the FGMs varied between 0 and 35 vol.% and had defect-free interfaces between layers of different composition.
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105
+
+93
+
+centrifugation. A viscosity 25 Pa s. was found suitable for centrifugation of carbon ï¬bersâa lower viscosity of 5 Pa s lead to a complete sedimentation of the carbon ï¬bers during thermosetting. The wear resistance of thermosetting polymers was improved by the addition of the hard ï¬ller particles or ï¬bers. It was demonstrated that the gradient in ï¬ller content leads to a corresponding gradient in microhardness and wear resistance [122,123]. Long-ï¬ber reinforced polymers with graded ï¬ber composition or orientation can be produced by lamination techniques [124]. In a priority program project a gradient was introduced also in the matrix material. Polycyanurate resins were used as a matrix material. Since the neat polycyanurate is too brittle for many structural applications, it was modiï¬ed by a rubber modiï¬er. Higher modiï¬er contents improve the toughness, but the good high-temperature stability of neat polycyanurate and the resistance against water absorption are reduced. The idea of the project was thus to optimize the properties of a component by a gradient in modiï¬er content, in addition to gradients in ï¬ber density and orientation which are already used in lightweight components. The gradient was achieved by hot press lamination of a stack of glass ï¬ber prepregs containing differently modiï¬ed resins. Since the resins are redistributed between the prepreg layers during molding, it was necessary to determine the resulting gradient at the end of the process. This was done by dynamic mechanical analysis (DMA) which proved that a smooth gradient was established during molding [125]. If polymers develop distinctly different microstructures at different processing temperatures, it is possible to introduce property gradients by applying a temperature gradient during processing. Such an effect was used in a priority program project aiming at the development of a polymeric impact protection material consisting of a single component. Sintered ï¬ber materials were selected as candidates because they have high energy absorption potential. The properties of the ï¬nal product depend strongly on the temperature at which the ï¬bers are sintered together. Low sintering temperatures lead to an anisotropic microstructure, in which the aligned ï¬bers are still well discernible. High sintering temperatures lead to a compact, isotropic material. Components with either of these microstructures have poor to moderate impact resistance. The anisotropic material fractures by delamination between the ï¬bers, so that small objects can penetrate through
+
+the material between the ï¬bers and the high strength of the ï¬bers cannot be used for the absorption of impact energy. On the other hand, the isotropic microstructure, per se, has low impact resistance. The idea of the project was to introduce a microstructural gradient by applying a temperature gradient during sintering with the goal to improve the impact properties of the component. For one of the test materials, the liquid-crystalline copolyester VectranÂ® , the idea was successful. Fig. 18 shows an example of a graded microstructure with a nearly homogeneous structure at the high-temperature side and clearly discernible ï¬bers at the low-temperature side. The impact resistance was measured in a repetitive drop-weight test, in which the plates are impacted repeatedly with increasing impact energy until penetration occurs. In this test, the homogeneous isotropic material exhibited very low energy absorption values around 20 J, while the homogeneous material with anisotropic structure (sintering temperature 290 â¦ C) gave energy absorption values around 200 J with a small difference between cross-ply and fabric. The best values, nearly 300 J, were obtained with the graded material, but only when the anisotropic microstructure was at the impact side and the isotropic structure is at the opposite side, and cross-ply rather than fabric was used [126].
+
+5. Modeling of FGM processing The rapidly increasing performance of computers and computer software has favored the widespread use of numerical simulation tools for the design of parts and for the optimization of manufacturing processes. Process modeling may be especially important in connection with functionally graded materials, since gradients often cause special problems. In some cases the simulation can help to establish the desired gradient, and to maintain it throughout the entire process by an appropriate process control. In other cases, process modeling may help to circumvent or at least minimize problems such as warpage or cracking during the fabrication of a component. 5.1. Modeling of gradient formation In many processes such as powder stacking the gradient is formed directly and there is no need to model the formation
+
+Fig. 18. Graded microstructure of sintered VectranÂ® ï¬bres.
+
+94
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105
+
+of the gradient. When the powders are not deposited directly but in a ï¬ltration process knowledge of the rate of cake formation is necessary to produce pre-deï¬ned gradients. It has been demonstrated by TuffÃ© and Marple that a precise control of gradient formation is possible using a simple analysis if the casting parameter is known for each slip composition [127]. As long as particle interactions are small, modeling of particle sedimentation is straightforward if the particle size distributions are known. Normally, the Stokes equation is used to describe the particle velocity, but for heavier particles Newtonâs law has been used [58]. Reasonable agreement of calculated and observed particle volume fractions have been achieved for sedimentation experiments [59,128]. Modeling of gradient formation has also been carried out for centrifugal casting [129,130] and reasonable agreement with the experimental particle distribution was found [130]. In vapor deposition processes the gradient is usually introduced by dosage of precursors from separate containers or by adjusting the partial pressure of a reactive gas. For such processes the relationship between composition of the gas phase and the composition of the deposit may be complicated and knowledge of the relationship between the partial pressures of different components in the gas phase and the ï¬lm growth rate and composition is required for the design of controlled gradients [131]. Polyurethane integral skin foam parts exhibit a substantial density gradient, such that the surface is relatively dense and mechanically stable, while the core of the part has low density. This is achieved by keeping the tool surfaces relatively cool (typically 80 â¦ C), whereas the center of the part is heated by the foaming reaction to higher temperatures (typically 180 â¦ C). This leads to an expansion of the foam bubbles to much larger diameters, which means lower density. In a priority program project the foaming process was simulated numerically using the ï¬nite-element code ABAQUS. Predicted and optically measured density distributions were consistent, as Fig. 19 shows [132]. Further, a new method was developed to detect the gelation of the foam material by ultrasound transmission and a suggestion was made how a graded foam structure could serve as a coupling element for ultrasound between air and a sensor, and how the element could be fabricated. In the previous chapter, a priority program project using anodic dissolution to prepare graded porous preforms for inï¬ltration processing was described. In the following a model is presented that allows an accurate prediction of the porosity gradient developing during the electrolysis due to the dissolution of the electrode material. A continuum model was used which regards the porous electrode as a macrohomogenous mixture of the electrode matrix and the electrolyte ï¬lling the pores. It was assumed that the local density of the Faraday current per unit internal surface area jF is governed by the Tafel equation: jF (Î·) = j0 exp Î±F Î· RT (5)
+
+where j0 and Î± are constants for a given electrode reaction and Î· the overpotential (driving the electrode reaction). For a plate-like porous anode of thickness L where the current feeder is located at the side opposite to the cathode (Fig. 13) the current density per unit volume jv (and thus the local rate of dissolution) could be determined analytically as: â B B 2 jv = SjF = j0 S 1 + tg [w â wmin ] (6) 2A 2 where the relative position w = x/L and the surface area per unit volume S have been introduced. A and B are dimensionless constants deï¬ned by the following equations: Î±F â A = (Ïlâ + Ïs )L2 Sj0 (7) RT â B C D (8) arctg â + arctg â = 2 B B with Î±F Î±F and D = Ïlâ jT L (9) RT RT The position of minimum overpotential is determined by the dimensionless quantity wmin :
+â C = Ïs jT L
+
+wmin =
+
+C 2 arctg â â B B
+
+(10)
+
+â Ïs and Ïlâ are the effective resistivity of the porous electrode and electrolyte, which depend on the pore structure of the electrode and the resistivity of the employed materials. Eq. (6) is only valid if the current potential relation is described by the Tafel relation. A ï¬nite-difference scheme based on the same differential equations as the analytic solution was developed in order to be able to use arbitrary currentâpotential relations. As material is removed by the anodic reaction a position-dependent porosity and speciï¬c surface area develops. This was also included in the numerical model by the dividing the operation time into small time intervals and adding of the material removal during all time intervals. The results of the analytical and the numerical model were compared to experimental data for a porous tungsten electrode (Fig. 20). Already the analytical model showed a good agreement with experimental data, but the numerical model could predict the porosity distribution even with a higher precision. The produced porosity distribution can be controlled by a number of experimental parameters (Fig. 21). Increasing the total current and keeping the other experimental parameters constant lead to a more uneven tungsten distribution (compare a and b). Increasing the resistivity of the electrolyte by decreasing the concentration of electrolyte also leads to a more uneven tungsten distribution (compare c and d). Preforms with lower initial porosity graded under the same experimental conditions also showed more uneven tungsten content (compare b and d). Porosity distributions produced by the electrochemical gradation process were thus predicted quantitatively in a numerical model of the gradation process taking into account
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105
+
+95
+
+average density 294 kg/mÂ³ 376 kg/mÂ³ 480 kg/mÂ³ 597 kg/mÂ³ 680 kg/mÂ³
+
+900 800 density [kg/mÂ³] 700 600 500 400
+
+experiment simulation
+
+300 0 4 8 2 6 distance from upper surface [mm] 10
+
+Fig. 19. Measured and calculated density distributions across the thickness of a polyurethane plate after the foaming reaction.
+
+microstructural changes of the porous electrode during the dissolution process. 5.2. Modeling of sintering As a basis for describing the sintering of graded components, models for solid-state and liquid-phase sintering were developed and applied in the priority program [133â135]. The models were implemented in a ï¬nite-element code (ABAQUS), and they were also combined with beam-theory and plate-theory PC programs in order to predict the warpage and cracking of graded components. Finally a program for microwave sintering was developed and combined
+
+with an advanced solid-state sintering model. The models and their application in the priority program are described in the following paragraphs. 5.2.1. Application of a liquid-phase sintering model to Al2 O3 In [134,135] a liquid-phase sintering model was developed, which was used in this project to describe the sintering behavior of 94% purity Al2 O3 . To determine the parameters of the model, so-called sinter forging tests were carried out. In this test, a cylindrical specimen is subjected to an axial load during sintering, and the axial and radial strains are measured. In addition the evolution of the microstructure was observed, since the models contain the grain size as an internal state variable. The parameter ï¬t is done using a PC program by integrating the evolution equations of the model and varying the parameters by hand, until the simulated behavior agrees with the measured one. Figs. 22 and 23 demonstrate that the evolution of the strains (and hence of the density) and of the grain size can be described well by the model. Table 1 shows the resulting parameter values. It should be noted that a similarly good ï¬t of the data can be achieved by a solid-state sintering model [133]. This is not surprising, since for relatively low liquid contents the structure of the liquid-phase model is similar to that of the solid-state model. 5.2.2. Warpage of graded plates The warpage of graded plates during sintering was modeled in two ways. First a relatively simple program was written in the framework of plate-theory. The equations for the equilibrium of force and bending moment were given in [136]. Second, the sinter warpage of a plate with a grain size gradient was calculated with a ï¬nite-element code [62,136]. As an example, a circular plate with 10 mm thickness and 100 mm diameter is considered in [136]. The lower half of the plate consists of molybdenum and the upper half of ZrO2 . A linear heating rate of 5 K/min and a hold temperature of 2173 K are prescribed with a linear temperature gradient of 100 K over the plate thickness during the rise time, the
+
+Fig. 20. Comparison of the predicted and observed tungsten content in an electrochemically graded W/Cu composite, (- - -) analytical model; (â) numerical model. The numerical model includes the effects of structural changes on the current distribution in the porous electrode. Initial tungsten content was 75 vol.%, current density 12.2 mA/cm2 and NaOH concentration 2 mol/l.
+
+96
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105
+
+TUNGSTEN CONTENT [Vol.-%]
+
+VICKER'S HARDNESS [GPa]
+
+3
+
+3
+
+60
+
+2
+
+2
+
+60
+
+40 1 20 0 80 2
+(a)
+
+40 1 20 0 0 2
+(c)
+
+4
+
+6
+
+0
+
+4
+
+6 80
+
+POSITION [mm]
+VICKER'S HARDNESS [GPa]
+
+TUNGSTEN CONTENT [Vol.-%]
+
+3
+
+60
+
+2
+
+2
+
+60
+
+40 1 20 0 2
+(b)
+
+40 1 20 0 0 2
+(d)
+
+4
+
+6
+
+0
+
+4
+
+6
+
+Fig. 21. Comparison of the predicted (â) and observed ( ) tungsten distribution in electrochemically graded W/Cu for different current density, NaOH concentration and initial porosity. Open triangles are hardness values of the composites: (a) initial porosity 25%, current density 5.5 mA/cm2 , cNaOH 2 mol/l; (b) initial porosity 25%, current density 12.2 mA/cm2 , cNaOH 2 mol/l; (c) initial porosity 42%, current density 5.5 mA/cm2 , cNaOH 2 mol/l; (d) initial porosity 42%, current density 5.5 mA/cm2 , cNaOH 1 mol/l.
+
+Table 1 Parameters of the liquid-phase sintering model for 94% purity alumina Initial values Melt formation Relative green density D0 Initial grain radius R0 Start of melting Melting rate Maximum volume fraction of melt Maximum solid density by rearrangement Viscosity, pre-exponential factor Viscosity, activation energy Reaction rate, pre-exponential factor Reaction rate, activation energy Diffusion coefï¬cient, pre-exponential factor Diffusion coefï¬cient, activation energy Solid/liquid interface energy Liquid surface energy Volume fraction of large pores Parameter for size distribution of large pores B Parameter for size distribution of large pores n G/K 0.605 1.05 m 1430 K 0.000595 K 0.1 0.63 1 Ã 105 425 kJ/mol 3.9 Ã 104 400 kJ/mol 5.2 Ã 1038 425 kJ/mol 0.25 J/m2 0.25 J/m2 0.1 0.12 1 0.27
+
+Grain rearrangement
+
+Solution/re-precipitation Diffusion in liquid phase Sintering stress
+
+Ratio shear-to-bulk viscosity
+
+TUNGSTEN CONTENT [Vol.-%]
+
+3
+
+TUNGSTEN CONTENT [Vol.-%]
+
+80
+
+80
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105
+
+97
+
+0.0 -0.1
+
+40
+radial strain free sintering
+
+Displacement in mm
+
+30 20 10 0 -10 0
+
+Mo-ZrO2 âT = 100 K
+
+Strain
+
+-0.2 -0.3 -0.4 -0.5 200
+
+Grain radius of ZrO2 R= 0.1 Âµm R= 0.5 Âµm R= 1 Âµm
+
+axial strain
+
+35 N 45 N 40 N
+350 400
+
+250
+
+300
+
+Time in min
+Fig. 22. Evolution of axial and radial strains. Solid lines: experiments; dashed lines: model. Temperature is the same as in Fig. 23.
+
+2
+
+4
+
+6
+
+8
+
+10
+
+12
+
+14
+
+Time in h
+Fig. 24. Warpage of a plate consisting of molybdenum and zirconia. The ï¬nal warpage is small, if the zirconia has a grain radius of 1 m.
+
+ZrO2 side being cooler. The material parameters that are most important for the sintering behavior of the plate are the activation energies for grain boundary diffusion, Qb , and for grain boundary migration, Qm . They are taken from other investigations to be Qb = 280 kJ/mol for Mo, 271 kJ/mol for ZrO2 and Qm = 230 kJ/mol for Mo, 310 kJ/mol for ZrO2 . The relative green densities are assumed to be 0.6 for Mo and 0.5 for ZrO2 . The initial grain radius is chosen as 2.5 m for Mo, and that of ZrO2 is varied (0.1, 0.5 and 1 m). Fig. 24 shows the calculated evolution of the warpage of the plate (the normal displacement of the edge of the plate with the center being ï¬xed). The ï¬ne-grained ZrO2 sinters at a temperature where Mo is still practically inactive. This leads to a displacement of the plate edge in upward direction. Later also the Mo starts to sinter, but it does not nearly reach full density, since intense grain coarsening prevents further densiï¬cation. Hence the plate is substantially distorted at the end. This distortion can be minimized by choosing the appropriate grain size for the ZrO2 powder. If the grain radius of the ZrO2 powder is 1 m the Mo side starts to sinter ï¬rst, but slightly later also the ZrO2 shrinks and just compensates the initial warpage. In this case the ï¬nal relative densities are 0.74 in ZrO2 and 0.88 in Mo.
+3.5
+1700
+
+Grain Size in Âµm
+
+1500 1400
+
+Temperature in ËC
+
+Al2O3 A1894
+
+1600
+
+Within the framework of plate-theory the distortion necessarily remains axisymmetric. A three-dimensional ï¬nite-element calculation, however, shows that the initial symmetry is spontaneously broken. The deformation is only axisymmetric for small deï¬ections, whereas the plate assumes the form of a potato chip as sintering progresses [136]. These predictions are consistent with observations of Moritz et al. when sintering pore-size graded titania plates [62]. The sintering temperature was selected such that the plates acquire enough strength, but still have an open pore structure, even in the ï¬ne-grained top layers. It was found that up to 800 â¦ C, practically no sintering occurred. At about 850 â¦ C the plates developed a certain mechanical strength, and the pores were still open with pore sizes between 5 and 50 nm at the ï¬ne-grained side, and 3 m at the coarse-grained side (as measured by quantitative image analysis). With increasing sintering temperature the plates were distorted, as the ï¬ne-grained side sintered faster than the coarse-grained side (Fig. 25). Part of the warpage was reversed when also the coarse-grained material sintered in the temperature range between 900 and 1200 â¦ C. The sinter warpage could be avoided without suppressing the radial shrinkage by covering the graded plate with an alumina disc of about 3 g mass. 5.2.3. Prediction of cracking When graded materials are processed, cracking is a potential danger, since different regions sinter at different rates. The resulting incompatibilities may either be relieved by creep accommodation and distortions, or they may lead to cracking, depending on the material properties and the geometrical conditions. It is suggested that cracking is initiated in a sintering body if the mean stress locally exceeds the sintering stress. In this case the material starts to desinter, which means that it locally softens. Softening may lead to strain localization; the incompatibilities between areas sintering at different rates
+
+3.0
+Temperature
+
+Experiment Model
+
+1300 1200 1100 1000
+
+2.5
+
+2.0 200
+
+250
+
+300
+
+350
+
+400
+
+Time in s
+Fig. 23. Evolution of the grain size. Symbols: experiments; dashed line: model.
+
+98
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105
+
+Fig. 25. Inï¬uence of the sintering temperature on the warpage of graded titania plates.
+
+are accommodated in a narrow desintering layer, i.e. in the evolving crack. To illustrate the principle, the conï¬guration shown in Fig. 26 is considered: A spherical core of ï¬ne-grained material (region 1) is separated by a thin layer (region 2) from the coarse-grained bulk (region 3). Tensile stresses develop between the coarse-grained bulk and the ï¬ne-grained core due to the different sintering stresses. These stresses act on the interface layer, which is intended
+
+Fig. 26. (A) Conï¬guration analyzed in the sintering model. (B) Evolution of the relative density in the ï¬ne-grained core, in the interface layer and in the coarse-grained bulk. Grain size in the interface: (a) 0.518 m; (b) 0.52 m; (c) 0.522 m.
+
+to serve as a perturbation to initiate cracking. To be speciï¬c the grain size in the bulk is assumed to be 2 m, in the core it is 0.5 m and in the interface layer it is given a value between 0.5 and 2 m. The initial relative density is chosen as 0.55 except in the interface layer, where it is 0.54. The question to be answered is whether the greater sinter activity of the ï¬ne-grained core leads to a decohesion from the bulk or whether the core remains attached, its sintering rate being constrained by the slowly sintering bulk. Fig. 26 shows the result of the calculation for three different grain sizes in the interface layer (cases a, b and c). The numerical values for the grain sizes are deliberately chosen to illustrate the sudden transition from stable sintering of the system to unstable desintering (cracking) of the interface. In case (a) the grain size in the interface layer is 0.518 m. After a period of retarded densiï¬cation, the interface, as well as the complete system densify readily. In case (b) the grain size in the interface layer is 0.52 m. Still the interface remains intact and reaches full density after a period of initial desintering. In case (c), however, where d = 0.522 m, desintering leads to a complete loss of density and strength of the interface layer. When the interface layer breaks down, the core starts to sinter much faster than before when it was still constrained by the slowly sintering, coarse-grained bulk. Hence, near the instability point, a seemingly minor change of the grain size in the interface leads to a completely different result. In further calculations, the grain size of the interface layer was varied, while all other parameters remained ï¬xed. It turned out that stable sintering is only possible, if the grain size in the interface is close to either that of the core (0.5 m) or that of the bulk (2 m). If the interface has grain sizes between 0.52 and 1.95 m, decohesion occurs. Hence in this case, a transition layer with intermediate properties between the core and the bulk is less favorable for the sinterability than a sudden transition. This example is intended to illustrate the principle how cracking can be described as a process of localized desintering for a simple conï¬guration. In the framework of the ï¬nite-element method, the principle can be generalized to arbitrary geometrical conï¬gurations with property gradients.
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105
+
+99
+
+5.2.4. Microwave sintering Microwave sintering offers certain advantages compared to conventional heating, for example for the sintering of ï¬ne-grained ceramic powders, when the ï¬ne grain size is to be preserved during sintering. On the other hand, the electromagnetic ï¬eld in the microwave cavity is inhomogeneous, which is an additional difï¬culty for the sintering of graded parts. Hence a ï¬nite-difference microwave program was written and combined with the solid-state sintering model described in [133]. Commercial microwave codes generally solve Maxwellâs equations, sometimes coupled with the heat conduction equation, since the dielectric properties of materials usually depend on temperature. In addition to the temperature dependence, the thermal and electric properties may depend strongly on the sinter density, and the program developed here takes that also into account [137]. The following example shows that the full coupling of the sintering model with the electromagnetic and thermal ï¬elds is not a second-order effect, but it may be critical for the success of a sintering process. Fig. 27 shows the axisymmetric microwave furnace to be analyzed. The energy is fed into the cavity by the bottom antenna, while the antenna at the top serves to control the process. The material to be sintered is an alumina ceramic. The susceptors are assumed to be dense alumina, and the insulation is given the thermal and electric properties of alumina ï¬bers. The microwave frequency is chosen such that the TE031 mode is excited (for the microwave terminology see [138]). Fig. 28 shows the temperature distribution for the case that a coarse-grained alumina with grain size 2 m is heated with 1 kW microwave power. The picture shows that a so-called runaway instability occurs: the temperature is rather low everywhere in the ceramic (the hatched area in the center) except in a small region, where it quickly rises to very high values. In the case shown here the temperature reaches the melting point of alumina in the hot spot, while the rest of the ceramic does not even start to sinter. Such a runaway instability can occur if the microwave absorption coefï¬cient increases with temperature, if the microwave power is high, if the heat conductivity is low, and if the specimen is large. Apparently the conditions for a run-
+
+Fig. 28. (a) Temperature distribution for 1 kW microwave power. (b) Maximum and average temperature in the (coarse-grained) ceramic show the evolution of a runaway instability.
+
+Susceptor Ceramic
+
+Insulation
+
+Microwaves
+
+Antenna
+
+Fig. 27. Cylindrical microwave cavity with a ceramic sample and susceptors.
+
+away instability to occur are satisï¬ed here. In practice this means that the process fails to yield an acceptable sintered product. On the other hand, the instability can be avoided, if ï¬ne-grained alumina with grain size 0.1 m is sintered with 500 W microwave power. As Fig. 29 shows, the temperature distribution in the ï¬ne-grained ceramic is very homogeneous. This leads to a density near 100% and a ï¬ne grain size below 0.14 m throughout the specimen. The reason for the favorable behavior of the ï¬ne-grained material is that it starts to sinter earlier. Since the heat conductivity increases sharply during the initial stages of densiï¬cation, the heat is spread more effectively and hence no localization instability develops. A model which does not couple sintering with the electromagnetic and thermal ï¬elds would not be able to predict the difference between coarse- and ï¬ne-grained
+
+100
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105
+
+Fig. 29. (a) Temperature distribution for 500 W of microwave power. (b) Maximum and average temperature in the (ï¬ne-grained) ceramic.
+
+materials. The development of stable microwave sintering processes for functionally graded materials without local over-heating can be substantially facilitated by the use of simulation tools like the present one. 5.3. Modeling of drying processes After wet forming processes it is necessary to dry the green powder compact, before it can be processed further. Functionally graded materials are especially susceptible to warpage during drying. The capillary pressure of the liquid exerts an increasing pressure on the solid skeleton as the liquid content decreases, which causes the well-known shrinkage during drying. Since the rate of drying and the capillary pressure depend on the grain size and the green density, the shrinkage is usually inhomogeneous in a graded component, which leads to distortions and, in some cases, also to crack formation. In the priority program a basis for modeling the warpage during drying was developed. The aim was to be able to model the drying and deformation behavior of graded com-
+
+ponents with a commercial ï¬nite-element program. A complete description of drying and the concomitant deformations involves three coupled ï¬elds, namely the local water content, the temperature and the mechanical deformation. Various aspects of drying theory are described in [139,140]. In a ï¬rst step, a one-dimensional PC program was developed. The program simultaneously solves the heat conduction equation and Darcyâs equations for liquid and vapor transport in the porous solid. The thermodynamic properties of water (vapor pressure over curved surfaces, latent heat) are taken into account. It turned out that under all practical drying conditions the temperature was nearly uniform for a wall thickness of a few centimeters. Hence it is not necessary to solve the heat conduction equation. It sufï¬ces to consider the global energy balance between the heat ï¬owing into the body through its surface, the latent heat of the evaporating liquid and the internal energy in the body. Hence in a numerical time-stepping algorithm the (uniform) temperature change can be calculated in each step directly from the current state of the body and from the temperature and humidity of the surrounding atmosphere. This greatly simpliï¬es the analysis, since now only two ï¬elds (water content and deformation ï¬eld) remain which must be treated in a coupled manner. This two-ï¬eld problem is, in principle, accessible to several ï¬nite-element codes. Nevertheless, the problem was further decomposed into two one-ï¬eld problems, namely the drying simulation itself and the deformation problem. The decoupling is based on the assumption that the hydrostatic part of the stress is small compared to the capillary stress of the liquid. This excludes the description of situations in which the water is pressed out of the porous solid by applied forces like in pressure ï¬ltration. On the other hand, the assumption is usually justiï¬ed for industrial drying processes. The drying problem is then analogous to a heat conduction problem, and the deformation problem is subsequently solved as an elasticâplastic problem with superimposed volumetric strains and plastic properties that depend on the local water content.
+
+25 20
+
+3
+
+Water content in wt-%
+
+Shrinkage in %
+
+2 15 10 1
+5 0
+
+0
+
+100
+
+200
+
+300
+
+400
+
+500
+
+600
+
+0 700
+
+Time in min
+Fig. 30. Water content and shrinkage during drying. Measured values and adjusted theoretical curves.
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105
+30 28 26
+
+101
+
+temperature in ÂºC
+
+24 22 20 18 16 14 12 10 0 5000 10000 15000 20000 25000 30000 35000 40000
+
+time in s
+
+Fig. 31. Evolution of the temperature in the plate during drying.
+
+The parameters of the model were determined from a set of experiments, in which the water content, the shrinkage and the temperature are measured for different temperatures and humidities of the atmosphere (Fig. 30). Further, stressâstrain curves were measured in compression tests for different water contents to determine the elasticâplastic properties of the wet powder body. After the determination of the model parameters the drying and warpage of homogeneous and functionally graded materials can be described. As an example the drying of
+
+Fig. 32. Distribution of the water content in the plate after 650 s (a) and 6600 s (b). The numbers give the range in which the water content varies. Only a quarter of the plate is depicted.
+
+a graded circular plate with 60 mm diameter and 5 mm thickness was modeled in an atmosphere with 25 â¦ C and 50% humidity. The material is given model parameters similar to those of a sanitary ware material, and the volumetric drying strain is assumed to increase linearly from 4 to 8% from the top of the plate to the bottom, while the permeability for liquid water increases by a factor 3.
+
+Fig. 33. Warpage after drying. Initial geometry in the background. Table 2 Overview of processing methods for FGMs Process Powder stacking Sheet lamination Wet powder spraying Slurry dipping Jet solidiï¬cation Sedimentation/centrifuging Filtration/slip casting Laser cladding Thermal spraying Diffusion Directed solidiï¬cation Electrochemical gradation Foaming of polymers PVD, CVD GMFC process
+a b c
+
+Variability of transition function Very good Very good Very good Very good Very good Good Very good Very good Very good Moderate Moderate Moderate Moderate Very good Very good
+
+Layer thicknessa M, L T, Mb UT, Tb UT, Tb M, L C C M T C C C C C M, L, C
+
+Versatility in phase content Very good Very good Very good Very good Very good Very good Very good Very good Very good Very good Moderate Good Good Very good Moderate
+
+Type of FGM Bulk Bulk Bulkc Coating Bulk Bulk Bulkc Bulk, coating Coating, bulk Joint, coating Bulk Bulkc Bulk Coating Bulk
+
+Versatility in component geometry Moderate Moderate Moderate Good Very good Poor Good Very good Good Good Poor Good Good Moderate Good
+
+L: large (>1 mm); M: medium (100â1000 m); T: thin (10â100 m), UT: very thin (<10 m); C: continuous. Depending on available powder size. Maximum thickness is limited.
+
+102
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105
+
+As Fig. 31 shows, the calculated temperature of the plate initially decreases to 19 â¦ C due to the evaporation of water, and returns to ambient temperature as the evaporation rate decreases. After about 40,000 s the water content in the plate reaches 1.6%, i.e. it is in equilibrium with the atmosphere and evaporation comes to a standstill. Fig. 32 shows the distribution of the water in the plate at different times, and Fig. 33 shows the warpage at the end of the drying cycle. In a SPP project, extreme warpage was also experimentally observed for direct drying of plates with a particle size gradient, since the capillary stresses of the liquid in ï¬ne-grained material are much larger than in coarse-grained material [141]. In practice, planar plates could be obtained by supercritical drying, since this process does not involve a direct liquid to vapor transition and hence avoids capillary forces.
+
+References
+[1] [2] [3] [4] [5] M.B. Bever, P.F. Duwez, Mater. Sci. Eng. 10 (1972) 1â8. M. Shen, M.B. Bever, J. Mater. Sci. 7 (1972) 741â746. A. Mortensen, S. Suresh, Int. Mater. Rev. 40 (1995) 239â265. A. Neubrand, J. RÃ¶del, Z. Metallkd. 88 (1997) 358â371. Y. Miyamoto, W.A. Kaysser, B.H. Rabin, A. Kawasaki, R.G. Ford, Functionally Graded Materials, Kluwer Academic Publishers, Boston, 1999. T. Hirai, in: R.J. Brook (Ed.), Materials Science and Technology, vol. 17B, Processing of Ceramics, Part 2, VCH Verlagsgesellschaft, Weinheim, Germany, 1996, pp. 292â341. W. Schatt, SintervorgÃ¤nge, VDI-Verlag, DÃ¼sseldorf, 1992, p. 275. R. Watanabe, MRS Bull. XX (1) (1995) 32â34. Y.-G. Jung, S.-C. Choi, C.-S. Oh, U.-G. Paik, J. Mater. Sci. 32 (1997) 3841â3850. H. Kimura, K. Toda, Metal Powder Rep. 51 (1997) 34. L.M. Zhang, H.P. Xiong, L.D. Chen, T. Hirai, J. Mater. Sci. Lett. 19 (2000) 955â958. Y. Miyamoto, Mater. Sci. Res. Int. 6 (2000) 3â8. M. Willert-Porada, T. Gerdes, R. Borchert, in: B. Ilschner, N. Cherradi (Eds.), FGMâ94, Proceedings of the 3rd International Symposium on Structural and Functional Gradient Materials, 1994, Presses Polytechniques et Universitaires Romandes, Lausanne, 1995, pp. 15â20. V. Richter, in: B. Ilschner, N. Cherradi (Eds.), FGMâ94, Proceedings of the 3rd International Symposium on Structural and Functional Gradient Materials 1994, Presses Polytechniques et Universitaires Romandes, Lausanne, 1995, pp. 587â592. M. Yuki, T. Murayama, T. Irisawa, A. Kawasaki, R. Watanabe, in: M. Yamanouchi, M. Koizumi, T. Hirai, I. Shiota (Eds.), FGMâ90, Proceedings of the 1st International Symposium on Functionally Gradient Materials, Sendai, 1990, FGM Forum, Tokyo, 1990, pp. 203â208. M. Omori, H. Sakai, T. Hirai, M. Kawahara, M. Tokita, in: B. Ilschner, N. Cherradi (Eds.), FGMâ94, Proceedings of the 3rd International Symposium on Structural and Functional Gradient Materials, Lausanne, Switzerland, 10â12 October 1994, Presses Polytechniques et Universitaires Romandes, Lausanne, 1995, pp. 71â76. M. Tokita, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM, Dresden, Germany, 26â29 October 1998, Trans Tech Publications, Switzerland, 1999, pp. 83â88. W. Schatt, K.-P. Wieters (Eds.), Powder MetallurgyâProcessing and Materials, EPMA, Shrewsburry, UK, 1997, p. 492. B.R. Marple, D.J. Green, J. Mater. Sci. 28 (1993) 4637â4643. V. Richter, M. von Ruthendorf, Final Report, DFG-Programme 322733, Project Gradient Formation in Hardmetals during Sintering, 2002. L. Chen, W. Lengauer, K. Dreyer, in: Proceedings of the Euro PM99, Turin, Italy, 8â10 November 1999, pp. 463â473. L. Chen, W. Lengauer, P. Ettmayer, Int. J. Refract. Met. Hard Mater. 18 (2000) 307â322. C. Chatï¬eld, Scand. J. Metall. 16 (1987) 9â15. J. Spacil, in: Proceedings of the 14th International Plansee Seminar, vol. 2, Reutte, Austria, 12â16 May 1997, pp. 338â351. M. Koizumi, in: M. Yamanouchi, M. Koizumi, T. Hirai, I. Shiota (Eds.), FGMâ90, Proceedings of the 1st International Symposium on Functionally Gradient Materials, Sendai, 1990, FGM Forum, Tokyo, 1990, p. 3. B. Ilschner, in: M. Yamanouchi, M. Koizumi, T. Hirai, I. Shiota (Eds.), FGMâ90, Proceedings of the 1st International Symposium on Functionally Gradient Materials, Sendai, 1990, FGM Forum, Tokyo, 1990, pp. 101â106. N. Cherradi, Production and Applications of Functionally Graded Materials by Powder MetallurgyâEuropean Activities, in: Proceed-
+
+[6]
+
+[7] [8] [9] [10] [11] [12] [13]
+
+6. Concluding remarks Processing of FGMs in the laboratory scale has reached a considerable level of maturity. A range of processing methods is available today for almost any material combination. Which of these processing methods is the most appropriate depends not only on the materials involved, but also on the type and extension of the gradient, and the geometry of the required component (an overview is given in Table 2). The German priority program has contributed to the current state-of-the-art of FGM processing, especially in freeform processing and metallurgical processing of FGMs. Additionally known gradation methods were applied to the processing of polymer-based FGMs. Despite of all these achievements, the authors believe that there will be new challenges in the future when applications for FGMs will evolve. These include: (i) adaptation of manufacturing processes to mass production and up-scaling, (ii) repeatability of production processes and reliability of the produced FGMs, (iii) cost-effectiveness of production processes, (iv) quality control. Modeling of production processes may contribute to solve some of these problems, and ï¬rst steps in this direction have been undertaken in the German priority program.
+
+[14]
+
+[15]
+
+[16]
+
+[17]
+
+[18] [19] [20]
+
+[21] [22] [23] [24] [25]
+
+Acknowledgements Support of the priority program âFunctionally Graded Materialsâ by the Deutsche Forschungsgemeinschaft is gratefully acknowledged. The authors would like to thank the participants of the priority program for contributing many of the illustrations used in this review.
+[26]
+
+[27]
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105 ings of the Euro PMâ95, Birmingham, UK, 23â25 October 1995, pp. 632â638. M. Gasik, N. Cherradi, A. Kawasaki, Metal Powder Rep. 12 (1996) 28â31. M. Gasik, A. Kawasaki, S. Ueda, in: L. Schultz, D.M. Herlach, J.V. Wood (Eds.), Materials Processing and Development, EUROMATâ99, vol. 8, Munich, Germany, 27â30 September 1999, pp. 258â264. K. Atarashiya, Y. Ishida, T. Nagai, in: J.B. Holt, M. Koizumi, T. Hirai, Z.A. Munir (Eds.), Ceram. Trans. 34, Functionally Gradient Materials, American Ceramic Society, Westerville, OH, 1993, pp. 141â148. B.H. Rabin, R.J. Heaps, in: J.B. Holt, M. Koizumi, T. Hirai, Z.A. Munir (Eds.), Ceram. Trans. 34, Functionally Gradient Materials, American Ceramic Society, Westerville, OH, 1993, pp. 173â180. R. Watanabe, A. Kawasaki, M. Tanaka, J.-F. Li, in: H. Bildstein, R. Eck (Eds.) Proceedings of the 13th International Plansee Seminar, Reutte/Tirol, Austria, 1993, vol. 1, pp. 960â971. J. Zhu, Z. Yin, Z. Lai, J. Mater. Sci. Technol. 10 (1994) 188â192. W.A. Gooch, B.H.C. Chen, M.S. Burkins, R. Palicka, J. Rubin, R. Ravichandran, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM 1998, Trans Tech Publications, Switzerland, 1999, pp. 614â621. U. Leushake, A.N. Winter, B.H. Rabin, B.A. Corff, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM 1998, Trans Tech Publications, Switzerland, 1999, pp. 13â18. K. Dollmeier, B. Ilschner, W. Thiele, in: B. Ilschner, N. Cherradi (Eds.), FGMâ94, Proceedings of the 3rd International Symposium on Structural and Functional Gradient Materials 1994, Presses Polytechniques et Universitaires Romandes, Lausanne, 1995, pp. 27â32. M. Takemura, T. Hyakubu, A. Yoshitake, M. Tamura, in: J.B. Holt, M. Koizumi, T. Hirai, Z.A. Munir (Eds.), Ceram. Trans. 34, Functionally Gradient Materials, American Ceramic Society, Westerville, OH, 1993, pp. 271â278. Y.-P. Zeng, D.-L. Jiang, J. Am. Ceram. Soc. 83 (2000) 2999â3003. Y. Zhang, J. Han, X. Zhang, X. He, Z. Li, S. Du, Mater. Sci. Eng. A299 (2001) 218â224. A.-L. Dumont, J.-P. Bonnet, T. Chartier, J.M.F. Ferreira, J. Eur. Ceram. Soc. 21 (2001) 2353â2360. A. Ruder, H.P. Buchkremer, H. Jansen, W. Mallener, D. StÃ¶ver, Surf. Coatings Technol. 53 (1992) 71â74. A. Kawasaki, R. Watanabe, in: M. Yamanouchi, M. Koizumi, T. Hirai, I. Shiota (Eds.), FGMâ90, Proceedings of the 1st International Symposium on Functionally Gradient Materials 1990, FGM Forum, Tokyo, 1990, pp. 197â202. B. Kieback, F. Meyer-Olbersleben, Maschinenmarkt 105 (1999) 38â40. D. Prinz, V. Arnhold, H.-P. Buchkremer, A. Kuhstoss, P. Neumann, D. StÃ¶ver, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM 1998, Trans Tech Publications, Switzerland, 1999, pp. 59â64. S. Moore, G. Sandami, Chem. Eng. 5 (1993) 39â43. R. Moreno, A.J. Sanchez-Herencia, J.S. Moya, in: J.B. Holt, M. Koizumi, T. Hirai, Z.A. Munir (Eds.), Ceram. Trans. 34, Functionally Gradient Materials, American Ceramic Society, Westerville, OH, 1993, pp. 146â156. J. Requena, J.S. Moya, P. Pena, in: J.B. Holt, M. Koizumi, T. Hirai, Z.A. Munir (Eds.), Ceram. Trans. 34, Functionally Gradient Materials, American Ceramic Society, Westerville, OH, 1993, pp. 203â210. C. Sand, J. Adler, R. Lenk, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM, Dresden, Germany, 26â29 October 1998, Trans Tech Publications, Switzerland, 1999, pp. 65â70. W. Hermel, J. Adler, C. Sand, Final Report, DFG-Programme 322733, Project Sintered Materials with a Three Dimensional
+
+103
+
+[28] [29]
+
+[50] [51] [52]
+
+[30]
+
+[53] [54]
+
+[31]
+
+[32]
+
+[55]
+
+[33] [34]
+
+[56] [57] [58]
+
+[35]
+
+[36]
+
+[59]
+
+[37]
+
+[60] [61] [62] [63]
+
+[38] [39] [40] [41] [42]
+
+[64] [65]
+
+[43] [44]
+
+[66]
+
+[45] [46]
+
+[67] [68]
+
+[47]
+
+[69]
+
+[48]
+
+[70] [71]
+
+[49]
+
+Graded Composition and/or a Three Dimensional Graded Porosity, 2002. J. Moon, A.C. Caballero, L. Hozer, Y.-M. Chiang, M.J. Cima, Mater. Sci. Eng. A298 (2001) 110â119. J. Yoo, K.M. Cho, W.S. Bae, M. Cima, S. Suresh, J. Am. Ceram. Soc. 81 (1998) 21â32. V. Kumar, D. Dutta, Solid Model Creation for Materially Graded Objects, Solid Freeform Fabrication Proceedings, 11â13 August 1997, Austin TX, USA, pp. 613â620. D. Delfosse, B. Ilschner, Materialwiss. Werkstofftechn. 23 (1992) 235â240. M. Joensson, B. Kieback, in: B. Ilschner, N. Cherradi (Eds.), FGMâ94, Proceedings of the 3rd International Symposium on Structural and Functional Gradient Materials, Lausanne, Switzerland, October 10â12, 1994, Presses Polytechniques et Universitaires Romandes, Lausanne, 1995, pp. 33â39. U. Birth, M. Joensson, B. Kieback, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM 1998, Trans Tech Publications, Switzerland, 1999, pp. 766â773. A.J. Ruys, E.B. Popov, D. Sun, J.J. Russell, C.C.J. Murray, J. Eur. Ceram. Soc. 21 (2001) 2025â2029. D.P. Miller, J.J. Vanutti, R.N. Yancey, Ceram. Eng. Sci. Proc. 13 (1992) 365â373. R. Bernhardt, F. Meyer-Olbersleben, B. Kieback, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM 1998, Trans Tech Publications, Switzerland, 1999, pp. 31â35. G. Kapelski, A. Varloteaux, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM 1998, Trans Tech Publications, Switzerland, 1999, pp. 175â180. J. Chu, H. Ishibashi, K. Hayashi, H. Takebe, K. Morinaga, J. Jpn. Ceram. Soc. 101 (1993) 841â844. P.M. Biesheuvel, V. Breedveld, A.P. Higler, H. Verweij, Chem. Eng. Sci. 56 (2001) 3517â3525. T. Moritz, H. Riedel, G. Werner, G. Tomandl, J. Mater. Sci. 35 (2000) 2235â2240. T. Moritz, G. Werner, G. Tomandl, M. Mangler, H. Eichler, U. Lembke, W. Hauffe, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM 1998, Trans Tech Publications, Switzerland, 1999, pp. 884â889. P. Sarkar, X. Huang, P.S. Nicholson, J. Am. Ceram. Soc. 76 (1993) 1057â1060. P. Sarkar, T. Umegaki, in: Proceedings of the 4th International Symposium on Functionally Graded Materials 1996, Elsevier, Amsterdam, 1997, pp. 221â226. C. Zhao, J. Vleugels, L. Vandeperre, B. Basu, O. van der Biest, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM 1998, Trans Tech Publications, Switzerland, 1999, pp. 31â35. S. Put, J. Vleugels, O. Van der Biest, Scripta Mater. 45 (2001) 1139â1145. A. Boerner, R. Herbig, M. Mangler, G. Tomandl, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM 1998, Trans Tech Publications, Switzerland, 1999, pp. 89â94. H. Mori, Y. Sakurai, M. Nakamura, S. Toyama, in: B. Ilschner, N. Cherradi (Eds.), FGMâ94, Proceedings of the 3rd International Symposium on Structural and Functional Gradient Materials 1994, Presses Polytechniques et Universitaires Romandes, Lausanne, 1995, pp. 173â178. J.S. Moya, A.J. Sanches-Herencia, J. Requena, R. Moreno, Mater. Lett. 14 (1992) 333â335. M. Droeschel, R. Oberacker, M.J. Hoffmann, W. Schaller, Y.Y. Yang, D. Munz, in: W.A. Kaysser (Ed.), Functionally Graded Materials
+
+104
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105 1998, Proceedings of the 5th International Symposium on FGM 1998, Trans Tech Publications, Switzerland, 1999, pp. 820â826. M. Droeschel, R. Oberacker, M. J. Hoffmann, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM 1998, Trans Tech Publications, Switzerland, 1999, pp. 814â820. C. Colin, L. Durant, N. Favrot, J. Besson, G. Barbier, F. Delannay, Int. J. Refract. Met. 12 (1994) 145â152. H. Suzuki, K. Hayashi, Y. Taniguchi, Trans. Jpn. Inst. Met. 22 (1981) 758â764. M. Schwarzkopf, H.E. Exner, H.F. Fischmeister, W. Schintlmeister, Mater. Sci. Eng. A 105â106 (1988) 225â231. R. Frykholm, H.-O. Andren, Mater. Chem. Phys. 67 (2001) 203â 208. N. Shimoda, S. Kitaguchi, T. Saito, H. Takigawa, M. Koga, in: M. Yamanouchi, M. Koizumi, T. Hirai, I. Shiota (Eds.), FGMâ90, Proceedings of the 1st International Symposium on Functionally Gradient Materials, Sendai, 1990, FGM Forum, Tokyo, 1990, pp. 151â155. S. Eroglu, N.C. Birla, M. Demirci, T. Baykara, J. Mater. Sci. Lett. 12 (1993) 1099â1102. T. Fukushima, S. Kuroda, S. Kitahara in: M. Yamanouchi, M. Koizumi, T. Hirai, I. Shiota (Eds.), FGMâ90, Proceedings of the 1st International Symposium on Functionally Gradient Materials, Sendai, 1990, FGM Forum, Tokyo, 1990, pp. 145â150. K.M. Jasim, R.D. Rawlings, D.R.F. West, J. Mater. Sci. 28 (1993) 2820â2826. J.H. Abboud, D.R.F. West, R.D. Rawlings, J. Mater. Sci. 29 (1994) 3393â3398. J.H. Abboud, R.D. Rawlings, D.R.F. West, J. Mater. Sci. 30 (1995) 5931â5938. T. Seefeld, C. Theiler, E. Schubert, G. Sepold, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM 1998, Trans Tech Publications, Switzerland, 1999, pp. 459â466. C. Theiler, T. Seefeld, G. Seepold, B. Wielage, G. Leonhardt (Eds.), in: Proceedings of the Conference on Composite Materials and Composed Materials 2001, Wiley-VCH, Weinheim, 2001, pp. 548â557. C. Theiler, T. Seefeld, G. Seepold, M. Geiger, A. Otto (Eds.), in: Proceedings of the Conference on Laser Assisted Net Shape Engineering 3, 2001, Meisenbach-Verlag, Bamberg, 2001, pp. 421â430. G. Sepold, W. Jueptner, C. Theiler, Final Report, DFG-Programme 322733, Project Laser Generation of Graded MetalâCarbide Freeform Components, 2002. Y.T. Pei, J.Th.M. de Hosson, Acta Mater. 48 (2000) 2617â2624. J. Zhang, Y.-Q. Wang, B.L. Zhou, X.-Q. Wu, J. Mater. Sci. Lett. 17 (1998) 1677â1679. Y. Watanabe, N. Yamanaka, Y. Fukui, Z. Metallkd. 88 (1997) 717â 721. Y. Watanabe, H. Eryu, K. Matsuura, Acta Mater. 49 (2001) 775â 783. G. Zimmermann, A. Schievenbusch, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM 1998, Trans Tech Publications, Switzerland, 1999, pp. 533â538. A. GÃ¼ntner, P.R. Sahm, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM 1998, Trans Tech Publications, Switzerland, 1999, pp. 187â192. J.L. Hilden, K.P. Trumble, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM 1998, Trans Tech Publications, Switzerland, 1999, pp. 157â162. M. Takahashi, Y. Itoh, M. Miyazaki, H. Takano, T. Okuhata, in: H. Bildstein, R. Eck (Eds.), Proceedings of the 13th International Plansee Seminar, Metallwerk Plansee, Reutte, 1993, pp. 17â28. [95] W. Henning, C. Melzer, S. Mielke, Metallurgy 5 (46) (1992) 436â 439. [96] J.K. Montgomery, K.T. Faber, Scripta Mater. 42 (2000) 283â287. [97] S. Sabatello, N. Frage, M.P. Dariel, Mater. Sci. Eng. A288 (2000) 12â18. [98] W. Schultze, S. Schindler, F.-U. Deisenroth, Deutsches Patent DD 300 725 A5 (1990). [99] Y. Miura, H. Yoshida, Y. Takeuchi, K. Ito, Deutsches Patent DE 3527 872 A1 (1986). [100] S. Bose, A. Hattiangadi, A. Bandyopadhyay, Ceram. Trans. 108 (2000) 203â212. [101] A. Neubrand, B. Kastening, J. RÃ¶del, in: Elektrochemie der Elektronenleiter, GDCh Monographien Bd. 3, F. Beck (Hrsg.), GDCh-Verlag, Frankfurt, 1996, pp. 488â497. [102] A. Neubrand, J. Appl. Electrochem. 28 (1998) 1179â1188. [103] R. Jedamzik, A. Neubrand, J. RÃ¶del, J. Mater. Sci. 35 (2000) 477â 486. [104] R. Jedamzik, A. Neubrand, J. RÃ¶del, J. Am. Ceram. Soc. 83 (2000) 983â985. [105] F.R. Cichocki Jr., K.P. Trumble, J. RÃ¶del, J. Am. Ceram. Soc. 81 (1998) 1661â1664. [106] A. Neubrand, A. Kawasaki, in: Functionally Graded Materials, vol. 13, International Liaison Forum of Functionally Graded Materials, Sendai, 1999, pp. 25â30. [107] T.-J. Chung, A. Neubrand, J. RÃ¶del, T. Fett, in: K. Trumble, K. Bowman, I. Reimanis, S. Sampath (Eds.), Functionally Graded Materials 2000, Proceedings of the 6th International Symposium on Functionally Graded Materials, Estes Park, Colorado, 10â14 September 2000, Ceramic Transactions 114, American Ceramic Society, Westerville, OH, 2001, pp. 789â796. [108] A. Neubrand, A. Kawasaki, in: K. Trumble, K. Bowman, I. Reimanis, S. Sampath (Eds.), Functionally Graded Materials 2000, Proceedings of the 6th International Symposium on Functionally Graded Materials 2000, Ceramic Transactions 114, American Ceramic Society, Westerville, OH, 2001, pp. 705â712. [109] W. SchÃ¤ff, M. Hagenbruch, C. KÃ¶rner, R.F. Singer, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM 1998, Trans Tech Publications, Switzerland, 1999, pp. 71â76. [110] B.R. Marple, J. Voyer, P. Bechard, J. Eur. Ceram. Soc. 21 (2001) 861â868. [111] M. Singh, I.M. Low, Mater. Res. Bull. 37 (2002) 1279â1291. [112] D. Asmi, I.M. Low, in: Proceedings of the International Conference on Advances in Materials and Processing Technology, AMPTâ99 and 16th Annual Conference of the Irish Manufacturing Committee, IMC16, vol. II, 1999, pp. 1271â1280. [113] C. Scheu, G. Dehn, W.D. Kaplan, F. Wagner, N. Claussen, Phys. Stat. Sol. (a) 166 (1998) 241. [114] P. Rendtel, F. Wagner, R. JanÃen, N. Claussen, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM 1998, Trans Tech Publications, Switzerland, 1999, pp. 181â186. [115] H. Piechota, H. RÃ¶hr, Integralschaumstoffe, Hanser, Wien, 1975. [116] Q. Wang, Z. Huang, S. Ramakrishna, in: K. Trumble, K. Bowman, I. Reimanis, S. Sampath (Eds.), Functionally Graded Materials 2000, Proceedings of the 6th International Symposium on Functionally Graded Materials 2000, Ceramic Transactions 114, American Ceramic Society, Westerville, OH, 2001, pp. 89â96. [117] Yu.S. Lipatov, L.V. Karabanova, J. Mater. Sci. 30 (1995) 2475â 2484. [118] C. Schiller, M. Siedler, F. Peters, M. Epple, Functionally Graded Materials 2000, Ceramic Transactions 114, American Ceramic Society, Westerville, OH, 2001, pp. 97â107. [119] S. Sato, T. Nose, S. Masuda, S. Yanase, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM 1998, Trans Tech Publications, Switzerland, 1999, pp. 567â572.
+
+[72]
+
+[73] [74] [75] [76] [77]
+
+[78] [79]
+
+[80] [81] [82] [83]
+
+[84]
+
+[85]
+
+[86]
+
+[87] [88] [89] [90] [91]
+
+[92]
+
+[93]
+
+[94]
+
+B. Kieback et al. / Materials Science and Engineering A362 (2003) 81â105 [120] N.J. Lee, J. Jang, M. Park, C.R. Choe, J. Mater. Sci. 32 (1997) 2013â2020. [121] C. Klingshirn, M. Koizumi, F. Haupert, H. Giertzsch, K. Friedrich, J. Mater. Sci. Lett 19 (2000) 263â266. [122] C. Klingshirn, M. Krumova, F. Haupert, K. Friedrich, Composites Sci. Technol. 61 (2001) 557â563. [123] C. Klingshirn, F. Haupert, K. Friedrich, in: Tribologie Fachtagung âReibung, Schmierung und VerschleiÃ 2001â, Gesellschaft fÃ¼r Tribologie, Moers, Germany, 2001, pp. 18/1â18/9. [124] E.I. Elghandour, F.A. Kokailah, S.A. Khalil, S.R. Naga, in: B. Ilschner, N. Cherradi (Eds.), FGMâ94, Proceedings of the 3rd International Symposium on Structural and Functional Gradient Materials 1994, Presses Polytechniques et Universitaires Romandes, Lausanne, 1995, pp. 673â678. [125] C. Uhlig, E. Fliedner-Dimke, H. Goering, J. Bauer, M. Bauer, H. Queck, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM 1998, Trans Tech Publications, Switzerland, 1999, pp. 113â120. [126] K.K.U. Stellbrink, G. HÃ¤usser, R. SteegmÃ¼ller, J. Thermoplastic Composite Mater. 11â15 (1998) 348â372. [127] S. TuffÃ©, B.R. Marple, J. Am. Ceram. Soc. 78 (1995) 3293â3297. [128] Z.M. Yang, L.M. Zhang, F. Tian, L.D. Chen, T. Hirai, in: K. Trumble, K. Bowman, I. Reimanis, S. Sampath (Eds.), Functionally Graded Materials 2000, Proceedings of the 6th International Symposium on Functionally Graded Materials 2000, Ceramic Transactions 114, American Ceramic Society, Westerville, OH, 2001, pp. 365â371. [129] P.M. Biesheuvel, H. Verweij, J. Am. Ceram. Soc. 83 (2000) 743â 749. [130] Y. Fukui, JSME Int. J. III (34) (1991) 144â148.
+
+105
+
+[131] M. Sasaki, T. Hiratani, T. Hirai, in: J.B. Holt, M. Koizumi, T. Hirai, Z.A. Munir (Eds.), Ceram. Trans. 34, Functionally Gradient Materials, American Ceramic Society, Westerville, OH, 1993, pp. 369â376. [132] H. Ehbing, W. Michaeli, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM 1998, Trans Tech Publications, Switzerland, 1999, pp. 107â112. [133] H. Riedel, B. Blug, in: T.-J. Chuang, J.W. Rudnicki, (Eds.), Multiscale Deformation and Fracture in Materials and Structures, The J.R. Rice 60th Anniversary Volume, Kluwer Academic Publishers, Dordrecht, Boston, London, 2001, pp. 49â70. [134] J. Svoboda, H. Riedel, R. Gaebel, Acta Metall. Mater. 44 (1996) 3215â3226. [135] P.E. McHugh, H. Riedel, Acta Mater. 45 (1997) 2995â3003. [136] H. Riedel, T. Kraft, in: W.A. Kaysser (Ed.), Functionally Graded Materials 1998, Proceedings of the 5th International Symposium on FGM 1998, Trans Tech Publications, Switzerland, 1999, pp. 1035â1040. [137] H. Riedel, J. Svoboda, in: Proceedings of the 8th Ampere Conference, Bayreuth, September 2001, in press. [138] J.D. Jackson, Classical Electrodynamics, Wiley, New York, London, Sydney, 1962. [139] G.W. Scherer, Theory of Drying, J. Am. Ceram. Soc. 73 (1990) 3â14. [140] M. Krus, Feuchtetransport- und Speicherkoefï¬zienten porÃ¶ser mineralischer Baustoffe, Theoretische Grundlagen und neue MeÃtechniken, Ph.D. Dissertation, University of Stuttgart, 1995. [141] T. Moritz, G. Werner, G. Tomandl, J. Porous Mater. 6 (1999) 111â 117.
+

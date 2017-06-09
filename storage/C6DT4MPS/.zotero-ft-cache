@@ -1,0 +1,157 @@
+International Research Journal of Engineering and Technology (IRJET)
+Volume: 02 Issue: 04 | July-2015 www.irjet.net
+
+e-ISSN: 2395 -0056 p-ISSN: 2395-0072
+
+Analysis of Stiffened Plates using FEM â A Parametric Study
+Deepak Kumar Singh1, S K Duggal2, P Pal3 1Research Scholar, Civil Engineering Department, MNNIT Allahabad, U.P., India 2Professor, Civil Engineering Department, MNNIT Allahabad, U.P., India 3Assistant Professor, Civil Engineering Department, MNNIT Allahabad, U.P., India
+---------------------------------------------------------------------***---------------------------------------------------------------------
+
+Abstract - This paper deals with the behavior of
+stiffened plates subjected to different loading conditions. Finite element method is used for modelling and analysis of the stiffened plates. The maximum deflection at the center of bare plate is verified with the reported results. A parametric study is carried out to estimate the maximum deflection and stress in the isotropic plates by varying the geometry of stiffener keeping the constant volume of material.
+
+inertia[4]. The configuration of the stiffeners should be consistent with the natural modes likely to be excited by the service loads, so as to arrive at a design with a high strength-to-weight ratio[5]. The optimum locations of the ribs or stiffeners for a given set of design constraints were studied by Hasan[6]. The authors found the best design of stiffened plates when stiffeners were used on either side of square plate. The stiffened clamped plate subjected to a pressure was studied by Yousif et al.[3]. The investigation carried out to find out the optimum height which was found to be in between 40 and 50mm. The relationship between the deflections of a clamped plate subjected to pressure was studied by Pedatzur[7]. The stiffened plates for various types of loadings and stiffeners shape were investigated by Virag[8]. Author concluded that the trapezoidal stiffener is the most economic one. The cost saving can be 69% when compared with various ribs. Paykani et. al.[9] investigated the bending of an isotropic rectangular plate for various boundary conditions using MATLAB code and ANSYS. Classical plate theory (CPT) and plane stress assumption were used.
+
+Key Words: Thin plate, Stiffener, Finite element method, ANSYS workbench 15. 1. INTRODUCTION
+A plate is a flat structural element in which the thickness is very small compared to the surface dimensions. A plate is characterised based on its thickness as very thin if width to thickness ratio is greater than 100, moderately thin if ratio fall between 20 to 100, thick if fall between 3 to 20 and very thick if less than 3[1]. Of the available plate theories, following two are widely accepted and used[2], ï· The KirchhoffâLove theory of plates (classical plate theory) ï· The MindlinâReissner theory of plates (first-order shear plate theory) Although thick-plate formulation is recommended in general because it tends to be more accurate. For thinplate bending problems in which shear deformation is truly negligible, the use of thick plate formulation is in practice because of its easy application. However, the accuracy of thick-plate formulation is sensitive to mesh distortion and large aspect ratios, and therefore should not be used in such cases when shear deformation is known to be small. The economical design of plate can be obtained by using stiffeners instead of increasing the thickness of plate. Stiffeners are secondary plates or sections used to stiffen the primary element or member. Stiffened plates are widely used in different fields of engineering viz. ships, aircrafts, airframes, chemical industry structures etc. The stiffened plates are needed to avoid the use of thick plates that produce high weight for the structures. Stiffened plates are light weight, high-strength structural elements[3]. The stiffeners enhance the rigidity of base structures by increasing their cross sectional moment of Â© 2015, IRJET.NET- All Rights Reserved
+
+2. THEORETICAL FORMULATION
+The Kirchoff-Love and Reissner-Mindlin FSDT are well known in literature. The descriptions for these formulations are circumvented here in for the sake of conciseness of this paper. Only the Finite element modeling is presented in the next section, for completeness of the paper and convenience of the reader.
+
+3. FINITE ELEMENT MODELLING
+Finite element modeling consists of four steps: creating the geometry of the model, generating a mesh for the solid mesh (i.e. dividing the model into elements), applying boundary conditions and loadings, and final is solution. A number of finite element based computer programs (NASTRAN, PATRAN, MARC, CATIA, ANSYS etc.) may be used for the analysis of stiffened plates. ANSYS Workbench 15 is used in the present investigation. A square plate of size 1000Ã1000Ã10mm, shown in Fig1(a), is consider in the present study and the different dimensions of stiffeners are used to attach with the plate by keeping the constant volume of material (10320000 mm3) throughout which is presented in Table-2. Although a many shapes of stiffeners may be used to strengthen the plates to increase the stiffness of the structures like flat, L-
+
+Page 1650
+
+International Research Journal of Engineering and Technology (IRJET)
+Volume: 02 Issue: 04 | July-2015 www.irjet.net
+
+e-ISSN: 2395 -0056 p-ISSN: 2395-0072
+
+shape, trapezoidal or other shapes[8] however, a flat plate stiffener is used in the present study which is shown in Fig-1(b).
+
+Fig-1: Geometry of stiffened plate At first a convergence study is carried out to decide the mesh size for modelling the bare plate. The investigation is carried out for the maximum deflection value at the center of the plate. The obtained results are shown in Fig-2. It is observed that the results are coming very close when the mesh size is 20Ã20. So, the mesh of 20Ã20 is adopted for modelling the plate in other problems which are presented below. Fig-3: Meshing of stiffened plate
+
+4. RESULTS AND DISCUSSIONS
+Different examples are studied in the present study. In example 1, a bare plate is analysed for point and uniformly distributed load for fixed and simply supported edges boundary conditions. In example 2, a parametric study is carried out for different combinations of stiffener plate geometry. In example 3, a parametric study is carried out further for 5 kN and 5 kN/m2 loads for fixed and simply supported edges boundary conditions with different combinations of stiffener plate geometry. In example 4, a bare plate is analysed to estimate the deflection and the corresponding stress. In example 5, maximum deflection and the corresponding stress are calculated for stiffened plates. 4.1 Example-1: A bare square plate of size 1000Ã1000Ã10 mm is analysed first to determine the maximum deflection at the center of the plate for different loading and boundary conditions. The obtained results are presented in Table-1 and compared with the reported results published by Timoshenko & Krieger[10]. The maximum deflection and stress for point (1 kN) or uniformly distributed load (1 kN/m2) for both boundary conditions are shown in Fig-4.
+
+Fig-2: Convergence study SOLID73 element is used for modelling the square plate and BEAM3 element is used for modelling the stiffener which is shown in Fig-3. The SOLID73 element is defined by eight nodes having six degrees of freedom at each node: translations in x, y, and z directions and rotations about x, y, and z axes. BEAM3 element is a uniaxial element with tension, compression, and bending capabilities which is used as stiffener. The element has three degrees of freedom at each node: translations in x and y directions and rotation about z-axis.
+
+Â© 2015, IRJET.NET- All Rights Reserved
+
+Page 1651
+
+International Research Journal of Engineering and Technology (IRJET)
+Volume: 02 Issue: 04 | July-2015 Table-1: Validation of results for bare plate Deflection (mm) Boundary Deflection calculated S. and (mm) by formula No. loading obtained given by conditions by ANSYS Timoshenko
+[10]
+
+e-ISSN: 2395 -0056 p-ISSN: 2395-0072
+
+www.irjet.net
+
+Table-2: Dimension of stiffener plate keeping thickness, height and length constant S. No. Thickness Length Height Percentage error (%) (mm) (mm) (mm) Case-I: Dimension of stiffener plate keeping thickness constant, varying height by 5mm 1. 10 800.0000 40 2. 10 711.1100 45 3. 10 640.0000 50 4. 10 581.8190 55 5. 10 533.3300 60 Case-II: Dimension of stiffener plate keeping thickness constant, varying length by 50mm 6. 10 750 42.6700 7. 10 700 45.7143 8. 10 650 49.2310 9. 10 600 53.3300 10. 10 550 58.1818 Case-III: Dimension of stiffener plate keeping length constant, varying thickness by 2mm 11. 12 650 41.0256 12. 14 650 35.1648 13. 16 650 30.7692 14. 18 650 27.3504 15. 20 650 24.6154 Case-IV: Dimension of stiffener plate keeping length constant, varying height by 5mm 08.2051 650 60 16. 08.9510 650 55 17. 09.8461 650 50 18. 10.9400 650 45 19. 12.3077 650 40 20. Case-V: Dimension of stiffener plate keeping height constant, varying thickness by 2mm 21. 12 666.6700 40 22. 14 571.4286 40 23. 16 500.0000 40 24. 18 444.4400 40 25. 20 400.0000 40 Case-VI: Dimension of stiffener plate keeping height constant, varying length by 50mm 26. 10.6700 750 40 27. 11.4286 700 40 28. 12.3077 650 40 29. 13.3300 600 40 30. 14.5400 550 40
+
+1.
+
+2.
+
+3.
+
+4.
+
+All edges fixed with uniformly distributed load (1 kN/m2) All edges fixed with point load (1 kN) All edges simply supported with uniformly distributed load (1 kN/m2) All edges simply supported with point load (1 kN)
+
+0.0691
+
+0.0688
+
+0.4288
+
+0.3440
+
+0.3712
+
+7.3529
+
+0.2222
+
+0.2279
+
+2.5230
+
+0.6346
+
+0.6334
+
+0.1862
+
+4.2 Example-2: In this example, a parametric study is carried out for different combinations of stiffener plate geometry which is given in Table-2. The models are analysed for varying point load (1 kN, 2 kN, 3 kN, 4 kN and 5 kN) and uniformly distributed load (1 kN/m2, 2 kN/m2, 3 kN/m2, 4 kN/m2 and 5 kN/m2) for simply supported and fixed edges boundary conditions.
+
+Â© 2015, IRJET.NET- All Rights Reserved
+
+Page 1652
+
+International Research Journal of Engineering and Technology (IRJET)
+Volume: 02 Issue: 04 | July-2015 www.irjet.net
+
+e-ISSN: 2395 -0056 p-ISSN: 2395-0072
+
+Fig-4: Maximum deflection and stress for point (1 kN) or uniformly distributed load (1 kN/m2) for both boundary conditions Figures 5, 6, 7 and 8 show the maximum deflection at the center of the stiffened plate for different loading and boundary conditions by varying the different combinations of stiffener geometry. It is observed that the maximum deflection of plate for 1 kN and 1 kN/m 2 load is almost same in all the cases. The deflection value is increased with the increase of load. However, the variation of deflection is quite large for all the cases when the load is 5 kN and 5 kN/m2. The variation is observed to be quite large in IIIrd case, shown in figures 5, 6 and 7, when the length of the stiffener is remain constant and the height of stiffener is decreased and the thickness of stiffener is increased. However, the large variation is observed in Vth case for simply supported edges and uniformly distributed load which is shown in Fig-8.
+
+Fig-5: Maximum deflection for point load and fixed edges condition
+
+Fig-6: Maximum deflection for uniformly distributed load and fixed edges condition
+
+Â© 2015, IRJET.NET- All Rights Reserved
+
+Page 1653
+
+International Research Journal of Engineering and Technology (IRJET)
+Volume: 02 Issue: 04 | July-2015 www.irjet.net
+
+e-ISSN: 2395 -0056 p-ISSN: 2395-0072
+
+Fig-9: Maximum deflection for point load (5 kN) and fixed edges condition
+
+Fig-7: Maximum deflection for point load and simply supported edges condition
+
+Fig-10: Maximum deflection for uniformly distributed load (5 kN/m2) and fixed edges condition
+
+Fig-8: Maximum deflection for uniformly distributed load and simply supported edges condition 4.3 Example-3: A parametric study is carried out further for 5 kN and 5 kN/m2 loads for different boundary conditions with different combinations of stiffener plate geometry. It is found that the variation in the deflection of stiffened plate is very less when the load is minimum. If the load is increased the variation in deflection is quite appreciable. So, it is very important to analyze the stiffened plate at higher loads. The obtained results are shown in Figures 9, 10, 11 and 12. Â© 2015, IRJET.NET- All Rights Reserved
+
+Fig-11: Maximum deflection for point load (5 kN) and simply supported edges condition
+
+Page 1654
+
+International Research Journal of Engineering and Technology (IRJET)
+Volume: 02 Issue: 04 | July-2015 www.irjet.net
+
+e-ISSN: 2395 -0056 p-ISSN: 2395-0072
+
+deflection and the corresponding stress for varying both the loading and boundary conditions. It is observed that the maximum deflection is not occurred at that point at which the stiffened plate is having high stress, which is not similar to that of bare plate.
+
+Fig-12: Maximum deflection for uniformly distributed load (5 kN) and simply supported edges condition 4.4 Example-4: In this example, a bare plate is analysed to estimate the deflection and the corresponding stress. The obtained results are presented in Table-3. It is found that the maximum deflection is occurred at that point at which the plate is having high stress. Table-3: Maximum deflection and stress for bare square plate Point Load (kN) 1.0 2.0 3.0 4.0 5.0 Max. 15.68 31.37 47.05 62.74 78.43 stress 61 23 85 47 09 Fixed Max. edge 00.30 00.61 00.91 01.22 01.52 deflect 56 11 67 22 78 ion Max. 18.91 37.83 56.75 75.66 94.58 74 49 24 98 72 Simply stress suppor Maxim ted um 00.63 01.26 01.90 02.53 03.17 edge deflect 46 92 37 83 29 ion Distributed Load (kN/m2) 1.0 2.0 3.0 4.0 5.0 Maxim 02.22 04.44 06.66 08.88 11.10 um 00 00 00 00 00 stress Fixed Maxim edge um 00.06 00.13 00.20 00.27 00.34 deflect 91 82 73 64 55 ion Maxim 03.22 06.45 09.68 12.90 16.13 um 67 34 02 69 36 Simply stress suppor Maxim ted um 00.22 00.44 00.66 00.88 01.11 edge deflect 21 43 64 86 07 ion 4.5 Example-5: In this example, maximum deflection and the corresponding stress are calculated for stiffened plates. Figures 13, 14, 15 and 16 show the variation of Â© 2015, IRJET.NET- All Rights Reserved
+
+Fig-13: Maximum deflection (scaled =100) and stress generated for point load (5 kN) and fixed edges
+
+Fig-14: Maximum deflection (scaled =80) and stress generated for uniformly distributed load (5 kN/m2) and fixed edges condition
+
+Fig-15: Maximum deflection (scaled =100) stress generated for point load (5 kN) and simply supported edges condition
+
+Page 1655
+
+International Research Journal of Engineering and Technology (IRJET)
+Volume: 02 Issue: 04 | July-2015 www.irjet.net 5.
+
+e-ISSN: 2395 -0056 p-ISSN: 2395-0072
+
+Fig-16: Maximum deflection (scaled =50) stress generated for uniformly distributed load (5 kN/m2) and simply supported edges condition 5. CONCLUSIONS The variation in the deflection of stiffened plates is presented in this paper. The geometry of stiffener is varied keeping the constant volume of material. The stiffened plate is analysed for different loading conditions subjected to different boundary conditions. Following are the conclusions: ï At lower loading conditions, there is a meager variation in the deflection for fixed and simply supported edges boundary conditions. However, at higher loading conditions, variation in the deflection value is noticeable. ï The geometry of the stiffeners may be recommended as follows: o Thickness of stiffener should be approximately equal to the thickness of the plate. o Length of stiffener should be 65% to 75% of the width of the plate. o Height of the stiffener should be 4 to 6 times more than its thickness. REFERENCES 1. Charles R. Steele, Chad D. Balch, Introduction to the Theory of Plates, Lecture notes, Stanford University 2. Piaras Kelly , Solid Mechanics II, Lecture notes, University of Auckland 3. Mazin Victor Yousif, Nazar Kais M. Naief, Yahya M. Hamad, âOptimum height of plate stiffener under pressure effectâ, The 1stRegional Conference of Eng. Sci. NUCEJ Spatial ISSUE (2008), vol.11, No.3, pp. 459-468 4. Jafarpour Hamedani, Shahed, and Ahmad Rahbar Ranji. âBuckling analysis of stiffened plates subjected to non-uniform biaxial compressive loads using conventional and super finite elementsâ, Thin-Walled Structures (2013)
+
+M. V. Dharaneepathy, K. G. Sudhesh, âOptimal stiffening of square plates subjected to air-blast loadingâ, Computers and Structures (1990) 6. Mohammed M. Hasan, âOptimum design of stiffened square plates for longitudinal and square ribsâ, University of Anbar (2007) 7. Omri Pedatzur, âAn Evaluation of Finite Element Models of Stiffened Plates Subjected to Impulsive Loadingâ, Tel Aviv University (2005) 8. Zoltan Virag, âOptimum design of stiffened plates for different load and shapes of ribsâ, Journal of Computational and Applied Mechanics (2004) 9. Bashir Behjat, Amin Paykani, Amir Afkar, âAnalysis of Deflection of Rectangular Plates under Different Loading Conditionsâ, International Journal of Natural and Engineering Science (2012) 10. Timoshenko, Woinowsky-Krieger, Theory of plates and shells, McGrawâHill New York (1959)
+
+BIOGRAPHIES Mr. Deepak Kumar Singh is the Research Scholar in the Department of Civil Engineering at Motilal Nehru National Institute of Technology, Allahabad, India. Dr. S. K. Duggal is currently Professor in the Department of Civil Engineering at Motilal Nehru National Institute of Technology, Allahabad, India. Dr. P. Pal is currently Assistant Professor in the Department of Civil Engineering at Motilal Nehru National Institute of Technology, Allahabad, India.
+
+Â© 2015, IRJET.NET- All Rights Reserved
+
+Page 1656
+

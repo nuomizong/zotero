@@ -1,0 +1,1579 @@
+STIFFENED PLATES SUBJECTED TO IN-PLANE LOAD AND LATERAL PRESSURE
+
+ZHU DONGQI
+B. Eng. (Hons.), NUS
+
+A THESIS SUBMITTED FOR THE DEGREE OF MASTER OF ENGINEERING DEPARTMENT OF CIVIL ENGINEERING NATIONAL UNIVERSITY OF SINGAPORE 2004
+
+Acknowledgements
+
+ACKNOWLEDGEMENTS
+The author would like to express his deep appreciations to his supervisors, Professor N E Shanmugam and Associate Professor Choo Yoo Sang, for their invaluable guidance, suggestions and encouragement throughout this research project.
+
+The author would like to express his gratitude to Mr. B.C. Sit, Mr. W.M. Ow, Mr. B.O. Ang, Mr. Y.K. Koh, Mr. Kamsan, Ms Annie and other staffs in NUS Structural Steel & Concrete Laboratory for their immeasurable help and assistance in experimental testing and instrumentations.
+
+Special thanks are given to staffs from CALES for their assistance in solving software application problems whenever encountered.
+
+Finally the author would like to take this opportunity to express his heartfelt thanks to his parents, sister and his wife Ms Zhang Xueyan for their exceptional love and affection over the years, which cannot be expressed in words.
+
+I
+
+Table of Contents
+
+TABLE OF CONTENTS
+
+ACKNOWLEDGEMENTS SUMMARY LIST OF TABLES LIST OF FIGURES LIST OF SYMBOLS CHAPTER 1 INTRODUCTION
+1.1 1.2 1.3 Background Objective Scope of Investigation
+
+I V VI VII XI 1
+1 2 2
+
+CHAPTER 2 LITERTURE REVIEW
+2.1 2.2 Introduction Analytical Methods 2.2.1 Orthotropic Plate Approach 2.2.2 Discretely Stiffened Plate Approach 2.2.3 Strut Approach 2.2.4 Finite Element and Finite Strip Method 2.3 2.4 2.5 2.6 2.7 Failure Modes of Stiffened Plates Stiffened Plates under In-plane Loading Stiffened Plates under Combined In-plane and Lateral Loading Design of Stiffened Plates Optimizations of Stiffened Plates
+
+4
+4 4 5 6 8 9 11 13 19 22 31
+
+II
+
+Table of Contents
+
+CHAPTER 3
+3.1 3.2 3.3 3.4 3.5 3.6 3.7
+
+EXPERIMENTAL INVESTIGATION
+
+41
+41 41 43 44 45 46 47
+
+Introduction Details of Test Specimens Imperfection Measurement Experimental Setup Instrumentations Test Procedure Measurement of Contact Area of Air Bag
+
+CHAPTER 4
+4.1 4.2
+
+NUMERICAL INVESTIGATION
+
+58
+58 59 59 60 62 62 63 65 65 66
+
+Introduction ABAQUS Pre-processing 4.2.1 Boundary and Loading Conditions 4.2.2 Mesh Generation 4.2.3 Material Non-Linearity 4.2.4 Initial Imperfection
+
+4.3 4.4 4.5 4.6
+
+ABAQUS Processing ABAQUS Post-processing Limitations of Finite Element Analysis Accuracy of ABAQUS Analysis
+
+CHAPTER 5
+5.1
+
+RESULTS AND DISCUSSION
+
+77
+77 77 77 80 82
+
+Experimental Results 5.1.1 Initial Imperfection 5.1.2 Ultimate Load of Series A and Series B
+
+5.2 5.3
+
+Comparison of FEM Results with Experimental Results Comparison of Experimental Results with Design Methods
+
+III
+
+Table of Contents 5.4 5.5 Parametric Studies Ultimate Load of Stiffened Plates under Combined Loads 5.5.1 Influence of Plate Slenderness Ratio, b/tp 5.5.2 Influence of Intensity of Lateral Pressure 5.5.3 Influence of Boundary Conditions 5.5.4 Influence of Initial Imperfection 5.5.5 Influence of Residual Stress 5.6 Design Recommendations 85 87 88 89 90 91 93 94
+
+CHAPTER 6
+6.1 6.2
+
+CONCLUSIONS
+
+125
+125 126 128
+
+Conclusions Recommendations
+
+REFERENCES APPENDIX A APPENDIX B APPENDIX C APPENDIX D DESCRIPTION OF DATABASE MATERIAL STRESS-STRAIN CURVES TYPICAL ABAQUS INPUT FILE MEASURED INITIAL IMPERFECTION
+
+155 159 163 165
+
+IV
+
+Summary
+
+SUMMARY
+
+This research provides a study of the behaviour of stiffened plates subjected to inplane loading and lateral pressure. Experimental investigation as well as numerical investigation using finite element package ABAQUS were carried out.
+
+The collapse load of stiffened plates under combined action of in-plane load and lateral pressure has been studied on twelve stiffened plates with two different base plate slenderness ratios (b/tp =76 and 100). An inflatable air bag with maximum load capacity of 70 tonnes was used to apply lateral pressure on the stiffened plates. Initial geometric imperfection was measured by a purpose built device. The strains, axial shortening and lateral deflections of the test specimen were recorded during the experiments. The tested specimens were modelled and analyzed using a non-linear elasto-plastic finite element package ABAQUS. Experimental results were compared to both FEM results and results from limited design methods available in the literature.
+
+Parametric studies were carried out on the ultimate load of stiffened plate by varying various parameters. A series of stiffened plates with plate slenderness ratios ranging from 30 to 100 were studied. Effect of plate slenderness ratio of base plate, intensity of lateral pressure, boundary conditions, initial imperfection as well as residual stress on the ultimate load of stiffened plates was investigated. Based on both experimental and numerical investigations, a few conclusions were drawn and recommendations were made for future works.
+
+V
+
+List of Tables
+
+LIST OF TABLES
+
+Table No. Table 2.1 Table 3.1 Table 3.2 Table 4.1 Table 4.2 Table 4.3 Table 5.1 Table 5.2 Table 5.3 Table 5.4 Table 5.5 Table 5.6 Table 5.7
+
+Title Summary of Experiments on Stiffened Plates Dimensions of All Specimens Material Properties for Base Plate and Stiffeners Yield Stress and Youngâs Modulus of Material (Kumarâs specimens) Comparison of Experimental and FEM Results for Specimens Tested by Kumar Comparison of Experimental and FEM Results for Specimens Tested by Smith Summary of Experimental Results Comparison of Experimental Results with Existing Design Methods Dimensions of Stiffened Plates for Parametric Studies Summary of Parametric Study Results Summary of Ultimate Loads with Different Boundary Conditions Effects of Initial Imperfection on the Ultimate Loads of Stiffened Plates Effects of Residual Stress on the Ultimate Load of Stiffened Plates
+
+Page 34 49 50 69 69 70 96 97 98 98 99 99 100
+
+VI
+
+List of Figures
+
+LIST OF FIGURES
+
+Figure No. Figure 2.1 Figure 2.2 Figure 2.3 Figure 2.4 Figure 3.1 Figure 3.2 Figure 3.3 Figure 3.4 Figure 3.5 Figure 3.6 Figure 3.7 Figure 3.8 Figure 3.9 Figure 3.10 Figure 3.11 Figure 3.12 Figure 3.13 Figure 3.14 Figure 3.15
+
+Title Orthotropic Plate Idealization Discretely Stiffened Plate Idealization Strut Approach Idealization Finite Element Idealizations Dimensions of Series A Specimen Dimensions of Series B Specimen Tensile Coupon Specimen Typical Stress-Strain Curve for Steel Used Imperfection Measurement Device Side View of Imperfection Measurement Device Typical Example of Measured Initial Imperfections in a Stiffened Plate Overall View of the Test Rig Sectional View of the Experimental Setup Location of Strain Gauges and Displacement Transducers for Series A Specimens Location of Strain Gauges and Displacement Transducers for Series B Specimens Initial State of Air Bag during the Test Illustration of Contact Area Measurement Top View of Contact Area Measurement Change of Lateral Pressure on Specimen with Change of Lateral Load
+
+Page 39 39 40 40 50 51 51 52 52 53 53 54 54 55 55 56 56 57 57
+
+VII
+
+List of Figures
+
+Figure 4.1 Figure 4.2 Figure 4.3 Figure 4.4 Figure 4.5 Figure 4.6 Figure 4.7 Figure 4.8 Figure 5.1 Figure 5.2 Figure 5.3 Figure 5.4 Figure 5.5 Figure 5.6 Figure 5.7 Figure 5.8 Figure 5.9 Figure 5.10 Figure 5.11 Figure 5.12 Figure 5.13 Figure 5.14 Figure 5.15 Figure 5.16
+
+Three Stages of Analysis Flow Chart of Numerical Investigation Change of Contact Area at Different Loadings Typical Mesh of Stiffened Plate Typical Buckling Shape of Stiffened Plate Typical Load vs Displacement Curve Dimension of Kumarâs Specimen Comparison of Failure Shapes Measured Initial Imperfection for Series A Specimens Measured Initial Imperfection for Series B Specimens View after Failure Shape of the Specimen A1 View after Failure Shape of the Specimen A2 View after Failure Shape of the Specimen A3 View after Failure Shape of the Specimen A4 View after Failure Shape of the Specimen A5 View after Failure Shape of the Specimen A6 View after Failure Shape of the Specimen B1 View after Failure Shape of the Specimen B2 View after Failure Shape of the Specimen B3 View after Failure Shape of the Specimen B4 View after Failure Shape of the Specimen B5 View after Failure Shape of the Specimen B6 Lateral Load vs Displacement Curves for Series A Lateral Load vs Displacement Curves for Series B
+
+71 72 73 74 74 75 75 76 101 102 103 104 105 105 106 106 107 107 108 108 109 109 110 110
+
+VIII
+
+List of Figures
+
+Figure 5.17 Figure 5.18 Figure 5.19 Figure 5.20 Figure 5.21 Figure 5.22 Figure 5.23 Figure 5.24 Figure 5.25 Figure 5.26 Figure 5.27 Figure 5.28 Figure 5.29 Figure 5.30 Figure 5.31
+
+Load vs Displacement Curves for Specimens under Axial Load Only Maximum Principle Stress at Locations of Strain Gauges for Specimen B3 Comparison of Load vs Displacement Curves for Specimen A1 Comparison of Load vs Displacement Curves for Specimen A2 Comparison of Load vs Displacement Curves for Specimen A3 Comparison of Load vs Displacement Curves for Specimen A4 Comparison of Load vs Displacement Curves for Specimen A5 Comparison of Load vs Displacement Curves for Specimen A6 Comparison of Load vs Displacement Curves for Specimen B1 Comparison of Load vs Displacement Curves for Specimen B2 Comparison of Load vs Displacement Curves for Specimen B3 Comparison of Load vs Displacement Curves for Specimen B4 Comparison of Load vs Displacement Curves for Specimen B5 Comparison of Load vs Displacement Curves for Specimen B6 Comparison of Failure Shapes for Specimen under Combined Loads Comparison of Failure Shapes for Specimen under Axial Load Only Interaction Curves for Series A and Series B Geometry of Stiffened Plate for Parametric Study Initial Imperfection Modes Considered In Parametric Study Mode 1 Initial Imperfection in ABAQUS Analysis Mode 2 Initial Imperfection in ABAQUS Analysis Mode 3 Initial Imperfection in ABAQUS Analysis
+
+111 111 112 112 113 113 114 114 115 115 116 116 117 117 118
+
+Figure 5.32 Figure 5.33 Figure 5.34 Figure 5.35 Figure 5.36 Figure 5.37 Figure 5.38
+
+118 119 120 120 121 121 122
+
+IX
+
+List of Figures
+
+Figure 5.39 Figure 5.40 Figure 5.41 Figure 5.42
+
+Idealization of Residual Stress Interaction Curves for Stiffened Plates Considered in Parametric Studies Influences of Lateral Pressure on the Ultimate Load of Stiffened Plates Changes of Failure Shapes Due to Boundary Conditions
+
+122 123 123 124
+
+X
+
+List of Symbols
+
+LIST OF SYMBOLS
+
+L, B l,b Be tp, ts h P, Pu Pexp Pabq Psqu Q, Qu Qexp Qabq E Ïy Ïexp Ïabq Ï Î»
+
+Overall length and width of stiffened plate Length and width of sub-panel Effective width of plate Thickness of plate and stiffener Height of stiffener Axial load and ultimate axial load Experimental ultimate axial load ABAQUS ultimate axial load Squash load Lateral load and ultimate lateral load Experimental lateral load ABAQUS lateral load Youngâs modulus Yield strength Experimental ultimate stress ABAQUS ultimate stress Poissonâs ratio
+ï£« L Ïy ï£¶ Column slenderness ï£¬ ï£· ï£¬r E ï£· ï£­ ï£¸
+
+r
+
+Radius of gyration of the sectional area
+
+XI
+
+Chapter 1 - Introduction
+
+CHAPTER 1 INTRODUCTION
+1.1 Background
+In many engineering structures, especially in aircraft and ship construction, it is important to save weight to alleviate structures themselves. One of the commonly used structural components is stiffened steel plates. Stiffened and unstiffened plates form the basic members for deck structures and habitation units in offshore structures. Stiffened plates can be longitudinally stiffened or stiffened both longitudinally and transversely. The stiffeners not only carry a portion of load but also subdivide the plate into smaller panels, thus increasing considerably the critical stress at which the plate will buckle. The advantage of reinforcing a plate by stiffeners lies in tremendous increase of strength and stability while minimum increase of weight to the overall structures.
+
+Stiffened plates in marine and offshore structures are usually subjected to combined in-plane load and lateral pressure. For example, the bottom shell of the shipâs hull is subjected to flexural compressive stress due to the hogging bending moments and lateral water pressure. Under such combined loading, stiffened plates become unstable due to the presence of axial compression before the unrestricted plastic flow can take place. Thus to predict the ultimate load-carrying capacity of stiffened plates, interaction between the in-plane load and lateral load must be studied completely. The stability of stiffened plates under various loading has been a topic of interest for many years. Researchers investigated the behaviour of stiffened plates either experimentally or numerically. Due to its complexity and many parameters involved, a complete understanding of all aspects of behaviour is not fully realized. Over the years, several
+
+1
+
+Chapter 1 - Introduction
+
+codes and design recommendations for stiffened plates have been developed. However, it is found that no single code provides the most efficient guidance for the design of all structural components subjected to a whole range of loading. Hence, the experimental and analytical study on the strength of the stiffened plates stiffened in both longitudinal and transverse directions and subjected to combined action of axial load and lateral pressure has gained importance.
+
+1.2 Objective
+The objective of this study is to investigate the behaviour of stiffened plates subjected to in-plane load and lateral pressure. Both experimental and numerical investigations have been performed to gather sufficient data and understanding of stiffened plates. Finite element package ABAQUS has been used for generation of data for parametrical study. The effects of initial imperfections and residual stresses are investigated. The behaviour of stiffened plates and effects of various parameters are discussed.
+
+1.3 Scope of Investigation
+Research efforts have been made on the buckling and collapse behaviour of unstiffened and stiffened plates since 1940s. In the past few decades, a considerable amount of research has been directed towards to the stability of stiffened plates. In the present study, an effort is made to compile all related research topics in a database. Abstract, summary and available experimental data have been included in the database. Available design codes and recommendations are summarized according to the type of applied loading. A search engine has been provided in the database to
+
+2
+
+Chapter 1 - Introduction
+
+facilitate users to find relevant papers by keywords of title and author. A brief review of papers collected in the database is presented in Chapter 2.
+
+A total of twelve stiffened plate specimens with two different slenderness ratios were tested to failure. The specimens were simply supported on edge stiffeners and subjected to different combinations of in-plane load and lateral pressure. The details of stiffened plates, material properties obtained from tensile coupon tests, instrumentation, experimental setup and loading procedures are given in Chapter 3.
+
+With the advance in computer technology, finite element method has become a popular method to the experimental investigation. A finite element package ABAQUS is used for numerical analysis of stiffened plates. The accuracy of the finite element method is verified by comparing the analytical results with the available experimental results. Chapter 4 presents a brief explanation of the finite element method and models used for parametric study.
+
+In Chapter 5, experimental results are summarized and those from the parametric study are given in the chapter. The behaviour of stiffened plates under both axial load and lateral pressure are discussed. Some key parameters such as plate slenderness ratio, imperfection and residual stress affecting the behaviour of stiffened plates are highlighted. Finally conclusions and recommendation for future works are given in Chapter 6.
+
+3
+
+Chapter 2 â Literature Review
+
+CHAPTER 2 LITERATURE REVIEW
+2.1 Introduction
+Stiffened steel plates are used extensively for ship decks and hulls, components of box girder, bridge decks and offshore and aerospace structures. Stiffened plates in marine and offshore structures are usually subjected to the combined action of lateral and inplane loads. Stiffeners may be provided in longitudinal or transverse directions or both directions. The advantage of stiffening lies in achieving an economical and lightweight design. The presence of stiffeners increases the ultimate load capacity of the plate significantly but it makes the design more complicated due to involvement of more parameters.
+
+In the past few decades, extensive research works have been carried out either analytically or experimentally. A summary of experimental investigations is shown in Table 2.1. Many design methods have been proposed to determine the buckling load and ultimate load capacity of stiffened plates subjected to various loading cases. In order to facilitate the access of related studies on stiffened plate in future, it is necessary to review and summarize the past works. In the present study, an effort is made to compile the publications available to date into a database. A brief description of database is shown in Appendix A. In this chapter, review of papers collected in database is presented.
+
+2.2 Analytical Methods
+Over the years, researchers performed the analysis of stiffened plates and many solutions to the problem were presented. Methods have been developed to analyze the
+
+4
+
+Chapter 2 â Literature Review
+
+behaviour of stiffened plates. They are generally based on orthotropic plate approach, discretely stiffened plate approach, strut approach and finite element and finite strip methods.
+
+2.2.1 Orthotropic Plate Approach The basis of the orthotropic plate approach is to convert the stiffened plate into an equivalent plate with constant thickness by smearing out the stiffeners. As illustrated in Figure 2.1, the converted structural element is composed of original plate and equivalent plate. Non-linear equilibrium and compatibility conditions of the plate are solved numerically by large deflection theory. It is found that the method can approximately predict the ultimate strength of stiffened plates with closely and equally spaced stiffeners. However, this method has limited use in understanding the structural behaviour of stiffened plates since it does not consider the discrete nature of the structure. Local buckling of the adjoining plate and tripping of stiffeners are not taken into account. Moreover, difficulty arises when the stiffeners are not equally spaced since the thickness of the converted plate become non-uniform. A major advantage of the orthotropic plate approach over the strut approach is that it accounts for plate action ignored by the latter.
+
+An example of orthotropic plate approach can be found in Hoppman and Baltimore [1]. In their study, orthotropic plate approach was used to analyze simply supported orthogonally stiffened plates under bending and twisting. The stiffness of stiffened plates under static loading was determined experimentally. Their study was extended to dynamically loaded orthogonally stiffened plates with attached stiffeners.
+
+5
+
+Chapter 2 â Literature Review
+
+Huffington and Blacksburg [2] investigated the bending and buckling of orthogonally stiffened plate by conceptually replacing the plate-stiffener combination by an âequivalentâ homogeneous orthotropic plate of constant thickness. This method was subjected to the limitation of the theory of thin homogeneous plates of constant thickness and also the ratio of stiffener rigidity to plate rigidity.
+
+Soper [3] presented a study on large deflection of stiffened plate subjected to static lateral load using the concept of equivalent orthotropic plates. Equations were derived from von Karman's equations for isotropic plates. Rectangular plates were considered in detail, and an approximate solution was obtained through trigonometric series. The solution from Soperâs method allowed for rotational constraint along the plate boundary.
+
+Okada et al [4] used orthotropic approach to investigate the buckling strength of stiffened plates containing one longitudinal or transverse girder under compression. The stiffened plate was idealized by an equivalent orthotropic plate. Non-dimensional design table giving the critical stress for the symmetric buckling of the system were presented and the effective breadth of the stiffened plate which acts with the girder was also calculated.
+
+2.2.2 Discretely Stiffened Plate Approach In discretely stiffened plate theory, stiffened plates are treated as a collection of plate elements. The plate and the stiffeners are analyzed separately and the assembly is forced to act in a composite manner. The problem thus simplified as analysis of an unstiffened plate with a line of discontinuity in the loading. An illustration of
+
+6
+
+Chapter 2 â Literature Review
+
+discretely stiffened plate approach is shown in Figure 2.2. Local buckling and overall buckling as well as the interaction of adjacent elements can be taken into account in the analysis. Moreover, it makes possible to incorporate residual stress and initial imperfection into the analysis with relative accuracy.
+
+Dean and Omidâvaran [5] presented a study for analysis of rectangular plates reinforced by flat section stiffeners using a closed form field approach. Three categories of plate-stiffener interaction behaviour were considered. The first approach was a âcomposite membrane analysisâ, in which full composite action was considered in the plane of the plate while the flexural capacity of the plating was ignored. The second approach was a ânon-composite flexural analysisâ, in which plate-stiffener interaction was considered while in-plane deformations and in-plane continuity were ignored. The third approach was a âcomposite membrane-flexural analysisâ, in which all interactions were considered. The governing equation for all these categories were solved in closed form to obtain deformations in terms of applied loading.
+
+Webb and Dowling [6] presented a new mathematical formulation for the analysis of eccentrically stiffened plates, subjected to the combined or separate actions of lateral and in-plane loading. The proposed formula covered angle and tee section stiffeners as well as rectangular flats. The governing equations were solved numerically by the application of dynamic relaxation to their finite difference equivalents. The effects of initial deformation, combined lateral and in-plane loading and the use of hybrid plates were investigated. Geometrical non-linearity and material non-linearity were considered in the formulation.
+
+7
+
+Chapter 2 â Literature Review
+
+2.2.3 Strut Approach Strut approach or beam-column approach is commonly used in practical design. The main advantage of this approach is the ease of use and because of that, many existing design codes such as British Standard BS 5400 [7], API [8], AISC [9], BCSB [10], ABS method [11] and Norsek Standard [12] are all based on the strut approach. In the strut approach, the stiffened plate is treated as a series of unconnected struts. A strut is composed of a stiffener with associated effective width of plate as shown in Figure 2.3. If any transverse stiffeners present, they are treated as stiff elements to provide nodal lines acting as simple, rotationally free supports to the longitudinal struts. Moment-thrust-curvature relationships for beam-column are employed to obtain the deflected shape of the plate under any applied loading. However, strut approach is not applicable when only a few longitudinal stiffeners are used.
+
+To determine the moment-thrust-curvature relationships, the stress-strain behaviour of the cross-section must be identified. Applicability of the method is dependent on the assumptions made at this stage in the analysis. Kondo [13] presented an analytical investigation of the ultimate strength of longitudinally stiffened plates under axial load by beam column theory. An elastic-perfectly plastic stress-strain relationship was assumed and was modified if necessary to take account of residual stress. The longitudinally stiffened panels failed by excessive bending and can be treated by beam-column if local buckling of the plate is prevented. Study of Ostapenko and Lee [14] found that a longitudinally stiffened panel subjected to lateral loading and axial compression behaves essentially as a beam column. In both Kondo [13] and Ostapenko [14] studies, the unloaded edges were free out of plane.
+
+8
+
+Chapter 2 â Literature Review
+
+2.2.4 Finite Element and Finite Strip Method With advance in computer technology and development in computer software, finite element method (FEM) has become a popular and effective way to analyze the behaviour of stiffened plates. In this method, the stiffened plate is modeled as a series of interconnected elements. The stiffeners are idealized as beam or discretized plate elements as shown in Figure 2.4 (a) and (b). Accuracy of finite element method is dependent on the shape functions (or type of element), number of elements and boundary conditions simulating compatibility along the element boundaries.
+
+Tvergaad and Needleman [15] used Raylegh Ritz finite element method to analyze the buckling of eccentrically stiffened elastic-plastic panels on two simple supports or multiply supported. In their analysis, initially imperfect panels were computed numerically using an incremental method. It is found that the stiffened plates considered are imperfection sensitive, both for panels that bifurcate in the plastic range and for panels with a yield stress a little above the elastic bifurcation stress.
+
+Soreide and Moan [16] studied the behaviour and design of stiffened plates in the ultimate limit state using finite element method. A comprehensive finite element program considering general loading conditions, material properties, geometry, boundary conditions and initially deflections was used. The problems considered include perfect and initial deflected plate-strips, beam columns and failure of a stiffened plate designed for simultaneous local and overall buckling.
+
+Louca and Hauding [17] used finite element method to investigate the torsional behaviour of flat-bar stiffeners in longitudinally stiffened panels subjected to axial
+
+9
+
+Chapter 2 â Literature Review
+
+loading. The outstand was modeled both individually and as part of a stiffened panel. The effects of plate slenderness, stiffener slenderness and boundary conditions were considered.
+
+Bai [18] presented a nonlinear finite element procedure based on the Plastic Node Method by combining elastic large displacement analysis theories with a plastic hinge model, directly accounting for the geometrical and material non-linearity and the influence of initial deformation and residual stress. A set of finite elements, such as beam-column elements, stiffened plate elements, and shear panel elements was developed. Applications to the analysis of ultimate strength of stiffened plate were presented and results were compared with tests.
+
+The analysis of stiffened plates by finite element method were also reported by Belkune and Ramesh [19], Chai and Zheng [20], Komatsu et al [21], OâLeary and Harari [22], Guo and Harik [23], Hrabok and Hrudey [24], Sabir and Djoudi [25], Belkune and Ramesh [26], Bhattacharyya et al [27], Bhimaraddi et al [28], Cichocki et al [29], Gendy and Saleeb [30], Grodin et al [31], Jiang et al [32], Kaeding and Fujikubo [33], McEwan el al [34], Mukhopadhyay and Mukherjee [35], Nordsve and Moan [36], Orisamolu and Ma [37], Rossow and Ibrahimkhail [38], Zhou and Zhu [39], Fujikubo and Kaeding [40],Sheikh et al [41], Turvey and Salehi [42, 43], Yao et al [44] and Hu and Jiang [45].
+
+Besides finite element method, finite strip method is also commonly used. Finite strip is a specialized version of finite element method. In the finite strip method, element shape functions use polynomials in the transverse direction, but trigonometric
+
+10
+
+Chapter 2 â Literature Review
+
+function in the longitudinal direction. Judicious choice of the longitudinal shape function allows a single element, âstripâ to be used. The finite strip method has been used in stability analysis of stiffened plates. This method was employed by Delcourt and Cheung [46] for analysis of continuous folded plates. Kakol [47] used this method to analyze the stability of stiffened plates. Higher order strip was employed to improve the convergence of the method. Guo and Lindner [48] presented a
+
+theoretical study on the elastic-plastic interaction buckling of imperfect longitudinally stiffened panels under axial loads by finite strip method. Wang and Rammerstorfer [49, 50] used finite strip method to determine effective width of stiffened plates. Finite strip methods were also reported by Chen et al [51], Sheikii et al [52], Kater and Murray [53], Lillico et al [54], Eduard [55], Yoshida and Maegawa [56] and Xie and Ibrahim [57-59].
+
+2.3 Failure Modes of Stiffened Plates
+Stiffened plates in real structures can be subjected to the combined action of in-plane and out-of-plane loadings. Collapse or failure modes of stiffened plates under such loads can be categorized in three types, namely plate collapse, overall grillage collapse (or Euler buckling) and lateral torsional buckling of stiffeners. A panel may be subjected to all failure modes and it will finish up collapsing in the mode which corresponds to its lowest strength. Therefore, a design method must account for all these possible failure modes.
+
+Plate failure usually occurs in the short stiffened panels with a length approximately equal to the width between stiffeners. In real ship structures, the panels are generally much longer than the stiffener spacing and therefore the possibility of having plate
+
+11
+
+Chapter 2 â Literature Review
+
+failure is low. Plate failure only exists in some special cases, for example, a stiffened plate with high strength stiffeners and with relatively low strength nearly perfect plate. Under such conditions the plates show a very steep unloading characteristic and the stiffeners are not able to accommodate the drop in load due to plate failure.
+
+Overall grillage collapse is also known as beam-column failure mode. The failure mode of orthogonally stiffened plate is grillage collapse which involves longitudinal and transverse stiffeners. This failure can be influenced by local buckling of base plate or of stiffeners. However it is generally not found in ship structures but may be relevant for lightly stiffened panels founding superstructure decks. Some researchers found that the optimum design of a compressed stiffened plate would be obtained when the strength of the overall buckling mode equal to the strength of the local buckling mode. However, research also found that the interaction of local buckling and overall buckling makes the panel imperfection sensitive and plate fails with violent collapse. These characteristics are undesirable from a safety point of view and therefore stiffened plates are usually designed to exhibit interframe failure. In the case of interframe failure, overall failure of beam-column is triggered by local buckling of the plate or stiffener (without rotation of stiffeners). Overall grillage failure mode is believed to be most favorable mode of failure since it has a more stable post buckling behaviour.
+
+Lateral torsional buckling of stiffener is also referred to as tripping of the stiffener. Tripping involves a rotation of the stiffener about a junction between the plate and the stiffener. Tripping of the stiffener is dependent on the torsional stiffness of the stiffener, which believed to be a determining factor in deciding whether the failure
+
+12
+
+Chapter 2 â Literature Review
+
+mode will be plate buckling or stiffener tripping under axial compression. Failure by tripping of the stiffener is the least desirable failure mode since it is characterized by a sudden drop in load capacity just after the peak load is reached.
+
+2.4 Stiffened Plates under In-plane Loading
+In the past, many researchers have presented the analysis of stiffened plates under uniaxial compression. There are two different basic approaches for the design of stiffened plates under uniaxial compression. The first method is based on the Rankine equation of failure stress of a simply supported column. The formulas are based on experimental data and are very simple to use. The second approach is well known effective width concept. It is found that for plates wide and thin enough to buckle under load the ultimate load which could be carried does not increase in proportion to the width. Thus effective width instead of actual width is used to calculate the ultimate strength of stiffened plates. Most of the codes and design recommendations are based on the second approach.
+
+Wittrick [60, 61] presented a very general approach to the determination of initial buckling stresses of long stiffened panels in uniform longitudinal compression using finite strip method. The individual flats are assumed to be subjected to sinusoidally varying systems of both out-of-plane and in-plane edge forces and moments, superimposed on the basic state of uniform compression. The panels are assumed to consist of a series of long flat strips, rigidly connected together at their edges. Some computer programs based on the finite strip method have been written for analysis of both isotropic and orthotropic, multi-plate structures in compression.
+
+13
+
+Chapter 2 â Literature Review
+
+Dorman and Dwight [62] carried out a series of tests on stiffened panels subjected to uniaxial compressive load. Residual stress and initial geometrical imperfections were measured. Their study found that the presence of residual stress has only a secondary effect on the strength of a stiffened panel. It is also found that the effective breadth approach contained in BS153 appears to give a satisfactory approach for heavily stiffened panels but is unsafe panels have a high b/t value. Experimental investigation of longitudinally stiffened plates under in-plane loads was also reported by Komatsu et al [63, 64], Hu et al [65], Kitada et al [66], Ellinas et al [229], Zha et al [230, 231] and Yamada et al [235].
+
+Plank and Williams [67] presented a method for computing the critical load of prismatic assemblies of rigidly inter-connected thin flat rectangular plates. The plates considered can be isotropic or anisotropic and can carry uniform in-plane shear stresses and transverse stresses in addition to a longitudinal stress which varies linearly over the cross section but is longitudinally invariant. In the complementary method, interaction curves were given for common types of panel in combined inplane shear and longitudinal compression and bending. It is found that half of these curves are nearly parabolic while some others differ greatly from the parabola but the errors are on the safe side for all the results presented.
+
+Nishihara [68] investigated theoretically the ultimate longitudinal strength of a midship cross section. A simplified analytical method for evaluating the ultimate compressive strength of deck and bottom panels of ship structure was developed. The method was further extended to the case of stiffened panels subjected to compressive loadings and lateral pressure. A parametric study was carried out based on the
+
+14
+
+Chapter 2 â Literature Review
+
+proposed method, and two approximate formulas to calculate the ultimate strength of structural elements in a cross section were developed. Based on the ultimate strength of cross section, ultimate bending strength of a cross section was analyzed.
+
+In a series of investigations, Bedair and Sherbourne [69-75] presented their findings on local buckling of stiffened plates under uniform compression and non-uniform compression. Interaction between the plate and stiffener element was highlighted. The influence of rotational restraint, in-plane bending and translation restraints upon the local buckling and post buckling behaviour were investigated. The research was expanded by Bedair and Sherbourne to determine the local buckling load of stiffened plates under any combination of in-plane loading, i.e. compression, shear and in-plane bending.
+
+Ueda et al [76-78] investigated the behaviour of stiffened plate under in-plane loading in a few papers. Investigation into the effectiveness of a stiffener against the ultimate strength of a stiffened plate was carried out. Buckling, ultimate and fully plastic strength interaction relationships for rectangular perfectly flat plates and uniaxially stiffened plates subjected to in-plane biaxial and shearing forces were reported. The validity of the interaction relationships was verified by comparison with the results reported by the researchers. Ueda [79] also presented a simple prediction method for welding deflection and residual stress of stiffened panels.
+
+Alagusundaramoorthy et al [80, 81] presented experimental studies on longitudinally stiffened plates with and without cutouts under uniaxial compression. Stiffened plates with varying plate slenderness ratio and column slenderness ratio were tested to
+
+15
+
+Chapter 2 â Literature Review
+
+failure. Initial geometrical imperfection was measured in the experiment. In their first paper, the influence of square openings on the ultimate load of stiffened plate was investigated. They further extended the research to the effect of circular openings and the effects of reinforcement around openings in their second paper. Studies on the stiffened plate with openings were also reported by Shanmugam et al [82], Kuranisi et al [83, 84], Lee and Klang [85] and Guo and Wang [86].
+
+Paik et al [87, 88] investigated analytically the characteristics of local buckling of the stiffener web in the stiffened panels and the tripping failure of flat-bar stiffened panels subjected to uniaxial compressive. The effects of stiffener tripping and plating collapse as well as the influence of elasto-plastic rotational restraint at the platestiffener intersection were included in the analysis. Tripping of stiffened plate under axial compression was also investigated by Danielson [89, 90].
+
+Fujikubo and Yao [91] derived an analytical formula for estimating elastic local buckling strength of a continuous stiffened plat subjected to biaxial thrust. The influence of plate/stiffener interaction and welding residual stresses was considered in the formula. The accuracy of formula was verified by FEM results.
+
+Zhang et al [92] presented a semi-analytical method of assessing the residual longitudinal strength of damaged ship hull. Based on the definition of effective area coefficient of damaged ship structural components, the influences of initial deformation on longitudinal strength were regarded as the reduction of section modulus of ship hull. Both longitudinally and transversely stiffened plates were investigated.
+
+16
+
+Chapter 2 â Literature Review
+
+Niwa et al [93] presented a new approach to predict the strength of compressed steel stiffened plate from a knowledge of the catastrophe theory. Strength predictions for both local and global buckling were included. The elastoplastic buckling stress was obtained with consideration of the elastoplastic behavior of the material and the residual stresses of both stiffeners and plate panels. Based on the concept of the bifurcation set in the catastrophe theory, the reduction of the ultimate strength due to the initial out-of-flatness can be explicitly determined by the imperfection sensitivity curve.
+
+Wei and Zhang [94] proposed a method based on CPN (Counterpropagation Neural Networks) to predict the ultimate strength of stiffened panels. Numerical study was carried out to verify the validation of this method. Experimental results were also used for verification. Fok et al [95, 96] presented an analysis of the elastic buckling of infinitely wide stiffened plates. The analysis was based on a simplified model of the panel and aimed to determine the interactive behavior of the overall mode of buckling and the local buckling of the stiffener outstands. It is found that stiffened plate is imperfection sensitive for geometries in which the local and overall critical loads are close.
+
+Fan [97] investigated the nonlinear interaction between overall and local buckling of stiffened panels with symmetric cross-sections. In his study, the nonlinear interaction between local and overall buckling modes was taken into account by including a second local buckling mode having the same wave length as the primary mode analytically. Both perfect and imperfect stiffened plates were considered in the analysis. Koiter [98-100] presented interaction of local and overall buckling of
+
+17
+
+Chapter 2 â Literature Review
+
+stiffened panels consisting of a flat plate and stiffeners built up from flat plate strips in a series of papers. The concept of slowly varying functions was employed in the derivation of approximate energy expression governing combined local and overall buckling of the panel. Torsion of stiffeners was considered in the analysis. Interaction of local buckling and overall buckling was also studied by Kolakowski [101] and Li and Bettess [102].
+
+Tvergaad [103] studied the imperfection sensitivity of wide integrally stiffened panel under compression. Overall buckling of the panel as a wide Euler column and local buckling of the plates between the stiffeners were considered. It is found that panel is very sensitive to geometrical imperfections when local buckling and overall buckling occur simultaneously. Imperfection sensitivity analysis was also reported by Deng [104].
+
+Numerical analysis of stiffened plate under in-plane loading were also carried out by Chan et al [105], Chong [106], Dohrmann et al [107], Ellinas [108], Elishakoff et al [109], Frieze and Drymakis [110], William and Thomas [111], Hoon [112], Ierusalimsky and Fomin [113], Lillico et al [114], Josef [115], Mikami et al [116], Nakai et al [117], Okada et al [118], Rahal and Harding [119], Rahman and Chowdhury [120], Roren and Hansen [121], Satsangi and Mukhopadhyay [122], Zahid et al [123], Sridharan and Peng [124], Steen [125], Taczala and Jastrzebski [126], Williams and Diffield [127], Yoshinami and Ohmura [128], Yusuff [129], Little [130], Yin and Qian [131], John and Evangelos [132], Toulios and Caridis [133], Dexter and Pilarski [134], Pu and Faulkner[135] and Wen et al [136, 137].
+
+18
+
+Chapter 2 â Literature Review
+
+2.5 Stiffened Plates under Combined In-plane and Lateral Loading
+Smith et al [138-142] investigated analytically the behaviour of grillage under lateral pressure alone and under combined axial and lateral loads. A generalized plate-beam analysis applicable to interconnected systems of rectangular plates and parallel beams was presented. Computer program was developed based on an approximate method. Influence of torsion on deflections and bending moments in a wide range of grillage structures was accounted. Besides analytical investigation of stiffened plates, Smith conducted a series of tests on full scale welded steel grillages representing typical warship deck. Simply supported specimens were subjected to compressive load combined in some cases with lateral pressure. Initial imperfections and residual stresses were measured in the experiment. A method for approximate prediction of stiffened plate under both axial load and lateral pressure was proposed.
+
+Parsanejad [143] presented a method for the nonlinear analysis of orthogonally stiffened plates subjected to lateral and axial loads using a simple mathematical model. The stiffened plates were assumed to be only longitudinally stiffened and continuous over the transverse stiffeners. Post-buckling behaviour of the plate and the large deflection elasto-plastic behaviour of longitudinal panels were taken into consideration.
+
+Bonello and Chryssanthopoulos [144] proposed a method for predicting the structural reliability of stiffened plates for situations where buckling response was important. Based on the idealization of the load end-shortening relationship by piece-wise linear segments, a plate panel model was developed for predicting the buckling strength of stiffened plates. The proposed model can trace the complete load end-shortening
+
+19
+
+Chapter 2 â Literature Review
+
+response of a stiffened plate under axial and lateral loading as well as examine the reliability of the panels under axial compression and lateral pressure. Special emphasis was devoted to examine the effect of the amplitude and mode of the initial geometrical imperfections and of the level of the welding residual stresses.
+
+Danielson et al [145] studied buckling behaviour of stiffened plates subjected to a combination of axial compression and lateral pressure. Von Karman plate equations were used to model the plate and beam theory was employed for stiffeners. Buckling load corresponding to a torsional tripping mode of stiffeners was obtained from the analysis. The effects of various boundary conditions, imperfections and residual stresses were considered in the analysis. Shanmugam and Arochiasamy [146] carried out experiments on longitudinally and transversely stiffened plates under combined loads. Stiffened plates simply supported on all four edges and subjected to combined action of axial and lateral loads were tested to failure. The test specimens were analyzed by finite element method and a comparison between experimental results and finite element analysis results was made.
+
+Bradford [147] carried out a buckling analysis of longitudinally stiffened plates under bending and compression. Verified nonlinear stiffness equations that predict local and post-local buckling of plates and plate assemblies were given. A set of graphs was presented to predict the optimum position of a stiffener in a web plate.
+
+Caridis et al [148, 149] presented a flexural-torsional elasto-plastic buckling analysis of stiffened plates using dynamic relaxation in a series of papers. The development of a numerical model describing the large-deflection elasto-plasto behaviour of flat
+
+20
+
+Chapter 2 â Literature Review
+
+plates and attached flat bar stiffeners including the effects of interaction was described in the first part. Verification of theory by experimental results was presented in part two. Several aspects of the behavior of the stiffener and the base plate have been examined and critical buckling strains and loads, and plastic collapse loads have been compared with the test results.
+
+Wang and Moan [150-152] preformed ultimate strength analysis of stiffened panels subjected to biaxial and lateral loading using nonlinear finite element method. The calculated results were compared with the predictions using a beam-column formulation to assess the validity of the beam column approach. It is found that beamcolumn model is nonconservative in plate-induced failure mode for the interaction of axial compression and significant lateral pressure. Yuren Hu et al [153] studied the tripping of stiffeners in stiffened panels under combined loads of axial force and lateral pressure. A generalized eigenvalue problem for tripping of stiffeners was derived by using the Galerkin's Method. The effect of the lateral pressure to the critical axial stress upon tripping was investigated by solving the eigenvalue problem. An approximate equation to estimate the critical tripping stress with the effect of the lateral pressure was proposed. The modified proposed equation could be applied in design rules for the purpose of checking the tripping strength of the stiffeners.
+
+Hughes and Ma [154] developed an energy method for analyzing the flexuraltorsional and lateral-torsional buckling behavior of flanged stiffeners subjected to axial force, end moment, lateral pressure and any combination of these. Total potential energy function was derived based on a strain assumption which coincided with van der Neut's assumption. The study was extended to inelastic tripping, and
+
+21
+
+Chapter 2 â Literature Review
+
+results from proposed method were compared with FEM and experimental results. Mansour [155-160] investigated theoretically the behaviour of stiffened plate under combined load in a series of papers. The existing methods of predicting the behavior and ultimate strength of Marine Structure stiffened panels were evaluated, examined and in some instances, further developed. Based on the orthotropic approach, the postbuckling behavior of a stiffened plate with small initial curvature was presented.
+
+Strength of stiffened plate under combined action of in-plane and lateral loads were also investigated by Cui el al [161, 162], Hart el al [163], Ma and Orisamolu [164], Moghtaderi-Zadeh and Madsen [165], Mori et al [166], Nikolaidis et al [167], Paliwal and Ghosh [168], Tanaka et al [169, 170], Yehezkely and Rehfield [171], Zheng and Das [172], Zhou and Wang [173], Kumar [232] and George et al [233].
+
+2.6 Design of Stiffened Plates
+In the past few decades, many design methods for stiffened plates have been proposed. Tan [174] summarized the design formulas for stiffened plates subjected to uniaxial load and combined loads. Schade [175-177] presented the design curves for crossstiffened plating under uniform bending load. Four boundary conditions were considered in the design curves. Any of the possible combinations can be easily analyzed for maximum deflection and stresses by using the design curves. An expression
+
+Î»n Î» /b = â Î»n
+b b
+
+Kn +Î²
+
+âÎ»
+
+Kn +Î²
+
+[2.1]
+
+n
+
+b
+
+22
+
+Chapter 2 â Literature Review in which Î» / b is boundary function, Kn is loading function and Î² is section function was proposed to predict the effective width of stiffened plating.
+
+Klitchief et al [178] studied the stability of plates reinforced by a large number of transverse ribs and subjected to compressive loading. Based on the expression for critical compressive forces previously developed by Timoshenko, an expression that gives directly the required rigidity of the ribs was developed. Use of trigonometric series was made to calculate effective width of plate. Effective width of flanges can be calculated as:
+2 S1 =
+
+(Ï ) â«
+y xâs
+
+2
+
+s
+
+0
+
+Ï y dx =
+
+4 sinh 2 Î¸ Ï Ï ( 3 + Î½ ) sinh Î¸ cosh Î¸ â (1 + Î½ )Î¸ b
+
+[2.2]
+
+ï£± Ïx Ïx Ïx Ï x ï£¶ï£¼ Ï y ï£« sinh where Î¸ = Ï s b , Ï y = ï£² A cosh + D ï£¬ 2 cosh + , s is the ï£· ï£½ cos b b b b ï£¸ï£¾ b ï£­ ï£³ effective width of flange and b is overall width of flange.
+
+Dwight and Moxham [179] reviewed the provisions for effective width in BS 153 and BS 449 for plates in compression. A comparison was made between the design method and recent research results. Interaction between local buckling and overall buckling was taken into account. Effect of residual stresses caused by welding was considered and an approximate method was presented for relating residual stress to size of weld. New design rules were tentatively proposed for welded plates in compression based on a load factor of 1.7. The stresses can be calculated as:
+ï£« 1.65 EÏ y ï£¶ (a) Web: f = ï£¬ â Ï r ï£· Ã· 1.7 or Ï y 1.7 , whichever is less. ï£¬ ï£· bt ï£­ ï£¸ (b) Flange: f = Ï y 1.7 with b limited as follows: [2.3]
+
+23
+
+Chapter 2 â Literature Review As welded
+Non-welded or stress relieved
+
+b â¤ 0.56 E Ï y t b â¤ 0.63 E Ï y t
+
+( (
+
+)
+
+[2.4] [2.5]
+
+)
+
+Dwight and Little [180] proposed a method for calculating the strength of stiffened steel compression flanges. Local buckling of plate was allowed for and overall buckling between cross-frame is covered by a column-type treatment. An essential feature was the use of an 'effective yield' approach for dealing with the interaction between local and overall buckling, instead of the 'effective section' method. The predicted average compressive plate stress at failure, Ïpm, is the lower root of the quadratic:
+
+(Ï
+
+y
+
+'â Ï pm )(Ï pe â Ï pm ) = Î·Ï peÏ pm
+
+[2.6]
+when
+
+2 Where Ï y ' = Ï y when shear stress Ï â¤ 0.175Ï y , Ï y ' = 1.05 Ï y â 3Ï 12
+
+Ï > 0.175Ï y , Ï pe is a stress depends on b/t ratio.
+
+Murray [181, 182] derived a new expression for collapse load of stiffened plates subjected to axial load based on elastic-rigid-plastic idealization of structures. It was shown that Perry-Robertson formula accurately predicts the collapse load and the direction of collapse provided the initial imperfections of stiffened plate were interpreted in a logical manner. The following interaction formula was proposed:
+1
+
+Ïf
+
+n
+
+=
+
+1
+
+ÏE
+
+n
+
++
+
+1
+
+Ïc
+
+n
+
++
+
+1
+
+Ï yn
+
+[2.7]
+
+Where ÏÎ and Ïc are elastic buckling stresses for overall strength and local strength respectively. Ïf is failure stress and Ïy is yield stress. n is a number dependent on the total imperfections.
+
+24
+
+Chapter 2 â Literature Review
+Carlsen [183-185] proposed a method for stiffened plate under axial load based on Perry-Robertson formulation together with effective width approach. The effective width of stiffened plate stress is given by: Plate induced effective width:
+
+be 1.8 0.8 = â for Î² > 1 Î² Î²2 b
+
+[2.8]
+
+Stiffener induced effective width:
+
+be = 1.1 â 0.1Î² for Î² > 1 b
+
+[2.9]
+
+Where Î² is reduced plate slenderness ratio.
+
+An empirical formula was derived by Allen [186] based on experimental results. According the Allen, ultimate strength of stiffened plate under axial compression can be expressed as
+
+Ï ua =
+
+Ï fs As + Ï fp Ap
+As + Ap
+
+[2.10]
+
+Ï fs and Ï fp are calculated separately through a modified Rankine formula.
+1 = 1 + 1 + 1
+2 Ï yi
+
+Ï
+
+2 fi
+
+Ï
+
+2 Ei
+
+Ï
+
+2 cri
+
+, i = s, p
+
+[2.11]
+
+Distance from the center of failure to the center of the plate can be obtained by D= 2 (Ï fs As + Ï fp Ap )
+
+Ï fs As (d + l )
+
+[2.12]
+
+Allenâs method is simple but it significantly overestimates the ultimate stress.
+
+Faulkner [187] proposed a method for predicting the ultimate strength of stiffened plate under axial load based on a beam column approach. A comprehensive review of effective plating for use in the analysis of stiffened plating in bending and
+
+25
+
+Chapter 2 â Literature Review compression was also presented by Faulkner [188]. According to Faulkner, the effective width of the plate can be expressed: be 2 1 = â b Î² Î²2 [2.13]
+
+This formula was used by the British Navy and has been recommended in Europe for box-girder bridge design.
+
+In a series of investigations, Horne and Narayanan [189-193] proposed a method of computing the collapse load of an axially loaded plate with open-section stiffeners uniformly spaced on one side. In their method, the stiffeners were assumed to be stocky enough to develop yield at their extreme fibers before collapsing by local buckling. The plate was then treated as series of continuous struts which consist of a stiffener and effective width of plate. Perry Robertson formula was used to analyze the strut. The loss of stiffness of the plate and torsional buckling of slender stiffeners were considered in the analysis. The effects of residual stresses and loss of stiffness of wide plates were accounted for by enhancing the initial plate imperfections.
+
+Narayanan and Shanmugam [194] proposed an approximate method of analyzing axially loaded stiffened plates. Energy method was employed and the loss of stiffness of the flange plate and of the stiffener was account for. The influence of residual stresses was considered in the analysis. Long panels were analyzed as axially loaded individual single span struts which could be treated as beam column. Modified form of the Perry-Robertson formula was used for analysis. Collapse load of stiffened plate can thus be calculated as:
+
+Ï cs = Ï a + 0.003 ï£¬
+
+ï£« l â lo ï£­ r
+
+ï£¶ ï£« Ï a .Ï e ï£¶ ï£· ï£·ï£¬ ï£¸ï£­Ïe âÏa ï£¸
+
+[2.14]
+
+26
+
+Chapter 2 â Literature Review Where lo = 0.2Ï r
+
+(E /Ï )
+ys
+
+when l â¥ lo , lo = l when l < lo , Ï a is mean stress causing
+
+failure, Ï e = Euler Stress.
+
+Shanmugam et al [195] proposed a design method for stiffened steel panels using effective width concept. Stiffeners were assumed to be stocky and the local buckling of stiffeners was neglected in the analysis. The effective width can be calculated by
+be = b
+
+Ïc Ïe
+
+ï£« Ïc ï£¶ ï£¬1 â 0.25 ï£· ï£¬ Ïe ï£· ï£­ ï£¸
+
+[2.15]
+
+Where Ï c is the longitudinal stress at the junction of stiffener and plating, Ï e can be assumed to be from Ï cr / 4 , b is overall width of plate and be is effective width of plate. The research was further extended to stiffened plates containing circular or square openings subjected to axial load by Shanmugam et al [82]. Experiments were conducted and an approximate method predicting the ultimate strength of stiffened plates with openings was proposed.
+
+Soares and Gordo [196, 197] proposed a simplified method for design of stiffened plates under predominantly compressive loads based on the existing methods. Behaviour of unstiffened plate elements and of stiffened panels was considered. The validity of the proposed method was assessed by comparing the results obtained from the proposed method with experimental results and numerical calculations.
+
+Based on the orthotropic plate approach, Jetteur [198] proposed a new simplified method for the design of stiffened compression flanges of large steel box girder bridges. Non-uniform stress distribution in the flange was taken into account in the
+
+27
+
+Chapter 2 â Literature Review design method and shear lag effects on the plate buckling was allowed. Physical differences between plate buckling under uniform and non-uniform compression were observed.
+
+Taido et al [199] presented a design method to evaluate the ultimate strength of stiffened plates used for the wide compression flange plates of shallow box girders. A design criterion to ensure the buckling stability of wide orthogonally stiffened plates subjected to uniaxial compression was first developed. An alternative design method for orthogonally stiffened plates was proposed. The ultimate strength of stiffened plates subjected to biaxial forces was discussed based on the finite element analysis and experimental study. Boote et al [200] proposed a simplified formulation for calculating plate breadth that acts with stiffener. Finite element method was used to analyze the effective breadth regarding both stiffness and strength. proposal, effective width BÏ can be obtained as: From their
+
+BÏ / B = ï£®1 â e( 0.005t â0.649).( L B ) ï£¯ ï£°
+
+( â0.027 t +1.067 )
+
+ï£¹ ï£º ï£»
+
+[2.16]
+
+Where BÏ is an artificial effective breadth on which the distribution of stresses is assumed to be uniform across the breadth and equal to the maximum value.
+
+Bonello et al [201] compared the predictions of ultimate load from several codes with numerical results from an inelastic beam-column formulation and test results. In order to explore the inherent differences in column behavior separately from discrepancies arising due to plate panel behavior, the code predictions were reevaluated adopting a common plate panel effective width formulation.
+
+28
+
+Chapter 2 â Literature Review
+Design of stiffened plate under lateral pressure only was proposed by Caridis [202]. The analysis was carried out using Dynamic Relaxation, a finite-difference based procedure which had been used to solve the Marguerre equations in the largedeflection elasto-plastic range. According to Caridis, lateral load to cause 3-hinge collapse in fully built in plate can be presented by
+q0 = ï£«tï£¶ 2 ï£¬ ï£¸ (1 â v â v ) ï£­ b ï£· 4Ï y
+2
+
+[2.17]
+
+Based on the orthotropic plate theory, Mikami and Niwa [203] proposed an approximate method to predict the ultimate strength of orthogonally stiffened steel plates subjected to uniaxial compression. All possible collapse modes which occur on the orthogonally stiffened plates were considered in the proposed method. The ultimate strength predicted by the proposed method was compared with test results of longitudinally and orthogonally stiffened steel plates subjected to uniaxial compression.
+
+Based on the strut approach, Usami [204] proposed a method for computing the ultimate strength of stiffened box members in combined compression and bending. The computed results for simply supported stiffened plates in compression and bending were compared with FEM results. Johansson et al [205] presented new design rules for plated structures in Eurocode 3. Design of stiffened plates for direct stress, design of plates for shear and design of plates for patch loading were presented. The statistical calibration of the rules to tests was described.
+
+29
+
+Chapter 2 â Literature Review
+Gordo et al [206] proposed a method to estimate the ultimate strength of hull girder based on a simplified approach. Degradation of the strength due to corrosion and residual stresses were included in the proposed method. Evaluation of strength of the hull at several heeling conditions was also included. Anderson [207] presented a method to include local post-buckling strength response in the design of stiffened panel. Computer code VICONOPT was used and the post buckling analysis capability developed at the University of Wales was used to provide the post buckling stiffnesses for all plates when the load was greater than the initial buckling load. Design results for column and panel structures were given in the paper. Their results indicated the benefit of reduced mass for panel structures utilizing post-buckling strength.
+
+Kitada et al [208] presented design methods of simply supported, outstands and stiffened plates made of high strength steel and mild steel subjected to compression. Design strength curves were derived as the regression curves of the ultimate strength curves. The stiffened plates concerned were used in the steel bridge. Effect of earthquake was taken into account in the analysis.
+
+In a series of investigations, Paik et al [209-213] presented ultimate strength formulation of stiffened plates under different loading conditions. Failure modes of stiffened plates were categorized into six groups in a benchmark study. The panel ultimate strengths for all potential collapse modes were calculated separately. The results were then compared to find the minimum value which was taken to correspond to the real panel ultimate strength. It was found that the plate-induced failure mode based on Perry-Robertson formula reasonably predicts the panel ultimate strengths in
+
+30
+
+Chapter 2 â Literature Review
+a specific range of stiffener dimensions which follows the beam-column type collapse mode. It was also found stiffener-induced failure mode based on Perry-Robertson formula generally provides too pessimistic results. Paikâs method covered a wide range of loading and failure modes. Verification of Paikâs method with experimental results and finite element analysis results showed good agreement.
+
+Chou et al [214] presented a practical method for designing bulb-flat-stiffened plating against local buckling, without limitations on section slenderness. Behavioural insight and validation is provided by 60 finite element solutions. A modified Perry equation was proposed for the design strength of imperfect bulb flat stiffeners, taking into account the restraint provided by the plate. In their method, the strength of the stiffened plate was given by adding the stiffener strength to the plate strength.
+
+Bijlaard [215] presented a method for the design of transverse and longitudinal stiffeners for stiffened plate panels. The structural analysis covered two types of instability. One was the instability of transverse stiffeners subjected to a load which increased with the deformations and was produced by the primary load acting within the plane of the plate. The other was the torsional buckling instability of longitudinal stiffener of open cross-sectional shape which were primarily subjected to compressive load. Rules for the analysis of both forms of instability were derived.
+
+2.7 Optimization of Stiffened Plates
+Many researchers contributed to the optimum design of stiffened plates. Lehata and Mansour [216] developed a methodology for structural optimization of stiffened panels based on reliability. The stiffened plates considered were part of ship structure
+
+31
+
+Chapter 2 â Literature Review
+and assumed to be under still water and wave induced loads. A nonlinear program was developed to calculate the minimum weight with behaviour constraints on reliability and physical constraints on the dimensions. A detailed approach was developed by Mansour et al [217] for assessing structural safety and reliability of ships.
+
+Tvergaad [218] investigated optimum design of an eccentrically stiffened wide panel under compression with simultaneous occurrence of local buckling and overall buckling. Maximum carrying capacities were calculated approximately by application of Galerkinâs Method. It was found that the best design is usually one in which the critical stress for Euler-type buckling is smaller than that for local buckling from the point of view of retaining highest stiffness at the highest possible load level. Also, the optimum design from the point of view of post-buckling behaviour often differs significantly from the design with two simultaneous buckling stresses.
+
+Brosowshi and Ghavami [219, 220] presented optimal design of stiffened plates in series of papers. Several experimental investigations were first carried out to establish the most satisfactory approximate method for calculation of the ultimate load of stiffened plates subjected to axial compression load. Perry â Robertson formula modified by Murray [182] was found to be the best approximate method. This formula was used for fast calculation of compromise points for the multi-criteria design of stiffened plates. The design variables considered were the number, the thickness and the height of the stiffeners for a specific plate thickness.
+
+32
+
+Chapter 2 â Literature Review
+Hatzidakis and Bernitsas [221] proposed optimization design of orthogonally stiffened plates. In the first part, size optimization was discussed. In the second part, shape optimization was performed. Weight optimization designs of stiffened plates were reported by De Oliveira and Christopoulos [222], McGrattan [223], Rothwell [224], Williams [225] and Peng and Sridharan [226]. Farkas and Jarmai [227] presented the optimum design of stiffened plates considering the optimal position of horizontal stiffeners. Toakley and Williams [228] reported optimum design of stiffened plate under compression.
+
+33
+
+Table 2.1 Summary of Experiments on Stiffened Plates
+
+Author(s)
+
+Ref. No. Year Loading(s) Variables studied
+
+Stiffeners arrangement
+
+No. of test
+
+Remarks
+
+1
+
+Ostapenko, A. Lee, T. T. 14 1960 Longitudinal 5
+
+Uniform lateral loading and axial compression
+
+Plate slenderness ratio b/t, Aspect ratio of sub-panel l/b, stiffener area to base plate area ratio Ast/bt, intensity of lateral load q
+
+T-stiffeners were used
+
+2 Kondo, J.
+
+13
+
+1965 Longitudinal
+
+Axial load and hydrostatic pressure
+
+2
+
+stiffener area to base plate area ratio Ast/bt, Stiffener flange area to stiffener area Af/Ast 12 Plate slenderness ratio b/t
+
+Beam-column approach was used for analysis
+
+Dorman, A. P. 3 Dwight, J. B. 62 1973 Longitudinal
+
+Axial compression
+
+Imperfection and residual stress were measured
+
+4 Smith, C. S.
+
+141
+
+Axial compression Longitudinal 1975 and transverse and lateral pressure
+
+12
+
+Plate slenderness ratio b/t, stiffener area to base plate area ratio Ast/bt, the slenderness ratio a/k* of longitudinal girders
+
+Imperfection and residual stress were measured
+
+Chapter 2 â Literature Review
+Continued on next page
+
+34
+
+Table 2.1 (continued) Ref. No. Year Loading(s) Variables studied 189 1976 Axial compression Longitudinal 8 Stiffeners arrangement No. of test Remarks
+
+Author(s)
+
+5
+
+Horne, M. R. Narayanan, R.
+
+The effects of welding was studied
+
+6 190 1976 Axial compression Longitudinal 34
+
+Horne, M. R. Narayanan, R.
+
+Plate slenderness ratio b/t, column slenderness ratio l/r, boundary conditions
+
+Residual stress and initial imperfection were measured Plate slenderness b/t, boundary conditions Initial deflections were measured
+
+7 63 1976 Axial compression Longitudinal
+
+Komatsu, S. Ushio, M. Kitada, K. 15
+
+8 229 1977 Longitudinal
+
+Ellinas, C. P. Croll, J. G. A. Kaoulla, P. Kattura, P.
+
+Axial compression
+
+3
+
+Stiffener depth to the lateral spacing between longitudinal stiffeners b/d, stiffener depth to stiffener thickness d/t
+
+9 235
+
+Yamada, Y. Watanabe, E. Ito, R. 1979 Longitudinal
+
+Axial load
+
+7
+
+Plate slenderness b/t, stiffener area to base plate ratio As/bt,
+
+Finite element and simplified element method presented Continued on next page
+
+Chapter 2 â Literature Review
+
+35
+
+Table 2.1 (continued) Ref. No. Year 1980 Longitudinal Combined axial and lateral load 18 Loading, failure mode Loading(s) Variables studied 233 Stiffeners arrangement No. of test Remarks Bulb flat or trough stiffeners
+
+Author(s)
+
+10
+
+De George, D Michelutte, M. M. Murray, N. W.
+
+11 82 1986 Longitudinal 15
+
+Shanmugam, N. E. Paramasivam, P. Lee, S. L. Axial compression
+
+Plate slenderness b/t, stiffener depth to the lateral spacing between longitudinal stiffeners b/d
+
+Stiffened plates contain circular or square openings
+
+12 143 1986
+
+Parsanejad, S.
+
+Longitudinal and transverse Axial load and lateral load
+
+15
+
+Plates slenderness ratio b/t, stiffener depth to the lateral spacing between longitudinal stiffeners b/d, Aspect ratio of sub-panel l/b 7 Stiffener slenderness d/t, lateral load
+
+Analytical method was presented
+
+13 149 1989
+
+Caridis, P. A. Frieze, P. A Longitudinal
+
+Axial load and lateral load
+
+14 66 1991
+
+Kitada, T. Nakai, H. Furuta, T. Longitudinal
+
+Longitudinal tension and transverse compression
+
+4
+
+Initial deflections
+
+Open and closed cross section stiffeners were used. Continued on next page
+
+Chapter 2 â Literature Review
+
+36
+
+Table 2.1 (continued) Ref. No. Year Loading(s) Variables studied 146 Combined axial Longitudinal 1996 and lateral and transverse loads 10 1997 Longitudinal Combined axial and lateral loads 12 Plate slenderness ratio b/t, lateral load Stiffeners arrangement No. of test Remarks
+
+Author(s)
+
+15
+
+Shanmugam, N. E. Arockiasamy, M.
+
+16
+
+Hu, S. Z.; Chen, Q. Pegg, N. Zimmerman, T. J. E 65
+
+Lateral load, boundary condition
+
+T stiffeners were used
+
+17
+
+Alagusundaramoorthy, P. Sundaravadivelu, R. Ganapathy, C. 80 1999 Longitudinal Axial compression
+
+12
+
+Plate slenderness ratio b/t, column slenderness ratio l/r
+
+Openings were introduced in the stiffened plate 3 Boundary condition, effect of stiffeners
+
+18
+
+Pan, Y. G. Louca, L. A. 234 1999 Longitudinal
+
+Gas explosion
+
+19
+
+Tan, Y. H. 174
+
+2000 Longitudinal
+
+Combined axial and lateral load
+
+14
+
+Plate slenderness b/t, sub-panel ratio l/b, stiffener area to base plate ratio As/bt, intensity of lateral pressure
+
+Lateral load is concentrated point load
+
+Chapter 2 â Literature Review
+Continued on next page
+
+37
+
+Table 2.1 (continued) Ref. No. Year Loading(s) Variables studied Stiffeners arrangement No. of test Remarks
+
+Author(s)
+
+20
+
+Zha, Y. F. Moan, T Hanken, E. 231 Axial load 2000 Longitudinal 25
+
+Stiffener web height, stiffener thickness, plate thickness, heat-affected zone, residual stress
+
+Material is aluminium
+
+21
+
+Lavan Kumar, C. 232 6
+
+Longitudinal Combined axial 2001 and transverse and lateral load
+
+Plate slenderness ratio b/t, column slenderness ratio l/r
+
+Software NISA was used for FEM analysis
+
+22
+
+Zha, Y. F. Moan, T 230 2001
+
+Longitudinal Axial load and transverse
+
+13
+
+Stiffener web height, stiffener thickness, plate thickness, heat-affected zone
+
+Material for stiffened plates was aluminum
+
+Chapter 2 â Literature Review
+
+38
+
+Chapter 2 â Literature Review
+
+Equivalent t'
+L
+
+ts B
+
+L
+
+h b tp B
+
+Figure 2.1 Orthotropic Plate Idealization
+
+ts
+
+L h t
+p
+
+L
+
+b
+
+b/2
+
+b/2
+
+Figure 2.2 Discretely Stiffened Plate Idealization
+
+39
+
+Chapter 2 â Literature Review
+
+ts h tp b B
+Strut
+
+L
+
+Figure 2.3 Strut Approach Idealization
+
+(a) Discretized plate elements
+
+(b) Plate and beam elements
+
+Figure 2.4 Finite Element Idealizations
+
+40
+
+Chapter 3 â Experimental Investigation
+
+CHAPTER 3 EXPERIMENTAL INVESTIGATION
+3.1 Introduction
+To investigate the ultimate load capacity of stiffened plates subjected to in-plane load and uniform lateral pressure, 12 specimens were tested to failure. The tested specimens were divided into two groups, namely series A and series B. Plate slenderness ratios (b/tp) of series A and series B were kept as 100 and 76, respectively. The behaviour of stiffened plates under combined in-plane load and lateral pressure was observed. The interaction of axial load and lateral pressure was investigated. The experimental results were compared to the finite element results to check the validity and accuracy of the finite element modelling. In this chapter, details of the test specimens, imperfection measurement, experimental setup, instrumentation and test procedures are described.
+
+3.2 Details of Test Specimens
+The test specimens were fabricated using hot-rolled steel plating of Grade 50 which complied with BS4360. The base plates and stiffeners were first cut to the required size. To avoid any severe distortion and change of material properties, saw cut instead of flame cut were used. The specimens were formed by assembling the base plate and stiffeners in specific locations and tack welded intermittently. Longitudinal stiffeners were first attached to the base plate by means of tack-welding technique. Attachment of shorter sections of transverse stiffeners was achieved by similar technique. Continuous welding was then carried out along the stiffeners. Sufficient time was allowed for cooling to minimize the effect of initial distortion caused by excessive heating at particular location and to keep the residual stress minimum. All welds were
+
+41
+
+Chapter 3 â Experimental Investigation
+continuous 6 mm fillet welds and E43 electrode was used. Once stiffeners were connected to base plate, two end plates were welded to the stiffened plate. End plates essentially ensure a uniform transmission of axial load from the horizontal thrust girders to the stiffened plate. Completed specimens were free from twist, bends and warps. Care was taken during delivery to ensure no damages to the specimen.
+
+The overall dimensions of the specimens were kept 1200 mm x 900 mm (L x B) and both longitudinal and transverse stiffeners were provided. The thickness of base plate and stiffeners were 2.9 mm and 5.92 mm respectively. The dimensions of specimens were selected based on finite element analysis by considering the limitation on the capacity of hydraulic jacks and size of air bag used to apply lateral pressure. The two series A and B of specimens are identified in the text as A1-A6 and B1-B6, respectively and the detailed dimensions are summarized in Table 3.1. Figures 3.1 and 3.2 illustrate the dimensions of specimens with three sub-panels and four sub-panels, respectively. The plate slenderness ratios (b/tp) for series A and series B were kept as 100 and 76, respectively. The slenderness ratio of stiffeners for both series was 8.4. The slenderness ratios were selected such that stiffeners remain stocky allowing local buckling in base plate to occur.
+
+Coupons were tested to determine the material properties of the base plates and stiffeners. Four coupon specimens were cut from the same stock of steel section for base plate as well as stiffeners. The coupon test specimen is illustrated in Figure 3.3. Linear strain gauges were mounted on the coupons. Tensile tests were carried out with strain control. Stress-strain curves were drawn and yield strength and Youngâs modulus were obtained. Typical stress-strain curve is shown in Figure 3.4. The stress-
+
+42
+
+Chapter 3 â Experimental Investigation
+strain curves for each coupon tested are shown in Appendix B. A summary of material properties is shown in Table 3.2.
+
+3.3 Imperfection Measurement
+Due to manufacture and delivery process, geometric imperfections always exist in the stiffened plates. Geometric imperfections refer to deviation of a member from âperfectâ geometry. Imperfections of a member include bowing, warping, and twisting as well as local deviations. Local deviations are characterized as dents and regular undulations in the plate. Thin walled structures like stiffened plates are usually imperfection sensitive. The presence of geometric imperfections may influence buckling and behaviour of structure. It is therefore important to investigate the influence of geometric imperfection on the ultimate load and failure shape of stiffened plates. In this study, geometric imperfections of stiffened plates were measured and included in the finite element analysis.
+
+In order to measure the geometric imperfections, a measurement device simple yet reliable was fabricated. Figure 3.5 shows a view of the device. Figure 3.6 is an illustration of the side view of imperfection measurement device. A 25 mm displacement transducer with an accuracy of 0.002 mm was used for measuring purpose. The displacement transducer can move along the beam and the beam can travel transversely along the supporting frame. The surfaces of beam and supporting frame were machined to smooth and oiled to minimize the friction during measurement. Before the measurement, the specimen was properly placed on the base frame such that there was no disturbance with the movement of displacement transducer. Measurement was started from one corner of the specimen and the first
+
+43
+
+Chapter 3 â Experimental Investigation
+measurement point was set to zero as reference point. Imperfection was measured by first moving the displacement transducer along the beam in transverse direction followed by movement of the beam along the supporting frame in the longitudinal direction. Readings from the displacement transducer were captured by digital data logger and saved in a floppy disk. After measurement of whole specimen, deflections at some selected locations were measured again to double check reliability of the first time measurement. If readings from the second time measurement for all the selected locations agreed well with the readings from the first set of measurements, the measured initial imperfection was accepted. The number of measurement points along the width and length of specimen are 37 and 49, respectively. Typical imperfection profile obtained from the measured imperfections of a stiffened plate is shown in Figure 3.7.
+
+3.4 Experimental Setup
+A test rig in which stiffened plates can be tested under both in-plane load and lateral pressure was used in this project. An overview of test rig is shown in Figure 3.8. The test rig is capable of applying lateral force up to 500 kN and axial force up to 1000 kN. An extremely stiff thrust girder forms part of the axial loading frame to transfer the axial load completely from hydraulic jacks to the specimen. Swivels were introduced at both ends in order to allow rotation at the ends of the specimens. The base support consisted of some smooth harden steel bearing plates oiled to minimize possible friction force when specimen are subjected to axial load. Sufficient stiffeners were provided in the support frame so that the deflections of support frame were negligible under maximum lateral loading. The height of the base support was so adjusted that the centroidal axis of the specimen coincided with the middle plane of the thrust
+
+44
+
+Chapter 3 â Experimental Investigation
+girder. Axial load was controlled by a loading device capable of applying a total load of 100 tonnes and monitored by two load cells with a capacity of 50 tonnes each. Lateral loading was applied by an actuator with a capacity of 50 tonnes and monitored by a load cell with same capacity. Height of actuator was properly adjusted so that it could compress the air bag to predetermined load within its stroke. All the load cells were connected to a data logger which could capture the loading with the increment of load or with change of time. An air bag with overall dimension of 914 mm x 914 mm was used to apply lateral pressure to specimen. A thick stiff steel plate is attached to the end of the lateral actuator to transfer the lateral load to the air bag. The air bag filled by compressed air was capable of applying load up to 70 tonnes. By compressing the air bag, uniform lateral pressure was applied to the specimen. The details of experimental setup are shown in Figure 3.9.
+
+3.5 Instrumentation
+The stiffened plate was instrumented with load cells, displacement transducers and strain gauges to monitor the load, deflections and strains. Two load cells were attached to the axial thrust girder with their centers coinciding with the centers of hydraulic jacks. Vertical load was monitored by a load cell with a capacity of 50 tonnes. Linear Variable Displacement Transducers were used to measure axial shortening of specimen under axial load and lateral deformation under lateral pressure. Two displacement transducers were placed at the extreme ends of the thrust girder to monitor the axial shortening of the specimens. In order to check any possible movement of fixed thrust girder under axial load, a displacement transducer was placed at the center of the fixed thrust girder. Some displacement transducers were located at different stiffener joints to measure the lateral deformations of specimen at
+
+45
+
+Chapter 3 â Experimental Investigation
+different locations. Rosette electrical resistance strain gauges of gauge length 5 mm were mounted at selected locations on the base plate and stiffeners of stiffened plate. Post yield strain gauges were used so that they were able to function and capture the reading of strain even after yielding of steel. All load cells, displacement transducers and strain gauges were connected to a data logger, which is capable of record readings with increment of load, or with time interval. The load-displacement readings were fed into an X-Y plotter which enabled tracing of the on-set of failure in a specimen. The details of displacement transducer and strain gauge locations for stiffened plates with three sub-panels and four sub-panels are shown in Figures 3.10 and 3.11, respectively.
+
+3.6 Test Procedure
+All specimens were tested with four edges simply supported at stiffener side and subjected to different combinations of axial load and lateral pressure. Before testing, strain gauges were mounted at appropriate locations for all the specimens. The specimen was then carefully positioned on the test frame without any disturbance to strain gauges. Care was taken to ensure that the centroidal axis of specimen coincided with the center line of moving thrust girder. The specimen was also adjusted with respect to the actuator applying the vertical load in order to ensure proper application of lateral pressure at pre-determined location. Air bag was placed on top of the specimen and the center was adjusted to coincide with the center line of the vertical actuator and stiffened plate. Compressed air was pumped to air bag until when the depth of air bag reached 240 mm.
+
+46
+
+Chapter 3 â Experimental Investigation
+After placing the displacement transducers at selected locations, a small trial load was applied, released and re-applied to ensure proper seating of the specimen on the test rig and the functioning of instruments. The axial load and lateral pressure were applied simultaneously with axial load reaching the pre-determined level much faster than lateral pressure. With the axial load maintained constant at that level, the specimen was tested to failure by gradually increasing the lateral pressure. Readings of strain gauges and displacement transducers were recorded for each increment of load as well as each time interval of 20 seconds. Pressure inside the air bag was recorded manually at selected load level. The ultimate lateral load at failure could be determined from the load-deflection curve of computer output.
+
+For both series, all the specimens were tested to failure under different combinations of loadings. A1 and B1 were tested to failure under lateral pressure only. A6 and B6 were tested under axial load only. Rest of the specimens were tested to failure under different combined action of axial load and lateral pressure.
+
+3.7 Measurement of Contact Area of Air Bag
+Due to the geometrical shape of the air bag, it became ellipsoid when filled with compressed air. During the test, the contact area of air bag with specimen gradually increased with the increase of lateral load. When the lateral load reached certain value, the air bag became flat and fully in contact with the specimen. Figure 3.12 shows the initial state of air bag. In order to include the change of contact area into numerical analysis, the contact area of air bag with the specimens with change of lateral load was measured.
+
+47
+
+Chapter 3 â Experimental Investigation
+In the measurement of contact area of air bag with the specimen, a 50 mm thick steel plate instead of specimen was used. The thick plate has little deflection under the maximum lateral loading. Before measurement, the air bag was properly placed on the steel plate with its center coinciding with the center of steel plate and the actuator. The air bag is pumped with compressed air up to a depth of 240 mm which has been used as a standard in all the tests. Figure 3.13 illustrates the measurement. Lines were drawn on the steel plate to help measuring the contact area of air bag with steel plate. Such lines are shown in Figure 3.14. The distances from the boundary to the contact points of air bag with steel plate along all these lines were measured one by one. Readings were taken at the initial state and every 5 kN increment of lateral load. The contact area of air bag with steel plate was calculated. From the measurement, it is found that the contact area of air bag with specimen is approximately a rounded square. It is also found that the air bag is fully in contact with specimen when the lateral load reaches 70 kN. Change of lateral pressure applied on the specimen with change of total lateral load is plotted in Figure 3.15. At the initial stage, pressure does not increase linearly with the increase of lateral load due to change of contact area. When lateral load reaches 70 kN and the air bag becomes flat and comes fully in contact with specimen, pressure on specimen increases linearly with increase of lateral load.
+
+48
+
+Table 3.1 Dimensions of All Specimens Stiffened Plate Components Dimensions Longitudinal Stiffener Transverse Stiffener End Plate Loadings
+
+Axial Lateral Load Load L (mm) B (mm) t (mm) L (mm) B (mm) t (mm) L (mm) B (mm) t (mm) L (mm) B (mm) t (mm) P (kN) Q (kN) 0 170 2.9 1200 50 5.92 50 5.92 214 900 75 10 300 400 500 712 0 200 2.9 1200 50 5.92 284 50 5.92 900 75 10 400 520 630 785.4 t: Thickness 246.3 201.6 147.4 112.8 75.1 0 250.9 203.8 145.7 95.4 93.3 0
+
+Base Plate
+
+A1
+
+A2
+
+A3
+
+A4
+
+1200
+
+900
+
+A5
+
+A6
+
+B1
+
+B2
+
+B3
+
+B4
+
+1200
+
+900
+
+B5
+
+B6
+
+Chapter 3 â Experimental Investigation
+
+L: Length
+
+B: Width
+
+49
+
+Chapter 3 â Experimental Investigation
+Series A
+
+Table 3.2 Material Properties for Base Plate and Stiffeners Sample No. Base Plate Yield Strength (N/mm2) Youngâs Modulus E (GPa) Yield Strength (N/mm2) Youngâs Modulus E (GPa) 1 343 204 333 185 2 368 190 335 191 3 335 197 327 199 4 341 172 337 199 Average 347 191 333 194
+
+Stiffeners
+
+End plate
+
+Stiffeners
+
+Base Plate
+75
+
+Section Y-Y
+
+x
+
+Y
+
+Series B
+All dimensions in mm
+
+Y
+
+Section x-x
+
+x
+
+50
+
+Chapter 3 â Experimental Investigation
+Figure 3.1 Dimensions of Series A Specimen in mm
+End plate
+
+Stiffeners
+
+Base Plate
+75
+
+All dimensions in mm
+
+Section Y-Y
+
+Y
+
+Y
+
+Figure 3.2 Dimensions of Series B Specimen in mm
+
+247.5
+
+Units: mm
+
+Figure 3.3 Tensile Coupon Specimen
+
+51
+
+Chapter 3 â Experimental Investigation
+
+600 500 400 300 200 100 0 0 0.02 0.04 0.06 0.08 0.1 0.12 0.14
+
+Stress (MPa)
+
+Strain
+
+Figure 3.4 Typical Stress-Strain Curve for Steel Used
+
+Figure 3.5 Imperfection Measurement Device
+
+52
+
+Chapter 3 â Experimental Investigation
+
+Beam can move in and out of paper Transducer - movable along the beam
+
+Specimen
+
+Figure 3.6 Side View of Imperfection Measurement Device
+
+Note: Out-of-plane deflections are magnified
+
+Figure 3.7 Typical Example of Measured Initial Imperfections in a Stiffened Plate
+
+53
+
+Chapter 3 â Experimental Investigation
+
+Figure 3.8 Overall View of the Test Rig
+
+Figure 3.9 Sectional View of the Experimental Setup
+
+54
+
+Chapter 3 â Experimental Investigation
+
+Rossete Strain Gauge Transducer P Strain gauges on base plate
+
+S Strain gauges on stiffeners
+
+Figure 3.10 Location of Strain Gauges and Displacement Transducers for Series A Specimens
+
+Rossete Strain Gauge Transducer P S Strain gauges on base plate Strain gauges on stiffeners
+
+Figure 3.11 Location of Strain Gauges and Displacement Transducers for Series B Specimen
+
+55
+
+Chapter 3 â Experimental Investigation
+
+Figure 3.12 Initial State of Air Bag during the Test
+
+Air bag length to be measured steel plate length to be measured
+
+Figure 3.13 Illustration of Contact Area Measurement
+
+56
+
+Chapter 3 â Experimental Investigation
+
+Lines drawn on steel plate
+
+Steel plate
+
+Contact area with air bag
+
+Figure 3.14 Top View of Contact Area Measurement
+
+180 160 140
+
+Lateral Load (kN)
+
+120 100 80 60 40 20 0 0 0.05 0.1 0.15 0.2
+2
+
+0.25
+
+0.3
+
+0.35
+
+Lateral Pressure (N/mm )
+
+Figure 3.15 Change of Lateral Pressure on Specimen with Change of Lateral Load
+
+57
+
+Chapter 4 â Numerical Investigation
+
+CHAPTER 4 NUMERICAL INVESTIGATION
+4.1 Introduction
+The development of design methodology for a particular structural type normally follows the determination of structural behavior using experimental or numerical studies. The accomplishment of finite element method (FEM) in the analysis of complex structural problems promises outstanding possibilities for solution of the present problem as well. As is well known, the use of finite element techniques results in generality to represent complex geometries and can be versatile enabling the inclusion of large deformation, large rotations and non-linear stress-strain characteristics. In the current study, a comprehensive finite element package ABAQUS is used to simulate the behaviour of stiffened plates subjected to in-plane load and lateral pressure.
+
+Three stages are involved in the finite element analysis, namely pre-processing, processing and post-processing. Preparation of data, such as boundary conditions, loading and mesh generation is carried out using ABAQUS CAE. The processing stage involves stiffness generation, stiffness modification, and solution of equations, resulting in the evaluation of nodal variables. Other derived quantities, such as gradients or stresses, may be evaluated at this stage. The post-processing stage deals with presentation of the processed results, which include deformed configuration, mode shapes, and temperature and stress distribution etc. The three stages involved in the finite element analysis are listed in Figure 4.1.
+
+58
+
+Chapter 4 â Numerical Investigation
+Nonlinear finite element models of the test specimen were first carried out. Those tested by the author and other researchers were considered for the analyses. Results from the analyses were used to establish the accuracy of the finite element model. Once the accuracy of the finite element analysis is verified, some practical sizes of stiffened plates representing possible ship bottom configurations were modeled to study the effect of some parameters on the behaviour of stiffened plates. Results from the finite element analyses for specimens conducted by the author are plotted and discussions on the results are presented in Chapter 5. An overview of numerical investigation is presented in Figure 4.2.
+
+4.2 ABAQUS Pre-processing
+4.2.1 Boundary and Loading Conditions
+Boundary and loading conditions are modeled as close to the actual experimental conditions as possible so that the numerical results can be used to validate the reliability of the FEM investigation. Stiffened plates were modeled as simply supported along the edge stiffeners. All nodes along the boundaries were restrained in the vertical direction and the nodes along one of the transverse edges were restrained in the longitudinal direction to simulate the actual boundary conditions in the experiment. Two corner nodes along one of the longitudinal edges were restrained in the model to prevent the free movement of stiffened plates along the transverse direction.
+
+In the modeling by the author, axial load was applied as uniform distributed pressure onto the part of the unrestrained end plate with resultant force of the axial pressure coincided with the centroid axis of the stiffened plate. Uniformly distributed lateral
+
+59
+
+Chapter 4 â Numerical Investigation
+pressure was applied in three steps with different magnitude and the corresponding contact area. The measured contact area of air bag with the specimen corresponding to lateral pressure was included in the numerical model. The areas of lateral pressure application adopted in each of the steps are shown in the shaded areas in Figure 4.3. According to the experimental measurement, the contact area of air bag with specimen concentrates on the area A in Figure 4.3 when lateral load is less than 10 kN. When lateral load is increased gradually from 10 kN to 70 kN, the contact area increased gradually from area A to area B. Since the change of contact area is not so significant, it is assumed in the numerical analysis that the contact area remained at area B when total lateral load changed from 10 kN to 70 kN. Similarly from 70 kN to the ultimate lateral failure load, the contact area was assumed to remain at area C. All specimens were first applied with axial load followed by stepwise lateral pressure. Sufficient increments were provided in each step and caution was taken to avoid any sudden jump in strain. The size of increment can be determined automatically by program or adjusted manually based on experience. In most cases, the increment determined by program was good enough to provide satisfactory results. However, manual adjustment was always necessary according to the magnitude of loading to ensure convergence of analysis. The ultimate axial load was obtained from the summation of resultant forces in the passive end and the ultimate lateral load was obtained from the summation of vertical resultant forces along the edge stiffeners.
+
+4.2.2 Mesh Generation
+A suitable model was developed for the mesh generation process and then the mesh was created to represent the geometry. The success of mesh generation depended on the appropriate selection of element size, shape and type. Type, shape, number and
+
+60
+
+Chapter 4 â Numerical Investigation
+grading of elements are crucial to the accuracy of the finite element analysis. It is necessary to understand how the structure is likely to behave and how elements are able to behave. In general, the essential of the finite element method is piecewise polynomial interpolation and selection of elements of such a type and size that deformation of the structure over the region spanned by an element is closely approximated by deformation modes that the element can represent. Triangular elements are less accurate than equivalent quadrilateral elements and should not be used in areas where high stress gradients are expected unless a very fine grid is used with due consideration [174].
+
+Hence, in the present study, a surface model consisting of 8-noded doubly curved thin shell, reduced integration, using five degrees of freedom per node was used to avoid any ill-conditioning in the analysis. Many shell element types in ABAQUS use reduced integration to form the element stiffness. The mass matrix and distributed loadings are still integrated exactly. Reduced integration elements usually provide more accurate results, and significantly reduce computer-running time, the elements are of type S8R5 in ABAQUS terminology. The S8R5 element is chosen because it is a powerful eight-node standard ABAQUS plate-bending element that allows for changes in the thickness as well as finite membrane strain. Typical mesh is shown in Figure 4.4. Convergence study was performed in order to establish a suitable mesh size for the analyses of stiffened plates, which give economical computing time and consistent result. For the modelling of specimens conducted by the author, same mesh was used for specimens in each series so that consistent results were ensured. The aspect ratio of element in the current study was kept within the range 1:1 to 1:5.
+
+61
+
+Chapter 4 â Numerical Investigation
+4.2.3 Material Non-linearity
+Material non-linearity can be accounted by appropriate selection of material model in ABAQUS. Classical metal plasticity model is appropriate for general collapse analysis. The classical metal plasticity models in ABAQUS use standard von Mises yield surface models with associated plastic flow. This yield surface assumes that the yield of the metal is independent of the equivalent pressure stress. Associated plastic flow means, as the material is yielding, the inelastic deformation rate is in the direction of normal to the yield surface. In the present study, non-linear elasto-plastic model was selected and perfect plasticity was used. At the analysis stage, non-linear analysis was performed to account for material non-linearity.
+
+4.2.4 Initial Imperfection
+Initial imperfection was included in the model. In the present study, finite element analyses were performed both for models with measured imperfection from experiment and for models with nominal imperfection suggested in the ABAQUS manual. The results from models with measured imperfection are compared with those from the models with nominal imperfection and the differences in results are discussed.
+
+For the nominal imperfection, in the ABAQUS model, there are generally two methods to introduce the initial imperfection. The first method makes use of the model anti-symmetry and defines the imperfection by means of a FORTRAN routine that used to generate the perturbed mesh, using the data stored on the results file written during the eigenvalue buckling analysis. The second method uses the *IMPERFECTION option to define the imperfection. This option requires that the
+
+62
+
+Chapter 4 â Numerical Investigation
+model definitions for the buckling prediction analysis and the post-buckling analysis be identical. The *IMPERFECTION command tells the solver to retrieve the buckling mode shape profile to be included. The solver will then retrieve certain percentage of the contour of specified mode shape profile as the initial geometry of the model and solve the problem from there. In the present study, second method was employed to include nominal geometrical imperfection in the finite element analysis. Full sine curve buckling mode in each sub-panel was assumed for initial imperfection. The initial imperfection imposed is one time of the first elastic buckling mode displacement. A sample input file with simple explanation is shown in Appendix C.
+
+To include the measured imperfection into the analysis, another compatible software PATRAN was used as ABAQUS preprocessor. PATRAN was used mainly to create the mesh and geometry properties of the model. The advantage of PATRAN as preprocessor is that the measured deflections corresponding to the locations can be input in the model. Smooth surfaces were created with measured deflections. Due to the welding process, some corners of stiffened plate were distorted. The distortions of corners were neglected in model to avoid severe distortion of elements. After imperfect geometry creation and mesh generation in PATRAN, the file generated was converted to ABAQUS version 6.3 input file by adding additional information such as boundary conditions and output commands.
+
+4.3 ABAQUS Processing
+After the mesh generation, all the meshing data are converted into standard ABAQUS input for analysis. After the conversion, data lines should be included in order to account for all the material and geometric non-linearity, the incremental-iterative load 63
+
+Chapter 4 â Numerical Investigation
+steps and required output commands in accordance with ABAQUS/Standard program language.
+
+The processing stage involved stiffness generation, stiffness modification, and solution of equation, resulting in the evaluation of nodal variables. To include nominal imperfection into the analysis, two types of analyses were involved. First, bifurcation buckling (eigenvalue) analysis was used to obtain estimates of the buckling loads and modes. Such studies also provided guidance in mesh design because mesh convergence studies were required to ensure that the eigenvalue estimates of the buckling load have converged: this requires that the mesh be adequate to model the buckling modes, which are usually more complex than the pre-buckling deformation mode. First elastic buckling mode displacement was used as nominal imperfection profile in the present study. The second phase of the study was performance of non-linear analysis (load-displacement analysis), usually using the RIKS Method to handle possible instabilities. These analyses would typically study imperfection sensitivity by perturbing the perfect geometry with different magnitudes of imperfection in the most important buckling modes and investigating the effect on the response. For analysis of model with measured imperfection, the bifurcation buckling analysis was not performed since the model created contained the measured imperfection. Only non-linear analysis was performed for models with measured imperfections
+
+In the current modelling, axial force was modelled as uniform axial pressure. Large displacement analysis is used in ABAQUS whenever the large deflection behaviour is
+
+64
+
+Chapter 4 â Numerical Investigation
+anticipated for stiffened plates under combined action of axial load and lateral pressure. Either the exact or modified Newtonâs method is used as solver criteria in ABAQUS to establish convergence of solving balance equations. The solution procedure is based on an updated stiffness matrix and changing load vector in this case. Therefore, application of load should prevail in the case of plasticity problem. All these can be done automatically by ABAQUS.
+
+4.4 ABAQUS Post-processing
+ABAQUS post analysis provides graphical displays of ABAQUS models and results. Load vs displacement curve can be plotted at any selected load step and deflected shapes at any load step are also made possible by this package. Stress distribution can be presented as graphs or contour plots. The change of deflected shapes and stress distribution can also be visualized by animation. Other major capabilities include model plotting which include deformed and undeformed shapes, contour plotting which displays values of analysis variables as colour regions or lines on the surface of the model, vector plotting, X-Y plotting which display analysis or user-defined data as curves on an X-Y graph, and animation. Numerical results on nodal stresses, reaction forces and displacement are also available. Typical first mode buckling shape of stiffened plate and load vs displacement curve are shown in Figures 4.5 and 4.6, respectively.
+
+4.5 Limitations of Finite Element Analysis
+The use of finite element method to predict the behaviour of stiffened plate has some limitations such as modelling and loading limitations. In the current study, difficulties
+
+65
+
+Chapter 4 â Numerical Investigation
+arose when creating exact measured imperfection from experiment. The corners of stiffened plate used in experiments were mostly distorted due to the heavy welding in the corners of stiffened plate. Modelling of such distorted corners in finite element introduces some distorted elements and causes convergence problem in analysis. Therefore, the imperfections of corners were not modelled to avoid any analysis problem.
+
+Due to limitations in finite element analyses, the loading sequence modelled in finite element method was slightly different from experiment. In the experiment, axial load and lateral pressure were applied simultaneously with axial load reaching predetermined level much faster than lateral pressure. However, in the finite element method, axial load was applied first to predetermined level followed by application of lateral pressure. In the experiment, contact area of air bag with specimen was keep changing with change of lateral pressure. Whereas in the finite element modelling, only three contact areas were used at different level of lateral pressure. The difference of contact area at certain lateral pressure affects the overall deflection of stiffened plate. The method used in finite element only gives an approximate simulation of real experiment.
+
+4.6 Accuracy of the ABAQUS Analysis
+Accuracy of ABAQUS analysis needs to be established before the results are used for carrying out any parametric study. The accuracy of finite element analysis depends on a few factors such as material properties, boundary condition and mesh generation etc. The reliability of ABAQUS results has been proven by many researchers despite of
+
+66
+
+Chapter 4 â Numerical Investigation
+various limitations. In the present study, both experimental data from published literature and the current study were used to verify the accuracy of the ABAQUS analysis. Two sets of experimental studies from the literature were considered in the present investigation. In one set, two series of test on stiffened plate with longitudinal and transverse stiffeners tested by Lavan Kumar [232] under combined in-plane and lateral loads were examined. Two base plate slenderness ratio (b/t=80 and 64) were considered in the experiments. Table 4.1 lists the material properties and, the detailed dimensions of specimens are shown in Figure 4.7. In the second set full scale welded steel grillages tested by Smith [141] were examined in detail. Four specimens tested under combined axial and lateral load were selected for finite element analysis. Details of specimens may be found in Reference [141]. The stiffened plates were loaded with axial load and lateral pressure with lateral pressure reaching required level much faster than axial load. The specimens were tested to failure with gradually increased axial load.
+
+Although ABAQUS is able to produce complete set of results including the stress distribution as well as strain distribution, only ultimate load carrying capacity and failure shapes are compared with existing experimental results. Table 4.2 shows the comparisons of experimental results and ABAQUS results for specimens tested by Lavan Kumar [232]. FEM results from Lavan Kumar which using software NISA are also included in the table. It can be observed from the comparison that ABAQUS can produce quite accurate results. Comparison between the experimental failure loads and finite element loads show reasonable agreement. The ABAQUS failure load to experimental failure load ratio ranges from 1.01 to 1.13. The discrepancy between the results lies within 10% except in the case of sp5b for which it is 13%. Comparing 67
+
+Chapter 4 â Numerical Investigation
+with two finite element software used, NISA generally gives lower values than experimental results whereas ABAQUS tends to give slightly higher values.
+
+A comparison of experimental results and ABAQUS results for specimens tested by Smith [141] is shown in Table 4.3. Experimental results from Smith were used as verification examples by a few researchers. In Table 4.3, analytical results and FEM results from Paik [213] were included. It can be seen that experimental results are generally lower than ABAQUS results. However the difference between experimental results and ABAQUS results are within acceptable range. Smith [141] reported large residual stresses for the stiffened plate tested. In ABAQUS analysis, residual stresses were not included. The discrepancy between experimental results and ABAQUS results may be due to the effect of large residual stresses. The view after failure of a typical specimen tested and the corresponding finite element prediction are shown in Figure 4.8. It is observed from the figure that ABAQUS analysis can accurately predict the failure pattern of stiffened plate. From the comparisons of two sets of results, it can be seen that ABAQUS can predict not only the ultimate load of stiffened plate but also the failure pattern of stiffened plate. It can, therefore, be concluded that the use of finite element package to predict the ultimate loads of stiffened plates subjected to combined action of axial and lateral loads is reliable. A more detailed comparison of ABAQUS results and experimental results from the current study is presented in Chapter 5.
+
+68
+
+Chapter 4 â Numerical Investigation
+
+Table 4.1 Yield Stress and Youngâs Modulus of Material (Lavan Kumarâs specimens) [232] No. 1 2 3 Specimen Plate Plate Stiffener Thickness (mm) 4 5 5 Ïy (N/mm2) 218 292 300 E (N/mm2) 1.8 x 105 1.8 x 105 1.8 x 105
+
+Table 4.2 Comparison of Experimental and Finite Element Results for Specimens tested by Lavan Kumar [232] Lateral pressure (kN/m2) 0 60 0 60 120 Ultimate load (kN) Pexp 983 839 1220 1011 963 Pabq 998 853 1340 1140 968 PNISA* 900 750 1200 1020 950
+
+No. sp4a sp4b sp5a sp5b sp5c
+
+b/t 80 80 64 64 64
+
+Pabq/Pexp 1.02 1.02 1.10 1.13 1.01
+
+PNISA/Pexp 0.92 0.89 0.98 1.01 0.99
+
+* FEM results from Lavan Kumar [232]
+
+69
+
+Chapter 4 â Numerical Investigation
+
+Table 4.3 Comparison of Experimental and Finite Element Results for Specimens Tested by Smith [141] Grillage No. 1b 2a 3a 4b Lateral pressure (psi) 15 7 3 8 Compressive Stress Ïexp (tsi) 12.1 15.9 11.1 13.5 Ïabq (tsi) 13.1 16.9 12.3 14.1
+
+Ï abq Ï exp
+1.08 1.06 1.11 1.04
+
+Ï FEAâ1 * Ï exp
+0.781 0.890 1.000 0.880
+
+Ï FEAâ 2 * Ï exp
+0.781 0.890 0.913 0.916
+
+Ï ULSAP * Ï exp
+0.849 0.868 1.000 0.976
+
+1. Exp = Experimental results, abq = ABAQUS results 2. *Analysis results are from reference [213] 3. FEA-1 =with average imperfections, FEA-2 = with actual imperfections 4. ULSAP stands for the software developed for Paikâs proposed method
+
+70
+
+Chapter 4 â Numerical Investigation
+
+I.
+â¢ â¢ â¢ â¢ â¢
+
+PRE-PROCESSING (ABAQUS CAE)
+Geometry Creation Mesh Generation Boundary Conditions Loadings Material Property
+
+II. PROCESSING (ABAQUS/ Standard)
+Stiffness Generation Stiffness Modification Solution of Equations Gradients / Stress Large Deflection Behaviour
+
+III.
+
+POST-PROCESSING (ABAQUS Viewer)
+Deformed Configuration Failure Mode Stress Distribution Curve Plotting
+
+Figure 4.1 Three Stages of Analysis
+
+71
+
+Chapter 4 â Numerical Investigation
+
+ABAQUS INPUT DATA 1. Geometry creation 2. Boundary condition 3. Material properties 4. Loadings 5. Mesh generation
+
+ABAQUS FINITE ELEMENT ANALYSIS
+
+BIFURCATION ANALYSIS (Generate nominal imperfection) NONLINEAR ANALYSIS (Include nominal imperfection)
+
+ABAQUS POST ANALYSIS
+
+RESULTS VERIFICATION (Using existing experimental results)
+
+IS ERROR SMALL?
+No
+
+Yes
+
+PARAMETRIC STUDY
+
+TROUBLESHOOTING
+
+Figure 4.2 Flow Chart of Numerical Investigation
+
+72
+
+Chapter 4 â Numerical Investigation
+
+(a) Area A for lateral load from 0 to 10 kN
+
+(b) Area B for lateral load from 10 to 70 kN
+
+(c) Area C for lateral load from 70 kN onwards Figure 4.3 Change of Contact Area at Different Loadings
+
+73
+
+Chapter 4 â Numerical Investigation
+
+Figure 4.4 Typical Mesh of Stiffened Plate
+
+Figure 4.5 Typical Buckling Shape of Stiffened Plate
+
+74
+
+Chapter 4 â Numerical Investigation
+
+900 800 700 600 500 400 300 200 100 0 0 1 2 3 4 5 6
+
+Axial Load (kN)
+
+Axial Displacement (mm)
+Figure 4.6 Typical Load vs Displacement Curve
+
+4 or 5mm steel plate 50 1160 100 320 320 320 100 60 5 5 280
+
+280 960
+
+280 60
+
+Figure 4.7 Dimension of Lavan Kumarâs Specimen [232]
+
+75
+
+Chapter 4 â Numerical Investigation
+
+a) A view after failure of the specimen 3a
+
+b) Deformed shape after failure of the specimen 3a predicted by ABAQUS
+
+Figure 4.8 Comparison of Failure Shapes
+
+76
+
+Chapter 5 â Results and Discussion
+
+CHAPTER 5 RESULTS AND DISCUSSION
+5.1 Experimental Results
+5.1.1 Initial Imperfection
+Initial imperfection of the specimen was measured by taking readings for vertical deformations of 1813 points in the stiffened plate relative to one of the corner points. The number of measurement points along the width of specimen and along the length of specimen are 37 and 49 respectively. Possible distortion of stiffeners was not measured since stiffeners were designed to remain stocky before any local buckling occurred in the base plate. It is found from the imperfection measurement that subpanels of stiffened plate deformed towards stiffener side and the deformation generally followed half sine curve. The deflections of specimen at section CC and section DD for series A and series B are shown in Figures 5.1 and 5.2. Large deflection is observed in some specimens. This is mainly due to the fact that the reference point happened to be located at the severely distorted corner. Generally, stiffened plates in same series have similar initial geometrical imperfection. The plotted initial imperfection for series A and series B are shown in Appendix D. Two sets of typical imperfection measurement data with one each from series A and series B are also shown in Appendix D for references.
+
+5.1.2 Ultimate Loads of Series A and Series B
+The observed ultimate failure loads for all the 12 specimens tested and the comparison with ABAQUS analysis results are summarized in Table 5.1. The
+
+specimens tested are divided into two series, namely series A and Series B. The plate slenderness ratio is 100 for series A and 76 for series B. Among the 12 specimens,
+
+77
+
+Chapter 5 â Results and Discussion
+specimen A6 and B6 were tested to failure under axial load only and specimens A1 and B1 were tested to failure under lateral load only. The rest of the specimens were tested to failure under combined action of axial load and lateral pressure. Axial load was maintained constant at pre-determined level with lateral pressure increased gradually until the collapse of specimen. It is found from Table 5.1 that the presence of axial load reduces the ultimate lateral load capacity of stiffened plates. For example in series A, lateral load capacity is reduced from 246 kN to 75 kN when axial load is increased from 0 to 500 kN. This means that the lateral load carrying capacity is affected quite significantly by the presence of axial load and vice-versa. Specimens A6 and B6 were tested to failure under axial load only. The ratio of ultimate axial load to the squash load is 0.54 for A6 and 0.56 for B6. These ratios show clearly the effect of plate slenderness on the ultimate axial load of stiffened plate. The drop in axial load capacity compared to the respective squash load accounts for both local buckling of base plate and overall buckling of stiffened plate. Comparison between specimen A6 and B6 shows that increase of plate slenderness causes a drop in ultimate axial load capacity of stiffened plate.
+
+Plate initiated failure was observed for specimens under axial load only, while overall column buckling failure was observed for panels under combined action of axial load and lateral pressure. The failure shapes for all the specimens are shown in Figures 5.3 to 5.14. Due to excessive vertical deformation of stiffened plate, disconnections of stiffeners at the joints were found in some specimens after failure. The disconnection of stiffeners from the base plate usually occurred after specimens had reached ultimate load capacity except in the case of B4. It was observed during the test of specimen B4 that disconnection of stiffeners occurred before reaching the ultimate
+
+78
+
+Chapter 5 â Results and Discussion
+load followed by a sudden drop of lateral load. In the case of specimen B4, it is believed that the disconnection of stiffeners is caused by improper welding. This can be verified from comparison of ultimate load between specimen B4 and B5. From Table 5.1, an increase of 110 kN axial load between B4 and B5 only results in a decrease of 2.1 kN lateral load. This is not logical from a scientific point of view. Obvious local buckling of sub-panels was noticed for specimens under axial load only. For stiffened plates under lateral load only or under both axial load and lateral pressure, yield line instead of local buckling was observed in the sub-panels. This may be due to the sequence of loading application. In those cases with large lateral pressure and small axial load, lateral pressure dominated the behaviour of stiffened plates. Presence of lateral pressure suppressed the formation of buckling of stiffened plate.
+
+The load vs displacement curves for specimens tested are shown in Figure 5.15 to 5.17. The lateral displacement of most of the specimens was found to be insignificant when only axial load was applied. But when lateral load was applied on the specimens which were already under axial compression, lateral deflection increased significantly in the direction of lateral load. All specimens under both axial load and lateral pressure show linear and stiff behaviour at the initial stage of lateral loading and deflection increases considerably at later stage. The slopes of all curves at the initial stage are almost same. For the two tests with axial load only, slight movement of âfixed endâ was recorded by the displacement transducer. The displacement at moving end is not the absolute shortening of specimen along the longitudinal direction. Thus the displacement used in the plotted load vs displacement curves for
+
+79
+
+Chapter 5 â Results and Discussion
+specimens under axial load only is the amount of displacement recorded at moving end deducted by movement of âfixed endâ.
+
+Electrical resistance strain gauges of gauge length 5 mm were used in the test to measure strain. The maximum principal stresses at location of strain gauges were calculated based on the Rosette strain gauge readings. Typical maximum principal stress for specimen B3 is shown in Figure 5.18.
+
+5.2 Comparison of FEM Results with Experimental Results
+The specimens tested in the current study were analyzed by ABAQUS finite element package and analytical results were compared to experimental results. In the ABAQUS analyses, models with both nominal imperfection and actual measured imperfection were studied. Table 5.1 shows the comparison of experimental results with the finite element results with nominal imperfection. It is found that ABAQUS results agree well with the experimental results. In most cases the difference between experimental results and the finite element results are within 10% except in the case of B4. It should, however, be noted that in the case of B4, the ultimate lateral load carrying capacity was affected by the disconnection of stiffeners due to improper welding. Thus it can be concluded that the use of finite element package to predict the ultimate load of stiffened plate subjected to both axial load and lateral pressure is reliable to a reasonable accuracy.
+
+Figures 5.19 to 5.30 show the load vs displacement curves for experimental results and the finite element results with nominal imperfection and actual measured imperfection. It is found that load vs displacement curve for experimental results does
+
+80
+
+Chapter 5 â Results and Discussion
+not agree well with finite element results for B6. This is mainly caused by the disturbance of moving âfixed endâ. Comparison of the finite element results with nominal imperfection and actual measured imperfection shows that the difference between ultimate loads is very small. However, it is observed that there is some difference between the deflections at peak load for these two types of analysis. This is due to the fact that both overall deformation of stiffened plate and local deformation of sub-panel were taken into account in the analysis with measured imperfection whereas only local sub-panel deflection was considered in the analysis with nominal imperfection. The maximum deformation in models with actual imperfection is larger than those with nominal imperfection. It is interesting to notice that difference in magnitude of imperfection does not result in much change of ultimate load. It is believed that buckling model component of the deflected shape has the most significant weakening effect. The nominal imperfection used in the current study was first mode of buckling shape. Because the buckling in a rectangular plate always occurs in a higher mode (two half waves in the mid-panels for current model), the overall initial deflection in fact has a stiffening effect. Overall deformation of stiffened plate was included in the models with actual imperfection. This may explain why models with actual imperfection and larger magnitude of deformation do not have lower ultimate load since overall deformation has a beneficial effect. The effect of imperfection is further discussed in section 5.4 of this chapter. From the comparison of experimental results from other researchers and the author with finite element results, it is found that finite element model with nominal imperfection can generally produce sufficient good results. Therefore, it is valid to use nominal
+
+imperfection in the parametric study to account for the possible imperfections of stiffened plate.
+
+81
+
+Chapter 5 â Results and Discussion
+Failure shape of finite element analysis can be displayed in the ABAQUS Viewer. The failure shapes from finite element analysis were compared to the respective experimental failure shapes. View after failure of a typical specimen tested under combined loads and the corresponding finite element prediction is shown in Figure 5.31. It is found that the finite element prediction agrees well with experimental failure shape. Figure 5.32 shows a comparison of failure shapes for specimens under axial load only. The failure pattern from finite element analysis is similar as that observed in the test. It can be seen from Figure 5.31 and 5.32 that finite element modeling is capable of predicting the failure shape of specimen with sufficient accuracy.
+
+5.3 Comparison of Experimental Results with Design Methods
+The experimental results and FEM results were compared to existing design methods. In the past few decades, several design codes and recommendations have been developed for design of stiffened plates. Some examples are BS 5400 [7], API RP2V [8], AISC [9] and DnV [12]. Many design methods for stiffened plates were proposed by researchers such as Allen [186], Winter [236], Faulkner [187] and Narayanan and Shanmugam [194]. Most of design methods only deal with stiffened plates subjected to in-plane loads only. Only a few design methods consider stiffened plates subjected to both in-plane load and lateral pressure. It is noticed that DnV code [12] is the only one accounting for interaction of in-plane compression and lateral pressure among those well-established codes. Design methods for stiffened plates subjected to combined action of in-plane load and lateral pressure were also proposed by Smith [142] and Tan [174]. However, their methods do not cover whole range of loading and are only applicable for small lateral pressure. In this study, design methods from
+
+82
+
+Chapter 5 â Results and Discussion
+DnV code [12] and Paik [212, 213] were used to compare with experimental results and finite element analysis results. The comparison of experimental results and existing design methods is shown in Table 5.2.
+
+Paik [212, 213] proposed a design method for stiffened plate under combined axial load, in-plane bending and lateral pressure. The collapse patterns of a stiffened plate are classified into six groups. Ultimate load of stiffened plate for each collapse pattern is calculated separately and lowest value is taken to correspond to the real panel ultimate strength. The stiffened plates in this experimental study fail in the overall collapse mode as lateral pressure is dominant. This failure pattern is categorized as mode 1 in Paikâs Method. Orthotropic plate approach is used in Paikâs method when stiffened plate fails with collapse mode 1. Stiffened plates in this comparison are assumed to have transverse stiffeners with equal spacing. It is found that both experimental results and FEM results agree quite well with Paikâs method in most cases. It is also noticed that Paikâs method tends to give lower ultimate lateral load when axial compression force is large. For example in case B5, large discrepancy between experimental results, FEM results and Paikâs method is found. However Paikâs Method generally gives conservative values.
+
+DnV code was also used to compare the experimental results. It is noticed that DnV code generally gives higher ultimate lateral load compared with experimental results and FEM results. It is also found that presence of in-plane load does not significantly reduce ultimate lateral load using DnV design method. In DnV code, the formula for the design of a plate subjected to lateral pressure is based on yield-line theory. The reduction of the moment resistance along the yield-line due to applied in-plane
+
+83
+
+Chapter 5 â Results and Discussion
+stresses is accounted in the formula. The reduced resistance is calculated based on von-Misesâ equivalent stress. The formulation is based on a yield pattern assuming yield lines along all four edges, and will give uncertain results for cases where yieldlines cannot be developed along all edges. Furthermore, the formula does not consider second-order effects, buckling due to axial load is not accounted. For the specimens tested, yield lines were not observed along all four edges of sub-panel. Also axial load were presented in most cases and buckling due to axial load should not be neglected. The use of DnV formulation in this case may not be valid.
+
+The Interaction curves of lateral load and axial load for both series are shown in Figure 5.33. Results from experimental tests are compared with those from FEM and design codes. Interaction curves for series A and series B follow a similar trend. They can generally be approximated as parabolic curves. It is found that interaction curves for results from experimental tests, FEM and Paikâs method are quite close to straight lines. Comparing the two sets of interaction curves for series A and series B, it is observed that series A with higher plate slenderness ratio gives lower ultimate load. More stiffeners are provided for specimens with lower plate slenderness ratio. The presence of more stiffeners not only directly contributes to the ultimate load but also increases the base plate resistance by minimizing the effect of local buckling. It is noticed that interaction curves for results from FEM and Paikâs method agree well with experimental results. Paikâs method generally gives lower value than experimental results and FEM results. Significant difference is found between interaction curves from DnV code and those from other methods. This may be due to the fact that formula in DnV code does not consider buckling under axial load in this
+
+84
+
+Chapter 5 â Results and Discussion
+case. Also the assumption made in DnV code that yield line developed along all four edges is not applicable to specimens tested.
+
+5.4 Parametric Studies
+A series of stiffened plates representing possible ship-bottom configurations was selected to carry out parametric studies. Figure 5.34 shows the stiffened plate used for parametric study. The overall dimensions were kept as 3080 mm x 6000 mm. The width of sub-panel was kept as 600 mm and the thickness of base plate varied according to b/tp ratio. The dimensions of stiffened plates are summarized in Table 5.3. The stiffeners and base plate were selected such that the stiffened plates fail as plate induced failure. Stiffener induced failure was not considered in the current study. The parameters studied include plate slenderness ratio, intensity of lateral pressure, boundary conditions, initial imperfection and residual stress. The yield strength of steel used in the studies is 275 N/mm2 and Youngâs modulus is 205000 N/mm2.
+
+The model was simply supported along the four edges of the base plate and rotation along the edges of base plate was allowed. For simply supported cases, one of the end plate was restrained to move longitudinally and transversely at centroidal axis. The inplane loading applied at the other end plate was modelled as uniform nodal displacement at centroidal axis. The application of uniform nodal displacement to model the in-plane compression with resultant force at neutral axis was valid. For fixed ended cases, the passive end was restrained to any displacements and rotations. Only longitudinal displacement was allowed for active end. The two longitudinal edges remained simply supported and rotations were allowed.
+
+85
+
+Chapter 5 â Results and Discussion
+In the numerical investigations, the main aim of applying lateral pressure to stiffened plates was to study the effect of preloaded lateral pressure on the ultimate axial load of stiffened plates. Therefore, the sequence of the loading employed in the numerical investigation was different from the experiments. Two steps of loading sequences were involved for stiffened plates subjected to combined action of axial load and lateral pressure. In the first step, pre-determined lateral pressure was applied to the whole base plate and kept constant at the required level. Subsequently in the second step, axial load represented as uniform nodal displacement was applied at the neutral axis of stiffened plate till failure. Ultimate load of stiffened plate could be obtained from the resultant forces at the passive end.
+
+The effects of initial imperfection on the ultimate load of stiffened plates were studied by varying the initial imperfection patterns and the maximum magnitude of initial imperfection. Stiffened plates with three different plate slenderness ratios were modelled with different imperfection modes and magnitude of imperfection. In the present study, three initial imperfection modes were considered. In the first mode of initial imperfection, half since curve pattern was assumed for all the sub-panels. In the ABAQUS analysis, the magnitudes of initial deflection for all the sub-panels were slightly different for mode 1 imperfection. The second mode of initial imperfection was assumed to be a full since curve pattern for whole stiffened plate. The third mode of initial imperfection was taken as half since curve pattern for whole stiffened plate. The initial imperfection modes are shown in Figure 5.35 and the real imperfection modes used in ABAQUS in Figures 5.36 to 5.38.
+
+86
+
+Chapter 5 â Results and Discussion
+The welding process involved large temperature change in the stiffened plates and hence considerable residual stresses resulted from the welding operation. Due to the difficulties in measuring residual stresses and the complexity of residual stress distribution, the effects of residual stresses on the behaviour of stiffened plates are still not well known. The influence of welding procedure on residual stress is also not fully understood. In this parametric study, residual stress was included in the ABAQUS analysis by command *INITIAL CONDITIONS, TYPE=STRESS. Residual stress was applied longitudinally to the cross section of shell elements. The idealization of residual stress distribution reported by Dwight and Moxham [179] was adopted in this study. Figure 5.39 illustrates the idealization of residual stress distribution. Residual stress is self-equilibrating and the area of tension blocks must be equal to the area of compression blocks. Tensile stress was assumed to be yield strength and compressive residual stress calculated from tension stress blocks. Researchers found that for a plate of given thickness, with a given thermal history at its edges, the width of tension block Î·t was largely independent of the overall width b. Researchers also found the resulting values of Î· varied from 2 to about 8. In the present study, Î·t was assumed to be 40 mm for all the stiffened plates considered regardless of the thickness of plate. Only residual stress in base plate was considered and residual stress in stiffener neglected.
+
+5.5 Behaviour of Stiffened Plates under Combined Loads
+Ultimate loads of stiffened plates considered for parametric study are obtained from finite element analysis. The ultimate loads of specimens under axial load only are summarized in Table 5.4. Stiffened plates with different geometrical configurations exhibit different values of strength depending on whether they fail in a plate induced 87
+
+Chapter 5 â Results and Discussion
+or stiffener induced mode. The present parametric study only considers stiffened plates with plate induced failure. The strength of stiffened plate depends on a few primary variables such as plate slenderness ratio b/tp, the column slenderness of the stiffener-plate combination Î». Some secondary variables such as the ratio of stiffener area to plate area As/Ap will also affect the behaviour of stiffened plate. The primary variables have a greater effect on strength and normally an increase in these parameter results in a decrease of strength of stiffened plate. The secondary variables have a less marked effect on the behaviour of stiffened plate. The stiffener to plate area ratio As/Ap reflects the extent to which a compact stiffener can improve the plate induced column strength. Tan [174] presented the effects of As/Ap to the strength and behaviour of stiffened plates under combined action of axial and lateral loads. A few variables that affect the behaviour of stiffened plate are discussed based on the parametric study.
+
+5.5.1 Influence of Plate Slenderness Ratio, b/tp
+Increasing b/tp generally results in decrease of the plate strength and a reduction in column strength of the stiffener-plate assembly. Figure 5.40 shows the ultimate loads of stiffened plates under different combinations of axial load and lateral pressure for plate slenderness ranging from 30 to 100. The curves show that the increase in b/tp ratio results in a decrease of ultimate load Pu for all cases, regardless of the intensity of the lateral pressure. The reduction of ultimate load is more significant for b/tp = 30 to 50. For b/tp ratio greater than 60, the reduction of strength due to change of b/tp is not so prominent. Thus for a particular stiffener area and l/b ratio, b/tp ratio is a critical parameter, which affects the loss of ultimate strength of the stiffened plate. From table 5.4, it is found that the ultimate load to squash load ratio is higher with 88
+

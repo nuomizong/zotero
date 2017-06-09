@@ -1,15 +1,15 @@
 {
 	"translatorID": "79c3d292-0afc-42a1-bd86-7e706fc35aa5",
+	"translatorType": 8,
 	"label": "EIDR",
 	"creator": "Aurimas Vinckevicius",
-	"target": "",
+	"target": null,
 	"minVersion": "1.0",
-	"maxVersion": "",
+	"maxVersion": null,
 	"priority": 80,
 	"inRepository": true,
-	"translatorType": 8,
-	"browserSupport": "gcsi",
-	"lastUpdated": "2014-05-29 01:51:21"
+	"browserSupport": "gcsibv",
+	"lastUpdated": "2017-06-04 14:50:00"
 }
 
 var typeMap = {

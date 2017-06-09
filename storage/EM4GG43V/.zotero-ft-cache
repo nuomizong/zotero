@@ -1,0 +1,353 @@
+Freeform surfaces from single curved panels
+Helmut Pottmann TU Wien Alexander Schiftner TU Wien / Evolute Pengbo Bo TU Wien / University of Hong Kong Niccolo Baldassini RFR, Paris Heinz Schmiedhofer TU Wien
+
+Wenping Wang University of Hong Kong
+
+Johannes Wallner TU Graz
+
+Abstract
+Motivated by applications in architecture and manufacturing, we discuss the problem of covering a freeform surface by single curved panels. This leads to the new concept of semi-discrete surface representation, which constitutes a link between smooth and discrete surfaces. The basic entity we are working with is the developable strip model. It is the semi-discrete equivalent of a quad mesh with planar faces, or a conjugate parametrization of a smooth surface. We present a B-spline based optimization framework for efï¬cient computing with D-strip models. In particular we study conical and circular models, which semi-discretize the network of principal curvature lines, and which enjoy elegant geometric properties. Together with geodesic models and cylindrical models they offer a rich source of solutions for surface panelization problems. CR Categories: I.3.5 [Computer Graphics]: Computational Geometry and Object ModelingâGeometric algorithms, languages, and systems; I.3.5 [Computer Graphics]: Computational Geometry and Object ModelingâCurve, surface, solid, and object representations Keywords: discrete differential geometry, architectural geometry, freeform surface, panelization, semi-discrete surface, developable surface, developable strip model, conical strip model, circular strip model, principal strip model, geodesic strip model, focal surface. Figure 1: Semi-discrete surfaces consisting of single curved panels can approximate freeform shapes and are accessible with geometric modeling tools like a combination of subdivision and optimization. This design is based on a conical strip model. place at our disposal a way to realize a freeform shape with curved panels without the high cost of manufacturing molds or other auxiliary devices for the double curved parts. The problem of covering a freeform surface by single curved panels leads to a systematic study of semi-discrete surface representations. From a theoretical viewpoint, these represent a â so far missing â link between the category of smooth surfaces and the category of discrete surfaces. Loosely speaking, they are surface parametrizations with one continuous and one discrete parameter. We are naturally led to surfaces composed of ruled surface strips, and especially developable surface strips (âD-strip modelsâ). These models are obtained as limits of quad meshes under a reï¬nement which operates only on the rows and leaves the columns (see Fig. 4). While this limit viewpoint turns out to work well for certain theoretical considerations, it is not the best way of efï¬cient processing. It is the goal of the present paper to derive the main properties of D-strip models, to study important special cases and to develop efï¬cient algorithms for geometric modeling with this new surface representation. In his monograph on difference geometry, Sauer [1970] uses strip models to generalize Clairautâs law of geodesics from rotational to helical surfaces. No further strip models nor other semi-discrete surface models seem to appear in the mathematics literature. However there is work dealing with piecewise developable surfaces: Subag and Elber [2006] approximate NURBS surfaces by piecewise developables. Several algorithms have been proposed for the construction of papercraft models [Mitani and Suzuki 2004; Massarwi et al. 2007; Shatz et al. 2006]. These contributions do not aim at smoothness of boundaries and even widths of developable pieces; consequently they are not required to exploit the semi-discrete viewpoint or, as we do, the relation to conjugate curve networks and meshes with planar quadrilateral faces.
+Related work.
+
+1
+
+Introduction
+
+Modern architecture employs different kinds of geometric primitives when segmenting a freeform shape into simpler parts for the purpose of building construction. For most of the materials used (glass panels, wooden panels, metal sheets, . . . ), it is very expensive to produce general double-curved shapes (such as illustrated by Fig. 2, right). A popular way is to use approximation by ï¬at panels, which most of the time are triangular (see Fig. 2, left). A third way, less expensive than the ï¬rst and capable of better approximation than the second, is segmentation into single curved panels (Fig. 2, center). The decision for a certain type of segmentation depends on costs, but also on aesthetics. The visual appearance of an architectural design formed by curved panels is different from a design represented as a polyhedral surface. Therefore, the geometric problem of approximate segmentation of a freeform shape into single curved panels is very attractive: its satisfactory solution would
+
+For the investigation of semi-discrete surface models one must study the geometry of its smooth pieces; so for us developable sur-
+
+From the viewpoint of theory, the three notions of conjugate curve network, D-strip model, and quad-dominant mesh with planar faces (PQ mesh) are manifestations of the same entity in the smooth/ semi-discrete/discrete categories. Knowing this, we can e.g. initialize optimization of a strip model towards developability either from a conjugate curve network, or from a PQ mesh. Similar relations are true for principal networks, offsets, and other geometric properties. It is an aim of our paper to demonstrate that for an application like architecture the semi-discrete viewpoint is the appropriate and preferred way to look at single-curved strips.
+
+2
+Figure 2: Segmentation of curved surfaces. From left: ï¬at panels (Milan trade fair), single-curved panels (TGV train station, Strasbourg), and double-curved panels (St. Lazaire metrÂ´ station, Paris) o faces are very important. Recall some facts from differential geometry [do Carmo 1976]: Developability of a surface means that it can be unfolded into the plane such that in-surface distances remain unchanged. Such surfaces consist of pieces of ruled surfaces with the special property that all points of a ruling have the same tangent plane. These torsal ruled surfaces consist of cylindrical pieces, conical pieces, and tangent surface pieces, which means that rulings are parallel, or pass through a common point, or are tangent to a curve of regression, respectively. Obviously developables occur in the analysis of materials which do not stretch, like crumpled paper [Cerda et al. 1999] or buckled metal [Frey 2004]. On the practical side developables are employed in industry and architecture in connection with such materials (e.g. by F. Gehryâs designs, cf. [Shelden 2002] and the monograph by Pottmann, Asperl et al. [2007]). Various ways of geometric design with torsal ruled surfaces have been proposed: Maintaining developability as a side condition in n Ã 1 spline surfaces [Aumann 2004; Chu and SÂ´ quin 2002], achieving developability in an ape proximate way [PÂ´ rez and SuÂ´ rez 2007], working in the space of e a tangent planes [Pottmann and Wallner 2001], working with sufï¬ciently often subdivided planar quad meshes [Liu et al. 2006], or modeling based on triangle meshes [Frey 2004; Wang and Tang 2004; Mitani and Suzuki 2004]. Mesh parametrization and segmentation with help of developables is the topic of [Julius et al. 2005] and [Yamauchi et al. 2005]. Rose et al. [2007] show how to ï¬nd âoptimalâ developables from boundary curves. The topic of semi-discrete surface representations belongs to discrete differential geometry, even if it appears not to have been systematically addressed before. Partial limits in quad meshes (see Fig. 4) were considered in higher dimensions and rather had an interpretation in the transformation theory of surfaces which is presented in textbook form in [Bobenko and Suris 2005] (using their terminology, the D-strips of the present paper are 1-dimensional Jonas pairs, and the circular D-strips are Ribaucour pairs). Our limit approach to developable strip models is based on quad meshes with planar faces, circular and conical meshes, and their focal geometry [Liu et al. 2006; Pottmann and Wallner 2007].
+Contributions. This is essentially the ï¬rst paper to deal with semi-discrete surface representations. We consider both the theoretical and geometry processing viewpoints, and focus on semi-discrete models consisting of single-curved strips (D-strips), their optimization by means of a B-spline representation, geometric prop-
+
+Developable strip models
+Geometry of developable strips
+
+2.1
+
+A strip of planar quadrilaterals (Fig. 3a) can be unfolded into the plane. A reï¬nement process which keeps planarity of quads therefore, in the limit, generates a developable surface strip (a D-strip, Fig. 3b). The edges where successive quads are joined together become rulings of the strip; and these rulings are the tangents of the curve of regression associated with the strip. In the notation of Fig. 3, the limits of polygons p1 , p2 , . . . , q1 , q2 , . . . , and r1 , r2 , . . . are the boundary curves p(u) and q(u), and the regression curve r(u), resp. (the osculating cone of Fig. 3c is discussed in Sec. 3). Liu et al. [2006] discuss the following property of PQ meshes (i.e., quad meshes with planar faces): A PQ mesh undergoing a reï¬nement procedure where row and column polygons converge to a curve network on a smooth surface, yields, in the limit, a conjugate curve network. Recall that two tangent vectors v, w in a surface point are conjugate if and only if II(v, w) = 0, where âIIâ is the second fundamental form (cf. [do Carmo 1976]). Sauer [1970] concludes that a PQ mesh is a discrete model of a conjugate curve network, which is also the viewpoint of [Liu et al. 2006].
+D-strip models as semi-discrete surfaces.
+
+If we reï¬ne only the rows in a PQ mesh, and leave the columns as they are (or vice versa), then each row will converge to a developable strip, and the entire mesh will converge to a D-strip model â see Fig. 4 for an illustration and the deï¬nition of edge curves, ruling polygons, and ruling segments. We conclude: A developable strip model is a semi-discrete representation of a conjugate curve network in a surface. (a) r3 r2 D r1 ll33 3 l3 3 3 ll22 2 2 l2 2 l11 ll1 1 l1 1 q2 q2 q22 q2 2 p2 q1 p1 Ë p(u) p(u) Ë ËËË q(u) q(u) q(u)
+l(u ) ll((u) (u) u
+
+(b) r(u) D
+
+(c) r(u)
+
+q(u) q(u) q(u)
+
+â(u) â(u) â(u) â(u)
+
+erties, and applications â e.g. to the âhugely important issue of panelizing double curved surfacesâ [Spuybroek 2004, p. 187]. We believe that the semi-discrete perspective on surfaces is not just an elegant geometric insight, but highly relevant for applications.
+
+Figure 3: Smooth developables as limit of discrete ones. (a) In a strip of planar quads pj qj qj+1 pj+1 , edges lj = pj qj intersect in the vertices rj = lj â©lj+1 of the regression polygon. (b) The rulings l(u) = p(u)q(u) of a D-strip D with boundary curves p(u) and q(u) are the tangents of the regression curve r(u); along the ruling l(u), D has ï¬rst order contact with a plane spanned by co-planar Ë Ë vectors p(u) â q(u), p(u), and q(u). (c) For each parameter value u, D is in second order contact with a certain cone of revolution â(u) along the entire ruling l(u).
+
+p13 â p12 p11 p21
+
+D1 D2 D3 D1 D2 D3 1 D1 D2 3 1 D1 D2 D3 2 3 2 3 â Â·Â·Â· â p2 (u) p2 (u) p22(u) 2 2 p1 (u) p11(u) p1 (u) p1 (u) 1
+
+Figure 4: Semi-discrete models as limits of discrete models. Partially subdividing quadrilateral meshes with vertices pi,j and planar faces pi,j pi+1,j pi+1,j+1 pi,j+1 yields, in the limit, a D-strip model consisting of developable strips Di . Each strip is bounded by edge curves pi (u) and pi+1 (u). We call the polygon with vertices p1 (u), p2 (u), . . . a ruling polygon, and each segment pi (u)pi+1 (u) is called a ruling segment. A ruled surface generated by boundary curves p(u) and q(u) has the parametrization x(u, v) = (1 â v)p(u) + vq(u). Its developability is equivalent to
+Parametric representation of D-strips.
+
+For the deï¬nition of the single terms in (5), we use the symbols Ï and Ï for the closest point e projections onto the surface Î¦ and its boundary âÎ¦, respectively. Further, Ïx denotes Î¦âs tangent plane in the point x, and Tx denotes the tangent of the boundary curve âÎ¦. Then the two functionals which express proximity of a point sample x1 , x2 , . . . to Î¦, or to the boundary âÎ¦, are deï¬ned by X X fprox = dist(xk , ÏÏ(xk ) )2 , fâ, prox = dist(xk , TÏ(xk ) )2 . e
+Setting up geometry functionals.
+k k
+
+Developability of the surface, and a far away location of the curve of regression are expressed by small values of the functionals X Z X Z epi ,pi+1 2 du, r fdev = Î´pi ,pi+1 (u)2 du, fregr =
+i i
+
+Ë Ë {p, q, p + p, q + q} co-planar for all u,
+
+(1)
+
+as illustrated by Fig. 3b. Following an idea of P. SchrÂ¨ der, we reo place (1) by a measure of planarity which is deï¬ned by the distance of two lines in space. With the notation a â¨ b for the straight line spanned by points a, b, we let â â pâq pâq Ë Ë Î´p,q := dist p â¨ (q + q), q â¨ (p + p) . (2) Ë Ë q p These lines are diagonals in a quad which is constructed from the Ë Ë quad in (1) by moving the two vertices p + p and q + q such that their respective distances from p and q equal p â q . Clearly, Î´p,q = const . = 0 is equivalent to (1). The curve of regression r(u) is found as the location r(u) = x(u, v â (u)) on each ruling where the parametrization x(u, v) is singular. It is easy to see that v â (u) is determined as a quotient of parallel vectors: vâ = Ë p Ã (p â q) Ë Ë , where ep,q = (p â q) Ã (p â q). r ep,q r (3)
+
+resp., using notation from (2) and (3). Fairness is measured with linearized bending energies of edge curves and ruling polygons: X Z Â¨ pi (u) 2 du, ffair/edge = i Z âX â ffair/ruling = pi+1 â 2pi + piâ1 2 du.
+i
+
+Remark: For the proximity functionals we use point-plane distances, because it is known that their use instead of point-point distances considerably improves the ICP algorithm and ï¬tting algorithms [Pottmann et al. 2006].
+Initializing optimization. For the approximation of existing data sets by D-strip models we must ï¬nd an initial ruled strip model which is subsequently optimized towards developability. It has already been mentioned that a D-strip model is a semi-discrete analogue of a network of conjugate curves, and at the same time an analogue of a PQ mesh (cf. Liu et al. [2006] and Pottmann et al. [2007]). This leads to different ways of initializing strip models:
+
+2.2
+
+Optimization of D-strip models
+
+A D-strip model consists of D-strips Di , parameterized by xi (u, v), and joined together along edge curves pi (u) as shown by Fig. 4. We want to work with B-spline surfaces, so we let X 3 pi (u) := B (u â j) bi,j , (4)
+j
+
+â¢ Initialization from a conjugate curve network: One family of curves in the network leads to edge curves, whereas the other family leads to ruling polygons (see Fig. 5). For every direction tangent to a surface there is a unique conjugate direction [do Carmo 1976]. Thus we can prescribe one family of curves and ï¬nd the other by integrating a vector ï¬eld (as in Figs. 5 and 16). We could also use the principal curve network (as in Fig. 21), where curves intersect at right angles. In general, the curves of that network must intersect transversely, but the actual angle of intersection is not critical for successful optimization. â¢ Initialization from a PQ mesh, constructed e.g. by the method of Liu et al. [2006]. Figures 6 and 22 have been created in that way. Design of D-strip models, as opposed to approximation with D-strip models, is discussed below.
+Topology of D-strip models.
+
+xi (u, v) := (1 â v)pi (u) + vpi+1 (u). Here B 3 is the cubic B-spline basis function for integer knots. This makes the point pi (j) on the curve pi lie close to the control point 1 bi,j . In the special case bi,j = 2 (bi,jâ1 + bi,j+1 ), the curve passes through a control point, because then pi (j) = bi,j . In order to approximate a given surface Î¦ by a D-strip model, we must subject the control points bi,j to optimization by minimizing the target functional Î»1 fprox + Î»2 fâ, prox + Î»3 fdev + Î»4 ffair/edge + Î»5 ffair/ruling , (5) whose constituents measure closeness to Î¦, closeness to the boundary curve âÎ¦ if necessary, developability of the strips, and fairness. We could also augment (5) by a term fregr which pushes the curve of regression away from the strip under interest (fregr is deï¬ned below but has not been used in producing the ï¬gures contained in this paper). Developability of the ï¬nal surface has the nature of a constraint, which is achieved by letting Î»3 grow during iterative optimization.
+
+For a D-strip model of a surface of higher genus a sequential arrangement of strips is not sufï¬cient. As developable strips follow a conjugate curve network with transverse intersections, and such networks usually have singularities, this might happen also for surfaces of simple topology but complicated geometry. When initializing a strip model from a curve network we must be able to handle more complicated arrangements (the same goes for design of strip models). We explain our way of setting up a network of control points and deï¬ning associated strips by the typical example of Fig. 7, where three D-strips meet in a common point. Other singularities are handled in a similar way; there is no principal difï¬culty except the writing up is cumbersome. For the purpose of optimization, this singular vertex of the edge curve network is split into three vertices bâ , bââ , and bâââ . We 1 1 1
+
+(a)
+
+(b)
+
+(c)
+
+(d)
+
+(e)
+
+(f)
+
+(g)
+
+Figure 5: Initializing optimization from conjugate curves, and inï¬uence of parameters. (a) Surface Î¦ with a conjugate curve network and an initial choice of B-spline control points for the purpose of generating a D-strip model. (b) Superposition of Î¦ with the D-strip model resulting from optimization. (c) the same, but with the inï¬uences of ffair/edge and fâ, prox reduced to 10% of their original values. (d) the same, but additionally, fprox is reduced. Figures (e)â(g) correspond to (b)â(d) and show the measure of developability: Î´pi ,pi+1 divided by mean strip width ranges between 0 (blue) and 4.2 Â· 10â3 (red) â for numerical values, see Table 2. Model courtesy of Waagner-Biro.
+
+bââ 3 Figure 7: Combinatorics of the B-spline control net at a singularity. For the way of deï¬ning six ruled strips x(1) , x(2) , . . . around this valence three vertex, see text. bââ 2 e b3 = bâ1 (2) ââ (2) x(2) x(2) b1 x(2) x e bâââ b2 = b0 1 â e 1 = b1 b1 b e (1) (1) b0 = b2 x(1) bâ (1) x(1) x(1) 2 e bâ1 = b3 bâ 3
+
+(a)
+
+(b)
+
+(e)
+
+(c)
+
+(d) for the design of meshes with planar faces. This is true also in the limit case of D-strip models. To implement such a method, we deï¬ne subdivision rules for D-strips. In the regular case (a sequence of strips) these rules consist of applying univariate subdivision to the rows in a grid of B-spline control points. If the strips exhibit non-trivial connectivity, we subdivide the strip model by applying a subdivision rule like Catmull-Clark to the control points and reextract a strip model. The speciï¬c rule employed does not matter much, as the result is subject to optimization anyway. As a reference surface Î¦ for the functional fprox which is employed during optimization we take the result of linear subdivision applied to the initial data. A result is shown by Fig. 6.
+Boundaries and Trimming.
+
+Figure 6: Initializing optimization from PQ meshes, and using subdivision. (a): Planar quad mesh used for initializing a strip model. (b) Optimized strip model. (c) The model in (b) has been subdivided and optimized again. (d) Iteration of this procedure. use a network of control points as illustrated by Fig. 7. Using the notation of Fig. 7, the B-spline curve pâ (u), deï¬ned in an interval [1, tâ ] has control points bâ , bâ , . . . , where bâ (not shown) is 1 0 1 0 1 initialized by bâ = 2 (bâ + bâ ). Analogously we deï¬ne B-spline 1 0 2 ââ âââ curves p and p , so that three B-spline curves are now emanating from the singular vertex. During optimization, the distances of points pâ (1), pââ (1), and pâââ (1) from each other are penalized. The B-spline curve p(u) with control points {bj } together with the curve pâ (u) now deï¬nes a strip x(1) ; and a relabeling of points e e bk := b2âk gives the control points of a curve p(u) which together with pââ (u) deï¬nes a strip x(2) . Those two strips are indicated in Fig. 7 by hatching. In a similar way the remaining neighbourhood of the singular vertex is ï¬lled by a total of six strips; gaps between strips are ï¬lled by cones (as the fairness functional wants to shrink strips, overlaps do not occur). Each gap emanating from the singularity is bounded by rulings of strips xleft , xright . With the notation v [v]0 = v we augment the functional (5) with the term fgaps = X âh left â h âxright âxleft Ë âxright Ë â2 â âx â Ã Ã â â . gaps âu âv 0 âu âv 0
+
+Arbitrary boundaries and sharp edges in shapes are in practice not realized as ruling polygons of strip models. Thus in general trimming is necessary. We show this in the small ï¬gure here, but not in the other ï¬gures.
+
+3
+
+Principal strip models
+
+We thus penalize the difference of normal vectors at the two sides of the gap, and achieve a smooth transition. By developability, these normal vectors do not depend on v. It has been shown by Liu et al. [2006] that applying subdivision of meshes and optimization towards planarity of faces in an alternating way is an efï¬cient tool
+Designing D-strip models.
+
+When approximating a surface by D-strips, it is natural to let edge curves follow the principal curvature lines of maximal curvature and to place rulings along the directions of the smaller principal curvature. This method, however, would pick up too much detail which should probably not be present in the D-strip model. Therefore we give separate deï¬nitions of principal strip models (circular and conical ones) which can be thought of as limits of circular and conical meshes. A further reason why we consider these models is
+
+p2 (u ) p2 (u) K K K p1 (u) p1 (u ) Ï(K )
+
+e2 p2 (u e p e 2 (u ) p 2(u )) e2 p2 (u ) e p1 e1 e 1 (u ) p1 (u p11(u )) S2
+
+discrete case (meshes) to the semi-discrete case (D-strip models), because the latter are limits of the former, as illustrated by Fig. 4. We consider here a strip model deï¬ned by edge curves pi , and ane other one with edge curves pi which is combinatorially equivalent to the ï¬rst one, as regards the combinatorics of strips and boundary curves. Combinatorial equivalence also means that corresponding edge curves are deï¬ned over the same parameter interval. For simf plicity, we use the notation M = {pi } and M = {e i } for these p f models. M and M are parallel, if (i) corresponding rulings are parallel, and (ii) edge curves have parallel tangents in corresponding points. It follows easily, e.g. from the analogous statements for meshes [Pottmann et al. 2007], that a D-strip model M is circular if and only if there is a parallel âGauss imageâ model Ï(M ) whose edge curves lie in the unit sphere. M is conical if and only if there is a parallel âGauss imageâ model Ï(M ) which is tangentially circumscribed to the unit sphere. Further, for circular M , one point of an edge curve of Ï(M ) can be chosen freely, and the rest is uniquely determined (see Fig. 8), whereas for a conical model, the Gauss image is unique. A further property of D-strip models is that once we have a Gauss image, we can construct offset models M d , as explained by Fig. 10. If M is circular, then the distance of corresponding points on edge curves of M and M d equals the constant d. If M is conical, then corresponding rulings and tangent planes of rulings for M, M d are at constant distance d. Remark: An architectural realization of a D-strip model involves several distinct types of elements: Glass panels, metal tubes separating the single strips, and beams which separate glass panels within a strip (cf. Fig. 1). If the model is conical, these elements can be arranged in virtual layers of constant surface-surface distance from each other (these layers are offsets of the original model).
+
+o
+
+Figure 8: Circular strip and its Gauss image. Left: As each inï¬nitesimal quad has an inscribed circle, we have equality of angles Ë Ë (p2 â p1 , p1 ) = (p2 , p2 â p1 ). The boundaries p1 , p2 of the e e strip K at left possess parallel curves p1 (u) and p2 (u) in the unit sphere, which deï¬ne the Gauss image Ï(K ) (at right). The vectors e e p1 (u), p2 (u) serve as normal vectors in points p1 (u), p2 (u), resp. their remarkable geometric properties, especially those which are important for panelization of freeform surfaces.
+
+3.1
+
+Circular and conical models
+
+Recall that a quad mesh is circular if all faces are equipped with a circumcircle of vertices; it is conical if all vertices have an associated right circular cone which is tangent to the faces adjacent to that vertex. The analogous notions for D-strip models are found by a passage to the limit according to Fig. 4: Circular strip models (Fig. 8) have the property that for each index i and parameter value u there is a circle tangent to the curves pi and pi+1 in the points pi (u) and pi+1 (u). It follows that the angles between a ruling and its two boundary curves are equal. Conical strip models (Fig. 9) are limits of conical meshes, so for each point pi (u) of the edge curve which is common to strips Liâ1 , Li , there exists a right circular cone which touches the surfaces Liâ1 , Li along the rulings emanating from the point pi (u). By symmetry of a right circular cone, the tangent of the edge curve forms the same angle with both rulings. Optimization towards circular or conical strips makes use of geometry functionals which penalize deviation from the appropriate angle equalities: We let X Z D Ë Ë pi+1 E2 pi + du, fcirc = pi+1 â pi , i Ë Ë pi pi+1 Z D E2 X pi â piâ1 pi â pi+1 Ë fcone = â , pi du, i pi â piâ1 pi â pi+1 and add either fcirc or fcone to the functional (5). A strip model to be optimized towards circularity or conicality is best initialized from a curve network not too far from principal curvature lines. An example of such an approximation is shown by Fig. 13. A design made by subdivision and optimization towards conicality in an alternating way is illustrated by Figs. 1 and 19. In a conical model, the cone axes associated with the points of an edge curve (see Fig. 9) form a continuous developable surface and the tangent planes of that developable are the bisector planes of the D-strips which meet in the edge curve under consideration. This follows from the tangent cone: the cone axis lies in a bisector plane of the tangent planes of the adjacent D-strips. Thus, the set of cone axes is the envelope of bisecting planes and therefore developable â see Fig. 10.
+D-strips made from normals.
+
+3.2
+
+Relation between circular and conical models
+
+There is a close relation between circular and conical strip models, and it is possible to convert one type of model into the other one. It turns out that a conical/circular strip model pair is also associated with a certain smooth principal patch assembly. We describe the following conversion methods: (i): conversion of conical models into circular ones, and vice versa;
+
+Figure 9: Conical D-strip model. In each point of the edge curve p2 (u), a right circular cone with axis N2 (u) touches the adjacent strips L1 , L2 along the rulings p1 â¨ p2 and p2 â¨ p3 . It follows that the angles enclosed by Ë p2 with these rulings are equal. The cone axes serve as surface normals. pi (u) + de i (u) p
+
+N2 (u) p2 (u) p2 (u) 2 p2 (u) p2 (u) p2 ËËË 2 p2 p2 Ë p2
+
+p1 (u) L1 L11 L1 1 1
+
+p3 (u) L2 L22 L2 2 2
+
+pii(u) pii(u) pi (u) i
+
+We can extend the theory of parallel meshes by Pottmann et al. [2007] from the
+Parallel models, Gauss images, and offsets.
+
+Figure 10: Offsets of principal strip models. If pi and e pi are edge curves of model and Gauss image, then pi + de i are edge curves of an offp set. Note that the ruled strips which connect curves pi and pi +de i are also developable. p
+
+Figure 11: Model conversion conicalâcircular. The edge curves q1 , q2 of the circular strip K1 run orthogonal to the rulings of adjacent conical strips L1 , L2 ; their inscribed circles c2 (u) lie on the cones Î2 (u) associated with points p2 (u) of the conical model.
+
+L1
+
+K1 K1 K1 1 1
+
+L2
+
+p1 (u) p11(u) 1 p1 (u) 1 q1 (u) q11(u) 1 q1 (u) 1 p2 (u) p2 (u) p22(u) p2 (u) 2 Î2 (u) Î2 (u) 2 Î2 (u) Î2 (u) c2 (u) L1 C1 C11 C1 1 1 Î£2 (u Î£22(u )) Î£2 (u ) 2 2 L2 Figure 13: Model conversion. 3D data are approximated by a conical D-strip model (blue edge curves, at left), which is converted into a circular model (white edge curves are shown in both ï¬gures). Conversion to a âcanal surface modelâ yields a smooth surface (at right), where the edge curves of the original circular model are orthogonal trajectories of a one-parameter family of smooth arc splines covering the surface. We again consider the conversion of a conical model L to a circular model K according to Fig. 11 and add another feature: Each circle ci (u) is capped by a spherical patch Î£i (u) which is tangent to the cone Îi (u). This procedure is illustrated by Fig. 12. Then the surface enveloped by the Î£i (u)âs as the parameter u varies is a canal surface Ci which smoothly blends two strips of the original conical model. Ci contains circular arcs which smoothly blend the generators pi piâ1 and pi+1 pi , as illustrated by Fig. 12. The union of Ci âs is a smooth surface, which is tangent to the strips of L along the edge curves pk of K.
+Conversion of D-strip models to principal patch models.
+
+p3 (u) p3 (u) 3 p3 (u) 3 q2 (u) q22(u) 2 q2 (u) 2
+
+Figure 12: Canal surface from circular/conical model pair. Capping the circles c2 (u) with spheres Î£2 (u) instead of cones yields, as an envelope, a canal surface C1 which smoothly blends between the conical strips L1 , L2 .
+
+p1 (u) p1 (u) p11(u) p1 (u) 1 q1 (u) q11(u) q1 (u) 1 1 p2 (u) p2 (u) p22(u) p2 (u) 2 Î£2 (u) Î£2 (u) Î£22(u) Î£2 (u) 2 c2 (u) p33(u) p3 (u) 3 p3 (u) 3 q 2(u) q2 (u) 2 2 q2 (u) 2
+
+(ii): conversion of a conical/circular model pair, e.g., obtained via (i), to a series of smoothly joined canal surface patches.
+Model conversion. Conversion conicalâcircular. Fig. 11 describes conversion of a conical model L = {pi } to a circular model K = {qi }. We select one seed point, say q1 (u) on the ruling p1 (u) â¨ p2 (u); the curve q1 shall orthogonally intersect all rulings of the strip L1 which is bounded by p1 , p2 . L1 is enveloped by the cones Î2 (u), and each cone carries a circle c2 (u) which touches the curve q1 in the point q1 (u). Now the adjacent strip L2 , which is bounded by p2 p3 , is enveloped by the same cones Î2 ; in L2 the circles c2 (u) determine another envelope curve q2 orthogonally intersecting the rulings. By construction, distances q1 (u) â p2 (u) and q2 (u) â p2 (u) are equal. This mapping of curves q1 â q2 can be iterated and yields the full model K.
+
+Remark: The principal curvature lines of Ci are known: they are the circular arcs where the generating spheres Î£i (u) touch Ci , together with their orthogonal trajectories (including curves qi and qi+1 ). Therefore approximation of a surface by a conical model and subsequent conversion to a canal surface model achieves a âprincipal patch assemblyâ according to of R. Martin et al. [1986]. The principal strip models have properties important for the segmentation of strips into panels. For that purpose, the angle between rulings and edge curves is important. For both circular and conical models, this angle is near 90 degrees. In the following we discuss approximate segmentation of a principal model into pieces of right circular cones, and into pieces of Dupin cyclides. Results are shown by Fig. 14.
+Applications to panelization.
+
+e Conversion circularâconical: Construct a Gauss image K to a given circular model K, and consider the circles ei (u) and ci (u), c which are inscribed in the respective strips of these models. By e construction, ei (u) lies in S 2 and there is a unique cone Îi (u) c which touches S 2 along ei (u). It is not difï¬cult to see that parc e allel translating Îi (u) such that it passes through c2 (u) yields the cones Îi (u) of a conical model L.
+Optimization of convertible models. Conversion of the conical model L = {pi } into a circular model K = {qi } (Fig. 11) starts with a seed point, which determines the entire curve q1 , and in turn all other edge curves qi . This represents one degree of freedom. It is easy to associate circular models with a conical one, but the way of conversion renders it unstable with respect to perturbations of the initial data, and there is no guarantee that the orthogonal trajectories qi stay within the strips bounded by pi , pi+1 . We therefore add further terms to the target functional (5): fmiddle favoring the 1 curves 2 (pk + pk+1 ) as orthogonal trajectories, and fwidth , which penalizes uneven strip widths: E2 X Z D Ë Ë fmiddle = pi â pi+1 , pi + pi+1 du, i X Z fwidth = ( pi â pi+1 â pi+1 â pi+2 )2 du.
+i
+
+Panelization with Dupin cyclides and right circular cones. By its construction, a canal surface model C is covered by arc splines (i.e., smooth curves consisting of circular arcs) orthogonal to the edge curves (see Fig. 13, right, and Fig. 14a). We can thus decompose C into curved quad patches, whose boundaries intersect at right angles. They can be ï¬tted by a Dupin cyclide or even with a right cir-
+
+(a)
+
+(b)
+
+(c)
+
+Experiments like the one shown in Fig. 13 show that for conical models optimized in this way conversion works well.
+
+Figure 14: (a) Canal surface model with edge curves (blue) and arc splines orthogonal to them. (b) Panelization by cyclide patches. (c) Panelization by pieces of right circular cones.
+
+cular cone, if the distance of successive arc splines is small enough. We based cyclide ï¬tting on [Pottmann and Peternell 1998]. Panelization by cyclides is related to the conversion of a conical mesh into cyclide patches according to [Huhnen-Venedey 2007]. In general, cyclide patches and cone patches do not exactly ï¬t together. However, numerical experiments show that we can expect to be within tolerance in architectural applications (the gaps in Figures 14b,c are hardly visible). The signiï¬cance of this construction lies in the fact that one family of panel boundaries is now a sequence of arc splines, whose realization as beams is considerably simpler than that of arbitrary spatial curves. Cyclide patches, being double curved, are more expensive in manufacturing than cone patches. However, by clustering in âcyclide spaceâ we can hope to reduce the number of different cyclides which are employed in the segmentation of a certain freeform shape, and so this shape can be covered by double curved panels manufacturable with a number of molds signiï¬cantly smaller than the total number of patches. The geometric properties of circular and conical meshes have implications on multilayer constructions: For any conical model L = {pi } with strips Li , developable strips Ni consisting of discrete normals connect pi with the edge curve pd i p2 (u) p 2(u) 2 p2 (u) 2 2 of an offset model Ld . We let the web of a curved I-beam folL1 L2 c2 (u) c2 (u) c2 (u) c2 (u) 2 low Ni , while its top and bottom ï¬anges follow circular strips associated with the conical strip pairs d N2 Li , Li+1 and Lid , Li+1 by model conversion. (see also Fig. 11). d L1 d L2 Glass panels are aligned with further offset models (not shown).
+Multilayer constructions.
+
+F (2)
+
+ci (u) pii(u) pii(u) pi (u) L L L
+
+(2)
+
+pi+1 (u)
+
+Ni+1 (u) Ni (u)
+
+c(1) (u) i,i+1
+
+Figure 15: Curvatures. In a conical model L = {pi } (blue), the cone axes associated with each point pi (u) deï¬ne discrete normals Ni (u). Along an edge curve, these normals trace out a developable Ni . The regression point c(2) (u) of Ni serves as curvature center in i the smooth direction, whereas the intersection points c(1) (u) = i,i+1 Ni (u) â© Ni+1 (u) deï¬ne a principal curvature center in the discrete direction. The c(2) âs span the semi-discrete focal sheet F (2) . i panelization into conical pieces, similar to Fig. 14c. However now the rulings of cones are aligned with the other principal direction. Without proof we list some properties of the focal geometry of conical models (which means the surfaces formed by the curvature centers, cf. e.g. [Yu et al. 2007]): The axis of the osculating cone âi (u) associated with the ruling pi (u)pi+1 (u) contains the curvature centers c(2) (u), c(2) (u) and is parallel to i i+1 the vector ei (u), where ei (u) is the regression point in the Gauss r r (2) image. The curvature centers ci (u) form themselves the edge curves of the âsecond focalâ D-strip model F (2) . It is interesting that F (2) is a geodesic strip model in the sense described below. The curvature centers c(1) (u) constitute the edge curves of the i,i+1 âï¬rst focalâ D-strip model F (1) , where the ruling polygons may be seen as geodesics.
+Focal surfaces.
+
+4
+3.3 Focal geometry and curvatures
+We consider a conical strip model L = {pi } and its Gauss image Ï(L) = {e i } which is tangentially circump scribed to S 2 . Both models look like Fig. 9. Each point pi (u) e (e i (u), resp.) has an associated cone axis Ni (u) (Ni (u), resp.). p e e Consecutive cone axes Ni (u), Ni+1 (u) are coplanar (both pass through the origin), and therefore so are Ni (u), Ni+1 (u). Thus the discrete normals along a ruling polygon belong to a discrete developable (cf. Fig. 15).
+Curvature centers.
+
+Other types of D-strip models
+
+Curvatures in the discrete direction. The ratio of parallel vectors e p (u)âe (u) p Îº(1) (u) := pi+1 (u)âpi (u) and the point c(1) (u) := Ni (u) â© i,i+1 i,i+1 i i+1 Ni+1 (u) are considered to be the principal curvature and the corresponding center of curvature associated with the ruling segment pi (u)pi+1 (u). It is easy to see that c(1) (u) is the center of a i,i+1 sphere with radius 1/Îº(1) (u) which touches both cones Îi (u) and i Îi+1 (u). Curvatures in the smooth direction. The curvature center c(2) (u) i for the smooth direction must be the intersection point of âinï¬nitesimally close surface normalsâ, which means the point of regression of the developable surface Ni traced out by the normals Ni (u) as u is varying (see Fig. 15). The ratio of parallel vectors de i (u)/du p Îº(2) (u) := dpi (u)/du is considered the principal curvature. i We still consider a conical model. For each ruling there is a certain osculating cone which is in second order contact with the strip (see e.g. [Pottmann and Wallner 2001, p. 332] and Fig. 3c). The osculating cones along a strip could be used for
+Osculating cones.
+
+Geodesic (i.e., shortest) curves in surfaces have been employed, to a varying degree of success, in architectural design: E.g. the gluing of paper strips onto physical models guides the alignment of wooden panels [Spuybroek 2004]. Such arrangements have also been used by F. Gehry (Fig. 16, left). There have been, however, no systematic investigations, and no general algorithmic solutions are available. We here describe how a D-strip model can be made a semi-discrete version of a surface covered with geodesics. The global manner of strip optimization and width control leads to results which we believe to provide a ï¬rst satisfactory solution for the problem of covering a surface with panels having approximately straight development.
+Geodesic strip models.
+
+First recall some facts from differential geometry: The boundary p(u) of a D-strip has a certain curvature Îº(u) as a space curve, and
+
+Figure 16: Left: Assembly of wooden strips onto the framing for the interior of the Disney Concert Hall (courtesy Gehry Technologies). Center and Right: Example of a simple geodesic strip model and its development. An edge curve of the geodesic model leads to oppositely congruent curves in the development (blue curve pair).
+
+Panels shaped as general cylinders (i.e., developable surfaces where all rulings are parallel) can sometimes be manufactured at reasonable cost, e.g. by rolling metal sheets in constant direction, or by hot bending of glass panels. We therefore consider cylindrical D-strip models, where all strips are cylinders.
+Cylindrical strip models.
+
+Figure 17: Geodesic D-strip models (in total ï¬ve) which cover the interior of a freeform surface. a geodesic curvature Îºg (u) with respect to the strip it is contained in. The curvature of the strip boundary after development into the plane also equals Îºg . Meusnierâs theorem says Îºg = Îº cos Î±, where Î± is the angle between the osculating plane of the curve p and the strip surface. A geodesic curve in a surface Î¦ has osculating planes orthogonal to Î¦. In the semi-discrete case (D-strip models), we therefore deï¬ne that a D-strip model is geodesic, if the edge curvesâ osculating planes bisect adjacent strips. The reasons for this deï¬nition is that such bisector planes are reasonable planes âorthogonalâ to the strip model (which is itself not smooth). If the strip model converges to a smooth surface, those planes converge to exactly orthogonal planes. It follows that each edge curve has oppositely equal geodesic curvatures with respect to adjacent strips. Consequently, developing these strips yields oppositely congruent boundaries (see Fig. 16). The two latter properties are equivalent characterizations of geodesic models. These curvature properties of strips imply that the development of the single strips is approximately straight. It seems feasible to cut them out of long rectangular panels. Typically a freeform surface is covered not by one, but by several D-strip models (see Fig. 17). For Fig. 17, optimization was initialized by conjugate curve networks, where one curve family consists of geodesics. Optimization employed fwidth for well distributed strip widths. For the geodesic property, the following functional, which penalizes deviation of the edge curvesâ osculating planes from the bisector planes of adjacent strips, is added to the target functional (5). With Ë Ë nâ = (pi+1 â pi ) Ã pi and n+ = (pi â piâ1 ) Ã pi , we let i+1 i fgeod = E2 X Z D n+ nâ i+1 i Â¨ , pi du. + â â i ni ni+1
+
+Figure 18 illustrates how a smooth surface can be approximated by a cylindrical model: We choose a sequence u1 , u2 , . . . of source directions for parallel illumination, and compute the contour generator curves q1 , q2 , . . . for each. The cylinders Zi with directrix qi and rulings parallel to ui have intersection curves pi = Zi â© Zi+1 . Then Z = {pi } is a cylindrical model. This short description does not take degeneracies and strip width into account, but systematic exploration of local surface geometry (convex points and saddles) shows that evenly distributed strip widths can be achieved, at least locally (see Fig. 18). We do not go into details but leave this topic for future research. Optimization for cylindrical models is not difï¬cult, since maintaining parallelity of edges automatically implies developability, and univariate linear subdivision schemes applied to a sequence of parallel rulings keeps these rulings parallel.
+Models with planar edge curves. Manufacturing of edge curves in a D-strip model which are to be supporting beams in an architec-
+
+tural design is much simpler if these curves are planar. It is easy to incorporate this constraint into our optimization framework.
+
+5
+5.1
+
+Results and Discussion
+Applications
+
+â¢ Architecture. A main application of D-strip models is architectural design. Either an existing design is approximated by a D-strip model (Figures 5, 17 and 21), or a D-strip model is designed, e.g. by subdivision and optimization as described in Section 2 (cf. the conical model of Figures 1 and 19). Geodesic models are a tool for segmentation into panels with approximately straight development (see Figures 16, 17 and 20). We emphasize again that the conical property is useful for multilayer constructions. Principal models and the canal surface models derived from them can be used to solve further panelization problems (Fig. 14). â¢ Manufacturing Technologies. There are potential applications of D-strip models in the ship and aircraft industry. Steel plates for ship hulls are manufactured in a two stage process: rolling followed by pattern heating. The latter is hard to control and thus plates which can almost exclusively be formed by rolling (i.e., developable ones) are preferred. Rolling becomes particularly simple if the rolling direction can be constant (i.e., the strips are cylindrical). In the manufacturing of composite materials the placement of ï¬bers (tape/tow placement) is an important topic. Apart from other considerations
+
+(a)
+
+(b)
+
+(c)
+
+Figure 18: (a) A cylindrical model consisting of strips Zi , whose rulings are parallel to prescribed vectors u1 , u2 , . . . , and which are tangent to a given surface. The images in (b) and (c) show the strips which result from rotating the vectors ui . The interesting fact here is that even with a rather acute angle between rulings and edge curves we obtain an aesthetically pleasing strip model.
+
+Figure 19: Exterior view of the architectural design of Fig. 1.
+
+Fig. # ctrl points # Iterations 1,19 5b 13 17 20 21 22 2972 285 660 1263 418 787 320 44 12 17 17 10 27 13
+
+sec 704.7 8.64 134.4 137.6 26.1 128.7 18.5
+
+Î´max 2.2Â·10 4.2Â·10â3 1.9Â·10â2 1.3Â·10â2 5.2Â·10â3 2.9Â·10â2 1.9Â·10â2
+â2
+
+Î´mean 5.0Â·10 1.0Â·10â3 7.8Â·10â3 2.1Â·10â3 1.2Â·10â3 9.3Â·10â3 9.2Â·10â3
+â3
+
+fprox fâ, prox ffair/edge ffair/ruling .012 .06 .006 .14 .06 .06 .06 .02 2Â·10 10â2 10â4 10â2 10â2 10â5 10â4
+â3 â4
+
+fcone
+â6
+
+fgeod fmiddle
+
+fwidth 2Â·10
+â5
+
+fgaps 3Â·10â4
+
+2Â·10 2Â·10 9Â·10â4 10â4 10â3 â3 5Â·10 10â3 9Â·10â4 10â3 â3 9Â·10 10â4
+
+10â4
+
+10â4 9Â·10â4 9Â·10â4 9Â·10â3 6Â·10â4
+
+Table 1: Run times, and the choice of parameters for optimization. We use the following abbreviations: Î´max = max Î´pi ,pi+1 / mean pi â pi+1 (developability measure, worst case), Î´mean = mean Î´pi ,pi+1 / mean pi âpi+1 (mean developability measure). The values of Î´max , indicating developability, show that we are within tolerance for architectural applications. Each geometry functional fdev , . . . is numerically represented as a sum involving a certain number Mj of samples. In order to have a geometric meaning, the coefï¬cient Î»j associated with this functional must be multiplied with Mj . We here show these meaningful coefï¬cients, normalized such that the coefï¬cient of fdev equals 1. (heat transfer, speed, etc.), it may be guided by a geodesic strip model. We emphasize that this is a topic for future research. â¢ Investigation of surface isometries. Precise isometries of triangle or quad meshes with rigid faces offer very few degrees of freedom, so meshes are no proper tool for discretizing exact isometries of smooth surfaces [Sauer 1970]. As a topic of future research we therefore propose to study surface bending via isometries of D-strip models (Fig. 20). There are potential applications in art and design. Fig. 5b 5c 5d Î´max 4.2Â·10 1.3Â·10â3 1.1Â·10â3
+â3
+
+Î´mean 1.0Â·10 2.8Â·10â4 2.4Â·10â4
+â3
+
+fprox
+
+fâ, prox Ã0.1 Ã0.1
+
+ffair/edge Ã0.1 Ã0.1
+
+Ã0.1
+
+Table 2: Stability of optimization w.r.t. choice of parameters. This table shows how downweighting closeness and fairness functionals inï¬uences optimization. Changes in the inï¬uence factors of single geometry functionals have rather small effects on the result (by visual inspection of Figure 5), while improving developability. by optimizing suitable dense quad meshes according to Liu et al. [2006]. This turned out to be difï¬cult even for simple cases, mainly because one must optimize many more variables than we do in this paper. For Fig. 5, a mesh with 1185 vertices has been used (which means 4 times as many variables as with the B-splines approach). Quad mesh optimization needed 21 iterations to achieve comparable developability, but strip boundaries still lacked fairness.
+
+Figure 20: Isometric bending of a geodesic model. One of the geodesic models contained in Fig. 17 undergoes experimental isometric deformations after it has been built from paper. Bending strip models has many more degrees of freedom than isometric bending of meshes (false color photos of paper models).
+
+The âsemi-discrete surfaceâ viewpoint of the present paper is appropriate for approximating smooth surfaces by developable strips with smooth boundaries, where aesthetics plays an important role. If one only aims for a few developable pieces and small approximation error, other methods such as [Massarwi et al. 2007; Subag and Elber 2006] may perform better.
+Limitations.
+
+5.2
+
+Implementation details
+
+We minimize (5) using a GaussNewton method. The target functionals which contain integrals are converted into sums approximating these integrals; the derivatives required by the Gauss-Newton method are computed exactly. As all functionals express solely local conditions, the matrices of linear systems to be solved in each optimization step are sparse. We use Levenberg-Marquardt regularization [Kelley 1999], so these matrices are positive deï¬nite. We compute the solution, using Cholesky factorization, with the sparse matrix solver library TAUCS [Toledo 2003]. Table 1 shows run times on a 2.6 GHz PC with 2 GB RAM.
+Numerics of optimization. Inï¬uence of user-deï¬ned parameters.
+
+Failure cases. We did not experience problems with strip model optimization when we started either from a conjugate curve network or from a planar quad mesh. If we do not initialize optimization in this way, however, we cannot expect success. If surface complexity is high compared to the number of strips, the terms (proximity to reference surface, smoothness, and so on) may adversarially compete. Simultaneous minimization of our different terms may then become impossible.
+
+In the present âacademicâ implementation, the choice of the parameters Î»i is the result of experience gathered from numerical experiments. To give an idea, Table 1 shows corrected values of Î»i associated with each function. More important than the actual values of the coefï¬cients is the fact that small variations have basically no inï¬uence on the result, as demonstrated by Figure 5 and Table 2. As a D-strip model is a limit of quad meshes (cf. Fig. 4), we tried to reproduce our results
+Comparison with quad mesh methods.
+
+Figure 21: Sheet metal freeform design. The shape of a piece of felt has been approximated by a D-strip model (2 views). Gaps at singular vertices of the edge curve network have not been closed.
+
+5.3
+
+Conclusion
+
+We have investigated the problem of covering a freeform surface by developable strips, thus introducing semi-discrete surface representations to geometry processing. The various types of different strip models (circular, conical, geodesic, cylindrical, . . . ) may all be computed within the same optimization framework, each having their own applications in architecture, design, and manufacturing. It turned out that the circular and conical strip models enjoy a wealth of interesting geometric properties which have been presented here only insofar as they contribute to applications. Apart from the topics mentioned above (cylindrical models, models with planar edge curves, applications in manufacturing, isometries), future research should address other interesting semi-discrete surface representations. One is asymptotic models, which occur as a limit of quad meshes with planar vertex stars; an asymptotic model is the union of ruled strips and at the same time a smooth surface of negative curvature. There is much to do in semi-discrete curvature theory, which includes minimal surfaces, constant mean curvature surfaces, constant Gaussian curvature surfaces, and others.
+Acknowledgments This work was supported by grants S92-06, S92-09, and P-19214 of the Austrian Science Fund (FWF). We want
+
+M ITANI , J., AND S UZUKI , H. 2004. Making papercraft toys from meshes using strip-based approximate unfolding. ACM Trans. Graphics 23, 3, 259â263. Â´ Â´ P E REZ , F., AND S U AREZ , J. A. 2007. Quasi-developable B-spline surfaces in ship hull design. Comp.-Aided Design 39, 853â862. P OTTMANN , H., AND P ETERNELL , M. 1998. Applications of Laguerre geometry in CAGD. Computer Aided Geom. Design 15, 165â186. P OTTMANN , H., AND WALLNER , J. 2001. Computational Line Geometry. Springer. P OTTMANN , H., AND WALLNER , J. 2007. The focal geometry of circular and conical meshes. Adv. Comp. Math. to appear. P OTTMANN , H., H UANG , Q.-X., YANG , Y.-L., AND H U , S.-M. 2006. Geometry and convergence analysis of algorithms for registration of 3D shapes. Int. J. Computer Vision 67, 3, 277â296. P OTTMANN , H., A SPERL , A., H OFER , M., AND K ILIAN , A. 2007. Architectural Geometry. Bentley Institute Press. P OTTMANN , H., L IU , Y., WALLNER , J., B OBENKO , A., AND WANG , W. 2007. Geometry of multi-layer freeform structures for architecture. ACM Trans. Graphics 26, 3, #65,1â11. ROSE , K., S HEFFER , A., W ITHER , J., C ANI , M., AND T HIBERT, B. 2007. Developable surfaces from arbitrary sketched boundaries. In Symp. Geom. Processing, A. Belyaev and M. Garland, Eds. Eurographics, 163â172. S AUER , R. 1970. Differenzengeometrie. Springer. S HATZ , I., TAL , A., AND L EIFMAN , G. 2006. Papercraft models from meshes. Vis. Computer 22, 825â834. S HELDEN , D. 2002. Digital surface representation and the constructibility of Gehryâs architecture. PhD thesis, M.I.T. S PUYBROEK , L. 2004. NOX: Machining Architecture. Thames & Hudson. S UBAG , J., AND E LBER , G. 2006. Piecewise developable surface approximation of general NURBS surfaces with global error bounds. In GMP 2006, vol. 4077 of LNCS. Springer, 143â156. T OLEDO , S., 2003. TAUCS, a library of sparse linear solvers. C library, http://www.tau.ac.il/â¼stoledo/taucs/. WANG , C., AND TANG , K. 2004. Achieving developability of a polygonal surface by minimum deformation: a study of global and local optimization approaches. Vis. Computer 20, 521â539. YAMAUCHI , H., G UMHOLD , S., Z AYER , R., AND S EIDEL , H. P. 2005. Mesh segmentation driven by Gaussian curvature. Vis. Computer 21, 659â668. Y U , J., Y IN , X., G U , X., M C M ILLAN , L., AND G ORTLER , S. J. 2007. Focal surfaces of discrete geometry. In Symp. Geom. Processing, A. Belyaev and M. Garland, Eds. Eurographics, 23â32. Figure 22: A D-strip model which consists of only 1 strip. It was produced by covering most of the sphere by a model consisting of 4 strips (2 long and 2 short ones), and closing the remaining gaps with cones. Optimization of this strip model was initialized from a quad mesh generated by QuadCover [KÂ¨ lberer et al. 2007]. a
+
+to thank Benjamin Schneider for his help in preparing illustrations.
+
+References
+AUMANN , G. 2004. Degree elevation and developable BÂ´ zier sure faces. Computer Aided Geom. Design 21, 661â670. B OBENKO , A., AND S URIS , Y U . 2005. Discrete differential geometry. Consistency as integrability. arXiv math.DG/0504358. C ERDA , E., C HAIEB , S., M ELO , F., AND M AHADEVAN , L. 1999. Conical dislocations in crumpling. Nature 401, 46â49. Â´ C HU , C. H., AND S E QUIN , C. 2002. Developable BÂ´ zier patches: e properties and design. Comp.-Aided Design 34, 511â528.
+DO
+
+C ARMO , M. 1976. Differential Geometry of Curves and Surfaces. Prentice-Hall.
+
+F REY, W. 2004. Modeling buckled developable surfaces by triangulation. Comp.-Aided Design 36, 4, 299â313. H UHNEN-V ENEDEY, E. 2007. Curvature line parametrized surfaces and orthogonal coordinate systems. Discretization with Dupin cyclides. Masterâs thesis, TU Berlin. J ULIUS , D., K RAEVOY, V., AND S HEFFER , A. 2005. D-charts: Quasi-developable mesh segmentation. Computer Graphics Forum 24, 3, 581â590. Proc. Eurographics. Â¨ K ALBERER , F., N IESER , M., AND P OLTHIER , K. 2007. QuadCover â surface parameterization using branched coverings. Computer Graphics Forum 26, 3, 375â384. Proc. Eurographics. K ELLEY, C. T. 1999. Iterative Methods for Optimization. SIAM. L IU , Y., P OTTMANN , H., WALLNER , J., YANG , Y.-L., AND WANG , W. 2006. Geometric modeling with conical meshes and developable surfaces. ACM Trans. Graphics 25, 3, 681â689. M ARTIN , R. R., DE P ONT, J., AND S HARROCK , T. J. 1986. Cyclide surfaces in computer aided design. In The mathematics of surfaces, J. A. Gregory, Ed. Clarendon Press, Oxford, 253â268. M ASSARWI , F., G OTSMAN , C., AND E LBER , G. 2007. Papercraft models using generalized cylinders. In Paciï¬c Graph., 148â157.
+

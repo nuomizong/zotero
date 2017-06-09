@@ -1,17 +1,16 @@
 {
 	"translatorID": "c070e5a2-4bfd-44bb-9b3c-4be20c50d0d9",
+	"translatorType": 8,
 	"label": "Library of Congress ISBN",
 	"creator": "Sebastian Karcher",
-	"target": "",
+	"target": null,
 	"minVersion": "3.0.9",
-	"maxVersion": "",
+	"maxVersion": null,
 	"priority": 98,
 	"inRepository": true,
-	"translatorType": 8,
-	"browserSupport": "gcsb",
-	"lastUpdated": "2015-04-14 20:56:41"
+	"browserSupport": "gcsibv",
+	"lastUpdated": "2017-06-04 14:50:00"
 }
-
 
 function detectSearch(item) {
 	//re-enable once 
@@ -63,13 +62,14 @@ var testCases = [
 				"attachments": [],
 				"libraryCatalog": "Library of Congress ISBN",
 				"place": "Cambridge ; New York",
-				"ISBN": "0521770599",
+				"ISBN": "9780521770590 9780521779241",
 				"title": "The Cambridge companion to Adam Smith",
 				"publisher": "Cambridge University Press",
 				"date": "2006",
 				"numPages": "409",
 				"series": "Cambridge companions to philosophy",
-				"callNumber": "B1545.Z7 C36 2006"
+				"callNumber": "B1545.Z7 C36 2006",
+				"extra": "OCLC: ocm60321422"
 			}
 		]
 	}

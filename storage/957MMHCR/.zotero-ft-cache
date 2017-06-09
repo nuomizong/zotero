@@ -1,0 +1,234 @@
+Interactive Spacetime Control of Deformable Objects
+Klaus Hildebrandt Christian Schulz Christoph von Tycowicz Freie UniversitÂ¨ t Berlin a Konrad Polthier
+
+Abstract
+Creating motions of objects or characters that are physically plausible and follow an animatorâs intent is a key task in computer animation. The spacetime constraints paradigm is a valuable approach to this problem, but it suffers from high computational costs. Based on spacetime constraints, we propose a framework for controlling the motion of deformable objects that offers interactive response times. This is achieved by a model reduction of the underlying variational problem, which combines dimension reduction, multipoint linearization, and decoupling of ODEs. After a preprocess, the cost for creating or editing a motion is reduced to solving a number of one-dimensional spacetime problems, whose solutions are the wiggly splines introduced by Kass and Anderson [2008]. We achieve interactive response times through a new fast and robust numerical scheme for solving the one-dimensional problems that is based on a closed-form representation of the wiggly splines. CR Categories: I.3.7 [Computer Graphics]: Three-Dimensional Graphics and RealismâAnimation; I.3.5 [Computer Graphics]: Computational Geometry and Object ModelingâPhysically based modeling; Keywords: computer animation, spacetime constraints, physicalbased animation, model reduction, control, wiggly splines Links: DL PDF
+
+time can have a large impact on the state of the system at a later time. Control over a simulation can be achieved by computing optimal physical trajectories that are solutions of a variational spacetime problem. Such techniques calculate acting forces that minimize an objective functional while guaranteeing that the resulting motion satisï¬es prescribed spacetime constraints, e.g. interpolates a set of keyframes. Resulting forces are optimally distributed over the whole animation and show effects like squash-and-stretch, timing, or anticipation that are desired in animation. However, the computational cost for obtaining these results is that of solving a spacetime optimization problem. To date, recent methods, even those that use dimension reduction techniques, still require at least several minutes to solve the optimization problem for an interesting motion of an object or a character.
+
+1
+
+Introduction
+
+In traditional computer animation, the motions of objects or characters are typically generated from keyframes that specify values for all of the objectâs or characterâs degrees of freedom at a sparse set of points in time. A continuous motion is obtained by ï¬tting splines through the keyframes. This technique is attractive since it offers an adequate amount of control over the motion at a low computational cost. One drawback for this technique is that it offers little help to an animator who wants to create physically plausible motions. Moreover, splines are designed to produce functions with high fairness (e.g. functions with few extrema and inï¬ection points), whereas the motion of objects or characters is often oscillatory. Physical simulation can produce realistic motions, but it is a delicate task to explicitly determine forces and physical quantities that produce a motion that matches an animatorâs intentions. This is aggravated by the fact that physical simulations are integrated forward in time, which means that small changes at some point in
+
+Figure 1: A cloth animation that exhibits physical behavior but is controlled by keyframes is shown. (See also the attached video.) In this paper, we propose a technique for generating motions of deformable objects that can be controlled by spacetime constraints like keyframes, velocities, and forces. The main features of our scheme are that it achieves interactive response times and produces explicit time-continuous parametrizations of the motion. The scheme is based on a variational problem that determines optimal trajectories through the minimization of an acting force with respect to a spacetime L2 -norm. To lower the cost of the optimization, we combine different model reduction techniques and shift computational effort to a preprocess. First, we propose a simple yet effective way to construct a reduced space to which we restrict the variational problem. Secondly, we develop a multipoint linearization technique for the equations of motion. Using the fact that the desired trajectory interpolates the keyframes at speciï¬ed points in time, we linearize the equations of motion around every keyframe and use each of the linear equations for a time interval around the corresponding point in time. Thirdly, we fully decouple the linearized spacetime constraint problems in the reduced space. After decoupling the equations, only one-dimensional variational problems need to be solved. Such one-dimensional problems were considered by Kass and Anderson [2008]. Their structure is similar to the variational problem satisï¬ed by cubic B-splines; it even includes B-splines as a special case. Thus the solutions can be seen as an extension of B-splines that in addition to smooth interpolants can also produce oscillating functions. Kass and Anderson named them wiggly splines. For computation they use a ï¬nite difference scheme.
+
+At the heart of our technique is an efï¬cient algorithm for the computation of wiggly splines based on a closed-form representation of the wiggly splines. We show that, as B-splines are composed of polynomials, wiggly splines can be assembled from functions that describe damped and driven oscillations. The explicit form of the functions depends on physical parameters. We distinguish six cases listed in the appendix. To compute the explicit representation of a wiggly spline, our algorithm solves a linear system with a band structure and of small size, which depends on the number of keyframes. As a result, the computation is robust (even for extreme parameter values) and produces â¼ 10 k wiggly splines per second on a custom laptop (with an i7 quad-core 2.2 GHz CPU) even without using parallelization.
+
+for deformable objects automatically from the keyframes by using vibration modes and tangents of a deformation curve that is ï¬tted to the keyframes. This technique for constructing reduced spaces is similar to the way we construct reduced spaces. However, our method allows working with larger reduced spaces then theirs. Related to spacetime constraints is also geometric interpolation between two or more shapes. The variational problem for geodesics in shape spaces has a comparable complexity and solvers need to deal with varying curves in a shape spaces, as well. Efï¬cient multiresolution solvers for computing geodesics in shape spaces were proposed by Kilian et al. [2007] and by Wirth et al. [2009].
+
+2
+
+Related Work
+
+Variational problems with spacetime constraints were introduced to computer animation by Witkin and Kass [1988]. Their example of a jump of the lamp Luxo nicely demonstrates the beneï¬ts of this approach. Since then the spacetime constraints paradigm has stimulated much research, see [Fang and Pollard 2003; Safonova et al. 2004] for a detailed summary. Based on spacetime constraints, techniques for controlling simulations of various types of physical systems including human motions [Gleicher 1997; Fang and Pollard 2003; Safonova et al. 2004; Chai and Hodgins 2007], ropes and strings [Barzel 1997], rigid body motions [PopoviÂ´ et al. 2003], ï¬uc ids [Treuille et al. 2003; McNamara et al. 2004], particle systems [Wojtan et al. 2006], and elastic solids [BarbiË et al. 2009] have c been proposed. The resulting optimization problems are typically solved with gradient-based approaches or Newton methods. Local-to-global strategies, called spacetime windowing, were developed to speed up the solvers by Cohen [1992] and by Treuille et al. [2003]. A particular problem is the calculation of the derivatives of the objective functional. Automatic and symbolic differentiation has been used by many researchers, e.g. [Witkin and Kass 1988; Fang and Pollard 2003; Safonova et al. 2004], and spacetime constraints serve as one of the main target applications for the development of algorithms for automatic differentiation in graphics [Guenter 2007]. Explicit derivatives for different physical systems can be obtained through the adjoint method, see [McNamara et al. 2004; Wojtan et al. 2006; BarbiË et al. 2009]. c Model reduction is an established technique in solid mechanics that can be used to accelerate simulations of elastic solids, cf. [Nickell 1976; Idelsohn and Cardona 1985; Krysl et al. 2001]. In graphics Pentland and Williams [1989] pioneered work in this area by using modal analysis to automatically generate reduced spaces. Based on an efï¬cient representation of the forces in the reduced space, BarbiË and James [2005] obtained real-time rates for forward c simulation of elastic solids. In addition, they extended the automatic generation of subspaces to include modal derivatives, which helps to improve the approximation of large deformations. Treuille et al. [2006] and Wicke et al. [2009] used reduced spaces constructed from eigenmodes for ï¬uid dynamics. In geometry processing, reduced spaces were used for interactive modeling of triangular meshes by Huang et al. [2006] and Hildebrandt et al. [2011]. Kim and James [2009] used model reduction to speed up the calculation of large simulations for animation, by skipping full steps if the reduced step satisï¬es an accuracy condition. The reduced model is not built in a preprocess, but online as the simulation progresses. Reduced spaces have also been used for spacetime constraints. For human motions, Safonova et al. [2004] and SulejmanpaËiÂ´ and PopoviÂ´ [2005] constructed reduced spaces from mosc c tion capture data. BarbiË et al. [2009] constructed reduced spaces c
+
+Figure 2: An illustration of our scheme. The animator generates keyframes with a surface modeler. A reduced space (blue plane) is generated from the keyframes. Our method constructs a motion that interpolates the keyframes by solving a reduced spacetime optimization problem.
+
+3
+
+Dynamics of Deformable Objects
+
+There are different theories that model the behavior of elastic objects and various ways to discretize them. We keep the presentation of our approach general so that it covers a broad class of discrete deformable objects; the speciï¬c setting we use for our experiments is treated in Section 5. We consider a time-continuous motion of a discrete deformable object, represented by a vector valued function x : t â R3n , whose dynamics are described by a system of second order ODEâs of the form M x(t) + D(x(t)) + G(x(t)) = F (t), Â¨ Ë (1)
+
+where M is a mass matrix and G,D, and F represent the inner forces, the damping, and the outer forces that act on x. The function x may represent the motion of vertices of a triangle or tet mesh, the nodes of a ï¬nite element mesh, or the control points of a subdivision surface or solid. Equation (1) covers discretizations with ï¬nite elements, ï¬nite differences, simple spring systems, as well as geometrically motivated discrete systems, cf. [Terzopoulos et al. 1987; Pentland and Williams 1989; Shabana 1997; Baraff and Witkin 1998; BarbiË and James 2005; c Chao et al. 2010]. To approximate G around a state x, we expand Ë Ë G(Ë + u) â G + K u, x (2)
+
+â where u = x â x, G = G(Ë), and K = âu G|Ë is the stiffness Ë Ë x x matrix. Furthermore, we use Rayleigh damping, i.e. we assume that D has the form
+
+D(x(t)) = (Î± M + Î² K)x(t). Ë Ë With these approximations the equations of motion take the form Ë M u(t) + (Î± M + Î² K)u(t) + K u(t) + G = F (t). Â¨ Ë (3)
+
+Figure 3: Snapshots from an animation of a jumping block (green) that interpolates keyframes (yellow) and velocities at the keyframes (black arrows). Before it actually jumps, the block deforms in order to achieve the prescribed veocity at the second keyframe. For comparison, results of interpolation with cubic B-splines (gray) are shown. (Animations are shown in the attached video.) Ë where U = U Î¦, and the representation of the mass and the stiffness matrix in the Ï-coordinates is Â¯ 1 = Î¦T M Î¦ and Â¯ Î = Î¦T KÎ¦, (8)
+
+The matrix M is symmetric and positive deï¬nite. Furthermore, we assume that K is symmetric, which is the case for most models of elasticity considered in graphics (e.g. for hyperelastic materials). However, K need not be positive deï¬nite, since x may not be a rest Ë state of the system.
+
+3.1
+
+Reduced spaces
+
+where Î is the diagonal matrix whose diagonal entries are the eigenvalues Î»i . Then, the reduced equations of motion take the form Ë Ï (t) + (Î± 1 + Î² Î)Ï(t) + Î Ï(t) + g = U T F (t), Â¨ Ë (9)
+
+In most of our experiments, we used a reduced shape space instead of the full space R3n . Our reasons for doing so are threefold. Firstly, the accurate representation of a geometry usually needs high dimensional discrete representation whereas animations often require only a fraction of the degrees of freedom, cf. [Kim and James 2009]. Secondly, the computational cost decreases dramatically. Thirdly, reduced spaces cut off high frequency modes and thereby lower the stiffness of the optimization problem which, in turn, increases the numerical robustness of the resulting method. We consider a d-dimension reduced space that is a subspace of R3n and is given by a set of d vectors that form a basis of the space. There are various possible ways to construct such a basis. Our construction uses the keyframes and modes of oscillation around the keyframes. At this point, we keep the presentation independent of the particular choice of a basis and postpone the discussion of our construction of such a basis to Section 5. Let U be a 3nÃd-matrix whose columns are the basis vectors. Then, U maps coordinates q in the reduced space to the u-coordinates in R3n u = U q. The reduced mass and stiffness matrices are Â¯ M = UT MU and Â¯ K = U T KU, (4)
+
+Ë Ë where g = U T G. The advantage of using the Ï-coordinates is that (9) is a system of d independent ODEs, whereas (5) is a coupled system.
+
+4
+
+Interactive Spacetime Control
+
+In this section, we describe the basis of our approach: a model reduction of the spacetime constraint problem for deformable objects. In Section 4.1, we formulate a linearized spacetime constraint problem in the reduced space and show that in the Ï-coordinates it decouples to d one-dimensional spacetime problems. In Section 4.2, we derive a scheme for the computation of the exact solution of the one-dimensional problem, which amounts to solving a lowdimensional linear system with a band structure. Section 4.3 describes how we construct the ï¬nal motion by blending a number of solutions of linearized problems. In Section 4.4 we give an outline of the algorithm and divide it into a preprocess and an interactive phase in which the animation is edited. The spacetime problem, we consider, is to generate optimal motions that assume prescribed poses X0 , X1 , ..., Xm at times t0 , t1 , ..., tm , where a motion is optimal if the forces required to generate the motion have minimal spacetime L2 -norm (integral over the squared norm of the forces over all points of the deformable object and the time interval) among all competitors. For uniqueness of the solution, we additionally impose boundary conditions on the motion. For example, we ï¬x the initial and ï¬nal velocities Ë x(t0 ) = Y0 and x(tm ) = Ym . Alternatively, interpolation of secË ond derivatives at the boundary and circular motions are possible.
+
+and the equations of motion in the reduced space are Ë Â¯ Â¨ Â¯ Â¯ Ë Â¯ M q (t) + (Î± M + Î² K)q(t) + K q(t) + U T G = U T F (t). (5) This last equation follows from multiplying (3) with U T and using (4). For our purposes it is convenient to choose a speciï¬c basis in the reduced space, namely a basis in which the reduced mass and stiffness matrices are diagonal matrices. This can be achieved by solving the (low-dimensional) generalized eigenvalue problem Â¯ Â¯ K Ïi = Î»i M Ïi . (6)
+
+4.1
+
+Linearized spacetime problem
+
+We assemble the eigenvectors Ïi to form the rows of a matrix Î¦ and denote coordinates with respect to the basis {Ïi } by Ï. The transformations from Ï to the q- and the u-coordinates are q = Î¦Ï and Ë u = U Ï, (7)
+
+Let us assume that the reduced space contains all keyframes Xk and the vectors Y0 and Ym . If this is not the case, they can simply be added to the reduced basis. To restrict the spacetime problem to a reduced space, we allow only forces that are contained in the reduced space, and to linearize the problem, we assume that the dynamics are described by linearized equations of motion. Then,
+
+the reduced problem can be formulated in the Ï-coordinates. The Ë components Î©k of the keyframes in this basis satisfy U Î©k = Xk â Ë x, which follows from (7). Multiplying the equation with U T M Ë and using (8) shows that this is equivalent to Ë Î©k = U T M (Xk â x). Ë Similarly, the vectors Y0 and Ym transform by Ë Î¨0 = U T M Y 0 and Ë Î¨m = U T M Y m .
+
+Ï(t)
+
+Ï(t)
+
+t
+
+t
+
+Ï(t)
+
+Ï(t)
+
+Problem 1 (linearized spacetime problem) In the space of admissible motions Ï ï¬nd
+tm
+
+t
+
+t
+
+arg min
+Ï t0
+
+Ï (t) + (Î± 1 + Î² Î)Ï(t) + Î Ï(t) + g Â¨ Ë
+2 d
+
+2
+
+dt, (10) Figure 4: Wiggly splines (black) with varying stiffness and damping parameters, interpolation points (red), polygon connecting the points (blue), and boundary conditions (turquois). The parameters are: Î» = 0, Î´ = 0 (top left), Î» = 5, Î´ = 0 (top right), Î» = 5, Î´ = 5 (bottom left), Î» = 5, Î´ = 0, and an additional constant gravitational force (bottom right). cases and explicitly list basis functions {b1 (t), b2 (t), b3 (t), b4 (t)} i i i i that span the spaces of solutions for all cases in the appendix. The minimizer Ïi (t) of the 1-D spacetime problem is a function that is four times continuously differentiable and satisï¬es (12) within all intervals (tk , tk+1 ) and is twice continuously differentiable at the tk s. It follows that the restriction of the minimizer to any interval [tkâ1 , tk ] is a combination of the basis functions. We denote by Ïi,k (t) the restriction of Ïi (t) to the interval [tkâ1 , tk ]. Then, for 1 2 3 every k â {1, 2, ..., m} there are four coefï¬cients wi,k , wi,k , wi,k , 4 and wi,k such that Ïi (t)|[tkâ1 ,tk ] = Ïi,k (t) =
+4 l=1 l wi,k bl (t) â ci , i
+
+where Ï is admissible if Ï â C ([t0 , tm ], R ) and Ï(tk ) = Î©k â k â {0, 1, ..., m}, Ë Ï(t0 ) = Î¨0 , and Ï(tm ) = Î¨m Ë holds. The norm we use in (10) is simply the standard norm of Rd . Since the mass matrix in the Ï-coordinates is the identity matrix, this norm is a discrete L2 -norm for functions on the deformable object. The advantage of using the Ï-coordinates is that the problem decouples, i.e. component functions Ïi (t) and Ïj (t) do not inï¬uence each other (for i = j). Hence, we only need to solve the one-dimensional problems
+tm
+
+arg min
+Ïi t0
+
+(Â¨ i (t) + 2 Î´i Ïi (t) + Î»i Ïi (t) + gi )2 dt Ï Ë
+
+(11)
+
+subject to Ïi (tk ) = (Î©k )i â k â {0, 1, ..., m}, Ë Ïi (t0 ) = (Î¨0 )i , and Ïi (tm ) = (Î¨m )i , Ë for all i â {1, 2, ..., d}. Here we set Î´i = 1 (Î± + Î² Î»i ). Once a 2 Ë solution Ï(t) in the reduced space is computed, the matrix U maps Ï(t) to a motion u(t) in R3n , see also eq. (7). Remark 1 We would like to mention that Problem 1 can be motivated as an application of GauÃâ principle of least constraint [GauÃ 1829] to keyframe interpolation.
+
+where ci = gi / |Î»i | if Î»i = 0 and ci = 0 if Î»i = 0. To obtain l Ïi (t), we need to compute the 4m coefï¬cients wi,k for all k â {1, 2, ..., m} and l â {1, 2, 3, 4}. These are determined by the interpolation conditions Ïi,k (tkâ1 ) = (Î©kâ1 )i and Ïi,k (tk ) = (Î©k )i (13)
+
+for all k â {1, 2, ..., m}, the regularity assumptions Ë Ïi,k (tk ) = Ïi,k+1 (tk ) Ë and Ïi,k (tk ) = Ïi,k+1 (tk ) Â¨ Â¨ (14)
+
+4.2
+
+Explicit wiggly splines
+
+for all k â {1, 2, ..., m â 1}, and the boundary conditions that specify the velocities at t0 and tm Ïi,1 (t0 ) = (Î¨0 )i Ë and Ïi,m (tm ) = (Î¨m )i . Ë (15)
+
+Kass and Anderson [2008] considered the one-dimensional spacetime constraint problem (11) and called the solutions wiggly splines. They used a ï¬nite difference method to solve the problem. Here we propose an alternative scheme to solve the problem based on a closed-form representation of the wiggly splines. The Euler-Lagrange equation of the one-dimensional problem (11) is the fourth order ODE .... 2 Ï i (t) + 2(Î»i â 2Î´i ) Ïi (t) + Î»2 Ïi (t) + Î»i gi = 0. Â¨ (12) i This can be veriï¬ed by a lengthy but straightforward calculation. The solutions of this equation form a 4-dimensional (afï¬ne) vector space. The type of functions that are in this space depends on relations of Î»i and Î´i . We classify these different types into six
+
+Together these 4 m linear equations determine a unique spline Ïi (t). The conditions can be arranged to form a band matrix with bandwidth 8. Since m is typically small (e.g. m = 10), solving such a system requires only fractions of a ms; even on a custom laptop and without parallelization, one can compute 10 k wiggly splines within a second. Remark 2 (complex wiggly splines) In this paper, we use only solutions of the 1-D spacetime constraint problem over the real numbers. However, the complex solutions are interesting as well; Kass and Anderson [2008] show great examples of how they can be used for designing and augmenting motions of characters. Our algorithm directly generalizes to the calculation of complex wiggly splines. The space of complex solutions of the Euler-Lagrange
+
+2 equation (12), in the generic case where Î´i = 0 and Î´i â Î»i = 0, is spanned by the four complex functions â 2 Â±Î´ Â± Î´i âÎ»i t . (16) bl (t) = e i i
+
+Then, to determine a complex wiggly spline, the interpolation (13), continuity (14), and boundary constraints (15) need to be treated as complex equations. The proposed computation of the wiggly splines has three major advantages over a ï¬nite difference scheme. The ï¬rst is that the result is a wiggly spline in closed form, not just an approximation. The second is a signiï¬cantly lower computational cost. Thirdly, we do not need to deal with stability issues caused by discretization. Roughly speaking, the problem with stability is that the continuous equation is stable, but once continuous derivatives are replaced by ï¬nite differences, stability is no longer guaranteed. Frequencies higher than those representable at the used sampling rate can destabilize the equation. For a throughout discussion of the stability problem, we refer to Kass and Anderson [2008].
+
+4.3
+
+Multipoint linearization and blending
+
+Figure 5: Animation of a walking bug enriched with secondary motion. Top row shows only the secondary motion and the keyframes that generate the motion. â¢ boundary conditions â¢ times of the keyframes â¢ positions in space of keyframes require only a recomputation of the wiggly splines, hence take only fractions of a second, as well. Additional effort is required for modeling or adding a keyframe. However, we do not need to rerun the whole preprocess. Instead, we can keep the reduced space, which was computed in the preprocess, and add some basis vectors. Similarly, we only need to compute the stiffness matrix K and mass matrix M of the new (or modiï¬ed) keyframe and we keep the (unreduced) matrices of all other keyframes. Only the operations in the reduced space (that is setting up the reduced matrices and solving the reduced eigenvalue problems) must be carried out for all keyframes. Since the reduced space is low-dimensional, these operations come at low computational costs. Alternatively to augmenting the reduced space, one can project the new (or modeled) keyframe into the reduced space. Such a strategy further reduces the computation effort but modiï¬es the keyframe. A nice approach is to create or model new keyframes directly in the reduced space.
+
+A problem when using linearized equations of motion (3) is that artifacts may develop for larger deformations away from the point x Ë (around which the inner forces were expanded). To counteract such problems, we use the fact that the desired motion interpolates the keyframes. We expand the inner forces around every keyframe Xj and get (m + 1) linearized equations of motion. Then, we solve the corresponding linearized spacetime problems to compute (m + 1) motions xj (t). From these solutions, we assemble a ï¬nal motion x(t) by blending over each interval [tj , tj+1 ] the trajectories xj (t) and xj+1 (t) with cubic splines. In our implementation, we used only the motion xj (t) in the interval [tj â(tj âtjâ1 )/4, tj +(tj+1 â tj )/4] and blended in the intervals [tj + (tj+1 â tj )/4, tj+1 â (tj+1 â tj )/4]. A limitation of this approach is that the deformation from one keyframe to its successor should not be too large. However, since the points around which we linearize the equations of motion need not be interpolated by the motion, one could add ghost meshes between keyframes and linearize the equations around these extra meshes without forcing interpolation of these meshes. However, for our examples, we did not use such a technique.
+
+4.4
+
+Algorithm outline
+
+We divide the computation into two parts: a preprocess and an interactive editing phase. The following is shifted to the preprocess 1. a basis of the reduced space is calculated and stored in the matrix U 2. for every keyframe, the mass and stiffness matrices M and K Â¯ Â¯ and their reduced counterparts M and K are set up Â¯ Â¯ 3. for every pair of reduced matrices M and K the eigenvalue problem (6) is fully solved and the matrices Î¦ and Î as well as the vector g are set up Then, the interactive phase begins. To compute the animation, we only need to compute the (m + 1) motions and blend them to get the ï¬nal motion. This means that (m + 1) â d wiggly splines must be computed, which (for settings like m = 10 and d = 100) takes only fractions of a second. Editing operations to change â¢ physical parameters, like material stiffness or damping coefï¬cients
+
+5
+
+Our Implementation
+
+Our technique can be used for different types of discrete elastic objects; for our implementation, we decided to use Discrete Shells [Grinspun et al. 2003; Bergou et al. 2007]. Discrete Shells are formulated for triangle meshes, which then represent the middle surface of an elastic shell. The potential energy of the inner forces splits into two parts, a ï¬exural (or bending) and a membrane (or stretching) energy. Both parts can be computed from elementary geometric properties of the triangle mesh. For explicit formulae Ë we refer to [Grinspun et al. 2003]. The vector G and the matrix K in (2) are the gradient and the Hessian of the potential energy at the point x. To compute the derivatives, we used the automaticË differentiation library ADOL-C, see [Griewank et al. 1996]. In most of our experiments, we set both material parameters (weighting of the ï¬exural and membrane energies) to the value 1, and, additionally, we scaled the meshes to a diameter of 10. The latter is important since the membrane and ï¬exural energies scale differently. An advantage of using the Discrete Shells, compared to using elastic solids, is that we could directly use keyframes gener-
+
+Figure 6: Physically based soft-body walking dinosaur that interpolates animator-speciï¬ed keyframes.
+
+ated with a surface modeler, thus avoiding the need to generate and model keyframes with tet meshes. To construct the reduced space, we collect vectors in a set S and then use a SVD to obtain an orthonormal basis of the linear span of S. We store the basis in the matrix U . The set S consists of two parts: one collects the vectors pointing to the keyframes and the other contains 5-30 vibration modes of each of the keyframes. The computation of the vibration modes follows [Hildebrandt et al. 2012]. For this we set the keyframe to be the rest state of the discrete shellsâ potential energy and set up the Hessian K and the mass matrix. Then, we compute the modes corresponding to the lowest eigenfrequencies. These are solutions of the generalized sparse eigenvalue problem K Ï i = Î»i M Ï i . In our experiments, this construction produced good results. We did not observe the typical artifacts that one gets when working with reduced spaces constructed from vibration modes around only one state. For small-size meshes, one can solve the full problem instead of using a reduced space. For example, we computed the motion of the block, see Figure 3, with 450 vertices in the full 1350 dimensional space. This demonstrates that we can work with larger spaces compared to methods that solve the non-linear problem in a reduced space, like [BarbiË et al. 2009], and use 20-30 dimensional reduced c spaces.
+
+velocity pointing into the ground. This models a collision with ground. Since the base of the block is ï¬xed in the third wiggly spline, the compound curve is continuous but not differentiable at the third keyframe. The effect is that there is no anticipation of the landing, the block collides with the ground. Since the block cannot bounce upwards, the collision causes a deformation of the block: a wave is traversing upwards the block. We show two motions of the jumping block with varying material stiffness (i.e., membrane and ï¬exural energy scaled up with the same parameter). For comparison, a motion generated with cubic B-splines that satisfy the same interpolation and boundary conditions is shown. Whereas our motions show physical behavior, like waves that are traveling up and down the block, the B-spline animation only varies the length of the block. Some stills of the animation are shown in Fig. 3. We want to note that since all four keyframes have the same geometry, this animation is produced from one linearized spacetime-constraint problem. The second example, the running bug, shows a walking cycle that is enriched with secondary motion. The primary motion interpolates 12 keyframes that form a walking cycle, which we took from the book [Ritchie et al. 2005]. The circular wiggly spline used here does not require any boundary conditions and is fully determined by the interpolation conditions. To get secondary motion that does not need to interpolate the keyframes, we blended the walking cycle motion with a second motion. For this second motion, we used two keyframes and constrained a part of the models (gray area in Fig. 5) that has been carefully crafted and should not be affected by secondary motion. Then we computed a reduced space and added simple vector ï¬elds to the keyframes (black arrows). We used the projections of these vector ï¬elds into the reduced space as derivatives of the motion and forced the wiggly splines to interpolate them. The third example, shows a piece of cloth that ï¬rst hangs on a line, then is blown into the air, and ï¬nally gets stuck on a cylinder. The motion is assembled from three wiggly splines. The ï¬rst and the last wiggly spline satisfy equality constraints that ï¬x parts of the piece of cloth to the line respectively the cylinder. The keyframes were generated by taking snapshots from three different forward simulations: cloth hanging on a line, cloth blown in the air, and cloth stuck on a cylinder. The beneï¬t of our approach is that we can combine these (otherwise unrelated) animations into one animation in which the cloth is ï¬ying through the air and hits the cylinder. The forth example, shows a walking dinosaur (Fig. 6). The motion is composed of ï¬ve wiggly splines, one for each step. Each step is modeled with three keyframes and the foot on the ground is ï¬xed with equality constraints. The boundary conditions for each of the wiggly splines are ï¬nite differences of the keyframes. For comparison we show results of the non-linear method of BarbiË et c al. [2009]. To increase comparability, we used reduced spaces of approximately the same size. A difference of the methods is that their scheme does not interpolate, but approximates the keyframes.
+
+6
+
+Experiments
+
+The attached video shows ï¬ve examples of motions produced with the proposed technique and Table 1 shows the size of the meshes and the reduced spaces as well as run times. In this section, a wiggly spline means a vector-valued spline that describes a motion and not a one-dimensional spline. The ï¬rst example, the jumping block, is composed of three wiggly splines that interpolate four keyframes. This divides the motion into three parts: preparing the jump, jumping, and landing. During the ï¬rst and the last part, the base of the block is ï¬xed to the ground with equality constraints. Each of the three wiggly splines interpolates two successive keyframes and satisï¬es boundary conditions, which prescribe ï¬rst derivatives (velocities) at all vertices of both keyframes. The prescribed velocities at the ï¬rst keyframe vanish, and all vertices of the second keyframe, except those at the base, have a the same upwards pointing velocity. At the second keyframe the ï¬rst and second wiggly spline meet. Both splines interpolate the second keyframe and have the same velocities at this point. Therefore, the compound curve is differentiable at this keyframe. As a results, the motion anticipates the jump and the force required to accelerate the block is distributed over the time interval. All vertices of the third keyframe (including the base) have the same
+
+Model Dinosaur Bug (primary) Bug (secondary) Cloth Block Flour Sack
+
+#Verts 28098 4358 4358 1861 450 1762
+
+#S 5 1 1 3 3 1
+
+Dim. 5Ã18 200 30 92,143,186 3Ã1350 124
+
+#K 11 12 1 12 6 7
+
+tp 505 89 9 74 83 20
+
+tu 0.6 1.9 0.03 0.85 0.54 0.25
+
+7.1
+
+Limitations and challenges
+
+Table 1: Performance measured on a desktop PC with an Intel Xeon 3.33 GHz CPU (single thread). From left to right: number of vertices, number of composite splines, dimension of reduced space, number of keyframes, time in seconds for the complete preprocess and for an update of the full animation.
+
+The original keyframes, they used are tet meshes that enclose the dinosaur; they used the triangle meshes only for rendering the animation. These tet meshes have 1.8 k vertices, hence are coarser then the triangle meshes, which have 28 k vertices. For our animation, we used the higher resolved triangle meshes. This explains why we need 500 s to construct the reduced space for the whole animation, while they need only 25 s. After the preprocess, our method needs 0.6 s to compute or update the animation, while their optimization takes 15 min. The last example is a live demo. It shows how we generate an animation of a dancing ï¬our sack. The motion is generated by a circular wiggly spline that interpolates eight keyframes (made from 4 poses). The video shows how times of keyframes are adjusted and material parameters are varied. This demonstrates the interactive response times that our technique offers. The live demo is followed by demo of a wiggly spline editor. It illustrates the effect of variations of the frequency, the damping coefï¬cient, the interpolation constraints, and the boundary conditions as well as a constant (gravitational) force. When creating keyframes with a surface modeler, it is preferable to use a physical-based modeler that takes the Discrete Shells energy into account. When using keyframes that were generated with other modelers (e.g. the bug and the dino models), we did an optimization routine to lower the Discrete Shells energy of the shapes. Explicitly, we minimize a weighted sum of the Discrete Shells energy and the least-squares distances of the vertices to their original position.
+
+In its current form, our scheme requires that every keyframe prescribes a pose for the whole object. We are working on an extension of our scheme that can handle keyframes that prescribe only the positions of some parts of the object (and leave the rest free). Furthermore, we want to extend the scheme such that motions that do not interpolate, but only approximate the keyframes can be produced. A challenge for our scheme (and for schemes that follow the spacetime constraint paradigm in general) is the integration of contact and collision handling. Currently, only limited handling of contact is possible. In our experiments, we prescribe incoming and outgoing velocities at a keyframe and ï¬x parts on the object in space by equality constraints to model the contacts of the landing block, the walking dino (whose feet hit the ground), and the cloth hitting the cylinder. A interesting direction of future work is to develop counterparts of the presented approach for other types of physical systems, like ï¬uids or particles systems, and for parametrized characters. Furthermore, we expect to see more application of the wiggly splines. We see them as a powerful alternative to traditional splines that offers oscillatory behavior. Acknowledgements. We would like to thank Jernej BarbiË and c Kiaran Ritchie for sharing their animations and keyframes and the anonymous reviewers for their comments and suggestions. This work was supported by the DFG Research Center M ATHEON âMathematics for Key Technologiesâ in Berlin.
+
+References
+BARAFF , D., AND W ITKIN , A. 1998. Large steps in cloth simulation. In Proc. of ACM SIGGRAPH, 43â54. Ë BARBI C , J., AND JAMES , D. L. 2005. Real-time subspace integration for St. Venant-Kirchhoff deformable models. ACM Trans. Graph. 24, 3, 982â990. Ë Â´ BARBI C , J., DA S ILVA , M., AND P OPOVI C , J. 2009. Deformable object animation using reduced optimal control. ACM Trans. Graph. 28, 53:1â53:9. BARZEL , R. 1997. Faking dynamics of ropes and springs. IEEE Comput. Graph. Appl. 17, 31â39. B ERGOU , M., M ATHUR , S., WARDETZKY, M., AND G RINSPUN , E. 2007. TRACKS: Toward Directable Thin Shells. ACM Trans. Graph. 26, 3. C HAI , J., AND H ODGINS , J. K. 2007. Constraint-based motion optimization using a statistical dynamic model. ACM Trans. Graph. 26. Â¨ C HAO , I., P INKALL , U., S ANAN , P., AND S CHR ODER , P. 2010. A simple geometric model for elastic deformations. ACM Trans. Graph. 29, 38:1â38:6. C OHEN , M. F. 1992. Interactive spacetime control for animation. Proc of ACM SIGGRAPH 26, 293â302. FANG , A. C., AND P OLLARD , N. S. 2003. Efï¬cient synthesis of physically valid human motion. ACM Trans. Graph. 22, 417â 426. Â¨ G AUSS , C. F. 1829. Uber ein neues allgemeines Grundgesetz der Mechanik. J. Reine Angew. Math. 4, 232â235. G LEICHER , M. 1997. Motion editing with spacetime constraints. In Proc. of Symp. on Interactive 3D Graphics, 139â148.
+
+7
+
+Conclusion
+
+We presented a technique that implements the spacetime constraints paradigm for animations of deformable objects. It combines physical realism with control over the animation. The main novelty of the approach is that it offers interactive response times, hence allows for interactive adjustment of physical parameters or editing of control parameters, like times of keyframes. This is achieved by a model reduction of the underlying variational spacetime problem, which combines dimension reduction, a multipoint linearization strategy, and decoupling of the reduced equations of motion. After reduction, a number of one-dimensional variational problems need to be solved. The solutions of these problems are known as wiggly splines. A second main contribution of this paper is a fast and robust numerical scheme for computing wiggly splines that is based on an explicit representation of the wiggly splines. Without this efï¬cient numerical scheme, our method would hardly be interactive. Our current implementation does not use parallelization or graphic cards. Still, the preprocess as well as the computation of the wiggly splines are highly parallelizable.
+
+G RIEWANK , A., J UEDES , D., AND U TKE , J. 1996. Algorithm 755: ADOL-C: a package for the automatic differentiation of algorithms written in C/C++. ACM Trans. Math. Softw. 22, 2, 131â167. Â¨ G RINSPUN , E., H IRANI , A. N., D ESBRUN , M., AND S CHR ODER , P. 2003. Discrete shells. In ACM SIGGRAPH/Eurographics Symposium on Computer Animation, 62â67. G UENTER , B. 2007. Efï¬cient symbolic differentiation for graphics applications. ACM Trans. Graph. 26. H ILDEBRANDT, K., S CHULZ , C., VON T YCOWICZ , C., AND P OLTHIER , K. 2011. Interactive surface modeling using modal analysis. ACM Trans. Graph. 30, 119:1â119:11. H ILDEBRANDT, K., S CHULZ , C., VON T YCOWICZ , C., AND P OLTHIER , K. 2012. Modal shape analysis beyond Laplacian. Computer Aided Geometric Design 29, 5, 204â218. H UANG , J., S HI , X., L IU , X., Z HOU , K., W EI , L.-Y., T ENG , S.H., BAO , H., G UO , B., AND S HUM , H.-Y. 2006. Subspace gradient domain mesh deformation. ACM Trans. Graph. 25, 3, 1126â1134. I DELSOHN , S. R., AND C ARDONA , A. 1985. A reduction method for nonlinear structural dynamic analysis. Comput. Meth. Appl. Mech. Eng. 49, 3, 253 â 279. K ASS , M., AND A NDERSON , J. 2008. Animating oscillatory motion with overlap: wiggly splines. ACM Trans. Graph. 27, 28:1â 28:8. K ILIAN , M., M ITRA , N. J., AND P OTTMANN , H. 2007. Geometric modeling in shape space. ACM Trans. Graph. 26. K IM , T., AND JAMES , D. L. 2009. Skipping steps in deformable simulation with online model reduction. ACM Trans. Graph. 28, 123:1â123:9. K RYSL , P., L ALL , S., AND M ARSDEN , J. E. 2001. Dimensional model reduction in non-linear ï¬nite element dynamics of solids and structures. Int. J. Numer. Meth. Eng. 51, 479â504. Â´ M C NAMARA , A., T REUILLE , A., P OPOVI C , Z., AND S TAM , J. 2004. Fluid control using the adjoint method. ACM Trans. Graph. 23, 449â456. N ICKELL , R. 1976. Nonlinear dynamics by mode superposition. Comput. Meth. Appl. Mech. Eng. 7, 1, 107 â 129. P ENTLAND , A., AND W ILLIAMS , J. 1989. Good vibrations: modal dynamics for graphics and animation. Proc. of ACM SIGGRAPH 23, 207â214. Â´ P OPOVI C , J., S EITZ , S. M., AND E RDMANN , M. 2003. Motion sketching for control of rigid-body simulations. ACM Trans. Graph. 22, 1034â1054. R ITCHIE , K., C ALLERY, J., ging. CG Toolkit.
+AND
+
+T ERZOPOULOS , D., P LATT, J., BARR , A., AND F LEISCHER , K. 1987. Elastically deformable models. In Proc. of ACM SIGGRAPH, 205â214. Â´ T REUILLE , A., M C NAMARA , A., P OPOVI C , Z., AND S TAM , J. 2003. Keyframe control of smoke simulations. ACM Trans. Graph. 22, 716â723. Â´ T REUILLE , A., L EWIS , A., AND P OPOVI C , Z. 2006. Model reduction for real-time ï¬uids. ACM Trans. Graph. 25, 826â834. W ICKE , M., S TANTON , M., AND T REUILLE , A. 2009. Modular bases for ï¬uid dynamics. ACM Trans. Graph. 28, 39:1â39:8. W IRTH , B., BAR , L., RUMPF, M., AND S APIRO , G. 2009. Geodesics in shape space via variational time discretization. In Proc. of the 7th Intern. Conf. on Energy Minimization Methods in Computer Vision and Pattern Recognition, 288â302. W ITKIN , A., AND K ASS , M. 1988. Spacetime constraints. Proc. of ACM SIGGRAPH 22, 159â168. W OJTAN , C., M UCHA , P. J., AND T URK , G. 2006. Keyframe control of complex particle systems using the adjoint method. In Proc. of ACM SIGGRAPH/Eurographics Symposium on Computer Animation, 15â23.
+
+Appendix
+In this appendix, we explicitly describe the basis functions spanning the (real) spaces of solutions of the EulerâLagrange equation (12). We distinguish between the two main cases and we note four special 2 cases. For brevity, we set Î·i = |Î´i â Î»i |, which is the frequency 2 in the case of oscillation. In the ï¬rst case, Î´i â Î»i < 0, the mesh oscillates in the direction of the mode Ïi (the square root in (16) is imaginary) and the basis functions are: b1 (t) = eâÎ´i t cos (Î·i t) i b3 (t) = eÎ´i t cos (Î·i t) i b2 (t) = eâÎ´i t sin (Î·i t) i b4 (t) = eÎ´i t sin (Î·i t) i
+
+2 In the second case, Î´i â Î»i > 0, the mesh exponentially decays or grows in the direction of Ïi and the basis functions are:
+
+b1 (t) = e(âÎ´i +Î·i )t i b3 (t) = e(Î´i +Î·i )t i The special cases are 1. Î´i = 0 and Î»i > 0 :
+
+b2 (t) = e(âÎ´i âÎ·i )t i b4 (t) = e(Î´i âÎ·i )t i
+
+b1 (t) = cos (Î·i t) i b3 (t) = t cos (Î·i t) i 2. Î´i = 0 and Î»i < 0
+
+b2 (t) = sin (Î·i t) i b4 (t) = t sin (Î·i t) i
+
+or Î·i = 0 and Î»i > 0 : â â |Î» |Î» b1 (t) = eâ â i |t b2 (t) = e â i |t i i b3 (t) = t eâ i
+|Î»i |t
+
+B IRI , K. 2005. The Art of Rig-
+
+b4 (t) = t e i
+
+|Î»i |t
+
+S AFONOVA , A., H ODGINS , J. K., AND P OLLARD , N. S. 2004. Synthesizing physically realistic human motion in lowdimensional, behavior-speciï¬c spaces. ACM Trans. Graph. 23, 514â521. S HABANA , A. 1997. Theory of Vibration II: Vibration of Discrete and Continuous Systems, 2nd ed. Springer Verlag. Ë Â´ Â´ S ULEJMANPA S I C , A., AND P OPOVI C , J. 2005. Adaptation of performed ballistic motion. ACM Trans. Graph. 24, 165â179.
+
+3. Î´i = 0 and Î»i = 0 : b1 (t) = 1 i â2Î´i t b3 (t) = e 4Î´2 i
+i
+
+b2 (t) = t i 2Î´i t b4 (t) = e4Î´2 i
+i
+
+4. Î´i = Î»i = 0 : in this case Ïi (t) is a B-spline b1 (t) = 1 i b3 (t) = t2 i b2 (t) = t i b4 (t) = t3 i
+

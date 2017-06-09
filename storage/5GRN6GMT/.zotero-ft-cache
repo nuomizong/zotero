@@ -1,0 +1,426 @@
+9(2012) 1 â 20
+
+Vibration analysis of stiï¬ened plates using Finite Element Method
+Abstract This paper presents the vibration analysis of stiï¬ened plates, using both conventional and super ï¬nite element methods. Mindlin plate and Timoshenko beam theories are utilized so as to formulate the plate and stiï¬eners, respectively. Eccentricity of the stiï¬eners is considered and they are not limited to be placed on nodal lines. Therefore, any conï¬guration of plate and stiï¬eners can be modeled. Numerical examples are proposed to study the accuracy and convergence characteristics of the super elements. Eï¬ects of various parameters such as the boundary conditions of the plate, along with orientation, eccentricity, dimensions and number of the stiï¬eners on free vibration characteristics of stiï¬ened panels are studied. Keywords vibration, stiï¬ened plates, Finite Element Method, super element.
+
+Shahed Jafarpour Hamedania , Mohammad Reza Khedmatib,â and Saeed Azkatc
+a
+
+M.Sc. Student, Faculty of Marine Technology, Amirkabir University of Technology, Tehran 15914 â Iran b Associate Professor, Faculty of Marine Technology, Amirkabir University of Technology, Tehran 15914 â Iran c Head of Maintenance and Planning Department, Iranian Oï¬shore Oil Company, Tehran 1966664791â Iran
+
+Received 12 Mar 2011; In revised form 08 Feb 2012
+â
+
+Author email: khedmati@aut.ac.ir
+
+1
+
+INTRODUCTION
+
+Noise and vibration control is an increasingly important area in the most ï¬elds of engineering. There are many vibrating parts in structures of ships, aircrafts and oï¬shore platforms. The amplitude of their motions can be large due to the inherently low damping characteristics of these structures. Such noise is commonly eradicated by use of heavy viscoelastic damping materials which lead to increase in cost and weight. Vibration isolators between pieces of equipment and their supporting structures can be another solution. Clearly, isolating large structures can be diï¬cult, expensive and in some cases, such as the wings of an aircraft, almost impossible. In recent years, much attention has been focused on active noise control of structures. However, their installation and maintenance can be expensive, so possible passive solutions would be preferable [20]. In the case of plates/shells, one common and cost eï¬ective approach in order to improve their NVH1 performance is to add stiï¬eners. Stiï¬ened plates are lightweight, high-strength
+1
+
+Noise Vibration Harshness
+
+Latin American Journal of Solids and Structures 9(2012) 1 â 20
+
+2
+
+Sh. Jafarpour Hamedani et al / Vibration analysis of stiï¬ened plates using Finite Element Method
+
+structural elements, commonly used in ships, aircrafts, submarines, oï¬shore drilling rigs, pressure vessels, bridges, and rooï¬ng units [19, 21]. Most of these structures are required to operate in dynamic environments. Therefore, a thorough study of their dynamic behavior and characteristics is essential in order to develop a perfect strategy for modal vibration control [8]. The stiï¬eners enhance the rigidity of base structures by increasing their cross sectional second moment of inertia. The conï¬guration of the stiï¬eners should be consistent with the natural modes likely to be excited by the service loads, so as to arrive at a design with a high strength-to-weight ratio [4]. In general, the stiï¬ening of the structures is applied, because of two main reasons: Increasing load carrying capacity and preventing buckling, especially in the case of in-plane loading [6]. Diï¬erent geometries of stiï¬ened shells have been studied in the literature which can be categorized into three groups including plates, single curved shells, and double curved shells. The Superimposition of the stiï¬eners with respect to the plate mid-plane, i.e. eccentric or concentric is also a matter of concern for the structural analysts. The stiï¬ener of which, centroid is coincident with the plate/shell mid-surface, is called concentric, otherwise eccentric stiï¬ener [16]. The analysis of stiï¬ened plate vibration has been the purpose of numerous investigations. Among the known solution techniques, the ï¬nite element method is certainly the most favourable. Olson and Hazell [14] predicted and measured the ï¬rst 24 eigenfrequencies of stiï¬ened plates using FEM and real-time laser holography. Mustafa and Ali [12] developed an eight-noded orthogonally stiï¬ened super ï¬nite element to study the free vibration of a stiï¬ened cylindrical shell with diaphragm ends. Experimental measurements of natural frequencies and mode shapes of an orthogonally stiï¬ened shell were also carried out to substantiate theoretical predictions. A plate with centrally placed stiï¬ener has been studied by Mukherjee and Mukhopadhyay [11]. An isoparametric stiï¬ened plate element has been utilized in their analysis considering shear deformation in order to analyse thick as well as thin plates. In the proposed formulation, the stiï¬eners can be placed anywhere within the plate element and they are not required to necessarily follow the nodal lines. Koko and olson [9] have developed another super element to model the free vibration of stiï¬ened plates. This super element allows a coarser mesh (at the expense of more complex interpolation functions), so that only a single element per bay or span is needed. Sinha and Mukhopadhyay [18] investigated stiï¬ened shells utilizing a high-precision triangular shallow shell element in which stiï¬eners can be anywhere within the plate element. The vibration analysis of stiï¬ened plates has been investigated by Barrette and Beslin [3] using hierarchical ï¬nite elements with a set of local trigonometric interpolation functions. Nayak and Bandyopadhyay [13] presented a ï¬nite element analysis for free vibration behaviour of doubly curved stiï¬ened shallow shells. The eight-/nine-node doubly curved isoparametric thin shallow shell elements along with the three-node curved isoparametric beam element has been used in this study. Their Formulation suï¬ers from the limitation, that stiï¬eners can only be placed along nodal lines in x or y directions. Two years later Samanta and Mukhopadhyay [17] developed a new 3 noded stiï¬ened shell element and applied it in determining natural frequencies and mode shapes of the diï¬erent stiï¬ened structures.
+Latin American Journal of Solids and Structures 9(2012) 1 â 20
+
+Sh. Jafarpour Hamedani et al / Vibration analysis of stiï¬ened plates using Finite Element Method
+
+3
+
+Another Stiï¬ened element with seven degrees of freedom per node has been presented by voros [21]. Torsionâï¬exural coupling, torsional warping eï¬ect and the second- order terms of ï¬nite rotations have been considered in this investigation. In the present work, four diï¬erent elements including two conventional and two super elements [2] have been used so as to predict the dynamic characteristics of stiï¬ened panels. The formulation of the plate and stiï¬eners are both based on the ï¬rst order shear deformation theories so it can be applicable to both thin and thick plates. In the proposed formulation, the stiï¬eners are modeled in such a way that they can be placed anywhere within the plate element. This may be considered as a prominent advantage over most of approximate analyses, since this method can be applied to any plate and stiï¬eners conï¬guration. It is worth to mention that, the shape function of the plate is also used to express the displacement of the stiï¬ener at any generic point along it. In this way, displacement compatibility between the plate and the stiï¬eners is ensured automatically in the whole continuum and no additional node is utilized for the stiï¬eners. After studying the accuracy and convergence of super elements, they have been utilized to investigate diï¬erent problems. Because of signiï¬cantly less time and fewer global DOFs needed for super elements, they are useful for preliminary designs and parametric studies; where, repeated calculations are often required. Eï¬ects of various parameters such as the orientation, eccentricity and number of stiï¬eners on free vibration characteristics have been studied. These examples demonstrate the strength of the developed formulation, and it is hoped that the results presented will prove useful to other researchers. Up to authorsâ knowledge, such results have not been published before. 2 FORMULATION
+
+The equation of motion for free vibration of elastic bodies, with inï¬nitesimal displacements is: Â¨ [M] {d} + [K] {d} = {0} , (1)
+
+Where [M] and [K] is overall mass and stiï¬ness matrix, respectively. {d} is the displacement vector and dots denote derivatives with respect to time. Overall matrices in equation (1) are obtained by assembling matrices corresponding to each element, and applying appropriate boundary condition. In this paper, the following hypotheses are made:
+â¢ The material of the plate and the stiï¬eners is isotropic, linear elastic and Hookian. â¢ In-plane displacements are neglected in order to reduce the computational time. If the plate edges are immovable in the plane, the in-plane displacements will be much smaller than out-of-plane ones. Therefore, in such cases this can be a rational assumption. â¢ Stresses in the direction normal to the plate middle surface are negligible. â¢ Normal to the undeformed mid-plane remains straight and unstretched in length, but not necessarily normal to the deformed mid-plane. This assumption implies the consideration
+Latin American Journal of Solids and Structures 9(2012) 1 â 20
+
+4
+
+Sh. Jafarpour Hamedani et al / Vibration analysis of stiï¬ened plates using Finite Element Method
+
+of shear deformation, but it also leads to the nonzero shear stresses at the free surface, because of constant shear stress through the plate thickness.
+â¢ Rotary inertia eï¬ect is included. â¢ The magnitude of transverse deï¬ection (w) is small in comparison to the plate thickness (h).
+
+Stiï¬ness and mass matrices corresponding to each element are the summation of the plate stiï¬ness and mass matrices, and the contributions of stiï¬eners to this element as [K] = [Kp ] + [Ks ] , [M] = [Mp ] + [Ms ] , in which plate and stiï¬ener are denoted by subscripts p and s, respectively [5, 7, 10]. 2.1 Plate element (2) (3)
+
+A ï¬at, thin/thick plate of uniform thickness is considered. As it was assumed, constitutive material is homogeneous, linear elastic and Hookian. For the purpose of ï¬nite element modeling 4 types of element are used, including eight-/nine-node conventional elements and eight-/twelvenode super elements. Each node has 3 degrees of freedom. They consist of one displacement in transverse direction, and two rotations about x-axis and y-axis. Displacement at each point within the element is related to nodal values by â§ w â« n âª âª âª âª âª âª â¨ Î¸ x â¬ = â Ni âª âª Î¸ âª i=1 âª y âª âª â© â­ â§ wi â« âª âª âª âª âª âª â¨ Î¸x i â¬ , âª âª Î¸ âª âª yi âª âª â© â­
+
+(4)
+
+where i and n are the corresponding node and total number of nodes in a the plate element, and Ni is the shape function of the ith node. In the isoparametric formulation the above functions are used for deï¬ning the displacement as well as the location of any point within the element in terms of nodal coordinates. {
+n x x } = â Ni { i } , y yi i=1
+
+(5)
+
+Implementing Mindlin plate theory, displacement ï¬led can be expressed as follow (ï¬gure 1) â§ U â« â§ âzÎ¸y â« âª âª âª âª âª âª âª âª âª âª âª âª â¨ V â¬ = â¨ âzÎ¸x â¬ . âª âª W âª âª w âª âª âª âª âª âª âª âª â© â­ â© â­
+Latin American Journal of Solids and Structures 9(2012) 1 â 20
+
+(6)
+
+Sh. Jafarpour Hamedani et al / Vibration analysis of stiï¬ened plates using Finite Element Method
+
+5
+
+Figure 1
+
+Rotations of the normal in the Mindlin plate [10].
+
+in which z is measured from the neutral surface of whole structure consists of the plate and one or more stiï¬eners. Based on linear elasticity the strain component are given by â§ âª âª âª âª âª âª âª âª â¨ âª âª âª âª âª âª âª âª â© Îµx Îµy Îµxy Îµxz Îµyz â« âª âª âª âª âª âª âª âª â¬= âª âª âª âª âª âª âª âª â­
+âÎ¸y â§ âz âx âª âª âª âª âÎ¸x âª âz ây âª âª âª âª â¨ âz ( âÎ¸x + âÎ¸y ) âx ây âª âª âw âª âª â Î¸y âª âx âª âª âw âª âª â Î¸x â© ây
+
+â« âª âª âª âª âª âª âª âª âª â¬, âª âª âª âª âª âª âª âª âª â­
+
+(7)
+
+{Îµp } = { Îµx Îµy Îµxy Îµxz Îµyz } ,
+
+(8)
+
+Where Îµx and Îµy are normal strains, and Îµxy , Îµxz and Îµyz are shear strains. For isotropic, linear elastic, Hookian Materials {Ïp } = [Dp ] {Îµp } , â¡ â¢ â¢ â¢ â¢ Dp = â¢ â¢ â¢ â¢ â¢ â¢ â£
+E 1âÎ½ 2 Î½E 1âÎ½ 2 Î½E 1âÎ½ 2 E 1âÎ½ 2
+
+(9)
+
+0 0 0
+
+0 0 0
+
+0 0 0 â¤ â¥ â¥ 0 0 0 â¥ â¥ G 0 0 â¥, â¥ 0 ÎºG 0 â¥ â¥ â¥ 0 0 ÎºG â¥ â¦
+
+(10)
+
+{Ïp } = { Ïx Ïy Ïxy Ïxz Ïyz } ,
+
+(11)
+
+Where Ïx and Ïy are normal strains, Ïxy , Ïxz and Ïyz are shear strains, E is the elasticity modulus, G is the shear modulus, Î½ is the poisonâs ratio and Îº is the shear correction factor to compensate the error due to the assumption of constant shear strains within the plate thickness. In this stage, strain energy functional of the plate element can be obtained Up = 1 T â« {Îµp } {Ïp } dV, 2 (12)
+
+Latin American Journal of Solids and Structures 9(2012) 1 â 20
+
+6
+
+Sh. Jafarpour Hamedani et al / Vibration analysis of stiï¬ened plates using Finite Element Method
+
+In which V is the volume of the plate element. The kinetic energy of vibrating plate element is also given by Tp = 1 âU 2 âV 2 âW 2 Ï [( ) + ( ) + ( ) ] dV, â« 2 ât ât ât (13)
+
+In which t denotes time and Ï is the plate mass density. The integrations are calculated using gauss quadrate scheme. Special considerations are applied so as to avoid shear locking eï¬ect [5, 7, 10, 15, 22]. 2.2 Stiï¬ener
+
+In this section, the matrices corresponding to the stiï¬ener which can be placed everywhere within the plate element are extracted. The proposed method releases the formulation from the limitation of stiï¬eners to be lied along nodal lines. Hence, oblique stiï¬eners can be analysed. For this purpose, by use of same shape function for both the plate and the stiï¬eners, displacement compatibility is guaranteed and no additional node is introduced for the stiï¬eners. The stiï¬ener speciï¬cations are calculated at the Gauss points along it. Therefore a transformed coordinate system is implemented (Figure 2). Based on Timoshenko beam theory, displacement ï¬eld of the stiï¬ener is given by â§ U â² â« â§ âzÎ¸ â² âª âª â² âª âª âª âª y âª âª âª âª âª â¨ V â¬ = â¨ âzÎ¸xâ² âª âª â² âª âª w âª W âª âª âª âª âª âª â© â© â­ â« âª âª âª â¬, âª âª âª â­
+
+(14)
+
+Figure 2
+
+Transformed coordinate system for the stiï¬ener.
+â² â²
+
+where Î¸xâ² and Î¸yâ² are rotations about x and y , respectively. As mentioned before, z is measured from the reference surface of whole structure. Displacement functions can be expressed in terms of nodal values of plate element using a transformation matrix (Eq. 15) and aforementioned shape functions. { Î¸ xâ² cos Ï sin Ï Î¸ }= [ ] { x }, Î¸yâ² Î¸y âsin Ï cos Ï (15)
+
+Latin American Journal of Solids and Structures 9(2012) 1 â 20
+
+Sh. Jafarpour Hamedani et al / Vibration analysis of stiï¬ened plates using Finite Element Method
+
+7
+
+Again, by applying linear elasticity â§ Îµ â² âª x âª âª â¨ Îµxâ² zâ² âª âª Îµ â² â² âª xy â© â« âª âª âª â¬= âª âª âª â­ â§ âª âz âÎ¸yâ²â² âª âª âª âw âx âª â¨ âxâ² â Î¸yâ² âª âª âª âª âz âÎ¸xâ²â² âª â© âx Îµxâ² zâ² â« âª âª âª âª âª â¬, âª âª âª âª âª â­
+
+(16)
+
+{Îµs } = { Îµxâ²
+
+Îµxâ² yâ² } ,
+
+(17)
+
+Similar to the plate element, for an isotropic material {Ïs } = [Ds ] {Îµs } , â¡ â¢ â¢ Ds = â¢ â¢ â¢ â£
+E 1âÎ½ 2
+
+(18)
+
+0 0
+
+0 0 â¤ â¥ â¥ ÎºG 0 â¥ , â¥ 0 G â¥ â¦ Ïxâ² zâ² Ïxâ² yâ² } ,
+
+(19)
+
+{Ïs } = { Ïxâ²
+
+(20)
+
+In which Ïxâ² is the normal stress along the longitudinal axis of the stiï¬ener, Ïxâ² zâ² is shear strain and Ïxâ² yâ² is torsional strain. So energy functional of the stiï¬ener are obtained as follow Us = 1 T â« {Îµs } {Ïs } dV, 2 (21)
+
+2 2 2â¤ â² â² â² â¡ â¢ âU â¥ â² 1 âV âW â¢( Ts = ) + ( ) + ( ) â¥ dV , â« Ïâ¢ â¥ 2 ât ât â¢ ât â¥ â£ â¦
+â²
+
+(22)
+
+in which V is the volume of the part stiï¬ener, conï¬ned within the plate element. The governing equation of vibration of stiï¬ened plates is derived by use of Hamiltonâs principle which requires
+ti
+
+d â«
+
+tf
+
+[(Tp + Ts ) â (Up + Us )] dt = 0,
+
+(23)
+
+where d is the variational operator. Now stiï¬ness and mass matrices of the stiï¬ened element can be calculated. By assembling matrices corresponding to each element in a suitable manner, overall stiï¬ness and mass matrices are obtained. Finally, boundary conditions are applied and governing eigenvalue equation for un-damped free vibration of stiï¬ened plates takes the form [K] {d} = Ï 2 [M ] {d} , (24)
+
+where Ï is the natural frequency in radian per second, and {d} represents eigenvector [5, 7, 10, 15, 22].
+Latin American Journal of Solids and Structures 9(2012) 1 â 20
+
+8
+
+Sh. Jafarpour Hamedani et al / Vibration analysis of stiï¬ened plates using Finite Element Method
+
+2.3
+
+Super element
+
+The super element is a compound one, which is composed of a number of conventional ï¬nite elements. In this regard, each super element is divided into a number of conventional elements and corresponding matrices to each subdivided element are constructed (Figure 3).
+
+Figure 3
+
+Super elements.
+
+Subdivided elementsâ matrices are assembled, as in general ï¬nite element procedure. Degrees of freedom related to servant nodes, deï¬ned later, are then condensed out while the eï¬ect of them on super element matrices is taken into account. This procedure is named as dynamic condensation, which is described in the following. The dynamic equilibrium equation neglecting damping eï¬ect is given by, [ Â¨ F d d K Ksc Mss Msc ]{ s } = { s }, ] { Â¨s } + [ ss Fc dc Kcs Kcc Mcs Mcc dc (25)
+
+Where index s denotes the terms related to the DOFs of super nodes that will remain after condensation, and c represents the terms related to other DOFs which will condensed out through the this procedure. They are sometimes called as master and servant nodes, respectively. Using appropriate transformation matrix the following equation is obtained,
+Latin American Journal of Solids and Structures 9(2012) 1 â 20
+
+Sh. Jafarpour Hamedani et al / Vibration analysis of stiï¬ened plates using Finite Element Method
+
+9
+
+T Ts [
+
+Mss Msc K Ksc F T Â¨ ] Ts ds + Ts [ ss ] Ts ds = Ts { s } , Mcs Mcc Kcs Kcc Fc Â¨ M ds + Kds = F .
+
+(26) (27)
+
+In this way, the eï¬ect of servant node is also embedded in the condensed super element. Aforementioned element has remarkable ability to reduce the size of problem. 3 3.1 NUMERICAL EXAMPLES Vibration of a Mindlin plate with diï¬erent boundary conditions
+
+In order to assess the vibration behaviour of the super plate elements, free vibration of a square Mindlin plate with diï¬erent boundary conditions is ï¬rst investigated. This problem has been studied by several investigators using exact or other approximate methods. The natural frequencies are presented in terms of the non-dimensional eigenvalue Î», given by Î» = ÏhÏ 2 a4 /DÏ 4 , (28)
+
+where D is the plate ï¬exural rigidity, h is the plate thickness, and a the side length of the plate. The eigenvalues for the various combinations of edge conditions are shown in Table 1. The comparison between present and other numerical results shows a good agreement in all ten cases considered. It should be noted that, unlike super element developed by Koko and Olson [9] the present super elements result in accurate values for second and higher modes. It is also indicated that, implementing super elements leads to reduction in computational time with no signiï¬cant change in results accuracy, which is expected because of the signiï¬cantly fewer number of global DOFs, used in the super elements. 3.2 Clamped square plate with a central stiï¬ener
+
+To validate the present formulations and study the characteristics of super elements, a stiï¬ened N clamped square plate with central stiï¬ener (Figure 4) is analyzed. (E = 6.87 Ã 1010 m2 , Î½ = 0.3, kg Ï = 2823 m3 )
+
+Figure 4
+
+Clamped square stiï¬ened plate with one central stiï¬ener.
+
+Latin American Journal of Solids and Structures 9(2012) 1 â 20
+
+10
+
+Sh. Jafarpour Hamedani et al / Vibration analysis of stiï¬ened plates using Finite Element Method
+
+Table 1
+
+Eigenvalues of a square plate with diï¬erent edge conditions.
+
+Boundary condition SSSS CCCC SCSC CCCF CCCS CCSS SSSC CFCF SCSF FFFF Global DOF Run Time [S]
+
+Mode Shape 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2
+
+Durvasla et al. [9] 4 25 13.4 8.64 31.13 10.49 41.62 7.6 37.13 5.77 27.75 5.14 7.27 1.65 11.22 2.04 4.34
+
+Natural Frequency [Hz] Koko and Present Analysis Olson [9] Q8 Q9 S8 4 4.0096 4.0141 3.9283 35.38 25.3289 25.4865 24.8472 13.37 13.6588 13.7948 13.3251 58.3273 59.4948 57.0573 8.63 8.7705 8.85 8.5764 41.59 31.4342 31.6446 30.6761 6.0416 6.1131 5.9354 16.8429 16.9894 16.4938 10.45 10.6217 10.7154 10.3739 74.83 42.6466 43.1586 41.6568 7.55 7.6117 7.6531 7.4406 70.96 38.8016 39.3205 38.015 5.75 5.7906 5.814 5.6667 38.07 27.8554 28.0273 27.2658 5.07 5.1918 5.2589 5.1019 7.25 7.3622 7.4432 7.2436 1.66 1.6698 1.6737 1.6434 11.6 11.3835 11.4457 11.1839 2.02 1.8883 1.8902 1.8812 4.11 4.0062 4.0163 3.9451 1443 1323 288 59.4288 46.8052 2.434
+
+S12 3.7819 23.7557 11.9945 49.1684 7.8526 28.9287 5.3155 15.1469 9.4666 37.8995 6.9472 34.7716 5.3504 25.9524 4.5284 6.5744 1.5689 10.5609 1.8488 3.7531 192 3.0184
+
+The ï¬rst ten natural frequencies from the super elements are compared with the ï¬nite element and experimental results in Table 2. A fundamental modeling diï¬erence between the super element developed by Koko and Olson [9] and present elements, is that they allow for inplane displacements of the plate, whereas the present theory assumes pure bending deformation of the plate. However, such eï¬ects are expected to be small for thin plates. All frequencies from the present approach are very close to the experimental and conventional ï¬nite element results. The agreement between the super elements and the experimental results reported by Olson and Hazell is wonderful. Although deviation of the eigenfrequencies computed employing S12 from mentioned results is negligible, based on authorsâ point of view results obtained by S8 are more accurate. Because Due to the ï¬nite stiï¬ness of any clamped structure, exact edge conditions are not possible in practice. Consequently numerical results must be on the stiï¬ side of experimental ones. Moreover, it can be seen from the table that there is a signiï¬cant reduction in the global DOFs and consequently in computational time by utilizing super elements, compared to the conventional ï¬nite elements. As another conclusion, eï¬ect of neglecting in-plane deï¬ections on natural frequencies isnât considerable in this case.
+Latin American Journal of Solids and Structures 9(2012) 1 â 20
+
+Sh. Jafarpour Hamedani et al / Vibration analysis of stiï¬ened plates using Finite Element Method
+
+11
+
+Table 2
+
+Natural frequencies of Clamped square stiï¬ened plate with one central stiï¬ener.
+
+Mode Olson and Hazell [14] No. Experiment FEM 1 689 718.1 2 725 751.4 3 961 997.4 4 986 1007.1 5 1376 1419.8 6 1413 1424.3 7 1512 1631.5 8 1770 1853.9 9 1995 2022.8 10 2069 2025 Global DOF Run Time [S]
+
+Natural Frequency [Hz] Nayak Koko Present [13] [9] Q8 Q9 725.1 736.8 725.505 724.511 745.2 769.4 763.367 762.77 987.1 1020 994.79 987.675 993.9 1032 1005.23 998.075 1400.4 1484 1422.5 1402.72 1488 1427.02 1407.05 1872.59 1876.35 1907.33 1916.1 2032.46 1995.47 2034.67 1997.53 1443 1323 52.6695 41.4733
+
+Analysis S8 707.236 748.275 961.085 971.994 1360.67 1365.25 1828.89 1916.36 1930.9 1933.1 1023 18.0866
+
+S12 690.848 727.726 939.819 949.812 1329.34 1333.47 1744.42 1786.69 1878.21 1880.18 651 9.7595
+
+3.3
+
+Clamped square plate with two parallel stiï¬eners
+
+This conï¬guration has ï¬rst been studied by Olson and Hazell [14] using experimental and conventional ï¬nite element method (Figure 5). Boundary conditions and material properties are same as the previous example.
+
+Figure 5
+
+Clamped square plate with two parallel stiï¬eners.
+
+Eigenfrequencies obtained from the present analysis are presented in Table 3 along with the previous numerical and experimental results. Again, there are signiï¬cantly fewer global DOFs used in the super element models than the conventional ï¬nite element models, which leads to considerable reduction in computational time. Present super elements predictions are almost in agreement with the results obtained from previous super element results [14]. But there is relatively remarkable diï¬erence with the experimental results. The reason may be 1. Perfectly clamped edges are impossible in practice, so experimental results are lower than the numerical ones, as said.
+Latin American Journal of Solids and Structures 9(2012) 1 â 20
+
+12
+
+Sh. Jafarpour Hamedani et al / Vibration analysis of stiï¬ened plates using Finite Element Method
+
+Table 3
+
+Natural frequencies of Clamped square stiï¬ened plate with two parallel stiï¬eners.
+
+Mode Olson and Hazel [14] No. Experiment FEM 1 909 965.3 2 1204 1272.3 3 1319 1364.3 4 1506 1418.1 5 1560 1602.9 6 1693 1757.1 7 1807 1854.1 8 1962 2015.4 9 2052 2109.4 10 2097 2253.1 Global DOF Run Time [S]
+
+Natural Frequency [Hz] Present Koko [9] Q8 Q9 1072.8 1122.01 1121.63 1334.2 1325.21 1326.76 1410.3 1391.3 1389.81 1483.2 1534.31 1533.32 1649.2 1626.98 1626.29 1730.5 1662.27 1661.15 1937.8 1933.64 1983.61 1979.09 2000.67 1996.04 2457.91 2447.69 3135 2883 758.278 608.478
+
+Analysis S8 1072.65 1251.1 1342.93 1459.65 1525.29 1572.39 1828.38 1851.79 1881.87 2297.87 3135 733.581
+
+S12 1088.59 1220.83 1226.66 1481.41 1527.97 1548.08 1851.58 1863.59 1882.47 2105.15 1380 56.4338
+
+2. In-plane deï¬ections are neglected in this investigation. With increase in number of stiï¬eners these displacements play more important role. Although this simpliï¬cation leads to less computational time, can aï¬ect results when number of stiï¬eners increases. Because in this case deviation of reference surface of whole structure from plate midplane and consequently ï¬rst moment of inertia gets more considerable. Eigenfrequencies from present conventional elements are always on the stiï¬ side of experimental values except for two modes, contrary to what is expected of a displacement based theory. It is possible that the experimental procedure have not measured the frequencies of those modes accurately. In the case of super elements, again S8 leads to more acceptable results, especially for the ï¬rst three modes. Therefore, the viability of the super element formulation is clearly exhibited in that most of the super element solutions are close to the experimental and conventional ï¬nite element results, even though this method uses signiï¬cantly fewer DOFS. 3.4 Convergence study
+
+The accuracy of numerical calculations depends on the number of the divisions. Convergence characteristics of the elements used with respect to number of divisions is studied in this section. The Analysis is performed on a clamped square plate with central stiï¬ener (Figure 4). Results are shown in Figure 6. It can be seen obviously from the Figure 6 that the conventional elements have faster rate of convergence compared to super elements. In fact, super elements do not converge necessarily. Although these elements lead to acceptable results with low number of elements, recedes from the exact eigenfrequencies with an increase in number of divisions. The reason may be eliminating internal nodes and making the super element softer. As another conclusion, 2 and 3 elements per bay is needed for analyzing a stiï¬ened plate using the S12 and S8 elements,
+Latin American Journal of Solids and Structures 9(2012) 1 â 20
+
+Sh. Jafarpour Hamedani et al / Vibration analysis of stiï¬ened plates using Finite Element Method
+
+13
+
+Figure 6
+
+Convergence study of the elements used.
+
+respectively, but in other cases 5 elements should be employed in each bay. The rest of present calculations are based on mentioned division numbers. 3.5 Eï¬ect of eccentricity
+
+To investigate the eï¬ect of eccentricity on the free vibration of stiï¬ened plates, a clamped square plate with one, two and three stiï¬eners has been analysed for both concentric and kg N eccentric types (Figure 7). (E = 2.06 Ã 1011 m2 , Î½ = 0.3, Ï = 7650 m3 )
+
+Figure 7
+
+Clamped square plate with concentric and eccentric stiï¬eners.
+
+The results obtained from such case are presented in Table 4. The eï¬ect of eccentricity on eigenfrequencies has been observed. It is interesting to note that the inclusion of eccentricity does not aï¬ect the values of natural frequencies of the clamped plate with merely one stiï¬ener. As the number of stiï¬eners increases, eï¬ect of eccentricity is more insigniï¬cant. Deviation of neutral surface of whole structure, with respect to which second moments of inertia, should be calculated from mid
+Latin American Journal of Solids and Structures 9(2012) 1 â 20
+
+14
+
+Sh. Jafarpour Hamedani et al / Vibration analysis of stiï¬ened plates using Finite Element Method
+
+Table 4
+
+Natural frequencies of a clamped square plate with concentric and eccentric stiï¬eners.
+
+Natural Frequency [Hz] Stiï¬ener No. Mode No. 1 2 3 4 5 6 7 8 9 10 1 Eccentric 131.8507 155.8791 196.5682 219.5702 296.9567 312.0192 320.108 364.9126 428.1735 431.9031 Concentric 132.2772 154.4151 197.046 218.9409 297.4925 310.6612 315.2892 368.3815 430.8037 433.4756 Eccentric 203.8146 254.2835 255.8007 288.6985 342.6987 362.2659 394.7799 430.851 437.438 458.5447 2 Concentric 202.7164 251.3998 253.8769 291.2963 342.8742 358.1533 398.0341 427.1797 438.3834 455.2726 Eccentric 270.4664 279.7375 362.572 380.6867 406.3232 449.9921 511.1413 512.9898 526.6003 575.1297 3 Concentric 263.0167 277.2788 358.7522 386.0687 414.3255 447.2937 507.8233 508.1754 537.712 578.5875
+
+plane of the plate may be the reason. It is worth to mention that in the case of concentric stiï¬eners the neutral surface is same as the mid plane of the plate. From the preceding discussion it can be concluded that the consideration of eccentricity aï¬ects the natural frequencies of stiï¬ened clamped plates. But when there is just one stiï¬ener, the eï¬ect of eccentricity can be neglected without any signiï¬cant loss of accuracy. Whether this conclusion is true for other boundary conditions or not, needs more investigations. 3.6 Number of stiï¬eners
+
+The objective of the present example is to study the inï¬uence of the number of stiï¬eners on natural frequencies of square clamped plates. Dimensions and material properties are the same as previous section. Number of stiï¬eners is changed from 0 to 11 and results are summarized in Figure 8 for the ï¬rst ï¬ve modes. Figure 8 clearly shows that the fundamental frequency is increasing with the increase in the number of stiï¬eners, which was expected before. However this increase gradually becomes insigniï¬cant after a critical value of the number of stiï¬eners, as generally observed for all 5 modes. This critical value is 4 or 5 stiï¬eners. Based on authorsâ point of view the reason is that, utilizing stiï¬eners leads to eliminating some mode shapes, so the fundamental frequency increases. But after this critical value, no mode shape elimination occurs and stiï¬ened plate acts as a plate with larger thickness. Therefore providing more than four stiï¬eners is not recommended based on economical point of view. 3.7 Inclination angle
+
+Improving the vibration or noise characteristics of structures by changing its conï¬guration has been a subject that has fascinated the minds of engineers and scientists during last decades [1]. In this section, the orientation angle of the stiï¬ener arranged over a clamped square plate is selected to optimize the dynamic characteristics of these plates/stiï¬ener assemblies (Figure 9).
+Latin American Journal of Solids and Structures 9(2012) 1 â 20
+
+Sh. Jafarpour Hamedani et al / Vibration analysis of stiï¬ened plates using Finite Element Method
+
+15
+
+Figure 8
+
+Fundamental frequency with respect to number of stiï¬eners
+
+Figure 9
+
+Schematic ï¬gure of a plate with oblique stiï¬ener
+
+The objective is to ï¬nd the inclination angle (Ï) for the stiï¬ener arrangement that maximizes the fundamental frequency of the stiï¬ened plate structure. The ï¬rst natural frequency as a function of the stiï¬ener inclination angle is calculated and plotted in Figure 10. With due attention to Figure 10 an optimum value for inclination angle of 80â was found to maximize the fundamental frequency. The presented approach can be invaluable in the design of stiï¬ened plates for various vibration and noise control applications. 3.8 Practical conï¬gurations in ship
+
+Two practical conï¬gurations which are used practically in the body of ships are analysed. These two cases are square clamped plates with one stiï¬ener (Case 1) and with two orthogonal stiï¬eners (Case 2) shown in ï¬gure 11. The dimensions of the plate and the stiï¬eners are the same in both cases. The material properties are similar to the previous example. Calculations have been performed for diï¬erent thicknesses. Results are presented in Tables 5 and 6.
+Latin American Journal of Solids and Structures 9(2012) 1 â 20
+
+Sh. Jafarpour Hamedani et al / Vibration analysis of stiï¬ened plates using Finite Element Method
+
+Table 5
+
+Natural frequencies of a clamped square plate with one stiï¬ener.
+
+Latin American Journal of Solids and Structures 9(2012) 1 â 20
+
+Thickness Mode No. 1 2 3 4 5 6 7 8 9 10
+
+12 mm S8 S12 86.4467 84.9931 107.066 103.144 129.431 127.264 140.835 137.783 192.135 188.67 198.241 194.297 235.767 229.005 262.72 236.939 277.01 270.883 280.729 274.283
+
+14 mm S8 S12 97.4543 96.5923 121.843 117.709 146.207 144.824 161.622 159.078 218.779 216.512 227.643 224.717 268.148 260.942 288.852 263.251 316.141 311.785 320.07 314.748
+
+Natural Frequency [Hz] Stiï¬ened 16 mm 18 mm S8 S12 S8 S12 108.403 108.305 119.275 120.07 135.566 131.352 148.248 144.07 162.516 162.151 178.555 179.38 181.613 179.812 200.857 199.98 244.402 243.719 269.304 270.49 256.04 254.512 283.522 283.66 299.898 282.119 327.159 301.56 309.871 297.411 330.987 331.33 353.322 351.282 389.067 389.91 356.307 353.896 392.332 393.08
+
+20 mm S8 S12 130.063 131.851 159.915 155.879 194.422 196.568 219.406 219.57 293.698 296.957 310.166 312.019 342.069 320.108 361.462 364.913 424.044 428.174 427.82 431.903
+
+Un Stiï¬ened 20 mm S8 S12 62.9993 63.1424 127.921 128.1 127.921 128.1 189.19 189.242 227.883 227.937 229.089 229.164 287.433 287.241 287.433 287.241 362.964 362.435 362.964 362.435
+
+16
+
+Table 6
+
+Natural frequencies of a clamped square plate with two orthogonal stiï¬eners.
+
+Sh. Jafarpour Hamedani et al / Vibration analysis of stiï¬ened plates using Finite Element Method
+
+Thickness Mode No. 1 2 3 4 5 6 7 8 9 10
+
+12 mm S8 S12 136.508 135.436 145.206 143.964 147.093 145.637 152.084 148.545 277.964 257.374 285.937 282.277 287.006 283.365 288.807 285.011 289.807 285.956 303.701 298.121
+
+14 mm S8 S12 151.87 151.789 163.12 162.829 166.304 165.753 171.095 167.015 297.104 276.159 320.655 319.586 322.463 321.417 325.033 323.645 326.703 325.376 336.821 333.087
+
+Natural Frequency [Hz] Stiï¬ened 16 mm 18 mm S8 S12 S8 S12 166.767 167.858 181.527 183.921 179.772 180.543 195.239 195.538 184.786 182.654 201.193 197.089 187.503 185.318 202.719 204.454 312.346 294.133 326.711 312.899 354.554 356.489 381.908 381.751 357.026 358.029 388.049 393.265 358.508 358.992 391.046 396.301 362.877 364.488 397.735 402.381 365.317 365.354 398.551 403.372
+
+20 mm S8 S12 196.3 200.081 209.534 206.038 212.277 212.413 220.195 223.203 341.702 332.823 399.193 400.699 421.337 430.001 424.723 433.435 431.885 440.056 433.803 441.99
+
+Un Stiï¬ened 20 mm S8 S12 62.9993 63.1424 127.921 128.1 127.921 128.1 189.19 189.242 227.883 227.937 229.089 229.164 287.433 287.241 287.433 287.241 362.964 362.435 362.964 362.435
+
+17
+
+Latin American Journal of Solids and Structures 9(2012) 1 â 20
+
+18
+
+Sh. Jafarpour Hamedani et al / Vibration analysis of stiï¬ened plates using Finite Element Method
+
+Figure 10
+
+Optimum inclination angle of the stiï¬ener.
+
+Figure 11
+
+Square clamped plate with two orthogonal stiï¬eners.
+
+Figure 6 and 7 show that adding stiï¬ener to the plate can increase its natural frequency signiï¬cantly, which was predictable. Moreover, form obtained results it seems that natural frequencies vary linearly with the thickness of the plate. 4 CONCLUSION
+
+The vibration analysis of stiï¬ened plates using both conventional and super elements has been presented. The capability of placing stiï¬eners anywhere within the plate element has enabled the proposed formulation to encounter any conï¬guration of stiï¬ened plates. The eï¬ciency of the super elements has been examined with diï¬erent types of problems. The comparison of the present approach with the existing numerical and experimental results shows remarkable agreement. Although super elements yield acceptable results in signiï¬cantly short time, conventional elements are superior to them according to their convergence characteristics. As a result, these elements are attractive for preliminary designs and parametric studies, where repeated calculations are often needed. It is also observed that the fundamental frequency of
+Latin American Journal of Solids and Structures 9(2012) 1 â 20
+
+Sh. Jafarpour Hamedani et al / Vibration analysis of stiï¬ened plates using Finite Element Method
+
+19
+
+stiï¬ened plates is increasing with the increase in the number of stiï¬eners up to a speciï¬c number after which there is no appreciable increase in frequency. Moreover, the eï¬ect of neglecting the eccentricity of the stiï¬eners has been studied in details. It is understood that for a clamped plate with only one stiï¬ener eccentricity can be neglected with no considerable change in results. However, eï¬ect of eccentricity for more stiï¬eners should be included. This paper has also presented a rational design approach to optimize the dynamic characteristics of stiï¬ened plates. In order to maximize the fundamental frequency, the optimal orientation angle is found to be equal to 80â . Further works can be undertaken to study hydroelastic analysis of stiï¬ened panels, which may be important in practical point of view for marine structures. Acknowledgement The authors would like to acknowledge the ï¬nancial support received from Iranian Oï¬shore Oil Company. References
+[1] W. Akl, A. El-Sabbagh, and A. Baz. Optimization of the static and dynamic characteristic of plates with isogrid stiï¬eners. Finite Elements in Analysis and Design, 44:513â523, 2008. [2] M. Barik and M. Mukhopadhyay. A new stiï¬ened plate element for the analysis of arbitrary plates. Thin-Walled Structures, 40:625â639, 2002. [3] M. Barrette, A. Berry, and O. Beslin. Vibration of stiï¬ened plates using hierarchal trigonometric functions. Journal of Sound and Vibration, 235(5):727â774, 2000. [4] M.V. Dharaneepathy and L.J. Sudhesh. Optimal stiï¬ening of square plates subjected to air blast loading. Computers & Structures, 36:891â899, 1990. [5] Sh. Jafarpour Hamedani. Vibrations of stiï¬ened plates with initial geometric imperfections. Masterâs thesis, Faculty of Marine Technology, Amirkabir University of Technology, Tehran, Iran, 2011. [6] Sh. Jafarpour Hamedani and M.R. Khedmati. Vibration of stiï¬ened plates: Literature review. In 12th Conference of Marine Industries, Zibakenar, Iran, 2010. In Persian. [7] Sh. Jafarpour Hamedani and M.R. Khedmati. Linear vibration analysis of stiï¬ened plates. Iranian Journal of Marine Science, 2011. In Persian. [8] A.A. Jafari and M. Bagheri. Free vibration of non-uniformly ring stiï¬ened cylindrical shells using analytical, experimental and numerical methods. Thin Walled Structures, 44:82â90, 2006. [9] T.S. Koko and M.D. Olson. Vibration analysis of stiï¬ened plates by super elements. Journal of Sound and Vibration, 158(1):149â167, 1992. [10] K.M. Liew, C.M. Wang, Y. Xiang, and S. Kitipornchai. Vibration of Mindlin plates. Elsevier Science Ltd., United Kingdom, 1st edition, 1998. [11] A. Mukherjee and M. Mukhodpadhyay. Finite element free vibration of eccentrically stiï¬ened plates. Computers & Structures, 30:1303â1317, 1987. [12] B.A. Mustafa and R. Ali. Prediction of natural frequency of vibration of stiï¬ened cylindrical shells and orthogonally stiï¬ened curved panels. Journal of Sound and Vibration, 113(2):317â327, 1987. [13] A.N. Nayak and J.N. Bandyopadhyay. On the free vibration of stiï¬ened shallow shells. Journal of Sound and Vibration, 255(2):357â382, 2002. [14] M.D. Olson and C.R. Hazell. Vibration studies on some integral rib-stiï¬ened plates. Journal of Sound and Vibration, 50(1):43â61, 1977. [15] M. Petyt. Introduction to ï¬nite element vibration analysis. Cambridge University Press, United Kingdom, 1st edition, 1990.
+
+Latin American Journal of Solids and Structures 9(2012) 1 â 20
+
+20
+
+Sh. Jafarpour Hamedani et al / Vibration analysis of stiï¬ened plates using Finite Element Method
+
+[16] B.G. Pustry. Free vibration and buckling response of hat-stiï¬ened composite panels under general loading. International Journal of Mechanical Sciences, 50:1326â1333, 2008. [17] A. Samanta and M. Mukhopadhyay. Free vibration analysis of stiï¬ened shells by the ï¬nite element technique. European Journal of Mechanics A/Solids, 23:159â179, 2004. [18] G. Sinha and M. Mukhopadhyay. Finite element free vibration analysis of stiï¬ened shells. Journal of Sound and Vibration, 171(4):529â548, 1994. [19] B. Sivasubramonian, G.V. Rao, and A. Krishnan. Free vibration of longitudinally stiï¬ened curved panel with cutout. Journal of Sound and Vibration, 226(1):41â56, 1999. [20] M. Moshreï¬ Torbati, C. Simonis de Cloke, and A.J. Keane. Vibration optimization of a mass loaded stepped plate. Journal of Sound and Vibration, 213(5):865â887, 1998. [21] G.M. Voros. Buckling and free vibration analysis of stiï¬ened panels. Thin Walled Structures, 47:382â390, 2009. [22] O.C. Zienkiewicz and R.L. Taylor. The ï¬nite element method for solid and structural mechanics. Elsevier Ltd., USA, 6th edition, 2005.
+
+Latin American Journal of Solids and Structures 9(2012) 1 â 20
+

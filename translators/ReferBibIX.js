@@ -1,18 +1,18 @@
 {
 	"translatorID": "881f60f2-0802-411a-9228-ce5f47b64c7d",
+	"translatorType": 3,
 	"label": "Refer/BibIX",
 	"creator": "Simon Kornblith",
 	"target": "txt",
 	"minVersion": "2.1",
-	"maxVersion": "",
+	"maxVersion": null,
 	"priority": 100,
+	"inRepository": true,
+	"browserSupport": "gcsibv",
 	"displayOptions": {
 		"exportCharset": "UTF-8"
 	},
-	"inRepository": true,
-	"translatorType": 3,
-	"browserSupport": "gcs",
-	"lastUpdated": "2016-01-05 18:01:38"
+	"lastUpdated": "2017-06-04 14:50:00"
 }
 
 function detectImport() {

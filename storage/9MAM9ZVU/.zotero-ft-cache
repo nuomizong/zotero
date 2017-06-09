@@ -1,0 +1,578 @@
+Ocean Engineering 28 (2001) 621â638
+
+Analysis of stiffened shell for ships and ocean structures by ï¬nite element method
+B. Gangadhara Prusty 1, S.K. Satsangi
+*
+
+Department of Ocean Engineering and Naval Architecture, Indian Institute of Technology, Kharagpur 721302, West Bengal, India Received 7 June 1999; received in revised form 25 August 1999; accepted 26 December 1999
+
+Abstract Static analysis of stiffened shells has been carried out using an eight-noded isoparametric element for the shell and a three-noded curved beam element for the stiffener. A same displacement function is used for the shell and the stiffener elements. A modiï¬ed technique has been followed to analyse the shell, which is an improvement over the degenerated shell concept. The stiffness matrix of the curved beam element is generated irrespective of its position and orientation within the shell element. The stiffness matrix of the stiffener is then transferred to all the nodes of the shell element. Numerical examples of stiffened shells with concentric and eccentric stiffeners have been analysed and the results presented together with those available in published literature. Â© 2000 Elsevier Science Ltd. All rights reserved.
+Keywords: Finite element method; Isoparametric element; Static analysis; Stiffened shell; Stiffener; Shell
+
+1. Introduction Stiffened plate and stiffened shell structures have found widespread application in engineering structures such as steel chimneys, fuselages and wings of aircrafts, ships and offshore structures, submarines and so on. Structures comprising of plates/shells stiffened by stiffeners at regular intervals achieve great economy without compromising strength and durability. External loading on the structure due to pay-
+
+* Corresponding author. Fax: +91-3222-55303. E-mail address: subir@naval.iitkgp.ernet.in (S.K. Satsangi). 1 Research Scholar on deputation from Regional Engineering College, Rourkela, Orissa, India-769008.
+0029-8018/01/$ - see front matter Â© 2000 Elsevier Science Ltd. All rights reserved. PII: S 0 0 2 9 - 8 0 1 8 ( 0 0 ) 0 0 0 2 1 - 4
+
+622
+
+B.G. Prusty, S.K. Satsangi / Ocean Engineering 28 (2001) 621â638
+
+load and the environment cause deformations. Hence it becomes necessary to carry out a static analysis to know the actual deformation in the shell and the stiffeners. A review of the research work on isotropic stiffened shells was reported by Sinha and Mukhopadhyay (1995). Satsangi (1984) proposed a new method to calculate the stiffness matrix of arbitrary oriented stiffeners in the plate element for plane stress analysis on the basis of equal displacements at the junction of plate and stiffener, a concept given by Mukhopadhyay (1981). Satsangi and Ray (1998) and Ray and Satsangi (1996) have extended the same concept for the static, dynamic and buckling analyses of stiffened plate structures. In the present work, the same approach has been extended for the static analysis of stiffened shells. The shell is analysed using an eight-noded isoparametric element with a modiï¬ed approach given by Saetta and Vitaliani (1990). The stiffener element is considered as a three-noded isoparametric curved beam element and the stiffness matrix is calculated using the standard principles of ï¬nite element analysis. Then the stiffness matrix is transformed to all the nodes of the shell element by considering the position of the stiffener within the element.
+
+2. Mathematical formulation The present study deals with shell elements that are obtained as an extension of the MindlinâReissner plate elements. The formulation has been carried out employing the eight-noded isoparametric curved quadratic element (Fig. 1). The formulation for the analysis of the shell considered here is an advancement over the degenerated shell approach given by Ahmed et al. (1970). This formulation is equally capable of analysing shallow shell or deep shell structures elegantly. In the formulation of the ï¬nite elements (Zienkiewicz, 1977), the standard parametric equations become
+
+Fig. 1.
+
+Eight-noded isoparametric curved quadratic element.
+
+B.G. Prusty, S.K. Satsangi / Ocean Engineering 28 (2001) 621â638
+m m m
+
+623
+
+x
+i 1
+
+Ni(x,h)xi, y
+i 1
+
+Ni(x,h)yi, z
+i 1
+
+Ni(x,h)zi
+
+(1)
+
+where xi,yi,zi are the co-ordinates of a generic node i belonging to the middle surface of the element that has m nodes, while Ni(x,h) are the bidimensional C0 shape functions for the geometry. On the shell surface S (Fig. 2), two orthogonal intrisinic co-ordinates x and y are deï¬ned. The curvilinear co-ordinates can also be deï¬ned as:
+x h
+
+s(x)
+0
+
+dx 2 dy 2 dz + + dx dx dx
+
+2
+
+dx, r(h)
+0
+
+dx 2 dy 2 dz + + dh dh dh
+
+2
+
+dh
+
+(2)
+
+where x,h are valid in the region ( 1,+1). The Jacobian matrix of transformation is given by dx dy dz dx dx dx dx dy dz dh dh dh
+
+[J]
+
+(3)
+
+where x,y,z are the global co-ordinate values expressed in Eq. (1). The Jacobian matrix being rectangular, the determinant of such a matrix cannot be calculated in the usual way and hence the following approach is used in the present work
+
+Fig. 2.
+
+Orthogonal curvilinear co-ordinate system on shell surface S.
+
+624
+
+B.G. Prusty, S.K. Satsangi / Ocean Engineering 28 (2001) 621â638
+
+|J1| det
+
+dy dz dx dx dy dz dh dh
+
+, |J2|
+
+det
+
+dx dz dx dx dx dz dh dh
+
+, |J3| det
+
+dx dy dx dx dx dy dh dh
+
+(4)
+
+and det|J|=â|J1|2+|J2|2+|J3|2
+
+3. Finite element formulation for shell The effective displacements at any node i of the shell element are ui,vi,wi,qsi,qri. The generalised displacements at any point of the element can be expressed as: u v w qs qr
+i 1 8
+
+ui vi Ni wi qsi qri (5)
+
+The following relationship is valid for the Mindlinâs theory: âw qs+ âs âw qr+ âr
+
+s r
+
+(6)
+
+The strain displacement equation of the shear deformable theory of doubly curved shells (Reddy, 1986) has been taken as: es er ers esz erz e0 s e e e e
+0 r 0 rs 0 sz 0 rz
+
+ks kr z krs 0 0 (7)
+
+where e0,e0â¦ correspond to midplane strains and ks, kr and krs correspond to curvas r tures. The strainâdisplacement relation of the shear deformable theory of doubly curved shells given in Chandrashekhara (1989) can be expressed as:
+
+B.G. Prusty, S.K. Satsangi / Ocean Engineering 28 (2001) 621â638
+
+625
+
+ï£®âu w â âs R1
+
+ï£±es ï£¼ âu âv + er âr âs gsr âqr âz âs ks ï£² ï£½ ï£¯ âqs kr âz âr ksr
+
+ï£´ï£´ ï£´ï£´
+fs ï£³fr ï£¾ C0
+
+âw u qs+ â âr R1 ï£° ï£» where C0 accounts for the condition of zero strain for the rigid body motion in the Sanderâs shell theory (Sanders, 1959) and is expressed as: 1 1 1 2 R1 R2
+
+ï£¯ ï£¯
+
+ï£¹
+
+âv w â âs R2
+
+âz
+
+âqs âqr âv âu âC0 â + âs âr âs âr
+
+âw v qr+ â âs R2
+
+ï£º ï£º
+ï£º
+
+(8)
+
+The derivatives with respect to s and r can be expressed as: âNi âNi âx âNi 1 âs âx âs âx âs âx or âNi âNi âs âx 1 âx ây 2 âz + + âx âx âx
+2 2
+
+(9)
+
+Similarly âNi âNi âr âh 1 âx 2 ây 2 âz + + âh âh âh
+2
+
+(10)
+
+626
+
+B.G. Prusty, S.K. Satsangi / Ocean Engineering 28 (2001) 621â638
+
+Fig. 3.
+
+(a) Curved beam element in xâz plane; (b) its transformed plane.
+
+with
+
+âx m âNi ây m âNi âz m âNi =S i 1 xi, =S i 1 yi, =S i 1 zi and so on. âx âx âx âx âx âx The curvatures of the curvilinear co-ordinates can be calculated as: 1 R1 1 âx 2 ây 2 âz + + âx âx âx
+2 3
+
+C1
+
+(11)
+
+and
+
+1 R2
+
+1
+3
+
+C2
+
+âx 2 ây 2 âz + + âh âh âh
+
+2
+
+where C1 ây â2z âz â2y âx âx2 âx âx2
+2
+
+âz â2x âx â2z âx âx2 âx âx2
+
+2
+
+âx â2y ây â2x âx âx2 âx âx2
+
+2 1/2
+
+B.G. Prusty, S.K. Satsangi / Ocean Engineering 28 (2001) 621â638
+
+627
+
+and C2 ây â2z âz â2y âh âh2 âh âh2
+2
+
+âz â2x âx â2z âh âh2 âh âh2
+
+2
+
+âx â2y ây â2x âh âh2 âh âh2
+
+2 1/2
+
+The constitutive equations are given by {F} [D]{e} where {F}={Nx Ny Nxy Mx My Mxy Qx Qy} and the elasticity matrix is given as: ï£®1
+T
+
+(12)
+
+Et [D] ï£¯0 0 0 1ân2 0 0 0
+
+ï£¯ ï£¯
+
+ï£¹ 1ân 2 t2 12 nt2 t2 12 12 0 0 0 0 0 0 t2(1ân) 24 0 0 1ân 2.4 0
+
+n 1 0 0 Sym.
+
+0 0 0
+
+0 0 0
+
+0 0 0 ï£°
+
+1ân 2.4 ï£»
+
+ï£º ï£º
+ï£º
+
+(13)
+
+The strainâdisplacement relation is expressed as: {e} [B]{d} where {d} {u1 v1 w1 qs1 qr1%qs8 qr8}T Finally, integrating the curved area of the element the stiffness matrix can be expressed as: [K]e
+A
+
+(14)
+
+[B]T[D][B]ds dr
+
+(15)
+
+628
+
+B.G. Prusty, S.K. Satsangi / Ocean Engineering 28 (2001) 621â638
+
+Further, the equation above should be transformed as a function of x and h and the stiffness matrix ï¬nally becomes:
+1 1
+
+[K]e
+1 1
+
+[B]T[D][B]det|J|dx dh
+
+(16)
+
+4. Stiffener element formulation for the shell A three-noded isoparametric curved beam element (Sengupta and Dasgupta (1997)) is considered for the stiffener element. The curved beam element in the xâ z or the yâz plane and its transformed representation in one-dimensional natural coordinate x are shown in Figs 3(a) and (b). A shell element with a stiffener placed within it is shown in Fig. 4. The beam geometry is represented by
+3 3 3
+
+x
+i 1
+
+xiNi, y
+i 1
+
+yiNi, z
+i 1
+
+ziNi
+
+(17)
+
+where [Ni] is the shape function of the stiffener element at the node i and is given by: N1 âx(1âx) x(1+x) , N2 (1 x2), N3 2 2 (18)
+
+Fig. 4.
+
+Stiffener element within the shell element.
+
+B.G. Prusty, S.K. Satsangi / Ocean Engineering 28 (2001) 621â638
+
+629
+
+In general terms, expressing the derivatives in curvilinear co-ordinates: âNi âNi âx 1 N âs âx âs Jc i where Jc is equal to expressed as: Jc ds dx
+3 2 3 2 1/2
+
+(19)
+
+ds and in the case of the beam in the xâz plane can be dx
+
+Nixi
+i 1 i 1
+
+Nizi
+
+Curvature of the stiffener at any point (x,z) on the beam axis can be expressed as: 1 R where
+3
+
+d2z dx2 d2z 1+ 2 dx
+
+2 3/2
+
+(20)
+
+dz dx
+
+Ni zi
+i 1 3
+
+Ni xi
+i 1
+
+and
+3 3 3 3
+
+d2z dx2
+
+Ni xi
+i 1 i 1
+
+Ni ziâ
+i 1 3
+
+Ni zi
+i 1 3
+
+Ni xi
+
+Ni xi
+i 1
+
+The displacement ï¬eld at any point of the stiffener element is given by:
+3
+
+{us vs ws qss qrs}T
+i 1
+
+Ni{usi vsi wsi qssi qrsi}T
+
+(21)
+
+The stiffener displacement ï¬eld in terms of shell displacement ï¬eld can be expressed as: us u cosa v sina, vs u sina v cosa, ws w, qss qscosa qrsina,
+
+630
+
+B.G. Prusty, S.K. Satsangi / Ocean Engineering 28 (2001) 621â638
+
+Fig. 5. Geometrical transformations of stiffener displacements to shell axis system.
+
+qrs qssina qrcosa Expressing in matrix form
+3 3
+
+{ds}i [ ]
+i 1 i 1
+
+{d}i
+
+(22)
+
+where c [ ] 0 0 0 s 0 0 0 1 0 0 0 c 0 0 0 s âs c 0 0
+
+0 0 âs c
+
+The generalised strain components of the stiffener with respect to the reference axis system of the stiffener are given by: {es} âus w Â¯ âs R Â¯ Â¯ âqs âws Â¯ us âqrs Â¯ Â¯ qs âs âs R âs
+T
+
+(23)
+
+Considering the eccentricity of the stiffener and conducting the necessary trans-
+
+B.G. Prusty, S.K. Satsangi / Ocean Engineering 28 (2001) 621â638
+
+631
+
+formation that is required from one cylindrical surface to other cylindrical surface (Fig. 5), the strainâdisplacement matrix can be expressed as:
+3
+
+{es}
+i 1
+
+[Bs]i{ds}i
+
+(24)
+
+where ï£® 1â e âNi R âs
+
+[Bs]i
+
+ï£°
+
+Since the nodes of the stiffener element exist within the shell element, the normal displacements of the stiffener element in terms of those of the shell element can be expressed as:
+3 8
+
+ï£¯ ï£¯
+ï£¯
+
+0
+
+Ni â2Ni âe R âs2
+
+0
+
+0
+
+ï£¹
+
+0
+
+0
+
+0
+
+â
+
+1 e âNi 1â R âs
+
+0
+
+â
+
+1 e 1â Ni 0 R R
+
+e + R
+
+1 e 1â R 0
+
+âNi âs
+
+âNi
+
+0
+
+0
+
+0
+
+0
+
+â
+
+âNi e âs 1â R 1
+
+ï£»
+
+ï£º ï£º
+ï£º
+
+{ds}i [ ][T]
+i 1 r 1
+
+{d}r
+
+(25)
+
+where, Nir
+3 8
+
+Nir Nir 0
+
+0 Nir Nir
+
+[T]
+i 1r 1
+
+632
+
+B.G. Prusty, S.K. Satsangi / Ocean Engineering 28 (2001) 621â638
+
+The stressâstrain relationship is given by: {ss} [Ds]{es} where EAS [Ds] 0 0 Â¯ E(ASS) 0 0 0 0 0 0 0 GJS Â¯ E(ASS) EIS (26)
+
+GASK 0
+
+Â¯ where S=the centroidal distance of the stiffener to shell midsurface; AS=area of the stiffener; G=shear modulus; K=shear correction factor; and JS=torsional modulus of the stiffener. Then the stiffness matrix of the stiffener is calculated as: Strain energy 1 {es}T{ss}dvol 2 vol
+
+Fig. 6.
+
+Internally pressurised ring stiffened cylindrical shell.
+
+B.G. Prusty, S.K. Satsangi / Ocean Engineering 28 (2001) 621â638
+
+633
+
+Table 1 Internally pressurised inï¬nite ring stiffened cylindrical shell: numerical results
+Ring section Maximum normal shell deï¬ection (mmÃ104) Ring expansion (mmÃ104) (mmÃmm) Timoshenko and Venkatesh Sinha PresentTimoshenko and Venkatesh Woinowskyand Rao (1995) Woinowskyand Rao Krieger (1959) (1983) Krieger (1959) (1983) 1.27Ã1.27 3.175Ã3.175 6.35Ã6.35 12.7Ã12.7 10.16 10.16 10.16 10.16 10.16 10.16 10.16 10.16 10.16 10.16 10.16 10.16 10.16 10.16 10.16 10.16 9.713 7.889 4.938 1.941 9.749 8.042 4.938 1.941
+
+Sinha Present (1995) 9.698 7.965 4.699 1.781 9.698 7.863 4.696 1.798
+
+1 {dshell}T[T]T[ ]T[Bs]T[Ds][Bs][ ][T]{dsh} dvol 2 vol Equating this to the external load, [KS] vol Since [ ] and [T] are independent of the co-ordinates, they can be taken out of the integration sign, then Â¯ [KS] [T]T[ ]T[KS][ ][T] [T]T[ ]T[[Bs]T[Ds][Bs]][ ][T] dvol (27)
+
+Fig. 7. Rigid diaphragm supported eccentrically stiffened cylindrical shell.
+
+634
+
+Table 2 Comparison of the vertical deï¬ections wb..c(cm) and wa at crown of the eccentrically stiffened shell roof
+
+Deï¬ection at Present
+
+Unstiffened
+
+Omurtag Sinha and (1995) Â¨ Akoz (1992) 10.15 9.72 8.43 6.31 3.44 0.0 1.42 0.94 0.89 0.77 0.55 0.33 0.0 0.28 0.94 0.81 0.77 0.56 0.30 0.0 0.24 0.9367 0.8926 0.7628 0.5576 0.2949 0.0 0.30 0.28 0.26 0.22 0.16 0.09 0.0 0.15 0.24 0.22 0.20 0.14 0.08 0.0 0.13
+
+Stiffened with rib size h=0.5 m, b=0.5 m Omurtag Sinha Present and (1995) Â¨ Akoz (1992) 0.2812 0.2680 0.2291 0.1674 0.0884 0.0 0.1759
+
+Stiffened with rib size h=1.0 m, b=0.5 m Omurtag Sinha Present and (1995) Â¨ Akoz (1992)
+
+Stiffened with rib size h=1.5 m, b=0.5 m Omurtag Sinha Present and (1995) Â¨ Akoz (1992) 0.10 0.09 0.08 0.06 0.03 0.0 0.11 0.093 0.089 0.076 0.056 0.030 0.0 0.09 0.1034 0.0987 0.0845 0.0619 0.0328 0.0 0.1148
+
+wb
+
+B.G. Prusty, S.K. Satsangi / Ocean Engineering 28 (2001) 621â638
+
+wa
+
+10.80 10.20 8.92 6.14 2.19 0.0 1.42
+
+10.10 9.70 8.40 6.28 3.40 0.0 1.33
+
+B.G. Prusty, S.K. Satsangi / Ocean Engineering 28 (2001) 621â638
+
+635
+
+where Â¯ [KS]
+S
+
+[Bs][Ds][Bs]ds
+
+Â¯ Since [Bs] is a function of s only, the expression for [KS] can be written as:
+1
+
+Â¯ [KS]
+1
+
+[Bs]T[Ds][Bs]|J| dx
+
+(28)
+
+Â¯ The matrix [KS] is thus interpreted as the stiffness matrix of the stiffener, which is independent of the shell nodes but with the displacements at the stiffener nodes along the shell co-ordinate system. Integration for the stiffness matrix is carried out using a two-point integration method.
+
+5. Numerical examples 5.1. Example 1: internally pressurised inï¬nite ring stiffened cylindrical shell An isotopic inï¬nitely long cylindrical shell with equally spaced stiffening ribs under the effect of internal pressure (Fig. 6(a)) has been solved using the present ï¬nite element approach. The mesh division and boundary conditions for the analysis strip are shown in Fig. 6(b). Results of maximum normal shell deï¬ection and ring expansion for different sizes of the ring stiffeners are given in Table 1. Results obtained by the present approach are in good agreement with the values obtained by Timoshenko and Woinowsky-Krieger (1959), Venkatesh and Rao (1983) and Sinha (1995). 5.2. Example 2: rigid diaphragm supported eccentrically stiffened cylindrical shell A cylindrical shell roof supported on a rigid diaphragm on its curved boundaries having two eccentric stiffeners at the straight edges is considered for the analysis. Dimension and material properties of the shell are shown in Fig. 7. Material properties of the shell and the stiffener are taken to be the same. The intensity of gravity loading on the cylindrical shell roof is taken as q=4.393 kN/m2. For gravity loading of the stiffener it is considered as qs=Ags, where gs=24 kN/m3 and A is the crosssectional area of the stiffener. The computations are carried out for the bare shell and stiffened shell with different stiffener dimensions mentioned in Table 2. The example has also been analysed
+
+636
+
+B.G. Prusty, S.K. Satsangi / Ocean Engineering 28 (2001) 621â638
+
+by Omurtag and Akoz (1992) by using a four-noded isoparametric rectangular ï¬nite Â¨ element for the shell and two-noded space bars for the stiffeners. Sinha (1995) analysed the same problem using higher order triangular isotropic shallow shell ï¬nite elements. Due to double symmetry a quarter of the shell has been analysed using 4Ã4 mesh. The numerical values of the vertical deï¬ection of the bare and stiffened shell along the edge BC and at crown A obtained by the present method and those of the other investigators are presented in Table 2. Deï¬ection values of the stiffened shell roof are compared with the existing results in Table 2. The comparison shows that the deï¬ection values predicted by the present approach are in good agreement. 5.3. Example 3: doubly curved shell with cross stiffeners A simply supported spherical shell with symmetrical stiffeners has been analysed by the present approach to validate the present analysis for doubly curved stiffened shells. The geometry of the stiffened shell is shown in Fig. 8. This problem has been solved by Liao and Reddy (1989) for the geometric nonlinear analysis and Sinha (1995) for the linear analysis of the stiffened shell. Analysis has been made for the stiffened shell subjected to a 45 kN concentrated load at the centre. A convergence study for the vertical deï¬ection at the centre of the shell has been plotted in Fig. 9. This shows rapid monotonic convergence for displacements as the ï¬nite element mesh sizes increase. The results of the ratio of central deï¬ection to the thickness of the shell for different loadings are plotted in Fig. 10. The displacements agree well with the solution for the linear part of Liao and Reddy (1989) and Sinha (1995).
+
+Fig. 8.
+
+Simply supported doubly curved stiffened spherical shell panel.
+
+B.G. Prusty, S.K. Satsangi / Ocean Engineering 28 (2001) 621â638
+
+637
+
+Fig. 9.
+
+Convergence study for doubly curved stiffened spherical shell panel.
+
+Fig. 10.
+
+Loadâdeï¬ection curve for stiffened spherical shell panel.
+
+638
+
+B.G. Prusty, S.K. Satsangi / Ocean Engineering 28 (2001) 621â638
+
+6. Conclusions A new scheme of analysing the stiffened shell has been carried out in the present work. An eight-noded isoparametric element for the shell and a three-noded isoparametric curved beam element for the stiffener are used throughout the analysis. In this paper, a modiï¬ed approach of a curved shear ï¬exible element is presented. The modiï¬ed approach can be considered as an alternative to the degenerated theory of shell analysis. A new approach of distributing the stiffness values of stiffener to shell nodes using a three-noded curved beam element has been tried and found to be satisfactory. Several examples of isotropic stiffened shell have been analysed to validate the present approach and the results are excellently matched.
+
+References
+Ahmed, S., Irons, B.M., Zienkiecwicz, O.C., 1970. Analysis of thick and thin shell structures by curved ï¬nite elements. Int. J. Numer. Meth. Engng 13, 419â451. Chandrashekhara, K., 1989. Free vibrations of anisotropic laminated doubly curved shells. Computers and Structures 33, 435â440. Liao, C.L., Reddy, J.N., 1989. Continuum-based stiffened composite shell element for geometrical nonlinear analysis. AIAA Journal 27 (1), 95â101. Mukhopadhyay, M., 1981. Stiffened plate plane stress element for the analysis of shipâs structures. Computers and Structures 13, 563â573. Â¨ Omurtag, M.H., Akoz, A.Y., 1992. Mixed ï¬nite element formulation of eccentrically stiffened cylindrical shells. Computers and Structures 42 (5), 751â765. Ray, C., Satsangi, S.K., 1996. Finite element analysis of laminated hat-stiffened plates. J. Reinf. Plastics Composites 12, 1174â1193. Reddy, J.N., 1986. Energy and Variational Methods in Engineering Mechanics. John Wiley, New York. Saetta, A.V., Vitaliani, R.V., 1990. A ï¬nite element formulation for shells of arbitrary geometry. Computers and Structures 37, 781â793. Sanders, J.L., 1959. An improved ï¬rst-approximation theory for thin shells. In: NASA Technicl Report R-24. Satsangi, S.K., 1984. Structural analysis of shipâs stiffened plate in plane stress. J. Inst. Naval Architects, 67â82. Satsangi, S.K., Ray, C., 1998. Structural analysis of shipâs stiffened plate panels in bending. Int. Shipbuilding Progress 45 (442), 181â195. Sengupta, D., Dasgupta, S., 1997. Static and dynamic applications of ï¬ve noded horizontally curved beam element with shear deformation. Int. J. Numer. Meth. Engng 40, 1801â1819. Sinha, G., 1995. Finite element static and dynamic analysis of arbitrary stiffened shells. Ph.D. thesis, IIT, Kharagpur. Sinha, G., Mukhopadhyay, M., 1995. Static and dynamic analysis of stiffened shells â a review. Indian National Science Academy 61A (3/4), 195â219. Timoshenko, S., Woinowsky-Krieger, S., 1959. Theory of Plates and Shells, 2nd edition. McGraw-Hill, New York. Venkatesh, A., Rao, K.P., 1983. Analysis of laminated shells with laminated stiffeners using rectangular shell ï¬nite elements. Comp. Meth. Appl. Mech. Engng 38 (3), 255â272. Zienkiewicz, O.C., 1977. The Finite Element Method, 3rd edition. McGraw-Hill, London.
+

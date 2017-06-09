@@ -1,0 +1,762 @@
+Computers and Structures 75 (2000) 369Â±383
+
+www.elsevier.com/locate/compstruc
+
+A Â®nite element model for the analysis of stiÂened laminated plates
+Edward A. Sadek*, Samer A. TawÂ®k
+Faculty of Engineering, Cairo University, Giza, Egypt Received 14 July 1998; accepted 3 March 1999
+
+Abstract A reÂ®ned higher-order displacement model for the study of the behavior of concentrically and eccentrically stiÂened laminated plates based on C0 Â®nite element discretization is presented. The model incorporates non-linear variations of longitudinal displacements through the thickness and hence eliminates the need to use shear correction coeÂcient(s). Transverse sh?ear deformations are included in the formulation making the model applicable for both moderately thick and thin composite stiÂened plates. The plate element used is a nine-noded isoparametric one with seven degrees of freedom at each node. The stiÂener element is a three-noded isoparametric beam element with four degrees of freedom at each node. The stiÂness of a stiÂener is reÂ¯ected at all nine nodes of the plate element in which it is placed. Accordingly, the stiÂeners can be positioned anywhere within the plate element along lines of constant natural coordinates and need not necessarily be placed on nodal lines which gives a great Â¯exibility in the choice of mesh size. The integrals are evaluated by a selectively reduced integration (SRI) technique with three and two Gauss quadrature rules for membrane-Â¯exure and shear parts, respectively. The present formulation is checked for diÂerent examples of stiÂened plates made of isotropic and Â®ber-reinforced composites, and results are compared with existing analytical and other Â®nite element solutions. # 2000 Elsevier Science Ltd. All rights reserved.
+
+1. Introduction StiÂened plates are used extensively in many industrial structures. Aerospace structures, road bridges, ship hulls, etc. consisting of rib reinforced plated structures are designed to withstand both transverse and inplane loading. An economical design is achieved through a proper selection of the plate and the stiÂener sizes. A number of analytical/numerical models for the analysis of stiÂened plates have been proposed in the literature. Among these, the performance of simple models like the grillage models [1] and orthotropic models [2] are not satisfactory for solving generalized
+
+* Corresponding author.
+
+stiÂened plate/shell problems. A more accurate model is achieved by representing the plate and stiÂeners separately and maintaining compatibility between them. DiÂerent analytical methods and numerical techniques such as the RayleighÂ±Ritz method [3], Â®nite diÂerence method [4], constraint method of analysis [5], semianalytic Â®nite diÂerence method [6], transfer matrix, Â®nite strip, wave approaches and Â®nite element method [7Â±11], have been used to solve the problem. Biswal and Ghosh [12] developed a four-noded rectangular element with seven degrees of freedom at each node for the analysis of laminated plates. A review of the static analysis of stiÂened plates can be found in [13]. Among all the numerical methods, the Â®nite element method has been found to be reasonably accurate with less complexity to model stiÂened plates.
+
+0045-7949/00/$ - see front matter # 2000 Elsevier Science Ltd. All rights reserved. PII: S 0 0 4 5 - 7 9 4 9 ( 9 9 ) 0 0 0 9 4 - 2
+
+370
+
+E.A. Sadek, S.A. TawÂ®k / Computers and Structures 75 (2000) 369Â±383
+
+Nomenclature U, V, W u, v, w yx , yy , yÃ , yÃ x y E11 , E22 G12 , G13 , G23 n12 , n13 q P Ni Np Nxs , Nys nxs , nys tp txs displacements along x, y and z directions mid-plane displacements along x, y and z directions rotations of the normals to the midplane about x- and y-axes and their corresponding higher order terms moduli of elasticity along and transverse to Â®ber direction rigidity moduli Poisson's ratios distributed load intensity concentrated loads or moments interpolation functions Âi Â 1Â±9) number of plate elements number of stiÂeners along x- and ydirections of the plate number of stiÂeners along x- and ydirections of a plate element plate thickness x-stiÂener depth tys bxs bys r, s e s s8 t B D K d Subscripts p xs ys ,x ,y y-stiÂener depth x-stiÂener width y-stiÂener width natural coordinates strains normal stress and stress vector stress resultant vector shear stress strain-nodal d.o.f. matrix constitutive matrix stiÂness matrix displacement vector plate element x-stiÂener element y-stiÂener element partial diÂerentiation with respect to x partial diÂerentiation with respect to y
+
+Gupta and Ma [14] and Balmer [15] investigated the use of linear shape functions for approximating axial displacements in beam Â®nite elements used as eccentric stiÂeners with linear transformation of the nodal displacements. They found that this leads to an inconsistency which can result in large errors in deÂ¯ections and stresses of stiÂened plates. Miller [16] introduced additional degrees of freedom for these elements to overcome this problem. Miller also found that the inconsistency introduced by using the Â®rst degree polynomial representation for axial displacement in beam Â®nite element leads to rather large errors in the prediction of dynamic behavior of stiÂened plates [17] and the added d.o.f. reduces this error considerably. Deb and Booton [8] in their model FEM(M1) overcome the problem of inconsistency by assuming quadratic shape functions for all displacements of the stiÂeners. Deb and Booton [8], Thompson et. al. [9] and Satsangi and Mukhopadhyay [10] used eight-noded serendipity elements as the plate element and assumed that the stiffeners follow the same displacement Â®eld as that of the plating. However, the eight-noded plate element has been found to lock in shear for thin plates for certain boundary conditions and mesh conÂ®gurations even when reduced integration (RI) [18] and selectively reduced integration (SRI) techniques [19,20] are used. In addition it has been also reported [19] that this element is comparably more sensitive to element shape distortions and element aspect ratios. Hence, the appli-
+
+cation of this element for the analysis of complex structures is questionable [11]. Whereas the performance of the nine-noded Lagrangian plate/shell element with either RI or SRI has been proved to be near optimal [18,19] even for very thin plates. This paper presents the development of a stiÂened composite plate element model using a nine-noded plate element and a three-noded stiÂener element. The model is based on a higher order shear deformation theory which assumes a realistic cross-sectional deformation pattern. This eliminates the need to use shear correction coeÂcients and make the model applicable for both moderately thick and thin stiÂened composite plates. The eÂect of stiÂeners is incorporated by internally constraining the stiÂener displacement Â®elds to the relevant plate displacement Â®elds. The stiÂeners can be positioned anywhere within the plate element along lines of constant natural coordinates and need not necessarily be placed on nodal lines as the stiÂness matrix of a stiffened plate element is comprised of the contributions of the plate element and that of the stiÂener elements.
+
+2. Formulation The geometry of the problem is similar to that shown in Fig. 1. A stiÂened plate element is composed of a plate element and a number of stiÂener elements placed along its lines of constant natural coordinates r
+
+E.A. Sadek, S.A. TawÂ®k / Computers and Structures 75 (2000) 369Â±383
+
+371
+
+Fig. 1. (a) StiÂened plate element and (b) layer details (enlarged 1).
+
+and s. Both plate and stiÂeners are made up of laminated composites (built up of layers of Â®ber-reinforced material with diÂerent orientations). The principal assumptions in the present formulation are: 1. normal stress sz in a direction normal to the plane of the plate is negligible, 2. a typical stiÂener section is symmetric about a vertical plane through its center-line, 3. in-plane bending deformations of stiÂeners are neglected, and 4. stiÂeners have negligible torsional stiÂness. To account for the transverse shear deformations, a higher order displacement Â®eld is employed. The displacement model is derived out of a power series expansion of the mid-surface displacements in the power of the thickness coordinates as: Plate: Up Âx,y,z Â Â up Âx,y Â Â zyxp Âx,y Â Â z3 yÃ Âx,y Â xp Vp Âx,y,z Â Â vp Âx,y Â Â zyyp Âx,y Â Â z3 yÃ Âx,y Â yp Wp Âx,y,z Â Â wp Âx,y Â Â1Â
+
+y-directional stiÂener: Vys Ây,z Â Â vys Ây Â Â zyys Ây Â Â z3 yÃ Ây Â ys Wys Ây,z Â Â wys Ây Â Â3Â
+
+The y-axis is taken along the stiÂener center line and the z-axis is its upward normal, as shown in Fig. 1.
+
+2.1. Interpolation functions Displacements as well as element coordinates x and y are interpolated by: pÂ
+9 Â Ni P i iÂ1
+
+where Ni are expressed in terms of the natural coordinate system (r and s ) as Ni Â 1 rri Â1 Â rri Âssi Â1 Â ssi Â 4 for corner nodes
+
+The xy-plane is taken as the plate mid-plane and the z-axis is its upward normal. x-directional stiÂener: Uxs Âx,z Â Â uxs ÂxÂ Â zyxs ÂxÂ Â z3 yÃ ÂxÂ xs Wxs Âx,z Â Â wxs ÂxÂ Â2Â
+
+Â
+
+1 ssi Â1 Â ssi ÂÂ1 Ã r2 Â 2
+
+for side nodes ri Â 0
+
+1 Â rri Â1 Â rri ÂÂ1 Ã s2 Â 2 Â Â1 Ã r2 ÂÂ1 Ã s2 Â
+
+for side nodes si Â 0 Â4Â
+
+The x-axis is taken along the stiÂener center line and the z-axis is its upward normal.
+
+for interior nodeX
+
+372
+
+E.A. Sadek, S.A. TawÂ®k / Computers and Structures 75 (2000) 369Â±383
+
+2.2. Plate element The displacement Â®eld for plate elements can be expressed as W V b up b b b b bv b b b p b b b b b b b b a ` yxp b Â 9 fp Â yyp Â Ni Âr,s ÂIp dpi b Ã b by b iÂ1 b b b xp b b Ã b by b b yp b b b b Y X wp b
+
+Â5Â
+
+where Ip is a 7 Ã 7 identity matrix and dpi is the displacement vector of node i referred to plate element coordinate system. The strainÂ±displacement relationship can be obtained using Eq. (1) as e p Â Hp e 0 p where ep Â e x 1 T0 T Hp Â T 0 T R0 0 and e0 p Â up,x vp,y Âup,y Â vp,x Â Âyxp Â wp,x Â Âyyp Â wp,y Â yxp,x yyp,y Âyxp,y Â yyp,x Â 3yÃ 3yÃ yÃ yÃ xp yp xp,x yp,y ÂyÃ Â yÃ Â xp,y yp,x ÃT Â9Â Ã P Ã ey 0 1 0 0 0 exy 0 0 1 0 0 0 0 0 1 0 exz 0 0 0 0 1 eyz z 0 0 0 0 ÃT Â7Â 0 0 z 0 0 0 0 0 z2 0 0 0 0 0 z2 z 0 0 0 0
+3
+
+Fig. 2. Plate and stiÂener elements.
+
+ÂNx ,Mx ,Px Â Â Ã Ã Ã Ny ,My ,Py Â
+
+Â tp a2
+Ãtp a2
+
+Ã Ã sx 1,z,z3 dz Ã Ã sy 1,z,z3 dz Ã Ã txy 1,z,z3 dz Â13Â
+
+Â6Â
+
+Â tp a2
+Ãtp a2
+
+Ã Nxy ,Mxy ,Pxy Â Â tp a2
+
+Â tp a2
+Ãtp a2
+
+0 z 0 0 0
+
+0 z3 0 0 0
+
+0 0 U U z3 U U 0 S 0 Â8Â
+
+Q
+
+ÂQxz ,Rxz Â Â Ã Ã Qyz ,Ryz Â
+
+Ãtp a2
+
+Ã Ã txz 1,z2 dz Ã Ã tyz 1,z2 dz
+
+Â tp a2
+Ãtp a2
+
+The stress vector at any point in the plate element is expressed as sp Â Qp ep where, Ã sp Â sx sy txy txz tyz ÃT Â14Â Â15Â
+
+Qp , Bp and Dp are given in Appendices A and B. 2.3. x-StiÂener element The displacement Â®eld for the x-stiÂener element (Fig. 2) can be expressed as W V b uxs b b b b0 b b b b b b b b b b 9 a ` yxs b Â fxs Â 0 Ni ÂrÂIxs dxsi Â b Ã b by b iÂ1 b b b xs b b b b0 b b b b b Y X wxs ÃT
+
+e0 can be expressed as a function of the nodal displacep ments dp as e0 Â p
+9 Â Bpi dpi Â Bp dp iÂ1
+
+Â10Â
+
+The stress resultant vector s0 can be written as p s0 Â Dp e0 Â Dp Bp dp p p where Ã s0 Â Nx p Ny Nxy Qxz Qyz Mx My Mxy Rxz Ryz Â11Â
+
+Â16Â
+
+Px
+
+Py
+
+Pxy
+
+Â12Â
+
+E.A. Sadek, S.A. TawÂ®k / Computers and Structures 75 (2000) 369Â±383
+
+373
+
+where Ni ÂrÂ are the x-stiÂener shape functions which can be obtained by substituting s Â S into Eq. (4). dxsi is the displacement vector of node i referred to x-stiffener coordinate system and Ixs is given by 1 T0 T T0 T Ixs Â T 0 T T0 T R0 0 P 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 Q 0 0U U 0U U 0U U 0U U 0S 1
+
+The stress vector at any point in the stiÂener is expressed as sxs Â Qxs exs where Ã sxs Â sx 0 0 txz 0 ÃT Â27Â Â26Â
+
+Â17Â
+
+Qxs , Bxs and Dxs are given in Appendices A and B.
+
+2.4. y-StiÂener element The displacement Â®eld for the y-stiÂener (Fig. 2) can be expressed as W V b0 b b b b bv b b b ys b b b b b b b b0 b Â 9 a ` fys Â yys Ni ÂsÂIys dysi Â b b b0 b iÂ1 b b b Ã b b by b b b ys b b b b Y X wys b
+
+The strainÂ±displacement relation can be obtained using Eq. (2) as exs Â Hxs e0 xs Ã exs Â ex 1 T0 T Hxs Â T 0 T R0 0 and h e0 Â uxs,x xs 0 0 Ã Ã yxs Â wxs,x 0 yxs,x 0 0 3yÃ xs P 0 0 0 0 0 0 0 exz 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 ÃT z 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 z2 0 0 0 0 0 0 z3 0 0 0 0 0 0 0 0 0 Â18Â Â19Â 0 0U U 0U U 0S 0 Â20Â Q
+
+Â28Â
+
+where Ni ÂsÂ are the y-stiÂener shape functions which can be obtained by substituting r Â R into Eq. (4). dysi is the displacement vector of node i referred to y-stiffener coordinate system and Iys is given by 0 yÃ xs,x 0 0 iT Â21Â
+
+e0 can be expressed as a function of the nodal displaxs cements dxs as e0 Â xs
+9 Â Bxsi dxsi Â Bxs dxs iÂ1
+
+Â22Â
+
+Stress resultant vector can be written as s0 Â Dxs e0 Â Dxs Bxs dxs xs xs where s0 Â xs Ã Nx 0 0 Qxz ÃT Â23Â
+
+0 T0 T T0 T Iys Â T 0 T T0 T R0 0
+
+P
+
+0 1 0 0 0 0 0
+
+0 0 0 0 0 0 0
+
+0 0 0 1 0 0 0
+
+0 0 0 0 0 0 0
+
+0 0 0 0 0 1 0
+
+Q 0 0U U 0U U 0U U 0U U 0S 1
+
+Â29Â
+
+The strainÂ±displacement relation can be obtained using Eq. (3) as eys Â Hys e0 ys Â30Â 0 0 eyz 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 ÃT Â31Â 0 z 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 z2 0 0 0 0 0 0 z3 0 0 0 Q 0 0U U 0U U 0S 0 Â32Â
+
+0 Mx
+
+0 0 Rxz
+
+0 Px
+
+0 0
+
+Â24Â ÂNx ,Mx ,Px Â Â Â txs a2
+Ãtxs a2
+
+Ã eys Â 0 ey 0 T0 T Hys Â T 0 T R0 0 P
+
+Ã Ã sx 1,z,z3 dz
+
+ÂQxz ,Rxz Â Â
+
+Â txs a2
+Ãtxs a2
+
+Ã Ã txz 1,z2 dz
+
+Â25Â
+
+0 0 0 0 0
+
+374
+
+E.A. Sadek, S.A. TawÂ®k / Computers and Structures 75 (2000) 369Â±383
+
+h e0 Â 0 vys,y ys
+
+0
+
+0
+
+Ã Ã yys Â wys,y
+
+0 yys,y
+
+0 0
+
+3yÃ ys
+
+0 yÃ ys,y
+
+0
+
+iT
+
+Â33Â
+
+e0 can be expressed as a function of the nodal displays cements dys as e0 Â ys
+9 Â Bysi dysi Â Bys dys iÂ1
+
+Ã ÃÃ Ã Ã Ã3 Ã Ã Ã Âup Âi Ã tp a2 yxp i Ã tp a2 yxp i
+
+Â34Â
+
+Ã Ã Â Âuxs Âi ÂÂtxs a2ÂÂyxs Âi ÂÂtxs a2Â3 yÃ i xs
+
+The conditions given in Eq. (40) thus lead to Â35Â Ã Ã ÃÃ Ã Ã Âuxs Âi Â Âup Âi Ãexs yxp i Ãexs yxp i Ã Ã Âyxs Âi Â yxp i Ã Ã Ã Ã yÃ i Â yÃ i xs xp Â41Â
+
+Stress resultant vector can be written as s0 Â Dys e0 Â Dys Bys dys ys ys where s0 Â ys Ã 0 Ny ÃT
+
+0 0 Qyz
+
+0 My
+
+0 0 Ryz
+
+0
+
+Py
+
+0
+
+Â36Â Ã Ã Ny ,My ,Py Â Ã Ã Qyz ,Ryz Â Â tys a2
+Ãtys a2
+
+where Ã Ã exs Â tp a2 Â Âtxs a2Â Ã Ã3 eÃ Â tp a2 ÂÂtxs a2Â3 xs Expressing in matrix form V W P b uxs b 1 0 Ãexs 0 b b b b b b b0 b T0 0 0 b b T 0 b b b b T b b b b yxs b T 0 0 1 b 0 b b ` a T T 0 0 Â T0 0 0 b Ã b T b b b b 0 b yxs b T 0 0 0 b b T b b b b0 b T0 0 0 b R b b 0 b b b b b b Xw Y 0 0 0 0 xs
+i
+
+Ã Ã sy 1,z,z3 dz
+
+Â42Â W QV b 0 b up b b b b b b b b 0 Ub vp b b Ub b b Ub by b b Ub xp b 0 Ub b a ` U y 0 U yp , b Ub b b b b 0 0 Ub yÃ b Ub xp b b Ã b b b Ub b 0 0 Sb yyp b b b b b b b 0 1 X wp Y 0 0 0 0
+i
+
+Â tys a2
+Ãtys a2
+
+Ã Ã tyz 1,z2 dz
+
+Â37Â
+
+The stress vector at any point in the stiÂener is expressed as sys Â Qys eys where Ã sys Â 0 sy 0 0 tyz ÃT Â39Â Â38Â
+
+ÃeÃ xs 0 0 0 1 0 0
+
+Qys , Bys and Dys are given in Appendices A and B. 2.5. Transformation matrices If we consider that the x-stiÂener is attached to the lower side of the plate, conditions of displacement compatibility along their line of connection can be written as Âup ÂzÂÃtp a2 Â Âuxs ÂzÂtxs a2 Ã Ã yxp Ã
+zÂÃtp
+
+i Â 1, F F F ,9 or
+H dxsi Â T xs dpi
+
+Â43Â Â44Â
+
+The nodal displacement vector dxs can thus be written as dxs Â Txs dp Txs Â P H T xs T0 T T T0 T T0 T T T0 T T T0 T T0 T T R0 0 Â45Â Q U U U U U U U U U U U U U U U U S Â46Â
+
+Â Âyxs ÂzÂtxs a2 a2 Ã Ã yÃ zÂtxs a2 xs Â40Â
+
+0 H T xs 0 0 0 0 0 0 0
+
+0 0 H T xs 0 0 0 0 0 0
+
+0 0 0
+H T xs 0 0 0 0
+
+0 0 0 0 H T xs 0 0 0 0
+
+0 0 0 0 0 H T xs 0 0 0
+
+0 0 0 0 0 0 H T xs 0 0
+
+0 0 0 0 0 0 0 H T xs 0
+
+0 0 0 0 0 0 0 0
+H T xs
+
+Ã yÃ zÂÃt a2 Â xp p
+
+Âwp ÂzÂÃtp a2 Â Âwxs ÂzÂtxs a2
+
+where tp is the plate thickness and txs is the x-stiÂener depth. Using Eqs. (1) and (2), the Â®rst condition in Eq. (40) leads to
+
+0
+
+E.A. Sadek, S.A. TawÂ®k / Computers and Structures 75 (2000) 369Â±383
+
+375
+
+The case of concentric stiÂeners corresponds to exs Â eÃ Â 0X The transformation matrix for a y-stiÂener elxs ement can be derived in a similar way in the form dys Â Tys dp Â47Â
+
+2.6. StiÂness matrices Using the principle of virtual work, the equilibrium equations can be expressed as ÂÂ ÂÂ ÂÂ d e0T s0 p dA Â d e0T s0 dx Â d e0T s0 dy p xs xs ys ys
+Np A Nxs l Nys l
+
+Fig. 3. Simply supported square plate with one x-stiÂener.
+
+Â
+
+ÂÂ
+Np A
+
+d fT q dA Â p
+
+Â d fT P p
+Np
+
+Substituting from Eqs. (5), (10), (11), (22), (23), (34), (35), (45), and (47), this equation can be expressed in terms of plate nodal displacements as h i ÂÂ d dT B T Dp Bp dp dA p p
+Np A
+
+These integrals are evaluated by a selectively reduced integration technique (SRI) consisting of a 3 Ã 3 Gauss rule for membrane-Â¯exure and a 2 Ã 2 Gauss rule for shear parts. The stiÂness matrix of a plate element and its x- and y-stiÂeners Ksp can be written as Ksp Â Kp Â Â Â Kxs Â Kys
+nxs nys
+
+Â50Â
+
+Â Â Â
+
+ÂÂ ÂÂ
+Nys l Nxs l
+
+where nxs and nys are the number of x- and y-stiÂeners in the plate element.
+
+Ã Ã d dT T T B T Dxs Bxs Txs dp dx p xs xs h i d dT T T B T Dys Bys Tys dp dy ys ys p d dT NÂr,s ÂT q dA Â p Â d dT NÂr,s ÂT P p
+Np
+
+3. Numerical examples 3.1. Example 1 A square simply supported plate with a centrally placed x-stiÂener as shown in Fig. 3. This problem was analyzed in Ref. [5] for both concentric and eccentric stiÂeners and in Ref. [12] for an eccentric stiffener. The geometrical properties are: Â48Â plate: side length = 1.0 in., thickness = 0.01 in. stiÂener: width = 0.01 in., depth =0.1 in. Both plate and stiÂener are made of the same isotropic material with E Â 17 Ã 1011 psi and n Â 0X3X The load is uniformly distributed over the plate with intensity of 1.0 psi. The results are given in Table 1.
+Table 1 Central point deÂ¯ection ÂinX Ã 103 ) Source Type of stiÂener Concentric Eccentric Ref. [5] 0.4456 0.1367 Ref. [12] Â± 0.1431 Presenta 0.4632 0.1424
+
+ÂÂ
+Np A
+
+or Â Â Â d dT Kp dp Â d dT Kxs dp Â d dT Kys dp p p p
+Np Nxs Nys
+
+Â
+
+ÂÂ
+Np A
+
+d dT NÂr,s ÂT q dA Â p
+
+Â d dT NÂr,s ÂT P p
+Np
+
+where Â Kp Â B T Dp Bp dA Â plate element stiffness matrix p
+A
+
+Kxs Â T T xs
+
+Â
+l
+
+! B T Dxs Bxs dx Txs xs
+
+Â x-stiffener element stiffness matrix Kys Â T
+T ys
+
+Â
+l
+
+B T Dys Bys ys
+
+! dy Tys Â49Â
+
+Â y-stiffener element stiffness matrix
+
+a
+
+2 Ã 2 Meshes for plate quarter.
+
+376
+
+E.A. Sadek, S.A. TawÂ®k / Computers and Structures 75 (2000) 369Â±383
+
+Fig. 4. Plate quarter.
+
+Fig. 5. Simply supported laminated plate with four laminated x-stiÂeners
+
+3.2. Example 2 A doubly symmetric square simply supported stiffened plate of side length 2.0 m and thickness 0.02 m, is orthogonally stiÂened by equal number of equidistant x- and y-stiÂeners as shown in Fig. 4. The number of stiÂeners in the x and y directions are taken 14, 12, 10, 8, 6 and 4 and the meshes used are 15 Ã 15, 13 Ã 13, 11 Ã 11, 9 Ã 9, 7 Ã 7, and 5 Ã 5 for plate quarter, respectively. The stiÂeners are of rectangular cross-section of width 0.01 m and depth 0.1 m. The load is uniformly distributed over the plate with intensity of 6.0 ton/m2. Plate and stiÂeners are made of steel with E Â 2X1 Ã 107 ton/m2 and n Â 0X3X The results obtained are tabulated in Table 2(a)Â±(c) compared with those given in Refs. [5] and [12].
+Table 2 Maximum deÂ¯ection, plate stress and stiÂener stress Number of stiÂeners along either side 14 12 10 8 6 4 14 12 10 8 6 4 14 12 10 8 6 4 FEM(M2) [5] ORTHO [5] Ref. [12] Present
+
+The problems discussed in the following examples (3Â±5) are of simply supported laminated square plates stiÂened by four equally spaced x-stiÂeners as shown in Fig. 5. 3.3. Example 3 Loading: sinusoidal of unit intensity. Material properties: E11 Â 172X4 GPa, E22 Â 6X9 GPa, n12 Â n13 Â 0X25, G12 Â G13 Â 3X45 GPa and G23 Â 1X38 GPa. Problem 1: A square simply supported three layers laminated plate with the following geometrical properties:
+
+1.288 1.452 1.683 2.010 2.479 3.365 Ã0.1593 Ã0.1702 Ã0.1852 Ã0.2065 Ã0.2388 Ã0.3497 0.6075 0.6886 0.7952 0.9515 1.188 1.568
+
+(a) Maximum deÂ¯ection Âm Ã 103 ) 1.363 1.553 1.814 2.195 2.811 3.391 (b) Maximum plate stress (N/m2) Ã0.1625 Ã0.1749 Ã0.1919 Ã0.2166 Ã0.2567 Ã0.3281 (c) Maximum stiÂener stress (N/m2) 0.7106 0.8184 0.9671 1.184 1.536 2.171
+
+1.1999 1.3726 1.5804 2.0189 2.4909 3.2824 Ã0.1710 Ã0.1835 Ã0.1909 Ã0.2220 Ã0.2524 Ã0.2991 0.5314 0.6179 0.7190 0.9454 1.1720 1.5293
+
+1.2414 1.4025 1.6191 1.9256 2.3933 3.1967 Ã0.1604 Ã0.1730 Ã0.1903 Ã0.2157 Ã0.2566 Ã0.3340 0.5905 0.6726 0.7822 0.9357 1.1649 1.5402
+
+E.A. Sadek, S.A. TawÂ®k / Computers and Structures 75 (2000) 369Â±383 Table 3 Maximum deÂ¯ection and maximum stresses under sinusoidal loading of unit intensity Problem number 1 2 3 4
+a b
+
+377
+
+a/tp 10 10.33 20 26.67
+
+Quantity of material Âmm3 Ã 10Ã5 ) 64.0 64.0 256.0 256.0
+
+Ref.a A B C A B A B C A B
+
+Maximum deÂ¯ection (mm) 0.366 0.418 0.427 0.260 0.346 4.472 4.712 4.755 1.600 1.826
+
+Maximum sx (MPa) 57.7 56.6 55.9 46.417 51.555b 222.4 219.3 217.2 140.84 132.04b
+
+Maximum sy (MPa) 31.8 39.4 40.2 39.817 36.252 113.6 123.1 123.4 39.54 72.142
+
+Maximum txy (MPa) 2.47 2.75 2.76 1.24 2.34 8.960 9.256 9.200 2.956 3.830
+
+A: Ref. [12]; B: present; C: exact values [21]. Stresses in stiÂeners.
+
+Side length a Â 400 mm, thickness tp Â 40 mm. Stacking: (08/908/08) and (10/20/10) mm. Problem 2: A square simply supported laminated plate stiffened by four equally spaced laminated x-stiÂeners. The geometrical properties are Plate: side length a Â 400 mm, thickness tp Â 30 mm, two layers (08/908) and (15/15) mm. StiÂeners: width bxs Â 15 mm, depth txs Â 66X67 mm, six layers Â08Â6 and (11.11)6 mm. Problem 3: The same as Problem 1 except that the plate side length a Â 800 mm. Problem 4: The same as Problem 2 except that plate side
+
+a Â 800 mm and stiÂener depth txs Â 133X32 mm (22.22)6. The results for mesh 5 Ã 5 for plate quarter are shown in Table 3 compared with those given in Refs. [12] and [21]. 3.4. Example 4 This example is identical to Example 3 except that the loading is uniformly distributed of unit intensity. The results for mesh 5 Ã 5 for plate quarter are shown in Table 4. 3.5. Example 5 Square simply supported unstiÂened and stiÂened laminates with diÂerent number of layers are investigated. In all cases, the loading is sinusoidal of a unit
+
+Table 4 Maximum deÂ¯ection and maximum stresses under uniformly distributed loading of unit intensity Problem number 1 2 3 4
+a b
+
+a/tp 10 10.33 20 26.67
+
+Quantity of material Âmm3 Ã 10Ã5 ) 64.0 64.0 256.0 256.0
+
+Ref.a A B A B A B A B
+
+Maximum deÂ¯ection (mm) 0.557 0.646 0.388 0.522 7.005 7.378 2.372 2.626
+
+Maximum sx (MPa) 82.28 83.55 66.040 77.746b 333.80 331.63 206.61 192.40b
+
+Maximum sy (MPa) 54.269 54.850 46.379 42.000 166.74 164.79 45.10 60.85
+
+Maximum txy (MPa) 5.59 5.70 3.006 5.406 17.740 18.179 6.860 10.972
+
+A: Ref. [12]; B: present. Stresses in stiÂeners.
+
+378
+
+E.A. Sadek, S.A. TawÂ®k / Computers and Structures 75 (2000) 369Â±383
+
+Table 5 Maximum deÂ¯ection and maximum stresses under sinusoidal loading of unit intensity Problem number a/tp Quantity of material Ref.a Maximum deÂ¯ection Maximum sx (MPa) Maximum sy Âmm3 Ã 10Ã5 ) (mm) (MPa) Type 1: Five layers unstiÂened plate and three layers plate with stiÂeners A 0.354 57.40 38.9 64.0 B 0.366 54.23 41.36 C 0.393 54.5 43.1 64.0 A 0.236 34.777 16.317 B 0.249 32.357b 25.208 A 4.397 222.80 147.6 256.0 B 4.470 216.67 151.0 C 4.582 215.6 152.0 256.0 A 1.083 97.49 52.84 B 1.472 102.29b 73.51 Type 2: Seven layers unstiÂened plate and Â®ve layers plate with stiÂeners A 0.352 57.70 43.4 64.0 B 0.358 54.77 44.75 C 0.382 54.8 45.75 64.0 A 0.226 39.578 28.578 B 0.255 32.897b 29.397 A 4.397 222.80 166.0 256.0 B 4.436 217.34 167.6 C 4.534 215.6 167.8 256.0 A 1.509 135.55 46.48 B 1.766 128.24b 69.97 Type 3: Nine layers unstiÂened plate and seven layers plate with stiÂeners A 0.352 58.0 46.2 64.0 B 0.355 55.2 47.1 C 0.378 55.1 47.7 64.0 A 0.255 50.233 34.731 B 0.273 37.752b 34.042 A 4.397 223.2 177.6 256.0 B 4.423 217.9 177.9 C 4.518 216.4 177.6 256.0 A 1.672 161.66 34.50 B 1.919 142.98b 78.36 Maximum txy (MPa) 2.36 2.416 2.465 0.886 1.413 8.840 8.862 8.880 2.430 2.588 2.34 2.351 2.375 0.986 1.596 8.840 8.793 8.76 2.866 3.395 2.33 2.33 2.34 1.19 1.77 8.84 8.77 8.72 3.101 3.865
+
+1 2 3 4
+
+10 17.14 20 34.28
+
+1 2 3 4
+
+10 17.14 20 34.28
+
+1 2 3 4
+a b
+
+10 17.14 20 34.28
+
+A: Ref. [12]; B: present; C: exact [21]. Stresses in stiÂeners.
+
+intensity and the material properties are as given in Example 3. Type 1 Problem 1: UnstiÂened plate. Side length a Â 400 mm and tp Â 40 mm. Stacking: Â®ve layers (08/ 908/08/908/08) and (6.667/10/6.667/10/6.667) mm. Problem 2: StiÂened plate. Plate: Side length a Â 400 mm and tp Â 23X33 mm. Stacking: three layers (08/908/08) and (5.833/ 11.667/5.833) mm. x-stiÂeners: Nxs Â 4, bxs Â 20 mm, txs Â 83X33 mm, stacking (08)8 and (10.416)8.
+
+Problem 3: UnstiÂened plate. Same as Problem 1 except that a Â 800 mm. Problem 4: StiÂened plate. Same as Problem 2 except that a Â 800 mm, bxs Â 30 mm, txs Â 111X11 mm, stacking (08)8 and (13.89)8 mm. Type 2 Problem 1: UnstiÂened plate. Side length a Â 400 mm and tp Â 40 mm. Stacking: seven layers (08/908/08 F F F ) and (5/ 6.667/5/6.667/5/6.667/5) mm. Problem 2: StiÂened plate. Plate: Side length a Â 400 mm and tp Â 28X33
+
+E.A. Sadek, S.A. TawÂ®k / Computers and Structures 75 (2000) 369Â±383
+
+379
+
+mm. Stacking: Â®ve layers (08/908/08F F F) and (4.722/ 7.083/4.722/7.083/4.722) mm. x-stiÂeners: Nxs Â 4, bxs Â 15 mm, txs Â 77X78 mm, stacking (08)7 and (11.11)7. Problem 3: UnstiÂened plate. Same as Problem 1 except that a Â 800 mm. Problem 4: StiÂened plate. Same as Problem 2 except that a Â 800 mm, bxs Â 25 mm, txs Â 93X33 mm, stacking (08)7 and (13.33)7 mm. Type 3 Problem 1: UnstiÂened plate. Side length a Â 400 mm and tp Â 40 mm. Stacking: nine layers (08/908/08 F F F ) and (4/5/ 4/5/4/5/4/5/4) mm. Problem 2: StiÂened plate. Plate: Side length a Â 400 mm and tp Â 31 mm. Stacking: seven layers (08/908/08 F F F ) and (3.875/5.167/3.875/5.167/3.875/5.167/3.875) mm. x-stiÂeners: Nxs Â 4, bxs Â 15 mm, txs Â 60 mm, stacking (08)6 and (10)6. Problem 3: UnstiÂened plate. Same as Problem 1 except that a Â 800 mm. Problem 4: StiÂened plate. Same as Problem 2 except that a Â 800 mm, bxs Â 20 mm, txs Â 90 mm, stacking (08)6 and (15)6.
+
+mesh size. The proposed model has been applied to a number of problems including concentrically and eccentrically isotropic and composite stiÂened plates under diÂerent loading conditions and stacking sequences. The results obtained have been compared with available exact and numerical results. The comparison has shown that the present model is reliable and accurate. In order to compare the eÂciency of unstiÂened and stiÂened composite plates, one or more layers of laminated plates have been replaced by stiÂeners keeping the total volume of the material the same. Remarkable improvements in stiÂness and strength of the laminates have been found
+
+Appendix A. StressÂ±strain relation The stress strain relations of an orthotropic material in the three orthogonal planes of the material symmetry is given by V W P c11 b s1 b b b b b s2 b T c12 b b b T b b ` a T c s3 Â T 13 b t12 b T 0 b b T b b t23 b R 0 b b b b b X Y 0 t13 c12 c22 c23 0 0 0 c13 c23 c33 0 0 0 0 0 0 c44 0 0 0 0 0 0 c55 0 W QV 0 b e1 b b b b b 0 U b e2 b b b b Ub ` a 0 U e3 U ÂA1Â 0 Ub g12 b b Ub b b Sb g23 b 0 b b b b X Y c66 g31
+
+If the normal stress s3 is negligible, the corresponding strain e3 can be eliminated by equation s3 to zero. This results in the reduced stressÂ±strain relationship V W P H c11 b s1 b b b b b s2 b T c12 b ` a T H Â T0 t b 12 b T b t23 b R 0 b b b b X Y 0 t13 where
+H cij Â cij Ã ci3 cj3 ac33 H cij Â cij H c12 H c22 0 0 0
+
+The results for mesh 5 Ã 5 for plate quarter are shown in Table 5 together with those given in Refs. [12] and [21].
+
+4. Conclusion A reÂ®ned higher order displacement model for the analysis of concentric and eccentric stiÂened composite plates is presented. The model incorporates non-linear variations of longitudinal displacements across the thickness and hence eliminates the need to use shear correction coeÂcients. The model incorporates a ninenoded isoparametric plate element and three-noded isoparametic stiÂener element. The formulation allows the positioning of stiÂener elements anywhere within the plate element along lines of constant natural coordinates which gives a great Â¯exibility in the choice of
+
+0 0 H c44 0 0
+
+0 0 0 H c55 0
+
+W QV 0 b e1 b b b b b 0 Ub e2 b a U` 0 U g12 Ub b 0 Sb g23 b b b b b Y X H c66 g31
+
+ÂA2Â
+
+for i, j Â 1,2
+
+for i, j Â 3,4,5
+
+For the case when the Â®bers are oriented at an angle y with the x-axis, the transformed stressÂ±strain relation for a lamina becomes sp Â Qp ep
+
+380
+
+E.A. Sadek, S.A. TawÂ®k / Computers and Structures 75 (2000) 369Â±383
+
+where Ã sp Â sx sy txy txz tyz ÃT
+
+Ã Ã Ã H Ã H H H H Q44 Â c11 Â c22 Ã 2c12 Ã 2c44 c2 s2 Â c44 c4 Â s4
+
+H H Q55 Â c55 c2 Â c66 s2
+
+Ã ep Â ex and
+
+ey
+
+exy
+
+exz
+
+eyz
+
+ÃT
+
+Ã H Ã H Q56 Â c55 Ã c66 cs Q 0 0 U U 0 U U Q56 S Q66
+
+Q11 T Q12 T Qp Â T Q14 T R0 0
+
+P
+
+Q12 Q22 Q24 0 0
+
+Q14 Q24 Q44 0 0
+
+0 0 0 Q55 Q56
+
+H H Q66 Â c55 s2 Â c66 c2
+
+Ã H Ã H H H Q11 Â c11 c4 Â 2 c12 Â 2c44 c2 s2 Â c22 s2 Ã Ã Ã H Ã H H H Q12 Â c11 Â c22 Ã 4c44 c2 s2 Â c12 c4 Â s4 Ã H Ã H Ã Ã H H H H Q14 Â c11 Ã 2c44 Ã c12 c3 s Â c12 Ã c22 Â 2c44 cs3 Ã Ã H H H H Q22 Â c11 s4 Â 2 c12 Â 2c44 c2 s2 Â c22 c4
+
+Q11 T0 T Qxs Â T 0 T R0 0 P
+
+P
+
+0 0 0 0 0
+
+0 0 0 0 0
+
+0 0 0 Q55 0
+
+Q 0 0U U 0U U 0S 0
+
+0 T0 T T0 Qys Â T T0 T R0 0
+
+0 Q22 0 0 0 0
+
+0 0 0 0 0 0
+
+0 0 0 0 0 0
+
+Q 0 0 U U 0 U U 0 U U 0 S Q66
+
+Appendix B Ã Ã Ã H Ã H H H H H Q24 Â c11 Ã 2c44 Ã c12 cs3 Â c12 Ã c22 Â 2c44 c3 s Plate element:
+
+N1,x T0 T TN T 1,y T0 T T0 T T0 T T Bp Â T 0 T T0 T T0 T T0 T T0 T R0 0
+
+P
+
+0 N1,y N1,x 0 0 0 0 0 0 0 0 0 0
+
+0 0 0 N1 0 N1,x 0 N1,y 0 0 0 0 0
+
+0 0 0 0 N1 0 N1,y N1,x 0 0 0 0 0
+
+0 0 0 0 0 0 0 0 3N1 0 N1,x 0 N1,y
+
+0 0 0 0 0 0 0 0 0 3N1 0 N1,y N1,x
+
+0 0 0 N1,x N1,y 0 0 0 0 0 0 0 0
+
+Q FFF FFF U U FFF U U FFF U U FFF U U FFF U U FFF U U U FFF U U FFF U U FFF U U FFF U U FFF S FFF
+
+E.A. Sadek, S.A. TawÂ®k / Computers and Structures 75 (2000) 369Â±383
+
+381
+
+P T T T T T T T T T T Dp Â T T T T T T T T T T R
+
+A11
+
+A12 A22
+
+A14 A24 A44
+
+0 0 0 A55
+
+0 0 0 A56 A66
+
+B11 B12 B14 0 0 C11
+
+B12 B22 B24 0 0 C12 C22
+
+B14 B24 B44 0 0 C14 C24 C44
+
+symmetric
+
+0 0 0 C55 C56 0 0 0 F55
+
+0 0 0 C56 C66 0 0 0 F56 F66
+
+D11 D12 D14 0 0 F11 F12 F14 0 0 H11
+
+D12 D22 D24 0 0 F12 F22 F24 0 0 H12 H22
+
+Q D14 D24 U U D44 U U 0 U U 0 U U F14 U U F24 U U F44 U U 0 U U 0 U U H14 U U H24 S H44
+
+x-stiÂener:
+
+N1,x T0 T T0 T T0 T T0 T T0 T Bxs Â T 0 T T0 T T0 T T0 T T0 T R0 0
+
+P
+
+0 0 0 0 0 0 0 0 0 0 0 0 0
+
+0 0 0 N1 0 N1,x 0 0 0 0 0 0 0
+
+0 0 0 0 0 0 0 0 0 0 0 0 0
+
+0 0 0 0 0 0 0 0 3N1 0 N1,x 0 0
+
+0 0 0 0 0 0 0 0 0 0 0 0 0
+
+0 0 0 N1,x 0 0 0 0 0 0 0 0 0
+
+Q FFF FFF U U FFF U U FFF U U FFF U U FFF U U FFF U U FFF U U FFF U U FFF U U FFF U U FFF S FFF
+
+P T T T T T T T T T T Dxs Â bxs T T T T T T T T T T R
+
+A11
+
+0 0 0 0 0
+
+0 0 0 A55
+
+0 0 0 0 0
+
+B11 0 0 0 0 C11
+
+0 0 0 0 0 0 0
+
+symX
+
+0 0 0 0 0 0 0 0
+
+0 0 0 C55 0 0 0 0 F55
+
+0 0 0 0 0 0 0 0 0 0
+
+D11 0 0 0 0 F11 0 0 0 0 H11
+
+0 0 0 0 0 0 0 0 0 0 0 0
+
+Q 0 0U U 0U U 0U U 0U U 0U U 0U U 0U U 0U U U U 0U U 0S 0
+
+382
+
+E.A. Sadek, S.A. TawÂ®k / Computers and Structures 75 (2000) 369Â±383
+
+y-stiÂener:
+
+0 T0 T T0 T T0 T T0 T T0 T Bys Â T 0 T T0 T T0 T T0 T T0 T R0 0
+
+P
+
+0 N1,y 0 0 0 0 0 0 0 0 0 0 0
+
+0 0 0 0 0 0 0 0 0 0 0 0 0
+
+0 0 0 0 N1 0 N1,y 0 0 0 0 0 0
+
+0 0 0 0 0 0 0 0 0 0 0 0 0
+
+0 0 0 0 0 0 0 0 0 3N1 0 N1,y 0
+
+0 0 0 0 N1,y 0 0 0 0 0 0 0 0
+
+Q FFF FFF U U FFF U U FFF U U FFF U U FFF U U FFF U U FFF U U FFF U U FFF U U FFF U U FFF S FFF
+
+0 0 T A22 T T T T T T T T T Dys Â bys T T T T T T T T T T R
+
+P
+
+0 0 0
+
+0 0 0 0
+
+0 0 0 0 A66
+
+0 0 0 0 0 0
+
+0 B22 0 0 0 0 C22
+
+symX
+
+0 0 0 0 0 0 0 0
+
+0 0 0 0 0 0 0 0 0
+
+0 0 0 0 C66 0 0 0 0 F66
+
+0 0 0 0 0 0 0 0 0 0 0
+
+0 D22 0 0 0 0 F22 0 0 0 0 H22
+
+Q 0 0U U 0U U 0U U 0U U 0U U 0U U 0U U 0U U 0U U 0U U 0S 0
+
+where Aij ,Bij ,Cij ,Dij ,Fij ,Hij Â Â ta2
+Ãta2
+
+Ã Ã Qij 1,z,z2 ,z3 ,z4 ,z6 dz
+
+References
+[1] Kendrick S. The analysis of a Â¯at plated grillage. European Shipbuilding 1956;5:4Â±10. [2] Schade HA. The orthogonally stiÂened plate under uniform lateral load. J Appl Mech 1940;ASME 62:143Â±6. [3] Kirk CL. Vibration of centrally placed stiÂened rectangular plates. J R Aero Soc 1961;65:695Â±7. [4] Wah T. Vibration of stiÂened plates. Aero Quart 1964;15:285Â±98. [5] Rossow MP, Ibrahimkhail AK. Constraint method analysis of stiÂened plates. Comput Struct 1978;8:51Â±60. [6] Mukhopadhyay M. Vibration and stability of analysis of stiÂened plates by semi-analytic Â®nite diÂerence method,
+
+[7]
+
+[8]
+
+[9]
+
+[10]
+
+[11]
+
+Part II: Consideration of bending and axial displacements. J Sound Vibr 1989;130:41Â±53. Mukhopadhyay M, Satsangi SK. Isoparametric stiÂened plate bending element for the analysis of ship structures. Trans R Inst Naval Arch 1984;126:144Â±51. Deb A, Booton M. Finite element models for stiÂened plates under transverse loading. Comput Struct 1988;28:361Â±72. Thompson PA, Bettess P, Caldwell JB. An isoparametric eccentrically stiÂened plate bending element. Engng Comput 1988;5:110Â±6. Satsangi SK, Mukhopadhyay M. Finite element static analysis of girder bridges having arbitrary planform. Int Ass for Bridge Struct Engng 1987;17:65Â±94. Palani GS, Iyer NR, Appa Rao TVSR. An eÂcient Â®nite
+
+E.A. Sadek, S.A. TawÂ®k / Computers and Structures 75 (2000) 369Â±383 element model for static and vibration analysis of eccentrically stiÂened plates/shells. Comput Struct 1992;43:651Â±61. Biswal KC, Ghosh AK. Finite element analysis for stiffened laminated plates using higher order shear deformation theory. Comput Struct 1994;53:161Â±71. Satsangi SK, Mukhopadhyay M. A review of static analysis of stiÂened plates. J Struct Engng, Struct Engng Res Center, Madras 1989;15:117Â±26. Gupta AK, Ma PS. Error in eccentric beam formulation. Int J Numer Meth Engng 1977;11:1473Â±7. Balmer HA. Another aspect of the error in eccentric beam formulation. Int J Numer Meth Engng 1978;12:1761Â±3. Miller RE. Reduction of the error in eccentric beam modeling. Int J Numer Meth Engng 1980;15:575Â±87.
+
+383
+
+[12] [13] [14] [15] [16]
+
+[17] Miller RE. Dynamic aspect of the error in eccentric beam modeling. Int J Numer Meth Engng 1980;15:1447Â± 55. [18] Pugh ED, Hinton E, Zienkiewicz OC. A study of quadrilateral plate bending elements with reduced integration. Int J Numer Meth Engng 1978;12:1054Â±79. [19] Palani GS, Iyer NR, Appa Rao TVSR. Studies on the performance of isoparametric Â®nite elements for static and vibration analysis of beams and plates. Project Report No. SST-RR-88-2. Structural Engineering Research Center, Madras, 1989. [20] Hughes TJR, Cohen M, Havour M. Reduced and selective integration techniques in Â®nite element analysis of plates. Nucl Engng Design 1978;40:203Â±22. [21] Pagano NJ, HatÂ®eld SJ. Elastic behavior of multilayered bidirectional composites. AIAA J 1972;10:931Â±3.
+

@@ -1,0 +1,366 @@
+Algorithmica (2004) 38: 179–200 DOI: 10.1007/s00453-003-1049-y
+
+Algorithmica
+©
+2003 Springer-Verlag New York Inc.
+
+Approximating the Medial Axis from the Voronoi Diagram with a Convergence Guarantee1
+Tamal K. Dey2 and Wulue Zhao2
+Abstract. The medial axis of a surface in 3D is the closure of all points that have two or more closest points on the surface. It is an essential geometric structure in a number of applications involving 3D geometric shapes. Since exact computation of the medial axis is difﬁcult in general, efforts continue to improve their approximations. Voronoi diagrams turn out to be useful for this approximation. Although it is known that Voronoi vertices for a sample of points from a curve in 2D approximate its medial axis, a similar result does not hold in 3D. Recently, it has been discovered that only a subset of Voronoi vertices converge to the medial axis as sample density approaches inﬁnity. However, most applications need a nondiscrete approximation as opposed to a discrete one. To date no known algorithm can compute this approximation straight from the Voronoi diagram with a guarantee of convergence. We present such an algorithm and its convergence analysis in this paper. One salient feature of the algorithm is that it is scale and density independent. Experimental results corroborate our theoretical claims. Key Words. Medial axis, Geometric modeling, Samples, Voronoi diagram, Delaunay triangulation.
+
+1. Introduction. The medial axis of a shape is deﬁned when the shape is embedded in a Euclidean space and is endowed with a distance function. Informally, it is the set of all points that have more than one closest point on the shape. The medial axis provides a compact representation of the shapes which has been used in a number of applications including image processing [22], computer vision [9], [23], solid modeling [14], [20], [27], [28], mesh generation [25], [26], motion planning [19] and many others [21], [29]. The shapes in this paper are surfaces embedded in 3D. Application demands have prompted research in the computational as well as the mathematical aspects of the medial axis in recent years. As a mathematical structure they are instable since a small change in shape can cause a relatively large change in its medial axis [18], [30]. They are hard to compute exactly due to numerical instability associated with their computations. Few algorithms, and only for special classes of shapes, have been designed till date to compute the exact medial axis [12], [14]. Consequently, efforts have been made to approximate the medial axis. For polyhedral input Etzion and Rappoport [17] suggest an approximation method based on octree subdivisions of space. Another scheme considered by many uses a set of sample points on the shape and then approximates the medial axis with the Voronoi diagram of these points [4]–[6], [11], [25], [29].
+This work was partially supported by NSF under Grants CCR-9988216 and DMS-0138456 (subcontract: Stanford University). 2 Department of CIS, Ohio State University, Columbus, OH 43210, USA. {tamaldey,zhaow}@cis.ohiostate.edu. Received May 1, 2002; revised January 21, 2003. Communicated by R. C. Veltkamp. Online publication October 24, 2003.
+1
+
+180
+
+T. K. Dey and W. Zhao
+
+We follow the Voronoi diagram approach. It is particularly suitable for point cloud data, which are increasingly being used for geometric modeling over a wide range of applications. It is known that the Voronoi vertices approximate the medial axis of a curve in 2D. In fact, Schmitt [24] and Brandt [10] show that if the sample density approaches inﬁnity, the Voronoi vertices in this case converge to the medial axis. Unfortunately, the same is not true in 3D. Amenta, Bern and Eppstein [2] observe that some Voronoi vertices, the centers of the ﬂat tetrahedra called “slivers”, can come close to the surface no matter how dense a sample is. In order to alleviate this problem in the context of surface reconstruction, Amenta and Bern [1] identify some Voronoi vertices called “poles” that remain far from the surface. These poles are the farthest Voronoi vertices from the sample points in their Voronoi cells. Boissonnat and Cazals [7] and Amenta, Choi and Kolluri [4] show that the poles indeed lie close to the medial axis and converge to it as the sample density approaches inﬁnity. The convergence result of poles to the medial axis is a signiﬁcant progress in medial axis approximation in 3D. However, many applications require and often prefer a nondiscrete approximation rather than a discrete one. In 2D, Brandt and Algazi [11] achieve this by retaining a subset of Voronoi edges incident to the Voronoi vertices. In 3D, since poles lie close to the medial axis, Amenta, Choi and Kolluri [4] design an algorithm that connects them with a cell complex. They consider the Delaunay balls centering the poles and then compute the medial axis of the boundary of the union of these balls by the weighted Delaunay triangulation of the poles with the radii of the Delaunay balls as weights. That is the ﬁrst algorithm that produces a continuous approximation of the medial axis with theoretical guarantees in 3D. However, this method requires a second Voronoi diagram to compute the medial axis and, more importantly, produces a noisy medial axis in some cases. Heuristics have been proposed to clean up these noisy medial axes, but these heuristics are not scale independent. In this paper we propose to approximate the medial axis directly from the Voronoi diagram. Approximating the medial axis straight from the Voronoi diagram in 3D has been proposed in the past. In a nice work, Attali and Lachaud [5] (also see [6]) show how to prune the Voronoi diagram with an angle and length criterion to approximate the medial axis. Although the strategy achieves good results in many cases, the pruning is scale dependent and more seriously depends on the sampling density. Consequently, one needs to ﬁne tune the pruning parameters individually for each data set and it is not clear if these strategies are apt for a data set where the density varies in different parts of the shape. Our algorithm also uses two criteria to select the Voronoi facets from the Voronoi diagram. However, unlike [5] and [6], these two criteria are scale and density independent and the algorithm has a convergence guarantee. We ﬁlter Delaunay edges from the Delaunay triangulation of the sample points and then output their dual Voronoi facets as an approximate medial axis. The approximation depends upon a sampling density parameter ε that tends to zero as the sampling density on the surface S approaches inﬁnity. A subset of the medial axis satisfying certain condition that depends on ε is approximated by a point in the output. As ε approaches zero with increasing density, this subset coincides with the complete medial axis meaning that all points in the medial axis are approached by a point in the output. The thresholds used for two criteria to ﬁlter the Delaunay edges remain ﬁxed over data sets of different densities. Thus, there is no
+
+Approximating the Medial Axis from the Voronoi Diagram
+
+181
+
+need for ﬁne tuning the parameter values. Our experiments with different data sets also support our theoretical claims. The rest of the paper is organized as follows. Section 2 contains preliminaries and deﬁnitions that we use later. Section 3 details the two conditions that we use to ﬁlter the Delaunay edges and describes the algorithm. In Section 4 we prove the guarantees of convergence. Section 5 contains the experimental results and we conclude in Section 6.
+
+2. Preliminaries and Deﬁnitions. Let P be a point sample from a smooth compact surface S ⊂ R3 without boundary. A ball is called medial if it meets S only tangentially in at least two points. The medial axis of S is deﬁned as the closure of the set of centers of all medial balls. Each point on S has two medial balls, one touching it from outside and the other touching it from inside. It follows that the line going through a point p ∈ S and the centers of its medial balls is normal to S at p. See Figure 1 for an illustration in 2D. Obviously, the medial axis of S can be approximated from a sample P only if it is dense enough to carry information about the features of S. Following Amenta and Bern [1] we deﬁne the local feature size f () as a function f : S → R where f (x) is the distance of x ∈ S to the medial axis. Intuitively, f () measures how complicated S is locally. It is known that the function f () is 1-Lipschitz continuous, i.e., f ( p) ≤ f (q) + p − q for any two points p, q in S [1]. A sample is an ε-sample if each point x ∈ S has a sample point within ε f (x) distance. Generally, in practice, a sample is dense if ε < 0.25 though in most cases theoretical guarantees require much smaller values. The Voronoi diagram and its dual, the Delaunay triangulation, play a key role in capturing information about shapes. This observation has led to a number of algorithms for the related problem of surface reconstruction which exploit the structures of these diagrams [1], [3], [7], [15], [16]. The Voronoi diagram V P for a point set P ∈ R3 is a cell complex consisting of Voronoi cells {Vp } p∈P and their facets, edges and vertices, where Vp = {x ∈ R3 | p−x ≤ q−x , ∀q ∈ P}. The dual complex, D P , called the Delaunay triangulation of P, consists of Delaunay tetrahedra and their incident triangles, edges and vertices. A Delaunay tetrahedron is dual to a Voronoi vertex, a Delaunay triangle is dual to a Voronoi edge, a Delaunay edge is dual to a Voronoi facet and a Delaunay vertex is dual to a Voronoi cell. We say e = Dual g if e and g are dual to each other in the two diagrams. It is an important result proved by Amenta and Bern [1] that the Voronoi cells are elongated along the normal direction to the surface at the sample points if the sample is sufﬁciently dense. The deﬁnition of poles plays an important role in approximating these normals.
+
+p
+
+Fig. 1. A curve (dashed), some medial balls (dotted) and the medial axis (solid) in 2D.
+
+182
+
+T. K. Dey and W. Zhao
+
++ p
+
++ p
+
+v p
+
+S
+
+p
+
+Up
+
+(a)
+
+(b)
+
+Fig. 2. A Voronoi cell Vp . The corresponding pole, pole vector, tangent polygon (a) and the umbrella (b).
+
+DEFINITION 1. The pole p + of a sample point p is the farthest Voronoi vertex in the Voronoi cell Vp . If Vp is unbounded, p + is taken at inﬁnity. The vector v p = p + − p is called the pole vector for p and its direction is taken as the average of all directions of inﬁnite edges in case Vp is unbounded, see Figure 2. It is proved that the pole vector v p approximates the normal n p to the surface S at p up to orientation [1]. DEFINITION 2. The tangent polygon for a sample point is deﬁned as the polygon in which the plane through p with v p as normal intersects Vp . See Figure 2(a) for an illustration. Since v p approximates n p , the tangent polygon approximates the tangent plane at p restricted within Vp . We deﬁne a dual structure to the tangent polygon from the Delaunay triangulation D P . DEFINITION 3. The umbrella U p for a sample point p is deﬁned as the topological disk made by the Delaunay triangles incident to p that are dual to the Voronoi edges intersected by the tangent polygon. See Figure 2(b). The umbrella U p approximates the surface locally at p. The triangles in the umbrella lie very close to the restricted Delaunay triangles that are dual to the Voronoi edges in Vp intersecting the surface. NOTATIONS. In what follows we use the following notations. The notation ∠u, v denotes the the acute angle between the lines supporting two vectors u and v. The tangent vector going from a point p to q is denoted with t pq . The normal to a triangle pqr is n pqr and its circumradius is R pqr .
+
+Approximating the Medial Axis from the Voronoi Diagram
+
+183
+
+B m θ θ
+
+S q
+
+p
+
+Fig. 3. A medial axis point m, its medial angle θ and the corresponding medial ball.
+
+3. Algorithm. Our aim is to approximate the medial axis with a subset of Voronoi facets and their closures. The closure Cl F of a Voronoi facet F is the set of all incident Voronoi edges and vertices of F and F itself. We choose these Voronoi facets as the dual of a set of selected Delaunay edges. This means we need some conditions to ﬁlter these Delaunay edges from D P . Let us examine a medial ball B closely to determine which Delaunay edges we should select. Consider Figure 3. The segment pq makes an angle θ with the tangent plane at p and q where the medial ball touches the surface S. If B touches S in more than two points, let p and q be such that the angle θ is maximal. We associate each medial axis point m, and also the points where B meets S, with such an angle θ, which we call their medial angle. The medial axis is approximated by Voronoi facets dual to the Delaunay edges. These edges are either long edges making a large angle with the surface—thus selected by the so-called Angle condition, or tend to become parallel to the tangent planes at their endpoints—thus the Angle condition fails and we resort to a Ratio condition; more precisely the edges used there are those whose length is signiﬁcantly larger than the circumradii of the umbrella triangles. 3.1. Angle Condition. Approximation of the medial angle θ for a medial axis point requires an approximation to the tangent plane at that point. It follows from Lemma 3 that the triangles in the umbrellas necessarily lie ﬂat to S. Therefore, we take umbrella triangles in U p for approximating the tangent plane at a sample point p and determine all Delaunay edges pq that make a relatively large angle with this tangent plane. The angle between an edge pq and a triangle ptu is measured by the acute angle ∠n ptu , t pq . Our goal is to capture all edges pq that make more than a threshold angle θ with triangles in U p , or equivalently make an angle less than π/2 − θ with their normals, see Figure 4. We say a Delaunay edge pq satisﬁes Angle condition [θ ] if π max ∠n ptu , t pq < − θ. ptu∈U p 2 The roles of p and q are interchangable, i.e., if the umbrella triangles in Uq are used in the condition, we say q p satisﬁes the Angle condition [θ ]. Consistent with this notation the edge pq is considered twice in the algorithm, once as pq and another time as q p. The only Angle condition cannot approximate the medial axis in a density independent manner. If we ﬁx θ for all models, some of the medial axis points with medial angle below θ are not approximated. In that case we cannot hope for convergence in the limit when density approaches inﬁnity.
+
+184
+
+T. K. Dey and W. Zhao
+
+nptu q t θ p u Up
+
+Fig. 4. The angle of interest for the Angle condition [θ ]. The Voronoi edge shown by the dotted line is normal to the shaded triangle.
+
+Figure 5 illustrates the results with the “only Angle condition”. We varied the value of θ in order to get a good approximation of the medial axis. As expected, larger values of θ produce less facets in the output resulting in undesirable “holes”, see the rightmost picture of the 3HOLE data in Figure 5. On the other hand, smaller values of θ generate too many facets resulting in undesirable “spikes”, see the leftmost picture for the 3HOLE data in Figure 5. For each model shown in Figure 5 we attempted to determine a value of θ for which we can obtain an approximation as good as possible. The bottom row of Figure 5 shows the output of this experiment. The major drawback of the “only Angle condition” approach is that the value of θ for which we obtain a good approximation differs from sample to sample. It turns out that the required value of θ gets larger with decreasing sample density. Consequently, we could not ﬁnd any consistent value for which the approach works for all the models we experimented with.
+
+3HOLE θ = 3 degrees
+
+3HOLE θ = 18 degrees
+
+3HOLE θ = 32 degrees
+
+SCREWDRIVER θ = 15 degrees
+
+FOOT θ = 20 degrees
+Fig. 5. Results with the “only Angle condition”.
+
+KNOT θ = 30 degrees
+
+Approximating the Medial Axis from the Voronoi Diagram
+
+185
+
+q t
+
+p
+Rptu
+
+Up u
+
+Fig. 6. Radius of interest for the Ratio condition [ρ].
+
+3.2. Ratio Condition. Consider the medial ball B as shown in Figure 3. From simple geometry of spheres, we get p − q = 2µ sin θ, where µ = m − p is the radius of B. Therefore, if θ ε, where ε is the sampling density, we have p − q 2µ sin ε. Also, the radius of the umbrella triangles are only of the order of µε as we show later. This means that the length of pq will be much larger than the radii of the umbrella triangles. Taking the cue from the above observation, we compare the length of the Delaunay edges with the circumradii of the umbrella triangles. By this we can approximate all medial axis points with medial angles only a few times larger than ε. Of course, we will not be able to approximate the medial axis points with a medial angle less than ε with this method, but as ε approaches zero, we get the required convergence. We say an edge pq satisﬁes the Ratio condition [ρ] if (see Figure 6)
+ptu∈U p
+
+min
+
+p−q > ρ. R ptu
+
+Here, too, the roles of p and q are interchangable. Figure 7 illustrates the effect of the “only Ratio condition”. As expected, larger values of ρ produce less noisy medial axes, but with “holes” as shown in the rightmost picture for the FOOT data in Figure 7. On the other hand, a smaller ρ produces undesirable spurious “spikes” as exhibited by the leftmost picture of the FOOT in Figure 7. In this case also we could not ﬁnd a value of ρ for which all samples produce good results. When the sample is less dense, a smaller ρ is needed to obtain an approximation as good as possible. The “only Ratio condition” approach has one more disadvantage. If the sample density is not uniform over the entire surface, one value of ρ cannot capture the medial axis for the entire shape. This is why no value of ρ gave a good result for the FOOT and 3HOLE data though we could ﬁnd an appropriate ρ for ROCKER and KNOT data which are mostly uniform. Although, in theory, for a sufﬁciently dense sample, the Ratio condition alone is adequate to ﬁlter all necessary Delaunay edges, often this density requirement is not satisﬁed in practice. Our experiments suggest that both Angle and Ratio conditions are necessary in practice to keep the thresholds ﬁxed over a varying sample density. Experimentally we observe that θ = θ0 = π/8 and ρ = ρ0 = 8 are appropriate for all reasonably dense data sets. With these two values we enumerate the steps of our algorithm MEDIAL to approximate the medial axis.
+
+186
+
+T. K. Dey and W. Zhao
+
+FOOT, ρ = 2
+
+FOOT, ρ = 4
+
+FOOT, ρ = 8
+
+3HOLE, ρ = 2
+
+KNOT, ρ = 4
+Fig. 7. Results with the “only Ratio condition”.
+
+ROCKER, ρ = 6
+
+MEDIAL(P) 1 Compute V P and D P ; 2 F = ∅; 3 for each p ∈ P 4 Compute U p ; 5 for each Delaunay edge pq ∈ U p 6 if pq satisﬁes Angle Condition [θ0 ] or Ratio condition [ρ0 ] 7 F := F ∪ Dual pq 8 endif 9 endfor 10 endfor 11 output Cl F REMARK. As we mentioned earlier, the pole vectors approximate the normals to S at the sample points. Therefore, it is plausible to use them in the Angle condition instead of the normals to the umbrella triangles. Similarly, the width of the tangent polygon can replace the circumradii of the umbrella triangles in the Ratio condition. However,
+
+Approximating the Medial Axis from the Voronoi Diagram
+
+187
+
+our experiments suggest that these alternatives do not produce as good a result as the stated Angle and Ratio conditions do. We believe that these alternatives do not eliminate Delaunay edges lying close to the surface very well in practice.
+
+4. Guarantees. In this section we prove that a signiﬁcant subset of the output of MEDIAL converges to the actual medial axis when ε approaches zero. For a sample point p we deﬁne µ p , δ p , η p and β p as follows. Motivation of their deﬁnitions becomes clear when we use them later. Let µ p = radius of the larger medial ball at p, δ p = max ηp = δp
+pqr ∈U p
+
+R pqr , µp
+
+µp , f ( p) ηp ηp 2 + arcsin √ sin 2 arcsin 1 − 2η p 1 − 2η p 3 + 2η p . 1 − 6η p
+
+β p = arcsin
+
+Our analysis uses the two medial balls touching the surface at p. Their radii are not necessarily equal to the local feature size f ( p) which warrants the introduction of µ p . Both δ p and η p measure the local density of the sample around p which may be much smaller than the global density measured by ε. We will see later that δ p = O(ε)( f ( p)/µ p ). This in turn implies that η p is O(ε). The term β p measures the angle ∠n p , n pqr between the normal at p and the normal to any of its incident umbrella triangles. The O(ε) bound on η p also puts an O(ε) bound on β p .
+
+4.1. Umbrella Triangles. The Ratio and Angle conditions in MEDIAL are based on the assumption that the umbrella triangles lie ﬂat to the surface. We prove this fact now. A similar result has been proved by Amenta, Choi, Dey and Leekha [3]. However, we will need a different form of the result here. For completeness and due to the differences, we include the proofs where necessary. Recall that R pqr denotes the circumradius of a triangle pqr and n pqr denotes its normal. Let p be the vertex subtending the largest angle in pqr . LEMMA 1. If R pqr / f ( p) < 0.1, the angle ∠n pqr , n p is no more than α + arcsin(2/ √ 3 sin 2α), where α ≤ arcsin(R pqr / f ( p)). PROOF. Consider the medial balls B1 and B2 sandwiching S at p with the centers on the medial axis. Let D be the ball with the circumcircle of pqr as a diametric circle; refer to Figure 8. Denote the circles of intersection of D with B1 and B2 as C1 and C2 , respectively.
+
+188
+
+T. K. Dey and W. Zhao
+
+m
+α
+
+B1 p B2 q
+
+r D
+
+C1 p 2α
+
+C2 α’
+
+Fig. 8. The normal to a triangle and the normal to S at the vertex with the largest face angle.
+
+The line normal to S at p passes through m, the center of B1 . This normal makes an angle less than α with the normals to the plane of C1 , where α ≤ arcsin R pqr m−p R pqr . ≤ arcsin f ( p)
+
+This angle bound also applies to the plane of C2 , which implies that the planes of C1 and C2 make a wedge, say W , with an acute dihedral angle no more than 2α. The two vertices q, r of pqr cannot lie inside B1 or B2 . This implies that pqr lies completely in the wedge W . Since the face angle at p is at least π/3, the triangle pqr has to lie somewhat ﬂat within the wedge W if α is small enough. With the condition that R pqr / f ( p) < 0.1, α is small and it is proved in [3] that α = arcsin(sin 2α/(sin π/3) where α is the acute angle between the planes of C1 and pqr . The angle ∠n pqr , n p is at most α + α proving the theorem. The next lemma is proved by Amenta and Bern [1] which says that surface normals do not differ much if the points are close with respect to local feature sizes. LEMMA 2. Let p and q be two points in S so that p − q ≤ τ f ( p). Then ∠n p , nq ≤ τ/(1 − 3τ ) if τ < 1 . 3 We use the previous two lemmas to derive a bound between the normals to the surface and to the umbrella triangles respectively. LEMMA 3. Let pqr be any triangle in U p . We have ∠n pqr , n p ≤ β p . PROOF. Notice that if p is a vertex subtending the maximum angle in pqr , then we can apply Lemma 1 with R pqr ≤ δ p µ p to get 2 ∠n p , n pqr ≤ arcsin η p + arcsin √ sin(2 arcsin η p ) ≤ β p . 3 If p is not the vertex subtending the maximum angle, without loss of generality assume q to be such a one. Since pq cannot be larger than the diameter of the circumcircle of pqr , then p − q ≤ 2δ p µ p = 2η p f ( p). We have f ( p) ≤ (1/(1 − 2η p )) f (q) by
+
+Approximating the Medial Axis from the Voronoi Diagram
+
+189
+
+the Lipschitz property of f (). It follows that p − q ≤ (2η p /(1 − 2η p )) f ( p). Apply Lemma 2 with τ = 2η p /(1 − 2η p ) to get ∠n p , nq ≤ 2η p . 1 − 6η p
+
+Applying Lemma 1 for q and then using the fact that f (q) ≥ (1 − 2η p ) f ( p) we get that ∠n pqr , nq is no more than arcsin ηp ηp 2 + arcsin √ sin 2 arcsin 1 − 2η p 1 − 2η p 3 .
+
+Since ∠n pqr , n p ≤ ∠n pqr , nq + ∠nq , n p , the bound as claimed follows. The proof of the next lemma follows from a result in [1]. LEMMA 4. Let pqr be any umbrella triangle in U p . The circumradius R pqr ≤ ε 1−ε 1 sin(π/2 − 3 arcsin ε/(1 − ε)) f ( p).
+
+PROOF. The radius R pqr cannot be more than the distance between p and the farthest point on the tangent polygon of p from it. Any point w in the tangent polygon satisﬁes ∠v p , t pw = π/2 where v p is the pole vector. Therefore, we can use the reverse implication of the following statement proved in [1]. If w ∈ Vp is a point so that w − p > τ f ( p), then ∠v p , t pw ≤ arcsin ε ε + arcsin . τ (1 − ε) 1−ε
+
+Also, the pole vector v p satisﬁes ∠v p , n p ≤ 2 arcsin(ε/(1 − ε)). The reverse implication referred to above gives R pqr ≤ w − p ≤ ε 1−ε 1 sin(π/2 − 3 arcsin ε/(1 − ε)) f ( p).
+
+It follows from the above lemma that δ p = max R pqr f ( p) ≤ O(ε) . µp µp
+
+pqr ∈U p
+
+This implies that both η p and β p are O(ε) only. COROLLARY 1. δ p = O(ε)( f ( p)/µ p ), η p = O(ε) and β p ≤ 6η p = O(ε) for small ε.
+
+190
+
+T. K. Dey and W. Zhao
+
+4.2. Analysis. The convergence analysis proceeds in part by showing that each point in a speciﬁc subset of the output is within a small distance from a medial axis point. As ε → 0 this distance vanishes. Conversely, we also argue that each medial axis point has a nearby point in the subset, the distance between which also vanishes as ε → 0. Some of the points on the sampled surface S have inﬁnitely large medial balls. This poses some difﬁculty in our analysis. To prevent this we enclose S and hence its sample within a sufﬁciently large bounding sphere. This ensures that µ p has an upper bound for each point p on S. Of course, the bounding sphere changes the medial axis outside S, but we can keep these changes as far away from S as we wish by choosing a sufﬁciently large bounding sphere. In particular, the medial axis inside S does not change at all with this modiﬁcation. In the analysis to follow, we assume that the input point set P samples S as well as the bounding sphere. With the bounding sphere assumption, we have ≤ f ( p)/µ p ≤ 1 for any point p ∈ S where > 0 is a constant dependent on S. It is important that, although depends on S, it remains independent of its sampling. In the analysis we prove convergence for the subset of the medial axis of S that remains unchanged with the bounding sphere assumption. Let M denote this subset of the medial axis which consists of the centers of the medial balls that touch S but not the bounding sphere. We also need to make some adjustments in MEDIAL to accommodate this change. Given the sample points of S, MEDIAL ﬁrst has to add the sample points of the bounding sphere and then ﬁlter only from those Delaunay edges that connect sample points of S. We assume this modiﬁcation to MEDIAL while carrying out the analysis. However, we do not implement these modiﬁcations since we observe that the algorithm without this additional sample points work well in practice. For the ε-sample P, we deﬁne Lε , a subcomplex of the output complex computed by MEDIAL, and show that the underlying space L ε of Lε converges to M in the limit ε → 0. Let m and m be the centers of the two medial balls at p and µ, µ their radii, respectively. It is a simple observation that m and m are contained in Vp [1]. Suppose w ∈ Vp to be a point in the output so that t pw · t pm > 0. This means w and m lie on the same side of the tangent plane at p. We will show that if w − p ≤ µ, then the distance between w and its closest point on pm is small. This fact is used to show that if w belongs to a Voronoi facet of Vp which makes a large angle with the line of pm, then w must be near m. Before we proceed to prove the above fact, we need another geometric property of the umbrella triangles and their circumcircles. For an umbrella triangle pqr , consider the cone on its plane with p as the apex and opening angle ∠q pr . Let L pqr denote the intersection of this cone with the circumcircle of pqr , see Figure 9. We deﬁne the ﬂower of p, Fl p as Fl p =
+pqr ∈U p
+
+L pqr .
+
+LEMMA 5.
+
+Vp does not contain any point of the boundary of Fl p inside.
+
+PROOF. Consider any point x on the boundary of Fl p as shown in Figure 9. Let x belong to the boundary of the circumcircle of pqr . It is a simple geometric fact of circles that x is closer to either q or r than to p. It means x cannot be inside Vp .
+
+Approximating the Medial Axis from the Voronoi Diagram
+
+191
+
+p q r q
+x
+
+p r
+
+Fig. 9. L pqr of an umbrella triangle pqr (left), and the ﬂower of p.
+
+The ﬂower of p lies very ﬂat to the surface and cannot intersect the segment mm at any point other than p. This means that the above lemma implies that Fl p intersects Vp completely and separates m and m on its two sides within Vp . In particular, any segment connecting a point w ∈ Vp with m, where w and m lie on the opposite sides of Fl p , must intersect Fl p . In the next two lemmas let w ◦ denote the closest point to w ∈ Vp on the line of mm . Also see Figure 10. LEMMA 6. If w ◦ lies in the segment mm , then w − w ◦ ≤ 2 tan(arcsin 2η p )µ p .
+
+PROOF. Let m be the center of the medial ball at p so that w and m lie on opposite sides of the ﬂower at p within Vp . Consider the segment wm . Let y be the foot of the perpendicular dropped from p to wm . Since wm intersects Fl p and any point in Fl p is within 2δ p µ p distance, we must have y − p ≤ 2δ p µ p . Therefore, ∠ pm y ≤ arcsin It follows that w − w ◦ ≤ m − m tan ∠ pm y ≤ 2µ p tan(arcsin 2η p ). LEMMA 7. Let F = Dual pq be a Voronoi facet where pq satisﬁes the Angle condition [θ ] with θ ≥ 2η p + β p . Any point w in F with w − p ≤ µ is within a distance of (1/sin(θ − β p ))(2 tan(arcsin 2η p ))µ p from m where m and µ are the center and radius of the medial ball at p with t pm · t pw > 0. 2δ p µ p y−p ≤ arcsin = arcsin 2η p . m −p f ( p)
+
+m w p y w
+
+m’
+Fig. 10. Illustration for Lemma 6.
+
+192
+
+T. K. Dey and W. Zhao
+
+x m p y m’ x
+Fig. 11. Illustration for Lemma 7. The picture on the left is not a possible conﬁguration due to the constraint on α.
+
+F w
+
+m F w w p m’
+
+PROOF. Consider the ball B with radius µ around p. The point w necessarily lies inside B since w − p ≤ µ. Therefore, w ◦ lies in the segment pm. We can apply Lemma 6 to assert w − w◦ ≤ 2 tan(arcsin 2η p )µ p . Let the plane of F intersect the line of pm at x at an angle α. We have α > θ − β p since the normal to F makes more than angle θ with the normal of an umbrella triangle (by the Angle condition [θ]) which in turn makes an angle less than β p with the surface normal at p (Lemma 3). With the requirement that θ > 2η p + β p , we have α > 2η p . Also, the plane of F cannot intersect the segment mm . This is because the medial balls at p are empty of any other sample point and thus both m and m belong to Vp . In particular, the segment mm must be inside the Voronoi cell Vp . The segment wm necessarily lies inside Vp and intersects the ﬂower of p, say at y. This means y − p ≤ 2δ p µ p . If x lies below m as shown in the left picture of Figure 11, we have α < ∠ pxw < ∠ pm y < tan y−p < 2η p . m −p
+
+This contradicts the assertion that α > 2η p . So, x cannot lie below m . Instead, it lies above m as shown in the right picture in Figure 11. From the triangle ww◦ x we have w−m ≤ w−x ≤ 2 tan(arcsin 2η p ) w − w◦ ≤ µp . sin α sin(θ − β p )
+
+To complete the proof of convergence we need the following lemma which says that for a long Delaunay edge pq there must exists a point w ∈ Dual pq which cannot be too far from a medial axis point. This lemma is extracted from a result (Proposition 18) of Boissonnat and Cazals [8]. Although we use a slightly different version with different constants and exponents, the proof remains same. LEMMA 8. Let pq be a Delaunay edge with p − q > ηµ, where µ is the radius of a medial ball at p with the center m and η ≥ ε 1/4 . If the medial angle of p is larger than ε1/3 , then all points w ∈ Dual pq with t pm · t pw > 0 satisfy w − m = O(ε 3/4 )µ for sufﬁciently small ε ≥ 0.
+
+Approximating the Medial Axis from the Voronoi Diagram
+
+193
+
+Now we deﬁne a subcomplex Lε from the complex computed by MEDIAL. The deﬁnition is motivated by the conditions of Lemmas 7 and 8. DEFINITION 4. We deﬁne Lε ⊆ V P as Lε = {Cl F | F ∈ V P } where pq = Dual F is selected by MEDIAL either by (i) the Angle condition, or (ii) the Ratio condition with p − q ≥ ε1/4 µ p and the medial angle of p is larger than ε1/3 . Here µ is the radius of the medial ball at p with the center m so that t pm · t pq > 0. Let L ε denote the underlying space of Lε . Consider a sequence of L ε with decreasing ε. Theorems 1 and 2 establish that the limit of this sequence converges to M where M is the subset of the medial axis deﬁned by medial balls that touch only S but not the bounding sphere. This shows that a subset of the output of MEDIAL converges to the medial axis though the difference between this subset and the output is small; speciﬁcally when ε = 0, this subset coincides with the output. THEOREM 1. limε→0 L ε ⊆ M.
+
+PROOF. Let F ∈ Lε be a facet computed by MEDIAL(). First, consider the case when pq = Dual F is selected by the Angle condition. Let w ∈ F be any point and µ and m are as deﬁned in Lemma 7. If w is more than µ away from p, we can apply Lemma 8 to conclude w − m = O(ε3/4 )µ if p has a medial angle (ε1/3 ). Otherwise, Lemma 7 applies to assert that w−m ≤ 2 tan(arcsin 2η p )µ p = O(ε)µ p . sin(π/8 − β p )
+
+In both cases as ε approaches zero, w reaches m in the limit ε → 0. Next, consider the case when pq = Dual F is selected by MEDIAL by the Ratio condition. Since F ∈ Lε , all conditions to apply Lemma 8 are satisﬁed. So, we have w − m = O(ε 3/4 )µ. This implies that w reaches m in the limit ε → 0. Next we wish to establish the converse of the previous theorem, i.e., the points on the medial axis have a nearby point in the output, L ε in particular. It turns out that only a subset of M satisﬁes this guarantee which converges to the entire M as ε approaches zero. DEFINITION 5. The sampled surface S is said to be well behaved in the neighborhood of a point p ∈ S with respect to ε ≥ 0 if the following condition holds: any ball that meets S tangentially at p can be tangent to another point q ∈ S only if p − q ≥ 2ε1/4 µ, where µ is the radius of the medial ball at p with the center m so that t pm · t pq > 0. Roughly speaking, the above deﬁnition says that S cannot oscillate around a wellbehaved point arbitrarily. Let Sε ⊆ S be the set of all points where S is well behaved with respect to ε. By deﬁnition all points in Sε have a medial angle more than arcsin ε 1/4 ≥ ε1/3
+
+194
+
+T. K. Dey and W. Zhao
+
+for sufﬁciently small ε. The next lemma claims that all sample points where S is well behaved must have a long Delaunay edge. LEMMA 9. Let p ∈ Sε be a sample point. For each medial ball at p with center m and radius µ, there is a Delaunay edge pq with t pm · t pq > 0 so that p − q ≥ ε1/4 µ where ε is sufﬁciently small. PROOF. Let B be a medial ball touching S at p with radius µ and center m. Grow B keeping it tangent to S at p. Initially, the ball is empty of any other point of S. However, as the growth continues it starts meeting S and eventually meets a sample point q. Certainly, we have t pm · t pq > 0. Let q belong to a component of B ∩ S that originated at x ∈ S during the growth process. This means B met S tangentially at x. Since S is well behaved at p, we must have p − x ≥ 2ε1/4 µ. Also, applying the ε-sampling condition and some sphere geometry we can show that, for sufﬁciently small ε, q − x ≤ 2ε f (x). Now assume p −q ≤ 2ε1/4 µ because otherwise there is nothing to prove. Using the Lipschitz condition on f () and the condition q − x ≤ 2ε f (x), it is easy to establish that f (x) ≤ f (q)/(1 − 2ε). Similarly, using the condition p − q ≤ 2ε1/4 µ ≤ (2ε1/4 / ) f ( p), we get f (q) ≤ Therefore, p−q p−x − q−x 2εµ ≥ 2ε 1/4 µ − 1 − 2ε1/4 / ≥ ε1/4 µ ≥ f ( p) 1 − 2ε 1/4 / ≤ µ . 1 − 2ε 1/4 /
+
+for sufﬁciently small ε. We also need the following result proved by Amenta, Choi and Kolluri [4] which says that poles are not very far from the medial axis points inside a Voronoi cell. LEMMA 10. Let m be a medial axis point with nearest sample point p and the medial angle at m is larger than ε1/3 . Then there is a pole of p which is only O(ε2/3 )µ distance away from m where µ is the radius of the respective medial ball. Let Mε ⊆ M be the set of medial axis points whose nearest point(s) in S and P lie in Sε . Since all points in Sε have medial angles more than ε 1/3 , so are the points in Mε . We show that Mε has a nearby point in L ε . LEMMA 11. Let m ∈ Mε . There exists a point w ∈ L ε so that w − m = O(ε 1/4 )µ p where p is the nearest sample point to m.
+
+Approximating the Medial Axis from the Voronoi Diagram
+
+195
+
+PROOF. Let c be center of the medial ball touching S at p. Since this ball does not contain any point of S inside, we must have c inside the Voronoi cell Vp . Also, m ∈ Vp since p is the nearest sample point to m. First, both m and c have medial angles more than ε1/3 by the property of Mε . Applying Lemma 10 we get that m and c cannot be far apart, m − c = O(ε 2/3 )µ p since both have a pole of p within O(ε 2/3 )µ p distance. By deﬁnition, p ∈ Sε . Thus, according to Lemma 9 there exists a Delaunay edge pq with p − q ≥ ε1/4 µ where µ is the radius of the medial ball with center m. The dual of this edge must belong to Lε by the Ratio condition. Lemma 8 implies that there is a point w ∈ F = Dual pq so that w − c = O(ε3/4 )µ p . This means w − m ≤ w − c + m − c = O(ε3/4 )µ p . THEOREM 2. M ⊆ limε→0 L ε .
+
+PROOF. By deﬁnition of Mε we have M = limε→0 Mε . Lemma 11 implies limε→0 Mε ⊆ limε→0 L ε . Theorems 1 and 2 together establish that, in the limit ε → 0, L ε converges to the medial axis M. A schematic diagram of the convergence of various structures is illustrated in Figure 12. REMARK. Note that it is essential to assume that no ﬁve sample points lie on the boundary of an empty sphere so that dual facets of all edges with an empty circumscribing sphere exist in the Voronoi diagram. This excludes, for example, sample points on a sphere. Also, a careful examination of the proofs of Theorems 1 and 2 suggests that the “only Ratio condition” is sufﬁcient to ﬁlter Delaunay edges. However, as we have indicated earlier, we need both conditions to deal with data sets appearing in practice. This is the reason why we designed MEDIAL with two conditions and prove their contributions towards convergence. 5. Experimental Results. We implemented MEDIAL in C + + using the CGAL library [32] for the Voronoi diagram and the Delaunay triangulation. Figure 13 shows
+M
+
+Lε
+
+Mε
+
+Lε
+ε− > 0
+
+Mε
+ε− > 0
+
+M
+ε=0
+
+Fig. 12. Convergence of L ε and M.
+
+196
+
+T. K. Dey and W. Zhao
+
+CLUB
+
+3HOLE
+
+ROCKER
+
+SCREWDRIVER
+
+ENGINE surface
+
+medial axis of ENGINE
+
+KNOT
+
+HEART
+
+HAND
+
+MANNEQUIN
+
+DINOSAUR
+
+FEMALE
+
+Fig. 13. Medial axis with MEDIAL shown by the dark shading.
+
+Approximating the Medial Axis from the Voronoi Diagram
+
+197
+
+our result on some example data sets. In this picture we show only the “inner” medial axis that is “enclosed” by the surface. We computed the “inner” medial axis as follows. A piecewise linear surface interpolating the sample points is computed with our TIGHT COCONE software [31]. This surface is a subcomplex of the Delaunay triangulation and is guaranteed to be watertight. We output those Voronoi facets computed by MEDIAL that are dual to the Delaunay edges enclosed by the computed surface of TIGHT COCONE. The approximation of the medial axis is better where the data is dense. Near high curvature regions, or nonsmooth regions where undersampling happens, the approximation contains artifacts. For example, in the CLUB and ROCKER data, the medial axis is well approximated in most part where the density is high. However, near the handle of the CLUB and top of the ROCKER, the sampling density suffers due to high curvature and small features. As a result the approximation is poor in these regions. SCREWDRIVER data is mostly very dense and almost uniform except near some small curvature regions. On the other hand, 3HOLE is relatively a sparse data set. In both cases, MEDIAL approximated the medial axis quite well. This shows that MEDIAL is tolerant to different levels of data densities. The sample in ENGINE lies on several connected components. In this case we computed the entire medial axis since “inner” and “outer” distinction in this case does not have any meaning. In general, the medial axis of a surface may contain elements of different dimensions. In MEDIAL we approximate all these elements with 2D Voronoi facets. The data set KNOT shows this interesting phenomenon. The 1D medial axis in this case has been approximated with very thin Voronoi facets. The HEART data is extracted as an iso-surface from the intensity ﬁeld of a volumetric image. The data contains some noise introduced by the iso-surface extraction procedure. MEDIAL could tolerate most of this noise as the output in Figure 13 suggests. Four more examples HAND, MANNEQUIN, DINOSAUR and FEMALE show how MEDIAL computes clean medial axes for complicated shapes. In Figure 14 we show the two views of the medial axis for a CAD object FANDISK. The medial axis is well approximated except at the boundaries where it is “jagged”. The poor approximation at these places is caused by the sharp edges of the surface where it is nonsmooth and therefore the inherent problem of undersampling occurs, see [13]. In the FOOT data we zoom some places of the toes and the heel. The zoomed region in the toe has undersampling and the medial axis near the boundary has some roughness. However, the heel is well sampled, and the corresponding medial axis boundary is smoother. The FOOT data has abrupt density changes in some parts. As a result the “only Ratio condition” did not produce good result for any ratio. MEDIAL produced a good approximation to the medial axis. It shows that MEDIAL is impervious to nonuniformity in data.
+
+5.1. Timing. We used the ﬁltered ﬂoating point arithmetic provided by CGAL [32] for robust geometric computations. Experiments were conducted on a PC with 933 MHz CPU and 512 MB memory. The code was compiled with CGAL2.3 library and g++ compiler with o1 level of optimization. The time for the Delaunay triangulation and ﬁltration are listed in Table 1.
+
+198
+
+T. K. Dey and W. Zhao
+
+FANDISK
+
+Medial axis
+
+Another view
+
+FOOT
+
+Toes
+Fig. 14. Computed medial axis of FANDISK and FOOT.
+
+Heel
+
+Table 1. Time data. Number of points 4,000 10,001 11,361 12,773 16,475 16,865 20,021 25,626 27,152 28,098 37,912 40,177 121,723 Delaunay time (s) 2.37 8.36 37.0 7.79 13.4 18.81 13.24 51.14 51.87 23.28 32.49 74.54 292.85 Filter time (s) 0.82 2.66 1.82 2.28 3.0 3.06 3.71 5.11 5.36 5.8 6.58 8.25 24.95
+
+Object 3HOLE KNOT ENGINE MANNEQUIN FANDISK CLUB FOOT HAND SCREWDRIVER DINOSAUR HEART ROCKER FEMALE
+
+Approximating the Medial Axis from the Voronoi Diagram
+
+199
+
+6. Conclusions. In this paper we present an algorithm that approximates the medial axis from the Voronoi diagram of a set of sample points. Unlike previous approaches, this algorithm is scale and density independent. Experimental studies suggest that the algorithm computes clean medial axes without any ﬁne tuning of the parameters. Although this is the ﬁrst algorithm that shows that medial axis can be computed as a subcomplex of the Voronoi diagram with guaranteed convergence, we could not prove that the output medial axis maintains the topology of the original one. From our experiment results, we observe that all signiﬁcant branchings of the medial axis are approximated by MEDIAL. If the data set is dense, we obtain quite clean medial axis without many sampling artifacts. Although proving a homeomorphism between the output of MEDIAL and the true medial axis will be difﬁcult, if not impossible, we expect that it would be possible to show the homotopy equivalence between the two. We plan to investigate this aspect in future research. In many applications it is useful to have a simpliﬁcation of the medial axis. Obviously, larger parameter values simplify the medial axis. Is there a way to determine automatically the values that bring up the hierarchy of the stable parts of the medial axis? More investigations are necessary to answer this question.
+
+Acknowledgments. We thank Dominique Attali for sending papers [5] and [6] and the HEART data.
+
+References
+[1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] N. Amenta and M. Bern. Surface reconstruction by Voronoi ﬁltering. Discrete Comput. Geom., 22 (1999), 481–504. N. Amenta, M. Bern and D. Eppstein. The crust and the β-skeleton: combinatorial curve reconstruction. Graphical Models Image Process., 60 (1998), 125-135. N. Amenta, S. Choi, T. K. Dey and N. Leekha. A simple algorithm for homeomorphic surface reconstruction. Internat. J. Comput. Geom. Appl., 12 (2002), 125–121. N. Amenta, S. Choi and R. K. Kolluri. The power crust, unions of balls, and the medial axis transform. Comput. Geom. Theory Appl., 19 (2001), 127–153. D. Attali and J.-O. Lachaud. Delaunay conforming iso-surface, skeleton extraction and noise removal. Comput. Geom. Theory Appl., 19 (2001), 175–189. D. Attali and A. Montanvert. Computing and simplifying 2D and 3D continuous skeletons. Comput. Vision Image Understanding, 67 (1997), 261–273. J. D. Boissonnat and F. Cazals. Smooth surface reconstruction via natural neighbor interpolation of distance functions. Proc. 16th. ACM Sympos. Computational Geometry, 2000, pp. 223–232. J. D. Boissonnat and F. Cazals. Natural neighbor coordinates of points on a surface. Comput. Geom. Theory Applications, 19 (2001), 87–120. S. Bouix and K. Siddiqi. Divergence-based medial surfaces. Proc. European Conference on Computer Vision, 2000. J. W. Brandt. Convergence and continuity criteria for discrete approximation of the continuous planar skeletons. CVGIP: Image Understanding, 59 (1994), 116–124. J. W. Brandt and V. R. Algazi. Continuous skeleton computation by Voronoi diagram. Comput. Vision Graphics Image Process., 55 (1992), 329–338. T. Culver, J. Keyser and D. Manocha. Accurate computation of the medial axis of a polyhedron. Proc. ACM Sympos. Solid Modeling Applications, 1999, pp. 179–190.
+
+200 [13] [14] [15] [16] [17] [18] [19]
+
+T. K. Dey and W. Zhao T. K. Dey and J. Giesen. Detecting undersampling in surface reconstruction. Proc. 17th Ann. Sympos. Computational Geometry, 2001, pp. 257–263. D. Dutta and C. Hoffman. How to construct the skeleton of CSG objects. Proc. 4th IMA Conf. Mathematics of Surfaces. Oxford University Press, Oxford, 1991. H. Edelsbrunner. Shape reconstruction with Delaunay complex. LATIN ’98: Theoretical Informatics, pp. 119–132. LNCS 1380. Springer-Verlag, Berlin, 1998. H. Edelsbrunner and E. P. M¨ cke. Three-dimensional alpha shapes. ACM Trans. Graphics 13 (1994), u 43–72. M. Etzion and A. Rappoport. Computing Voronoi skeletons of a 3D polyhedron by space subdivision. Tech. Report, Hebrew University, 1999. P. J. Giblin and B. B. Kimia. A formal classiﬁcation of 3D medial axis points and their local geometry. Proc. Conf. Computer Vision and Pattern Recognition (CVPR), 2000. L. Guibas, R. Holleman and L. E. Kavraki. A probabilistic roadmap planner for ﬂexible objects with a workspace medial axis based sampling approach. Proc. IEEE/RSJ Internatl. Conf. Intelligent Robots and Systems, 1999, pp. 254–260. H. N. Gursoy and N. M. Patrikalakis. Automated interrogation and adaptive subdivision of shape using medial axis transform. Adv. Engrg. Software, 13 (1991), 287–302. P. Hubbard. Approximating polyhedra with spheres for time critical collision detection. ACM Trans. Graphics, 15 (1996), 179–210. C. Niblak, P. Gibbons and D. Capson. Generating skeletons and centerlines from the distance transform. CVGIP: Graphical Models Image Process., 54 (1992), 420–437. R. L. Ogniewicz. Skeleton-space: A multiscale shape description combining region and boundary information. Proc. Conf. Computer Vision and Pattern Recognition, 1994, pp. 746–751. M. Schmitt. Some examples of algorithms analysis in computational geometry by means of mathematical morphological techniques. In J.-D. Boissonnat and J.-P. Laumond, eds. Proc. Workshop on Geometry and Robotics, pp. 225–246. LNCS 391. Springer-Verlag, Berlin, 1989. D. Sheehy, C. Armstrong and D. Robinson. Shape description by medial axis construction. IEEE Trans. Visual. Comput. Graphics, 2 (1996), 62–72. A. Sheffer, M. Etzion, A. Rappoport and M. Bercovier. Hexahedral mesh generation using the embedded Voronoi graph. Engrg. Comput., 15 (1999), 248–262. E. C. Sherbrooke, N. M. Patrikalakis and E. Brisson. An algorithm for the medial axis transform of 3D polyhedral solids. IEEE Trans. Visual. Comput. Graphics, 2 (1996), 44–61. D. Storti, G. Turkiyyah, M. Ganter, C. Lim and D. Stal. Skeleton-based modeling operations on solids. ACM Sympos. Solid Modeling Applications, 1997, pp. 141–154. M. Teichman and S. Teller. Assisted articulation of closed polygonal models. Proc. 9th Eurographics Workshop Animation and Simulation, 1998. F.-E. Wolter. Cut locus & medial axis in global shape interrogation & representation. Memorandum 92-2, MIT Design Laboratory, 1992. http://www.cis.ohio-state.edu/∼tamaldey/cocone.html. http://www.cs.ruu.nl/CGAL.
+
+[20] [21] [22] [23] [24]
+
+[25] [26] [27] [28] [29] [30] [31] [32]
+

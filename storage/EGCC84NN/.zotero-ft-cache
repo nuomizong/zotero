@@ -1,0 +1,2313 @@
+Optimal Design of Stiffened Plates
+
+Ravi Shankar Bellur Ramaswamy
+
+August 1999
+
+A thesis siibniitted in conformity with the requirements for the degree of Master of AppIied Science. Graduate Department of Aerospace Science and Engineering, University of Toronto
+
+@Ravi Bellur Ramastvamv. 1999
+
+National Library (*I Canada of
+Acquisitions and Bibliographie Services
+395 Wellington Street Ottawa ON KI A ON4
+
+BibliothÃ©que nationale du Canada Acquisitions et services bibliographiques
+395, rue Wellington Ottawa ON K1 A ON4
+
+Canada
+
+Canada
+
+The author has granted a nonexclusive licence allowing the National Library of Canada to reproduce, loan, distribute or sel1 copies of ths thesis in microform, paper or electronic formats.
+
+L'auteur a accordÃ© une licence non exclusive permettant Ã  la BibliothÃ¨que nationale du Canada de reproduire, prÃªter, distribuer ou vendre des copies de cette thÃ¨se sous la forme de microfiche/film, de reproduction sur papier ou sur format Ã©lectronique. L'auteur conserve la propriÃ©tÃ© du droit d'auteur qui protÃ¨ge cette thÃ¨se. Ni la these ni des extraits substantiels de celle-ci ne doivent Ãªtre imprimÃ©s ou autrement reproduits sans son autorisation.
+
+The author retains ownership of the copyright i this thesis. Neither the n thesis nor substantial extracts fiom it may be printed or othewise reproduced without the author's permission.
+
+Optimal Design of Stiffened Plates
+Ravi S. Bellur Ramaswaniy
+Degree of Master of Applied Science (August 1999)
+
+Institute for ilerospace Studies, Unaiversitgof Toronto
+4925 , Cufferin Street. Toronto, Canada hf3H 5T6
+
+Abstract
+-4 desigri nietliotloloÃ§y for the optirnization of stiffencd plates with frequency and
+
+biickling constrairits is prescnted. The basic idea of the rnethodology is to consider a plate witli a fairly dense1 distribution of stiffeners. Tliickness of the plate aiid stiffeners, and the stiffencr nidtli arc the design variables. Dcsign variable linking is accomplishcd by the use
+of r a t i ~ n a spline surfaces. The finite element method is used for the iinÃ¼lysis. The plate l
+
+is riiodelecl using iiriear SIindlin plate elemcnts and the stiffcncrs by liriear Timostienko
+
+hcarii elemmts. Botli the plate and beani clements arc shear-locking free by forniulation:
+\vit lioiit requiring ariy special techniques such as reduced integration. Results for a square
+
+stiffcnecl plate witli three different stiffener Iayout patterns and differeiit stiffcner densityl arc presented. The best four stiffener coiifigurations which gice the lowest mass are cliosen and applied to ?:1 and 3:l rectangular plates. It is concluded that the preserit design iiiethoclology giws good results. and that the stiffener pattern and stiffener density play ari iniportant role in reducing the mass of a stiffeneci plate.
+
+'Refers to the measure of the number of stiffeners and there spacings and NOT to the density of the stiffener material.
+
+Dedicated to my beloved parents and sister, whose love, support, and encouragement, words caiinot describe.
+
+Acknowledgement s
+1 an1 clceply indebted to n- Supervisor Prof. J. S. Hansen for Iiis encouragernent:advice,
+
+guidance. aiid financial support throughoiit the course of this work. witliout whicti n q desirc t o piirsiie gradiiatc stiidics would have remaincd just a dream.
+1 would like to t h m k 11s. Nora Burnett, and 11s. Elaine Grariatstein for their assis-
+
+taricc in gctting library material.
+1 tliarik Dr. Donatiis Ogiianiariani, a good friend of mine. for Iielping nie to get started wi t h the fini te elenient prograniming.
+
+Sly hierici Guillaume Renaud never hesitated to answer any of ni- questions. We Iiad
+many friiitful discussions on the present work. 1 enjoyed his conipany a t work. play aiid other outdoor activities. 1 am thankful to hini. Special thanlis to Saniir Hamdi for making my job of plotting easier by giving sorne lidpfiil software hints. 1sprnt some wonderfiil moments in his compaiiy. which 1 will always rcnicmbcr. Getting settled in a nem country and culture is not an easy task. But, this esperience mas made pleasant by niy friends Fred Wong: Patton Chan, Chris Young, and those mentioned before. 1 thank al1 of them for their friendship. Finally, I am grateful to al1 my parents: grandparents, uncles, and aunts for their encouragement and initial financial support.
+
+Contents
+Abstract Acknowledgements
+1 Introduction
+1.1 Literaturc Siirvey and 1Iotivation
+
+iii
+iv
+1
+
+. . . . . . . . . . . . . . . . . . . . . . .
+
+3
+
+.
+
+1.2 Objective
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+3
+4
+
+1.3 Outli~ic tiic thesis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . of
+2 The Finite Element Mode1
+
+2.1 Stiffener Layout Pattcrn . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2.2 The Plate Element . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.2.1
+Element Matrices for the Vibration Problern . . . . . . . . . . . . .
+
+5
+I
+
+.
+
+9
+
+2.2.2
+
+Eleinent SIatrices for the Buckling Problem . . . . . . . . . . . . .
+
+12
+
+'2.3 The Beam Element . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.3.1
+2.3.2
+
+15
+
+EIement Matrices for the Vibration Probleni . . . . . . . . . . . . .
+Element Matrices for the Buckling Problem . . . . . . . . . . . . .
+Rotation Natris
+
+17
+20
+
+2.3.3
+2.4
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
+22
+32
+
+Global Equations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.4.1 3.4.3 4
+
+VibrationFroblem . . . . . . . . . . . . . . . . . . . . . . . . . . . Pre-buckling Problem . . . . . . . . . . . . . . . . . . . . . . . . . . Buckling Problem . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+23 23
+
+3 Validation of the Finite Element Code 3.1 Convergence stildy for the Plate Elenient . . . . . . . . . . . . . . . . . . .
+
+25
+
+.23
+25
+
+3.1.1 3.1.2
+
+\..ibration Problem . . . . . . . . . . . . . . . . . . . . . . . . . . . Buckliiig Problern . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+26
+
+3.2 Corivergence stiidy for the Beam EIement . . . . . . . . . . . . . . . . . . .
+3.2.1
+3.2.2
+
+26
+
+Vibration Problem
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+27
+
+Biickling Probleni . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+3.3 Gericral Coninients About the Results
+4 The Optimization Mode1
+
+. . . . . . . . . . . . . . . . . . . . 27
+34
+34
+
+-4.1 Design \.ariablcs
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+-4.2 Linking Design Cariables with Splirie Surfaces . . . . . . . . . . . . . . . .
+
+35
+
+4.3 Optimizatioii Equations of Present Work . . . . . . . . . . . . . . . . . . . 36
+4.4
+
+The Optirnization Routine Csed . . . . . . . . . . . . . . . . . . . . . . . .
+
+36
+
+5 Optimal Designs
+
+38
+
+5 .1 Stiffened Square Plate . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+35
+39
+
+5.1.1
+
+Frequcncy Constraint Applied on the Plate with SPDIA Stiffeners . Frequency and Buckling Constraints Applied on the Plate with SP-
+
+5.1.3
+
+DIA Stiffeners . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42
+5.1.3 Plates wit.h Other Stiffener Patterns 5.2
+
+. . . . . . . . . . . . . . . . . 52
+65
+67
+
+Rectangular Stiffened Plates . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+5.3 Concluding Remarks on the Results
+6 Summary and Conclusions
+
+......................
+
+86
+
+6.1
+
+Recommendations for Future Work
+
+. . . . . . . . . . . . . . . . . . . . . . 87
+88
+
+References
+
+List of Tables
+3.1 Cornparison of results: plate vibration . . . . . . . . . . . . . . . . . . . . .
+
+29
+99
+
+3.2 Coriiparisoii of resul ts: plate bucklirig. . . . . . . . . . . . . . . . . . . . .
+
+3.3 Comparison of results: beam vibration . . . . . . . . . . . . . . . . . . . . . 29
+3.4
+Comparison of results: beani buckling . . . . . . . . . . . . . . . . . . . . .
+99
+
+5.1 Pruperties of the refererice plate . . . . . . . . . . . . . . . . . . . . . . . . 5 . 2 Initial design for the case of frcquency constraint alone . . . . . . . . . . . .
+
+35
+39
+41
+42
+
+5.3 Optimiini dcsign for the case of frequency constraint alone . . . . . . . . . .
+5.4
+3.3
+
+Initial design For square plate mith frequericy and buckling constraints . . . Optimum design for the case of buckliiig and frequency constraints .
+
+-
+
+*
+
+....
+
+43
+47 47
+
+5.6
+a.i
+
+>lctliocls for rcducing weight fiirtlier: Initial Design . . . . . . . . . . . . .
+.\lethods for reducing weight further: Optimal Design . . . . . . . . . . . .
+
+--
+
+5.8 Square plate with stiffener patterns SPSQR and SPDIASQ: Initial Designs
+5.9
+
+54
+
+Square plate with stiffener patterns SPSQR and SPDIASQ: Optimal Designs 54
+
+5.10 Optimal masses obtained by various methods
+
+. . . . . . . . . . . . . . . . 63
+68
+
+5.1 l Rectangular Plate (?: 1 ratio): Initial Desigris . . . . . . . . . . . . . . . . . 5.12 Rectangular Plate (21 ratio): Optimal Desigris
+
+. . . . . . . . . . . . . . .
+
+68
+I (
+
+5-13 Rectangular Plate (3:1 ratio): Initial Designs . . . . . . . . . . . . . . . . . 5.14 RectangulÃ»r Plate (3:l ratio): Optimal Designs
+
+-1
+
+. . . . . . . . . . . . . . .
+
+ii
+
+..
+
+vii
+
+List of Figures
+2.1 1.2
+
+.A plate witli qinnietric stiffeners layed out in one of tlic possibie patterns. A part of the plate shown with finite elcment discrctizatioii.
+
+.. ......
+. . . . . . . . .
+
+2.3 Thc various stiffencr patterns and there rcference narnes. 2.4 2.5 2.6
+
+. ... .. .
+
+Dcfining the Stiffener Density Factor .
+
+.. . . .. ......
+
+.
+
+.
+
+Sclieinatic of the triangiilar plate element used. Sclienlatic of the hearn elcment used.
+
+. . . . . . ..... . . ..
+. . . . . . . . . .
+
+.. . .. .. . ...
+
+'2.1 Approsirtiat ion in st iffÃ©rier cross-section . . . . . . . . . . . .
+
+...... ..
+
+3.1 Conwrgcnce plot for the plate-elernent: sirnply-supported vibrat,ing plate.
+
+3.2 Convergence plot for the plate-element: simply-supported plate subjected to bucklirig. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.3 Convergence plot for the beam-element : simply-supported vibrating beam.
+3.4
+
+Convergence plot for the beam-element: simply-supported beam subjected to buckhig. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+4.1 The design variables at a cross-section.
+
+... .. ....
+
+. . . . . . . . . .
+
+.. .. ... ... ........... 5.2 Square plate mith SPDIA: Spline surface for t . . . . . . . . . . . . . . . . 5.3 Square plate with SPDIA: Spline surface for t p . . . . . . . . . . . . . . .
+5.1 Envelope surface of t for the stiffeners
+- 4
+
+Square plate with SPDIA, and SPS niethod applied: Spline surface for t . Square plate with SPDIA, reduced SDF: Spline surface for t . . . . . . . surface for t
+
+-3.3
+S.6
+
+. . .
+
+Square plate with SPDIA7 reduced SDF and SPS method applied: Spline
+
+.....
+
+. . . . . . .
+
+..................
+viii
+
+. . . .
+
+.-
+
+-
+
+Square plate with SPDIA, reduced SDF and SPS niethod applied: Spline
+
+surface for t p
+
+. . . . ...... . . ........... . .......... .. . .
+
+51
+
+5.8 Case 1 [Square plate with SPSQR (SDF = 1/2)]: Spline surfacc for t. .
+
+53
+
+.5.9 Cnse 2 [Square plate with SPSQR (SDF = 112) and SPS]: Spline surface for t. 55
+5.10 Case 3 [Square plate with SPDIASQ (SDF = 1/2)]: Spliiie surface for t . 56
+
+5.11 Casc 3 [Square plate with SPDIASQ (SDF = II%)]:Spline surface for t p . . 5.17 Case 4 [Square plate with SPDIASQ (SDF = 112) and SPS]: Spline surface for t for the diagonal stiffeners.
+
+57
+
+. ...... ..... . . .... ...... .. .... ... . .... . . ..
+
+58
+
+5.13 Casc 4 [Square plate with SPDIASQ (SDF = 112) and SPS]: Spline surface
+
+for t for tlic horizontal and vcrtical stiffeners. .
+
+59
+60
+
+5 . l-l Casc 5 [Square plate with SPDIASQ (SDF = 1/4)]: Splinc siirface for t .
+
+5.15 Case 5 [Square plate with SPDIASQ (SDF = 1/4)]: Spline siirface for t p . .
+
+61
+
+5-16 Cnse 6 [Sqiiarc plate witli SPDIASQ (SDF = 1 1 4 , and SPS]: Splirie surfacc for t for the diagonal stiffeners. . . . . . . . . . . . . . . . . . . . . . . . .
+3-17 Case 6 [Square plate with SPDIASQ (SDF = l / 4 ) and SPS]: Splinc surface for t for the horizontal and vertical stiffeners.
+
+62
+
+... ..
+
+.
+
+.
+
+. . . . . . .
+
+.
+
+. .
+
+63
+64
+
+5-18 Case 6 [Square plate with SPDIASQ (SDF = 114) and SPS]: Spline surface
+fort,.
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+5.19 Rectangular plate (ratio 2 1 ) with SPDIA (SDF = 11-1): Spline surface for t . 67
+
+5-20 Rectangular plate (ratio 21) with SPDIA (SDF = 114): Spline surface for t p . 69
+5.31 Re~t~angular plate (ratio 21) with SPDIA (SDF = 11-1) and SPS: Spline surface for t.
+
+.. ....... .. ............... ... . ..
+
+. . .
+
+70
+71
+
+5.22 Rectangular plate (ratio 2 1 ) with SPDIA (SDF = 114) and SPS: Spline surface for t p .
+
+. ... . ....... ......................
+
+5.23 Rectangular plate (ratio 2 1 ) with SPSQR (SDF = 112): Spline surface for t. 72
+5.24 Rectangular plate (ratio 21) with SPSQR (SDF = 113): Spline surface for
+
+t p . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.25 Rectangular plate (ratio 21) with SPSQR (SDF = 112) and SPS: Spline
+surface for t.
+
+73
+
+......... .........................
+
+.
+
+74
+
+5.26 Rectangular plate (ratio 21) with SPSQR (SDF = 112) and SPS: Spline
+surface for t p . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+5.27 Rectangular plate (ratio 2:1) with SPSQR (SDF = 112) and SPS: buckling
+mode shape. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+5 . 2 s Rectaligular plate (ratio 3:l) witli SPDIA (SDF = 114): Splinc surface for t.
+5.29 Rectangular plate (ratio 3:l) with SPDIA (SDF = 114): Spline surface for t p .
+
+5.30 Rectangiilar plate (ratio 3 : l ) with SPDIA (SDF = 1/4) and SPS: Splinc
+siirfacc for t. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+5.31 Rectangular plate (ratio 3 1 ) with SPDIA (SDF = l / 4 ) and SPS: Spline
+surface for t p .
+
+..................................
+
+5.32 Rcctangular plate (ratio 3:l) with SPSQR (SDF = 112): Spline surface for t.
+5.33 Rectangular plate (ratio 3:1) with SPSQR (SDF = 113): Spline surface for
+
+t p . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.34 Rcctangular plate (ratio 3 1 ) with SPSQR (SDF = 112) and SPS: Spline surface for t. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+5.35 Rectangular plate (ratio 3:l) with SPSQR (SDF = 112) end SPS: Spline
+surface for t p .
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+Chapter 1
+
+Introduction
+hlan has always bceii inspired by nature. be it art, or engineering. Perhaps one of the dcrivat ivcs of siicli inspirat ion is stiffened engineering structures.
+Sca shells. leaves. trecs. vegetables - aII of these are: in fact. stiffened structures.
+
+Ob-
+
+serlatioiis of structures created by naturc indicate that in most cases strengt.h and rigidit~.
+cIc?pciitl iiot
+
+orily or1 the niaterial but also iipon its form. This fact \vas probably noticed
+
+long ago by soiiie slirwcl observers and resulted in the creatiori of artificial structural elemerits having high bearing capacity niainly due to their forni. suc11 as. girders, arches and shells [IO. Chapter 11. Tlie wide use of stiffened structural elernents in engineering begari in the nineteenth century: mainly with the application of stccl plates for the hulls of ships and with dcvclopment of steel bridges and aircraft structures. Stiffened plates noir find applications in modern industry [ibid.]. Stiffeners in a stifkned plate make it possible to resist highly directional loads, and introduce rnultiple load paths that may provide protection against damage and crack growth under bot*licompressive and tensile loads. The biggest advantage of the stiffeners. tliough, is the increased bending stiffness of the panel with a minimum of additional material, which makes t hese structures highly desirable for out-of-plane loads and destabilizing compressive loads [S. page 4511.
+
+In addition to the advantages already found in using them, there should be no doubt
+that stiffened plates designed with optimization techniques will be bring many benefits like swings in material usage, cost, better performance, etc.
+
+1.1
+
+Literature Survey and Motivation
+
+The riiotivation beliind the work presented here is the papcr on plate optimization by Cheng and Ollioff [JI. They were trying to solve a plate sizing optiniizatioti. with the plate being ~iiodeledby Kirchoff's theory. The objective was to niiniriiize the complianre. They observed the formation of stiffeners in nuinerically cornputed 'optimal' solutions. The nurnber of stiffeners increased when the discretization of the design ivas increased. with the resulting decreasc in cornpliance. I t was suggested. that either the problern be relaxed. or thc dcsign space be restrictcd.
+
+For a relasation of the design problem. plates with irifinitcly niany, infinitell thiri stiffcners have to be considered [3. page 2071. The bibliography in [ibid.. page 2331 @\-es
+a good account of tlic research carried out in this regard. But niany of those works considered liomogcnizatioii tecliriiques to mode1 a stiffencd plate. wliicli iriay prodiicr some crrors w h m the dcnsity of stiffeners is not so high. The present work addresses this probleni by modeling the stiffeners as beani elements iising the finite elenient teclinique. Ariother iriotivating factor for the present research, is the enormous improvenient in
+the inanufacttiring proccsses. Almost any sliape can be rnanufacturcd using computerized
+
+niachining. So? a plate witli unusual thickness profile can be made by direct machining! or nioi~lds can bc made to makc high precision castings.
+
+1.2
+
+Objective
+
+To develop a design rrzethodology t o optimize the mass of stiffened plates with frequency and buckling constraints.
+
+To be more specific, a plate with stiffeners Iayed out in a certain pattern should be
+considered. Sonie common stiffener patterns should be considered, and evaluated for their ability t o give optimal masses. The thickness of the plate and stiffeners, and the width of the stiffeners should be considered as design variables. Using spline approximation techniques. the design variables should be linked. Analysis should be carried out using finite element method. Appropriate finite elements should be derived.
+
+The optimization constraints should be in the forrn of some lower bounds on the first
+nat ural frequency and the cri tical buckling Ioad.
+
+1.3
+
+Outline of the thesis
+
+In Cliapter 2 the finite elenient model is described and al1 the nccessary equntions for elements are derived. Also, the stiffener patterns consiclcred are the plate and the l ~ e a m introdilced. Ihlidation of the beam and platc elements, each separately for buckling as well as vibration, is s h o w in Chapter 3. Cliaptcr 4 is devoted t o esplaining the optimization model. Defiiiition of the design variables of the problerii, linking them to reduce the riumber of design variables. and t h optiniiznt ion cquations arc a 1 found hcre. l Resiilts, aiid disciissions are given in Chapter 5 . Here the resiilts for a square platc n i t li various st i ffener configurations are presented. Those configurations wliicli give the
+best rcsults arc applicd to rcctangiilar plates and their results are showri.
+
+The prcscnt work is surnmarized and concluded in the Chapter 6.
+
+Chapter 2
+
+The Finite Element Mode1
+It was nlcntioned in Chapter 1 that the main motivation behind t h ~ o r is the observation k
+of stiffcncr Formiition
+
+-
+
+Cheng and Olhoff [A]. So, the idea is to begiii the optimization
+-
+
+proccss I!
+
+assiiniing a fiiirly dense distribution of stiffeners with a certain pattern
+
+for
+
+csample Figure 2.1 shows one of several possible patterns - and discretized irito firiite clcnicnts as in Figure 2.2.
+
+Figure 2.1: -4 plate with symmetric stiffeners layed out in one of the possible patterns.
+
+CHAPTER 2. THE FINTE ELEAIENT MODEL
+
+a
+
+-
+
+Both. the plate and the beam elements, are shear-locking free by forriiulation. based
+
+on the ideas presented in (71. -4s depicted in the inset in Figure 2.2, tlie elcmerits can take differcnt thickness at the cnd nodes. in case of the beam elcrncnt. and corner nodes,
+i r i case of tlie plat.c element.
+?
+
+Figure 2.2: .A part of the plate shown with finite elenicnt discrctization.
+
+2.1
+
+Stiffener Layout Pattern
+
+Ctivcri the way the plate is discretized in the present work? that is, dividing the plate into
+nian- squares. dkiding eacli square into four triangular elements, as shown in Figure 2.2.
+
+the niimber of options for stiffener layout pattern is srnall. Sonie symmetric patterns have been chosen. and are sliomn in Figure 2.3, dong with there reference names. It is qui te obvious that the stiffeners can be arranged wit h clifferent spacings. Hence comes into picture the kiensity' of stiffeners. A quantity called Stifener Densitg Factor
+
+(SDF) can be defined for the purpose of laying out the stiffeners with different spacings. Consider the smalIest slant stiffener running between two adjacent sides of a square plate. y For esample. in Figure 2.4, B D . Let the area of the square formed ! this diagonal be .AbTn (area ABCD in the figure). Let the area of the smallest square formed by four triangular elements be .Apr. Again referring to Figure 2.4, it is area AEFG. Then.
+
+SBF =
+
+Apt
+
+C H U T E R 2. THE FINITE ELEhlENT MODEL
+
+SPDIA
+
+SPSQR
+
+SPDIASQ
+
+Figure 2.3: The various stiffener patterns and there reference names.
+
+To define SDF for SPSQR and SPDIXSQ one must consider the sniallest square formed b the stiffeners for area Ah, and Apt remains the same as defined above.
+The value of SDF cannot be any imaginable value for a given discretized plate. For esample. the FE mode1 of SPDIA stiffened plate illustrated in Figure 2.4, the eshaustive values of SDF are 1/4: 112 and 1. For SDF = 11.1,there are only two stiffeners along the two diagonals of the largest square, which is the plate itseif. For SDF = 1, al1 the diagonals of the smalIest possible squares have stiffeners.
+unless othIt should be noted that the angle of the slant stiffeners SPDIA is fGo, erwise stated.
+
+Figure 2.4: Defining the Stiffencr Density Fact.or
+
+2.2
+
+The Plate Element
+
+The geoiiictry of the elcmcnt is given by the Cartesian coordinatcs. (.z,. y i ) . and the thicknesscs of the plate. t p , , (i=1,3.5).
+In order to dcrive the equations. consider the plate element shown in Figure 2.5.
+
+The plate element is basecl on Reissner-Mindlin Plate theory. Thereforc, the in-plane displacernent fields, fi and 0 , are assurned to Vary linearly through the plate thickness and the trariswrse displacenient. tÃ¼! is assunied constant through the plate thickness. The kinerriatic relation is given by
+
+whcre u ( x l y, t ) and v(x'y, t ) are mid-surface displacements, &(x, y: t) and ~ J , ( x : t) are y! rotation-like variables, w ( z : y, t ) is the transverse displacement, and t is time. The linear strain. is given by
+
+1
+
+3
+5
+
+rlr
+
+O -- Nodes for u. v. a -- Nodes for w
+
+V, and y,
+
+3
+7
+
+1
+1
+b
+
+X
+
+3
+
+3
+
+-
+
+Global CO-ordinates
+
+Natuml CO-ordinates
+
+Figure 2.5: Scherriatic of the triangular plate elcrncnt used.
+
+Tlie conipoiicnts of the non-liiiear stmin vector. bucklirig probleiii. are.
+
+I r x } , wliicii
+
+are necessÃ¼ry for tlie
+
+nliere the Ã¼, is the partial differentiation of Ã¯Ã¯ with respect to .
+
+2: etc.
+
+Using Eqs. 2.2 in
+
+Eqs. 2.4.
+
+The displacements within the eleiiient are given by
+
+{6}' = [ u
+The nodal-displacemerit vector is
+
+o
+
+w
+
+Q~ d~~ ]
+
+By rnapping froni global to natiiral coordinates,
+
+I d } = [.VptlIqpt}
+
+(2.9)
+
+wiirrc
+
+[:bt] 5slS is
+
+matris of interpolation functions. The interpolation fiiiictioiis for
+
+2.2.1
+
+Element Matrices for the Vibration Problem
+
+The total energy of the element lias contributions from the strain energy, Ue. and the kinet ic cnergy. K e . Consider first:
+
+ue
+
+=
+
+If E is Young's rnodulus. G is the Shear modulus: and v is the Poisson's ratio, then,
+Qii
+
+= Q22 =
+
+E (1 - v 2 )
+
+CHAPTER 2. THE FIXITE ELEAfE-VT MODEL
+
+thcn Eq. 2.12 cari be written as.
+
+t p = Ei=1,3,5 q ) t p i . is the thickness of the plate at any point .\y(<.
+
+(c, T I ) . Now,
+
+- O " az
+a3
+
+0 0
+
+0 0
+
+0
+
+0 3 0 a9 - 0 0 "
+Z G
+
+O
+
+o o o g o
+0 0 0 $
+
+0
+
+o o o g ,a o o g i o
+o o g 0 1
+
+CH.4PTER 2. THE F I N T E ELEhlENT MODEL
+The vector {e} can be approsimated by substituting for ( 6 ) from Eq. 2.9. Tlien
+
+11
+
+{el = [ B L ~ p c l { q p t }
+whcrc.
+
+[B",,j = [ L ] [ - q
+Siibstituting Eq. 2.17. irito Eq. 2.14.
+
+Tlie 18 x 18 niatris. [I<,,]. is tlie element st,iffness matris in vibration. Considcr now the kinetic e n c r e term.
+
+where p is the clensity of the material of the plate. Using Eq. 2.9 in Eq. 2.22,
+
+tv here
+
+and
+p
+
+0 0 - 2
+P O O -
+
+O
+2
+
+d:=
+
+C
+
+ptp
+
+O
+ptp
+
+O O
+
+O O O
+
+O
+O
+
+-
+
+O O
+
+O
+O
+
+O p
+
+O O
+
+O
+
+O
+O O
+
+--
+
+O
+
+O pz2
+
+O
+pz2-
+
+O
+
+ptp O
+O
+
+O
+
+O
+O p % -
+
+(2.23)
+
+O
+
+- 2 0
+
+L o
+
+The 18 x 18 matris [AIpt]is the plate element mass matris.
+
+CH.4PTER 2. THE F I N T E ELEIZIELVT iZ,IODEL
+
+2.2.2
+
+Element Matrices for the Buckling Problem
+
+The buckling problem is solved in two steps: the Pre-Bucklirig Probleni and the Buckling
+Pro blcm.
+
+The Pre-Buckling Problem
+The loading state in the pre-buckling problem is assumed to result from the application of
+a uniforni displacenient on the plate boiindary of interest. The following assurnptions are
+
+made:
+1. The applietl load results from a uniforin displacement applied t,o tlic loaded edge. 2. The application of the boundary conditions does not induce any mechanical loads.
+
+3. Ttic problem is linear.
+
+The eriergy witiiin an element is only due to strain. â¬0: because of the initial displacetrient. and is giwn by.
+
+where tlic prc-bucklirig strcss is given bu.
+
+{ao) = [QI{&}
+It should be noted that the applied load results froni the specified boundary conditions. and so there is no esplicit work term due to esternal forces. By carrying out algebraic manipulations on Eq. 2.26 as in Section 2.2.1, one ultiniately gets.
+
+where
+
+and
+
+The 18 x 18 matris, [KpbPt]? pre-buckhg element stiffness rnatrix. is the
+
+The Buckling Problem
+This forniulation niakes use of the non-linear strains in Eqs. 2.5 and Eqs. 2.6. In the dcriixtions tiiat follows it is assumed that the buckling stress at any point in the platc is
+given by,
+
+\vlirrc~{oo}is the pre-buckling stress froin equation Eq. 2.27. Now. the strain eriergy of
+t hc plat c elerntmt .
+
+Scglecting higlier order ternis and considering the fact that {ao} rcpresrrits a state of cqiiilibriiini. Eq. 2.32 beconics.
+
+Sow. consider thc first terni on the R. H.
+
+S of Eq. 2.33. By followirig algebraic rnariipii-
+
+lations sirililas to thosc shown in Section 2.2.1.
+
+and
+
+The 18 x 18 matris, [h'b'lLrkpt]ibuckling plate-element stiffness inatris. is the Consider nest the second term on the R. H. S. of Eq. 2.33. One can write
+
+CHAPTER 2. THE FINITE ELEhlENT XIODEL
+
+14
+
+O
+
+O 0
+:
+
+0
+
+0
+
+0
+
+l x l y JI,
+O
+
+O O
+
+O O
+O
+
+O
+O
+
+L,, O O
+O
+O
+
+L,
+O
+
+O
+
+L,
+L,,
+O
+O
+
+v:
+O
+
+O
+
+O
+O
+
+O O
+O
+
+O
+
+v: v
+-v~, =
+JIiJ = -
+
+O
+
+/
+
+Mp/2
+
+aod:
+
+i = - 2 . -y j
+
+-tp/2
+
+i = xx.yy . xy j
+
+- O a
+a~
+
+O
+
+O
+
+O
+
+O
+
+&
+
+O
+
+O
+
+O
+
+o o 0
+
+a, a
+o 0
+
+o g
+
+0 3 0
+
+o 0 ~ 0
+
+o o $ o o
+
+o o o g o o o o o &
+o o o o $
+0
+0
+
+0
+0
+
+0
+0
+
+1
+0
+
+0
+1
+
+Thc vector. {ec}. can be approsiniated by substituting for {d} from Eq. 2.9. Therefore,
+
+{ed=
+
+[ B ~ p tk] p t
+
+1
+
+(2.41)
+
+[B~pt] =
+
+[Lc] [-vpt]
+
+Substituting Eq. 2.41. iiito Eq. 2.37,
+
+The 18 x 18 matris.
+
+[ k p t ] plate-elcment gcometric stiffness niatris. is the
+
+2.3
+
+The Beam Element
+the Cartesiaii coordinates. (x,. y,). and the thicknesscs of the plate. hi:
+
+Sow. t h e beani elcinent as shown in Figure 2.6. is consiclered. The geomctry of thc
+
+eleriient is g i ~ r i i
+(i= 1.3).
+
+9-- Nodes for u. v.
+a
+
+%and%
+
+-- Nodes for w
+2
+
+1
+
+3
+
+Bsam Local Co-ordinates
+
+Beam Natural Co-ordinates
+
+Figure 2.6: Schematic of the beam element used.
+
+The beam element is based on the Tirnoshenko Beam Theory. The kinematic relation is given by
+
+n(x,2 , t ) = u(x,) - z&(x, t ) t
+Ã¼(x,2, t ) = v(x: t ) - z q , (x, ) t
+w ( x ;y, , t ) = w(x. t ) + y ~ ~ (t ) : ; x
+
+CHAPTER 2. THE FINITE ELEMEVT XIODEL
+
+16
+
+mlierc u ( r . t ) and ~ ( xt ) are mid-surface displacements &(x. t ) and c?;(x.t ) are rotation,
+
+t ) is the transverse displacement. The components of tlic in-plane are iincar straiii vector. ( t L b r n } .given by
+likc \-ariahles and
+IL(X.
+
+The componerits of the non-lincar strain \-ector.{~,~~,}?i c h are uscful for the buckling ah prol~lem, arc.
+
+Ksiiig Eqs. 2.45 in Eqs. 2.47.
+
+The displacements within the element are given by {cf} in Eq. 2.7, and the nodal-displacement vector is
+
+BJ- mapping from global to natural coordinates:
+
+where [.V,,]
+
+is 5x1 1 matris of interpolation functions.
+
+The interpolation functions used for w are:
+
+-
+
+=(
+
+- 1)
+
+.v2= 1 - c2
+=
+
+LV3 = i<(< .. + 1)
+
+arid the iriterpolatiori functions used for u, P .
+
+e, and 0,are:
+
+-v; -
+
+5 2
+
+Approximation of the Cross-section of the Beam
+.4prox. of Section A-A
+
+Section A-A
+
+b
+
+Figure 2.7: ( a ) .A stiffener (dashed lines) superimposed along orle of tlic &es corist ant plate t hick~iess.
+
+of two plate
+
+eleinents. ( b ) -4 section of the stiffener. (c) The same section witli the approximation of
+
+Iritegration aloiig tlie thickness of the stifferier becomes easier, if the cross-section of tlie stifferier is approsimatecl as shown in Figure 2.7(c). It is assurned that the plate thickness
+is constant at a giveii stiffener cross-section, but can Vary along the stiffener length. This
+
+approsimation should not introduce any significant errors as the optimization process tends to make the width, and the plate thickness as small as possible and the stiffener thickness as Iiigh as possible.
+
+2.3.1
+
+Element Matrices for the Vibration Problem
+
+The total energy of the element has contributions from strain energy, libme? kinetic and energy, Kbme Consider first, .
+
+CH.4PTER 2. T H E FINITE ELELIIENT iIIODEL
+If the vector
+t)bfn
+
+is dcfined as.
+{eh}* =
+
+[
+
+UV,
+
+yrqr
+
+( w ,- )
+
+d!y,r
+
+]
+
+tlicn Eq. 2.53 written as.
+
+aiid tlir elements of [Dl,,,]aftcr integrating with respect to y and z . are:
+
+whcrc1 b is the widt 11. a n d h =
+
+.vi(<) is t h e h,,
+
+t liickness of the stiffeiier. and t p =
+
+Z,=i,s .v:(<)tp,.
+
+is tlie tliickness of the plate at any point:(<)od o n g t h c lengtli of the beani
+
+The vector. {ebrn}.c m be approsimated by substitutirig for
+{ebm }
+
+16) from Eq. 2.50:
+(2.58)
+
+= [ B u b m ]{ q b r n )
+
+where
+
+Substitiiting Eq. 2.58. into Eq. 2.55.
+
+Thc 11 x 11 iiiatris. [I<l,bnl]. the beain element stiffness niatris in vibration. is
+Considcr now the kinetic energy ternl,
+
+wl1c.r~p is the deiisity of the niaterial of the plate. Csing Eq. 2.50
+
+iii
+
+Eq. 2.63.
+
+The 11 x 11 matrix [ A L ] is the beam element mass matrk.
+
+2.3.2
+
+Element Matrices for the Buckiing Problem
+
+The Pre-Buckling Problem
+Here again. because of the strain energy due to the initial displacement (Section 2.2.2). a
+11 x 11 prp-biickhiig stiffricss matris by.
+
+[IGbbm] obtained . The pre-biickling stress is giwn is
+
+The Buckling Problem
+Tliis forniiilation ninkcs use of the non-lincar strains in Eqs. 2.48. The biickling stress a t
+is aiiy point iri tlic stiffc~ier giwn by.
+
+;\s
+
+iii
+
+Section 2.2.2. neglecting higtier order ternis and considwing tlic fact that {abrno}
+
+is thc stress a t the state of cquilibrium. the strain criergy,
+
+Siniilar to Section 2.2.1. frorn the first term of Eq. 2.68. finally oric obtains the 11 x 11 stiffness niatris.
+[f<buekbm]e
+
+Corisider. now, the seco~id terni or1 the R.
+
+W. S. of Eq. 2.33.
+
+IV here
+
+O Pxy O 0 Pz O O Q, O Pz, O O P, O O O Px, &,O O R x O O O O Q X O o s x o O Pz,O O O 0 O O 0 Pz, P , O x O O Py
+Px
+0 0
+Qz
+
+CHAPTER 2. THE FINITE ELEAIENT ,IIODEL
+
+- 0 "
+ax
+
+0 ~ 0
+
+0 0 ~ 0 0 0 0
+
+0 0
+
+o o o g o o o o o g
+O O 0 O 0 O 1 O 0 1
+Tlic wctor. {cos, }. caii be approsimated bu substituting for {d} froni Eq. 2.50:
+{e~brn )
+
+= [ B ~ b r ]n{ q b m }
+
+(2.73)
+
+IVhere
+
+Siibstituting Eq. 2.73. into
+
+Eq. 2.69,
+
+wliere
+
+is The 11 x 11 matris, [ I L ] ; the beam-element geometric stiffness matrix.
+
+CH.4PTER 2. THE FILVITE ELEhlEiVT ilIODEL
+
+22
+
+2.3.3
+
+Rotation Matrix
+
+To allow the beam elemcnts to be placed at different angles each of the element matrices drrivcd for the beam element above should be post-multiplied by t h e rotation matris [RI and prrrnultiplied by its transpose. For a beam element (Figure 2.6) with end points
+( x l .,yl ) and (x3.M) the rotation matris is giren bu.
+
+s
+
+= sin 8 , and
+
+Global Equations
+2.4.1
+
+Vibration Problern
+
+Ensuring continuity between the nodes that describe bot h beam and plate eleinents! the elenient energies are added up. The total kinetic energy! Tt and the potential energy. Ci. of the whole plate are!
+
+is the global stiffness matris, and {Q} is the global displacement vector. By Hamilton's principle [8, pp 323-3261' a stationary value
+
+where [AI] is the global mass matrix,
+
+CH.4PTER 2. THE FLVITE ELEAIE.VT ;\IODEL
+
+23
+
+of the Lagrangian [LI = [Tl - [L;]is sougbt. .\fter applying the pririciples of variational
+calÃ¯uliis. the basic matris eqiiat ion for the free vibration of the structure wit hout damping is obtained:
+
+[JI]{Q} + [Ii]{Q} O =
+A soliitiori for {Q} is assiimed in the forni
+{ Q } = {Q}eiUt
+tvlicre t is timc.
+is t h natural frequency and
+
+( 2 .SO)
+
+(2.81)
+
+{Q)?the modal wctor. is a set of constant
+
+valiirs at the nodrs. .At the ciid of matlicniatical manipulatioris and application of boundary coridi tioiis t htl standard eigenproblem
+
+and whcre [lit] [.\I1] are the posi tim-defiiiitc global stiffncss and niass matrices. respectit-ely. Subspace Iteration llethod is used to solve the eigenprobleni [ l ] .
+
+2.4.2
+
+Pre-buckling Problem
+
+Tlic total putential energ! in this case is.
+
+Taking the variation w.r. t. {Q}, aiid applying the displacement boundary conditions gives rise to the firial equatiori,
+
+is tvherc [fit] the positive-definite stiffness matris and {F}is the force vector obtained as result of applying boundary conditions.
+
+2.4.3
+
+Buckling Problem
+
+Total potential energy,
+
+wliere [Iic]is the global geonietric stiffness rnatris. The final equation. after usual niatheniatical manipulations and application of boundary conditions. is
+
+wtirrc X is tlic buckling factor. and [KI]and [ ,'!] A-
+
+are, respectively. the positive-definite
+
+stiffness and geometric stiffriess niatrices after the boundary conditions are applied. Again. Subspacc Itcration .\let hod is used [l]to solve the eigenproblem.
+
+Chapter 3
+
+Validation of the Finite Element Code
+In this cliapter. tlic brani ancl the plate elcments are validated for the vibration. ancl biirkling problcnis. For al1 coiivcrgeiicc problcnis. the niaterial used is aluniiniiiii. witli the folloiving properties: 1-oiing's hlodulus. E = 70.3 GPa; Poissori's ratio. u = 0.33: and Dcnsity.
+p = 2712.64 kgin3. Sirripl--supporteci boundary conditions are assunicd for al1 thc studies iri al1 tlie cases. S o t c that for plate studies al1 the edges of the plate are considered siniply
+
+siipported.
+
+3.1
+
+Convergence study for the Plate Element
+
+The dimensions of the plate considered for both the studies in vibration and the buckling problem are 2000 x 1000 x -O mm3.
+
+3.1.1
+
+Vibration Problem
+
+The results of the present Finite Element formulation are compared (Table 3.1) ivith the analytical solution given in [6, page 2511. The analytical angular frequency (rad/s) is,
+
+CHAPTER 3. C:-1LID,UÃ¯OiV OF THE FINITE ELEAIEIVT CODE
+where. p, is the mass per unit area, a is the length, and b is the widtli.
+
+If h is the tliickness of the plate. then,
+
+The convergence plots are shown in Figure 3.1.
+
+3.1.2 Buckling Problem
+.~rialyticiilly. critical buckling load for a plate (8, pp 434-4351 of dimensions n x b x h the
+is given bu.
+
+! tlic plate is given a uniform displacement along one edge parallcl to y - a i s . wliile t h :
+
+opposite edge is held fised. the applied load is
+
+Aa P*, = Ebha
+
+where Aa is the displacenient applied. If l a = 1 unit. then,
+
+Hence. the buckling load factor,
+
+A ,
+
+Pm. = - - k,r2h2a P, . 12(1 - G)b2
+
+Coin-ergence plots for the first four buckling modes can be found in Figure 3.2, and
+
+Table 3.2 shows the comparison with the analytical solution.
+
+3.2
+
+Convergence study for the Beam Element
+
+.A beam of length, 1
+
+-
+
+500 mm, width, b = 10 mm, and thickness, hh = 20 mm, is
+
+considered for both cases of convergence study. The material remains the same as that
+
+used for the plate studies above.
+
+3.2.1
+
+Vibration Problern
+
+The analytical solution for the angular frequency of a beam [S. page 3311.
+
+The convergence plot for the first 4 lowest frequcncies is sliown in Figure 3.3. and
+the comparison with analytical solution is in Table 3.3.
+
+3.2.2
+
+Buckling Problem
+
+Ttic analytical criticai buckling load [8, page -1131,
+
+If tlie beani is g i w i a m i t asial displacement at one ciid whilc the othcr end is Iield fiscci, thc app1it.d load is
+
+Hencc. the buckling loacl factor.
+
+The convergence plot for the first -4 buckling modes is sliown in Figure 3.4, and tlie comparison a i t h analytical solution is in Table 3.4.
+
+3.3
+
+General Comments About the Results
+
+The converged results for the rectangular plate were obtained by discretizing the plate into
+16 x 16 smaller rectangles, and in turn each one divided into -4 identical triangles by the diagonals. The beam results required 32 elements to give a sufficiently accurate result for the first modes of vibration and buckling, although the plots for beam convergence were drawn using up to 6-4 elements.
+
+It can be observed from the plots the al1 the curves converge monotonically from a higher value for low DOF (Degrees Of Freedorn), to a lower value a t higher DOF, which
+
+CH.4PTER 3. I:-1LIDA4TIOiV THE FINITE ELE:i\IENT CODE OF
+is typical of vibration and buckling problems. This indicates that the plate and beani clement formulation is correct.
+
+Thc comparison tabies show ttiat for some modes of vibration and buckling, for botli the plate and beani cases. the FE (Finite Element) results are higher than the analytical rcsults. This is to be espected given the fact that different theories are being compared. That is. for the plates. FE forniulation is llindlin. and compared with Classical Plate theory. ivhereas the Tinioshenko FE forniulatiori for beanis is beirig cornpared witli EulerBernoulli bcam ttieory.
+
+Tihle 3.1: Cornparison of rcsults: plate vibration.
+
+Table 3.2: Comparison of resui ts: plate buckling.
+
+Table 3.3: Cornparison of results: beam vibration.
+Xbrn
+
+m AnaIytical
+1 2
+0.6580
+2.6319
+
+FEM
+0.6547 2.5800 5.6669 9.7525
+
+% error
+-0.50 -1.97 -4.30 -7.36
+
+3
+4
+
+5.9218
+
+10.5246
+
+Table 3.4: Comparison of results: beam b u c k h g .
+
+R
+
+v
+
+Mode (3,l)
+1 1
+
+L
+
+I
+
+s
+A
+
+1 O00
+1
+
+2000
+
+3000
+
+4000
+
+3000
+V) *-
+
+-
+
+a l U c
+9,
+
+LL
+
+e 2
+1
+I I I
+
+J
+
+2000
+
+-
+
+& -
+
+a
+
+1 O00
+
+2000
+
+3000
+
+4000
+
+500
+
+s
+I
+
+.
+
+Y
+1
+
+Mode (1, I )
+f]
+1
+I
+
+U
+l
+
+1 O00
+
+2000 3000 Degrees of Freedom
+
+4000
+
+Figure 3.1: Convergence plot for the plate-element : simpl-supported vibrating plate.
+
+Third Mode
+. \i
+
+V
+
+Second Mode
+
+First mode
+
+Figure 3.2: Convergence plot for the plate-element: simply-supported plate subjected to
+
+buckling.
+
+Third Mode
+c .
+
+v
+
+V
+
+10500
+
+-
+
+B 2
+! .
+VI
+
+A
+
+Y
+
+5000
+
+Second Mode
+
+lu L
+
+Y
+
+A
+
+A
+1
+
+2
+
+3 0
+
+4800
+
+1
+
+100
+
+200
+
+300
+
+200 Degrees of Freedom
+
+300
+
+Figure 3.3: Convergence plot for the beam-element: simply-supported vibrating beam.
+
+6.3
+
+6.2
+6.1
+
+6 5.9
+5.8
+
+Third Mode 7
+1O0
+
+5.7 1 56 .
+
+i
+
+200
+
+I
+
+300
+
+L
+
+Second Mode
+I
+
+A
+
+i
+
+0.665 -
+
+0.655
+
+1
+
+First mode
+n
+
+u
+
+I
+
+1
+
+100
+
+Degrees of Freedom
+
+200
+
+300
+
+Figure 3.4: Convergence plot for the beam-element: sirnply-supported beam subjected to buckling.
+
+Chapter 4
+
+The Optimizat ion Mode1
+In the first section the design variables are dcfined. and then the issue of rediicing the n~iriiberof design variables by design variable linking is discussed in the second section. T h . optiiiiizatiori cquatioris of the prescnt work arc listed in the tliird section and a bricf iiotr abolit the optiniization routines used in the computer code is given in the final section.
+
+4 1 Design Variables .
+Section A-A
+
+Figure 4.1: The design variables a t a cross-section.
+
+Since a stiffened plate is being dealt with, the design variables may corne from the plate andjor the stiffeners. In t,he present study: the Iength and breadth of the plate are kept constant: howeverl the plate thickness t p at a certain point is considered as a design variable. The stiffener width 6 is another design variable, but it is assumed that al1 the stiffeners have the same width. As mentioned earlier, symmetric stiffeners are assurned, so
+
+the dcpth t of the stiffener projecting out of the surface of the plate is taken as a dcsign mriablc (sec Figure 4.1). Diic to the F u t that Finite Element Analysis would be used, tlie plate is discretizcd. be Ideally. it ~ - o u l d less work if t p , and t at each node are corisidered as design variables. but the nuniber of design variables would become too large to tiandlc with the a\-ailable resoiirces. Therefore. resort is niade to what is commonly called .design variable linking'.
+
+4.2
+
+Linking Design Variables with Spline Surfaces
+
+In t h prescrit stiidy two-dinieilsional rational splines [9] havc bcen uscd for tlie purposes of design variable linking. The follomirig provides an overview. Let
+
+y) tlenote the values of a hinction ~ ( x . cvaluated at the nodes of a rectangular grid
+
+in the (.r. 9) plane. Then a srnootli surface is souglit in the x-y plane iiiterpolating the ordinates
+(ttj.
+
+In order to acliieve this end. in each of the rectangles
+
+the function
+
+is defined. In the above
+
+Also. a function u = u ( x , y) is defined on all R sucli that its restriction to
+
+R, coincides
+
+ik with j i j . The 16(n - 1)(m - 1) coefficients a , i are determined then in such a way that
+
+u ( x i ,y j ) = ' U i j . The parameter p can be adjusted so that the spline fit can be any where
+
+CHAPTER 4. THE OPTIIZIIZ.4TION MODEL
+
+36
+
+h m linear. for p + m! to cubic, for p + O. Interested readers shoiild rcfer [9] for details. Knless otticrwise stated. p = 10.0 was iised. Separate spline surfaces were iised for the plate thickness profile: and the envelope surface fornled by the thickness profile of the stiffeners. The thickncsses t p , , and t , at t lw intersection points (called Slaster Nodes) of the rectangular grids. Rp. and IIbTn. respertiwly. d o n g with 6 will be called the design variables..
+
+4.3 Optimization Equations of Present Work
+The objective of the work presented is to rninirnize weight subjected to a frequency constraint, a bucklirig constraint. and a number of side constraints on the diniensional variables. llathernatically.
+
+where
+
+i l .
+
+is the first natural frequency, Pcrhck is the critical buckling load, and NMN is
+
+the numbcr of master nodes. Ci, and
+
+C2are predefined constants.
+
+4.4
+
+The Optimization Routine Used
+
+The routines in the optimization package ADS [E] were used to solve the above problem.
+
+ADS (.\utomated Design Synthesis) Version 1.10 is a collection of FORTRAN subroutines
+for the solution of non-linear constrained optimization problems. The program is segmented into three levels: strategy. optiniizer: and one-dimensional search.
+
+k each level, several
+
+options are al-ailable so that a total of over 100 possible combinations can be created. Of the many possible combinations that were consistent with the problem; one was found to give a converged feasible result with the least number of function evaluations - the strategy,
+
+CH.4PTER -1. THE OPTIJIIZ.4TION MODEL
+
+37
+
+Seqiiential Linear Programming; the opt iinizer. SIodified Method of Feasible Directions:
+
+and the one-dinierisional search option, Golden Section rnethod folloived by polynoniial
+interpolation. -411 t hese are esplained in [Il].
+
+Chapter 5
+
+Optimal Designs
+Optimization rcsults for square and rectangulnr plates arc prcserited in this clinptcr. Tlic
+platc matcrial. assiimed isotropic. is aluminum. The properties arc thc snnic as mcntionecl
+
+in page 2 5 . Tlic plate is assunicd to be simply supported in al1 the cascs. -4s a referencc to sct the constraints. an isotropic 2000nim x 2000rnm x 20inm plate
+was corisidcreci. The propertics of t hc plate are given iri Table 5.1. Baseci on tliis. the lower
+
+bounds on first natural frequency and buckling load w r e set. Sorne important constraints iniposed on the plate georiictry were: tliickncss of the plate sliould not be lcss than O.5mm:
+
+dcpth of the stiffmers should not escced 25Onim: and the widt h of the stiffener should be
+a minimum of lmrri.
+
+Di~nensions Naterial
+
+11ass
+First Natural Frequency
+
+1 Critical Buckling Load
+Table 5.1: Properties of the reference plate
+
+5.1
+
+Stiffened Square Plate
+
+The leiigth and breadth of the plate were maintained at 2000mm each, for al1 the square plate cases considered.
+
+With a view to gain a gradua1 understanding of the probleni. first a square plate with orily the frequency constraint !vas considered. Spline interpolation was not iised. instead liriear interpolation was used. In the nest case, the buckling coristraint was addcd. and spline interpolation iised. Later various stiffener corifigurations were esplored.
+
+5.1.1
+
+F'requency Constraint Applied on the Plate with SPDIA
+
+St iffeners
+Initial Design
+The first step in the optimization process is, obviously, choosing an initial design. For the
+optimization strategy beirig used in the present study. that is, Sequential Linear Programming, problems may arise if started with a n infeasible initial design [S. pp 231:232]. Hcnce.
+by trial and error a feasible design was obtained, and is s h o w in Table 5.2. The initial
+
+design is a flÃ¼t plate with SPDIA (SDF = 112) stiffeners, al1 having the sarnc depth. and width. SPDIA Kas chosen to try something other than the conventional SPSQR. wliich woiilcl be considered later in some other cases. The SDF = 112 was cliosen because. it produws a rnoderatrly dense stiffener pattern. Note that if the stifferier density is too iiigh. then that rnay prodiicc a final optirnurn design wliich is heavier than an optimum design produced by a lower SDF value. But a t the sanie time if the stiffener density is very low thcri tlic stiffeners n i q - pla lesser role in the design.
+
+Notice that the mass of the present stiffened platc is already 91.72% Iower than tlic refererice plate. reinforcing the Fact that the stiffened plates have better charac teristics, and at the same tinie have a l o w r mass. Dimensions Number of Design Vdriables ('iDV) Mat erial 111 ass First Yatural Frequency 2OOOmm x 2000mm; 6 = 2.0mm;
+
+ti = 20.0mm; t p i = 0.75; i =1 to NDV 83
+Aluminum
+
+11.96kg 163.87 radis
+
+Table 5.2: Initial design for the case of frequency constraint alone.
+
+Finite Element and Optimization Models
+Because the problem is sy~nnietric.only a quarter plate with sylnrnetry boundary conditions was iised for FE analysis. Hence. the plate was discretizcd into Y x S. instead of 16 x 16. squares eacli containing four siniilar triangles. (It niay be recalled that for a rectangiilar platc. FE convergence studies sliowed that discretizatiori irito 16 x 16 rcctanglcs. a i t h four sirnilar triangles in each. \vas siifficient for a good rcsult.) This being the fint study. instead of choosing rational spline interpolation. linear iritcrpolation Kas used. Tfic points where the stiffeners intersect werc choscri as the niaster
+
+nodcs. Tlicx are 4 1 inaster nodcs for SPDI.4 witli SDF =1/? for a square platc discretizcd
+into S x S scliiarcs. euch containing four sirnilar triangles. So. that becorrics S2 design variabIes (41 for t and t p eacli) plus orle more due to the stifFericr width b. which niakcs tlie total S3. The values of the variables at the niaster nodes w r e iised to ohtain the thickriess at earli of the finite elemrnt nodes throiigh linear interpolation.
+
+Optimum Design
+The optiniiini design was a flat plate with thickriess, t p = O.5mni. that is t p reached its loiver bounds. so did the wicltli b. The frequency constraint was active. The details are sliown in Table 5.3. But. the interesting fact is that the tliickness of the stiffencrs varies as shonn in Figure 5.1. Results sirnilar to these can also be found in
+
+[q]. It
+
+can be
+
+obserwd that the mass of tlie stiffeners is concentrated arourid the central region. and thc corners. Xotice the fact the stiffener width has reached its lower bound, and that the average stiffener depth has increased from the initial design. This may be explained due to the fact the bending stiffness of a beam varies by the cube of the depth of the stiffener. Furthermore the mass of the stiffener lias decreased by 15.77% from the initial design, which makes the structure verp fragile. and may buckle at even lower loads. Hence, adding
+
+a buckling constraint becornes a necessity.
+
+Dimensions
+
+2000nirn x 2000mm: 6 = I.Onim:
+
+Nass
+First Saturai Frequency
+
+t p i = 0.5: i = I to ND\; 9.74kg (15.77% less t han
+initial design) l53.65rad/s (active)
+
+Table 5.3: Optimum design for the case of frequency constraint alone.
+
+S q m pl& with SPDL4 (SDF = L E )
+
+Interpolation: Linear
+ConsÃ®mint (s) :Fttquency only
+
+Figure 5.1: Envelope surface of t for the stiffeners
+
+5.1.2
+
+F'requency and Buckling Constraints Applied on the Plate
+with SPDIA Stiffeners
+
+Initial Design
+.As inrritiorieci in the previous section. the initial design was obtaiiicd by trial and error.
+
+and is sliowti in Table 5.4. Dimensions
+Niim ber of Design
+
+2000mm x 2000mrn; 6 = 2.Onim;
+
+ti = 50.0mm; t p i = 1.0: i =1 to SDC'
+Variables (YDV) '\laterial h s s First Satura1 Frequency Critical Buckling Load Table 5.4: Initial design for square plate with frequency and buckling constraints
+
+Finite Eiement and Optimization Models
+Because the buckling constraint was also being considered, half-plate mode1 was tised for analysis. The plate )vas cut into half along the asis in the which buckling load was applied, and appropriate symmetry boundary conditions were imposed.
+
+If linear interpolation is used for design variable linking, the number of design variables would be roughlv double that compared to a quarter-plate model. This would take up a lot of time for the optiniizer to converge. Hence rational spline optimization (refer Section 4.2) j a s used. One rational spline surface was used for approsimating t p (the plate surface)! and one for t (the envelope surface of the stiffeners). The spline surfaces have a grid of 2 x 4 squares. The variables t 7and t p at the intersection of the grids were the design variables. That iso15 design variables each for t?and t p , plus the design variable 6, makes the total 31.
+
+CH.4 PTER 5 . OPTIAI.41; DESIGNS
+Optimum Design
+The optinlum results are shown in Table 5.5, and Figures 5.2 and 5.3. It m q be rioted that thc biickling constraint is active, meaning that it drives the design.
+
+A coniparison wit h the result of the previous section shows that the spline surface for
+
+t in Figure 5.2 has a shape siniilar in appcarance to that of the t-surface in Figure 5.1 n-tiere freqiiency const raint w u the lone rnajor constraint. Sornc prominent differences arc t liat t lie nvcrage stiffcner drptli has iiicreascd. aiid the weight has approsimately doubled. The t spliiie surface (Figure 5.3) is iiot Rat but the edges parallel to the x - a i s are raised. In ttiis regard. it woulcl he intcresting to note that the biickliiig load \vas applied parallel
+to the x-mis.
+
+1 Dimensions
+Mass First Satiiral Frequency Critical Biickling Load
+
+1 2OOOrnm
+
+x 2000rnrn: b = 1.05nim;
+
+t and t p : sec figures 5 . 2 . 3.3 resp.
+19.80kg (44.07% less than initial design)
+
+537.2Ã¯rad/s
+1 038 236.61X (active)
+
+Table 5 . 5 : Optimum design for the case of buckling and frequency coristraints.
+
+Methods to reduce the weight further
+Two niethods were investigated.
+First method: This may be named "Stiffener Pattern Splitting (SPS) llethod". This rriethod essentially consists of splitting a stiffener pattern into two or more groups based on the a t iffener orientation. and using different spline surfaces for representing different groups. For esample. in the case of SPDIA pattern, the stiffeners can be grouped into two. as the stifFeners are aligned at either of the t a o orientations. For a square plate mith SPDI.4, it can be -Go,and
+
++As0. So the group of stiffeners aligned a t
+
+-45O,
+
+have
+
+one spline surface: and the rest tvill have another. The idea behind this approach is that the SPS method may help stiffeners of a certain orientation which are not necessary, to disappear, or reduce in thickness, and thus, reduce weight.
+
+Secoiid method: Reduced SDF. For both the cases presented till now SDF was 119. So. the idea is to reduce it to 114. By doing this the stiffener pattern imposcd lias lesser nuinbcr of stiffeners. and thus the final mass may reduce. But. the problerri is. if the riumbcr of stiffeners are not sufficient to niake the plate stiff enough. the plate tliickiiess n i e incrrase. arid licnce incrcasc the m a s of the structure on the mhole. rather than decreasing it. Third method: Combination of both of the two mcthods discussed above. that is, rediiring SDF. and applyirig SPS niethod for interpolation. Tlic initial fcasiblc design for the three cases are shown in Table 5.6. Half plate riiodcls w r e uscd for al1 ttic cases. It should be noted that each spline surface liad 3 x 5 = 15 points. In cases 1 and 3. two spline surfaces for stiffeners. and one for the plate, were iised. Hencc. 45 design variables. .-\dditionally, oiie for the stiffener width b. wliich rnakes the total -16. Thr optimal designs are shown in Table 5.7, arid Figures 5.4 to 5.7. The spline surface for t p is shown onl'r for tlie case 3? as t p reached the lotver Gound of 0.5nirii in
+
+d l the otlier cases. In Figures 5.4 and 5.6, DIAI refers to the negative aiiglcd diagonal stiffencrs. and DIA2 refers to the positive angled ones. The spline surfaces for DIA1 and
+
+DIAZ. as niight be seen. are almost niirror images of eacli other (escept for the bunip in DIA2 of case 3). consistent with the stiffeners' orientations. Because the stiffcncr density is higher in case 1. the DIA1 and DIA2 stiffeners tend to zero near the right and left cdgcs. r.espccti\-ely The t spline surface of case 2 is quite similar to that of square plate with SPDI.4. and SDF = 112 in Figure 5.2.
+-4s espected, the three cases show furtlier reductions, each being 1.9%, 26.7%. and
+
+18.13% respectively, compared to the case of SPDIA (SDF = 1/2), and without SPS. The
+best one turns out to be Square plate with SDF =
+
+111 using
+
+spline interpolation. and
+
+without SPS method. What is interesting is that, case 3 gave a higher rnass than case 2. Probably. the design might have settled into one of the many local minima. Something that is common to al1 is that the buckling constraint was active. Furthermoreo the plate tended to vanish, and in the process the plate thickness reached its lower bound. The stiffener width was low in the majority of the cases.
+
+Square plate wiÃ®h SPDW (SDF=1/2)
+
+Interpolation: Rational Spline with p = 10.0 Consmint (s): Fi~quencyand Buckling
+
+Figure 5.2: Square plate with SPDIA: Spline surface for t
+
+S q u m plate with SPDiA (SDF=l/Z)
+
+Interpolation: Rational Spline with p = 10.0 ConsÃ»aint (s): Frequency and Buckling
+
+1 /'
+
+v
+
+Figure 5.3: Square plate with SPDIA: Spline surface for t p
+
+CH.4 PTER 5 . OPTIM.4 L DESIGNS
+
+Square Plate with SPDIA (SDF = 112) Constraints: Frequency and Buckling Interpolation: Spline with Stiffener Pattern Splitting rnethod
+
+) DIA1 Stiffei
+
+Figure 5.4: Square plate with SPDIA, and SPS method applied: Spline surface for t
+
+Squm plate with SPDIA (SDF =l/4) Interpolation: Rational Spline with p = 10.0 Consbnint (s): Fmquency and Buckling
+
+Figure 5.5: Square plate with SPDIA, reduced SDF: Spline surface for t
+
+CH-4P TER 5 . OPTIJI.4 L D ESIGiVS
+
+Square Plate with SPDlA (SDF = 114) Constraints: Frequency and Buckling Interpolation: Spline with Stiffener Pattern Splitting method
+
+,
+
+Figure 5.6: Square plate with SPDI.4, reduced SDF and SPS method applied: Spline
+
+surface for t
+
+CH.4 PTER 5. 0PTIAI.U DESiGNS
+
+S q m plate with SPD W (SDF =1/4) Interpolation: Spline with Stiffener Pattern Splitting method Constrnint (s) :Fiequency and BuckIing
+
+z
+
+1
+
+1 '
+
+Figure 5.7: Square plate with SPDIA, reduced SDF and SPS method applied: Spline surface for t p
+
+5.1.3
+
+Plates with Other Stiffener Patterns
+
+.-\IItlie cases presented earlier weere for a plate a i t h SPDIA stiffeners. Here. tlie plates witli stiffencr patterns SPSQR. and SPDIASQ, will be presented. For al1 tlie cases considered.
+a lialf-plate mode1 \vas used wi th appropriate symrnctry boiindary conditions. .As beforc
+
+al1 thc plates were siniply supported. Iiiitial clesigns for the 6 cases cotisidered are shomn in Table 5.8. Sirnilar to thc prrvious cases. a 3 x 5 point spline surface \vas used in al1 the cases. For cases 1, 3 and
+5 tlicre wcrt. two spline surfaces. one each for the stiffener assembly and plate. For case 2
+
+tlicre w r e 3 spliric surfaces - one for the plate and two for the stiffencrs. In the cases 4 ancl 6. four splinr surfarrs w r e required for the stiffeners (as SPDIASQ lias stifferiers in four diff'wiit orientation). and one spline surface for the plate. Tlie rcsiilts of optiniization are presented in Table 5.9, and Figures 5.8 to 5.18. \l'hile rcfcrring to the plots where SPS niethod a s applied (Figures 5.9, 5.12, 5.13, a
+5.16, and 5.17). it sliould be noted t h DIA1 and D U 2 refer to diagorial stiffcncrs of
+
+-45' arid +-Ki0. respect ive15 arid. HOR and VER refer to horizontal and vertical stiffeners. respectively. In all tlie cases. csccpt 3. 5. and 6. the plate thickncss t p reaclicd its iower
+
+boiinci of 0.5mm, arid hence. those are riot shown.
+
+Thc casc of tlic plate with SPSQR ( SDF = 1/4 ) iras riot presetited. The rcason
+k i n g that. in this pÃ¼rticular case the number of stifferiers was not enougli to get an initial fcasible desigii of low m a s , that is. the plate thickness had to be increased to ari estent of about 10riirn. and the mass a a s as high as 144kg. Given the number of desigii variables it. is reasonable enough to assume that the optimal design would settle in to a local minima having a higher mass than al1 the cases presented.
+
+I t can be obserl-ed that, in general, the spline surfaces for the variable t for al1 the niethods not using SPS (cases 1, 3, and 5) look similar in shape, that is, the stiffeners close to middle of the edges tend to vanish. So, the trend is that the mass, in the form
+of stiffeners, is being concentrated in aUbulge" encompassing the whole plate, witli some appendages around the corners. When SPS method was used, the spline surfaces representing stiffeners of different orientation took t here own shapes. Alt hough, spline surfaces of a particular stiffener angle took a similar shape in al1 cases.
+
+The optimal masses obtained by the various cases presented are cornpared in Ta-
+
+ble 5.10. It can seeii that the stiffener configuratioii of SPDIA (SDF = 114): rational spline interpolation arid particularly, without SPS method gives the best resiilt. The nest bcst configuration is SPSQR (SDF = 1/2). The stiffener pattern SPDIASQ gives the worst results witli both SDF = 112 arid 114, eitlier with or without SPS method applied. Froni cictors these resiilts one can conclude that while designing stiffened plates two important f. should br coiisiderrd: a) the stiffener pattern b) the stiffener density. The density: here. should not bc mistaken for tlie density of the material of the stiRener. I t is a measure of thc n ~ ~ r n b ofr stiffeners and their spacing. e
+Squm plrite with SPSQR (SDF =1/2)
+
+Interpolation: Rational Splina with p = 10.0 Constmint (s): Fmqucncy and Buckling
+
+Z
+
+v
+
+Figure 5.8: Case 1 [Square plate with SPSQR (SDF = 1/2)]: Spline surface for t.
+
+CH.4 PTER 5. OPTLU.4 L DESIGiVS
+
+Square Plate with SPSQR (SDF = 112) Constraints: Frequency and Buckling Interpolation: Spline with Stiffener Pattern Splittimg method
+
+(a) HOR Stiffeners
+
+(b) VER Stiffeners
+
+Figure 5.9: Case 2 [Square plate with SPSQR (SDF = 112) and SPS]: Spline surface for t.
+
+Square plate with SPDMSQ (SDF =1/2) Interpolation: Rational Spline with p = t 0.0 ConsÃ»aint (s): Fioquency and Buckling
+
+Figure 5.10: Case 3 [Square plate with SPDIASQ (SDF = 1/2)]: Spline surface for t.
+
+S q u m platc with SPDLiSQ (SDF =1/2) Interpolation: Rational Spline with p = 1 . 00 Consimint (s) :Fmquency and Buckling
+
+Figure 5.11: Case 3 [Square plate with SPDIASQ (SDF = 1/2)]: Spline surface for t p .
+
+Square Plate with SPDIASQ (SDF = 112) Constraints: Frequency and BucMing Interpolation: Spline with Stiffener Pattern Splitting method
+
+, I
+
+Y
+
+(b) DIA2 Stil
+
+Figure 3.12: Case 4 [Square plate with SPDIASQ (SDF = 112) and SPS]: Spline surface for t for the diagonal stiffeners.
+
+Square Plate with SPDIASQ (SDF = 112) Constraints: Frequency and Buckling Interpolation: Spline with Stiffener Pattrem Splming method
+
+,
+I
+
+v
+
+Figure 5.13: Case 4 [Square plate with SPDIASQ (SDF = 112) and SPS]: Spline surface for t for the horizontal and vertical stiffeners.
+
+Square plate with SPDLISQ (SDF =1/4)
+
+Interpolation: Rational Splirie with p = 10.0 Constnint (s): Fmquency md Buckling
+
+Figure 5.14: Case 5 [Square plate with SPDIASQ (SDF = 1/1)]:Spline surface for t .
+
+CHAPTER 5. OPTM4L DESIGNS
+
+S q m plate with SPDLASQ (SDF =1/4) Interpolation: Rational Spline with p = 10.0 Constraint (s): Fmquency and Buckling
+
+Z
+
+"
+
+kf
+
+'
+
+Figure 5.15: Case 5 [Square plate with SPDIASQ (SDF = 1/4)]: Spline surface for t p .
+
+Squam Plate with SPDIASQ (SDF = 114) Constraints: Frequency and Buckiing Interpolation: Spline with Stiffener Pattern Splitting method
+
+,
+I
+
+Y
+
+Figure 5.16: Case 6 [Square plate with SPDIASQ (SDF = 1 . )and SPS]: Spline surface 11: for t for the diagonal stiffeners.
+
+Square Plate with SPDIASQ (SDF = 114)
+Constraints: Frequency and Buckling Interpolation: S pline with Stiffenet Pattrem S plitting method
+
+Figure 5.17: Case 6 [Square plate with SPDIASQ
+
+(SDF = 11-1) and SPS]: Spline surface
+
+for t for the horizontal and verticaI stiffeners.
+
+S q u m plate wiÃ®h SPDLISQ (SDF =1/1) Interpolation: Spline with Stiffener Pattern Splitting method Constraint (s) :Ftpquency and Buckling
+
+z
+
+1 /'
+
+Figure 5.18: Case 6 [Square plate with SPDIASQ (SDF = 114) and SPS]: Spline surface
+for t,.
+
+S1.
+$0.
+
+Stiffener Pat tern SPDIA
+
+SDF
+1/2 112 111 111 112 112 112 112
+
+Interpolation Spline SPS 9; Splinn Spline SPS Si Spline Spline
+
+';D\,'
+31 16
+31
+
+1Iass
+(kg)
+
+1
+-1 -
+
+19.80 19.49 14.53 16.21 19.03
+16.91
+19.73
+
+1
+
+3
+
+a
+G 7
+8 9
+
+10
+
+SPDIA SPDIA SPDIA SPSQR SPSQR SPDIASQ SPDIASQ SPDIASQ SPDIASQ
+
+16
+31
+46
+
+114
+111
+
+SPS Si Spline Spline SPS 9t Spliiie Spline SPS k Spline
+
+31
+76
+
+33-87
+25.43
+
+31 76
+
+24.58
+
+Table 5.10: Optimal masses obtainccl by various methods
+
+5.2
+
+Rect angular St iffened Plat es
+
+Because of the limitations in the cornputer resoiirces. only r~ctangular plates of ratios 2 1
+and 3: 1 were corisidered. The breadth of the plate was 2000mm in both the cases. The four
+
+stiffener configuratioiis. whidi gave the lowest masses for square plates were applied to the rectangular plates to denionstrate the present design met hodology. Half-plate models were uscd for anal?.sis. wit h the plate being halved along the length. Finite elernent analysis on the rectangular half-plate models of aforementioned ratios were carried out by discretizing into 8 x 32, and 8 x -LS squares, respectively, and each square being in turn divided into four identical triangles, by the diagonals. Doing this not only ensured that the size of the elements remained the same as those used for square plates, but also made it possible to get the stiffener orientations the same as those of the latter. (It is quite obvious that using rectangles instead of squares would make the orientation of the diagonal stiffeners not equal to i145"). The boundary condition was simply supported with symmetry conditions included. The initial designs can be found in Tables 5.11 and 5.13. The spline surfaces used for the 2 1 rectangle had 3 x 9 rnaster node points, while the 3:l rectangle had 3 x 13. Spline interpolation without SPS, as usual, required two spline surfaces, making the number of
+
+design variables 54 and 75 respectively. for 2 1 and 3 l rectangles. It required 3 spline : surfaces for interpolation with SPS! giving 81 and 117 design variables. Adding one more design variable b. brings the totals to those shown the aforeineritioned tables. Thc results are shown in Tables 5.12 and 5.14, as well as in Figures 5.19 to 5.35. Soiiie of the observations made for square plate holds true for the rectangular plates. as wcll. The buckling constraint was active in ail the cases. The plate thickness tended to vanisli in al1 the cases. hence helping reduce the m a s . Whereas. the stiffener width for rcctaiigiilar plates remained higher than the lower bound unlike for the square plates where in niost of tlie cases it nttained. or remained close to. the l o w r bound. Tlic vibration modcs for al1 the 2:l plates studied were (1,l) modes. The buckling modcs for al1 tlic 2:l platc cases, escept case 4 in Table 5.12. were (2.1) modes. For case
+4. it was (3.1). as shown in Figure 5.27. lnteresting associations car1 be made bctween
+
+tlie splirit) siirfaces arid thc buciling modes for a given plate. For csample, compare the splinc plots (5.25 arid 5.26) with the buckling mode shape (Figure 5.27) for case 4. In
+
+Figure 5.25(Ã¼). the curye at y = lOOOmm . ruiining parallel to the r - a i s . changes slope similar to tlie comparable central ciirve of the mode shape. The rriasirna of this curw is aroiind x = 1500112111 and 3500mm. similar to the mode shape. Siniilarly, the periodicity of t,he plate tliickness along the long edges in Figure 5.26 is in concurrence with the lengths of the half *'sine" surfaccs of the mode shape. This kind of an association between thc two should corrie as no surprise given the fact that, buckling constraint is active. The accordance with the mode sliapes and the splines is more subtle in other cases. In making such coniparisoiis it should be borne in rriind that the vibration mode. as irientioned. earlier is. (1.1). Both of these n i q influence the final shape aiid make the final shape of the splines look complicated.
+The buckling mode was ( 3 J ) for al1 the 3:l plates escept case 3 in Table 5.14, which had (2.1) mode. The vibration modes were al1 (1,l).The mode sliape to spline surface association holds true for this too. stiffener configuration. Finally, similar to that for square plates, SPDIA (SDF = 11-1) in general. gave the lowest masses. although for 21 rectangular plates it was with SPS, and for 3:l plates it was without SPS. Thus! it can be concluded that SPDIA with SDF = 114 is the best stiffener configuration of al1 those studied.
+
+5.3
+
+Concluding Remarks on the Results
+
+I l togctlier 3 s t iffeiier patterns were considered: SPDI-4. SPSQR. and SPDIASQ. For each
+of these. Stiffener Density Factors (SDFs) of 112 and 1/1 were considered. Rational spline interpolation was used for linking the design variables. A Stiffener Pattern Splitting (SPS) nietliod of interpolation was introdiiced and applied on al1 the stiffener configurations. It
+ivas foiind tliat SPDIA n i t h SDF = 114 with (in most cases) or without (in one case) SPS
+
+method gave the lowest mass. Most importantly it can be concluded that the proposed
+opt inial tlcsign rnct hodology gives good results.
+
+Rcctvyulv Plate (2:l) wiÃ®h SPDLI (SDF = 1/41 InkrpolÃ»tion: Rationai Splinc with p =10.0 Consmin&: Fmqucncy and Buckling
+
+Figure 5.19: Rectangular plate (rat.io 2:l) with SPDIA (SDF = 11-1): Spline surface for t .
+
+CH-4P TER 5. OP Tl'A1.4L DESlGiVS
+
+H c c ~ u l e Plate (2:l) wiÃ®h S P D U (SDF = 1/41 r Interpolation: Rationid Spline widi p 4 0 . 0 Consmints: Frcquency anci Buckling
+
+Figure 5.20: Rectangular plate (ratio 2: 1) with SPDIA (SDF = 114): Spline surface for t p .
+
+HcclaiyuluPi;iIi! ( 2 1 ) with SPDLI (SDF = 1/41 Interpolation: Rationail Spline dS E
+Coiistninb: Fnquency ud BucWing i
+
+DLIl and D M 2 splinc surfaces Ã§ombincd
+
+z
+
+mm)
+
+Figure 5.21: Rectangular plate (ratio 21) with SPDIA (SDF = 114) and SPS: Spline surface for t .
+
+CHAPTER 5. OPTIMAL DESIGNS
+
+RccÃ®anguluPlate ( 2 1 ) wiÃ®h SPDM (SDF = 11.0 inktpolation: Rationai Spline and SPS
+Constnints: Frrquency and Buckliq
+
+Figure 5.22: Rectangular plate (ratio 21) with SPDIA (SDF = 114) and SPS: Spline
+
+surface for t p .
+
+Rcciangu1;irPi;Uc( 2 1 ) with SPSQR (SDF = 1/21 Intcipol~tion: Rafional Splinc wiÃ®h p 4 0 . 0 CansÃ»ainfs: Fmqucncy and Buckling
+
+Figure 5.23: Rectangular plate (ratio 21) with SPSQR (SDF = 112): Spline surface for t.
+
+CH--1 TER 5. OP TI,\ 14 L D ESIGXS P .
+
+RccrangularPlalc (21) w i l h SPSQR (SDF = 1 2 ) Inicipol~tion: Rational Spline wiÃ®h p 4 0 . 0 Constraints: Fmquency and Buckling
+
+Figure 5.24: Rectangular plate (ratio 21) with SPSQR (SDF = 112): Spline surface for
+tp-
+
+CHAPTER 5. OPTIMAL DESIGiVS
+
+Reciangular Plate (2:l) with SPSQR (SDF = 1/2) Interpolation: Rationai Spline and SPS Consbain&: Frequency and Buckling
+
+(b) VER spline sudace
+
+-
+
+Figure 3.25: Rectangular plate (ratio 2:l) with SPSQR (SDF = 112) and SPS: Spline
+
+surface for t .
+
+RccÃ®angulur Plate (211 with SPSQR (SDF = 1 / 3 inrcrp>lation: Rationai Spiine and Si% Conrtmints: Frrquency and Buckling
+
+Figure 5.26: Rectangular plate (ratio 2:l) with SPSQR (SDF = 112) and SPS: Spline surface for t p .
+
+CHAPTER 5. OPTIAIAL DESIGNS
+
+Buckling mode shape for rectangular plate (2:l) with SPSQR (SDF = 112) Interpolation: Rational Spline and SPS
+
+Figure 5.27: Rectangular plate (ratio 21) wit-h SPSQR (SDF =
+mode shape.
+
+11%) SPS: buckling and
+
+a m C u 0 3
+
+"
+
+9
+
+.
+
+Z M b 06- a ao- cc- T M 5
+,
+4
+
+S Z k Z
+ce ? .
+H d 4
+
+7
+
+Rccmgulw Plate (3:l) with S P D U GDF = 1/41 Intctpolation: Rationai Spline wilh p =10.0 ConÃ®traints: Fniqucncy and Buckling
+
+Figure 5.28: Rectangular plate (ratio 3 3 ) with SPDIA (SDF = 114): Spline surface for t.
+
+CH.4 P TER 5. OPTIA14L DESIGNS .
+
+Rcctuigular PlaÃ®c (3:l) wilh SPDlA (SDF = 1/41 Interpolation: Rationai Splinc wiih p 4 0 . 0 CansÃ»aints: Frrqucncy dBuckiing
+
+Figure 5.29: Rectangular plate (ratio 3:l) with SPDIA (SDF = 114): Spline surface for t p .
+
+CH.4 PTER 5. OPTIAI.4 L DESIGNS
+
+Rccmngular Ptatc ( k l ) w ith SPDM (SDF = 11.1) Intfipolaiion: Rational Splinc and SPS Consaaints: Frrqucncy and Buckling
+
+DLI 1 and DLIZ splinc surCaccs combincd
+
+Figure 5.30: Rectangular plate (ratio 3 : l ) with SPDI.4 (SDF = 114) and SPS: Spliiie
+surface for t .
+
+CHA P TER 5. OPTL1I.4 L D ESIGNS
+
+RccÃ®mgul;u Marc (M) SPDM (SDF = 114) wilh
+Intcipolation: Rationiai Spline m SPS i Conslraints: Frcqucncy and Buckling
+
+Figure 5.31: Rectangular plate (ratio 3:l) with SPDI.4 (SDF = 1/4) and SPS: Spline
+surface for t p .
+
+R c c ~ u l a Plale ( 3 1 ) wiÃ®h SPSQR (SDF = 1/3) r Interpolation: Ratiomi Splinc with p d 0 . 0 Canstmints: h q u e n c y and Buckling
+
+Figure 5.32: Rectangular plate (rat,io 3:l) with SPSQR (SDF = 112): Spline surface for t.
+
+Rcctangular Plak (&Il with SPSQR (SDF = 1/21 IntErpoladon: Rational Spline with p 4 0 . 0 ConsÃ»aints: Fmqucncy and Buckliry
+
+Figure S.33: Rectangular plate (ratio 3:1) with SPSQR (SDF = 1/2): Spline surface for
+tp.
+
+R c c ~ u l a Plate (3:l) wiÃ®h SPSQR (SDF = 112) r inteplaiion: Rational Spline and SPS Constnints: Froquency and Buckling
+
+Figure 5.34: Rectangular plate (ratio 3:l) with SPSQR (SDF = 112) and SPS: Spline
+surface for t.
+
+Rcct;uigdar Plate ( 3 1 ) with SPSQR (SDF = 112) in&rpol;icion: Rational Spline and SPS Constninb: Fmqucncy and Buckling
+
+Figure 5.35: Rectangular plate (ratio 311) with SPSQR (SDF = 112) and SPS: Spline surface for t p .
+
+Chapter 6
+Summary and Conclusions
+This work presented a methodology for the optimal design of stiffened plates having frequericy and buckling constraints. The basic idea was to assumc that a plate had a fairly dense distribution of stiffeners in a specific pattern. The analysis of the stiffcned plate \vas carried out by finite element analysis, with the plate being modeled by IIiridlin plate elenients. and the stifferiers by Timoshenko beam elernents. A11 the necessary finite elenient derivations wcre erilisted. The elements were validated by comparing with analytical solutions. The three stiffener patterns (SPDI-A, SPSQR, and SPDI-ASQ) considered, and a quantity associated witli niimber of stiffeners and their spacings, called Stiffener Density Factor (SDF) Kas described. A combination of one of the stiffener patterns with an SDF
+gave a specific stiffener configuration.
+
+The optimization mode1 made use of spline surfaces for linking the design variables, tlius reducing the niimber of design variables significantly. Stiffener Pattern Splitting (SPS) method was introduced as a way of reducing the mass further. Results aere presented for a square plate with many stiffener configurations. The four best configurations which gave the lowest mass were applied to rectangular plates for ratios 2:l and 3:l. In general, it was found that SPDIA (SDF = 114) gave the best results. Alsol the foilowing observations were made: The deep stiffeners having smalI width were dominant. The plate thickness in al1 the cases tended to vanish, and thus attained the Iower bound.
+
+There appeared to be a delicate balance between the stiffener density and the plate thickn~ss.If the the density of the stiffeners \vas not sufficient to give enough stiffness, then the plate thickness increased, increasing the m a s of the structure.
+i
+
+'The buckling constraint \vas active for al1 the cases considered, aiid hence drow the design. Interrsting associations between the buckling mode shapes and the optimal spline surfaces werc observcd for rectangular plates. Fiiially, it \vas coricludcd that the present methodology gives good results. and illiis-
+
+tratcs tliat stiffenpr pattern and deiisity play a n important role in the design of stiffened plates.
+
+6.1
+
+Recommendations for Future Work
+
+The riiajor cori~traints considcred iri this work were only the frequency and biickling constraiiits. biit i t would be evcn more rcalistic to consider some more like the stress constraints. The stiffcner patterns analyzed were of standard angles O". &-la0. a n d 90". Hetice. there is a scopc to consider stiffeners of other angles. and differcnt patterns. The patterns
+were assunied to be static in this work. It would be interesting to take a few stiffeners,
+
+and allow them to niove? while optimizing. Another direction in which this work can be estended, is to make use of composite niaterials. The density of the fibers could be the design variables.
+
+References
+[l] K.-J. Batiic. The Finite Element Procedures. Prentice-Hall. Nciv .Jersey, 2nd edi tion.
+
+1996.
+[2] R. Bcllur Ramaswaniy and J. S. Hansen. Optimal design of stiffened platrs with
+
+frequency constraints. In S. Zinda and D. S. Keaver. editors. 17th Canadian Congress of Applied hlechanics (CA~VCrllLISS).pages 307-308. Uchfaster Cniversity. Hamilton, Ontario. Canada. 1 1 1 30 - .Jilne 3 1999.
+[3] 11. P. Benclsoc. Optirni-ation of Structural Topology. Shape. and Material. Springer-
+
+Vcrlag. Berlin. Gerniany. 1995.
+[4]
+
+G. Clicrig and S. Olhoff. An investigation concerning optimal design of solid clastic plates. Int. J. Solids Struct.. (16):305-323, 1981.
+
+[5] R. T. Haftka and 2. GÃ¼rdal. Elements of Structural Optimization. Klu~verAcadernic Dordrecht,, The Xetherlands, 1992. Publishcrs. P.o.Bos 17: 3300 -4-1
+
+[G] R. SI. Jones. Mechanics of Composite Materials. 3IcGraw-Hill. New York, USA: 1975.
+[Tl D. C. D. Oguamanam. J. S. Hansen, and G. R. Heppler. T h e Szmplest Plate Bending
+Elements? Report No. 86. Institute of Mechanical Engineering, Aalborg University, Denmark, 1997.
+[8] 1. J. Shames and C. L. Dym.
+
+Energy and Fznite Element kÃ¯ethods in Structural Mechanics. LlcGraw-Hill, New York, USA? 1985.
+
+[9]H . Spath. Spline AlgoRthms for C u m e s and Surfaces. Ctilitas Mathematica Publishing Inc., Winnipeg, SIanitoba, Canada, 1974.
+[IO] XI. S. Troitsky. Stiffened Plates
+
+Bending, Stability and Vibrations. Elsevier Scientific Publishing Company., Amsterdam, The Net herlands. 1976.
+-
+
+[ I l ] G. 9. iknderplaats. Arumen'cal Optimization Techniques for Engineering Design W t h
+
+.4pplzcations. ..\lcGraiv-Hill, New York, Ã¼. S. -4.. 1984.
+[12] G. N. l'anderplaats. ADS
+
+a FORTRAN program for autoniatcd design synthcsis vcrsion 1.10. N A S4 CR- 77985. 1985. . 1
+--
+
+-
+

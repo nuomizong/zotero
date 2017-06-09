@@ -1,0 +1,988 @@
+University of Nebraska - Lincoln
+
+DigitalCommons@University of Nebraska - Lincoln
+Mechanical (and Materials) Engineering -Dissertations, Theses, and Student Research 5-2015 Mechanical & Materials Engineering, Department of
+
+Using Controlled Curing in a Custom Stereolithography-based 3D Printing Machine to Obtain Graded Property Variations
+Evan S. Schwahn
+University of Nebraska-Lincoln, hungri3man@gmail.com
+
+Follow this and additional works at: http://digitalcommons.unl.edu/mechengdiss Part of the Applied Mechanics Commons
+Schwahn, Evan S., "Using Controlled Curing in a Custom Stereolithography-based 3D Printing Machine to Obtain Graded Property Variations" (2015). Mechanical (and Materials) Engineering -- Dissertations, Theses, and Student Research. Paper 85. http://digitalcommons.unl.edu/mechengdiss/85
+
+This Article is brought to you for free and open access by the Mechanical & Materials Engineering, Department of at DigitalCommons@University of Nebraska - Lincoln. It has been accepted for inclusion in Mechanical (and Materials) Engineering -- Dissertations, Theses, and Student Research by an authorized administrator of DigitalCommons@University of Nebraska - Lincoln.
+
+Using Controlled Curing in a Custom Stereolithography-based 3D Printing Machine to Obtain Graded Property Variations
+
+by
+
+Evan S. Schwahn
+
+A THESIS
+
+Presented to the Faculty of The Graduate College at the University of Nebraska In Partial Fulfillment of Requirements For the Degree of Master of Science
+
+Major: Mechanical Engineering and Applied Mechanics
+
+Under the Supervision of Professor Mehrdad Negahban
+
+Lincoln Nebraska
+
+May, 2015
+
+Using Controlled Curing in a Custom Stereolithography-based 3D Printing Machine to Obtain Graded Property Variations
+
+Evan S. Schwahn, M.S. University of Nebraska, 2015
+
+Advisor: Mehrdad Negahban
+
+In an effort to construct materially graded parts, a strategy was studied that is based on varying ratios of interpenetrating polymer networks (IPNs) in a manner that can be adapted to 3D printing. Using IPNs has the benefit of allowing access to a broad range of property variation. The strategy used involves controlled partial curing of the first network, followed by washing of that network to remove uncured components, then swelling of the structure with a second polymer component and curing. This method was utilized to control final IPN properties by controlling the extent of crosslinking of the initial network, a strategy that can be adapted in 3D printing by controlled curing with a laser system. Controlled continuous graded property distribution could eliminate the need for fasteners and other costly manufacturing steps, and could provide designers with a tool to specify property distribution to obtain functionally graded parts that have property distributions that are optimized for an application. A 3D printer based on the stereolithography rapid prototyping concept has been developed to implement this strategy.
+
+The system studied for property graded 3D printing was an acrylate/epoxy system. The curing of the acrylate component, Bisphenol A ethoxylate dimethacrylate, was studied by rapid-scan FTIR and modeled for adaptation in 3D printing. Many parameters affect the crosslinking process of the acrylate. These include the power density profile of the laser beam, exposure time, exposure overlap, power density, and curing environment (temperature and oxygen content). These effects were investigated and analyzed for implementation in a model that was used for its adaptation to 3D printing. The epoxy component was 3,4-Epoxycyclohexylmethyl 3,4epoxycyclohexanecarboxylate, and was photo cured after swelling inside the partially cured acrylate network. The properties of the final pseudo IPN structures were characterized by nanoindentation. Initial parts made by this method indicated a gradual variation of elastic properties.
+
+iv
+
+Contents
+List of Figures ............................................................................................................................ vi List of Tables ............................................................................................................................viii 1
+1.1 Goal............................................................................................................................................... 2 1.2 Scope of Work ............................................................................................................................ 2 1.3 Thesis Organization ................................................................................................................... 2
+
+Introduction .......................................................................................................................... 1
+
+2
+
+Background ........................................................................................................................... 4
+2.1 Rapid Prototyping ...................................................................................................................... 4 2.1.1 A Brief History .................................................................................................................................. 4 2.1.2 Rapid Prototyping Methods........................................................................................................... 4 2.1.3 Applications and Progress in Rapid Prototyping Technology............................................ 8 2.1.4 Modeling of Stereo-lithography Process Parameters ............................................................ 9 2.2 Functionally Graded Materials in Rapid Prototyping.................................................... 10 2.2.1 Materials and Applications .......................................................................................................... 11 2.2.2 Modeling of Functionally Graded Materials for RP Applications .................................. 12 2.3 Interpenetrating Polymer Networks of Photo-curable Resins ...................................... 13 2.3.1 Photo curing of Polymer Resins ................................................................................................ 13 2.3.2 Structure of the IPN Network ..................................................................................................... 15 2.3.3 IPN Applications............................................................................................................................. 16
+
+3
+
+3.1 Acrylate Photopolymer Selection ......................................................................................... 19 3.1.1 Radical Photo-initiator .................................................................................................................. 20 3.1.2 Elastic Modulus............................................................................................................................... 21 3.2 Epoxy Photopolymer Selection ............................................................................................. 21 3.2.1 Cationic Photo-Initiator ................................................................................................................ 22 3.2.2 Elastic Modulus............................................................................................................................... 22 4.1 Stereolithography Machine Design ..................................................................................... 23 4.1.1 Discussion of RP Machine Components ................................................................................. 24 4.1.2 Improvements Over Previous Design ...................................................................................... 32 4.2 Photopolymer Environment Design .................................................................................... 34
+
+IPN Component Specification......................................................................................... 19
+
+4
+
+Development of Stereo-lithography Machine and Environment............................ 23
+
+5
+
+Modeling of the RP System and Printing Strategy .................................................... 36
+5.1 5.2 5.3 5.4 5.5 5.6 5.7 Laser Power Density Profiles ................................................................................................ 36 Energy Density Calculation for a Conical Profile............................................................ 39 Profile Overlap and Multi-Scan Energy Profiles ............................................................. 42 Scan Velocity and Exposure Time ....................................................................................... 46 Procedure for Graded Sequential IPN Manufacture ...................................................... 48 Epoxy Swelling ......................................................................................................................... 50 Post Curing Process ................................................................................................................ 51
+
+6
+
+6.1 ATR-FTIR Experimental Setup........................................................................................... 52 6.2 Power Density, Wavelength and Temperature................................................................. 53 6.3 ATR-FTIR Acrylate Characterization Procedure........................................................... 55
+
+Curing Characterization of Acrylate System .............................................................. 52
+
+v
+6.4 Evaluation of Acrylate Conversion Degree by FTIR ...................................................... 60 6.4.1 Conversion Degree by Exposure Time .................................................................................... 63 6.4.2 Temperature and Oxygen Effects on Final Conversion ..................................................... 65 6.4.3 Power Density Effects on Final Conversion .......................................................................... 69 6.4.4 Multi-Scan Effects on Final Conversion ................................................................................. 72
+
+7
+
+Printing Graded Properties in Rapid Prototyping .................................................... 76
+7.1 Multiple Exposure Model ...................................................................................................... 76 7.2 Reference Behavior ................................................................................................................. 81 7.3 Rapid Prototyping Samples ................................................................................................... 82 7.3.1 Discrete Samples............................................................................................................................. 83 7.3.2 Gradient Samples ............................................................................................................................ 87
+
+8
+
+8.1 Summary of Results ................................................................................................................ 90 8.2 Discussion .................................................................................................................................. 91 8.3 Future work .............................................................................................................................. 92
+
+Conclusion ........................................................................................................................... 90
+
+References .................................................................................................................................. 94 Appendices .............................................................................................................................. 101
+A.1 Youngâs Modulus for the Acrylate and Epoxy Components...................................... 101 A.2 Linear Displacement Calculations for Linear Rails ..................................................... 102 A.3 Total Energy Density Absorbed by Points on a Sample as the Beam Moves Over Them for a Conical Power Density Profile .................................................................... 103 A.4 ATR-FTIR Acrylate Characterization Method ............................................................ 104 A.5 Final Conversion Equation by Fitting the Multiple Exposure Data ........................ 106 A.6 Youngâs Modulus Data for Control Samples and RP Discrete Samples ................. 107 A.7 Youngâs Modulus Data for the Control Samples and Gradient Samples ............... 108 A.8 IPN Tensile Test Characterization ................................................................................... 109 A.9 IPN Nanoindentation Characterization .......................................................................... 112
+
+vi
+
+List of Figures
+Figure 1: Distinction between Continuous FGM (Top) and Discrete FGM (Bottom), with color representing the difference in material distribution. ............................................... 10 Figure 2: Schematic of cross-linked polymer networks of Polymer 1 (left), Polymer 2 (center), and final interwoven IPN network (right)............................................................ 16 Figure 3: Acrylate cross-linker Bisphenol A ethoxylate dimethacrylate [55] ..................... 20 Figure 4: 2hydroxy-2methyl propiophenone radical photo-initiator [56] ............................. 20 Figure 5: 3,4-Epoxycyclohexylmethyl 3,4-epoxycyclohexanecarboxylate [61]................. 21 Figure 6: Triarylsulfonium hexafluoroantimonate salts, mixed cationic photoinitiator [62] ........................................................................................................................................................... 22 Figure 7: Mirror-based (top) [64] and xy-axis (bottom) [65] scanning mechanisms for SL machines ......................................................................................................................................... 24 Figure 8: OpoletteTM 355 LD pulse laser system incorporated into the SL machine ........ 25 Figure 9: Laser focusing technique to transfer laser energy into the optical fiber core .... 26 Figure 10: Collimator-Lens assembly [66] (left) and designed xy-axis parts (right) ........ 27 Figure 11: USM42 micro positioning system from USAutomation [67] .............................. 28 Figure 12: Designed z-axis parts ....................................................................................................... 28 Figure 13: KL-8070D stepper motor driver [68] .......................................................................... 29 Figure 14: Mach3 USB Motion Card by Leafboy77 [69].......................................................... 30 Figure 15: Mach 3 Software Interface ............................................................................................. 31 Figure 16: Machine constructed for stereolithography RP machine ...................................... 32 Figure 17: Previous rapid prototyping system design [63]........................................................ 33 Figure 18: Chamber for acrylate Photopolymerization .............................................................. 35 Figure 19: Uniform power density profile in 2D (left) and 3D (right) plots ........................ 37 Figure 20: Conical power density profile used in the RP machine in 2D (left) and 3D (right) plots..................................................................................................................................... 38 Figure 21: Side view of the conical power density profile ........................................................ 39 Figure 22: Power density on a point as a conical beam profile moves over it..................... 39 Figure 23: Laser beam spot moving across the sample surface at a chosen velocity ........ 40 Figure 24: Example plot of total energy density absorbed by points on the sample as a conical power density profile laser beam spot centered at y = 0 moves over them .. 42 Figure 25: Parallel laser beam scans traversing the sample side by side (a) and with overlapping beam profiles (b) .................................................................................................. 43 Figure 26: Energy density curve overlap for successive scans at varying percentages for a conical power density profile ................................................................................................... 44 Figure 27: Energy density curve overlap for successive scans at varying percentages for a uniform power density profile .................................................................................................. 45 Figure 28: Area under the power density vs. time curve for a moving conical profile and a stationary uniform profile .......................................................................................................... 46 Figure 29: Points along the multi-scan energy density curves corresponding to different exposures along the overlap region ........................................................................................ 47 Figure 30: Base plate for single layer 3D printing ....................................................................... 50 Figure 31: Setup for acrylate characterization experiments ...................................................... 52 Figure 32: Quasi-airtight chamber used in FTIR experiments to reduce oxygen contamination ................................................................................................................................ 56
+
+vii Figure 33: Sample preparation for ATR-FTIR measurement ................................................... 57 Figure 34: Example of changing absorbance peaks corresponding to decreasing concentration of carbon-carbon double bonds in the material with varying exposure time................................................................................................................................................... 59 Figure 35: Conversion degree vs. exposure time at 80 Â°C ........................................................ 63 Figure 36: Trend of conversion degree vs. exposure time for the data of Table 1 ............. 64 Figure 37: Conversion vs. time for varying temperature ........................................................... 66 Figure 38: Conversion vs. temperature from the data of Table 2 ............................................ 67 Figure 39: Time to plateau vs. temperature for the data of Figure 37 .................................... 68 Figure 40: Conversion vs. time for varying power density ....................................................... 70 Figure 41: Conversion vs. power density values for the plot of Figure 40 ........................... 71 Figure 42: Conversion vs. time curve for set 1 of the multiple exposure tests .................... 73 Figure 43: Comparison between single and multiple exposures for equivalent total exposure time ................................................................................................................................ 74 Figure 44: Conversion vs. time for set 2 of the multiple exposure tests ............................... 75 Figure 45: Effect of overlapping power density profiles on final conversion ..................... 77 Figure 46: Effect of calculated velocity on final conversion .................................................... 78 Figure 47: Nanoindentation results of sequential IPN samples initially cured by uniform power density ................................................................................................................................ 81 Figure 48: Young's modulus results for tensile tests for the discrete RP samples.............. 83 Figure 49: Comparison between RP samples and reference (ATR) samples....................... 85 Figure 50: RP sequential IPN sample with five regions of specified conversion ............... 87 Figure 51: Young's modulus and corresponding acrylate partial conversion for the gradient IPN sample by location.............................................................................................. 88 Figure 52: Comparison between the RP discrete sample, the RP gradient samples and the reference samples made on the ATR-FTIR system ........................................................... 89 Figure 53: Young's Modulus for the acrylate crosslinker system ................................... 101 Figure 54: Young's Modulus for the epoxy crosslinker system ....................................... 101 Figure 55: ATR Sampling method used in FTIR experiments [72] ..................................... 104 Figure 56: Typical sample geometry used for tensile testing ................................................. 109 Figure 57: Typical tensile test stress vs. strain curve [76] ....................................................... 110 Figure 58: Typical force vs. displacement curve produced by nanoindentation tests ..... 112
+
+viii
+
+List of Tables
+Table 1: Exposure time and corresponding conversion degree reached at the plateau ..... 64 Table 2: Temperature and corresponding conversion plateau value ...................................... 66 Table 3: Temperature and time-to-plateau data from Figure 37 .............................................. 67 Table 4: Conversion and power density values for the plot of Figure 40 ............................. 70 Table 5: Elastic Modulus and corresponding partial conversion for IPN reference samples ........................................................................................................................................................... 82
+
+1
+
+1
+
+Introduction
+The focus of this work was to manufacture Interpenetrating Polymer Network
+
+(IPN) samples with a gradient of material properties using rapid prototyping (RP) technology. Rapid prototyping technologies involving printing graded material structures are still in their infancy. The printing of IPN structures provides the unique advantage of controlling material properties at the molecular level. The advantages of graded property variations at the molecular level are evident when applied to the manufacturing industry. The ability to change a part from hard to soft without interface connections parts or weak points commonly associated with the interfaces between two different materials could be an extremely useful tool in the manufacturing industry. IPN structures are usually associated with two polymer components closely interwoven to form a densely crosslinked structure. The two components generally have a drastic difference in material properties, with one component usually having soft and flexible qualities and the other having hard and rigid qualities. Ratios of the two can then be created to form IPNs with material properties between the two extremes. Similarly, controlling the degree of curing, or crosslinking density, of one or both of the components can be used to form gradient samples. The sequential IPN method utilized in this work involves grading the partial curing of one component followed by swelling in the second to form the final graded IPN structure.
+
+2
+
+1.1 Goal
+The goal of this thesis is to manufacture IPN samples with graded material properties by controlled graded curing of an acrylate crosslinker system in a rapid prototyping system.
+
+1.2 Scope of Work
+The polymerization process of the acrylate crosslinker system was studied by rapid-scan ATR-FTIR to determine the parameters necessary for controlled curing of the system. Control samples were produced with specific degrees of crosslinking density and post-processed to create the final IPN structures. Mechanical testing was done on these samples to determine the Youngâs modulus to compare with samples created in the rapid prototyping machine. Modifications were made to the rapid prototyping machine to accommodate graded curing conditions inside of the machine. Samples were manufactured in the RP machine with graded variations in the degree of acrylate partial curing. The samples underwent the same post-processing as the control samples to create the final IPN material. Mechanical characterization was done on these samples and they were then compared with the samples from the RP machine.
+
+1.3
+
+Thesis Organization
+The thesis will begin with an overview of rapid prototyping technology, efforts to
+
+develop graded materials in rapid prototyping, and knowledge on developing IPNs. Next, the specific IPN components used in this work are discussed. Following this a detailed description is presented on the RP system developed as well as modifications made for the graded photo curing. Next, a description is provided on the modeling and the
+
+3 calculations that went into selecting the parameters used to manufacture of the graded samples. This is followed with a presentation of the results and corresponding discussion for both the IPN control samples and the graded RP samples.
+
+4
+
+2 Background
+2.1
+2.1.1
+
+Rapid Prototyping
+A Brief History The idea of manufacturing three-dimensional shapes using thin layers of material
+
+surfaced in 1890 when Blanther [1] suggested the formation of contour relief maps by stacking of thin wax plates to create the complex contoured structures. Others continued this work such as Zang [2] in 1964 that had the idea of alternately stacking transparent sheets with detailed printed matter to illustrate particularly detailed land formations, and DiMatteo [3] in 1976 that recognized the advantages of the stacking process over typical machining processes for the manufacture of complex geometric structures. At the forefront of modern rapid prototyping techniques was Swainson [4] in 1971 with his patent proposal for a machine that could fabricate objects out of a photopolymer media using the intersection of two beams of light to actively control the curing state of the photopolymer at any point. Also in 1971 Ciraud [5] proposed a process of controlling the deposition of powders on a surface in a specific configuration and then melting them to form a stable layer. Finally, a rapid prototyping system design based on laser curing of photopolymer materials was patented by Hull [6] in 1986 and led to the first commercially available rapid prototyping system [7]. 2.1.2 Rapid Prototyping Methods Though rapid prototyping methods are numerous, there is one fundamental process that all rapid prototyping systems follow. First, a three-dimensional model of the object to be prototyped must be designed in a three-dimensional computer-aided design (CAD) software. Besides basic three-dimensional modeling, these software programs
+
+5 usually include tools to help simulate conditions on the part or assembly, such as structural analysis and interference detection that can be useful in the design process [8]. Some commonly used CAD software include PTC Creo ParametricÂ®, CATIAÂ®, SOLIDWORKS Â®, and Solid EdgeÂ®. Next, the model is converted to STL format, in which the model is transformed into a triangulated representation that approximates the modelâs surface features and can be read by rapid prototyping software. Once submitted to the rapid prototyping software, the file is broken into a G-code format. This G-code is made up of lines in Cartesian XYZ coordinates that execute in series to build the model, with the content and length of the code based on certain user input parameters. In this way the model is prototyped layer by layer to completion. Lastly, when the build process is complete, post-processing techniques are required to achieve a structurally sound and accurate product. Post-processing techniques vary by rapid prototyping method but in general involve cleaning, post-curing, or finishing of the prototyped model [7]. Since the appearance of the first rapid prototyping systems in the late 1980âs, many methods for prototyping complex shapes have been developed and marketed. Among the most prevalent are stereolithography (SLA), selective laser sintering (SLS), fused deposition modeling (FDM) and laminated object manufacturing (LOM). As stated earlier in 2.2.1, modern stereolithography systems are based on Hullâs (1986) design and have been popular in the RP world ever since 3D Systems shipped the first commercial RP systems in 1988 [9]. The SLA process specifically is a process of curing liquid photosensitive resin with an ultraviolet light source. These systems typically utilize a rotating mirror or XY-axis system to guide the ultraviolet light source across the liquid resin surface, tracing the shape unique to each layer and specified by the RP
+
+6 software. After completion of each layer, the build platform is lowered in the liquid resin based on the desired thickness of the next layer, and the process is repeated until the completion of the part. In some machines, a mechanical wiper is also used to control layer thickness. Post-processing of SLA parts include rinsing in ethyl alcohol to remove excess resin, removal of any support structures built into the program, and post-curing of the prototyped part. Post-curing involves placing the washed prototype part into a special ultraviolet light oven and is essential in order to complete the cure of any partially cured locations [10]. Some advantages of the SLA method are good accuracy and surface finish, but removal of the required support structures can be costly and can cause damage to the model [11]. The first selective laser sintering machines were first made commercially available by DTM corporation in 1992. The SLS process starts with spreading a single layer of meltable powder across a flat surface bed. Next, a CO2 laser traces the desired shape, heating the powder to its melting point and causing the powder particles to fuse together to become a solid object. When the first layer is complete, a rolling device spreads another layer of powder across the surface of the first layer and the process is repeated, building the model from the base upward. Though the process is similar to SLA, the SLS method does not require support structures, as the powder deposited from previous layers acts as a natural support as the model is built upward. Sanding may be required in the post-processing stage. Strengths of the SLS method include the availability of a wide range of materials such as nylon, ceramics and metals, and that there is no need for support structures during the process. Some disadvantages are high power requirements and poor surface finish [11].
+
+7 Fused Deposition Modeling is a solid-based RP system first introduced to the market in 1988 by Stratasys Inc. This RP method utilizes an extruder mechanism to deposit layers of thermoplastic material onto the build platform. As the XY-axis system traces and fills the desired shape of each layer, the extruder head is heating the thermoplastic material into a semi-liquid state and depositing it on the surface. After deposition of the material onto the build platform, it hardens and bonds to previous layers creating a solid surface. This process is repeated as a Z-axis moves the semi-complete model downward for successive layers [7]. Support structures for the model are typically built with a second water-soluble material deposited by a second head in the locations specified by the software. Post-processing includes some finishing work as well as rinsing to remove the support structures from the completed model. Though the build process can be slow and accuracy is lower compared with some other RP methods, the FDM method is able to easily change between materials and produce models with strength similar to an actual injection molded part of the same shape [11]. The Helysis Corporation, founded in 1985 created the Laminated Object Manufacturing RP method [7]. Unlike SLA and SLS materials, LOM raw materials begin as thin sheets of plastic or paper coated with adhesive, with the thickness of the sheets defining the layer thickness of the model. A roller heats the first sheet in order to bond the material to the build platform and a laser cuts the layer shape. The excess material is then removed and a new sheet is bonded to the surface to form the next layer. The process is repeated and the model is built from the base upward. Post-processing includes finishing of the part by sanding and polishing to achieve desired surface finish [11]. Materials for LOM are relatively inexpensive compared with other RP methods and parts
+
+8 of large volume can be constructed at a fast rate. Despite these advantages, extensive post-processing of the model is required for it to be functional [12]. 2.1.3 Applications and Progress in Rapid Prototyping Technology Rapid prototyping technology has become very prominent in many industries due to the good accuracy of the parts created and the increase in productivity due to automation of some manufacturing practices. The increase in availability of computeraided design software in the 1960âs facilitated the development of RP technology in these industries [11]. Applications for RP technology continue to expand as new ways of using the technology emerge. NASA, a key driver of the Aerospace industry, built over 70 custom parts for their mars rover using the FDM process [13]. Piper Aircraft, an Aerospace company, is utilizing RP methods to replace traditionally CNC-machined tools used in their hydroforming machines with rapid prototyped versions that greatly save on material waste and manufacturing costs [14]. Rapid prototyping is also finding applications in the medical field such as custom cranioplasty, in which cranial implants are prototyped with SLA to save on time and costs of machining the complex geometries [15]. Industries such as Automotive [16], Dentistry [17][18], Jewelry [19], Architectural Modeling [20], Electronics [21] and many others have also found applications for RP technology to improve their methods and processes. Expanding application ideas in industry has led to further development of the RP methods themselves as well. Kulkarni and Dutta [22] developed an algorithm to detect particularly curved geometries on a model and adapt the layer thickness in those places to improve surface accuracy of the finished model. Similarly, an adaptive tool-path
+
+9 generation algorithm was developed by Jin et al. [23] to optimize build times and model accuracy. Other work that has been conducted includes optimization of model orientation to achieve the most efficient building process [24], as well as development of hybrid CNC/RP system that combines elements of both CNC and FDM machines to decrease build times and provide functionality that could not be achieved on either machine alone [25]. Along with improvements to RP methods, materials have also developed to suit new applications. SLA resins can now be purchased with wide ranges in flexibility and elastic modulus, as well as variations in optical properties and colors. Other RP materials now available include flame resistant nylon, composite materials, carbon fiber, and glassfilled plastics [26]. 2.1.4 Modeling of Stereo-lithography Process Parameters Since the SLA method of rapid prototyping is the method utilized in this work, an overview of current modeling concepts in the SLA process is necessary. Jacobs (1992) [27] defined many of the equations for SLA process parameters such as scan velocity, cure depth, energy distribution over the sample surface for a single scan, and cured line width. These and other parameters will be discussed more thoroughly in Chapter 4. Much of the work for modeling slightly different SLA methods such as Projection Stereolithography (PSL) and Scanning Projection Stereolithography (SPSL) are also based on these fundamental equations that assume a Gaussian laser energy distribution [28][29]. Other important parameters such as loss in model surface accuracy resulting from the âstair-step effectâ, as well as model build orientation to minimize build time and
+
+10 material used as mentioned in Section 2.1.3, have been the source of new algorithms to optimize the SLA accuracy and increase production rate [30].
+
+2.2
+
+Functionally Graded Materials in Rapid Prototyping
+
+A Functionally Graded Material (FGM) can be classified as a material whose composition and microstructure vary gradually from one location to another [31]. FGMs can be continuous or discrete in their variation. A continuous FGM is characterized by a smooth transition from one material to another. Distinct layers with specific material properties that transition from one material to another characterize a discrete FGM [32]. The distinction between these two types of FGMs is shown in Figure 1, with the difference in color representing different material distributions. FGM research has
+
+Figure 1: Distinction between Continuous FGM (Top) and Discrete FGM (Bottom), with color representing the difference in material distribution. become more common in recent years due to the increasing awareness as to its applications, such as biomedical [33], structural [31], dental [34] and others. Consequently, research into employing RP technologies in the manufacture of material has become another area of focus due to the aforementioned advantages of the process. As a product of this area of research, considerable effort has also been made to model these graded material distributions and develop software so that RP technologies can recognize and react to changes along the tool path.
+
+11
+
+2.2.1
+
+Materials and Applications Many different kinds of materials have been used to produce effective FGMs.
+
+Metallic materials have become especially common in the literature in recent years. For biomedical applications, metal alloys such as Ti-6Al-4V have been proven to be some of the most biocompatible metallic materials [35]. Human bone is naturally graded in porosity along its length, self-fortifying and weakening as needed depending on activity the bone experiences. Because of this phenomenon, work done by Torres et al. [35] focused on producing a gradient of porosity along a length of Ti-6Al-4V alloy using the SLS RP technique in order to mimic that of the bone structure. This was done in order to reduce stress shielding that is a common problem in current metallic implants. For similar reasons, dental implants have been manufactured of the same material by Traini et al. [34] with a gradient of porosity from the inner core to the outer surface. Polymer materials such as Polycaprolactone (PCL) have also been used in the fabrication of gradient scaffolds made of different geometric shapes that vary along the length depending on desired mechanical properties [36]. For structural applications such as aerospace technologies, the need for components with high requirements in crack propagation resistance and creep rupture life has increased the desirability of FGMs [37]. FGMs created for this purpose include SS316L/Rene88DT [38], Tiâ6Alâ4V/Tiâ6.5Alâ3.5Moâ1.5Zrâ0.3Si [37] and Stainless Steel 316L/Inconel 718 [31]. Typically utilizing the SLS RP technique, the metal powders are deposited on the layer surface in different ratios and then melted together to achieve the desired porosity and mechanical property distribution. Discrete and semicontinuous FGMs have been produced in this way.
+
+12 Other reported techniques for producing FGMs by rapid prototyping are ink jet printing, creating FGMs out of materials such as zirconia/alumina and SiCâSi composites [39][40], and by ultrasonic consolidation which involves the joining of stainless steel, aluminum, and copper foils [41]. 2.2.2 Modeling of Functionally Graded Materials for RP Applications With traditional RP software, graded distributions are difficult to program due to CAD softwareâs and STL file limitation of only representing an objectâs geometric information. It takes significant effort from the operator to code the needed parameters to achieve the grading. The traditional software was designed for printing models of homogeneous material distributions that lack demand for more complex layer and other gradients. For heterogeneous model manufacturing, the user of an RP machine should be able to specify the spatial material distribution within a 3D model [42]. Because of this need for composition control in a 3D model, many options for modeling varying material distribution have appeared in the literature. These models focus on memory efficiency, flexibility and low computational cost. Zhou et al. [42] proposed a method in which a group of distance functions represent the material distribution in a model can be attached to different reference points to vary this distribution. The equal distance offset algorithm, presented by Xu et al. [43], was applied to individual 2D layers and could form discrete radial rings radiating outward from a reference point in a linear or nonlinear configuration to map the material distribution gradient. Wang et al. [44] suggested a modeling process using finite element software to rebuild a CAD model to concurrently represent material, topological and geometric
+
+13 information by means of manipulating four control nodes of each element and implementation of a blending function. Even more recently, Kou et al. [45] proposed an approach based on particle swarm optimization that, used in conjunction with their âheterogeneous feature treebased procedural model,â could perform more effectively and with greater computational efficiency than many traditional mathematics-based optimizers. Despite the strides made in FGM modeling technology, there is still progress to be made to achieve ever-greater computational efficiency and in finding the most effective way to apply these models to complex shapes and material distributions in order to be viable for RP applications.
+
+2.3
+2.3.1
+
+Interpenetrating Polymer Networks of Photo-curable Resins
+Photo curing of Polymer Resins Photo curing is the photo-induced hardening of polymeric materials, usually by
+
+UV light exposure. Photo cured materials have wide applications in industry such as adhesives, coatings, paints and printing inks because of their great optical, chemical, and mechanical properties [46][47]. As the name implies, the process of photo curing is initiated by the exposure of a polymeric material to photons originating from an ultraviolet light source. The two main mechanisms of photo curing polymerization or cross-linking processes are free radical, most widely associated with acrylate monomer systems, and cationic, most widely associated with epoxy monomer systems [48]. Both of these processes have three steps that characterize the process: initiation, propagation, and termination [49]. The two processes mainly differ functionally in the initiation step in which photons react with an initiator component to start the reaction. Constant addition of
+
+14 photons is not required for the duration of the process. Propagation and termination processes can continue when photons are discontinued, a process known as dark curing or dark polymerization [46]. The dark curing process does not necessarily lead to complete curing of the system, with final conversion degree and structure of the system dependent on the number photons or total time of exposure. In acrylate systems a relatively small amount of photo-initiator component is mixed with an acrylate monomer or cross-linker component to form the system. In the initiation process, when photons contact the photo-initiator, the photo-initiator breaks apart and produces two free radicals that then proceed to initiate the curing process. Acrylate materials are known for being highly reactive to the radical initiation process and this leads to much faster reaction rates compared with that of a cationic process, such as in epoxy solutions [48]. Propagation and termination steps follow as the generated free radicals contact and disrupt the carbon-carbon double bonds of the acrylate component, and activate the contacted site for further reaction potential. This starts a chain reaction, in which chains and cross-linked structures of monomers/cross-linkers can be formed. It should be noted that polymerization and cross-linking in a free radical system can be stunted by the presence of oxygen, as the generated free radicals can react with the oxygen to form peroxides that donât participate in the reaction [47]. Epoxy systems also contain a small amount of an initiator component but of the cationic variety. In the cationic initiation process, when photons contact a cationic initiator, the initiator component is broken into a cation and usually a free radical as well. The cation produced proceeds to initiate the system and begins the propagation of the epoxy monomer/cross-linker chains and crosslinking to form the final network. The
+
+15 cationic epoxy polymerization or cross-linking process is generally less reactive than the radical acrylate process and thus takes much longer to reach full conversion [48], though this process is generally not hampered by the presence of oxygen [50]. 2.3.2 Structure of the IPN Network Interpenetrating polymer networks (IPNs) are polymer composites in which at least one of the polymer components is cross-linked in close proximity with the other. There are many types of IPNs but they can generally be classified according to the way they are formed as simultaneous IPNs, sequential IPNs and semi-IPNs [51]. Simultaneous IPNs are created when two polymer components are thoroughly mixed together and then cross-linked simultaneously to form a densely interwoven, crosslinked structure. Sequential IPNs are constructed by cross-linking of only one polymer component to some degree of partial conversion, followed by swelling of the first network by the second polymer and subsequent curing of the swelled system. Both simultaneous and sequential IPNs are identified by both polymer components having the ability to chemically crosslink within one another to form a unique interwoven IPN structure that is not connected chemically, but only by the physical interconnection of the two networks [52]. A visual of this interwoven structure is given in Figure 2, where the IPN network for the simultaneous IPN method results from simultaneous curing of Polymer 1 and Polymer 2, and the IPN network for sequential IPNs results from swelling of the cured structure of Polymer 1 followed by the polymerization of Polymer 2 within the cured structure of Polymer 1.
+
+16
+
+Polymer 1
+
+Polymer 2
+
+IPN Network
+
+Figure 2: Schematic of cross-linked polymer networks of Polymer 1 (left), Polymer 2 (center), and final interwoven IPN network (right) Semi-IPNs are characterized by the ability of only one component to cross-link and form a network structure, while the second component is polymerized by linear addition of monomer units [52]. During the polymerization process these two polymers also interweave through one another, though without the cross-linking potential of one of the polymer components, a very different final structure is formed than that of simultaneous and sequential IPNs. 2.3.3 IPN Applications Interpenetrating polymer networks have gained special attention in industry in recent years for their ability to combine mechanical and other desirable material properties of two different polymers into one [53]. IPNs distinguish themselves from other similar structures such as polymer blends by characteristics such as the ability of the network to swell but not dissolve in solvent and the suppression of creep and flow in the material. Applications of IPNs are numerous and range from industries such as healthcare and biomedical to structural and electronics. In the medical industry there are several notable IPN applications such as artificial teeth [49], scaffolds for tissue engineering and drug delivery systems. Drug delivery
+
+17 systems have been prevalent in the literature because of the need for controlled drug delivery devices in the human body that both will not negatively react with the body itself and release the drug in both a specified amount and in the correct place in response to certain physiological triggers. Hydrogels of cross-linked IPN polysaccharides have shown some promise in this area because of their biodegradable quality without adverse effects on the human body [51], improved mechanical properties and swelling response compared with single-network hydrogels [52]. Though this application is promising, further research in to stimuli response, improved bioadhesion, and cell compatibility may be required before use on a large scale [49]. Structural concerns are also being addressed with IPN technologies, such as the work done by Berrebi et. al. [53] involving improvement of material properties of organic glass. Poly(methyl methacrylate)(PMMA) is the subject of their work and one of the most used materials for organic glass manufacture. Despite having better light transmission and being less brittle than glass, PMMA has poor scratch resistance that can lead to reduction in optical properties over time. First synthesizing the PMMA network and then adding a second network of Polycarbonate material created a Sequential IPN. The transparent IPN material formed was shown to have increased scratch resistance and improved ability to filter UV light. In the electronics industry, work like that of Lu et. al. [54] has investigated SemiIPN technology in the area of high power lithium-ion batteries. Traditional batteries of this type utilize organic solvents that can be volatile, flammable and prone to leakage. Semi-IPN gel polymer electrolytes (GPEs) were constructed and compared against
+
+18 traditional battery membrane separators. The constructed semi-IPN showed much better thermal stability, mechanical properties, and stability at the lithium electrode interface.
+
+19
+
+3 IPN Component Specification
+The components of the IPN system were chosen with the base requirements of 1. be used effectively in the RP system, and 2. form a functionally graded IPN with controllable material properties ranging from soft to hard. The sequential IPN construction method proposed in this work requires that the first network be formed before the second, and the grading requires that the extent of formation of the first network be controllable. Thus, the first component of the IPN was selected specifically for controlled curing by cross-linking to be able to form the initial polymer network of varying network cross-linking density. The second material selected had to have very different material properties than the first, have the ability to swell within the first network, and be able to form a second cross-linked network within the first by reaching full conversion by continued photo cure. In particular, the second network needed to be of vastly different material properties to allow a broad range of possible IPNs. The swelling and crosslinking ability of this system were required to, respectively, introduce this component into the first network and form the IPN.
+
+3.1
+
+Acrylate Photopolymer Selection
+The acrylate cross-linker used in this work was Bisphenol A ethoxylate
+
+dimethacrylate, whose chemical configuration is shown in Figure 3. The great advantage of the rapid prototyping process comes from the ability to produce prototypes quickly, cost effectively and with relatively good accuracy. For this reason, choosing an acrylate cross-linker, known to be one of the most reactive for free radical polymerization [46], was essential in order to keep cross-linking reaction times on the order of seconds. Also,
+
+20 since the intention of this work was to produce a gradient IPN of soft to hard materials with a wide range of elastic modulus, and the acrylate selected was supposed to provide
+
+Figure 3: Acrylate cross-linker Bisphenol A ethoxylate dimethacrylate [55] large areas for the second component to swell (diffuse) into, this component was selected with the largest available molecular length to both act as the soft component and accommodate the swelling. This was purchased from Sigma-Aldrich. 3.1.1 Radical Photo-initiator The radical photo-initiator in the acrylate system was 2hydroxy-2methyl propiophenone from Sigma-Adrich, whose chemical configuration is shown in Figure 4. An initiator concentration of 0.5 % by weight was used in this work. Similar photo-
+
+Figure 4: 2hydroxy-2methyl propiophenone radical photo-initiator [56] initiator concentrations up to 5 % have been used in coatings applications, thin films, and acrylate photo-curing studies [57-60].
+
+21 3.1.2 Elastic Modulus As stated in Section 3.1, for the softer component of the IPN network the Acrylate crosslinker fits the criteria for lower modulus. Through tensile tests, the cross-linked acrylateâs elastic modulus was found to be 12.5 MPa Â± 0.06 MPa (see Appendix A.1).
+
+3.2
+
+Epoxy Photopolymer Selection
+The epoxy component used in this work was 3,4-Epoxycyclohexylmethyl 3,4-
+
+epoxycyclohexanecarboxylate from Sigma-Adrich, whose chemical configuration is
+
+Figure 5: 3,4-Epoxycyclohexylmethyl 3,4-epoxycyclohexanecarboxylate [61]
+
+shown in Figure 5. The function of the epoxy-linker was to swell the partially cured acrylate structure and then cure and induce the increase of modulus in the overall IPN structure. Being part of the second stage in the sequential IPN process, in which a lamp was used to cure the epoxy to full conversion, the epoxy cross-linker was not required to be as reactive as the acrylate used in the first stage of controlled curing. Since a broad range of elastic modulus was desired, the epoxy cross-linker needed to result in a hard network having a relatively high elastic modulus in comparison to that of the network constructed from the Acrylate cross-linker.
+
+22 3.2.1 Cationic Photo-Initiator
+
+The cationic photo-initiator in the epoxy system was Triarylsulfonium hexafluoroantimonate (salts, mixed), whose chemical schematic is shown in Figure 6. Since epoxy generally has a much slower reaction rate than the acrylate, up to one order of magnitude lower when comparing diacrylate monomers and difunctional epoxides [46], the cationic initiator concentration was selected to be on the high end of 0.5 % by weight.
+
+Figure 6: Triarylsulfonium hexafluoroantimonate salts, mixed cationic photoinitiator [62]
+
+3.2.2
+
+Elastic Modulus The epoxy cross-linker was the harder of the two materials in the IPN network
+
+and was selected in order to give the final IPN product the theoretical ability to reach modulus values in the order of 3 GPa. Through tensile tests, the elastic modulus for the epoxy component was found to be 2.98 GPa Â± 0.01 GPa (see Appendix A.1).
+
+23
+
+4 Development of Stereo-lithography Machine and Environment
+4.1 Stereolithography Machine Design
+The purpose in construction of an RP machine for this work was to be able to produce a gradient IPN with mechanical properties that could be locally controlled at any point along the structure by rapid prototyping. To accomplish this, controlled curing of the acrylate component, making up the first stage of the sequential IPN process, had to be achievable in the new RP machine constructed. As discussed in Section 2.2.1, there are other methods of rapid prototyping currently being used in the manufacture of functionally graded materials, most notably in the literature is the use of the SLS RP method for the production of graded metallic composites. Since the focus of this work was on polymeric components initially in resin form, it was necessary to choose a rapid prototyping method designed to accommodate this kind of material. The stereolithography method of rapid prototyping provided an excellent platform for rapid prototyping of liquid-based resins such as the acrylate cross-linker. A custom RP machine was constructed in order to save significantly on costs of purchasing a commercial system, give component customization options otherwise unavailable by commercial systems and add/improve the original SL machine design. Previous work, done by Lena Butterfield [63], features an earlier iteration of the stereolithography machine currently used.
+
+24 4.1.1 Discussion of RP Machine Components As mentioned in Section 4.1, the stereolithography machine design was based around the requirement of controlling the curing of the acrylate component for the production of IPN systems with locally controlled mechanical properties. The SL scanning mechanism could have taken one of two forms in the design process. One scanning mechanism commonly used in high-priced commercial machines is by movement of a mirror. With this method, the ultraviolet (UV) light source is generally
+
+Figure 7: Mirror-based (top) [64] and xy-axis (bottom) [65] scanning mechanisms for SL machines
+
+25 fixed in place and the controlled movement of a mirror shines the light on the surface of the liquid resin at the locations specified by the mirrorâs small movements. The second scanning mechanism considered was to simply use a xy-axis motion, in which the UV light source was pointing towards the resin surface and moved across the surface of the resin by stepper motors connected to the xy-axes. The two scanning mechanism configurations are shown in Figure 7. As can be seen, the mirror scanning mechanism tends to shine the UV light source, in this case a laser beam, on the surface at an angle. This angle can be different at any point in the sample and thus any point on the resin layer surface will receive a slightly different power density distribution depending on the laser power density profile. As a profile that could be more easily predicted during the scan process was desired, the xy-axis scanning mechanism was the best choice for controlled curing of the acrylate material. The UV light source built into the SL machine was an OpoletteTM 355 LD pulse laser system from Opotek Inc. with wavelength range of 225-2200 nm, maximum power
+
+Figure 8: OpoletteTM 355 LD pulse laser system incorporated into the SL machine
+
+26 per pulse of 2 J, maximum firing frequency of 20 Hz and a 3-20 ns pulse width. The laser system is shown in Figure 8. This laser system provided the flexibility to vary the laser parameters in order to study the Acrylate curing process. Also, since the laser power was more stable at higher values, neutral density UV filters were used for attenuation if lower values of power were desired. To transfer the laser energy into the SL machine, a system was set up to utilize an optical fiber that could be moved and bent to a certain degree without distortion of the output energy density profile. The optical fiber core was 1 mm in diameter, made of silica and transferred the laser energy 2.5 m along its length. Since the laserâs output diameter was 4 mm and the fiber core was only one millimeter in diameter, a technique to transfer the energy from the laser into the fiber had to be devised. A lens was used to focus the beam into a point spot and then as the beam diverged, the diameter of the divergent beam
+
+Figure 9: Laser focusing technique to transfer laser energy into the optical fiber core
+
+27 was matched to the diameter of the fiber core at a set distance from the lens focal point. This laser focusing technique is shown in Figure 9. The fiber output inside of the machine had another connection assembly for conditioning the beam before hitting the sample. The assembly consisted of a collimator and lens to focus the output fiber energy into a spot. Custom parts were also designed and machined to attach to the xy-axis and to hold the fiber and collimator-lens assembly vertical. The collimator-lens assembly and custom parts are shown in Figure 10. Parts were also designed for the z-axis, including a neck made for dipping into a vat of
+
+Figure 10: Collimator-Lens assembly [66] (left) and designed xy-axis parts (right) resin and a build platform. The designed z-axis parts are shown in Figure 11.
+
+28 The USM42 micro positioning stage system from USAutomation was selected for
+
+Assembly Diagram
+Figure 12: Designed z-axis parts
+
+Figure 11: USM42 micro positioning system from USAutomation [67] linear motion of the axes. Stepper motors for rotating the three separate linear rods were factory Specificationsaligned and secured inside the housing. The controlled rotation of the rod by the
+
+Part Number
+
+Maximum Dynamic Load (lbs)
+
+Travel (MM)
+
+Lead (in)
+
+Accuracy (in/in)
+
+Max Linear Speed (in/sec)
+
+Leadscrew Efficiency
+
+Coeff of Friction (Constant)
+
+Drag Torque (in/oz)
+
+Mo Torq (oz
+
+29 1.8-degree stepper motor drove the motion of the carriage along the axis as specified by the stepper motor drivers. Limit switches for the axes were also purchased additionally to protect the axes from traveling further than their maximum linear limits. The USM42 linear rail system is shown in Figure 12. The control box for the machine housed the electrical components of the system, including the DC power supplies, stepper motor drivers, Mach3 USB motion card, cooling fans and power switches. Powering the electrical components of the RP machine was a 24 V and a 5 V DC power supply. The 5 V power supply was used to power the cooling fans inside the machine and the 24 V power supply was used to power the stepper motors. The stepper motor drivers were KL-8070D models from Automation Technology Incorporated. The drivers had the capability of controlling the motor to turn at 25,000
+
+Figure 13: KL-8070D stepper motor driver [68]
+
+30 steps per revolution of the rod. For this work the maximum accuracy of 25,000 steps per revolution was not necessary and was instead set at 1,600 steps per revolution, giving a linear accuracy of 0.00158 mm/step. Further calculations about accuracy attained at similar settings are given in Appendix A.2. Figure 13 shows the KL-8070D stepper motor driver used for control of the x, y and z-axis stepper motors. The control chip used in the interface between the stepper motor drivers and the control software was the Leafboy77 Mach3 USB Motion Card. This motion card was
+
+Figure 14: Mach3 USB Motion Card by Leafboy77 [69] responsible for sending commands issued in the control software to the stepper motor drivers and on to the stepper motors. Input and output terminals located on the sides of the motion card were also used to control the limit switches, emergency stop, and shutter for the RP machine. The Leafboy77 Mach3 USB Motion Card is shown in Figure 14.
+
+31 The software used to control the RP system was Mach3, a CNC software generally used for CNC machining applications. It is able to control multiple axes, tool exchanges and secondary processes such as coolant delivery to the system. Adapting this control software to a stereolithography system control software was a smooth transition. The basic 3D motion of the axes for both systems was the same and the optional secondary process input/output controls in the software could be used for sensing the emergency stop and triggering the shutter. The software also offered an interface for loading and viewing the created Gcode as it ran through the build process, as well as a 3D display of the toolpath followed by the program. Figure 15 shows an example of the Mach3 interface and 3D toolpath display. The constructed RP machine is shown in Figure 16.
+
+Figure 15: Mach 3 Software Interface
+
+32
+
+Figure 16: Machine constructed for stereolithography RP machine
+
+4.1.2
+
+Improvements Over Previous Design Though the previous RP machine system shown in Figure 17 was useful for
+
+preliminary work in creating a simultaneous IPN and proving the ability to do this within an RP machine, there were several weaknesses within the system that have been corrected for continued study of the curing process of the acrylate cross-linker. Also, the RP machine needed to become more of a research machine with the flexibility to work with many different materials and evaluate the processes going on during photo curing of those materials.
+
+With the use of an adjustable iris, the laser beam spot diameter can be controlled. It requires a power of 3.3 volts which is accomplished with a voltage regulator as seen in the wiring diagram in Figure 12. When working with high intensity light sources, UV safety glasses should be worn to alignment of the axes of the previousmachine was questionable because First, the prevent eye injury. The completed SL design along with these safety glasses can be
+
+33
+
+of the wooden structure on which the axes were attached. Also, the coupling components
+
+seen in Figure 14.
+
+Figure 17: Previous rapid prototyping system design [63]
+Figure 14: SL machine.
+
+between the stepper motors and the threaded rods of the axes were not reliable at higher speeds and tended to slip because of this misalignment and inadequate coupling components. In the new design, units were purchased that coupled the stepper motor and threaded rod and factory-assembled the axes into a housing and could reach linear speeds of up to 4.5 inches per second. The aluminum frame of the new design allowed for better axis alignment, sturdier frame, and reduced vibration. The new RP system also sits on an optical table that provides damping to reduce any vibration from the environment and the machine itself. The addition of the laser as a UV light source to the system was a great improvement over the original design. LEDs with only one wavelength and low power capabilities were used in the previous design, resulting in curing times often in the scale of minutes. With the laser power levels, this curing time was significantly decreased. The
+
+34 laser also provided the capability to change the wavelength of the UV light so that materials could be cured and studied at their optimal wavelengths. Other components added to the new RP system design include an IR temperature sensor to monitor the change in temperature of the resin during the curing process, a fume hood to filter out any potentially harmful contaminants, a hot plate for elevated temperature curing, and an oxygen sensor to measure the oxygen level of the resinâs surrounding atmosphere.
+
+4.2
+
+Photopolymer Environment Design
+As materials and cross-linking processes vary, it is often necessary to make
+
+special arrangements in order to reduce contaminants or negative effects on the crosslinking process. Such was the case with the curing of the acrylate cross-linker. The radical cross-linking process of the acrylate cross-linker was studied by FTIR and it was found that the existence of oxygen both initially inside the material and diffused during the reaction made a substantial difference in both the process characteristics and final conversion degree. Because of the oxygen effect on the process, a sealed chamber had to be constructed in the RP machine and purged with an inert gas. The chamber itself was made of a flexible polyethylene material and was sealed around the z-axis housing at the back of the RP machine and the xy-axis fixture at the top. The chamber was cube-shaped with a resealable opening in one of the front corners for insertion and removal of materials and instruments inside the chamber. Gloves were incorporated into the design so that the materials and instruments inside the chamber could be worked with without opening the chamber to oxygen and having to re-purge the system. The chamber was
+
+35 purged with argon by a hose inlet built into the side of the chamber. This chamber is shown in Figure 18.
+
+Figure 18: Chamber for acrylate Photopolymerization A hot plate was incorporated into the machine to control the temperature of the acrylate during the curing process. Also, though controlled curing of the epoxy was not the focus of this work, the hot plate served an additional purpose of curing an acrylate/epoxy mixture in a parallel study of simultaneous IPN manufacturing. Photo polymerization and cross-linking of epoxy materials is known to be a much slower process than that of the acrylate, and it was found by rapid scan FTIR analysis that the speed of the epoxy cationic reaction can be drastically increased by an increase in the temperature to about 80 Â°C.
+
+36
+
+5 Modeling of the RP System and Printing Strategy
+In order to determine what parameters of the curing process had to be studied in the ATR-FTIR, the fundamental process of rapid prototyping, and especially the stereolithography method of rapid prototyping, first had to be studied. This study yielded several parameters critical to the stereolithography RP process that would need to be investigated in the FTIR to realize accurate curing control in the RP machine. Among these parameters were scan velocity and exposure time, power density profile of the input beam, and overlapping of the power density profiles from successive parallel scans. A printing strategy was developed to print the graded samples and achieve property variations by the sequential IPN post-processing technique.
+
+5.1
+
+Laser Power Density Profiles
+Several laser profiles were utilized in this work. Fairly uniform collimated laser
+
+profiles were utilized when studying curing over the ATR by rapid-scan FTIR. Both collimated and focused laser beam profiles were used in the RP system. The characteristics of the different profiles were measured with a USB silicon CCD camera from Ophir Inc. It was essential to know exactly what power density profile would be incident on the sample surface in order to connect the laser input to conversions measured by the rapid-scan FTIR. The power density equation is given by
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ =
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+where PD is the power density in units of Watts/m2, ED is the energy density (or exposure) in units of Joules/m2 and t is exposure time in seconds. It can be seen from this equation
+
+37 that the power density profile gives the energy distribution from the laser per area per unit time that hits the surface of the sample. This information, and the information on the attenuation of light in the sample, needed to be known in order characterize and then predict the extent of crosslinking (curing) at any specific point in the sample. The beam power density profile at the direct exit of the laser was somewhat jagged with sharp peaks and dips. Beam conditioning devices were utilized in order to make the beam profile usable for testing purposes and to achieve a more defined shape for the profile.
+
+Figure 19: Uniform power density profile in 2D (left) and 3D (right) plots Because the FTIR samples data across many points across the surface of the ATR diamond, the profile of the beam needed to be uniform across the surface of the sample to ensure collection of only usable data specific to one chosen power density. Since the beam exiting the fiber was not uniform, a beam collimator was used to manipulate the beam into the desired uniform power density profile. This uniform power density profile is shown in Figure 19 in 2D and 3D plots with a relative error across the surface used for measurement of 4-6 %.
+
+38
+
+Figure 20: Conical power density profile used in the RP machine in 2D (left) and 3D (right) plots A second power density profile was selected for use in the RP machine. The distribution of this profile was conical. This profile was used instead of the uniform distribution for reduction in the conversion degree error associated with multi-scan and profile overlap considerations. These considerations will be discussed further in Section 5.3. The conical power density profile is shown in Figure 20 in 2D and 3D plots.
+
+39
+
+5.2
+
+Energy Density Calculation for a Conical Profile
+The power density distribution depicted in these profiles only gives a clear
+
+picture of the energy density incident per unit time on a sample surface for a stationary laser beam of the chosen profile. Indeed, for a stable stationary laser
+
+Motion of Beam
+
+Figure 22: Power density on a point as a conical beam profile moves over it
+
+PD
+
+PDmax
+
+rmax
+
+r
+
+Figure 21: Side view of the conical power density profile
+
+40 beam, the energy density incident on the sample surface at a specific location will not change with time. In rapid prototyping practice the laser is not stationary during the curing process. Typically the beam moves at a constant velocity across the sample surface. Because of
+
+x y r y
+Part of beam traveling over a point at distance y
+
+y
+
+r
+
+rmax
+
+xmax
+
+x
+
+Motion of beam
+
+Figure 23: Laser beam spot moving across the sample surface at a chosen velocity this, the power density incident at any point on a material surface depended on how the beam was passing over the point. This difference in power density of a beam moving over a point can be seen from Figure 21, where the cutout in the 3D conical profile represents the power density at a point as the beam moves over it. It, thus, varied as a function of time according to the beam location, profile and velocity of the moving beam. This information had to be calculated from the beam profile and velocity in order to know the total energy density (exposure) at any point on the sample surface. This was particularly important to be able to use the data obtained on curing conversion using curing studies measured using rapid-scan FTIR.
+
+41 The conical power density profile was produced by first collimating the light exiting the fiber and then focusing the light into a spot with a lens. This profile was chosen for use in the RP machine and is the focus of the following total energy density calculation. From a side view of the conical beam power density profile, there is a peak power density (PDmax) at the center that decreases linearly in the radial direction to reach zero at the maximum radius (rmax) of the spot as shown in Figure 22. From a top view as the circular beam travels over the surface of the material, each point on the surface will be exposed by a line cutting the beam and thus will be exposed to a different light profile. One can calculate the different amounts of energy absorbed by each particle under a traveling beam. If the beam is traveling along the x-axis, Figure 23 shows the energy absorbed by each particle a distance y from the centerline of the beam. The energy density can be calculated by integrating the power density over the exposure time using the equation
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = â«
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+0
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = 2 â«
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+0
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+where PD(x) is the power density as a function of x and v is the scan velocity. Using the power density profile of the beam, the energy density equation can be solved to get
+xmax 0
+
+A more complete derivation of this equation is given in Appendix A.3. Plotting this equation with the control parameters yields the total energy density absorbed by points along the y-axis as the beam moves over them. An example of this plot is shown in Figure 24. The uniform power density profile was also studied for viability in the RP machine and will be discussed further in Section 5.3.
+
+42
+
+ED
+EDmax
+
+y
+
+Figure 24: Example plot of total energy density absorbed by points on the sample as a conical power density profile laser beam spot centered at y = 0 moves over them
+
+5.3
+
+Profile Overlap and Multi-Scan Energy Profiles
+Calculation of the total energy density absorbed for a single scan is only the first
+
+step in realizing the total energy density absorbed during the rapid prototyping process. During the rapid prototyping process, the laser beam moves across the surface of the material in overlapping parallel lines to fill the 2D shape specified by the CAD drawing for any given layer. Since exposure time data and conversion measurements by FTIR experiments based on uniform energy density exposure across the material surface, these tests and the resulting information needed to be adapted for use in setting parameters for building parts in the RP machine. Single exposure tests on the ATR with different exposure times were used to characterize the response when a beam travels over a point once in rapid prototyping, and double exposure on the ATR was used to characterize the effects of multiple exposures during beam path overlap.
+
+43
+
+(a)
+Scan 1 Scan 2 Scan 3
+
+(b)
+Scan 1 Scan 2 Scan 3
+
+Scan Direction
+
+Scan Direction
+
+Figure 25: Parallel laser beam scans traversing the sample side by side (a) and with overlapping beam profiles (b) The single scan total energy density curve displayed in Figure 24 of Section 5.2 shows fluctuation of the energy density from a maximum value to zero as one moves outward from the central point of the beam travel line. Lines traversing the sample sideby-side and parallel to the centerline of the beam give different total energy density distributions varying from EDmax at the centerline to zero at the edge. The variation of side-by-side power density profiles resulting from the beam profile and overlapping path is shown in Figure 25a, where the darker orange color represents greater total energy exposure. To achieve a more uniform energy density across the material surface as shown in Figure 25b, the extent of overlapping can be optimized to achieve the ideal exposure. The initial goal in overlapping power density profiles was to achieve a more uniform energy density exposure across the material surface. The optimum overlap
+
+44
+
+Figure 26: Energy density curve overlap for successive scans at varying percentages for a conical power density profile percentage, where 0 % overlap is defined as no overlapping of the profiles and 100 % overlap is defined by the two successive beams being fully superimposed, was found after superimposing the profiles by different percentage values. Similar calculations were
+
+45 done by Jacobs [27] for the Gaussian beam profile. For the conical power density profile, an overlap of 48 % was found to be the profile overlap percentage that resulted in the greatest reduction in total energy density fluctuation for successive scans. Figure 26 shows examples of varying overlap percentages of energy density curves for successive scans, from 20 % to the optimum 48 % value. The possibility of overlapping beams with a uniform power density profile was also investigated. In this case, it was observed that even optimum overlap percentage of the energy density curves had larger variation in the energy density over the material surface. This was in contrast to the conical power density profile. Figure 27 shows the result of overlapping energy curves for successive scans across a material surface using a beam with a uniform power density profile. The optimum overlap percent for the uniform power density profile beam was 14 %. As will be discussed further in Section 5.3, even though the energy density across
+
+Figure 27: Energy density curve overlap for successive scans at varying percentages for a uniform power density profile the material surface for overlapping conical power density profiles becomes
+
+46 approximately uniform at 48 % overlap, the conversion degree of the acrylate material doesnât necessarily reach the expected value for all points along the overlapped region, due to multiple exposure effects on the curing process.
+
+5.4
+
+Scan Velocity and Exposure Time
+Scan velocity in the RP machine is an important parameter because it directly
+
+controls the total energy density incident on the material surface. This in turn leads to a degree of conversion due to curing. Since the power density profile used for the
+
+PD
+
+Conical
+
+Uniform
+
+t
+Figure 28: Area under the power density vs. time curve for a moving conical profile and a stationary uniform profile characterization of curing with rapid-scan FTIR was uniform, a method had to be developed to correlate exposure time information learned from the FTIR-based studies to the actual exposures seen by the material in the RP machine. This was done by equating the areas under the power density vs. time curve for the two profiles as shown in Figure 28. This is the same as equating the total exposure energy under the two conditions (i.e., when curing on the ATR and the RP machine). This relation can be written as
+
+47
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+where EDU is the energy density from the stationary uniform profile on the ATR and EDC is the energy density seen by a point under the traveling beam with conical profile. From Figure 28 it can be seen that the uniform energy density can be calculated by the area under the power density vs. time curve as
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ â ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+where PDU is the fixed power density used on the ATR and tDU is the exposure time needed to reach a specific final degree of conversion. Applying this equation to the multiScan 1 Scan 2
+
+EDC
+
+E1 y1 y2 E2
+Successive Scans
+!
+
+Figure 29: Points along the multi-scan energy density curves corresponding to different exposures along the overlap region scan energy density curves, it can be seen from Figure 29 that for any point in the overlap area, there will be corresponding first and second total exposures of amounts E1 and E2 respectively corresponding to relative beam locations y1 and y2 measured from the corresponding beam centerlines. By equating the two energy densities and rearranging
+
+48 the energy density equation derived for the conical beam profile in Section 5.2, the equivalent exposure times of the first and second scans can be calculated by
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1 =
+
+2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ â 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 â 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (
+
+xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ +âï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 +ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 âï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2
+
+)]
+y=y1
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2 =
+
+2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ â 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 â 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (
+
+xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ +âï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 +ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 âï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2
+
+)]
+
+y=y2 where t1 is the equivalent exposure time needed for the uniform energy density to match the conical energy density evaluated at y1, t2 is the equivalent exposure time needed for the uniform energy density to match the conical energy density evaluated at y1 and PDC is the peak power density of the conical beam profile. As will be discussed in Section 7.1, the final conversion degree at any point along the overlap section of successive scans will be calculated using data taken by curing on the ATR using rapid-scan FTIR and the corresponding multiple scan model that is developed from this data. The selected velocity of the scan will then be calculated based on both the percent overlap of the beams, and the expected conversion degree reached at each point. A program was developed to calculate velocity needed to obtain the desired conversion for a given overlapping of beams. The program is based on a model of the kinetics of conversion. The calculated velocity also depends on RP input parameters such as the power density, profile percent overlap, the beam diameter and the other factors of the system.
+
+5.5
+
+Procedure for Graded Sequential IPN Manufacture
+To manufacture graded IPNs by the sequential IPN method in the RP machine, a
+
+procedure had to be developed that could be followed to ensure repeatability in results
+
+49 from sample to sample. With many factors that could affect the curing kinetics of the system, taking accurate measurements of certain parameters and making sure others were held constant such as temperature was essential to achieve the desired result.
+
+The procedure for printing the graded acrylate samples was 1. The diameter of the beam was measured with the beam profiler software to get an accurate reading of the beam radius. 2. The peak power density of the conical profile was observed and set to the power density of the uniform profile used in the ATR-FTIR experiments. The laser was then shut off after the settings were fixed. 3. A tool path was generated for the sample based on the percent overlap of the conical energy density profiles and desired geometry of the sample. 4. Required velocity to reach a specific average conversion degree was calculated based on input parameters from the multiple scan model and programmed into the generated Gcode program. 5. The build platform was set at the level at which the beamâs minimum diameter was incident on the bottom surface of the base plate. 6. The base plate was then fixed and centered to the build. The hot plate was turned on at this point to start heating the base plate to 80 Â°C. The base plate had 40 mm x 15 mm x 0.7 mm indentation and is shown in Figure 30.
+
+50
+
+Figure 30: Base plate for single layer 3D printing 7. The swiping blade and acrylate material were placed into the chamber. All other instruments needed for the process were put into the chamber at this time 8. The chamber was sealed and purged with argon gas for 10 minutes. 9. The acrylate material was poured into the base plate indentation and the volume of the indentation was filled fully. The blade was then swiped across the surface of the plate to control the layer thickness. 10. The sample was given time to reach the 80 Â°C set temperature. Measurements were made with an infrared laser thermometer until the set 80 Â°C temperature was achieved. 11. The laser was turned on and the build process begun. Argon flow was kept constant at low flow to limit oxygen flow back into the enclosure. 12. After the build was complete, the sample sat for an additional five minutes under argon for the material to finish curing. It was then pulled from the chamber.
+
+5.6
+
+Epoxy Swelling
+After the sample was built and pulled from the chamber, it was prepared for
+
+swelling inside the epoxy. First the sample was rinsed lightly with ethanol while still attached to the base plate to remove the uncured acrylate material surrounding the
+
+51 sample. Next, the sample was carefully removed from the base plate using a blade and placed in an acetone bath where it was soaked for one hour to remove the uncured acrylate inside the cross-linked structure. The remaining structure was swelled with the epoxy component at 80 Â°C for 8 hours.
+
+5.7
+
+Post Curing Process
+After swelling, the surface of the swelled material was lightly cleaned with an
+
+ethanol-soaked wipe to remove the epoxy left on the surface. The swelled samples were then put under a UV lamp with a typical intensity of 225 mW/cm2 to photo-initiate the curing process in the epoxy material. This quickly cured the epoxy to form the final IPN. To be sure that the epoxy was cured through the entire bulk of the material, it was placed in an oven at 150 Â°C for one hour.
+
+52
+
+6 Curing Characterization of Acrylate System
+6.1 ATR-FTIR Experimental Setup
+The focus of this work was to create a method that could control the material properties of a rapid prototyped sample at any specified point within the sample. To accomplish this, controlled curing of the acrylate system first had to be achieved. To monitor the curing process and determine parameters necessary for printing in the RP machine, Fourier Transform Infrared (FTIR) Spectroscopy was utilized in conjunction with an Attenuated Total Reflectance (ATR) accessory. In-depth information about the workings of the ATR-FTIR measurements can be found in Appendix A.4. The ATR-FTIR system setup for all experiments is shown in Figure 31. A liquid acrylate sample was first placed on the ATR diamond surface. The FTIR measurement
+
+Sample ATR Diamond
+
+ATR
+
+FTIR
+Infrared Laser
+Figure 31: Setup for acrylate characterization experiments
+
+53 worked by firing an infrared laser beam into the ATR accessory, which traveled through the ATR diamond and into the sample. The reflection of the beam off of this sample was sent back into the FTIR system where it was processed and produced an absorbance vs. wavenumber plot that was unique to the acrylate cross-linker and radical initiator system. During the experiment, ultraviolet light was shone on the sample in different amounts and intensities to cure the acrylate cross-linker system. The FTIR took measurements over time during this curing process and recorded the spectra. The changes in these spectra with different amounts of light mirrored the breaking of chemical bonds in the system and gave information about the extent of curing achieved. Further discussion about these bonds can be found in Section 6.3.
+
+6.2
+
+Power Density, Wavelength and Temperature
+Power density, wavelength and temperature were all parameters that had to be
+
+specified for a printed sample to reach a final desired curing. The wavelength was constant and temperature was controlled during each test. The beam profiles were constant, but different, on the ATR and in the RP machine. Both power density and exposure time influenced the number of photons received by a material to initiate and propagate reactions in the cross-linking process. Exposure time was deemed the easier of the two parameters to change during the printing process due to the ease in programming the velocity in the software. Limitations of the laser device for controlling the exact timing of power density changes during the printing process made control of power density much more difficult to synchronize with the printing motion.
+
+54 Wavelength selection is based largely on the photo-initiator being used in the photopolymer system. Based on its chemical structure, the photo-initiator will have higher or lower absorbance for different selected wavelengths of light incident on the material. The magnitude of this absorbance has a direct influence on the photo-initiation efficiency of the system [70]. The wavelength used in the current work was chosen based on basic curing tests conducted to determine the usable wavelengths for curing of the material. Substantial hardening of the system was observed for wavelengths at and around 322 nm with the greatest hardening observed at the 322 nm wavelength. At this wavelength, the laser also provided a broad range of power that could be utilized for studying the curing parameters during curing on the ATR and measurement of conversion by the FTIR. A parallel study to the current work is being conducted to determine the optimum wavelength that gives the highest value of absorbance for the photo-initiator used in the acrylate system. Temperature was also an important parameter to consider when studying the cross-linking process. As light enters the sample, energy will go into initiation of the photo-initiators, but will also have a heating effect throughout the material medium. In the current work, temperature changes during the dark cure (curing after the laser is shut off) were found to play a large influence on cross-linking process and final conversion degree of the samples during curing on the ATR. Because of this effect, temperature was kept constant by using a temperature-controlled ATR accessory for these experiments and by using a hot plate during the printing process in the RP Machine.
+
+55
+
+6.3
+
+ATR-FTIR Acrylate Characterization Procedure
+The ATR-FTIR measurements in the current work were done using the kinetics-
+
+testing mode, which measures spectra at a specified frequency over certain time scale. Using this mode, changes over time in absorbance for a given frequency were gathered during the acrylate curing process. A detailed experimental procedure was put in place in order to ensure accurate and reproducible results. First, the materials were prepared by adding 0.5 % radical initiator by weight to the acrylate cross-linker. The material was then vacuumed at a pressure of 98.2 kPa for 40 minutes to remove any oxygen contaminants inherent in the material. After vacuuming, the material was ready for curing on the ATR-FTIR system. First, the collimated laser beam was centered over the diamond. Since the FTIR measurements are taken over many points on the diamond surface, a uniform power density profile was chosen in order to get results corresponding to one specified power density. After centering the beam, the power density profile was measured and the average power density value over the surface calculated. Using the beam profiler software, the laser power required to reach the desired power density was calculated. Relative error in the power density profile across the diamond surface was between 4-6 % for individual measurements. Laser output power was then set based on this calculated value. A round silica glass of about four millimeters in thickness was placed over the power meter sensor and power readings taken from the beam after traveling through the silica. The reason for this will be discussed later in this section.
+
+56 Next, the environmental parameters were set. Extensive cleaning of the diamond surface was essential in order to obtain an uncontaminated background scan, which all subsequent measured spectra would be compared against. Ethanol and acetone were both found to be efficient in removing contaminants from the diamond surface, as well as uncured acrylate resin after experiment completion. Temperature was controlled by an internal system in the ATR that fixed the temperature of the diamond and surrounding plate within Â± 1 Â°C of the desired temperature.
+
+Figure 32: Quasi-airtight chamber used in FTIR experiments to reduce oxygen contamination
+
+57 Another environmental variable that had to be considered was oxygen content in the atmosphere surrounding the sample during the experimental process. It is well known in the literature that radical cross-linking processes can be greatly influenced by oxygen diffusion into the system, where oxygen can react with the radicals to reduce radical effectiveness in further propagating reactions in the material [46][73][74]. To minimize this effect, a quasi-airtight chamber was constructed and purged with Argon gas. Other inert gases can also be utilized for this application such as nitrogen. The chamber used in the ATR-FTIR experiments for this work is shown in Figure 32. The chamber was purged (filled and then partially deflated) several times and then given a low continuous flow to create positive pressure on the inside of the chamber and reduce flow of oxygen back into the chamber. Rubber gloves were incorporated into the design so that materials and supplies could be worked with without reopening of the chamber. As can be seen from the figure, the laser fiber enters down vertically from the top of the chamber and
+Constrained sample on diamond surface
+
+Metal base plate
+
+Fused silica glass Plastic ring
+
+Figure 33: Sample preparation for ATR-FTIR measurement connects to the collimator. The light is then shone vertically down on the diamond surface.
+
+58 After the working environment had been set, the FTIR machine parameters were set, including the sensitivity level, sampling frequency, and duration of test. Sampling frequency was typically set to take readings at 10 Hz and test durations were determined by the time taken for the absorbance curve to reach a plateau value. After a background scan was taken for comparison with the measured spectra and the laser shutter set to control the desired sample exposure time, sample preparation on the diamond surface could begin. To control sample thickness, a plastic ring with a thickness of 0.73 mm was placed on the metal surface surrounding the diamond. The ring was then filled with the acrylate material and a fused silica glass was placed on the top surface of the ring and pressed down on top of the sample as show in Figure 33. The fused silica glass served two important purposes. The first was to ensure the sample thickness from experiment to experiment, and the second was to further protect the sample from oxygen diffusion for the duration of the experiment. The diamond protruded from the surrounding metal surface by 50 microns, so the actual sample thickness was obtained by subtracting the height of the diamond protrusion from the ring thickness, resulting in an actual sample thickness of 0.68 mm for all conducted ATR-FTIR experiments. Actual power density on the diamond surface was calculated with the Beer-Lambert relation
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+where If is the final calculated power density on the diamond surface, I0 is the power density of the input laser beam on the sample surface, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ is the attenuation of the material, and z is the sample thickness. The attenuation coefficient of the acrylate system was measured in a separate study and was found to be 0.68 mm-1. After the sample
+
+59 preparation was completed inside the chamber, the laser was turned on and the FTIR measurement began.
+
+1.2!
+
+Absorbance (A.U.) Intensity (A.U.)
+
+1!
+
+0.8! 0.6! 0.4! 0.2! 0! 1550!
+
+1s 2s 3s 4s 5s 8s
+
+1570!
+
+1590!
+
+Wavenumber (cm^-1) Wavenumber (cm-1)
+
+1610!
+
+1630!
+
+1650!
+!
+
+Figure 34: Example of changing absorbance peaks corresponding to decreasing concentration of carbon-carbon double bonds in the material with varying exposure time The resulting spectra were analyzed after the measurement to gain information about the curing process. The peaks of interest in the spectra were at 1608 cm-1, which was used as a reference peak due to its constant absorbance value over time, and 1636 cm-1 from which substantial change in the absorbance over time would give information on conversion (curing). The peak at 1636 cm-1 corresponds to the carbon-carbon double bond in the acrylate cross-linker that disappears when reacted with a radical or an already reacted site on another acrylate cross-linker. An example of the changing peak at wavenumber 1636 cm-1 and for different amounts of exposure is given in Figure 34. It
+
+60 can be seen from the figure that for all values of exposure given to the sample the reference peak at wavenumber 1608 cm-1 does not change with increasing exposure time, but the absorbance peak at wavenumber 1636 cm-1 corresponding to the carbon-carbon double bond in the acrylate crosslinker decreases with the exposure time until a fully cured state is reached. The conversion degree is a measure of the crosslinking density reached by the acrylate system and is regularly used in the comparison of FTIR data. Conversion degree is calculated from information about changing peak intensity and is given by
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (%) =
+
+(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ â ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) â 100 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+where CD is the conversion degree in percent, Ii is the initial peak intensity (no light), and Im is the measured intensity over time. Error in the final conversion was expected to be Â± 4 %.
+
+6.4
+
+Evaluation of Acrylate Conversion Degree by FTIR
+To create a functionally graded IPN system by the sequential IPN method in the
+
+RP machine, one needs to predict how the acrylate cross-linker will cure under different conditions in the RP machine. For developing such an understanding, a number of experiments were conducted in which the cross-linker was cured under controlled conditions on an ATR attached to a rapid-scan FTIR. These experiments were then used to create a model of how different parameters affect the crosslinking process, and the model was used to predict the response in the RP machine. The final properties of these samples were also characterized by nanoindentation to get a correlation between the crosslinking and elastic modulus.
+
+61 In the RP printing process the laser is not stationary and the beam spot will only move across a point on the material surface. This results in a short exposure time for each point. This exposure time is on the order of seconds. Consequently, as the light spot travels over the point, the point is exposed to a short light exposure and initial curing occurs under light, then, after the light spot passes the point, the light exposure stops and the point enters a stage of dark curing (cross-linking process that continues when the light is turned off). Points that end up in the overlap of two exposure paths get subjected to light a second time, and thus undergo further curing under light followed by further dark curing. The initial curing under light, the following dark curing, the possible further curing during a second light exposure, and then further dark curing were all considered when studying the curing process on the ATR. Exposure time was the primary parameter that was used for dynamically controlling the curing process in the RP machine. This was the simplest to control as it was correlated with the speed of travel of the laser spot. Among the other control parameters were temperature, oxygen content in the material as well as availability during the dark cure, power density profile and beam overlapping effects. The relevance of these parameters was gauged on both the final conversion degree reached by the acrylate structure and any additional effects on the dark curing process. In this work, the conversion degree refers to the degree of cross-linking or cross-linking density achieved by the system for the given input parameters. Greater crosslinking density can normally be related to greater modulus, mechanical strength and a generally more robust structure. The effect of multiple exposures and the time delay between exposures were studied during curing on an ATR connected to a rapid-scan FTIR. As discussed in
+
+62 Section 5.3, the fill of any shape in the RP printing process is made by adjacent parallel scans that will overlap by a certain percentage. This is normally selected to get close to uniform total exposure. This overlap produces points that undergo multiple exposures, which needed to be studied to understand how the multiple exposures affect the degree of conversion.
+
+63 6.4.1 Conversion Degree by Exposure Time Exposure time effects on the final conversion degree were studied for exposure times from 1 s to 8 s in 1s increments. In this case, power density on the diamond measurement surface of the ATR was 9.44 mW/cm2 based on a sample thickness of 0.68 mm. The laser pulse frequency was 20 Hz and the wavelength was set to 322 nm. Temperature was kept constant at 80 Â°C for the measurement and all tests were done under an argon (inert) gas atmosphere. The time scale for the measurements was based on the time needed to reach a final conversion plateau, which for these measurements was
+
+Figure 35: Conversion degree vs. exposure time at 80 Â°C determined to be 200 s. Measurements at exposure times of 1 s, 2 s, 4 s, and 8 s were repeated for reproducibility and yielded reproducible results. The results of the varying exposure time experiments are shown in Figure 35. The exposure times used and the
+
+64 corresponding conversion degree measured at the plateau region are given in Table 1. The trend in the data is shown in the conversion degree vs. Table 1: Exposure time and corresponding conversion degree reached at the plateau
+
+Exposure Time (s) 1 2 3 4 5 6 7 8 40
+
+Conversion Degree (%) 12 29 47 65 76 88 90 95 100
+
+120
+
+Conversion Degree
+
+100 80 60
+
+40
+20 0 0 20 40 60
+
+Exposure Time, s
+Figure 36: Trend of conversion degree vs. exposure time for the data of Table 1
+
+65 exposure time plot of Figure 36. From the plot of conversion vs. exposure time it can be seen that as exposure time increases, the conversion shows an increasing trend through the first 6 s of exposure times reaching a conversion degree of about 88 %. After this point, the light was found to have less and less effect on increasing the final conversion. The last 12 % conversion happened over a time of about 34 s and to reach the 100 % conversion plateau at about 40 s of continuous exposure time. This trend is owed to the decrease in mobility of the acrylate system components at high degrees of conversion, as well as a decrease in availability of additional cross-linker to further propagate the reaction as conversion reaches closer to the 100 % plateau [47]. 6.4.2 Temperature and Oxygen Effects on Final Conversion Environmental effects were of particular interest when studying the radical crosslinking reaction of the acrylate cross-linker system. Temperature effects on the crosslinking process were studied at temperatures of 23 Â°C (room temperature), 30 Â°C, 40 Â°C, 60 Â°C and 80 Â°C. Power density on the diamond measurement surface of the ATR was 9.44 mW/cm2 based on a sample thickness of 0.68 mm. Laser pulse frequency was 20 Hz and the wavelength was set to 322 nm. The exposure time was chosen to be 2 s for all tests and all tests were done under an argon (inert) gas atmosphere. Time scale for all measurements was decided based on the time to reach a definitive plateau value with the longest measurement being 3000 s at 23 Â°C. Measurements at 40 Â°C, 60 Â°C, and 80 Â°C were repeated for reproducibility and produced reproducible results. The result of curing on the ATR-FTIR system tests for varying temperatures is shown in Figure 37. It can be seen from these results that changing the temperature of the system has a substantial effect on the resulting conversion degree. Indeed, for the temperature variation from 23
+
+66
+
+D
+Figure 37: Conversion vs. time for varying temperature Â°C to 80 Â°C, the final conversion value varied by approximately 35 % for the same exposure time and power density. The results of the final plateau values corresponding to the different temperatures can be seen in Table 2. This data is shown graphically in Figure 38. The trend in the data of the conversion degree vs. temperature graph of Table 2: Temperature and corresponding conversion plateau value Temperature (Â°C) 23 30 40 60 80 Conversion Degree (%) 65 60 49 39 30
+
+67
+
+80
+
+Conversion Degree (%)
+
+70
+60 50 40 30 20 10 0 20 40 60 80 100
+
+Temperature, s
+Figure 38: Conversion vs. temperature from the data of Table 2 Figure 37 shows a fast drop in conversion between 23 Â°C and 40 Â°C, followed by an approximately linear region of decreasing conversion between 40 Â°C and 80 Â°C. Another effect that can be seen in the results of Figure 37 with increasing temperature is the decrease in time taken to reach the final conversion plateau. Table 3 Table 3: Temperature and time-to-plateau data from Figure 37 Temperature (Â°C) 23 30 40 60 80 Time to Plateau (s) 2555 2000 500 150 30
+
+68 shows approximate values of the time to reach the final conversion plateau. This data is represented graphically in Figure 39. Based on the data displayed in Figure 37 and Figure
+
+10000
+
+Time to Plateau, s (log)
+
+1000 100 10 1 0 20 40 60 80 100
+
+Temperature, Â°C
+Figure 39: Time to plateau vs. temperature for the data of Figure 37
+
+39, it is believed that the substantial decrease in time to reach the conversion plateau as well as the lower conversion plateau level with increasing temperature is due to increase in kp and the termination and because the coefficient kt has a large increase relative to the propagation coefficient kp that will be presented in Section 7.1. It makes sense that at high temperatures viscosity will decrease and allow increased mobility of components within the system and access to otherwise inaccessible reaction sites. Termination will then become less translational diffusion (center of mass diffusion) controlled in this case
+
+69 and will depend more on segmental diffusion (macroradical chain ends in close proximity reacting with one another) effects [47]. For the purposes of printing in the RP machine, it was desirable for the conversion to reach a plateau in the range of seconds as long waiting periods in between successive scans to ensure a plateau is not optimal for fast part production. Oxygen also played a significant role in the cross-linking process of the acrylate system. It is well documented in the literature that radical cross-linking can be severely retarded by oxygen diffusion into the material from the surrounding atmosphere. In a radical cross-linking process, oxygen molecules will react with radicals created during initiation to form peroxides and thus decrease the radical effectiveness in propagating the cross-linking process. Because of this effect on the process and the uncertainty the presence of oxygen added to the resulting degree of conversion, it was decided that to achieve reproducible results, an inert gas atmosphere would be required to study the curing process and for printing in the RP machine. 6.4.3 Power Density Effects on Final Conversion The effect of varying power density was studied in order to determine final conversion variation throughout a sample of given layer thickness. Power density on the diamond surface was 2.35 mW/cm2, 4.71 mW/cm2, 9.44 mW/cm2, 19.31 mW/cm2, and 37.44 mW/cm2 based on a sample layer thickness of 0.68 mm. The exposure time for each test was 2 s. Laser pulse frequency was 20 Hz and the wavelength was set to 322 nm. Temperature was kept constant at 80 Â°C for the measurement and all tests were done under an argon (inert) gas atmosphere. The time scale for the measurements was based on time to reach a final conversion plateau and for these measurements was determined to be
+
+70 300s. Measurements with power densities of 2.35 mW/cm2, 9.44 mW/cm2, and 37.44 mW/cm2 were repeated for reproducibility and produced reproducible results. The power density values chosen for these experiments were multiples of the power density of 9.44 mW/cm2 chosen for the other conversion experiments.
+
+(mW/cm2)
+
+Figure 40: Conversion vs. time for varying power density Table 4: Conversion and power density values for the plot of Figure 40 Conversion (%) 11 17 29 37 46 Power Density (mW/cm2) 2.35 4.71 9.44 19.31 37.44
+
+71 Values of 0.25, 0.5, 1, 2, and 4 times this power density value are shown in the conversion vs. time plot of Figure 40 for varying power density. Final conversion values at the plateau region are given in Table 4 and shown graphically in Figure 41.
+
+60 50
+
+Conversion Degree
+
+40 30 20 10 0 0 10 20 30 40
+
+Power Density (mW/cm2)
+Figure 41: Conversion vs. power density values for the plot of Figure 40 Information about power density variation is useful in the determination of conversion degree fluctuation for layers of a given thickness printed in the RP machine. For a given layer printed in the RP machine, the power density incident on the surface of a material will not be the same as the power density on the bottom surface. As is well known in the field of photochemistry, the Beer-Lambert law governs the attenuation of light in liquids and solids [77]. Given the measured attenuation coefficient for the acrylate system of 0.68 mm-1, the attenuation of power density for a 0.68 mm layer
+
+72 thickness that was used in all ATR-FTIR tests was 38 %. From the data of Figure 40, it can be seen that doubling the power density for the same 2 s exposure time resulted in an increase in conversion of only 8 %. Given this small difference in conversion with this large increase in power density, a variation of about 3 % in conversion degree was expected through the layer depth. 6.4.4 Multi-Scan Effects on Final Conversion Since the build process in stereolithography 3D printing involves multiple overlapping scans to create a more uniform surface exposure, multiple exposure tests had to be done on the ATR-FTIR to determine the final conversion reached by the second exposure of the laser. Two separate sets of tests were done with different initial exposure times, with each set having three different second exposure times. The first set had an initial exposure time of 1.5 s, followed by second exposure times of 1.5 s, 2 s and 2.5 s. The second set had an initial exposure time of 2.5 s, followed by a second exposure time of 1.5 s, 2 s and 2.5 s. Power density on the diamond surface was set at 9.44 mW/cm2 based on a sample layer thickness of 0.68 mm. Laser pulse frequency was 20 Hz and the wavelength was set to 322 nm. Temperature was kept constant at 80 Â°C for the measurement and all tests were done under an argon (inert) gas atmosphere. The time scale for the measurements was based on time to reach a final conversion plateau and for these measurements was determined to be 300 s for both the first and second exposures. The results of the first set of multiple exposure tests are shown Figure 42: Conversion vs. time curve for set 1 of the multiple exposure tests, with final conversion values given to the right of the curves. As can be seen from the conversion vs. time curve, the conversion curve reached a definitive plateau at about 19 % conversion and stayed
+
+73
+
+0.9! 0.8!
+Initial Exposure: 1.5s Initial Exposure: 1.5s
+
+Conversion Degree
+
+0.7! 0.6! 0.5! 0.4! 0.3! 0.2! 0.1! 0! 0.1! 1! 10! Time, s (log) 100!
+
+0.77 0.77 0.72 0.72 0.68 0.67
+
+2.5s 2.5 s 2s 1.5s2 s
+
+0.19 0.19
+
+1000!
+!
+
+: Conversion vs. time curve for set 1 of the multiple exposure tests Figure 42: Conversion vs. time curve for set 1 of the multiple exposure tests
+
+constant until the second exposure of the laser. The resulting second step was noticeably larger than the first for all second exposure times. Referring to the 1.5 s+1.5 s multiple exposure curve in particular (green), it can be seen that the resulting final conversion value for the second exposure curve was noticeably higher for the same 1.5 s exposure time. This increase in conversion for multiple exposures was believed to be caused by aligning of the molecular structures after the first exposure plateau into positions highly susceptible to further reactions given more radicals (second exposure). This restructuring effect seemed to be limited, however, as can be seen from the small variation in final conversion between the 1.5 s + 1.5 s and 1.5 s + 2.5 s exposure curves of 9 % compared with the difference in final conversion between the 3 s and 4 s single exposure curves of 18 % from Section 6.4.1, as shown in Figure 43.
+
+74 For the same total exposure time values, another trend is presented as can be seen in Figure 43. Comparing the 1.5 s + 1.5 s multiple exposure curve with the 3 s single exposure curve, a conversion difference of about 21 % can be seen. Similarly, comparing
+
+1.5 s, 2.5 s 1.5 s, 1.5 s 4 s (single) 3 s (single)
+
+Figure 43: Comparison between single and multiple exposures for equivalent total exposure time the 1.5 s + 2.5 s multiple exposure curve with the 4 s single exposure curve, a difference in conversion of about 12 % can be seen. This was stronger evidence that the restructuring effect was limited in its addition to final conversion for increasing amounts of second exposure time.
+
+75 The results of the second data set, with an initial exposure of 2.5 s and second exposure times of 1.5 s, 2 s and 2.5 s, are shown in Figure 44: Conversion vs. time for set 2 of the multiple exposure tests, with final conversion values given to the right of the
+
+2.5 s 2s 1.5 s
+
+Figure 44: Conversion vs. time for set 2 of the multiple exposure tests curves. A similar trend can be seen in set 2 when compared to set 1. The jump in the conversion plateau resulting from the second exposure for set 1 was 49 % as compared to 47 % from the second set. Higher values of second exposure in this plot resulted in increasing conversion but at a lesser degree than in set 1. This lesser variation in conversion with increasing second exposure time could be the result of the proximity of the curves to the fully cured plateau region, where as it was shown in Section 6.4.1, the availability of cross-linker and movement of the system becomes limited near the fully cured plateau region.
+
+76
+
+7 Printing Graded Properties in Rapid Prototyping
+7.1 Multiple Exposure Model
+The next step after gaining knowledge about the curing process and parameters that affect it was to form a simple model to predict the conversion at any point along a profile overlap. This model had the limitation of only being able to predict the conversion for a certain set of curing parameters. For this model, power density was set at 18.5 mW/cm2, temperature was 23 Â°C, and initiator concentration was 0.5 %. Depending on the location of the point along the overlap region, for first and second scans of the laser, the point experienced varying first and second exposures. Single exposure and multiple exposure tests were done on the ATR-FTIR setup in order to fit the increasing final conversion plateau values. The equation resulting from the fitting was
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = 100 â 100ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ â0.36ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ â0.36ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+0.88ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+
+(1)
+
+where ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ is the final conversion value, t1 is the exposure time for the first exposure, and t2 is the exposure time for the second exposure. A detailed explanation of the fitting process can be found in Appendix A.5. It can be seen from Equation 1 that if the second exposure time becomes zero, that exponential goes to a value of one and the equation becomes the equation for the single exposure time conversion values. The FTIR experiments were conducted using a uniform power density profile. Equating the total exposure on a specific point for the uniform power density profile with
+
+77
+
+Total Energy Density (mJ/cm2) Conversion Degree (%)
+
+20% Overlap
+
+Total Energy Density (mJ/cm2) Conversion Degree (%)
+
+35% Overlap
+
+Total Energy Density (mJ/cm2) Conversion Degree (%)
+
+48% Overlap
+
+Figure 45: Effect of overlapping power density profiles on final conversion
+
+78
+
+Total Energy Density (mJ/cm2) Conversion Degree (%)
+
+Velocity: 0.5 mm/s
+
+Total Energy Density (mJ/cm2) Conversion Degree (%)
+
+Velocity: 1 mm/s
+
+Total Energy Density (mJ/cm2) Conversion Degree (%)
+
+Velocity: 2 mm/s
+
+Figure 46: Effect of calculated velocity on final conversion that of the moving conical power density profile as was shown in Section 5.2, the
+
+79 conversion degree at points along the total energy density curve for a moving conical beam was approximated. By changing the percent overlap, as shown in Figure 45, or the velocity, as shown in Figure 46, the trend in the final conversion will also change. For this study, percent overlap was set at 38 % for ease of printing and velocity values were calculated based on the desired level of curing of the system. Printing samples with this simple multiple scan model was the first step in the process of manufacturing functionally graded materials by the sequential IPN method. Future work will focus on modeling the actual kinetics of the process. With this kind of model, variation in any of the parameters such as temperature, initiator concentration, power density, and others will be able to be changed and produce accurate conversion degree predictions. The reactions that are being considered for the kinetic model are
+
+(2) (3) (4) (5) (6) (7)
+
+The initiation of the crosslinking process is given in Equation 2 and represents photons from a UV light source contacting the photo-initiators in the acrylate cross-linker system and yielding a pair of radicals, where PI represents photo-initiators and Rï represents an
+
+80 active radical. This equation is governed by the coefficient kinitiation. Equation 3 is a propagation equation governed by the coefficient kq in which an active radical reacts with a carbon-carbon double bond on a cross-linker to form an active cross-linker site, where C=C represents a carbon-carbon double bond and RCï is an active cross-linker site. Equation 4 is a propagation equation governed by kpropagation, where an active cross-linker reacts with another available carbon-carbon double bond and continues to propagate. Equation 5 is a termination process governed by kr, in which an active cross-linker reacts with another radical and thus terminates the propagation process. The second termination process is given by Equation 5 and represents two active cross-linker chains reacting with one another to form a âdeadâ polymer. This equation is governed by ktermination and is the reaction that represents the crosslinking of the molecular chains. Equation 7, governed by kb, is a reaction where two active radicals find each other in the system and react to form back into a photoinitiator. Following the concentrations of the components of these reactions over time, as well as how the coefficients change will aid in understanding the process, as well as modeling of the cross-linking process.
+
+81
+
+7.2
+
+Reference Behavior
+In order to draw comparisons from results of future rapid prototyping samples,
+
+samples were created on the ATR-FTIR system using the uniform power density profile to achieve specific degrees of conversion. These samples, hereafter referred to as reference samples, were then washed, expanded in the epoxy system and post cured to achieve the final sequential IPN samples. The results of the nanoindentation tests on these samples are shown in Figure 47. The modulus values and corresponding measured partial conversion values of the acrylate system are tabulated in Table 5. The trend of modulus vs. acrylate partial conversion degree shows an exponential increase in the modulus with decreasing degree of acrylate curing. The region between 20 % and 60 % conversion also
+
+10000
+
+Modulus (MPa)(log)
+
+1000
+
+Sequential (Made on ATR) curing
+
+100
+
+10
+
+1 0
+
+Acrylate conversion degree (%)
+
+50
+
+100
+
+Figure 47: Nanoindentation results of sequential IPN samples initially cured by uniform power density
+
+82 shows an especially substantial difference in modulus, reaching the highest level of 1150 MPa at 30 % conversion. It can be seen from this trend that it would be desirable to go to even lower conversion values to reach higher modulus corresponding to greater epoxy content in the system. This could not be done, however, due to the lack of definition in the structure formed and, thus, could not undergo the washing process for conversion below 15- 20 %. The final range of modulus was found to be from 25.9 MPa for the pure fully cured acrylate sample to 1,150 MPa for the 30 % partially cured acrylate sample. This provided a potential of about two orders of available magnitude variation. Table 5: Elastic Modulus and corresponding partial conversion for IPN reference samples Modulus (MPa) 1150 Â± 90 650 Â± 65 293.4 Â± 69 66.4 Â± 20 25.9 Â± 4 Conversion (%) 30 Â± 4 47 Â± 4 57 Â± 4 82 Â± 4 100 Â± 4
+
+7.3
+
+Rapid Prototyping Samples
+Using the multiple exposure model to determine the velocity for a given average
+
+conversion reached by the system for chosen input parameters, separate samples with four different velocities were manufactured and subjected to tensile tests and nanoindentation. Since it was desired to have a range of properties within one part, gradient samples with five different regions corresponding to five different partial conversions were manufactured as well. The samples were then tested with nanoindentation to determine the modulus achieved by the gradient structures. The results
+
+83 from these tests were then compared with results from the sequential IPN reference samples. 7.3.1 Discrete Samples Tensile tests and nanoindentation were done on the discrete IPN samples manufactured in the RP machine to determine the final material properties. The theoretical partial conversion was calculated before the sample was manufactured. The samples were partially cured in the RP system, and then post processed to create the final IPN sample. The laser was set to give a peak power density of 18.5 mW/cm2, which gave a peak power density of 11.65 mW/cm2 at the bottom surface of the sample by the BeerLambert calculation. The velocity values used for production of the discrete samples were 0.32 mm/s, 1.1 mm/s, 1.3 mm/s, and 1.6 mm/s corresponding to theoretical acrylate
+
+10 9 8 7 6 5 4 3 2 1 0 0
+
+Conversion
+720.17 Â± 86MPa
+
+Normal stress (MPa)
+
+14% 18%
+
+22%
+163.5 Â± 32MPa
+
+62%
+
+74.9 Â± 18MPa 61.1 Â± 18MPa
+
+2
+
+4
+
+6
+
+8
+
+10
+
+Normal strain (%)
+Figure 48: Young's modulus results for tensile tests for the discrete RP samples
+
+84 partial conversion values of 62 %, 22 %, 18 %, and 14 % respectively. The tensile tests were conducted by Wenlong Li from the University of Nebraska. Samples printed and post-processed in the RP machine were first sanded on the outer surface to remove any excess epoxy from the swelling process that could affect measurement of the bulk properties of the sample. The samples were then patterned with a fine ink spray that could be followed by an RMA Camera during the deformation process. Samples were inserted into the two grips and positioned. More information on the tensile testing method can be found in Appendix A.8. The tensile testing machine used for the experiment was a Bose Electroforce 3200 tensile/compression testing machine. Cross-sectional area was measured for the gage section of the sample and the Bose measured the force applied to the sample. The RMA Camera and the Bose software were synchronized together so that stress and strain measurements could be taken simultaneously. The resulting data of engineering stress and engineering strain were then plotted together to get the resulting engineering stress vs. engineering strain curves. The elastic modulus and other material properties were then taken from this plot.The tensile test results are shown in Figure 48, with corresponding values of Youngâs modulus acquired. Nanoindentation was also conducted on the discrete samples manufactured in the RP machine to test the repeatability of the results. After samples were manufactured by the sequential IPN method, they were prepared for nanoindentation. Portions of the sample were cut from the bulk sample and polished to create a uniform surface for nanoindentation testing. The prepared nanoindentation samples were then secured to a base plate for insertion into the nanoindentation machine. The sampling area
+
+85 was 0.6 mm x 0.6 mm and 10 measurements of the force vs. displacement were taken over this area to obtain the reduced modulus. The average reduced modulus from these points was then extracted. Information on the nanoindentation characterization method can be found in Appendix A.9. A Comparison in Youngâs modulus values obtained for the tensile tests, nanoindentation tests and reference samples are shown in Figure 49: Comparison between RP samples and reference (ATR) samples. As can be seen from the Youngâs modulus vs. conversion plot, the modulus for the discrete samples increased with decreasing theoretical partial acrylate conversion. However, the increasing trend in the modulus values from the RP discrete samples showed a large horizontal offset from the modulus obtained for the reference samples at known conversion values, at some points by about 35 % conversion. These large differences in the theoretical acrylate partial
+
+10000
+Nanoindentation (RP)
+
+Young's Modulus (MPa) (log)
+
+1000 100 10 1 0 50
+
+Tensile Tests (RP)
+
+Control (ATR)
+
+100
+
+150
+
+Conversion Degree (%)
+Figure 49: Comparison between RP samples and reference (ATR) samples
+
+86 conversion as compared with the reference samples pointed towards inaccuracies in the model, most probably with the approximation of the equality between the total energy curves of the stationary uniform and traveling conical power density profiles at any point on a sample surface. Exact sample modulus with corresponding partial conversion values for the discrete samples and reference samples are given in Appendix A.6. The final range of elastic modulus achieved by the discrete RP reference sample was from 57.1 Â± 8.4 MPa to 506 Â± 126 MPa, an increase in modulus by a factor of 10. These results give strong indication that gradient materials can be manufactured in the RP machine by controlled curing of the acrylate system even though the current model was shown to give a poor approximation of the actual partial conversion of the system.
+
+87 7.3.2 Gradient Samples Gradient acrylate samples were cured in the RP machine with a range of conversion values within one sample. The laser was set to give a peak power density of
+
+16mm
+0
+
+42 mm
+Figure 50: RP sequential IPN sample with five regions of specified conversion 18.5 mW/cm2, which gave a peak power density of 11.65 mW/cm2 at the bottom surface of the sample by the Beer-Lambert calculation. The velocity values used for production of the discrete samples corresponded to theoretical acrylate partial conversion values of 62 %, 32 %, 22 %, 18 %, and 14 %. The velocity of the scan and optimum beam profile overlap were calculated using the multiple exposure model and rectangular samples were made with regions of curing corresponding to five different degrees of conversion. These samples were then washed, expanded in the epoxy system and post- cured to form the final IPN structure. One of these samples is shown in Figure 50 with variation in conversion every 8 mm along the sample length. The nanoindentation results are shown in Figure 51, with the measured modulus on the left axis and the theoretical acrylate conversion degree given on the right axis as functions of distance along the sample.
+
+88 Figure 52 shows the comparison between the nanoindentation results from the gradient samples, the discrete RP samples and the reference samples. Values of the modulus and corresponding conversion values for the gradient RP samples and the reference samples are shown in Appendix A.7.
+
+400
+
+70 60
+
+Theoretical Acrylate Partial Conversion (%)
+
+Young's Modulus (MPa)
+
+350 300 250 200 150 100 50 0 0 10 20 30 40 50
+
+50
+40 30 20 10 0
+
+Location (mm)
+Figure 51: Young's modulus and corresponding acrylate partial conversion for the gradient IPN sample by location Though the trend in the gradient RP sample data shows the expected increase in modulus with decreasing degree of acrylate conversion, there was a noticeable shift in the modulus trend as compared with the trend in the reference samples. This shift mirrored that of the discrete RP samples. As discussed in Section 7.3.1, this shift is most likely due to inaccuracies in the model, in which the approximation of the equality between the total energy curves of the stationary uniform and traveling conical power density profiles at any point on a sample surface may have caused these inaccuracies. The final variation in
+
+89 modulus values for the gradient RP samples was from 37.4 Â±16 MPa to 334.3Â±31 MPa, an increase in modulus of about a factor of 10. It can be seen that there is a close trend between the discrete RP samples and the gradient RP samples. From the comparison of the results of these samples, there was evidence that although the model is not adequate to accurately predict the conversion reached by the samples, good repeatability was shown from the results.
+
+10000
+
+Control (ATR) Gradient (RP) Discrete (RP) Nanoindentation
+
+Young's Modulus (MPa) (log)
+
+1000
+
+100
+
+10
+
+1
+0 50 100 150
+
+Conversion Degree
+Figure 52: Comparison between the RP discrete sample, the RP gradient samples and the reference samples made on the ATR-FTIR system
+
+90
+
+8 Conclusion
+8.1 Summary of Results
+The goal of this work was to manufacture IPN samples with a gradient in mechanical properties by controlled curing of an acrylate cross-linker in rapid prototyping (RP). RP technologies can not only provide a means of control over the final geometry of a printed part, it also can produce the dimensional accuracy required to manufacture IPNs in virtually any desired shape. Graded IPNs manufactured in this way have the capacity of controlled variation in properties at the molecular level and local property control can theoretically be realized and specified at any point in a part. Applications for gradient materials such as this are prevalent in the manufacturing industry, where elimination of interface connections between two parts with materials of different properties could be of great benefit. To realize 3D printing of a graded IPN structure, an RP system was built specifically for implementing control in materials undergoing cross-linking reactions. This method, also known as stereolithography RP, allowed for the required modifications to the IPN materials. To achieve the final graded IPN product, the cross-linking reaction of an acrylate cross-linker system was first studied to determine the parameters that affected the curing process and how changes in those parameters affected the process and final conversion plateau. A simple model based on fitting multiple exposure data acquired from ATR-FTIR experiments was then developed and used to transfer information learned from studying the curing process to determining the RP machine parameters. Controlled partial curing of the acrylate cross-linker system in the RP machine yielded a graded structure that was then post-processed to become the final IPN. By mechanical characterization of the resulting IPN samples, it was shown that a range of
+
+91 elastic modulus can be obtained that increased by a factor of 10, showing that the method could be used to realize graded property control of IPN systems in a rapid prototyping technology.
+
+8.2
+
+Discussion
+Two cross-linker components were chosen to be components of an IPN material.
+
+The acrylate cross-linker component underwent a radical cross-linking process and was studied extensively by ATR-FTIR. A high-powered laser was used to expose the sample placed on the ATR to ultraviolet light to initiate the cross-linking reaction. Since the radical cross-linking process is self-terminating, partial curing of the structure was achieved by exposing the sample to different amounts of light and then observing the time needed to reach conversion plateaus between the 0 % and 100 %. Other factors that affected the cross-linking process and the final conversion plateau were analyzed, including temperature, oxygen, power density and multiple exposures. A model was developed for the effect of multiple exposures using rapid scan FTIR data from multiple exposure of the system on the ATR. The model was used to select the parameters to set the RP system and to predict the final conversions. The experiments on the ATR were done at 23 Â°C, utilizing a uniform power density beam profile to ensure uniform energy distribution across the ATR surface. These samples were then washed in acetone for one hour and swelled in the epoxy component for 24 hours at 80 Â°C to create the final IPN sample. Nanoindentation tests were done to determine the Youngâs modulus of the samples for later comparison with the samples manufactured in the RP machine.
+

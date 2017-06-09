@@ -1,0 +1,492 @@
+Data-Driven Finite Elements for Geometry and Material Design
+Desai Chen1
+1
+
+David I.W. Levin12
+2
+
+Shinjiro Sueda123
+3
+
+Wojciech Matusik1
+
+MIT CSAIL
+
+Disney Research
+
+California Polytechnic State University
+
+Figure 1: Examples produced by our data-driven ï¬nite element method. Left: A bar with heterogeneous material arrangement is simulated 15x faster than its high-resolution counterpart. Left-Center: Our fast coarsening algorithm dramatically accelerates designing this shoe sole (up to 43x). Right-Center: A comparison to 3D printed results. Right: We repair a ï¬imsy bridge by adding a supporting arch (8.1x) speed-up. We show a High-Res Simulation for comparison.
+
+Abstract
+Crafting the behavior of a deformable object is difï¬cultâwhether it is a biomechanically accurate character model or a new multimaterial 3D printable design. Getting it right requires constant iteration, performed either manually or driven by an automated system. Unfortunately, previous algorithms for accelerating three-dimensional ï¬nite element analysis of elastic objects suffer from expensive precomputation stages that rely on a priori knowledge of the objectâs geometry and material composition. In this paper we introduce Data-Driven Finite Elements as a solution to this problem. Given a material palette, our method constructs a metamaterial library which is reusable for subsequent simulations, regardless of object geometry and/or material composition. At runtime, we perform fast coarsening of a simulation mesh using a simple table lookup to select the appropriate metamaterial model for the coarsened elements. When the objectâs material distribution or geometry changes, we do not need to update the metamaterial libraryâwe simply need to update the metamaterial assignments to the coarsened elements. An important advantage of our approach is that it is applicable to non-linear material models. This is important for designing objects that undergo ï¬nite deformation (such as those produced by multimaterial 3D printing). Our method yields speed gains of up to two orders of magnitude while maintaining good accuracy. We demonstrate the effectiveness of the method on both virtual and 3D printed examples in order to show its utility as a tool for deformable object design. CR Categories: I.3.7 [Computer Graphics]: Three-Dimensional Graphics and RealismâAnimation Keywords: Data-driven simulation, ï¬nite element methods, numerical coarsening, material design
+
+1
+
+Introduction
+
+Objects with high-resolution, heterogeneous material properties are everywhere: from the output of multimaterial 3D printers to virtual characters gracing the screen in our summer blockbusters. Designing such objects is made possible by the tight coupling of design tools and numerical simulation which allows designers (or automatic algorithms) to update geometry or material parameters and subsequently estimate the physical effects of the change. Fast, accurate simulation techniques that can handle runtime changes in geometry and material composition are a necessity for such iterative design algorithms. The gold standard technique for estimating the mechanical behavior of a deformable object under load is the ï¬nite element method (FEM). While FEM is accurate, its solution process is notoriously slow, making it a major bottleneck in the iterative design process. For this reason, there have been a large number of works on speeding up FEM simulations, and these speed improvements have enabled FEM to be used in many performance critical tasks such as computer animation, surgical training, and virtual/augmented reality. Unfortunately, even though techniques such as model reduction or numerical coarsening can achieve order-of-magnitude performance increases, they require expensive precomputation phases, typically on the order of minutes for large meshes. This precomputation requires knowledge of an objectâs geometry and material composition a priori, something that is not known during a design task. When the user updates the model by changing the geometry or the material distribution, the preprocessing step must be run again. As shown in Fig. 2a, since this step is inside the design loop, the user cannot get rapid feedback on the changes made to the object. We propose Data-Driven FEM (DDFEM), a new simulation methodology that removes these limitations and is thus extremely wellsuited to the types of design problems discussed above. We divide an object into a set of deformable voxels using embedded ï¬nite elements and coarsen these voxels hierarchically. A custom metamaterial database is populated with materials that minimize the error incurred by coarsening. This database is learned once in a completely ofï¬ine fashion and depends only on the set of materials to be used by the deformable object and not on the actual material distribution and geometry. At runtime we use the database to perform fast coarsening of an FEM mesh in a way that is agnostic to changes in geometry and material composition of the object. The key features of the algorithm are its ability to handle arbitrary, nonlinear elastic
+
+Oï¬ine Preprocessing
+
+Online simulation
+
+Typical Methods
+
+High-resolution Mesh
+
+Reduced Mesh
+
+Simulated
+
+Design Changes
+(a) Typical methods
+
+Online Coarsening
+Oï¬ine Database Construction
+
+Online Simulation
+
+the performance of simulation algorithms, they have some drawbacks. First, they often require complicated geometric operations which can be time consuming to implement. Second, they introduce elements of varying size into the FEM discretization. This can lead to poor numerical conditioning if not done carefully. Finally, in order to maintain accuracy, it may still be necessary to introduce many ï¬ne elements, leading to slow performance. Alternatively, one can turn to P-Adaptivity for help. This refers to adaptively introducing higher-order basis functions in order to increase accuracy during simulation [SzabÂ´ et al. 2004]. Unfortunately, these methods suffer o from requiring complicated mesh generation schemes and are not well-suited for iterative design problems. An alternative approach to remeshing is to use higher order shape functions in order to more accurately represent the objectâs motion using a small set of DOFs. Modal simulation techniques fall into this category [Shabana 1991; Krysl et al. 2001; BarbiË and James c 2005]. Substructuring [BarbiË and Zhao 2011] decomposes an input c geometry into a collection of basis parts, performing modal reduction on each one. These basis parts can be reused to construct new global structures. Other approaches involve computing physically meaningful shape functions as an ofï¬ine preprocessing step. For instance, Nesme et al. [2009] compute shape functions based on the static conï¬guration of a high resolution element mesh induced via a small deformation of each vertex. Faure et al. [2011] use skinning transformations as shape functions to simulate complex objects using a small number of frames. Gilles et al. [2011] show how to compute material aware shape functions for these framebased models, taking into account the linearized object compliance. Both Nesme et al. [2009] and Faure et al. [2011] accurately capture material behavior in the linear regime, but, because their shape functions cannot change with the deformed state of the material, they do not accurately capture the full, non-linear behavior of an elastic object. Our non-linear metamaterials rectify this problem. Computing material aware shape functions improves both the speed and accuracy of the simulation. However, these methods require a precomputation step that assumes a ï¬xed material distribution and geometry. If the material distribution changes, these shape functions must be recomputed, and this becomes a bottleneck in applications that require constantly changing material parameters. The ï¬nal coarsening technique involves reducing the degrees of freedom of a mesh while simultaneously augmenting the constitutive model at each element, rather than the shape functions. Numerical coarsening is an extension of analytical homogenization which seeks to compute optimal, averaged material for heterogeneous structures [Guedes and Kikuchi 1990; Farmer 2002]. Numerical coarsening, for instance, has been applied to linearly (in terms of material displacement) elastic tetrahedral ï¬nite elements [Kharevych et al. 2009]. These methods require an expensive precomputation step (a series of static solves) that must be repeated when the material content, or the geometry of an object changes. This holds these methods back from being suitable for iterative design problems. Recently, three methods have been introduced that are similar to ours in spirit. Bickel et al. [2009] measured force-displacement to compute a spatially varying set of Youngâs moduli, interpolated in strain space. Our work also involves learning new constitutive models for ï¬nite element methods with several key differences. First, we present a more robust energy-based metamaterial model that does not require incremental loading during simulation. Second, the previous work relies on captured data to build constitutive model, while we use a new sampling strategy that allows us to build our metamaterial model virtually. This allows us to leverage large, high-performance compute clusters to speed up the process. Finally, their work is completely geometry dependentâtheir computed material models cannot be transferred to new meshes. Xu et al. [2014] and Li et al. [2014] computed material distribution given user speciï¬ed forces
+
+High-resolution Mesh
+
+Reduced Mesh
+
+Simulated
+
+Our Method
+
+Design Changes
+(b) Our method
+
+Figure 2: (a) In a typical method, the preprocessing step is ofï¬ine, making the design loop slow. (b) In our method, we move the timeconsuming ofï¬ine computation outside of the design loop. constitutive models as well as to avoid expensive precomputation within the design loop (Fig. 2b). DDFEM is the ï¬rst algorithm optimized for interactive geometric and material design problems.
+
+2
+
+Related Work
+
+Efï¬cient FEM simulation plays an important role in designing deformable objects. As mentioned, these problems are common in engineering and graphics [Bendsoe and Sigmund 2003; Bickel et al. 2010; Kou et al. 2012; Skouras et al. 2013; Chen et al. 2013; Xu et al. 2014]. We can broadly partition the space of approaches for optimizing FEM simulation into two categories. We term the ï¬rst category numerical approaches. These methods use fast matrix inversion techniques and other insights about the algebra of the ï¬nite element method to increase its performance. Simulators based on the multigrid method [Peraire et al. 1992; Zhu et al. 2010; McAdams et al. 2011] and Krylov subspace techniques [Patterson et al. 2012] have yielded impressive performance increases. Other hierarchical numerical approaches, as well as highly parallel techniques, have also been applied to improve the time required to perform complex simulations [Farhat and Roux 1991; Mandel 1993]. Finally, Bouaziz et al. [2014] propose specially designed energy functions and an alternating time-integrator for efï¬cient simulation of dynamics. The second set of methods are reduction approaches. These algorithms attempt to intelligently decouple or remove degrees of freedom (DOFs) from the simulated system. This leads to smaller systems resulting in a massive increase in performance, with some decrease in accuracy. Our algorithm falls into this category. Note, however, that numerical and reduction approaches need not be mutually exclusive. For example, our algorithm may potentially be used as a preconditioner for a numerical approach. Algorithms based on reduction approaches mitigate the inevitable increase in error using one or more of three approaches: Adaptive remeshing, higher-order shape functions, or by adapting the constitutive model. Adaptive remeshing alters the resolution of the simulation discretization in response to various metrics (stress, strain etc.). Such methods seek to maintain an optimal number of elements and thus achieve reasonable performance. Adaptive remeshing has proven useful for simulating thin sheets such as cloth [Narain et al. 2012], paper [Narain et al. 2013], as well as elastoplastic solids [Wicke et al. 2010] and solid-ï¬uid mixtures [Clausen et al. 2013]. More general basis reï¬nement approaches have also been suggested [Debunne et al. 2001; Grinspun et al. 2002]. While these methods do improve
+
+O ine Database Construction
+Metamaterial Fitting (Section 4.3) Fast Lookup Compression (Section 4.4)
+
+Online Simulation
+
+Runtime Coarsening (Section 5)
+
+Simulation
+
+Figure 3: An overview of DDFEM. The method is divided into an ofï¬ine database construction phase and an online simulation phase. During database construction we build a collection of metamaterials which can be used for accurate coarsening. These metamaterials are compressed (optional) and stored in a database, indexed by material ID. During online simulation we coarsen a high-resolution simulation mesh by performing a fast lookup into the precomputed database. Finally, ï¬nite element simulation is performed on this coarsened mesh.
+
+and displacements. They compute materials in a low-dimensional space of material modes to speedup and regularize the solution. However, their method requires a known geometry, and furthermore, users cannot control per-element material assignment. Rather than computing material distribution, our method supports user speciï¬ed topology changes and material assignment. These features are important due to the design-centric nature of our work. Data-driven techniques have also been applied to add ï¬ne detail to coarse surgical simulations [Cotin et al. 1999; Kavan et al. 2011; Seiler et al. 2012]. While these methods do not help with the type of iterative design problems addressed here, they could be combined with our fast coarsening in order to quickly âupscaleâ coarsened simulation results to original simulation resolution.
+
+2.1
+
+Contributions
+
+This work makes the following technical contributions: â¢ The ï¬rst algorithm for fast runtime coarsening of arbitrary, nonlinear, elastic material models for ï¬nite element analysis. â¢ A compact metamaterial model used for coarsening. â¢ An efï¬cient procedure for ï¬tting our metamaterial model.
+
+One obvious feature of conforming meshes is that the mesh itself is a function of the input geometry. This means that the output of a local coarsening operator (the coarsened mesh) will also be a function of the input geometry. Also, the new material computed by each local coarsening operator will be a function of input geometry. This dependence on input geometry is a signiï¬cant issue to overcome if we wish to precompute coarsened materials because, in design problems, the input geometry is in constant ï¬ux. The number of precomputed coarse materials now depends on the local material assignment on the simulation mesh and the input geometry. Thus space of coarsened materials is prohibitively large. To mitigate this we turn to embedded ï¬nite elements. These methods embed the geometry to be simulated into the simulation mesh with no regard for whether the mesh conforms to the geometry or not. Thus an identical simulation mesh can be used for any input geometry. Local coarsening operations on the embedded mesh yield identical coarse elements and the optimized coarse material depends only on the local material distribution on the simulation mesh. This signiï¬cantly reduces the size of the coarsened material space. In this paper we embed all simulation geometry into a hexahedral simulation mesh. We further shrink the space of coarsening operators using an observation about material design. Designers do not work in a continuous space of materials but limit themselves to a relatively compact set (e.g. rubber, wood, steel) related to their problem domain (Fig. 4). We call these discrete sets of materials palettes and denote them P = {M0 , M1 , . . . , Mn }. Here Mi denotes a speciï¬c material model in P, and n is the size of the material palette. In this work we limit ourselves to (nonlinear) hyper-elastic materials, which means that each Mi can be represented by a strain energy density function. We also include a void (or empty) material in every palette. This allows us to perform topology changes in the same manner in which we perform material assignment updates. In subsequent sections, we use a left superscript to indicate the level of coarsening. For example, 0 P denotes a material palette at the ï¬ne scale while 1 P denotes the new palette of metamaterials that results from the ï¬rst coarsening step.
+Material palette
+
+3
+
+Overview
+
+DDFEM is a combination of embedded ï¬nite elements and hierarchical coarsening. In this section, we discuss the problem of coarsening and introduce the notion of a material palette. We conclude by summarizing the two main stages of DDFEMâofï¬ine metamaterial construction and online coarsening. The key component of our DDFEM is coarsening. Coarsening involves reducing the number of vertices in a ï¬nite element simulation mesh in order to improve runtime performance. Since simply removing vertices can greatly reduce the accuracy of the simulation, coarsening schemes also assign new materials to coarsened elements to minimize this effect.
+Coarsening for ï¬nite elements
+
+We regard the global coarsening of a simulation mesh as the result of many local coarsening operations which map from contiguous subsets of ï¬ne elements with applied materials to coarse elements with new, optimized materials. Our goal is to precompute these optimized materials so that coarsening is fast at runtime. Below we discuss how to make such a precomputation tractable beginning with our choice of Finite Element simulation methodology. The deï¬ning feature of conforming ï¬nite element methods is that the simulation mesh is aligned with the geometry of the object being simulated.
+Conforming vs. embedded ï¬nite elements
+
+Stratysys Objet Connex 500 Palette
+
+Rubber
+
+ABS
+
+Rigid
+
+Empty
+
+Figure 4: An example material palette for the Stratasys Objet Connex 500 3D printer.
+
+With the material palette in hand, we can now deï¬ne our algorithm, which is divided into two distinct phases: an ofï¬ine database construction stage and an online coarsening stage. Below we detail the input, output, and steps of each stage:
+Algorithms
+
+0
+
+V1
+
+0
+
+V2
+
+Coarsen
+
+1
+
+X1 X3
+
+1
+
+X2 X4
+
+0
+
+V3
+
+0
+
+V4
+
+1
+
+1
+
+Ofï¬ine Database Construction â¢ INPUT: A palette of materials to be applied to high-resolution hexahedral simulation meshes 0 P â¢ OUTPUT: A new palette of coarse metamaterials, 1 P, and a mapping from ï¬ne material combinations to the coarsened materials in 1 P. â¢ STEPS: â¢ FOR EACH material combination applied to a 2Ã2Ã2 cube of high resolution elements â¢ Sample potential energy function of 2Ã2Ã2 block â¢ Fit metamaterial for coarse hexahedral element â¢ Add metamaterial to 1 P using high resolution material IDs as database key â¢ END Online Coarsening â¢ INPUT: High resolution hexahedral simulation mesh with material IDs and coarsened hexahedral simulation mesh â¢ OUTPUT: Metamaterial assignments for coarse mesh â¢ STEPS: â¢ FOR EACH 2Ã2Ã2 block in the high resolution mesh â¢ Replace with single coarse element â¢ Assign material from 1 P using high resolution material IDs as database key â¢ END We stress that both stages of the DDFEM algorithm can be applied hierarchically. Given the ï¬rst level of metamaterials, 1 P, we can construct a metamaterial library, 2 P, for the second level by using 1 P as an input material palette. At runtime, the coarsening algorithm looks up materials from 2 P to replace each 2Ã2Ã2 coarse block with a single element.
+Hierarchical coarsening
+
+High-Resolution Elements 0Æ
+
+Coarse Element 1E
+
+Figure 5: The relationship between high-resolution and coarsened elements. At each quadrature point 1 X k , the coarse element copies the corresponding energy density function 0 Vk from the highresolution element. of 0 Mk :
+8 1
+
+V (1 u, 1 p) =
+k=1
+
+wk 0 Vk (0 uk , 1 pk , 1 X k ),
+
+(1)
+
+where 0 Vk is the strain energy density of 0 Mk at quadrature point position 1 X k (Fig. 5). Here 1 u is the vector of nodal displacements associated with 1 E while 0 uk are displacements for the kth element at level 0 reconstructed using trilinear interpolation from 1 u. The vector 1 p stores the material parameters for the coarse metamaterial and consists of the stacked material parameter vectors for each material in 0 Mk , themselves denoted by 1 pk . wk is the standard Gaussian quadrature weight. We note that our model incurs slight computational overhead at runtime because we must evaluate potential energy functions at 8 quadrature points. However, the speed improvement gained by coarsening makes the remaining, per-quadrature point expense negligible. We observe that even if the individual base material models are isotropic, the metamaterial can become anisotropic by assigning different material parameters at the quadrature points. We counter this by augmenting the metamaterial model with an anisotropic term, which improves ï¬tting. The complete model is then given by
+8 1
+
+V (1 u, 1 p, C) =
+k=1
+
+wk 0 Vk (0 u, 1 pk , 1 X k )
+2
+
+(2) ,
+
+Having introduced the broad strokes of the DDFEM scheme, we move on to a detailed explanation of each algorithmic component. First we discuss database construction in Â§4, followed by the runtime component in Â§5. We end by demonstrating the speed and accuracy of DDFEM in Â§6.
+
++ Ck
+
+vT F T F k v k
+
+â1
+
+where v is a unit-length direction of anisotropy and Ck is the scaling parameter at the kth quadrature point.
+
+4.2
+
+Force Space Sampling
+
+4
+
+Metamaterial Database Construction
+
+We construct our metamaterial database using a potential energy ï¬tting approach. This is valid due to the hyperelastic materials that make up our material palettes. Material ï¬tting considers 2Ã2Ã2 blocks of high-resolution hexahedral elements (denoted 0 E). For each element 0 Ek â 0 E, its material is referred to as 0 Mk â 0 P. (Note that E refers to a set of elements and E refers to a single element.) Given 0 E, we can sample its deformation space, and using 0 Mk , compute the potential energy 0 V for each sample. Now we must ï¬nd a metamaterial that, when applied to a single coarse element 1 E best approximates 0 V . This is accomplished by ï¬tting a metamaterial potential energy function , 1 V , to the set of deformation/energy samples. The ï¬tted metamaterial is stored in the metamaterial database and indexed by the material indices of 0 M.
+
+As mentioned previously, we take a sampling-based approach to metamaterial ï¬tting. In order to ï¬t our model (Eq. 2) to 0 V we ï¬rst draw a number of samples from the deformation space of 0 E and compute 0 V for each sample. If a user has prior knowledge of the set of meshes and simulations that they will require, then the best way to draw the samples is to run a number of anticipated simulations with various material combinations. In this paper, we provide a more general method to draw samples for a metamaterial. Initially, we attempted sampling by applying a random deformation to the corners of 1 E ; however, this led to many infeasible samples for very stiff materials. In order to alleviate this problem we perform sampling in the force space. For each element 0 E â 0 E we apply a set of randomly generated forces. We solve an elastostatic problem to compute the deformation of 0 E, using constraints to remove rigid motion. Recall that this is fast because 0 E consists of just 8 elements. Each sample is then a tuple 0 u, 0 V (Fig. 6) where 0 u are the nodal displacements of 0 E, and 0 V is the strain energy density value of this deformed conï¬guration.
+
+4.1
+
+Metamaterial Model
+
+Our ï¬tting approach depends on choosing a good metamaterial model. In order to ensure that our model meets the criteria for a material energy function [Marsden and Hughes 2012], we choose our metamaterial model for 1 E as a combination of material models
+
+Energy
+
+Uncompressed Database (1) Choose Random Material (2) Choose Furthest Material
+
+Compressed Database
+
+SIMULATE
+
+Force Space
+
+Deformation
+
+Figure 6: We sample the energy function of a 2Ã2Ã2 block of hexahedra by applying random forces and deforming the block using FEM. Each set of forces results in a deformation-energy tuple which is used during ï¬tting.
+
+(3) Repeat
+
+Energy
+
+Energy
+
+FIT
+
+Figure 8: Database compression step adds metamaterials to a compressed database by a farthest point sampling strategy. overcome this, we add a regularization term to control the parameter ranges and prevent overï¬tting of the training samples. Our modiï¬ed error function takes the following form:
+ns 0 s=1
+
+Deformation
+
+Deformation
+
+Figure 7: Metamaterial potential energy functions are ï¬tted to the deformation-energy samples using a least-squares optimization.
+
+Vs â 1 V r
+
+0
+
+us , 1 p
+
+2
+
++Î»
+k
+
+(1 pk â 0 pk )2 ,
+
+(4)
+
+4.3
+
+Fitting
+
+Given a set of deformation samples, 0 u, 0 V , we perform a least squares ï¬t to determine the parameters, 1 p, for a given metamaterial (Fig. 7):
+ns 1
+
+which prevents material parameters from deviating too far from 0 Mk . We chose the regularization constant Î» = 0.01 for the results in this paper. In our experiments, since the base energy functions are linear with respect to the material parameters, the ï¬tting problem can be solved by linear regression with regularization.
+
+pâ = argmin 1p
+
+0 s=1
+
+Vs â 1 V r
+
+0
+
+us , 1 p
+
+2
+
+4.4
+, (3)
+
+Database Compression
+
+where r constructs 1 u from 0 u, ns is the total number of samples, and s indexes all samples. In our experiments we use the simplest form of r choosing it to extract the displacements of the corners of 0 E. If performed naively this optimization is nonlinear because we must simultaneously solve for v k , the preferred direction of anisotropy. This can severely slow the ï¬tting procedure, especially in cases where it would otherwise be a linear least squares problem (i.e if all ï¬ne-scale materials are Neo-Hookean or a similarly simple material model). To avoid this problem we ï¬rst estimate all anisotropy directions, and then solve Eq. 3 for the remaining material parameters. Our intuition is that anisotropy manifests itself as preferential stretching along a particular axis. To ï¬nd this axis, we apply stretching forces to a block in a discrete set of directions uniformly sampled over a sphere. If the stretching force is close to the direction of anisotropy, then the amount of stretching deformation is reduced. For any given stretching direction v, we apply a stretching force and compute the deformation gradient F of each quadrature point. Under F, a unit length vector in direction v is stretched to a new length l = Fv . The set of all 3D vectors lv forms an ellipse-like shape. We ï¬nd the principal axes of the ellipse (via SVD) and use them as directions of anisotropy.
+Fitting in the Presence of Anisotropy
+
+Given n materials in the palette, the number of material combinations in a 2Ã2Ã2 block is n8 . In modern hardware, it is impossible to compute and store all material combinations even for a moderately-sized palette with 100 materials. In order to compress the number of materials stored in our metamaterial database, we select a small number of representative material combinations and remove all others. We compare materials in a feature space. In order to construct metamaterial feature vectors, we ï¬rst select a common subset of deformations from all computed deformation samples. We then evaluate the potential energies of each metamaterial at each deformation sample. The stacked vector of energies becomes a metamaterial feature vector. Since our base materials differ in stiffness by orders of magnitude, we take the logarithm to measure the difference in ratio. Let D be the L2 norm of log-energies between the two materials given by D(A, B) =
+s
+
+(log(0 VsA ) â log(0 VsB ))2 ,
+
+(5)
+
+Since vastly different material assignments, 0 Mk , can produce the same metamaterial, our naÂ¨ve cost function (Eq. 3) Ä± can produce very large parameter values and even non-physical negative ones. For example, consider a homogeneous material assignment at the high-resolution level. The same metamaterial can be achieved by interleaving hard and soft materials at each ï¬ne element or by assigning a single, well chosen material to all ï¬ne elements. To
+Regularization
+
+where A and B denote two distinct metamaterials in the database. Given the distance metric, we can select k representatives materials using farthest point sampling [Eldar et al. 1997]. We randomly choose an initial metamaterial and then repeatedly select the material combination furthest away from any previous representatives â continuing until we obtain k representatives (Fig. 8). This compression algorithm chooses k samples that equally cover the metamaterial energy space, helping to preserve good behavior in our coarse simulations.
+
+4.5
+
+Hierarchical Coarsening
+
+While one level of coarsening can yield signiï¬cant speed-ups, DDFEM can also be applied hierarchically. As discussed in Â§4.4, the exponential growth of metamaterials palettes at each level makes it
+
+prohibitively expensive to perform ï¬tting. We address this by changing our coarsening strategy. Instead of choosing 0 E to be a 2Ã2Ã2 block we choose it to be a 2Ã1Ã1 block, which we coarsen. We construct an intermediate database of materials and compress. We then choose 0 E to be a 1Ã2Ã1 block, coarsen and compress, and ï¬nally a 1Ã1Ã2 block, coarsen and compress. Intermediate compression greatly reduces the number of samples we need to generate in order to populate the material parameter database for the next coarsening level. It is important to note that our intermediate databases only store lookup tables which allow us to extract appropriate material IDs for the next coarsening stage. Material parameters need only be stored in the ï¬nal database since it is these elements that are simulated.
+Level i
+Coarsen x
+
+Level ix
+Coarsen y
+
+Level i+1
+
+Database for level i
+
+Database for level ix
+
+Database for level i+1
+
+Figure 9: Hierarchical coarsening operates on one dimension at a time, performing clustering at each intermediate stage (here denoted ix ). This allows our compression algorithm to be applied aggressively, greatly reducing the number of energy samples we need for ï¬tting material parameters.
+
+Algorithm 1: Static Simulation 1: repeat 2: f : global force vector 3: L: triplet list for global stiffness matrix 4: for each element e do 5: compute elastic force fe 6: add fe to f 7: end for 8: add external force fext to f 9: for each element e do 10: Ke : element stiffness matrix 11: for each quadrature point q do 12: compute stiffness matrix Kq at quadrature point 13: Ke + = Kq 14: end for 15: append entries of Ke to L 16: end for 17: sort L to get sparse stiffness matrix K 18: set entries in K and f for ï¬xed vertices 19: âx = Kâ1 f 20: compute step size h using line-search 21: x+ = hâx 22: until convergence
+Example Pushing(0) Pushing(1) Pushing(2) Bending(0) Bending(1) Bending(2) Twisting(0) Twisting(1) Twisting(2) Buckling(0) Buckling(1) Buckling(2) Fibers(0) Fibers(1) Fibers(2) Bridge(0) Bridge(1) Bridge-arch(0) Bridge-arch(1) George(0) George(1) George-bone(0) George-bone(1) grid size 16Ã16Ã16 8Ã8Ã8 4Ã4Ã4 8Ã32Ã8 4Ã16Ã4 2Ã8Ã2 8Ã32Ã8 4Ã16Ã4 2Ã8Ã2 128Ã8Ã16 64Ã4Ã8 32Ã2Ã4 32Ã100Ã32 16Ã50Ã16 8Ã25Ã8 56177 9727 65684 11695 46152 6755 46152 6755 rel sp 1.0 11.5 31.4 1.0 12.6 22.7 1.0 15.2 20.7 1.0 50.1 331.8 1.0 51.2 489.5 1.0 8.4 1.0 8.1 1.0 16.4 1.0 13.2 time/iter 1.010 0.087 0.032 0.270 0.028 0.015 0.300 0.031 0.019 8.85 0.28 0.12 193.85 4.95 0.96 43.44 4.88 54.99 7.84 52.19 3.49 41.35 2.70 iters 5 5 5 28 22 22 16 10 12 32 20 7 17 13 7 14 15 3 3 23 21 12 14 error 8.91e-4 1.36e-2 5.60e-2 8.88e-2 1.56e-2 3.28e-2 7.24e-3 3.14e-2 2.94e-2 4.26e-2 4.39e-3 3.68e-4 2.86e-2 2.99e-2
+
+5
+
+Runtime Simulation
+
+Once our metamaterial database, 1 P, has been constructed we can use it to perform fast online coarsening. Initially, the user loads geometry which is embedded in a hexahedral grid for simulation. Prior to simulation we iterate over all 2Ã2Ã2 blocks of hexahedral elements and perform mesh coarsening by replacing these 8 elements with a single coarse element. We perform a database lookup into 1 P, using the material ID numbers of the 8 original elements, to quickly retrieve the optimal metamaterial for this coarse element. Database lookup is fast (even using our unoptimized, single-threaded implementation), and this is what makes DDFEM so appealing. We achieve signiï¬cant simulation speed-up from coarsening, retain accuracy in the simulation, and reduce the cost of material coarsening at runtime to a negligible amount. Our material model can be used in any simulation algorithm suitable for non-linear elasticity. In our experiments, we use Coin-IpOpt [WÂ¨ chter and Biegler 2006] a to implement static and dynamics simulations with tolerance (âtolâ option) set to 0.5. We use Pardiso as our linear solver. For timing purposes, we limit Pardiso to single thread mode. The pseudo-code for static simulation is shown in Alg. 1.
+
+6
+
+Results and Discussion
+
+All the results shown here are simulated using nonlinear constitutive models at the ï¬ne scale. This and coarsening speed are the key differentiating factors between DDFEM and other coarsening algorithms such as Nesme et al. [2009] and Kharevych et al. [2009]. Our database starts with three Neo-hookean base materials with Youngâs modulus 1e5, 1e6, 1e7 and Poissonâs ration 0.45. For comparison with 3D-printed objects, we used two base materials with measured Youngâs moduli. We use 500 force directions, and sample 5 magnitudes in each direction, resulting in 2500 force samples for each material combination. In addition, we generate 500 stretching samples for computing the direction of anisotropy. During ï¬tting, we use shear modulus and LamÂ´ âs ï¬rst parameter, as well as the e spring stiffness. We repeat the same process for the second level of coarsening, using 6561 materials in the ï¬rst level as base materials.
+
+Table 1: Relative performance, absolute performance in seconds and average vertex error relative to the bounding box size for fullresolution and coarsened simulations. Relative performance illustrates the performance increase gained by coarsening with respect to the time taken for the high-resolution static simulation to converge. Bracketed numbers after each example name indicate the number of coarsening levels with 0 indicating the high-resolution simulation. All computation times are recorded using Coin-IpOpt running in single threaded mode on a 2.5 GHz Intel Core i7 processor. We select 400 representatives at each intermediate level.
+
+6.1
+
+Database
+
+One advantage of our compact metamaterial representation is the small amount of storage it requires. In fact we require only 6 Ã 8 = 48 ï¬oating-point values for each material at the ï¬rst coarsening level and 6 Ã 64 = 384 values for the second level. (For each
+
+Pushing 12x Faster
+
+Twisting 15x Faster
+
+1 Level of Coarsening 50x Faster
+
+2 Levels of Coarsening 332x Faster
+
+(a) (a) (b)
+
+(b)
+
+(c) (c) (d)
+
+(d)
+
+Figure 10: Examples of pushing a cube (a - Initial State, c - Compressed) and twisting a bar (b - Initial State, d - Compressed), both with heterogeneous material distribution. We compare DDFEM to NaÂ¨ve Coarsening and the ground-truth, High-Res Simulation. We Ä± render wire frames to show the simulation meshes. 1 Level of Coarsening 13x Faster 2 Levels of Coarsening 23x Faster
+
+Ä± Figure 12: Compressing a heterogeneous slab using NaÂ¨ve Coarsening (1 level and 2 levels of coarsening), DDFEM (1 level and 2 levels of coarsening) and a High-Res Simulation. The top, darker layer is stiffer, causing the object to buckle. The bottom vertices are constrained to stay on the ï¬oor. Figure (a,b) shows the slabs before compression, ï¬gure (c,d) shows the slabs after compression and ï¬gure. Notice that, after 1 level of coarsening, NaÂ¨ve CoarsenÄ± ing neither compresses nor buckles as much as either DDFEM or High-Res Simulation. After 2 levels of coarsening, the buckling behavior is lost. The NaÂ¨ve Coarsening fails to capture the compressive Ä± behavior of High-Res Simulation, whereas DDFEM does. 1 Level of Coarsening 51x Faster 2 Levels of Coarsening 489x Faster
+
+(a)
+
+(b)
+
+(a) (c) (d)
+
+(b)
+
+Figure 11: Bending a heterogeneous bar: We compare DDFEM to NaÂ¨ve Coarsening and a High-Res Simulation. Subï¬gures (a, c) Ä± show comparison for 1 level of coarsening, and (b, d) show 2 levels of coarsening. The naÂ¨ve coarsening approach results in a much Ä± stiffer behavior, whereas our ï¬tted model more closely approximates the ï¬ne model. ï¬ner element, 0 p contains 2 material moduli plus C, v.) For further recursive levels, we can limit ourselves to 320 values per material. Our current 3 material database is 4 megabytes in size.
+
+(c)
+
+(d)
+
+6.2
+
+Simulation Results
+
+Figure 13: Simulating a bar with an embedded set of ï¬bers using NaÂ¨ve Coarsening, DDFEM and a High-Res Simulation. Note that Ä± DDFEM captures the characteristic twisting motion of the bar better than NaÂ¨ve Coarsening. (a,b) shows the initial state of both bars Ä± while (c,d) shows the deformed state after pulling on the top of the bars. all cases. NaÂ¨ve approaches often exhibit pathological stiffness for heterogeÄ± neous materials (illustrated by the lack of compression of the box and lack of twisting of the bar) [Nesme et al. 2009]. In these cases, DDFEM yields good speed ups while maintaining accuracy. For a single level of coarsening we achieve 8 times or greater speed ups for all examples. Performance numbers and mean errors are listed in Table 1. Since the ï¬ne simulation and the coarse simulation have different numbers of vertices, we create a ï¬ne mesh from the coarse simulation by trilinearly interpolating the ï¬ne vertices using the coarse displacements. The errors are measured by computing the average vertex distance relative to the longest dimension of the bounding box in rest shape. We also examine the behavior of DDFEM
+
+We show results from elastostatic simulations performed using DDFEM. We also demonstrate its performance advantages over high-resolution simulations. We render wire frames to show the discretizations of the high-resolution and coarse meshes. We ï¬rst show examples of two simple simulations, the pushing and twisting of a rectangular object with heterogeneous, layered material distribution (Fig. 10). Note that in all cases DDFEM qualitatively matches the behavior of the high-resolution simulation. We also compare the performance of DDFEM to a naÂ¨ve coarsening method Ä± that uses the material properties from 2Ã2Ã2 element blocks of the high-resolution simulation mesh at each corresponding quadrature point. In our supplemental video we compare to a second baseline model which averages material parameters inside each coarse element. This average model is less accurate than the NaÂ¨ve model in Ä±
+
+8.4x
+
+8.1x
+
+Squared Norm of Residual
+
+10
+
+â2
+
+HighâRes Simulation 1 Level of Coarsening 2 Levels of Coarsening
+
+Add Support and Coarsen
+
+10
+
+â4
+
+Figure 16: Accelerating geometry change: We repair a structurally unsound bridge by adding a supporting arch (8x faster). with a stiff âskin.â The bottom of the slab is constrained to slide along the ground with one end ï¬xed. When force is applied to the free end of the slab, buckling occurs. DDFEM captures the gross behavior of the bar and approximates the overall amount of compression well. However, it cannot replicate the frequency of the high-resolution buckling pattern due to the coarseness of the simulation mesh. Fig. 12 also shows a comparison with 2nd level coarsening. In this case, the overall compression of the bar is still captured accurately. For this example DDFEM affords 50 times (1 level of coarsening) and 332 times (2 levels of coarsening) performance improvements over the high-resolution simulation. The artiï¬cial stiffness of the naÂ¨ve model can be seen in the reduced buckÄ± ling and compression when compared to DDFEM at both coarsening levels. Next we explore the ability of DDFEM to handle highly anisotropic material distributions (Fig. 13). We embed a helical set of stiff ï¬bers in a soft, non-linearly elastic matrix. Pulling on the object induces a twisting. Again, at one coarsening level DDFEM captures this anisotropic behavior well, much better than the naive approach, and gains a 51 times speed up over the high-resolution simulation. Worth noting is that the DDFEM bar is slightly softer in the y-direction. This kind of inaccuracy should be expected. Since our method builds a low-dimensional approximation of a potential energy function we cannot hope to accurately reproduce the complete behavior of the high-resolution simulation. What is important is that DDFEM captures the salient global behavior, in this case, the twisting of the bar.
+Anisotropic material distribution
+
+10
+
+â6
+
+0
+
+1000
+
+Number of Iterations
+
+2000
+
+3000
+
+Figure 14: Comparison of CG iterations on high-resolution and coarsened meshes of the George-bone example. The squared residual is measured as Kx â f 2 . We observe that CG converges much faster on coarse meshes.
+Example Bending(0) Bending(1) Bending(2) Buckling(0) Buckling(1) Buckling(2) Fibers(0) Fibers(1) Fibers(2) grid size 8Ã32Ã8 4Ã16Ã4 2Ã8Ã2 128Ã8Ã16 64Ã4Ã8 32Ã2Ã4 32Ã100Ã32 16Ã50Ã16 8Ã25Ã8 quad/iter (12) 0.11 0.015 0.014 1.0 0.11 0.10 10.0 1.0 0.68 time/iter (2-21) 0.27 0.028 0.015 8.8 0.28 0.12 193 4.9 0.96 iters 28 22 22 32 20 7 17 13 7
+
+Table 2: Portion of time in seconds used by quadrature computation during static simulation in seconds. Bracketed numbers indicate corresponding lines in Algorithm 1. during bending (Fig. 11). Yet again the naÂ¨ve coarsening method Ä± completely fails to capture the behavior of the high-resolution result, while DDFEM offers a much better approximation. Table 2 shows time spent in quadrature evaluation versus in solver at coarse and ï¬ne levels. We use 8 quadrature points for the ï¬rst level of coarsening and 64 for the second level. The time for computing the local stiffness matrix for one element increases from 0.1ms to 1ms. In the second level, the speedup comes from the reduced number of elements over which to perform quadrature and the time required for the linear solver.
+Performance Analysis
+
+To further investigate the performance of our coarsened simulations we replaced Pardiso with an assembly-free Jacobi-preconditioned conjugate gradient (CG) linear solver and used this to simulate our George-bone test case. While the overall runtime of the highresolution simulation increased from 496 to 2082 seconds (most likely do to the unoptimized nature of our solver) our coarsened model achieved 20x and 67x speedups using one level and two levels of coarsening respectively. One might expect no beneï¬t from the second level of coarsening since the number of quadrature points remains constant. However, the number of CG iterations is roughly proportional to the number of vertices in the simulation mesh and thus the coarse model converges more quickly (Fig. 14). Since our metamaterial models are not restricted to use a ï¬xed number of quadrature points, one could design coarse models that are more tailored towards assembly-free solvers by reducing the number of quadrature points and simplifying the strain energy expressions. DDFEM can capture the gross behavior of complex, spatially-varying material distributions. Fig. 12 shows the results of applying DDFEM to a non-linearly elastic slab
+Complex material behavior
+
+We present three examples of using DDFEM for geometry and material design. In the ï¬rst example, we edit the material composition of the sole of a running shoe in order to stabilize it. Fig. 15 shows the effect of the three material edits as well as relative speed up achieved over the full resolution simulation and coarsening time. DDFEM performance is always an order of magnitude more than that of the high-resolution simulation, and, most importantly, our coarsening times are on the order of milliseconds. We stress that our current implementation is completely single threaded and that coarsening, which in our case involves a simple database lookup, is inherently parallel. In the second example, we add a supporting arch to a bridge. Prior to the addition of the support structure, the bridge sags catastrophically. The fast coarsening of DDFEM allows us to achieve an 8 fold increase in simulation performance using a single coarsening pass. In the third example, we add a rigid skeleton to a deformable character (George) in order to control his pose. Here our single threaded, data-driven coarsening only takes 200ms.
+Geometry and material design
+
+Though the examples shown in this paper focus on static analysis, DDFEM is equally applicable to dynamic simulations. At its core, DDFEM simply supplies new, more accurate material models for use during simulation. This makes the method useful for accelerating various animation tasks as well. In the accompanying videos we show a dynamic simulation of our ï¬ber embedded bar, computed using a standard linearly-implicit time integrator.
+Dynamics
+
+12x
+
+20x
+
+34x
+
+43x
+
+Coarsening
+
+72ms
+
+Coarsening
+
+73ms
+
+Coarsening
+
+72ms
+
+Original Material
+
+Horizontal Fibers
+
+Vertical Fibers (Heel)
+
+Vertical Fibers (Toe)
+
+Figure 15: Designing a shoe sole: We compare the performance of DDFEM to that of High-Res Simulation in the context of a material design problems. Large images show the effect of material changes on the sole of the shoe, which is being deformed under a âfoot-likeâ pressure ï¬eld. Inset images show the materials assigned to the shoe sole and the embedded ï¬nite element simulation mesh. Numbers within arrows show coarsening times between editing steps and the numbers in the upper left corner of each image show the relative performance of DDFEM to High-Res Simulation. While the DDFEM sole is made up of many metamaterials, we display it as a single color to distinguish it from the High-Res Simulation.
+
+boundary representation to the method, in order to more correctly handle non-axis aligned boundary conditions, could also be explored. Third, the method acts on discrete materials. While we believe that this is reasonable, considering the way that engineers and designers approach material design, a method that coarsens continuous spaces of non-linear materials could be beneï¬cial. Many avenues of future work are promising. First, one could explore topologically aware meshing (e.g. Nesme et al. [2009]) to allow better handling of models with large empty regions. In fact shape function learning approaches, such as Nesme et al. [2009] could be combined with our material learning approach to produce even more accurate simulations. Including these shape functions in our database could, for instance, allow us to capture the wrinkles in our buckling example. Second, extending DDFEM to more complex material models, such as those involving plasticity, would be a useful exercise. Third, DDFEM can be combined with an adaptive voxel grid as well as other dynamic meshing approaches to obtain further speed-ups. Finally, exploring hierarchical solvers based on DDFEM coarsening is a very attractive direction. Solvers such as multigrid methods rely on good coarse approximations to accelerate ï¬ne scale simulations. Using DDFEM for these approximations could improve the convergence rate, and thus the performance of such algorithms.
+
+Figure 17: Correcting Georgeâs posture using a rigid skeleton (High-Res Simulation and DDFEM).
+
+Figure 18: A comparison of DDFEM (2 levels of coarsening) to real world deformations of 3D printed, multi-material designs. DDFEM captures the twisting behavior of an anisotropic bar much more accurately than NaÂ¨ve Coarsening. Similarly DDFEM accurately Ä± predicts the deformation of our heterogeneous George character.
+
+8
+
+Conclusions
+
+6.3
+
+Fabricated Results
+
+Finally, we test the accuracy of our simulation against fabricated results, created using a Stratysys Object Connex 500 multimaterial 3D printer. We fabricated a bar with embedded helical ï¬bers as well as our George character and applied speciï¬ed loads to both. We show qualitative comparison of the deformed conï¬gurations of these real-world examples to our simulated results (2 levels of coarseningFig. 18). Note that the simulation does an excellent job of predicting the deformed conï¬guration of both objects.
+
+In this paper we presented the data-driven ï¬nite element method, a sampling-based coarsening strategy for fast simulation of nonlinearly elastic solids with heterogeneous material distributions. Our method is unique in that changing material parameters requires no additional computation at runtime, making it well-suited for iterative design problems. We have shown the utility of our method on several examples wherein it garners a 8 to 489 times speed-up over corresponding high-resolution simulations.
+
+Acknowledgements
+Thank you to the Anonymous Reviewers, Etienne Vouga, Maria Shugrina and Melina Skouras for helpful suggestions and James Thompkin for video assistance. This research was funded by NSF grant CCF-1138967 and DARPA #N66001-12-1-4242.
+
+7
+
+Limitations and Future Work
+
+Because DDFEM relies on a database compression step to combat the combinatorial explosion of metamaterials, accuracy is heavily inï¬uenced by the set of representative metamaterials. Finding a better way to select metamaterial structures is an interesting area of future work. Second, in our attempt to make our method geometry independent, some accuracy when dealing with partially ï¬lled boundary ï¬nite elements is sacriï¬ced. Adding a parameterized
+
+References
+Ë BARBI C , J., AND JAMES , D. L. 2005. Real-time subspace integration for St. Venant-Kirchhoff deformable models. ACM Trans. Graph. 24, 3 (July), 982â990.
+
+Ë BARBI C , J., AND Z HAO , Y. 2011. Real-time large-deformation substructuring. ACM Trans. on Graphics (SIGGRAPH 2011) 30, 4, 91:1â91:7. B ENDSOE , M., AND S IGMUND , O. 2003. Topology Optimization: Theory, Methods and Applications. Engineering online library. Springer. Â¨ B ICKEL , B., B ACHER , M., OTADUY, M. A., M ATUSIK , W., P FIS TER , H., AND G ROSS , M. 2009. Capture and modeling of non-linear heterogeneous soft tissue. ACM Trans. Graph. 28, 3 (July), 89:1â89:9. Â¨ B ICKEL , B., B ACHER , M., OTADUY, M. A., L EE , H. R., P FIS TER , H., G ROSS , M., AND M ATUSIK , W. 2010. Design and fabrication of materials with desired deformation behavior. ACM Trans. Graph. 29, 4 (July), 63:1â63:10. B OUAZIZ , S., M ARTIN , S., L IU , T., K AVAN , L., AND PAULY, M. 2014. Projective dynamics: Fusing constraint projections for fast simulation. ACM Trans. Graph. 33, 4 (July). C HEN , D., L EVIN , D. I. W., D IDYK , P., S ITTHI -A MORN , P., AND M ATUSIK , W. 2013. Spec2Fab: A reducer-tuner model for translating speciï¬cations to 3D prints. ACM Trans. Graph. 32, 4 (July), 135:1â135:10. C LAUSEN , P., W ICKE , M., S HEWCHUK , J. R., AND Oâ BRIEN , J. F. 2013. Simulating liquids and solid-liquid interactions with Lagrangian meshes. ACM Trans. Graph. 32, 2 (Apr.), 17:1â17:15. C OTIN , S., D ELINGETTE , H., AND AYACHE , N. 1999. Realtime elastic deformations of soft tissues for surgery simulation. IEEE Transactions on Visualization and Computer Graphics 5, 1, 62â73. D EBUNNE , G., D ESBRUN , M., C ANI , M.-P., AND BARR , A. H. 2001. Dynamic real-time deformations using space & time adaptive sampling. In Proc. SIGGRAPH â01, Annual Conference Series, 31â36. E LDAR , Y., L INDENBAUM , M., P ORAT, M., AND Z EEVI , Y. Y. 1997. The farthest point strategy for progressive image sampling. Image Processing, IEEE Transactions on 6, 9, 1305â1315. FARHAT, C., AND ROUX , F.-X. 1991. A method of ï¬nite element tearing and interconnecting and its parallel solution algorithm. International Journal for Numerical Methods in Engineering 32, 6, 1205â1227. FARMER , C. 2002. Upscaling: a review. International Journal for Numerical Methods in Fluids 40, 1-2, 63â78. FAURE , F., G ILLES , B., B OUSQUET, G., AND PAI , D. K. 2011. Sparse meshless models of complex deformable solids. ACM Trans. Graph. 30, 4 (July), 73:1â73:10. G ILLES , B., B OUSQUET, G., FAURE , F., AND PAI , D. K. 2011. Frame-based elastic models. ACM Trans. Graph. 30, 2 (Apr.), 15:1â15:12. Â¨ G RINSPUN , E., K RYSL , P., AND S CHR ODER , P. 2002. Charms: A simple framework for adaptive simulation. ACM Trans. Graph. 21, 3 (July), 281â290. G UEDES , J., AND K IKUCHI , N. 1990. Preprocessing and postprocessing for materials based on the homogenization method with adaptive ï¬nite element methods. Computer methods in applied mechanics and engineering 83, 2. K AVAN , L., G ERSZEWSKI , D., BARGTEIL , A. W., AND S LOAN , P.-P. 2011. Physics-inspired upsampling for cloth simulation in games. In ACM SIGGRAPH 2011 Papers, ACM, New York, NY, USA, SIGGRAPH â11. K HAREVYCH , L., M ULLEN , P., OWHADI , H., AND D ESBRUN , M. 2009. Numerical coarsening of inhomogeneous elastic materials.
+
+ACM Trans. Graph. 28, 3 (July), 51:1â51:8. KOU , X., PARKS , G., AND TAN , S. 2012. Optimal design of functionally graded materials using a procedural model and particle swarm optimization. Computer-Aided Design 44, 4, 300â310. K RYSL , P., L ALL , S., AND M ARSDEN , J. E. 2001. Dimensional model reduction in non-linear ï¬nite element dynamics of solids and structures. International Journal for Numerical Methods in Engineering 51, 4, 479â504. L I , S., H UANG , J., DE G OES , F., J IN , X., BAO , H., AND D ES BRUN , M. 2014. Space-time editing of elastic motion through material optimization and reduction. ACM Trans. Graph. 33, 4 (July). M ANDEL , J. 1993. Balancing domain decomposition. Communications in numerical methods in engineering 9, 3, 233â241. M ARSDEN , J., AND H UGHES , T. 2012. Mathematical Foundations of Elasticity. Dover Civil and Mechanical Engineering. M C A DAMS , A., Z HU , Y., S ELLE , A., E MPEY, M., TAMSTORF, R., T ERAN , J., AND S IFAKIS , E. 2011. Efï¬cient elasticity for character skinning with contact and collisions. ACM Trans. Graph. 30, 4 (July), 37:1â37:12. NARAIN , R., S AMII , A., AND OâB RIEN , J. F. 2012. Adaptive anisotropic remeshing for cloth simulation. ACM Trans. Graph. 31, 6 (Nov.), 152:1â152:10. NARAIN , R., P FAFF , T., AND OâB RIEN , J. F. 2013. Folding and crumpling adaptive sheets. ACM Trans. Graph. 32, 4 (July), 51:1â51:8. ËÂ´ Â´ N ESME , M., K RY, P. G., J E R ABKOV A , L., AND FAURE , F. 2009. Preserving topology and elasticity for embedded deformable models. ACM Trans. Graph. 28, 3 (July), 52:1â52:9. PATTERSON , T., M ITCHELL , N., AND S IFAKIS , E. 2012. Simulation of complex nonlinear elastic bodies using lattice deformers. ACM Trans. Graph. 31, 6 (Nov.), 197:1â197:10. P ERAIRE , J., P EIRO , J., AND M ORGAN , K. 1992. A 3D ï¬nite element multigrid solver for the Euler equations. AIAA paper 92, 0449. S EILER , M., S PILLMANN , J., AND H ARDERS , M. 2012. Enriching coarse interactive elastic objects with high-resolution data-driven deformations. In Proc. ACM SIGGRAPH/Eurographics Symposium on Computer Animation, 9â17. S HABANA , A., 1991. Theory of vibration, vol. ii. S KOURAS , M., T HOMASZEWSKI , B., C OROS , S., B ICKEL , B., AND G ROSS , M. 2013. Computational design of actuated deformable characters. ACM Trans. Graph. 32, 4 (July), 82:1â82:9. Â´ Â¨ S ZAB O , B., D USTER , A., AND R ANK , E. 2004. The p-version of the ï¬nite element method. Encyclopedia of computational mechanics. Â¨ W ACHTER , A., AND B IEGLER , L. T. 2006. On the implementation of an interior-point ï¬lter line-search algorithm for large-scale nonlinear programming. Mathematical programming 106, 1. W ICKE , M., R ITCHIE , D., K LINGNER , B. M., B URKE , S., S HEWCHUK , J. R., AND OâB RIEN , J. F. 2010. Dynamic local remeshing for elastoplastic simulation. ACM Trans. Graph. 29, 4 (July), 49:1â49:11. Ë X U , H., L I , Y., C HEN , Y., AND BARBI C , J. 2014. Interactive material design using model reduction. Tech. rep., University of Southern California. Z HU , Y., S IFAKIS , E., T ERAN , J., AND B RANDT, A. 2010. An efï¬cient multigrid method for the simulation of high-resolution elastic solids. ACM Trans. Graph. 29, 2 (Apr.), 16:1â16:18.
+

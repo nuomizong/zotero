@@ -1,0 +1,2179 @@
+A FINITE ELEMENT METHOD FOR STIFFENED PLATES
+
+Â´ Ricardo Duran 1 , Rodolfo RodrÂ´ Ä±guez 2 and Frank Sanhueza 3
+Abstract. The aim of this paper is to analyze a low order ï¬nite element method for a stiï¬ened
+plate. The plate is modeled by Reissner-Mindlin equations and the stiï¬ener by Timoshenko beams equations. The resulting problem is shown to be well posed. In the case of concentric stiï¬eners it decouples into two problems, one for the in-plane plate deformation and the other for the bending of the plate. The analysis and discretization of the ï¬rst one is straightforward. The second one is shown to have a solution bounded above and below independently of the thickness of the plate. A discretization based on DL3 ï¬nite elements combined with ad-hoc elements for the stiï¬ener is proposed. Optimal order error estimates are proved for displacements, rotations and shear stresses for the plate and the stiï¬ener. Numerical tests are reported in order to assess the performance of the method. These numerical computations demonstrate that the error estimates are independent of the thickness, providing a numerical evidence that the method is locking-free.
+
+1991 Mathematics Subject Classiï¬cation. 65N30, 74K10, 74K20.
+.
+
+Introduction
+A stiï¬ened plate is a plate reinforced with ribs to increase it capacity to resist loads. Such plates are used typically in buildings, hulls of ships, aircraft and many other applications in the structural engineering. Diï¬erent models of stiï¬ened plates have been used. See for instance [17] for a discussion of several simple engineering models and further references. Another approach has been proposed in [20]. It consists of coupling Kirchhoï¬-Love equations for the plate with Euler-Bernoulli equations for the stiï¬ener. The constraint between both structures is imposed by means of Lagrange multipliers. A particular ï¬nite element method is proposed. Numerical experiments demonstrate the eï¬ectiveness of this approach although no analysis is given. The same problem has been analyzed in [11] based in a model proposed in [18]. In this case C 1 âelements are proposed for the plate combined with P2 â P3 elements for the beam. A domain decomposition technique is proposed for the solution of the resulting algebraic problem. An alternative modeling approach consists of using Reissner-Mindlin equations for the plate and Timoshenko beam equations for the stiï¬ener. This model has been considered in [19], where an elementary ï¬nite element method is proposed. However this method is shown to suï¬er from locking. Locking consists in that very unsatisfactory results are obtained when the thickness is small with respect to the other dimension of the structure. From the point of view of the numerical analysis, locking reveals itself in
+Keywords and phrases: stiï¬ened plates, Reissner-Mindlin model, Timoshenko beam, ï¬nite elements, error estimates, locking.
+1 Departamento de MatemÂ´tica, Facultad de Ciencias Exactas y Naturales, Universidad de Buenos Aires, Argentina; e-mail: a rduran@uba.ar 2 CI2 MA, Departamento de IngenierÂ´ MatemÂ´tica, Universidad de ConcepciÂ´n, Chile; e-mail: rodolfo@ing-mat.udec.cl Ä±a a o 3 Escuela de Obras Civiles, Universidad Andres Bello, ConcepciÂ´n, Chile; e-mail: fsanhueza@unab.cl o
+
+2
+
+Â´ R. DURAN, R. RODRÂ´ IGUEZ AND F. SANHUEZA
+
+that the a priori estimates depends on the thickness of the structure in a such way that they degenerate when this parameter become small. Several ï¬nite elements have been proposed to avoid locking in Reissner-Mindlin equations (see [7] for a review on this subject). A typical locking-free ï¬nite element method, MITC9, which was introduced in [5], is proposed in [17] to discretize the stiï¬ened plate equations. These elements are combined with standard quadratic element for the stiï¬ener. Once more, only numerical evidence of the performance of the method is reported. In the present paper we use the same model, based on Reissner-Mindlin equations for the plate and Timoshenko equations for the stiï¬ener. We introduce the constraint between both structures by means of Lagrange multipliers. We prove existence and uniqueness of solution to the resulting problem. A particular case of stiï¬ened plates is when the mid-line of the stiï¬ener lies on the mid-surface of the plate. In this case the plate is known as concentrically stiï¬ened and the problem decomposes into two simpler problems as it happens for unstiï¬ened plates: the in-plane and the bending plate problems. The analysis of the former is quite simple since it leads to equations independent of the plate thickness. This is not the case with the bending problem for the stiï¬ened plate. In this case we consider a family of problems parametrized by the plate thickness t. We show that the mechanical coeï¬cients of the stiï¬ener must be taken proportional to 1/t to obtain a signiï¬cant limit problem as t goes to zero. We show that the solution of the stiï¬ened plate bending problem is bounded above and below far from zero, independently of t. We also prove additional regularity of the solution, although not independently of t. For the discretization of the in-plane stiï¬ened plate we use standard linear elements, and the analysis is straightforward. For the stiï¬ened plate bending problem we use a low order plate ï¬nite element, DL3 [12], combined with P2 â P1 elements for the stiï¬ener. The choice of these hybrid elements for the rod allows us to impose the constraint in an simpler way. We prove optimal order error estimates depending on higher order norms of the solution. These higher order norms are the same that appear in the case of uncoupled plates and rods. In such a case they are bounded independently of t. For the stiï¬ened plate bending problem we prove that these higher order norms are bounded, although in principle these bounds could depend on t. We report a thorough numerical experimentation which gives numerical evidence that this is not the case, allowing us to assess the locking-free character of the method. The outline of the paper is as follows. In Section 1 we present the mathematical setting of the load problem and prove existence and uniqueness. In Section 2 we analyze the concentrically stiï¬ened plate and prove stability results, independent of the plate thickness for the in-plane and bending plate problems. In Section 3 we present the ï¬nite element discretizations of both problems, we obtain error estimates for the former and prove that the latter is well posed. In Section 4 we focus on the stiï¬ened loading plate problem for which we prove error estimates. In Section 5 we report numerical results which allow us to assess the performance of the proposed method. First, to validate our code, we apply it to a vibration problem which was also solved in [17]. Secondly we apply the proposed method to a couple of problems whose limit behavior as the thickness becomes small is known. Finally we apply it to a family of problems which allow us to demonstrate that the method is locking-free.
+
+1. The Problem of the Stiffened Plate
+We consider a plate entirely crossed by a rod which act as a stiï¬ener. We restrict our attention to plates with constant thickness and rods with uniform cross section. If the mid-line of the rod lies on the mid-surface of the plate we call it a concentrically stiï¬ened plate. Otherwise it is called an eccentrically stiï¬ened plate (see Figure 1). Most of this paper is devoted to concentrically stiï¬ened plates except for the present section which is valid for eccentrically stiï¬ened plates too. We consider a coordinate system such that the plate occupies the domain â¦ Ã (ât/2, t/2), where t > 0 is the plate thickness and â¦ is the mid-surface of the plate, which is assumed to be polygonal. Moreover we assume that the coordinate system is such that the mid-line of the rod lies on the plane y = 0. We denote by r the distance between the rod mid-line and the plate mid-surface (r = 0 for concentrically stiï¬ened plates). The problem will
+
+A FINITE ELEMENT FOR STIFFENED PLATES
+
+3
+
+Figure 1. Transverse sections of concentrically (left) and eccentrically (right) stiï¬ened plates. be posed in the two dimensional domain â¦. We denote Î := {(x, y) â â¦ : y = 0}, â¦1 := {(x, y) â â¦ : y > 0} and â¦2 := {(x, y) â â¦ : y < 0}. We illustrate these deï¬nitions in Figure 2.
+y
+
+ââ¦ â¦1 Î x
+
+t r
+
+â¦
+
+â¦2
+
+Figure 2. Geometry of a stiï¬ened plate We restrict our analysis to the case of a plate modeled by Reissner-Mindlin equations and completely clamped by its lateral boundary ââ¦. We denote by u = (u1 , u2 ), w and Î² = (Î²1 , Î²2 ) the mid-surface in-plane plate displacements, the transverse displacements and the rotations, respectively. In its turn, us , v s , ws denote the s s s stiï¬ener displacements in each coordinate direction and, Î¸x , Î¸y and Î¸z the stiï¬ener rotations with respect to each axis. To derive the equations of the stiï¬ened plate we will obtain ï¬rst an expression for its total energy. With this aim, we add the corresponding energies of the plate and the stiï¬ener. However, for the latter, the shear and bending terms in the plane of the plate are typically neglected (see [17]). We consider a load acting on the plate, and denote by f its in-plane component, and by g the transverse one. Therefore, the total energy including the works of the loads reads Et := t3 t a1 (u, u) + a2 (Î², Î²) + t 2 2 +
+Î
+
+ÎºÂµ ( w â Î²) +
+â¦ Î
+
+2
+
+EsA
+
+dus dx
+â¦
+
+2
+
++
+Î
+
+E s Iyy
+
+s dÎ¸y dx
+
+2
+
+Âµs J
+
+s dÎ¸x
+
+2
+
+dx
+
++
+Î
+
+Îºs Âµ s A
+
+dw s + Î¸y dx
+
+s
+
+2
+
+ât
+â¦
+
+f Â·uâ
+
+gw.
+
+In the above equation a1 (u, v) :=
+â¦
+
+EÎ½ div u div v + (1 + Î½) (1 â 2Î½) EÎ½ div Î² div Î· + 1 â Î½2
+
+â¦
+
+E (u) : (v) 1+Î½
+
+and a2 (Î², Î·) := 1 12
+â¦ â¦
+
+E (Î²) : (Î·) 1+Î½
+
+4
+
+Â´ R. DURAN, R. RODRÂ´ IGUEZ AND F. SANHUEZA
+
+are the plane strain and plane stress bilinear forms, respectively. Above (v) := 1 (Dv + Dv t ) denotes the 2 E linearized strain tensor and the coeï¬cients E and Î½ are the Young and Poisson moduli. Moreover Âµ := 2(1+Î½) is the shear modulus of the plate. On the other hand, A is the area of the stiï¬ener section, Iyy and Izz are the second moments of area with respect to y- and z-axes, respectively, J := Iyy + Izz , E s and Î½ s the Young and Es Poisson moduli of the stiï¬ener and Âµs := 2(1+Î½ s ) the shear modulus. Finally Îº and Îºs are the shear correction factors for the plate and the rod, respectively . All the parameters are strictly positive constants. In the case of the stiï¬ener this corresponds to a rod of arbitrary uniform section. Notice that, since the bending and shear energy of the stiï¬ener have been neglected, the variables v s and Î¸z do not appear in the expression for the total energy. 2 1 The appropriate functional spaces for displacements and rotations are the following: u, Î² â H0 (â¦) ; w â 2 s s 1 1 H0 (â¦); us , ws , Î¸x , Î¸y â H0 (Î). For the loads we consider f â L2 (â¦) and g â L2 (â¦). The stiï¬ened plate problem is obtained by minimizing the total energy subject to the following kinematic constraints: u1 = us â rÎ²1 , w=w , Î²2 = Î²1 =
+s Î¸x , s âÎ¸y . s
+
+(1.1) (1.2) (1.3) (1.4)
+
+z
+
+u1 r us Î¸y
+
+âÎ²1
+Plate
+
+x
+
+Stiffener
+e
+
+âÎ²1 = Î¸y
+O
+
+Figure 3. Geometric illustration of (1.5)
+
+The constraint (1.2) comes from the fact that the plate and the rod are joint monolithically. Moreover, the rotations of the plate and the stiï¬ener are the same in this model, which leads to (1.3) and (1.4). Finally (1.1) can be easily deduced. In fact, using the notation from Figure 3, we have that u1 us = . r+e e Therefore approximating âÎ²1 by
+us e ,
+
+straightforward computations lead to (1.1).
+
+A FINITE ELEMENT FOR STIFFENED PLATES
+
+5
+
+For the analysis, we introduce these constraints by means of Lagrange multipliers as follows: Î»1 (u1 â us + rÎ²1 ) = 0,
+Î
+
+(1.5) (1.6) (1.7) (1.8)
+
+Î»2 (w â ws ) = 0,
+Î s Î»3 (Î²2 â Î¸x ) = 0, s Î»4 Î²1 + Î¸y = 0.
+
+Î
+
+Î
+
+In the expressions above and throughout the paper, to simplify the notation, we write Î»Î· := Î», Î·
+Î 1/2 H â1/2 (Î)ÃH00 (Î)
+1/2
+
+,
+
+1 where in this case H00 (Î) := v|Î : v â H0 (â¦) endowed with the intrinsic norm of H 1/2 (Î) (see [15]) and 1/2 H â1/2 (Î) := H00 (Î) , with L2 (Î) as pivot space. Therefore, by minimizing Et subject to the constraints (1.1)â(1.4), we arrive at the following clamped stiï¬ened plate problem: Find (U , Î») â H Ã Q such that
+
+A (U , V ) + B (V , Î») =F (V ) B (U , Ï) =0 where
+s s U := u, Î², w, us , ws , Î¸x , Î¸y ,
+
+â V â H,
+
+(1.9) (1.10)
+
+â Ï â Q,
+
+1 1 1 1 V := v, Î·, z, z s , v s , Ïs , Ïs â H := H0 (â¦) Ã H0 (â¦) Ã H0 (â¦) Ã H0 (Î) x y 4
+
+2
+
+2
+
+4
+
+Î» := (Î»1 , Î»2 , Î»3 , Î»4 ) ,
+
+Ï := (Ï1 , Ï2 , Ï3 , Ï4 ) â Q := H â1/2 (Î) , dus dv s dx dx Î s dÎ¸y dÏs dÎ¸s dÏs y + E s Iyy + Âµs J x x , dx dx dx dx Î Î EsA
+Î s Î»3 (Î²2 â Î¸x ) + Î s Î»4 Î²1 + Î¸ y ,
+
+A (U , V ) := ta1 (u, v) + t3 a2 (Î², Î·) + t
+â¦
+
+ÎºÂµ ( w â Î²) Â· ( z â Î·) + dz s + Ïs y dx
+
++
+Î
+
+Îºs Âµ s A
+
+dws s + Î¸y dx
+Î
+
+B (U , Î») :=
+Î
+
+Î»1 (u1 â us + rÎ²1 ) + f Â·v+t
+â¦ â¦
+
+Î»2 (w â ws ) +
+
+F (V ) := t
+
+g z.
+
+It is well known that the standard ï¬nite element methods applied to plates or rods are subject to ânumerical lockingâ. This means that they lead to unacceptable poor results for thin structures, unless the mesh size is excessively small. The standard methodology to deal with locking-free methods is to consider a family of problems depending on a small parameter: the plate thickness t. A method will be locking-free if the error estimates do not deteriorate as the thickness becomes small. In our case, to avoid dealing with more than one parameter, we restrict our attention to a stiï¬ener such that Ë A = t2 A, Ë Iyy = t4 Iyy and Ë J = t4 J, (1.11)
+
+6
+
+Â´ R. DURAN, R. RODRÂ´ IGUEZ AND F. SANHUEZA
+
+Ë Ë Ë where A, Iyy and J are constants. This corresponds to a rod with a section having width and height proportional to t. The stiï¬ening eï¬ect of such a rod tends to disappear as t tends to zero. To avoid this and obtaining a proper limit problem, we assume that the physical parameters of the rod increase as t tends to zero. More precisely we assume that Ë Es , (1.12) Es = t Ë where E s is a ï¬xed constant. See [11] for a similar choice in the case of Kirchhoï¬ stiï¬ened plates. Correspondingly Ë Es we deï¬ne Âµs := 1+Î½ s so that Âµs = Âµs . Scalings (1.11) and (1.12) ensure that if the loads are scaled as usual for Ë Ë plates, then the solution of problem (1.9)â(1.10) attains a limit as t tends to zero and that, in the limit problem, the rod remains as a stiï¬ener. This will be clearly seen in the numerical examples of Section 5, where diï¬erent scalings of the physical parameters are considered. It is shown therein that (1.12) leads to a stiï¬ened limit problem (Test 4) whereas other scalings lead either to a vanishing or to a perfectly rigid stiï¬ener (Section 5.2). Using these scalings we write the bilinear form A as follows: A (U , V ) = ta1 (u, v) + t3 a2 (Î², Î·) + t
+â¦
+
+ÎºÂµ ( w â Î²) Â· ( z â Î·) + t dz s + Ïs y dx + t3
+
++t
+Î
+
+ÎºÂµA Ë Ë
+s s
+
+dws s + Î¸y dx
+
+s s Ë Ë du dv EsA dx dx Î s s dÎ¸y dÏy dÎ¸s dÏs Ë Ë + t3 Âµ s J x x . E s Iyy Ë Ë dx dx dx dx Î Î
+
+(1.13)
+
+We are interested in proving the existence and uniqueness of the solution to problem (1.9)â(1.10). For this purpose we will show the ellipticity of A (Â·, Â·) in the whole space H and the inf-sup condition for B (Â·, Â·) in appropriate spaces. Throughout the paper C will denote a strictly positive constant, not necessarily the same at each occurrence, but always independent of t and the mesh-size h, which will be introduced in the next section. For the existence and uniqueness, we consider the continuous problem (1.9)â(1.10) with 0 < t â¤ 1 ï¬xed. The bilinear form A (Â·, Â·) is elliptic in H, with an ellipticity constant depending of t: A (V , V ) â¥ C t3 Î·
+2 1,â¦
+
++ z
+
+2 1,â¦
+
++ Ïs y
+
+2 1,â¦
+
++ zs
+
+2 1,â¦
+
++ Ïs x
+
+2 1,Î
+
++t
+
+v
+
+2 1,â¦
+
++ vs
+
+2 1,Î
+
+.
+
+In fact, the inequality above follows from ta1 (v, v) â¥ Ct v a2 (Î·, Î·) â¥ C Î· t3 a2 (Î·, Î·) + t
+â¦ 2 1,â¦ 2 1,â¦ 1 â v â H0 (â¦) , 1 â Î· â H0 (â¦) , 2 2
+
+(1.14) (1.15)
+2
+
+ÎºÂµ | z â Î·| â¥ Ct3 dv s dx dÏs x dx
+2
+
+2
+
+Î·
+
+2 1,â¦
+
++ z
+
+2 1,â¦
+
+1 1 â Î· â H0 (â¦) , z â H0 (â¦) ,
+
+(1.16) Ë Ë EsA â¥ Ct v s
+2 2 1,Î 2 1,Î 2 1,Î 1 â v s â H0 (Î) , 1 â Ïs â H0 (Î) , x
+
+t
+Î
+
+(1.17) (1.18) (1.19)
+
+t3
+Î
+
+Âµs J Ë Ë
+
+â¥ Ct3 Ïs x
+2
+
+t3
+Î
+
+Ë Ë E s Iyy
+
+dÏs y dx
+
+2
+
++t
+
+dz s Îºs Âµ s A Ë Ë + Ïs y dx Î
+
+â¥ Ct3
+
+zs
+
++ Ïs y
+
+2 1,Î
+
+1 â Ïs , z s â H0 (Î) . y
+
+The inequalities (1.14) and (1.15) are consequences of Kornâs inequalities, whereas (1.16) is a classical result, (see [6]). In its turn, (1.17)â(1.19) follow from the scalings (1.11)â(1.12), PoincarÂ´ inequality and a straightforward e s 2 computation for Î dz + Ïs (see [1]). y dx
+
+A FINITE ELEMENT FOR STIFFENED PLATES
+
+7
+
+On the other hand, B (Â·, Â·) satisï¬es an inf-sup condition: There exists C > 0, independent of t, such that, S := sup
+0=V âH
+
+B (V , Ï) â¥C Ï V H
+
+Q
+
+âÏ â Q.
+
+1 To prove this, we consider separately each component of Ï. For the ï¬rst one, we take v1 â H0 (â¦) arbitrary and the remaining components of V equal to zero, to write
+
+Sâ¥
+
+sup
+1 0=v1 âH0 (â¦)
+
+Î
+
+Ï1 v1 Ï Ï Î 1 â¥ C1 sup = C Ï1 v1 1,â¦ Ï 1/2,Î 1/2 0=ÏâH (Î)
+00
+
+â1/2,Î
+
+.
+1/2
+
+(1.20)
+
+For the second inequality, we have used the equivalence between the intrinsic norm of H00 (Î) and the norm inf v
+1,â¦ 1 , v â H0 (â¦) : v|Î = Ï
+
+(see [15]). The same arguments allow us to prove that
+â1/2,Î
+
+S â¥ C Ï2
+
+and
+
+S â¥ C Ï3
+
+â1/2,Î
+
+.
+
+(1.21)
+
+1 Finally, taking Î·1 â H0 (â¦) arbitrary and the remaining components of V equal to zero and using (1.20), we have Ï4 â1/2,Î â¤ C S + r Ï1 â1/2,Î â¤ C (1 + r) S,
+
+which, since r is bounded above, leads to S â¥ C Ï4
+â1/2,Î
+
+.
+
+The inequality above together with (1.21) and (1.20) allow us to prove the inf-sup condition for B. This condition and the global ellipticity of A allow us to use the standard theory for mixed problems (see [6]) to conclude the following theorem: Theorem 1.1. For any t > 0 ï¬xed, problem (1.9)â(1.10) has a unique solution (U , Î») â H Ã Q. Remark 1.2. Solution to problem (1.9)â(1.10) is bounded in terms of F H . However, in principle, this bound is not necessarily uniform with respect to t, since the ellipticity and continuity constants of the bilinear form A depend on diï¬erent powers of the thickness (see [6, Prop. II.1.3]).
+
+2. Concentrically stiffened plates
+The analysis of the previous section is valid for concentrically as well as eccentrically stiï¬ened plates. For the latter, in-plane and transverse terms are fully coupled and each one involve diï¬erent scales with respect to the thickness. In this regard, this resembles what happens in the shell problem, for which the analysis is much less mature than for plates. This is the reason why, from now on, we restrict our attention to concentrically stiï¬ened plates (i.e, r = 0, see Figure 2). In this case, the plate problem decomposes into two uncoupled ones: the in-plane and the bending stiï¬ened plate problems, as it happens for non stiï¬ened plates. In fact, the in-plane displacements u and us relate with the remaining variables only through equation (1.5) which is part of (1.10) and this happen only if r = 0. For r = 0 we are led to the following two uncoupled problems, the ï¬rst one for the in-plane terms and the second one for the bending terms: 2 1 1 Find (u, us ) â H0 (â¦) Ã H0 (Î) and Î»1 â H â1/2 (Î) such that ta1 (u, v) + t
+s s Ë Ë du dv + EsA dx dx Î
+
+Î»1 (v1 â v s ) = t
+Î â¦
+
+f Â·v
+
+1 1 â (v, v s ) â H0 (â¦) Ã H0 (Î) ,
+
+2
+
+(2.1) (2.2)
+
+Ï1 (u1 â us ) = 0
+Î
+
+âÏ1 â H â1/2 (Î) .
+
+8
+
+Â´ R. DURAN, R. RODRÂ´ IGUEZ AND F. SANHUEZA 1 1 1 s s Find Î², w, ws , Î¸x , Î¸y â H0 (â¦) Ã H0 (â¦) Ã H0 (Î) and (Î»2 , Î»3 , Î»4 ) â H â1/2 (Î) such that 2 3 3
+
+t3 a2 (Î², Î·) + t
+â¦
+
+ÎºÂµ ( w â Î²) Â· ( z â Î·) + t3
+Î
+
+Ë Ë E s Iyy
+
+s dÎ¸y dÏs y + t3 dx dx
+
+Âµs J Ë Ë
+Î
+
+s dÎ¸x dÏs x dx dx
+
++t
+Î
+
+Îºs Âµ s A Ë Ë
+
+dws s + Î¸y dx
+
+dz s + Ïs y dx
+
++
+Î
+
+Î»2 (z â z s ) +
+Î
+
+Î»3 (Î·2 â Ïs ) + x
+2
+
+Î
+
+Î» 4 Î· 1 + Ïs = t y
+3
+
+gz
+â¦
+
+1 1 1 â Î·, z, z s , Ïs , Ïs â H0 (â¦) Ã H0 (â¦) Ã H0 (Î) , x y
+
+(2.3) (2.4)
+
+Ï2 (w â ws ) +
+Î Î
+
+s Ï3 (Î²2 â Î¸x ) +
+
+Î
+
+s Ï 4 Î²1 + Î¸ y = 0
+
+â (Ï2 , Ï3 , Ï4 ) â H â1/2 (Î) .
+
+3
+
+Ë Ë Ë From now on, to simplify a bit the notation, we set all the following constants equal to one: A, Iyy , J, Îº, Îºs , Ë s , Âµs , as well as E (which appears in the deï¬nition of a1 and a2 ). Moreover, we consider values of t ranging E Ë in (0, 1]. Since these constants have been assumed to be independent of t, this does not aï¬ect any subsequent asymptotic analysis. Moreover to obtain a family of problems uniformly stable with respect to t, we consider a transverse load proportional to t2 , namely g = g t2 Ë (2.5) with g independent of t. Finally, it is also convenient for the analysis to rescale the Lagrange multipliers Ë according to the scales of the diï¬erent problems in which they appear: Ë Î»1 = Î»1 t and Ë Î»i = Î»i t3 , i = 2, 3, 4. (2.6)
+
+In what follows we analyze the resulting rescaled problems.
+
+2.1. Stiï¬ened in-plane plate problem
+Using the scaling (2.6) in (2.1)â(2.2) and setting the constants equal to one, we obtain the following rescaled Ë problem, in which we omit the tildes in Î»1 to simplify the notation: 2 1 1 Find (u, us ) â H0 (â¦) Ã H0 (Î) and Î»1 â H â1/2 (Î) such that a1 (u, v) +
+Î
+
+dus dv s + dx dx
+
+Î»1 (v1 â v s ) =
+Î â¦
+
+f Â·v
+
+1 1 â (v, v s ) â H0 (â¦) Ã H0 (Î) ,
+
+2
+
+(2.7) (2.8)
+
+Ï1 (u1 â us ) = 0
+Î
+
+âÏ1 â H â1/2 (Î) .
+
+This is a well posed problem completely independent of the thickness t. In fact, all the bilinear forms in this problem are continuous and the following ellipticity result holds: a1 (v, v) +
+Î
+
+dv s dx
+
+2
+
+â¥C
+
+v
+
+2 1,â¦
+
++ vs
+
+2 1,Î
+
+1 1 â (v, v s ) â H0 (Î) Ã H0 (â¦) .
+
+2
+
+(2.9)
+
+Moreover, the arguments leading to (1.20) show that there exists C > 0, independent of t, such that sup
+1 1 0=(v,v s )âH0 (â¦)2 ÃH0 (Î)
+
+Ï1 (v1 â v s ) â¥ C Ï1 v 1,â¦ + v s 1,Î
+Î
+
+â1/2,Î
+
+â Ï1 â H â1/2 (Î) .
+
+Thus, using BabuËka-Brezzi theory (see [6]), we have the a-priori estimate s u
+1,â¦
+
++ us
+
+1,Î
+
++ Î»1
+
+â1/2,Î
+
+â¤C f
+
+0,â¦
+
+.
+
+A FINITE ELEMENT FOR STIFFENED PLATES
+
+9
+
+2.2. Stiï¬ened bending plate problem
+In this case we use the scalings (2.5) and (2.6) in (2.3)â(2.4). Thus if we denote
+1 1 1 H := H0 (â¦) Ã H0 (â¦) Ã H0 (Î) 2 3
+
+and
+
+Q := H â1/2 (Î) ,
+
+3
+
+and set the constants equal to one again, then we arrive at the following rescaled problem, in which we omit Ë the tildes in Î»i , i = 2, 3, 4, and g : Ë s s Find Î², w, ws , Î¸x , Î¸y â H and (Î»2 , Î»3 , Î»4 ) â Q such that a2 (Î², Î·) + +
+Î
+
+1 t2
+
+( w â Î²) Â· ( z â Î·) +
+â¦ s Î
+
+s dÎ¸x dÏs x + dx dx
+
+Î
+
+s dÎ¸y dÏs 1 y + 2 dx dx t
+
+Î
+
+dws s + Î¸y dx
+
+dz s + Ïs y dx (2.10) (2.11)
+
+Î»2 (z â z ) +
+Î
+
+Î»3 (Î·2 â
+
+Ïs ) x
+
++
+Î
+
+Î»4 Î· 1 +
+
+Ïs y
+
+=
+â¦
+
+gz
+
+â Î·, z, z s , Ïs , Ïs â H, x y
+
+Ï2 (w â ws ) +
+Î Î
+
+s Ï3 (Î²2 â Î¸x ) +
+
+Î
+
+s Ï 4 Î²1 + Î¸ y = 0
+
+â (Ï2 , Ï3 , Ï4 ) â Q.
+
+This problem has a unique solution. In fact, this is a consequence of Theorem 1.1 and the equivalence of problem (1.9)â(1.10) with (2.7)â(2.8) and (2.10)â(2.11) in the case r = 0. However, this theorem does not imply that the solution is bounded independently of t (cf. Remark 1.2). Our next goal is to prove that, for a non vanishing g, the solution of problem (2.10)â(2.11) is bounded above and below far from zero, both uniformly with respect to t. More precisely, we will prove that for g = 0, there exist strictly positive constants C1 and C2 such that the solution of this problem satisï¬es C1 â¤ Î²
+1,â¦
+
++ w
+
+1,â¦
+
++ ws
+
+1,Î
+
+s + Î¸x
+
+1,Î
+
+s + Î¸y
+
+1,Î
+
+â¤ C2 ,
+
+(2.12)
+
+for all t â (0, 1]. With this aim we consider the space W := endowed with the norm (Î·, z)
+2 W 1 1 (Î·, z) â H0 (â¦) Ã H0 (â¦) : 2
+
+dÎ·1 dÎ·2 dz , , â L2 (Î) , dx dx dx
+
+:= Î·
+
+2 1,â¦
+
++ z
+
+2 1,â¦
+
++ Î·1
+
+2 1,Î
+
++ Î·2
+
+2 1,Î
+
++ z
+
+2 1,Î
+
+,
+
+(Î·, z) â W .
+
+Equation (2.11) is equivalent to. ws = w,
+s Î¸ x = Î²2
+
+and
+
+s Î¸y = âÎ²1
+
+on Î,
+
+(2.13)
+
+which in its turn implies that (Î², w) â W . Using this and testing (2.10) with functions satisfying the same constraints, we arrive at a2 (Î², Î·) + 1 t2 ( w â Î²) Â· ( z â Î·) +
+â¦ Î
+
+âÎ²1 âÎ·1 + âx âx
+
+Î
+
+1 âÎ²2 âÎ·2 + 2 âx âx t
+
+Î
+
+âz âw â Î²1 â Î·1 = âx âx â (Î·, z) â W .
+
+gz
+â¦
+
+(2.14)
+
+Testing the above problem with (Î·, z) = (Î², w) we obtain a2 (Î², Î²) + 1 t2 ( w â Î²) +
+â¦ Î 2
+
+âÎ²1 âx
+
+2
+
++
+Î
+
+âÎ²1 âx
+
+2
+
++
+
+1 t2
+
+Î
+
+âw â Î²1 âx
+
+2
+
+=
+â¦
+
+gw.
+
+(2.15)
+
+10
+
+Â´ R. DURAN, R. RODRÂ´ IGUEZ AND F. SANHUEZA
+
+On the other hand, from (1.16) we have that Î²
+2 1,â¦
+
++ w
+
+2 1,â¦
+
+â¤C
+
+1 t2
+
+wâÎ²
+
+2 0,â¦
+
++ a2 (Î², Î²) ,
+
+(2.16)
+
+whereas from (1.17) and (1.19) we have w
+2 1,Î
+
++ Î²1
+
+2 1,Î
+
++ Î²2
+
+2 1,Î
+
+â¤C
+
+1 t2
+
+âw â Î²1 âx
+
+2
+
++
+0,Î Î
+
+âÎ²1 âx
+
+2
+
++
+Î
+
+âÎ²2 âx
+
+2
+
+.
+
+(2.17)
+
+Therefore, adding (2.16) and (2.17) and using (2.15), we obtain Î² from which it follows that Î²
+1,â¦ 2 1,â¦
+
++ w
+
+2 1,â¦
+
++ w
+
+2 1,Î
+
++ Î²1
+
+2 1,Î
+
++ Î²2
+
+2 1,Î
+
+â¤C
+â¦
+
+gw,
+
++ w
+
+1,â¦
+
++ w
+
+1,Î
+
++ Î²1
+
+1,Î
+
++ Î²2
+
+1,Î
+
+â¤ C2 ,
+
+(2.18)
+
+with C2 only depending on g and the domain â¦. To prove the other estimate in (2.12), we observe that the solution (Î², w) â W to problem (2.14) is the minimum in W of the energy functional Et (Î·, z) deï¬ned by Et (Î·, z) := 1 2 a2 (Î·, Î·) + 1 t2 ( z â Î·) +
+â¦ Î 2
+
+âÎ·1 âx
+
+2
+
++
+Î
+
+âÎ·2 âx
+
+2
+
++
+
+1 t2
+
+Î
+
+âz â Î·1 âx
+
+2
+
+â
+â¦
+
+gz. (2.19)
+
+Consider the following closed subspace of W : W 0 := {(Î·, z) â W : z = Î·} =
+2 ( z, z) , z â H0 (â¦) :
+
+â2z â2z , â L2 (Î) . âxây âx2
+
+For (Î·, z) â W 0 , the associated energy reads Et (Î·, z) := We note that min Et â¤ min Et < 0.
+W W0
+
+1 2
+
+a2 ( z, z) +
+Î
+
+â2z âx2
+
+2
+
++
+Î
+
+â2z âxây
+
+2
+
+â
+â¦
+
+gz.
+
+(2.20)
+
+In fact, the ï¬rst inequality is clear, whereas for the second one we observe that the minimum of Et in W 0 is attained at (Î·, z) = ( z0 , z0 ) â W 0 with z0 satisfying a2 ( z0 , z) +
+Î
+
+â 2 z0 â 2 z + âx2 âx2
+
+Î
+
+â 2 z0 â 2 z = âxây âxây
+
+gz
+â¦
+
+â ( z, z) â W 0 .
+
+(2.21)
+
+The bilinear form on the left hand side is bounded and elliptic in W 0 , the latter because of (1.15). Hence, from the Lax-Milgram Lemma, there exists a unique solution of (2.21) ( z0 , z0 ) â W 0 and it satisï¬es ( z0 , z0 ) W â¤ C g 0,â¦ . Therefore, for g = 0, replacing (2.21) in (2.20), we have min Et (Î·, z) â¤ min Et (Î·, z) = â 1 2 a 2 ( z0 , z0 ) +
+Î
+
+(Î·,z)âW
+
+(Î·,z)âW 0
+
+â 2 z0 âx2
+
+2
+
++
+Î
+
+â 2 z0 âxây
+
+2
+
+=: âC0 < 0. (2.22)
+
+A FINITE ELEMENT FOR STIFFENED PLATES
+
+11
+
+Since minW Et (Î·, z) is attained in the solution (Î², w) of problem (2.14), we use this equation in (2.19) and (2.22) to write a2 (Î², Î²) + 1 t2 ( w â Î²) +
+â¦ Î 2
+
+âÎ²1 âx
+
+2
+
++
+Î
+
+âÎ²2 âx
+
+2
+
++
+
+1 t2
+
+Î
+
+âw â Î²1 âx
+
+2
+
+â¥ 2C0 .
+
+(2.23)
+
+On the other hand, testing (2.14) with (Î·, z) = (Î², w), we have 1 t2 ( w â Î²) +
+â¦ 2
+
+1 t2
+
+Î
+
+âw â Î²1 âx
+
+2
+
+=
+â¦
+
+gw â a2 (Î², Î²) â
+Î
+
+âÎ²1 âx
+2 0,â¦
+
+2
+
+â
+Î
+
+âÎ²2 âx
+
+2
+
+â¤
+â¦
+
+gw â¤
+
+2
+
+g
+
+2 0,â¦
+
+1 + w 2
+
+â > 0.
+
+(2.24)
+
+Substituting (2.24) in (2.23), choosing an adequate value of and using the boundedness of a2 (Â·, Â·), we arrive at Î² 1,â¦ + w 1,â¦ + w 1,Î + Î²1 1,Î + Î²2 1,Î â¥ C1 . (2.25) Therefore, recalling (2.13), we obtain the following result as a consequence of (2.18) and (2.25)
+s s Proposition 2.1. Given a non vanishing g â L2 (â¦), let Î², w, ws , Î¸x , Î¸y â H be the solution of (2.10)â(2.11). Then, there exists strictly positive constants C1 , C2 independent of t â (0, 1] such that
+
+C1 â¤ Î²
+
+1,â¦
+
++ w
+
+1,â¦
+
++ ws
+
+1,Î
+
+s + Î¸x
+
+1,Î
+
+s + Î¸y
+
+1,Î
+
+â¤ C2 .
+
+In what follows we present some regularity results associated to the stiï¬ened bending plate problem. First, we deï¬ne the shear terms in the plate and the stiï¬ener as follows: Î³ := 1 ( w â Î²) , t2 1 dws s Î± := 2 + Î¸y . t dx
+2 2
+
+(2.26) (2.27)
+
+s Proposition 2.2. The solution of (2.10)â(2.11) satisï¬es Î²|â¦i â H 2 (â¦i ) , w|â¦i â H 2 (â¦i ) , i = 1, 2, and Î¸x , 2 s Î¸y , ws â H 5/2 (Î). Moreover, Î³|â¦i â H 1 (â¦i ) , i = 1, 2, and Î± â H 3/2 (Î). 1 Proof. Testing (2.10) with Ïs â H0 (Î) and setting to zero all the other test functions, we have x s d2 Î¸ x = Î»3 â H â1/2 (Î) 2 dx
+
+â
+
+(2.28)
+
+s and hence Î¸x â H 3/2 (Î). In a similar way, testing (2.10) with z s = 0 and Ïs = 0, we obtain that Î± â H 1/2 (Î) y s and Î¸y â H 3/2 (Î), respectively. Consequently, (2.27) yields ws â H 3/2 (Î). Next we extend ws to the whole 1 domain â¦ in such a way that the extension belongs to H 2 of each subdomain â¦i . More precisely, let w0 â H0 (â¦) 2 be such that w0 |â¦i â H (â¦i ), i = 1, 2, (see [16, Theorem 1.5.2.8]) and
+
+w 0 |Î = w s .
+1 Analogously, let Î² 0 â H0 (â¦) : Î² 0 |â¦i â H 2 (â¦i ), i = 1, 2, and s s Î² 0 |Î = âÎ¸y , Î¸x . 2
+
+12
+
+Â´ R. DURAN, R. RODRÂ´ IGUEZ AND F. SANHUEZA
+
+2 1 1 Ë Let Î² â H0 (â¦) and w â H0 (â¦) be deï¬ned by Ë
+
+Ë Î² = Î² + Î²0
+
+and
+
+w = w + w0 . Ë
+2
+
+(2.29)
+
+1 1 Ë Ë Since Î²|Î = Î² 0 |Î and w|Î = w0 |Î , we have that Î²|â¦i â H0 (â¦i ) and w|â¦i â H0 (â¦i ), i = 1, 2. Our next goal Ë Ë is to show that (Î²|â¦i , w|â¦i ) is the solution of a plate problem for which an additional regularity result holds. 2 1 1 With this aim, we take Î· â H0 (â¦i ) and z â H0 (â¦i ) and extend them by zero to â¦. These extensions, that 2 1 1 we also denote Î· and z, clearly satisfy Î· â H0 (â¦) and z â H0 (â¦). If we take such Î· and z with vanishing z s , s s Ïx and Ïy in (2.10), we obtain that
+
+ai (Î², Î·) + 2 where
+
+1 t2
+
+( w â Î²) Â· ( z â Î·) =
+â¦i â¦i
+
+gz
+
+1 1 â (Î·, z) â H0 (â¦i ) Ã H0 (â¦i ) ,
+
+2
+
+(2.30)
+
+ai (Î², Î·) := 2
+
+1 12
+
+â¦i
+
+EÎ½ div Î² div Î· + 1 â Î½2
+
+â¦i
+
+E (Î²) : (Î·) . 1+Î½
+
+2 1 1 Ë Ë Therefore, using (2.29), we have that Î²|â¦i â H0 (â¦i ) and w|â¦i â H0 (â¦i ) solve the following problem:
+
+1 Ë ai Î², Î· + 2 2 t
+
+â¦i
+
+1 w â Î² Â· ( z â Î·) = âai (Î² 0 , Î·) â 2 Ë Ë 2 t =:
+â¦i
+
+â¦i
+
+( w0 â Î² 0 ) Â· ( z â Î·) +
+2
+
+gz
+â¦i
+
+F Â·Î·+
+â¦i
+
+Gz
+2
+
+1 1 â (Î·, z) â H0 (â¦i ) Ã H0 (â¦i ) .
+
+Notice that F â L2 (â¦) and G â L2 (â¦), because Î² 0 |â¦i â H 2 (â¦i ) and w0 |â¦i â H 2 (â¦i ). Hence, using the 2 Ë Ë regularity results of [2, Theorem 2.1], we have that (Î², w) â H 2 (â¦i ) Ã H 2 (â¦i ), which using (2.29) yields the regularity for Î². The next step is to prove additional regularity for Î³ and Î±. With this aim, we observe ï¬rst that by using the 2 deï¬nition of Î³ in (2.26) and the regularity of Î² and w we have that Î³|â¦i â H 1 (â¦i ) , i = 1, 2. 1 On the other hand, testing problem (2.30) with z â H0 (â¦i ) and Î· = 0, we obtain that â div Î³ = g in â¦i .
+
+2
+
+1 Therefore, testing (2.10) with z â H0 (â¦) and all the other variables set to zero, integrating by parts in each subdomain â¦i and using the equation above, we have that
+
+[[Î³ Â· n]] z +
+Î Î
+
+Î»2 z = 0
+
+where [[Â·]] denotes the jump across Î. Consequently, from the regularity of Î³, we obtain Î»2 â H 1/2 (Î). Therefore, 1 testing (2.10) with z s â H0 (Î) and all the other variables set to zero, we have that Î± = Î»2 and hence 2 1 Î± â H 3/2 (Î). Moreover, testing (2.30) with Î· â H0 (â¦i ) and z = 0, we obtain â div (Ï (Î²)) = Î³ where Ï (Î²) :=
+1 H0 2 1 12 E 1+Î½
+
+in â¦i ,
+
+(Î²) +
+
+E 1âÎ½ 2
+
+div Î²
+
+is the plane-strain stress tensor. Thus, testing (2.10) with Î· â
+
+(â¦) and all the other test functions set to zero, integrating by parts in each subdomain â¦i and using the above equation, we arrive at
+Î
+
+[[Ï (Î²) n]]Î Â· Î· +
+
+(Î»3 Î·2 + Î»4 Î·1 ) = 0.
+Î
+
+A FINITE ELEMENT FOR STIFFENED PLATES
+
+13
+
+Consequently, since Î²|â¦i â H 2 (â¦i ), i = 1, 2, we obtain that Î»3 , Î»4 â H 1/2 (Î). Therefore, from (2.28) and the s s s analogous expression for Î¸y , we obtain that Î¸x and Î¸y are in H 5/2 (Î). Finally from these regularity results, s (2.27) and the additional regularity of Î±, we obtain w â H 5/2 (Î) and conclude the proof. Remark 2.3. According to Proposition 2.2, the solution of problem (2.10)â(2.11) satisï¬es additional regularity. However, we have not proved that the corresponding norms are bounded independently of t. Indeed, we have used that Î»2 , Î»3 and Î»4 belong to H â1/2 (Î), which is true but we do not have bounds of Î»2 â1/2,Î , Î»3 â1/2,Î and Î»4 â1/2,Î independent of t (cf. Remark 1.2). In spite of this, the numerical results in Section 5 seem to suggest that such bounds should hold true.
+
+3. The discrete problems
+We consider separately the discretization of the stiï¬ened in-plane and bending problems. Let {Th } be a regular family of triangulations consistent with Î, in the sense that, for all meshes, Î is a union of edges of Î Î Th . Let Th be the partition induced by Th in Î. We assume that the family {Th } is such that Th is quasi uniform.
+
+3.1. Stiï¬ened in-plane plate problem
+We deï¬ne:
+1 Xh := zh â H0 (â¦) : zh |T â P1 âT â Th , 1 Î Pkh := vh â H0 (Î) : vh | â Pk â â Th ,
+
+k â N,
+
+where Pk denotes the polynomials of degree at most k. Let X h := Xh Ã Xh . The discrete analogue to problem (2.7)â(2.8) reads: Find (uh , us ) â X h Ã P1h and Î»1h â P1h such that h a1 (uh , v h ) +
+Î s dus dvh h + dx dx s Î»1h (v1h â vh ) =
+
+f Â· vh
+â¦
+
+Î
+
+s â (v h , vh ) â X h Ã P1h ,
+
+(3.1) (3.2)
+
+Î 2
+
+Ï1h (u1h â us ) = 0 h
+
+âÏ1h â P1h .
+
+1 1 Since X h â H0 (â¦) and P1h â H0 (Î), by virtue of (2.9) we only need to prove the following inf-sup condition to be able to apply the classical BabuËka-Brezzi theory: s Î sup vh s âX ÃP 0=(v h ,vh ) h 1h s Ïh (v1h â vh ) â¥ C Ïh s 1,â¦ + vh 1,Î
+
+â1/2,Î
+
+âÏh â P1h .
+
+Â¯ To prove this, we will deï¬ne a Fortin operator Î . With this aim we deï¬ne several auxiliary operators. 2 2 First let Ï : L (Î) â P1h be the L -projection. Clearly we have that Ë Ïv Ë
+0,Î
+
+â¤C v
+
+0,Î
+
+âv â L2 (Î) .
+
+Moreover, it is a classical result (see [14, Lemma 1.131]) that Ïv Ë
+Î provided Th arrive at 1,Î
+
+â¤C v
+
+1,Î
+
+1 âv â H0 (Î) ,
+
+(3.3)
+
+is a quasi-uniform family of meshes. Consequently, using interpolation of Banach Spaces we Ïv Ë
+1/2,Î
+
+â¤C v
+
+1/2,Î
+
+.
+
+(3.4)
+
+14
+
+Â´ R. DURAN, R. RODRÂ´ IGUEZ AND F. SANHUEZA
+
+1 1 Next, let ISZ : H0 (â¦) â Xh be a Scott-Zhang interpolation operator (see [22]) such that if v â H0 (â¦) and v|Î â P1h , then (ISZ v)|Î = v|Î . 1/2 1 On the other hand, let E : H00 (Î) â H0 (â¦) be a continuous right-inverse of the trace operator on Î. Notice that ISZ (Evh ) = vh â vh â P1h . (3.5)
+
+Now we are in the a position to deï¬ne the Fortin operator Â¯ Î  (v, v s ) := ((ISZ (E (Ë ( v1 |Î ))) , ISZ v2 ) , Ï v s ) . Ï Ë As a consequence of (3.3), (3.4) and the boundedness of the operators E and ISZ , we have Â¯ Î  (v, v s )
+1 1 H0 (â¦)2 ÃH0 (Î)
+
+â¤C
+
+v
+
+1,â¦
+
++ vs
+
+1,Î
+
+1 1 â (v, v s ) â H0 (â¦) Ã H0 (Î) .
+
+2
+
+Â¯ Moreover Î  satisï¬es the commuting diagram property. In fact, because of (3.5), (v1 â ISZ (E (Ë ( v1 |Î )))) Ïh = 0 Ï âÏh â P1h .
+
+Î
+
+Â¯ Therefore Î  satisï¬es the assumptions of the Fortin lemma [14]. Consequently the BabuËka-Brezzi theory (see s for instance [6]) allows us to prove the next theorem. Theorem 3.1. Problem (3.1)â(3.2) has a unique solution (uh , us , Î»1h ) â X h Ã P1h Ã P1h and there exists a h positive constant C such that, if (u, us ) is the solution to problem (2.7)â(2.8), then u â uh
+1,â¦
+
++ us â us h inf
+
+1,Î
+
++ Î»1 â Î»1h
+1,â¦
+
+â1/2,Î s us â v h 1,Î
+
+â¤C
+
+v h âX h
+
+u â vh
+
++ s inf
+
+vh âP1h
+
++
+
+Ï1h âP1h
+
+inf
+
+Î»1 â Ï1h
+
+â1/2,Î
+
+.
+
+The error estimate above depends as usual on additional regularity of the solution to the continuous problem 1 (2.7)â(2.8). In what follows we derive a simpler form of this problem. By testing (2.7) with v s â H0 (Î) and setting the other variables to zero we have â d2 u s = Î»1 â H â1/2 (Î) dx2
+
+and hence, us â H 3/2 (Î). Moreover, from (2.8), u1 = us on Î. On the other hand, using diï¬erent test functions in (2.7) it can be shown that [[Ï (u) n]]Î = Î»1 0
+2
+
+(3.6)
+
+EÎ½ E 1 where Ï (u) := 1+Î½ (u) + (1+Î½)(1â2Î½) (div u)I is the plane-stress stress tensor. Therefore, u â H0 (â¦) is the solution to the following problem:
+
+â div (Ï (u)) = f â L2 (â¦i ) , u1 = u â âu2 ân =0
+s 1/2 H00
+
+i = 1, 2,
+
+(Î) â© H 3/2 (Î) ,
+
+on Î.
+
+A FINITE ELEMENT FOR STIFFENED PLATES
+
+15
+
+This can be seen as the coupling of two elliptic problems, one in each subdomain â¦i , i = 1, 2, with a Dirichlet boundary condition for the component u1 and a transmission condition for u2 . It seems reasonable to expect E additional regularity for the solution to this problem. In such a case, Î»1 = 2(1+Î½) âu1 + âu2 would be more ây âx regular, too.
+
+3.2. The stiï¬ened bending plate problem
+To discretize this problem we consider the DL3 element introduced in [12]. For each T â Th , let Âµ1 , Âµ2 , Âµ3 be its barycentric coordinates. We denote by Ïi a unit tangent vector to the edge Âµi = 0 and deï¬ne p 1 = Âµ2 Âµ3 Ï 1 , Let
+1 Y h := Î· â H0 (â¦) : Î·|T â P1 â p1 , p2 , p3 2
+
+p2 = Âµ1 Âµ3 Ï 2 ,
+
+p3 = Âµ1 Âµ2 Ï 3 .
+
+(3.7)
+
+â T â Th ,
+
+Wh := v â
+
+P0h := Ï â L (Î) : Ï| â P0 Îh :=
+
+1 H0 2
+
+(â¦) : v|T â P1
+
+âT â Th ,
+Î â â Th ,
+
+2 Î· h â H0 (rot, â¦) : Î· h |T â P0 â P0
+
+âx2 x1
+
+âT â Th ,
+
+the latter being the rotated Raviart-Thomas space (see [21]). Let Î  be the rotated Raviart-Thomas interpolant 2 2 on this space (see [21] again). This operator is well deï¬ned in H 1 (â¦) . Moreover for Î· â H 1 (â¦) â© H0 (rot, â¦), Î Î· â Îh and there holds Î· â Î Î·
+0,â¦
+
+â¤ Ch Î·
+
+1,â¦
+
+.
+
+(3.8)
+
+Let Ï : L2 (Î) â P0h be the orthogonal projection onto P0h . It is well known that v â Ïv
+0,Î
+
+â¤ Ch v
+
+1,Î
+
+âv â H 1 (Î) .
+
+(3.9)
+
+Let Ï : L2 (Î) â P2h be the orthogonal projection onto P2h . Ë Finally, let H h := Y h Ã Wh Ã P1h Ã P1h Ã P2h and Qh := P1h Ã P1h Ã P2h
+
+The discrete problem is deï¬ned as follows: s s s Find Î² h , wh , wh , Î¸xh , Î¸yh â H h and (Î»2h , Î»3h , Î»4h ) â Qh such that a2 (Î² h , Î· h ) + + +
+Î s s âÎ¸yh âÏs 1 âÎ¸xh âÏs yh xh ( wh â Î Î² h ) Â· ( zh â Î Î· h ) + + , t2 â¦ âx âx Î âx Î âx s s âzh âzh s s Î»2h (zh â zh ) + Î»3h (Î·2h â Ïs ) + ÏÎ¸yh + ÏÏs xh yh + âx âx Î Î
+
+1 t2
+
+Î
+
+Î»4h Î·1h â Ïs = yh
+
+gzh
+â¦
+
+â Î· h , z h , z s , Ï s , Ïs â H h , xh yh
+s Ï4h Î²1h + Î¸yh = 0
+
+(3.10) (3.11)
+
+Î
+
+s Ï2h (wh â wh ) +
+
+Î
+
+s Ï3h (Î²2h â Î¸xh ) +
+
+Î
+
+â (Ï2h , Ï3h , Ï4h ) â Qh .
+
+16
+
+Â´ R. DURAN, R. RODRÂ´ IGUEZ AND F. SANHUEZA
+
+The existence and uniqueness of the solution to (3.10)â(3.11) is obtained using the BabuËka-Brezzi theory. s The ellipticity condition a2 (Î· h , Î· h ) + 1 t2 | zh â Î Î· h | + â¥C
+2
+
+â¦
+
+1 t2
+
+Î
+
+s âzh + ÏÏs yh âx
+
+2
+
++
+Î
+
+âÏs xh âx
+
+2
+
++
+Î
+
+âÏs yh âx
+2 1,Î
+
+2
+
+2 Î· h 1,â¦
+
++
+
+2 zh 1,â¦
+
++
+
+s 2 zh 1,Î
+
++
+
+2 Ïs 1,Î xh
+
++ Ïs yh
+
+â Î· h , z h , z s , Ïs , Ïs â H h , xh yh is obtained from the ellipticity of the discrete unstiï¬ened plate problem (see for instance [12]), the ellipticity of 1 the discrete beam problem (see for instance [1]) and PoincarÂ´ inequality in H0 (Î). e On the other hand, it is simple to show that the discrete inf-sup condition holds true (with a positive constant in principle depending of h) if and only if sup
+0=(
+s Î·,zh ,zh ,Ïs ,Ïs yh xh
+
+)âH h
+
+Î
+
+s Ï2h (zh â zh ) + Ï3h (Î·2h â Ïs ) + Ï4h Î·1h + Ïs > 0 xh yh
+
+â (Ï2h , Ï3h , Ï4h ) â Qh .
+
+s The latter can be proved by taking Ï2h = zh |Î â zh , Ï3h = Î·2h |Î â Ïs and Ï4h = Î·1h |Î + Ïs . Thus we arrive xh yh at the following lemma.
+
+Lemma 3.2. Problem (3.10)â(3.11) has a unique solution.
+
+4. Error estimate
+Let us introduce the discrete shear terms approximating (2.26) and (2.27): 1 ( wh â Î Î² h ) , t2 s 1 âzh s Î±h := 2 + ÏÎ¸yh . t âx Î³ h := (4.1) (4.2)
+
+The ï¬rst step to obtain error estimates is to write an error equation. With this aim, we test the continuous problem (2.10)â(2.11) and the discrete problem (3.10)â(3.11) with
+s Î· h , z h , z h , Ï s , Ïs xh yh â H h to obtain
+
+a2 (Î² â Î² h , Î· h ) + +
+Î
+
+â¦
+
+(Î³ â Î³ h ) Â· ( âÏs y + âx
+
+zh â Î Î· h ) +
+s âÎ¸s âÎ¸x â xh âx âx
+
+(Î± â Î±h )
+Î
+
+âz s + ÏÏs y âx (Î»2 â Î»2h ) (z â z s )
+Î
+
+s s âÎ¸yh âÎ¸y â âx âx
+
+Î
+
+âÏs x + âx
+
++
+Î
+
+(Î»3 â Î»3h ) (Î·2 â Ïs ) + x Î³ Â· (Î· h â Î Î· h ) +
+
+Î
+
+(Î»4 â Î»4h ) Î·1 â Ïs y
+s â Î· h , z h , z h , Ïs , Ïs â H h , xh yh
+
+=
+â¦
+
+Î
+
+Î± ÏÏs â Ïs yh yh
+
+(4.3)
+
+Î
+
+s Ï2h (w â wh â (ws â wh )) +
+
+Î
+
+s s Ï3h (Î²2 â Î²2h â (Î¸x â Î¸xh ))
+
++
+Î
+
+s s Ï4h Î²1 â Î²1h + Î¸y â Î¸yh = 0
+
+â (Ï2h , Ï3h , Ï4h ) â Qh .
+
+(4.4)
+
+The following lemma well be used to prove the error estimates.
+
+A FINITE ELEMENT FOR STIFFENED PLATES
+
+17
+Î
+
+Ë Ë Lemma 4.1. Given Î² â Y h , w â Wh , let Î³ := tâ2 Ë ws := w|Î â P1h and Î± := tâ2 Ë Ë Ë Ë Î² â Î²h
+dw s Ë dx
+
+Ë Ë Ës w â Î Î² â Îh , Î¸x := Î²2 Ë
+
+Ë Ës â P1h , Î¸y := âÎ²1
+
+Î
+
+â P2h ,
+
+Ës + Ï Î¸y â P0h . Then,
+s Ës + Î¸x â Î¸xh s Ës + Î¸y â Î¸yh
+
+1,â¦
+
+Ë + t Î³ â Î³h Ë Î²âÎ²
+1,â¦
+
+0,â¦
+
++ t Î± â Î±h Ë
+0,â¦
+
+0,Î
+
+1,Î
+
+1,Î
+
+â¤C
+
+Ë +t Î³âÎ³
+
++t Î±âÎ± Ë
+
+0,Î
+
+s Ës + Î¸x â Î¸x
+
+1,Î
+
+s Ës + Î¸y â Î¸y
+
+1,Î
+
++h Î³
+
+0,â¦
+
++h Î±
+
+0,Î
+
+.
+
+(4.5)
+
+Ë Ë Proof. Let R : H â1/2 (Î) â P1h and R : H â1/2 (Î) â P2h be the projectors respectively deï¬ned for any â1/2 Î»âH (Î) by Ë Î» â RÎ» Ïh = 0
+Î
+
+âÏh â P1h
+
+and
+Î
+
+Ë Î» â RÎ» Ïh = 0
+
+âÏh â P2h .
+
+Using this in the error equation (4.3) we have Ë a2 Î² â Î² h , Î· h + +
+Î s âzh + ÏÏs yh âx
+
+â¦
+
+(Ë â Î³ h ) Â· ( zh â Î Î· h ) + Î³ âÏs xh âx +
+Î
+
+( Î± â Î±h ) Ë
+Î
+
+Ës âÎ¸s â Î¸x â xh âx âx
+Î
+
+s Ës âÎ¸yh â Î¸y â âx âx
+
+âÏs yh âx Î·1h â Ïs yh
+
+=â â
+Î
+
+s Ë RÎ»2 â Î»2h (zh â zh ) â
+
+Ë RÎ»3 â Î»3h
+Î
+
+Ë Ë RÎ»4 â Î»4h (Î·2h + Ïs ) + a2 Î² â Î², Î· h xh (Ë â Î³) Â· ( zh â Î Î· h ) + Î³ Ës â Î¸x dÎ¸s â x âx dx âÏs xh + âx
+Î
+
++
+â¦
+
+(Ë â Î±) Î±
+Î
+
+s âzh â ÏÏs yh âx
+
++
+Î
+
+Î
+
+s Ës dÎ¸y â Î¸y â âx dx
+
+âÏs yh âx
+
++
+â¦
+
+Î³ Â· (Î· h â Î Î· h ) +
+
+Î± ÏÏs â Ïs . yh yh
+
+s s s Ës Ë Ës Ë Ë Now, take Î· h = Î² â Î² h , zh = w â wh , z s = ws â wh , Ïs = Î¸x â Î¸xh and Ïs = Î¸y â Î¸yh and use that ws = w|Î , Ë Ë yh xh s s Ë Ë Ë Ë Î¸x = Î²1 , Î¸y = â Î²2 and (4.4), to obtain Î Î
+
+Î
+
+s Ë Ë Ë RÎ»2 â Î»2h (w â wh â (ws â wh )) +
+
+Ë RÎ»3 â Î»3h
+Î
+
+s Ë Ës Î²1 â Î²1h â Î¸x â Î¸xh
+
++
+Î
+
+Ë RÎ»4 â Î»4h
+
+Ë Î²2 â Î²2h +
+
+Ës Î¸y
+
+â
+
+s Î¸yh
+
+= 0.
+
+18
+
+Â´ R. DURAN, R. RODRÂ´ IGUEZ AND F. SANHUEZA
+
+Ë Hence, using the ellipticity of a2 (cf. (1.15)), the deï¬nition of Î³ and Î±, (4.1), (4.2) and a little of algebra, we Ë obtain Ë Î² â Î²h â¤C
+2 1,â¦
+
+Ë + t2 Î³ â Î³h
+2 1,â¦
+
+2 0,â¦
+
++ t2 Î± â Î± h Ë
+2 0,â¦
+
+2 0,Î
+
+s Ës + Î¸y â Î¸yh 2 0,Î
+
+2 1,Î
+
+s Ës + Î¸x â Î¸xh 2 1,Î
+
+2 1,Î 2 1,Î
+
+Ë Î²âÎ²
+0,â¦
+
+Ë + t2 Î³ â Î³
+
++ t2 Î± â Î± Ë
+0,â¦
+
+s s Ë + C2 Î¸ y â Î¸ y
+
+s s Ë + Î¸x â Î¸x
+
++ Î³
+
+Ë Ë Î² â Î²h â Î  Î² â Î²h
+
++ Î±
+
+0,Î
+
+Ës Î¸y
+
+â
+
+s Î¸yh
+
+âÏ
+
+Ës Î¸y
+
+â
+
+s Î¸yh
+
+0,Î
+
+.
+
+where we have used (3.8) and (3.9) to obtain the last two terms. Thus we conclude the lemma. Ë Next step consists in deï¬ning Î² and w so that appropriate error estimates hold for the right hand side of Ë s (4.5). With this aim we will use the Lagrange interpolant IL of diï¬erent functions Î²1 , Î²2 , w, Î¸x , etc. This interpolant is well deï¬ned because of the additional regularity proved in Proposition 2.2. Moreover, for each edge of the triangulation, let t be a unit tangent vector and b the piecewise quadratic bubble associated to , so that b t is a tangential bubble as deï¬ned in (3.7). Ë To deï¬ne Î² we use the Lagrange interpolant of Î² enriched with quadratic tangential bubbles so that, for all edges , Ë Î²Â·t = Î²Â·t . (4.6) Namely Ë Î² := IL (Î²) + with cbt, (4.7)
+
+6 (Î² â IL Î²) Â· t . | | Based on results from [15], it was shown in [12] that c := Ë Î²âÎ²
+1,â¦i
+
+(4.8)
+
+â¤ Ch Î²
+
+2,â¦i
+
+,
+
+i = 1, 2.
+
+(4.9)
+
+On the other hand, we use the standard Lagrange interpolant of w to deï¬ne w: Ë w := IL w. Ë (4.10)
+
+2 Ë Our next goal is to estimate Î³ â Î³ 0,â¦ . Notice that, in spite of the fact that Î³ â H 1 (â¦) , its rotated Raviart/ 2 Thomas interpolant is well deï¬ned because Î³|â¦i â H 1 (â¦i ) and the tangential components of Î³|â¦1 and Î³|â¦2 coincide on Î (see [21]). Moreover, an error estimate similar to (3.8) also holds in this case; namely,
+
+Î³ â Î Î³
+
+0,â¦
+
+â¤ Ch
+
+Î³
+
+1,â¦1
+
++ Î³
+
+1,â¦2
+
+.
+
+(4.11)
+
+On the other hand another well known property of the rotated Raviart-Thomas interpolant is that Î  ( w) = (IL w) := w (see [21] again). Therefore, Ë Ë Î³ := 1 1 ( w â Î Î²) = 2 Î  ( w â Î²) = Î Î³. Ë t2 t
+
+s Ës Next, for Î¸x , since Î¸x = Î²2 (cf. 2.13), we have that
+
+Ës Ë Î¸x := Î²2
+
+Î
+
+s = (IL Î²2 )|Î = IL Î¸x
+
+A FINITE ELEMENT FOR STIFFENED PLATES
+
+19
+
+and hence Ës Analogously, for Î¸y we have
+
+s Ës Î¸x â Î¸x
+
+1,Î
+
+s â¤ Ch Î¸x
+
+2,Î
+
+.
+
+(4.12)
+
+Ës Ë Î¸y := â Î²1
+s Since Î¸y = âÎ²1 |Î (cf. (2.13)), there holds
+
+Î
+
+= â (IL Î²1 )|Î â
+Î âTh
+
+c b.
+
+s Ës Î¸y â Î¸y
+
+1,Î
+
+s s â¤ Î¸y â IL Î¸y
+
+1,Î
+
++
+Î lâTh
+
+c l bl
+1,Î
+
+.
+
+The ï¬rst term on the right hand side above is bounded by means of the standard estimates for the Lagrange interpolant. For the second one we write
+2 2 2 1,
+
+c b
+Î âTh
+
+=
+1,Î
+Î âTh
+
+|c |
+
+b
+
+.
+
+Straightforward computations show that b 1, â¤ |C| . On the other hand, for the coeï¬cients c we use that s s Î² Â· t = Î²1 = âÎ¸y on . Consequently, IL Î² Â· t = âIL Î¸y , and we have from (4.8) |c | â¤ Altogether, we obtain
+s Ës Î¸y â Î¸y 1,Î s â¤ Ch Î¸y 2,Î 2
+
+2
+
+36 s s Î¸ â IL Î¸y | | y
+
+2 0,
+
+â¤C| |
+
+3
+
+s Î¸y
+
+2 2,
+
+.
+
+(4.13)
+
+.
+
+(4.14)
+
+It remains to estimate the term Î± â Î± Ë simple to show that
+
+0,Î
+
+in (4.5). With this aim we will show that Î± = ÏÎ±. First, it is Ë (4.15)
+
+dws d = (IL ws ) . dx dx Hence, from (2.13), (4.10) and the deï¬nition of ws given in Lemma 4.1, we obtain Ë Ï Ï dws dw s Ë = . dx dx
+
+Secondly we will show that To prove this it is enough to show that Ës deï¬nition of Î¸y in Lemma 4.1:
+
+s Ës ÏÎ¸y = Ï Î¸y . s Ës Î¸y = Î¸y for all
+
+(4.16) â
+Î Th ,
+
+which follows from (2.13), (4.6) and the
+
+s Î¸y = â
+
+Î²1 = â
+
+Ë Î²1 =
+
+Ës Î¸y .
+
+Therefore, (4.16) and (4.15) lead to Î±= Ë Consequently, from (3.9) we have Î± â Î± 0,Î â¤ Ch Î± Ë Now, we are in a position to prove the following theorem.
+1,Î
+
+1 t2
+
+dw s Ë Ës + Ï Î¸y dx
+
+=
+
+1 Ï t2
+
+dws s + Î¸y dx .
+
+= ÏÎ±.
+
+(4.17)
+
+20
+
+Â´ R. DURAN, R. RODRÂ´ IGUEZ AND F. SANHUEZA
+
+s s s s s Theorem 4.2. Let Î², w, ws , Î¸x , Î¸y and Î² h , wh , wh , Î¸xh , Î¸yh be the solutions of problems (2.10)â(2.11) and (3.10)â(3.11), respectively. Let Î³, Î±, Î³h and Î±h be as deï¬ned in (2.26), (2.27), (4.1) and (4.2), respectively. Then
+
+Î² â Î²h â¤ Ch
+
+1,â¦
+
+s s + Î¸x â Î¸xh 2,â¦1
+
+1,Î
+
+s s + Î¸y â Î¸yh 1,â¦1
+
+1,Î
+
++ t Î³ â Î³h
+1,â¦2
+
+0,â¦
+
++ t Î± â Î±h
+s Î¸x 2,Î
+
+0,Î 2,Î
+
+Î²
+
++ Î²
+
+2,â¦2
+
++t Î³
+
++t Î³
+
++ Î³
+
+0,â¦
+
++
+
+s + Î¸y
+
++t Î±
+
+1,Î
+
++ Î±
+
+0,Î
+
+. (4.18)
+
+Ë Ë Ës Ës Proof. Let Î² and w be as deï¬ned in (4.7) and (4.6), respectively. Let Î³ , Î¸x , Î¸y and Î± as in Lemma 4.1. Adding Ë Ë and subtracting these terms on the left hand side of (4.18), using triangular inequality, Lemma 4.1 and estimates (4.9), (4.11), (4.12), (4.14) and (4.17), we conclude the proof. Corollary 4.3. Under the same assumptions as in Theorem 4.2, there holds w â wh â¤ Ch
+1,â¦ s + w s â wh 2,â¦1 1,Î
+
+Î²
+
++ Î²
+
+2,â¦2
+
++t Î³
+
+1,â¦1
+
++t Î³
+
+1,â¦2
+
++ Î³
+
+0,â¦
+
+s + Î¸x
+
+2,Î
+
+s + Î¸y
+
+2,Î
+
++t Î±
+
+1,Î
+
++ Î±
+
+0,Î
+
+. (4.19)
+
+Proof. From (2.26) and (4.1) we have wâ Hence, |w â wh |1,â¦ â¤ t2 Î³ â Î³ h â¤t
+2 0,â¦ 0,â¦
+
+wh = t2 (Î³ â Î³ h ) + Î² â Î Î² h .
+
++ Î² â Î Î² + Î² â Î Î²
+
+0,â¦ 0,â¦
+
++ Î  (Î² â Î² h ) + C Î² â Î²h
+
+0,â¦
+
+Î³ â Î³h
+
+1,â¦
+
+,
+
+the latter because of (3.8). Analogously, from (2.27) and (4.2) we have
+s dwh dws s s â = t2 (Î± â Î±h ) + Î¸y â ÏÎ¸yh dx dx
+
+and hence
+s |ws â wh |1,Î â¤ t2 Î± â Î±h 0,Î 0,Î s s + Î¸y â ÏÎ¸y 0,Î s s + Ï Î¸y â Î¸yh 0,Î
+
+â¤t
+
+2
+
+Î± â Î±h
+
++
+
+s Î¸y
+
+â
+
+s ÏÎ¸y 0,Î
+
++
+
+s Î¸y
+
+â
+
+s Î¸yh 0,Î
+
+.
+
+Therefore, the corollary follows from these estimates, (3.8), (3.9) and Theorem 4.2.
+
+5. Numerical Experiments
+In this section we report some numerical results obtained with a code which implements the method proposed above. The aim of the numerical experimentation is to assess the performance of the method. The error estimate from Theorem 4.2 involves higher order norms of quantities which are known to be bounded (cf. Proposition 2.2). These bound are independent of the thickness t for uncoupled plates [2] and rods [3]. However analogous thickness-independent bounds have not been proved for a stiï¬ened plate. Therefore, one of the goals of the reported numerical experimentation is to test whether the method is actually locking-free. To solve
+
+A FINITE ELEMENT FOR STIFFENED PLATES
+
+21
+
+Figure 4. Square plate. Finite element mesh (N = 4). problem (3.10)â(3.11), ï¬rst we eliminate the Lagrange multipliers and impose the constraints by writing the variables corresponding to the stiï¬ener in terms of those of the plate. In fact, (3.11) implies that
+s wh = wh , s Î¸xh = Î²2h , s Î¸yh = âÎ²1h
+
+on Î.
+
+Thus, problem (3.10)â(3.11) turns out to be equivalent to the following one, in which we included again the physical constants that have been set to 1 for the analysis: t3 a2 (Î² h , Î· h ) + t +
+Î
+
+â¦
+
+ÎºÂµ ( wh â Î Î² h ) Â· ( zh â Î Î· h ) + âzh â ÏÎ·1h âx
+s
+
+E s Iyy
+Î
+
+âÎ²1h âÎ·1h âx âx gzh ,
+â¦
+
+ÎºÂµA
+
+s s
+
+âzh â ÏÎ²1h âx
+
+âÎ²2h âÎ·2h + ÂµJ =t âx âx Î
+
+â (zh , Î· h ) â Wh Ã Y h . (5.1)
+
+Let us remark that the stiï¬ness matrix of the problem can be easily obtained by static condensation from the separate corresponding stiï¬ness matrices of the plate and the rod. In all tests, we considered a square plate of side length 60 cm. The stiï¬ener crosses the plate joining the mid-points of two opposite edges. We use uniform meshes obtained by reï¬ning the coarse one shown in Figure 4. The parameter N represents the number of elements on each side of the plate. We took Îº = Îºs = 1 as correction factors in the plate and the stiï¬ener, respectively, for all the tests.
+
+5.1. Test 1: A free vibration problem for a clamped stiï¬ened plate
+Since no analytical solution for the load problem of the stiï¬ened plate is available to compare with, we used a vibration problem solved in [17] by means of MITC9 elements. For the vibration problem, we have to consider the mass terms of the plate and the stiï¬ener instead of the load terms. Thus, the vibration problem consists in ï¬nding Ïh > 0 and (wh , Î² h ) â Wh Ã Y h such that t3 a2 (Î² h , Î· h ) + t
+s s
+
+â¦
+
+ÎºÂµ ( wh â Î Î² h ) Â· ( zh â Î Î· h ) + âzh â ÏÎ·1h âx
+â¦ s
+
+E s Iyy
+Î
+
+âÎ²1h âÎ·1h âx âx
+
+âzh + ÎºÂµA â ÏÎ²1h âx Î t3 2 Ïwh zh + = Ïh t 12 â¦ +
+Î
+
+âÎ²2h âÎ·2h + ÂµJ âx âx Î Ïs Awh zh +
+Î Î
+
+ÏÎ² h Â· Î· h +
+
+Ïs Iyy Î²1h Î·1h
+
+Ï JÎ²2h Î·2h
+
+s
+
+â (zh , Î· h ) â Wh Ã Y h ,
+
+where Ïh is the unknown vibration frequency and Ï and Ïs are the densities of the plate and the stiï¬ener, respectively. We applied the method to a square clamped stiï¬ened plate with the same physical and geometrical
+
+22 parameters as in [17]:
+
+Â´ R. DURAN, R. RODRÂ´ IGUEZ AND F. SANHUEZA
+
+t = 1 mm, E = E s = 68.85 Ã 109 Pa, Î½ = Î½ s = 0.34, Ï = Ïs = 2780 kg/m3 , A = 67 mm2 , Iyy = 2290 mm4 , J = 22.33 mm4 . Table 1 shows the six lowest vibration frequencies computed with the method on four successively reï¬ned meshes. The table includes extrapolated frequencies and the order of convergence in powers of h estimated by means of a least squares ï¬tting. It also includes the frequencies computed in [17] with MITC9 elements. Table 1. Test 1: Lowest vibration frequencies of a square clamped stiï¬ened plate.
+Mode Ï1 Ï2 Ï3 Ï4 Ï5 Ï6 N = 16 50.919 64.266 76.221 86.656 116.762 123.714 N = 32 50.527 63.810 75.298 85.694 114.468 121.363 N = 48 50.452 63.719 75.124 85.510 114.022 120.895 N = 64 50.426 63.687 75.063 85.445 113.865 120.729 order 1.97 1.89 1.97 1.95 1.93 1.89 extrapolated 50.392 63.641 74.982 85.358 113.650 120.493 [17] 50.36 63.65 74.95 85.36 113.63 120.52
+
+We observe a very good agreement between the values computed with both methods. On the other hand, a quadratic order of convergence can be clearly appreciated. Since typically the order of convergence of the eigenvalues doubles that of the load problem, this corresponds to O(h) for the latter, which is the optimal one for the elements we have used.
+
+5.2. Test 2: Robustness with respect to the stiï¬ener properties
+The aim of this test is to assess the robustness of the method with respect to the physical parameters of the stiï¬ener. We considered two asymptotics with respect to the thickness t. In the ï¬rst one, the stiï¬ener rigidity increases as t becomes smaller. As discussed above, the proper scaling for attaining a limit as t goes to zero is to take E s proportional to 1/t (cf. (1.12)). Instead we used E s := E/t2 for this experiment, so that, in the limit as t goes to zero, this problem corresponds to that of a clamped plate also clamped along its mid-line Î. The material and the stiï¬ener cross-sectional properties were taken as follows: A = t2 , Iyy = t4 /12, J = t4 /6, E = 68.85 Ã 109 Pa, Î½ = Î½ s = 0.34. The load was taken as constant on the whole plate: g = 106 N/m4 t2 . We took various decreasing values of the thickness ranging from 10 to 0.01 mm. We compared the transverse displacement wh and the rotation Î² h computed with the present method with those corresponding to the plate
+
+A FINITE ELEMENT FOR STIFFENED PLATES
+
+23
+
+c clamped along Î, which were computed by DL3 elements [12]. We denote the latter by wh and Î² c . We measure h the deviation between both models by means of the relative diï¬erences c |wh â wh |1,â¦ c |wh |1,â¦
+
+and
+
+|Î² h â Î² c |1,â¦ h |Î² c |1,â¦ h
+
+computed on the mesh corresponding to N = 64. It can be clearly seen that the relative diï¬erences decreases linearly with the thickness t. Moreover, this experiment shows that the stiï¬ened plate behaves as expected in this limit case. Table 2. Test 2: Comparison of stiï¬ened plates with an almost rigid and a perfectly rigid stiï¬ener.
+Thickness (m) 10â2 10â3 10â4 10â5
+c |wh âwh |1,â¦ c wh | | 1,â¦ 2.6914 Ã 10â2 2.8980 Ã 10â3 2.9001 Ã 10â4 2.9351 Ã 10â5
+
+|Î²h âÎ²c |1,â¦ h |Î²c |1,â¦ h 1.6122 Ã 10â2 1.6167 Ã 10â3 1.6178 Ã 10â4 1.6279 Ã 10â5
+
+As a second experiment we took E s = E and the same values as above for A, Iyy , J, E and Î½. In this case, as t becomes smaller, the eï¬ect of the stiï¬ener tends to disappear. In fact, A = t2 corresponds to a rod section with width and height proportional to t. In the limit as t goes to zero this problem correspond to that of an unstiï¬ened plate. Once more we took values of t ranging from 10 to 0.01mm and we compared the transverse displacements and the rotations computed with the present method with those of the unstiï¬ened plate computed f by DL3 elements. We denote the latter by wh and Î² f . We report in Table 3 the relative diï¬erences between h both models computed again on the mesh corresponding to N = 64. Table 3. Test 2: Comparison of a stiï¬ened plate with a very soft stiï¬ener and a plate without a stiï¬ener.
+Thickness (m) 10â2 10â3 10â4 10â5
+f |wh âwh |1,â¦ f |wh |1,â¦ 1.4452 Ã 10â2 1.4624 Ã 10â3 1.4643 Ã 10â4 1.5688 Ã 10â5
+
+|Î²h âÎ²f |1,â¦ h |Î²f |1,â¦ h 1.5399 Ã 10â2 1.5650 Ã 10â3 1.5687 Ã 10â4 1.6183 Ã 10â5
+
+Once more, it can be clearly observed a linear dependence with respect to t. Once more, the behavior of this softly stiï¬ened plates agrees with what is expected. On the other hand, Tables 2 and 3 show that the method is thoroughly robust with respect to the physical parameters of the stiï¬ener. Moreover, in both cases the results do not deteriorate as t becomes smaller, which suggests that the method is locking-free.
+
+5.3. Test 3: Testing the locking-free character of the method
+The main goal of this test is to conï¬rm experimentally that the method is locking-free. In this case we took the scaling E s := E/t, which allows us to achieve a well posed limit problem. We computed a very accurate approximation of the solution with the mesh corresponding to N = 64 and we took it as an âexactâ solution. We denote by we the corresponding transverse displacement. We estimated the error of the numerical solutions computed on coarse meshes (N = 8, 12, 16) by means of |we â wh |1,â¦ . We report in Table 4 the values of |we â wh |1,â¦ for diï¬erent meshes and decreasing values of the thickness. We also include the orders of convergence estimated by means of a least squares ï¬tting and, in the last row, the extrapolated limit values corresponding to t = 0.
+
+24
+
+Â´ R. DURAN, R. RODRÂ´ IGUEZ AND F. SANHUEZA
+
+Table 4. Test 3: Testing the locking-free character of the method. |we â wh |1,â¦ Ã 108 for diï¬erent plate thickness and meshes.
+Thickness (m) 10â2 10â3 10â4 10â5 t = 0 (extr.) N =8 0.48539537 0.48461630 0.48460920 0.48460877 0.48460875 N = 12 0.32111497 0.32097671 0.32097551 0.32097521 0.32097512 N = 16 0.26220361 0.26194608 0.26194343 0.26194321 0.26194319 N = 20 0.17661659 0.17665166 0.17665175 0.17665155 0.17665121
+
+Computed error
+
+order 1.05 1.05 1.05 1.05 1.05
+
+Z
+
+O Y X
+
+Figure 5. Test 4: Transverse displacement ï¬eld computed with the proposed method (N = 16) We observe that the method is perfectly locking-free and that an order of convergence close to one is attained even for extremely small values of the thickness. Thus, this experiment provides a solid numerical evidence of the locking-free character of the method. Figure 5 shows the transverse displacement ï¬eld of the stiï¬ened plate reported in Table 4 for t = 0.001 m and N = 16. In this case the relation E s /E = 104 . The eï¬ect of the stiï¬ener can be clearly appreciated.
+
+6. Conclusions
+We analyzed the load problem of the clamped stiï¬ened plate modeled by Reissner-Mindlin equations. We restricted our analysis to the case of concentrically stiï¬ened plates, in which the mid-line of the stiï¬ener lies on the mid-surface of the plate. In such a case, the problem decouples into two well posed problems: a stiï¬ened in-plate plate problem and a stiï¬ened bending plate problem. We propose a ï¬nite element method based on a standard linear triangular elements for the in-plane problem and DL3 elements for the bending problem. The analysis of the former is straightforward, since it turns out a standard elliptic problem not depending on the plate thickness. The analysis of the bending problem is more involved. We proved optimal order error estimates for all the quantities in terms of higher order norms of these quantities. We proved that these higher order norms are bounded with bounds in principle depending on the plate thickness. Because of this, the main goal of the numerical experimentation was to assess the locking-free character of the method. The numerical tests also conï¬rmed the optimal order of convergence and showed the robustness of the method with respect to the physical parameters of the stiï¬ener.
+
+A FINITE ELEMENT FOR STIFFENED PLATES
+
+25
+
+Acknowledgements. RD acknowledges support by ANPCyT under grant PICT 01307 and by Universidad de Buenos Aires under grant X070 (Argentina). RR acknowledges support by FONDAP and BASAL projects CMM, Universidad de Chile (Chile). FS was supported by a CONICYT fellowship.
+
+References
+[1] D.N. Arnold, Discretization by ï¬nite element of a model parameter dependent problem, Numer. Math. 37, 405â421, 1981. [2] D.N. Arnold and R.S. Falk, A uniformly accurate ï¬nite element method for the Reissner-Mindlin plate, SIAM J. Numer. Anal. 26, 1276â1290, 1989. [3] K. Arunakirinathar and B.D. Reddy, Mixed ï¬nite element methods for elastic rods of arbitrary geometry, Numer. Math. 64, 13â43, 1993. [4] F. Auricchio, C. Lovadina and E. Sacco, Analysis of mixed ï¬nite elements for laminated composite plates Comput. Methods Appl. Mech. Engrg. 190, 4767â4783, 2000. [5] K.-J. Bathe, F. Brezzi and S.W. Cho, The MITC7 and MITC9 plate bending elements, Comp. Struct. 32, 797-814, 1984. [6] F. Brezzi and M. Fortin, Mixed and Hybrid Finite Element Methods, Springer-Verlag, 1991. [7] R. Falk, Finite element methods for linear elasticity, in Mixed Finite Elements, Compatibility Conditions, and Applications Springer-Verlag, Berlin, Heidelberg, 159â194, 2006. [8] R.W. Clough and J.L. Tocher, Finite element stiï¬ness matrices for analysis of plate bending, in Proc. of Second. Conf. on Matrix Methods in Struct. Mech. 515â546, 1965. [9] A. Deb and M. Bottom, Finite element models for stiï¬ened plates under transversal loading, Comp. Struct. 28, 361â372, 1988. [10] F. Destuynder and M. Salaun, Mathematical analysis of thin plate models, Springer-Verlag, Berlin, Heidelberg, 1996. [11] F. dâHennezel, Domain decomposition method and elastic multi-structures: the stiï¬ened plate problem, Numer. Math. 66, 181â197, 1993. [12] R.G. DurÂ´n, E. Liberman, On the mixed ï¬nite element methods for the Reissner-Mindlin plate model, Math. Comp. 58, a 561â573, 1992. [13] R.G. DurÂ´n, R. RodrÂ´ a Ä±guez and F. Sanhueza, Computation of the vibration modes of a Reissner-Mindlin laminated plate, Math. Comp. (in press). [14] A. Ern and J.-L. Guermond, Theory and Practice of Finite Elements, Springer-Verlag, New York, 2004. [15] V. Girault, P. A. Raviart, Finite Element Methods for Navier-Stokes Equations, Springer-Verlag, Berlin, Heidelberg, 1986. [16] P. Grisvard, Elliptic Problems in Nonsmooth Domains, Pitman 1985. [17] T.P. Holopainen, Finite element free vibration analysis of eccentrically stiï¬ened plates, Comput. Struct. 56, 993â1007, 1995. [18] V. Janowsky, and P. ProchÂ´zka, The nonconforming ï¬nite element method in the problem of clamped plate with ribs, Apl. a Mat. 21, 273â289, 1976. [19] A. Mukherjee and M. Mukhopadhyay, Finite element free vibration of eccentrically stiï¬ened plates, Comput. Struct. 30, 1303â1317, 1988. [20] J. OâLeary and I. Harari, Finite element analysis of stiï¬ened plates, Comput. Struct. 21, 973â985, 1985. [21] P.A. Raviart and J.M. Thomas, A mixed ï¬nite element method for second order elliptic problems, in Mathematical Aspects of the Finite Element Method, Lecture Notes in Mathematics, Springer, Berlin, Heidelberg, 292â315, 1977. [22] L. Scott and S. Zhang, Finite element interpolation of nonsmooth functions satisfying boundary conditions, Math. Comp. 54, 483â493, 1990.
+

@@ -1,0 +1,824 @@
+Available online at www.sciencedirect.com
+
+International Journal of Mechanical Sciences 45 (2003) 519 â 539
+
+A new beam Ã¿nite element for the analysis of functionally graded materials
+A. Chakrabortya , S. Gopalakrishnana;â , J.N. Reddyb
+b
+
+Department of Aerospace Engineering, Indian Institute of Science, Bangalore 560012, India Department of Mechanical Engineering, Texas A&M University, College Station, TX 77843-3123, USA Received 17 April 2002; received in revised form 12 March 2003; accepted 24 March 2003
+
+a
+
+Abstract A new beam element is developed to study the thermoelastic behavior of functionally graded beam structures. The element is based on the Ã¿rst-order shear deformation theory and it accounts for varying elastic and thermal properties along its thickness. The exact solution of static part of the governing di erential equations is used to construct interpolating polynomials for the element formulation. Consequently, the sti ness matrix has super-convergent property and the element is free of shear locking. Both exponential and power-law variations of material property distribution are used to examine di erent stress variations. Static, free vibration and wave propagation problems are considered to highlight the behavioral di erence of functionally graded material beam with pure metal or pure ceramic beams. ? 2003 Elsevier Science Ltd. All rights reserved.
+Keywords: Functionally graded materials; Stress pattern; Wave propagation; High frequency; Finite-element method
+
+1. Introduction An ideal material combines the best properties of metals and ceramicsâthe toughness, electrical conductivity, and machinability of metals, and the low density, high strength, high sti ness, and temperature resistance of ceramics. Demands for such materials come from the automotive industry (lightweight and strong materials would increase fuel e ciency and last longer), electronics, telecommunications, and the aerospace and defense industries. In recent years, these types of advanced materials are no longer dreams but properly conceived and developed. By varying percentage
+â
+
+Corresponding author. Tel.: +91-80-309-2757; fax: +91-80-360-0134. E-mail address: krishnan@aero.iisc.ernet.in (S. Gopalakrishnan).
+
+0020-7403/03/$ - see front matter ? 2003 Elsevier Science Ltd. All rights reserved. doi:10.1016/S0020-7403(03)00058-4
+
+520
+
+A. Chakraborty et al. / International Journal of Mechanical Sciences 45 (2003) 519 â 539
+
+Nomenclature u0 w0 (z) T
+xx
+
+E(z) G(z)
+xx
+
+xz
+
+P(z) Pt Pb n h L A S %(z) T Ik ; k = 0; 1; 2 Aij ; Bij ; Dij ATij ; BTij Nx , Vx and Mx , Ã¿ [âµ(x)] {u} {u} Ë {F} {R} [K]; [M ] {u} Ë kj cg
+
+xz
+
+axial displacement of reference plane transverse displacement of reference plane rotation about Y -axis coe cient of thermal expansion temperature rise/fall axial strain shear strain Youngâs modulus shear modulus axial stress shear stress representative of material property parameter P(z) at topmost layer P(z) at bottommost layer parameter of exponential variation parameter of power-law variation beam depth length of the beam cross-sectional area of the beam element strain energy functional density element kinetic energy functional mass moments integrated sti ness coe cients integrated elasto-thermal coe cients axial force, shear force and bending moment shear- exure and axial- exure coupling parameter non-dimensional parameter in shape function shape function matrix element displacement vector nodal displacement vector nodal mechanical force vector nodal thermal force vector element sti ness and mass matrix coe cient of displacement vector in transformed domain wave numbers group wave speed
+
+content of two or more materials spatially, new materials can be formed which will have desired property gradation in spatial directions. The gradation in properties of the material reduces thermal stresses, residual stresses, and stress concentration factors.
+
+A. Chakraborty et al. / International Journal of Mechanical Sciences 45 (2003) 519 â 539
+
+521
+
+Graded materials are also required to adhere two di erent materials in structures subjected to di erent loading environments (thermal and mechanical). In the absence of any graded material at the interface, there is a high chance that debonding will occur at some extreme loading conditions, be it static, dynamic, or thermal load. Cracks are likely to initiate at interfaces and grow into the weaker material section. Residual stresses can be developed due to the di erence in coe cients of thermal expansion of the materials. Gradually varying the volume fraction of the constituents rather than abruptly changing them over an interface can resolve these problems. Functionally graded materials (FGMs) are materials or structures in which the material properties vary with location in such a way as to optimize some function of the overall FGM. The matrix alloy (the metal), the reinforcement material (the ceramic), the volume, shape, and location of the reinforcement, and the fabrication method can all be tailored to achieve particular desired properties. FGM has gained widespread applicability as thermal-barrier structures, wear- and corrosion-resistant coatings other than joining dissimilar materials [1]. FGMs consisting of metallic and ceramic components are well-known to improve the properties of thermal-barrier systems, because cracking or delamination, which are often observed in conventional two-layer systems, are avoided due to the smooth transition between the properties of the components in FGMs. In another application of FGM in thin-walled members like plates and shells, which are used in reactor vessels, turbines and other machine parts are susceptible to failure from buckling, large amplitude de ections, or excessive stresses induced by thermal or combined thermomechanical loading. Functionally gradient coatings on these structural elements may help reduce the failures. The literature on the response of such advanced materials to dynamic and impact loadings (severe mechanical environments) are limited in numbers. Analyses of shear deformable plate with through-thickness material property variation in the presence of the von KÃ rmÃ n non-linearity are a a carried out by Reddy and Chin [2], Praveen and Reddy [3], Reddy [4] and Reddy and Hsu [5]. To the best of authorsâ knowledge, no Ã¿nite-element formulation is available in the literature for FGM beams. In this paper, we take a novel approach of developing an FGM beam Ã¿nite element by deriving the approximation functions from the exact general solution to the static part of the governing equations. These solutions are then used to construct accurate shape functions which result in exact sti ness matrix and a mass matrix that captures mass distribution more accurately compared to any other existing beam Ã¿nite elements. Thus, the element is an e cient tool for modeling structural systems to study wave propagation phenomena that results due to high frequency and low duration forcing (impact loading). Exact sti ness matrices were developed earlier for HermanâMindlin rod [6], Ã¿rst-order shear deformable composite beam [7], Ã¿rst- and higher-order shear deformable isotropic beam [8,9] and beam with Poissons contraction [10]. In this approach, the shape functions are not only a function of length of the beam but also depend upon cross-sectional and material properties. The degree of interpolating polynomials for Ã¿eld variables is dictated by order of the governing di erential equation, which attributes to the super-convergent property of the elements (i.e., the nodal values of the static solution are exact). Analysis of FGM involves consideration of temperature change during mechanical loading, which also imparts thermal loading of signiÃ¿cant amount because of mismatch in thermal coe cients between metallic and ceramic materials. Praveen and Reddy [3] have already dealt with this problems for static and transient loading. El-Abbasi and Meguid [11] analyzed the thermoelastic behavior of functionally graded plates and shells. In the present work, e ect of the temperature rise/fall is
+
+522
+
+A. Chakraborty et al. / International Journal of Mechanical Sciences 45 (2003) 519 â 539
+
+Fig. 1. (a) Coordinate system and degrees of freedom for the Ã¿nite element; and (b) beam geometry for modulated pulse load.
+
+considered by augmenting the thermal strain to the mechanical strain, instead of solving the coupled thermoelastic equations. Both power law and exponential law are taken for the variation of the material properties through the depth of the beam. The paper is organized as follows. In Section 2, the details of formulation of exact beam Ã¿nite element is given. Section 3 describes static, free vibration and wave propagation studies using this element. In static problems, variations of stresses across depth due to both mechanical and thermal loadings are investigated. In free vibration analysis, e ect of FGM on natural frequencies and its dependence on through-the-thickness property distribution is studied. In the wave propagation studies, behavior of bi-material beam fused with FGM and subjected to high-frequency loading is studied. In particular, its mechanical response is compared with ceramic or steel beam. The e ect of FGM content in shear mode and cut-o frequency is investigated.
+
+2. Finite-element formulation Considering the Ã¿rst-order shear deformation (or the Timoshenko beam) theory, the axial and the transverse displacement Ã¿eld are expressed as U (x; y; z; t) = u0 (x; t) â z (x; t); W (x; y; z; t) = w0 (x; t); (1)
+
+where u0 and w0 are the axial and transverse displacements in the reference plane, respectively (see Fig. 1(a)), and z is the thickness coordinate measured from the reference plane. Using Eq. (1), the linear strains can be written as
+xx
+
+= u0 ;x âz ;x â (z) T;
+
+xz
+
+= â + w 0 ;x :
+
+(2)
+
+A. Chakraborty et al. / International Journal of Mechanical Sciences 45 (2003) 519 â 539
+
+523
+
+Here (:);x represents di erentiation with respect to x. (z) is the coe cient of thermal expansion of the FGM material which varies along the depth and T is the uniform temperature change ( T;x =0) to which the beam is subjected. The constitutive relation for FGM material is assumed to be of the form { }=
+xx xz
+
+=
+
+E(z) 0
+
+0 G(z)
+
+xx xz
+
+;
+
+(3)
+
+where xx and xx are normal stresses and normal strains in the x direction and xz and xz are the shear stress and shear strain in the xâz plane. E(z) and G(z) are Youngâs modulus and shear modulus, which are functions of depth z. Several analytical and computational models are available in literature (see Refs. [1,12]) that discussed the issue of Ã¿nding suitable functions. There are several criteria for selecting them. They are desired to be continuous, simple and should have the ability to exhibit curvature, both âconcave upwardâ and âconcave downwardâ [12]. Here, two types of variations are considered which generally cover all the existing analytical models. The exponential law, which is more common in fracture studies of FGM (see Refs. [13,14]), but does not show curvature in both directions, is given by P(z) = Pt exp(â (1 â 2z=h)); = 1 Pt log 2 Pb : (4)
+
+The power law, for commonly adopted Voight-type estimate [12], having all the desired properties and introduced by Wakashima et al. [15], is given by P(z) = (Pt â Pb ) 1 z + h 2
+n
+
++ Pb :
+
+(5)
+
+P(z) denotes a typical material property (E; G; ; %). Pt and Pb denote values of the variables at topmost and bottommost layer of the beam, respectively, and n is a variable parameter, the magnitude of which determines the curvature. The working range of n can be taken as 1 â3, as any value outside 3 this range will produce an FGM having too much of one phase (see Ref. [16]). The strain energy (S) and kinetic energy (T ) are then given by S= 1 2 1 2
+L 0 L 0 A A
+
+(
+
+xx xx
+
++
+
+xz xz ) dA d x;
+
+(6)
+
+T=
+
+Ë Ë %(z)(U 2 + W 2 ) dA d x;
+
+(7)
+
+where (: ) denotes the time derivative. Here %(z), L and A are the density, the length and the area of cross-section of the beam, respectively. Applying Hamiltonâs principle, the following di erential equations of motion are obtained in terms of the three degrees of freedom (u0 , w0 and ): u: w0 : : I0 u 0 â I1 â A11 u;0 +B11 ;xx +AT11 xx I0 w0 â A55 (w;0xx â
+x)
+
+T;x =0;
+
+(8) (9) T;x =0; (10)
+
+= 0;
+
+I2 â I1 u 0 + B11 u0 ;xx âD11 ;xx âA55 (w;0x â ) â BT11
+
+524
+
+A. Chakraborty et al. / International Journal of Mechanical Sciences 45 (2003) 519 â 539
+
+where the last terms in Eqs. (8) and (10) are zero because of uniformity of the temperature. Associated force boundary conditions are A11 u0 ;x âB11 ;x âAT11 T = Nx ; T = Mx ; G(z) dA; (11) (12) (13) (14)
+
+A55 (w0 ; x â ) = Vx ; âB11 u0 ; x + D11 ; x + BT11 where the sti ness coe cients are obtained as [A11 B11 D11 ] = [AT11 BT11 ] =
+A A
+
+E(z)[1 z z 2 ] dA;
+
+A55 =
+
+A
+
+E(z) (z)[1 z] dA;
+
+and the mass moments are [I0 I1 I2 ] =
+A
+
+%(z)[1 z z 2 ] dA:
+
+(15)
+
+In Eqs. (11) and (12), Nx , Vx and Mx are, respectively, the axial force, shear force and bending moment acting at the boundary nodes. The interpolation functions for the displacement Ã¿eld for the Ã¿nite-element formulation are obtained by solving a system of ordinary di erential equations (ODEs) which is the static part of the governing partial di erential equations (PDEs) given by Eqs. (8)â(10). The exact solution has the form u 0 = c1 + c 2 x + c 3 x 2 ; w 0 = c4 + c 5 x + c 6 x 2 + c 7 x 3 ; = c8 + c9 x + c10 x2 :
+0
+
+(16) (17) (18)
+
+From Eqs. (16)â(18), we see that the order of interpolation of w is one order higher than slope . This is one of the requirements for the element to be free of shear locking (see Refs. [7,9]). The exact solutions for the displacements have a total of 10 constants and only six boundary conditions (three degrees of freedom at each node of the element) are available. Hence, there are only six independent constants. The additional four dependent constants can be expressed in terms of six other independent constants by substituting Eqs. (16)â(18) into Eqs. (8)â(10). In doing so, we get c3 = c10 B11 =A11 ; or c3 = (c8 â c5 )=2; where
+2 = B11 A55 =(A11 D11 â B11 ); 2 Ã¿ = A11 A55 =(A11 D11 â B11 ):
+
+c7 = c10 =3;
+
+c6 = c9 =2;
+
+c10 = Ã¿(c8 â c5 )=2;
+
+c7 = Ã¿(c8 â c5 )=6; (19)
+
+From relations in Eq. (19), constants c3 , c6 , c7 and c10 can be written in terms of rest of the constants and the exact solution takes the form u 0 = c1 + c 2 x +
+1 2
+
+(c8 â c5 ) x2 ;
+
+A. Chakraborty et al. / International Journal of Mechanical Sciences 45 (2003) 519 â 539
+
+525
+
+w0 = c4 + c5 x + 1 c9 x2 + 1 Ã¿(c8 â c5 )x3 ; 2 6 = c8 + c9 x + 1 Ã¿(c8 â c5 )x2 : 2 In matrix form {u} = {u0 w0 }T = [N (x)]{a}; {a} = {c1 ; c2 ; c4 ; c5 ; c8 ; c9 }; (21) (20)
+
+where [N (x)] is the matrix containing functions of x, i.e x, x2 and x3 , and it is of size 3 Ã 6. The column vector {a} of independent constants can be expressed in terms of nodal displacements by substituting six displacement boundary conditions while evaluating Eq. (21) for x = 0 (node 1) and x = L (node 2). The relation is [G]â1 = N (0) N (L) ; {u} = [G]â1 {a}; Ë {a} = [G]{u}; Ë (22)
+
+where u={u1 w1 1 u2 w2 2 }T is the nodal displacement vector for the element. Now the displaceË ments at any point in the element can be expressed in terms of nodal displacements by substituting Eq. (22) into Eq. (21): {u} = {u0 w0 }T = [N (x)]{a} = [N (x)][G]{u} = [âµ(x)]{u}: Ë Ë (23)
+
+[âµ(x)]=[âµu (x) âµw (x) âµ (x)]T , where âµu (x), âµw (x) and âµ (x) are the exact shape functions for axial, transverse and rotational degrees of freedom, respectively. They are given in Appendix A. Substituting the displacement Ã¿eld from Eq. (21), the force resultants in Eqs. (11)â(12) can be written in terms of the generalized displacements {a} as {F} = [G]{a} + {R}; where {F} = {âNx (0) â Vx (0) â Mx (0) Nx (L) Vx (L) Mx (L)}: Substituting Eq. (22) into Eq. (24) we get the relation {F} = [G][G]{u} + {R} = [K]{u} + {R}; Ë Ë (26) (25) (24)
+
+where [K] is the element sti ness matrix and {R} is element load vector due to change in temperature. Explicit forms of [K] and {R} are given in Appendix A. Next, the consistent element mass matrix is computed. It can be expressed as a sum of four submatrices as shown below: [M ] = [Mu ] + [Mw ] + [M ] + [Mu ]: (27)
+
+Here [Mu ]; [Mw ] and [M ] represent the contribution of u, w and degree of freedom to the mass matrix while [Mu ] represents the mass matrix arising due to coupling between u and degrees of
+
+526
+
+A. Chakraborty et al. / International Journal of Mechanical Sciences 45 (2003) 519 â 539
+
+freedom. These in expanded form can be written as [Mu ] = [M ] =
+L 0 L 0
+
+I0 ([âµu ]T [âµu ]) d x; I2 ([âµ ]T [âµ ]) d x;
+L 0
+
+[Mw ] =
+
+L 0
+
+I0 ([âµw ]T [âµw ]) d x;
+
+(28) (29) (30)
+
+[Mu ] = â
+
+I1 ([âµu ]T [âµ ] + [âµ ]T [âµu ]) d x:
+
+We see that unlike conventional elements, the approximation functions of this element are dependent not only on the length of the element but also on its material and cross-sectional properties. The sti ness matrix developed is exact for point loading as it is derived from displacement Ã¿eld that exactly satisÃ¿es the homogeneous form of the governing static di erential equation. Whereas, the mass distribution is approximate because the approximation functions are not the exact solution of the governing PDEs (Eqs. (8)â(10)), where inertial terms are present. This particular aspect is very crucial to the quality of the response predicted by the element. This is because, the order of error introduced by the approximate sti ness matrix, as in the case of other element formulation, is one order higher than that for mass matrix [17]. In our formulation of the mass matrix, rotary inertia and the e ect of geometric and material asymmetry is taken into account, which signiÃ¿cantly increases the accuracy. 3. Numerical experiments The present Ã¿nite element has been subjected to rigorous numerical testing to establish its validity as error-free Ã¿nite element for static case and most accurate element for free vibration and wave propagation problems. In static problems, the authors wish to show the accuracy of the present element in the analysis of FGM beams in stress smoothening (which appears due to property mismatch) when more than one type of material is present in the structures. 3.1. Static problems The formulated element herein is used to model a bi-material beam where the transition is made smooth by inserting a thin FGM layer. Materials considered are: (1) steel which has following properties: E = 210 GPa, G = 80 GPa, = 14:0 Ã 10â6 â¦ Câ1 and (2) alumina (Al2 O3 ) whose properties are E = 390 GPa, G = 137 GPa, = 6:9 Ã 10â6 â¦ Câ1 . Using these materials a functionally graded cantilever beam of 0:5 m length subjected to transverse load at the tip is considered. The topmost material is steel which has a thickness of 0:0125 m and bottom layer is alumina of thickness 0:0325 m. In between these layers there is an FGM layer of 0:005 m. Material properties are assumed to vary according to the exponential law. The beam has unit width and there is no rise in temperature ( T = 0). An all-FGM beam is also considered to compare the stress distributions. First, a unit transverse load is applied at tip and the stress pattern at the Ã¿xed end with and without FGM layer is shown in Fig. 2. From the Ã¿gure, we see that in the absence of FGM layer,
+
+A. Chakraborty et al. / International Journal of Mechanical Sciences 45 (2003) 519 â 539
+0.015 0.015
+
+527
+
+0.01
+
+0.01
+
+0.005 ( without FGM ) 0 ( full FGM ) -0.005
+
+0.005
+
+0 ( without FGM )
+
+-0.005
+
+depth z (m)
+
+-0.01
+
+depth z (m)
+
+-0.01
+
+-0.015
+
+-0.015
+
+( full FGM )
+
+-0.02
+
+-0.02
+
+-0.025
+
+-0.025
+
+-0.03
+
+-0.03
+
+-0.035 -1000
+
+-500
+
+0 500 1000 2 Axial Stress (N/m )
+
+1500
+
+-0.035 10
+
+15 20 25 2 Shear Stress (N/m )
+
+30
+
+Fig. 2. Depthwise stress distribution for transverse load: âoâ denotes bimaterial beam without FGM layer.
+
+the stress distributions are discontinuous. Introduction of a small FGM layer smoothens the axial stress to the tune of about 300 and 10 N=m2 of shear stress over 0:05 m depth which corresponds to an axial stress gradient of 6000 Pa=m and a shear stress gradient of 200 Pa=m. Also shown in both the Ã¿gures is the stress variation for all-FGM beam which is characterized by a smooth curve throughout the depth. Similarly, a unit axial load is applied at tip and stress distribution is measured at tip which is shown in Fig. 3. While shear stress is identically zero for this case, FGM layer smoothens a jump of 20 N=m2 (stress gradient of 400 Pa=m). Next the e ect of thermal loading is studied. The same cantilever beam is taken but depths are di erent this time. Here thickness of steel, FGM and alumina layers are 0.02, 0.05 and 0:03 m, respectively. No external load is applied but temperature is raised by 5â¦ C ( T ). The exponent n is varied from 1 to 5. The stress distribution is shown in Fig. 4 where the smoothening e ect of FGM layer can be clearly seen. For this case the axial stress distribution varies in the same way as shear distribution and it shows sensitive dependence on the exponent n. The exponential distribution is concave as in the previous case.
+
+528
+
+A. Chakraborty et al. / International Journal of Mechanical Sciences 45 (2003) 519 â 539
+0.015
+
+0.01
+
+0.005
+
+0 ( without FGM )
+
+-0.005
+
+depth z (m)
+
+-0.01
+
+-0.015
+
+-0.02
+
+( full FGM )
+
+-0.025
+
+-0.03 -0.035 -20
+
+0
+
+20 40 2 Axial Stress (N/m )
+
+60
+
+Fig. 3. Depthwise stress distribution for axial load: âoâ denotes bimaterial beam without FGM layer.
+
+3.2. Free vibration studies In the presence of FGM layer, there exists coupling both in sti ness and mass moments, which manifests through non-zero coupling coe cients B11 and I1 . These two parameters in uence sti ness and mass matrix in such a way that it is ultimately re ected in natural frequencies of that beam. To study this e ect, a Ã¿xed beam of 1:0 m length and 0:01 m2 cross-section is taken. Thickness of FGM layer (tFGM ) is varied from 0% to 100% depth to see their relative e ects on free vibration. The FGM layer is always placed at the mid-depth and thickness of ceramic and steel layer is taken to be the same. Material properties for ceramic and steel are as taken before. The beam is modeled with 100 elements, which results in a system size of [297 Ã 6], where 6 is half bandwidth. Fig. 5 shows variation of Ã¿rst and tenth natural frequencies with di erent ratios of thickness of FGM to total depth (h). Property distribution through FGM layer is varied according to exponential (Eq. (4)) and power law (Eq. (5)) for di erent values of the exponent n. As seen in the Ã¿gure, exponential law gives lowest natural frequencies which increases with increase in the value of the exponent. Also, rate of increase of frequencies with increase in FGM content increases with the
+
+A. Chakraborty et al. / International Journal of Mechanical Sciences 45 (2003) 519 â 539
+0.06 0.06
+
+529
+
+â T = 5 Â°C 0.04 0.04
+
+â T = 5 Â°C
+
+0.02
+
+0.02
+
+depth z (m)
+
+0
+
+depth z (m)
+4 5 6 2 Axial Stress (N/m ) 7 x 10
+10
+
+0
+
+-0.02
+
+-0.02
+
+-0.04
+
+-0.04
+
+-0.06 3
+
+-0.06 2
+
+3 4 Shear Stress (N/m2)
+
+5 x 10
+5
+
+Fig. 4. Depthwise stress distribution for thermal load (arrow denotes increase in n) Note: FGM layer has z coordinate |z| 6 0:025 and âoâ denotes exponential distribution.
+
+exponent n and the rate is higher for higher modes, i.e e ect of n is more pronounced in higher modes. 3.3. Wave propagation analysis The characteristics of the wave propagation problem is that the frequency content of the forcing function (such as high-velocity impact or blast loading) is very high. Hence, unlike conventional structural dynamic problems, all the higher-order modes also participate in the response. At higher frequencies, the wavelengths are smaller requiring also the element size to be smaller (in the order of the wavelength). Therefore, FE model for wave propagation has a large system size. The behavior of shear deformable composite beam, subjected to high-frequency loading, is rigorously analyzed in Ref. [7]. Behavior of metallic or ceramic beam is the same as that for composite
+
+530
+
+A. Chakraborty et al. / International Journal of Mechanical Sciences 45 (2003) 519 â 539
+0.084 exponential n=1.5 n=2 n=3 4
+
+0.082
+
+3.9
+
+0.08
+
+3.8
+
+0.078
+
+10 natural frequency (kHz)
+
+1st natural frequency (kHz)
+
+3.7
+
+0.076
+
+3.6
+
+0.074
+
+th
+
+3.5
+
+0.072
+
+3.4
+
+exponential n=1.5 n=2 n=3 0 0.2 0.4 t 0.6 /h 0.8 1
+
+0.07
+
+0
+
+0.2
+
+0.4 t
+
+fgm
+
+0.6 /h
+
+0.8
+
+1
+
+3.3
+
+fgm
+
+Fig. 5. Variation of natural frequencies with increase in FGM content.
+
+with 0â¦ ply-angle. But for FGM beam, cross-section asymmetry with respect to the Y -axis induces axial- exure coupling and its behavior matches with the cross- or angle-ply composite beam. The aim of the present section is to show this behavior and to capture dispersiveness that is present due to material asymmetry. First, the FGM beam is studied to highlight the di erence in axial and transverse velocity pattern with metallic and ceramic beam. Next, di erent propagating modes are captured and their occurrences are analyzed in the light of spectral analysis and its di erence in response to metallic (or ceramic) beam is studied. 3.3.1. Cantilever beam under tip impact load The aim of this study is to capture the di erence in behavior of FGM beam with all-metallic or all-ceramic beam. A cantilever beam with length L = 1 m, width b = 0:01 m and overall depth h = 0:05 m is considered. As in the case of static analysis, materials considered are: (1) steel which has the following properties: E = 210 GPa, G = 80 GPa, = 14:0 Ã 10â6 â¦ C and (2) alumina (Al2 O3 ) whose properties are E = 390 GPa, G = 137 GPa, = 6:9 Ã 10â6 â¦ C. Three beams are considered: (a) all-FGM beam, (b) all-steel beam, (c) all-ceramic beam and (d) steelâFGMâceramic beam with
+
+A. Chakraborty et al. / International Journal of Mechanical Sciences 45 (2003) 519 â 539
+1.2 2.5 1
+-5
+
+531
+
+x 10
+
+0.8
+
+Frequency Amplitude
+
+2
+
+1.5
+
+0.6
+
+1
+
+Load (N)
+
+0.4
+
+0.5
+
+0 0.2
+
+0
+
+20
+
+40 60 80 Frequency (KHz)
+
+100
+
+0
+
+-0.2
+
+-0.4 0 50 100 150 Time (Âµ sec) 200 250 300
+
+Fig. 6. Triangular pulse with Fourier transform inset.
+
+depthwise material distribution same as in static case. An impact load with peak amplitude 1:0 N and of 50 s duration (shown in Fig. 6) is considered. As seen in this Ã¿gure, it has a very high-frequency content (nearly 44 kHz). The beam is modeled with 1000 beam elements resulting in a system size of 3000 Ã 6 in banded form. Newmark time integration scheme with time step of 1 s is used. First, the beam is impacted axially at the tip and the axial velocity is measured at the impact site. The velocity history for the beams (a) â (d) is shown in Fig. 7. It can be observed that re ection from the root in steelâFGMâceramic beam (beam (d)) occurs later than that of all-ceramic beam (beam (c)) but before all-steel beam (beam (b)). Also, re ection for all-FGM beam (beam (a)) comes later than beam (d). Hence, it can be inferred that axial velocity for FGM beam is greater than steel beam but lower than all-ceramic beam which is due to magnitude of respective Youngâs moduli. Also, it is evident from the Ã¿gure that, FGM beam exhibits higher dispersiveness (change in shape of initial waveform with propagation, here manifested through multiple waveforms just after the boundary re ections), that is higher than both metallic and steel beam, which may be attributed to both mass and sti ness coupling. Next the same cantilever beam is impacted in the transverse direction at the tip. Fig. 8 shows the comparison of transverse tip velocity histories. For ceramic beam, transverse group velocity is very high and re ection from Ã¿xed end comes quickly (around 400 s) whereas for steel it comes later (at around 700 s) and for FGM beam it comes after 525 s, i.e FGM beam has transverse velocity higher than all-steel beam but lower than all-ceramic beam. Also, initial response
+
+532
+
+A. Chakraborty et al. / International Journal of Mechanical Sciences 45 (2003) 519 â 539
+0.08 (a) all FGM (b) Steel (c) Ceramic (d) Fe-FGM-Al
+
+0.06
+
+0.04
+
+Axial velocity (mm/sec)
+
+0.02
+
+0
+
+-0.02
+
+-0.04
+
+-0.06
+
+-0.08 0
+
+100
+
+200
+
+300 Time ( Âµ sec)
+
+400
+
+500
+
+600
+
+Fig. 7. Comparison of axial tip velocity for axial load.
+
+amplitude of FGM beam is in between ceramic and steel suggesting its average mass and sti ness properties. Response of all-FGM beam (a) matches closely with its rareÃ¿ed counterpart (beam (d)) where there is a di erence of around 100 s between the occurrence of their re ections from root. 3.3.2. InÃ¿nite beam under modulated pulse In the previous study, the load contains a spectra of frequency varying from 0 to 40 kHz which is not suitable for study of individual propagating modes. This is because, capturing the transverse as well as the axial responses, which are essentially dispersive in nature, requires a forcing function, that exists only at a single frequency, specially at very high frequencies. That is, one requires a forcing function that forces the transverse and axial responses to be dispersive to capture di erent propagating modes. A modulated narrow banded pulse will satisfy this requirements. Present element, being shear deformable, is expected to capture shear propagating mode in addition to axial and bending modes. Shear mode has a unique characteristics in the way that it appears only when loading frequency exceeds a certain value called the cut-o frequency. Cut-o frequency depends upon material properties and its expression can be found in Ref. [7]. For loading frequency less than cut-o frequency, this mode is absent and only bending mode is visible. Since presence of FGM induces material coupling (both B11 and I1 are non-zero), an axial load results in the bending, hence the shear mode, while the transverse load will also induce an axial mode in addition to the shear mode. For the mono-material beam, such as steel or
+
+A. Chakraborty et al. / International Journal of Mechanical Sciences 45 (2003) 519 â 539
+0.3 (a) all FGM (b) Steel (c) Ceramic (d) Fe-FGM-Al
+
+533
+
+0.25
+
+0.2
+
+Transverse velocity (mm/sec)
+
+0.15
+
+0.1
+
+0.05
+
+0
+
+-0.05
+
+-0.1 0
+
+100
+
+200
+
+300
+
+400
+
+500 Time ( Âµ sec)
+
+600
+
+700
+
+800
+
+900
+
+1000
+
+Fig. 8. Comparison of transverse tip velocity for transverse load.
+
+ceramic, there is no axial- exural coupling and the transverse load induces shear and bending modes only. Occurrences of these modes can best be analyzed if dispersion relation and spectrum relation of the corresponding beam is studied, which is more frequent in the domain of spectral analysis. Spectrum relation is variation of wavenumbers with frequency, where the inverse of the slope of the curves gives corresponding group speed. Similarly, dispersion relation is variation of group speed with frequency. Wavenumbers can be thought as frequency in spatial dimensions, i.e., number of oscillations in a unit wavelength. Each individual mode (corresponding to each individual wavenumber) propagates with di erent speeds (called phase speeds), but the wave packet (resultant of all the modes) propagates in a di erent speed which is the group speed. In time domain data, it is the group speed that determines the time of appearance of individual propagating modes. Both phase speed and group speed are functions of frequency. When they are equal the system is non-dispersive (as in rod model) and when they are not the system is dispersive (beam, plate, etc.). As our forcing function is âmonochromaticâ, we can precisely know the values of the di erent group speeds at that particular loading frequency. Knowledge of group speed variation, Ã¿rst of all, will help to identify each individual propagating mode. Secondly, it will help to verify the accuracy of the FE formulations by predicting the time of occurrence of each individual modes. The spectrum and dispersion relations can be obtained in the following way. First, Ã¿eld variables are transformed onto the frequency domain using discrete Fourier transform (DFT). The discretized form of the displacement
+
+534
+
+A. Chakraborty et al. / International Journal of Mechanical Sciences 45 (2003) 519 â 539
+200 kFe
+b
+
+150
+
+kfgm ka
+
+b
+
+Fe
+
+Wavenumber k (m )
+
+100
+
+ka
+
+-1
+
+fgm
+
+j
+
+k 50
+
+a Al O
+2
+
+3
+
+0
+
+ks
+
+Fe
+
+ks
+
+fgm
+
+k
+
+s Al O
+2
+
+3
+
+-50 0
+
+10
+
+20
+
+30
+
+40
+
+50
+
+60
+
+70
+
+80
+
+90
+
+100
+
+Frequency Ï (kHz)
+
+Fig. 9. Spectrum relation for di erent materials.
+
+Ã¿eld in terms of structural frequency (!n ) is expressed as [u ; w ; ](x; t) =
+n=1 0 0 N
+
+[u j ; wj ; Ë j ]eâi(kj xâ!n t) ; Ë Ë
+
+(31)
+
+â where i = â1 and kj is called the wavenumber associated with the jth mode of propagation. Next, Eq. (31) is substituted in governing di erential equations (Eqs. (8)â(10)), and for non-trivial solution of u j ; wj and Ëj , an equation can be obtained involving kj , which in the present case will be Ë Ë a sixth-order polynomial equation, which when solved gives the spectrum relation. From spectrum relation, dispersion relation can be obtained using the following formula for group velocity (cg ) (see Ref. [18]): 9! : (32) cg = 9k In the present case, four types of beam are considered for analysis where one di ers from other in their material properties. The Ã¿rst one is an all-ceramic beam, second is the all-steel beam, third one is an all-FGM beam, while the fourth one is a ceramic + FGM + steel beam, where FGM smoothly blends all the properties of ceramic to that of steel. For the present case, an inÃ¿nite beam is modeled with a Ã¿nite length beam of length 8 m and Ã¿xed at both ends. The beam is impacted at point A (see Fig. 1(b)) and the response is measured at point B, where the propagating length allowed is 2 m.
+
+A. Chakraborty et al. / International Journal of Mechanical Sciences 45 (2003) 519 â 539
+12000
+
+535
+
+Ca 10000
+
+Al O
+
+2 3
+
+8000
+
+Group Speed (m/s)
+
+Ca 6000
+
+fgm
+
+load C
+b Al O
+
+a C Fe b
+
+2 3
+
+4000
+
+Cfgm C
+b Fe
+
+2000 CFe
+s
+
+C
+
+s fgm
+
+CAl O
+
+s
+
+2 3
+
+0
+
+10
+
+20
+
+30
+
+40
+
+50
+
+60
+
+70
+
+80
+
+90
+
+Frequency Ï kHz
+
+Fig. 10. Dispersion relation for di erent materials: applied load is also shown.
+
+For all materials, the beam is of square cross-section of 0:1 m. Eight thousand elements are used to model the beam, which results in a system size of [23997Ã6]. Material properties are taken as before and value of exponent (n) in power law is taken as 1.5. Fig. 9 shows the spectrum relation for three di erent materials where the subscript denotes material type and superscript denotes propagating modesâa for axial, b for bending and s for shear. Real part of the wavenumber is plotted on the positive side of ordinate and complex part on the negative side. Those modes which have higher slopes correspond to lower group speed and it can be said that bending speed of steel is lower than that of mixed FGM beam, which is again lower than an all-ceramic beam, etc. As seen from the Ã¿gure, shear wavenumbers are initially in the complex zone denoting evanescent modes and after crossing their respective cut-o frequencies, they appear on the real side and propagate. Here, it is clear that FGM beam has cut-o frequency, that is in between steel and ceramic beam. Fig. 10 shows dispersion relation for all three materials. Here, as in the previous case, superscript denotes modes and subscript denotes materials. It is clear from the Ã¿gure that axial and bending speed of FGM beam lie between that of steel and ceramic materials, but the shear speed of FGM material is greater than the ceramic and converges to shear speed of ceramic at higher frequencies. Also the initial variation of axial speed of FGM accounts to material coupling which induces dispersiveness in the response. It is seen from the Ã¿gure that, for all the materials, the cut-o frequency is well below 40 kHz. Hence a modulated pulse of 50 kHz is applied at point A and response is measured at point B, which is su cient for appearance of shear mode in all three material sets. The loading spectra
+
+536
+
+A. Chakraborty et al. / International Journal of Mechanical Sciences 45 (2003) 519 â 539
+2
+
+1 FGM-full 0
+
+Transverse velocity (m/s) Ã 10-6
+
+-1
+
+1 Fe-FGM-Al s 0 a b
+
+-1
+
+-2 0
+
+100
+
+200
+
+300
+
+400
+
+500
+
+600
+
+700
+
+Time ( Âµ sec)
+
+Fig. 11. Transverse velocity history at B for modulated transverse load applied at A: Ã¿lled circle denotes occurrences of di erent modes predicted by dispersion relation.
+
+are superposed in dispersion relation for easy evaluation of the magnitudes of di erent propagating speeds, which can be used to check the response obtained from FE analysis. Responses of the all-FGM beam and blended-FGM beam are shown in Fig. 11. Three separate wave forms can be seen in that Ã¿gure which denotes three di erent propagating modes. From dispersion relation it is clear that the Ã¿rst one is shear mode, second one axial mode and third one is bending mode. Here axial mode appears due to the presence of coupling in FGM beam. From dispersion relation of ceramic + FGM + steel beam, occurrence of di erent modes is estimated. For example, shear speed of FGM beam at 50 kHz is around 8245:6 m=s and the time taken for this mode to travel a length of 2 m is around 242:55 s and added to that initial padding of 100 s in the load history sums up to 342:55 s which is exactly the occurrence of shear mode in Fig. 11. This point and similarly other points (calculated from dispersion relation) for other modes are plotted with Ã¿lled circle in that Ã¿gure, which ensures the validity of present element for analysis of bi-materials with FGM. It can be seen that there is a little di erence between the behavior of all-FGM beam and blended-FGM beam. As in the previous case, the shear speed is slightly lower, while the axial mode travels faster. Next, responses of steel and ceramic beam are compared to that of an all-FGM beam and the result is shown in Fig. 12. Dispersion relation predicts that shear speed of FGM beam is greater than ceramic beam and hence it should appear before shear mode of ceramic beam which is clearly
+
+A. Chakraborty et al. / International Journal of Mechanical Sciences 45 (2003) 519 â 539
+1.6
+
+537
+
+0.8 Al2O3 0 s b
+
+Transverse velocity (m/s)Ã 10
+
+-6
+
+0.8 FGM 0 s 0.3 Steel 0 s b a b
+
+-1
+
+-2 0
+
+100
+
+200
+
+300
+
+400
+
+500
+
+600
+
+700
+
+800
+
+900
+
+Time ( Âµ sec)
+
+Fig. 12. Comparison of transverse velocity for modulated transverse load: Ã¿lled circle denotes occurrences of di erent modes predicted by dispersion relation.
+
+shown in the Ã¿gure. All other modes appear according to their velocities given by the dispersion relation (Fig. 10). Those points of occurrence predicted by dispersion relation are also marked with Ã¿lled circles. It is to be noted that ceramic and alumina have no axial modes since no axial- exural coupling is present for those cases. For them, the Ã¿rst wave packet is from shear mode and second one is from bending.
+
+4. Conclusions In this work, an exact shear deformable Ã¿nite element for the analysis of FGM is developed. The element is based on the Ã¿rst-order shear deformation theory. The consistent mass matrix is derived using exact approximation based on the exact static de ections. Rotary inertia and non-linear contribution are taken into account. The element is used to study static, free vibration and wave propagation problems in bi-material beams fused with FGM layer. The smoothening of stresses by FGM layer is shown in detail for static problem. E ect of the presence of FGM layer in natural frequencies and in group velocities and wavenumbers is studied. It has been found that, presence of FGM layer in structures results in signiÃ¿cant di erence in its response from its parent material beams (steel and ceramic for example) due to the presence of
+
+538
+
+A. Chakraborty et al. / International Journal of Mechanical Sciences 45 (2003) 519 â 539
+
+coupled sti ness and inertial parameters. Static models show that it is an e ective way to smoothen stress jumps in bi-material beams. Its free vibration behavior is remarkable and di erent designs of these materials will result in signiÃ¿cant variation in its natural frequencies. Its behavior in wave propagation, in general, is average of the two constitutive materials that it blends. Cut-o frequency of beam with FGM layer lies between its parent material beams, although shear speed of FGM applied beam is higher than any of those mono-material beam because of high coupling inertial terms. Appendix A.
+2 2 = B11 A55 =(A11 D11 â B11 ); Ã¿ = A11 A55 =(A11 D11 â B11 );
+
+= 1=(1 + Ã¿L2 =12):
+
+The elements of the exact shape function are: âµu = (1 â x=L); 11 âµu = x=L; 14 âµw = 0; 11 âµu = 6 12 (x=L â 1)x; âµu = âµ u ; 16 13 âµu = 3 13 (x â L)x;
+
+âµu = ââµu ; 15 12
+
+âµw = (Ã¿L3 + 12L â 12x + 2Ã¿x3 â 3Ã¿x2 L)=L; 12 âµw = 0; 14
+
+âµw = x (Ã¿L3 + 6L â 6x + Ã¿x2 L â 2xÃ¿L2 )=L; 13 âµw = âx (â12 + 2Ã¿x2 â 3Ã¿xL)=L; 15 âµ11 = 0; âµ12 = 6xÃ¿(âL + x) =L;
+
+âµw = x (â6L + Ã¿x2 L â xÃ¿L2 + 6x)=L; 16
+
+âµ13 = (3Ã¿x2 L + Ã¿L3 + 12L â 4xÃ¿L2 â 12x) =L; âµ15 = ââµ12 ; âµ16 = x(3Ã¿xL â 2Ã¿L2 + 12) =L: Non-zero elements of the {R} vector are: R1 = T AT11 ; R3 = â T BT11 ;
+
+âµ14 = 0;
+
+R4 = â T AT11 ;
+
+R6 =
+
+T BT11 :
+
+Non-zero entries of the element sti ness matrix [K] are: A11 B11 = âK14 ; K13 = â = âK16 ; K11 = L L A55 A55 = âK25 ; K23 = = K26 ; K22 = L 2 D11 A55 L + = K66 ; L 4 D11 A55 L + ; K36 = â L 4 K33 = K44 = K11 ; K46 = K13 ; K34 = âK13 ; K35 = âK23 ;
+
+K55 = K22 ;
+
+K56 = âk23 :
+
+A. Chakraborty et al. / International Journal of Mechanical Sciences 45 (2003) 519 â 539
+
+539
+
+References
+[1] Suresh S, Mortensen A. Fundamentals of functionally graded materials. London: IOM Communications Ltd., 1998. [2] Reddy JN, Chin CD. Thermomechanical analysis of functionally graded cylinders and plates. Journal of Thermal Stresses 1998;26(1):593â626. [3] Praveen GN, Reddy JN. Nonlinear transient thermoelastic analysis of functionally graded ceramicâmetal plates. International Journal of Solids Structures 1998;35(33):4457â76. [4] Reddy JN. Analysis of functionally graded plates. International Journal of Numerical Methods in Engineering 2000;47:663â84. [5] Reddy JN, Hsu YS. E ects of shear deformation and anisotropy on the thermal bending of layered composite plates. Journal of Thermal Stresses 1980;3:475â93. [6] Gopalakrishnan S. A deep rod Ã¿nite element for structural dynamics and wave propagation problems. International Journal of Numerical Methods in Engineering 2000;48:731â44. [7] Chakraborty A, Mahapatra DR, Gopalakrishnan S. Finite element analysis of free vibration and wave propagation in asymmetric composite beams with structural discontinuities. Composite Structures 2002;55(1):23â36. [8] Khedir AA, Reddy JN. An exact solution for the bending of thin and thick cross-ply beams. Composite Structures 1997;37:195â203. [9] Reddy JN. On locking-free shear deformable beam Ã¿nite elements. Computer Methods in Applied Mechanics and Engineering 1997;149:113â32. [10] Chakraborty A, Gopalakrishnan S. Poissonâs contraction e ects in a deep laminated composite beam. Mechanical Advances in Materials and Structures, in press. [11] El-Abbasi N, Meguid SA. Finite element modeling of the thermoelastic behavior of functionally graded plates and shells. International Journal of Computer Engineering Science 2000;1(1):151â65. [12] Markworth AJ, Ramesh KS, Parks Jr WP. Modelling studies applied to functionally graded materials. Journal of Material Science 1995;30:2183â93. [13] Kim J, Paulino GH. Finite element evaluation of mixed mode stress intensity factors in functionally graded materials. International Journal for Numerical Methods in Engineering 2002;53:1903â35. [14] Zhang Ch, Savaidis A, Savaidis G, Zhu H. Transient dynamic analysis of a cracked functionally graded material by a BIEM. Computational Materials Science 2003;26:167â74. [15] Wakashima K, Hirano T, Niino M. Space applications of advanced structural materials. ESA 1990;SP-303:97. [16] Nakamura T, Wang T, Sampath S. Determination of properties of graded materials by inverse analysis and instrumented indentation. Acta Materialia 2000;48(17):4293â306. [17] Strang G, Fix GJ. An analysis of Ã¿nite element method. Englewood Cli s, NJ, USA: Prentice-Hall, 1973. [18] Doyle JF. Wave propagation in structures. New York: Springer, 1998.
+
