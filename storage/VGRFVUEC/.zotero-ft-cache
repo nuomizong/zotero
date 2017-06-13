@@ -1,0 +1,89 @@
+International OPEN ACCESS
+
+Journal
+Of Modern Engineering Research (IJMER)
+
+Analysis of stiffened plate using FE Approach
+Anupama B. M1, Jayashankar babu B. S.2
+1, 2
+
+(Civil Engineering Department, PES College of Engineering, Mandya/ VTU, India)
+
+Abstract: The objective of the present investigation is to study the strengthening effect of the stiffeners
+on the buckling of unperforated and perforated plate when they are reinforced in longitudinal and transverse directions. The plate is subjected to inplane uniform uniaxial end compression load having simply supported plate boundary condition. The parameters considered are plate aspect ratio, area ratio and types of stiffeners. The analysis has been carried out using ANSYS finite element software. The buckling analysis shows that the influence of transverse stiffener is less when compared to longitudinal stiffener. Keywords: Buckling load factor, Finite element method, Inplane loads, Stiffened plate.
+
+I. INTRODUCTION
+Openings are often provided in plate structures for the purpose of access, services and even aesthetics. Though they are provided to achieve certain structural advantages, when these structures are loaded, the presence of openings will cause change in the buckling characteristics of the plate as well as on the ultimate load capacity of the structure. For the cases, when the opening becomes inevitable for the plates under high working stress, the reduced buckling strength of the perforated plate may be insufficient to meet the requirements of normal serviceability limits and structural safety. A design solution must be devised to increase the structural stability of such perforated plate before it can be used to its best advantage. This always can be accomplished by selecting a thicker plate but the design solution will not be economical in terms of weight of material introduced by an adequate increase in the thickness of the plate. It is possible to design an adequately rigid and economical structural plate element by keeping its thickness as small as possible by introducing reinforcing stiffeners. A stiffened plate is an assembly of stiffeners welded to the plate. Beam stiffeners on the plates significantly reinforce the structure by relieving some of the stresses and deflections, therefore improve the overall plate’s resistance against buckling. Purohit M R [1] investigated the structural instability caused by a plain circular perforation for simply supported square plates under edge compression, and also for those plates reinforced by two symmetric stiffeners in longitudinal and transverse manner based on the principle of minimum potential energy. Shanmugam et al. [2] have used the Finite element method to develop a design formula to determine the ultimate load carrying capacity of axially compressed square plates with centrally located perforations, circular or square. El-Sawy and Nazmy [3] investigated the effect of plate aspect ratio and hole location on elastic buckling of uniaxially loaded rectangular plates with eccentric holes using Finite element method. Ultimate strength of square plate with rectangular opening under axial compression using non-linear finite element analysis was studied by Suneel Kumar et al.[4]. Jeom Kee Paik [5] studied the ultimate strength of perforated steel plate under combined biaxial compression and edge shear loads for the circular cutout located at the centre of the plate by using ANSYS. Bin Cheng and Jincheng Zhao [6] analyzed the buckling behaviors of uniaxially compressed perforated steel plates strengthened by stiffeners. Yucheng Liu and Qingkui [7] investigated the performance of arbitrarily stiffened plates and regularly stiffened plates subjected to biaxial stress. Manoj G Tharian and Nandakumar C G [8] have used ANSYS to quantify the structural advantages of hat shaped stiffeners over the commonly used open section stiffeners. In the literature a great deal of attention has been focused on studying the elastic buckling of perforated plates, but less amount of work appears related to the effect of aspect ratio on stiffened perforated plates. Hence, the main objective of the present study is to contribute to the understanding the buckling behavior of unperforated and perforated plates when subjected to uniform inplane uniaxial compression loading and also to exhibit the importance of providing stiffeners in enhancing the stability of the plate which in turn leads to most economical section. The stiffened plates involved in this study are analysed using ANSYS finite element software.
+
+| IJMER | ISSN: 2249–6645 |
+
+www.ijmer.com
+
+| Vol. 4 | Iss.7| July. 2014 | 7|
+
+Analysis of stiffened plate using FE Approach II. PROMBLEM DEFINITION
+The plate has length a, width b, thickness t and a circular hole with diameter d. The plate is subjected to uniform inplane uniaxial compression loading. In the present study three types of rectangular plates are considered. They are, unperfortaed plate with and without stiffener and also perforated stiffened plate. The stiffeners are placed along longitudinal and along transverse direction. The material of the plate and stiffener are assumed to be homogeneous, isotropic and elastic. Modulus of elasticity and Poisson’s ratio are 210924N/mm2 and 0.3 respectively. In order to correctly assess the effect of aspect ratio, all the remaining parameters that define the plate geometry have been kept constant. The simply supported boundary condition on all the four edges of the plate is considered in this study. Finite element models for the unstiffened and stiffened plates involved in this study are meshed using 8SHELL93 and two node BEAM188 element is used to model the stiffener that is attached to the plate, which are available in ANSYS element library[9].
+
+III. FINITE ELEMENT FORMULATION
+The effect of inplane deformations is taken into account in addition to the deformations due to bending. A eight-noded isoparametric element with six degrees of freedom (u, v, w, θx , θy and θz ) per node is employed in the present analysis. The element matrices of the stiffened plate element consist of the contribution of the plate and that of the stiffener. The contribution of the stiffener to a particular node depends on the proximity of the stiffener to that node. For a given edge loading and boundary conditions, the static equation, i.e., [K] {∆} = {F} is solved to get the stresses. The geometric stiffness matrix is now constructed with the known stresses. The overall elastic stiffness matrix and geometric stiffness matrix are generated from the assembly of those element matrices and stored in a single array where the variable bandwidth profile storage scheme is used. The elastic stiffness matrix [ KP ] and geometric stiffness matrix [ KGP ] of the plate element may be expressed as follows
+
+11 T [KP] =   B P D PB P J P dd 00
+
+[KGP] =   B GPT  PB GP J P dd
+00 The elastic stiffness matrix [ Ks] and geometric stiffness matrix [ KGs] of a stiffener element placed anywhere within a plate element and oriented in the direction of x may be expressed, in a manner similar to that of the plate element as follows,
+
+11
+
+1 T [KS] =  B S  D S B S  J S d 0
+
+[KGS] =  B GST  S B GS J S d
+0 Where, [BP] = [[BP]1 [BP]2…[BP]r …[BP]8]; [BGP] = [[BGP]1 [BGP]2 …[BGP]r …[BGP]8] [Bs] = [[Bs]1 [Bs]2…[Bs]r …[Bs]8]; [BGs] = [[BGs]1 [BGs]2 …[BGs]r …[BGs]8] and |JS | is the Jacobian of the stiffener, which is one-half of its actual length within an element. The equation of equilibrium for the stiffened plate subjected to inplane loads can be written as, [[Kp] – P [KG]]{q} = 0 Equation (1) can be reduced to the governing equations for buckling problems.
+
+1
+
+(1)
+
+IV. DISCUSSION OF THE RESULTS
+The study obtain several values of critical buckling compression for simply supported plate with different aspect ratios, also when a small circular perforation is included there in, and when these perforated plates are reinforced by two stiffeners in longitudinal and transverse direction. These numerical results formulate basis for predicting relative buckling strength of plates with plain circular perforations with or without any stiffeners. Also observed the variation in buckling strength when un-perforated plate reinforce with single stiffener in longitudinal and in transverse directions subjected to inplane uniaxial compression. The | IJMER | ISSN: 2249–6645 | www.ijmer.com | Vol. 4 | Iss.7| July. 2014 | 8|
+
+Analysis of stiffened plate using FE Approach
+results of static stability behavior of isotropic plates with varying aspect ratios have been detailed. The convergence study shows that a mesh size of 10x10 is sufficient to get a reasonable order of accuracy, the analysis in the subsequent problems is carried out with this mesh size. 4.1 Validation In Comparison studies of buckling load factor (k) have been carried out for the isotropic solid plates under uniaxial compressive loading by varying aspect ratio for all-round simply supported, (SSSS) boundary condition. The results obtained from the present work have been tabulated with the comparative results in Table 1. From these comparison studies, it can be concluded that results validated the correctness of the formulation. Table 1 Comparison of buckling load factor (k) of SSSS isotropic unperforated plate for uniaxial compression (t = 6 mm ; b = 600 mm ; µ = 0.3) Types of plate Solid Perforated Unperforated stiffened plate Perforated stiffened plate plate plate Present study Reference value 3.996 4.00(10) 3.8434 3.896(1) Longitudinal 17.01 11.67(10) Transverse 6.29 6.5(10) Longitudinal 14.57 14.26(1) Transverse 10.46 10.55(1)
+
+4.2 Case studies The results on the effect of plate aspect ratio(β) and area ratio(δ) on the critical buckling load factor for unperforated and perforated stiffened plates are presented and discussed in this section. Plates with allround simply supported edges and subjected to inplane uniform uniaxial loading are considered in this study. 4.2.1 Unperforated plate Fig.1 shows the variation of critical buckling stress (σ cr) versus aspect ratio(β) for unperforated plate. The buckling strength of an unperforated plate is more when β=0.5, 56%, with respect to β=1. Also the variation is 8.5% when β=1.5, but it is almost the same when β>1.5. Fig 2 shows the variation of buckling load factor (k) versus area ratio (δ) for different plate aspect ratios (β) having central longitudinal stiffener. The introduction of stiffener causes a linear increase of buckling load with δ=0.05 and this increase is less in magnitude when δ>0.1. The curves are overlapped on each other, indicating the less effect of aspect ratio. The increase in k is 1.72, 3.26, 3.26 and 3.29 with β=0.5 to 2 and at δ=0.1 and k further increases with respect to unperforated plate without stiffener to 2.07, 3.59, 3.44 and 3.83 for β=0.5 to 2 and δ=0.2 respectively. The plate with the longitudinal stiffener possessing 4 times higher strength than unstiffened plate.
+
+Fig. 1: Variation of σ with respect to σ unperforated isotropic plate subjected to inplane uniaxial for cr compression. The enhancement in buckling load factor is due to the introduction of stiffener exactly at the centre divides the plate to act as two individual plates having larger aspect ratios i.e., when plate having aspect ratio one is provided by one central stiffener it divides the plate into two individual plates of larger aspect ratio which in turn enhances the buckling strength of the stiffened plate compared to unsiffened plate. | IJMER | ISSN: 2249–6645 | www.ijmer.com | Vol. 4 | Iss.7| July. 2014 | 9|
+
+Analysis of stiffened plate using FE Approach
+
+Fig. 2: Variation of k with σ and σfor unperforated plate having central longitudinal stiffener subjected to inplane uniaxial compression
+
+. Fig. 3: Variation of k with the σ and σfor unperforated plate having central transverse stiffener subjected to inplane uniaxial compression. 4.2.2 Perforated stiffened plate Fig 4 shows the variation of buckling load factor (k) versus area ratio (δ) of a perforated plate with central two symmetric longitudinal stiffeners. It is observed that k increases as δ increases. More increment in β=0.5 and it is 3.65, 3.92, 4.11, 4.48 times higher with respect to perforated plate without stiffener. The same increase in k when β = 1 is 2.05, 3.13, 3.4, 5.48. But increase is less when β>1 with respect to δ = 0.05 to 0.2 respectively. This is due to more stiffening effect of plate having a ≤ b than a >b.
+
+Fig. 4: Variation of k for perforated plate reinforced by two symmetric longitudinal stiffener with respect to σand σsubjected to inplane uniaxial compression | IJMER | ISSN: 2249–6645 | www.ijmer.com | Vol. 4 | Iss.7| July. 2014 | 10|
+
+Analysis of stiffened plate using FE Approach
+Fig 5 shows the variation of buckling load factor (k) versus area ratio (δ) of a perforated plate with central two symmetric transverse stiffeners. At β =0.5, k increases with respect to δ up to δ =1 and slight variation is noticed thereafter. The increase is in the order of 3.45, 5.48, 4.56, 5.28 when δ=0.05 to 0.2 respectively. Less increase of k is noticed compared to longitudinal stiffener for all other cases having β>0.5.
+
+Fig. 5: Variation of k for perforated plate reinforced by two symmetric transverse stiffener with respect to aspect σa σsubjected to inplane uniaxial compression. nd
+
+V. CONCLUSION
+Based on the results obtained in this study, the following conclusions are formulated with regard to buckling of simply supported plates reinforced by two symmetric longitudinal and transverse stiffeners with different plate aspect ratios (β=0.5 to 2), and different area ratios (δ=0.05 to 0.2) and plate having small circular central perforation. 1. The ultimate strength of plate was found to reduce with increasing aspect ratio, remaining practically constant at higher aspect ratios. 2. Unperforated thin plate having more critical buckling stress when β < 1 and it is observed that 56% compared to β =1. Noticed slight increase of 8.5% up to β = 1.5 but start to decrease then onwards. 3. More increase in strength is observed when δ ≤ 0.15 in the case of longitudinal central stiffening of unperforated plate. This indicates the optimization of stiffener proportion with respect to maximum plate strength. 4. The influence of central transverse stiffener on unperforated plate is less when compared to central longitudinal stiffener. 5. The two longitudinal stiffeners on either side of the central circular perforation definitely increase the buckling strength of the perforated plate. 6. The plate with stiffener possessing four times higher strength than unstiffened plate, and lesser increment is observed with respect to the area ratio δ and for β ≥ 1 when stiffeners are placed along longitudinal direction. But the increase in buckling strength is only 50% when the plate is reinforced by central transverse stiffener. 7. The two transverse stiffeners will not participate in carrying the applied compression yet the buckling strength of the perforated plate will be increased to some extent.buckling strength of perforated plate reinforced by longitudinal stiffener is very high when β=0.5 and it is 3.66, 3.92, 4.11 and 4.48 times higher when compared to unstiffened perforated plate with respect to area ratio 0.05, 0.1, 0.15 and 0.2 respectively. This increase of k slightly lesser in the stiffened plate having β ≥ 1. The increase in buckling strength is less in transverse stiffened perforated plate.
+
+REFERENCES
+[1] [2] [3] M.R. Purohit,, M. Tech Thesis, “Buckling strength of simply supported stiffened plate having a plain circular perforation”, Sir George Williams University, Montreal, Canada, 1973. N.E. Shanmugam, V. Thevendran, , Y.H. Tan, “Design formula for axially compressed perforated plates”, ThinWalled Structures, Vol.34(1), 1999, pp 1–20. El-Sawy K.M., Nazmy A.S., Effect of aspect ratio on the elastic buckling of uniaxially loaded plates with eccentric holes, Thin Walled Structures, 39, 2001, 983-998.
+
+| IJMER | ISSN: 2249–6645 |
+
+www.ijmer.com
+
+| Vol. 4 | Iss.7| July. 2014 | 11|
+
+Analysis of stiffened plate using FE Approach
+[4] [5] [6] [7] [8] [9] [10] M.P.Suneel Kumar, Alagusundaramoorthy, R.Sundaravadivelu, Ultimate strength of square plate with rectangular opening under axial compression, Journal of Naval Architecture and Marine Engineering, 2007, 15-26. Jeom Kee Paik, “Ultimate strength of perforated steel plate under combined biaxial compression and edge shear loads”, Thin-Walled Structures, Vol.46, 2008, pp.207–213. Bin Cheng and Jincheng Zhao, “Strengthening of perforated plates under uniaxial compression: Buckling analysis”, Thin-Walled Structures; Vol.48, 2010, pp.905–914. Yucheng Liu, and Qingkui, “Strengthening of arbitrarily stiffened plates and regularly stiffened plates to biaxial stress”, Thin-Walled Structures, Vol.68, 2013, pp.85-91 Manoj G Tharian & Nandakumar, C.G., “Hat stiffened plates for ship building”, International Journal of Applied Engineering Research and Development (IJAERD) ISSN 2250-1584, Vol. 3, Issue 1, Mar 2013, pp.1-10 ANSYS, User Manual, Version 10.0, Ansys Inc S.P.Timoshenko, and James M. Gere., “Theory of Elastic Stability”, (second ed. McGraw- Hill company, Singapore, 1963) 348-389.
+
+| IJMER | ISSN: 2249–6645 |
+
+www.ijmer.com
+
+| Vol. 4 | Iss.7| July. 2014 | 12|
+

@@ -1,0 +1,659 @@
+Int J Adv Manuf Technol (2013) 65:97–113 DOI 10.1007/s00170-012-4153-9
+
+ORIGINAL ARTICLE
+
+Adaptive rapid prototyping/manufacturing for functionally graded material-based biomedical models
+G. Q. Jin & W. D. Li
+
+Received: 4 January 2012 / Accepted: 9 April 2012 / Published online: 29 April 2012 # Springer-Verlag London Limited 2012
+
+Abstract In this paper, research on developing adaptive rapid prototyping/manufacturing (RP/M) algorithms for functionally graded material (FGM)-based biomedical models is reported. Non-uniform rational B-spline and FGMbased features have been proposed to present the models. Innovative algorithms for tool path optimization in RP/M have been developed, including: (1) a mixed tool path algorithm to generate contour/offset tool paths to represent varying material composition along the boundary of each sliced layer of a model and zigzag tool paths to present the internal area of a single material to simplify computing and processing and (2) adaptive algorithms to control the RP/M nozzle/print head to minimize the build time of each sliced layer according to the geometrical characteristics of the model. Case studies of FGM-based biomedical models have been used to verify and demonstrate the performance of the research in terms of algorithm effectiveness. Keywords Functionally graded material . NURBS . Rapid prototyping/manufacturing . Tool path
+
+1 Introduction Recent advances in material engineering and manufacturing technologies have brought enormous innovation opportunities in product development. A forefront R & D issue is rapid fabrication of heterogeneous material-based products with varied material compositions and distributions. A typical example is functionally graded material (FGM)-based
+G. Q. Jin : W. D. Li (*) Faculty of Engineering and Computing, Coventry University, Coventry CV1 5FB, UK e-mail: weidong.li@coventry.ac.uk
+
+products, which have shown broad potentials in various applications such as biomedical, automotive, aerospace, energy, civil, nuclear, and naval engineering [1–5]. Different from homogenous materials, FGMs contain spatial and gradual variations in composition from two or more materials for stress concentration avoidance and a better local control of thermal, structural, electrical, or functional properties. The concept of FGM was initially proposed in 1984– 1985 when Japanese researchers developed advanced materials in an aerospace project [1]. Owing to the requirement to meet the significant temperature difference between the inside and outside of a space plane, in which the body of the space plane will be exposed to the environment with approximately 1,700°C and the inside temperature is gradient to approximately 1,000°C, there was no uniform and homogeneous material able to endure such conditions. The researchers designed FGMs by gradually changing the material composition, and in this way, both thermal resistance and mechanical properties were improved. Therefore, by adopting such heterogeneities, the advantages of various materials can be fully exploited, and some conflicting functional requirements can be alleviated. Meanwhile, functional gradation is an important characteristic of living organisms, and FGMs can mimic such gradient so that the concept of FGM brings potentials to new biomedical product development [2–4]. For instance, a natural bone has been evolved as a FGM-based structure consisting of various materials (e.g., principle proteins, collagen, glycoproteins, protein–polysaccharides, calcium phosphate, etc.) to meet multiple mechanical and biological requirements, such as structural integrity, strength, transport, and an ideal micro-environment for cell and tissue ingrowth [6, 7]. As thus, it becomes more important to apply the concept of FGM in bone implant design. More than 2,500 surgical operations to incorporate graded hip implants have been successfully performed in Japan
+
+98
+
+Int J Adv Manuf Technol (2013) 65:97–113
+
+over 20 years. The graded implants enable a strong bond between titanium (Ti) implants, bone cement, hydroxyapatite (HAp), and bone. Another example is the development of FGM Ti/HAp-based artificial teeth, in which pure Ti is at one end achieving excellent mechanical properties, increasing the composition concentration of HAp towards 100 % at the other end to be more appetitive for the lower part implanted inside the jaw bone. Manufacturing technologies of FGM are essential because FGM-based models need to be not only theoretically correct in design but also realizable. In recent years, the rapid prototyping/manufacturing (RP/M) technology (The technology is also called layer-based manufacturing or free-form fabrication. In the following, the terminology is standardized as RP/M) has been increasingly used in FGM applications. The driver is that RP/M, based on layer-based slicing and additive processes, is flexible to make various geometries with complex material heterogeneities [8–11]. On the other hand, further research is imperative to develop more effective and adaptive RP/M algorithms to support customized and free-form FGM-based biomedical products.
+
+This paper presents the innovative research conducted in the area, and a summary is given below: & A non-uniform rational B-spline (NURBS)-based slicing algorithm has been developed representing the geometrical boundary of each layer of a biomedical model in a more accurate means, and FGM-based features have been designed to represent the model with control parameters on multiple material composition. A mixed tool path algorithm has been devised to generate a series of contour/offset tool paths to represent the material composition and to ensure the surface quality of the model, and zigzag tool paths for the internal area of a single material in the model to simplify computing and processing. Adaptive speed algorithms have been developed to optimize the speed of the RP/M nozzle/print head along the contour/offset and zigzag tool paths according to the geometrical characteristics of the model and to identify the best slope degree of zigzag tool paths leading to the minimum build time.
+
+&
+
+&
+
+Table 1 RP/M methods and their characteristics Refs Fabrication technology Functionally graded materials Process Strength and weakness
+
+[12] Powder+binder+3-DP Plaster powder+multiple binding fluids
+
+[45] Powder injection+laser Stainless steel melting AISI 316 L+Stellite grade 12
+
+[46] Powder+selective laser sintering
+
+[47] Filament+fused deposition modeling
+
+[48] Powder+selective laser sintering
+
+Strength: Good mechanical strength; easy control of material composition. Weakness: high temperature, complex controlling system and shielding gas involved; materials must be in powder form Strength: good porosity control, Hydroxyapatite (HAp) HAp and polyethylene are incorporated good mechanical strength and polymer into a FGM-based matrix for bone composites implants. The average size of internal Weakness: high temperature, complex pores is 60–68 μm with about 20 % controlling system, materials must of the pores larger than 100 μm for bone be in powder regeneration. The laser is a 10-W CO2. Ceramic+polymer Ceramic and polymer materials are fused Strength: good control of composition composites and deposited. The properties of the and location of deposition. composites can be tailored by changing Weakness: complex controlling system, the connectivity of the phases. Two lower mechanical strength piezoelectric test parts have been built to demonstrate the process. Poly(vinyl alcohol) PVA+ PLA and HAp are mixed and sintered Strength: good control of composition, hydroxyapatite (HAp) by SLS RP to fabricate tissue scaffolds. good implementation of tissue scaffold Layer thickness is 50 μm. Weakness: expensive equipment, higher temperature, difficult to remove the loose powder within pores
+
+Local composition control (LCC) is accompanied by a print head with several jets, each depositing binders and/or slurries of a material. The material composition is on the scale of the binder droplets 100 μm Powders are injected on working zone by coaxial nozzles, controlled by CNC table, and then molten by 5kW Nd:YAG laser or CO2 laser. Layer thickness is 30–50 μm.
+
+Strength: flexible in controlling composition and porosity, lower temperature involved, lower cost and faster speed Weakness: low mechanical strength
+
+Int J Adv Manuf Technol (2013) 65:97–113 Fig. 1 The algorithms for RP/ M processing
+RP/M Process NURBS-based slicing algorithm FGM-based representation Developed methods and algorithms Slicing algorithm Characteristics NURBS-based contour and offset curves representation
+
+99
+
+FGM-based features Mixed tool-path generation algorithm Adaptive algorithms for the speed of the RP/M nozzle/print
+
+The material composition represents in a linear or nonlinear function based on the geometrical variable u of the NURBS guides NURBS-based contour/offset tool-paths with the adaptive speed of the RP/M nozzles/print head Zigzag tool-paths with adaptive speed and slope degree optimization strategy
+
+Tool-path generation
+
+&
+
+In the end, case studies of FGM-based product models have been used to demonstrate the effectiveness of the developed algorithms.
+
+2 Related work 2.1 FGM-based product representation In recent years, active R & D has been carried out to introduce new modeling and presentation methods for FGM-based products. A short summary of the previous work is made below. Parametric and feature-based FGM models with a local composition control were developed [12–14]. In the methods, design features were implemented to enable designers to specify geometrical and material composition features using an editable distance function. In [15], a 2D FGM design method was developed with a target to withstand super high temperatures and to reduce the thermal and residual stresses. In [16, 17], multi-functional material criteria were summarized in macro- and microlevels to design
+
+FGM products. The research was also extended to optimize FGM design in the aspects of strength, weight, and mesoscopic structure. In [18], a multi-criteria decision-making process was developed to decide the best arrangement of FGM compositions. An optimization algorithm was introduced to fabricate FGM products using a RP/M machine. Computer-aided engineering (CAE) was triggered to evaluate and optimize the mechanical or thermal properties during the process. In [19], a new feature-based method was proposed to model FGM products. Inter-relations between features that control material composition and attributes were established by constraining geometric and material features. Free-form B-spline functions were used to represent the complex shapes of geometry and material features. In [20, 21], geometrical distance functions from material 1 to material 2 and so on were developed as variables to control the material composition in FGM-based products. In [22–24], B-spline or NURBS-based modeling algorithms were devised to represent complex FGM-based features and products. In the features, multiple materials can be diffused smoothly. The developed algorithms were applied to case studies such as turbine blade design, micro electromechanical system fabrication processes, biomedical prosthesis
+
+Fig. 2 An example to illustrate the NURBS-based sliced contour. a A tibia model for RP/M tool path generation, b an enveloping box for the model and a sliced layer, c The crosssection segments, d a NURBSbased contour curve generated by the slicing algorithm
+
+(a) An tibia model for RP/M tool-path generation
+
+(b) An enveloping box for the model and a sliced layer
+
+(c) The cross-section segments
+
+(d) A NURBS-based contour curve generated by the slicing algorithm
+
+100
+Intersected points Apply an optimization algorithm (e.g., PSO) to identify the optimized control points
+
+Int J Adv Manuf Technol (2013) 65:97–113
+
+w(d1 ) =
+
+d2 d1 + d 2
+
+d1
+
+w(d 2 ) =
+
+d1 d1 + d 2
+
+Calculate knot vector
+
+S1
+
+Pd 2
+S2
+
+Calculate chord length parameterization
+
+Apply formulas (1) and (2) to generate the NURBS-based contour curve
+
+Generate NURBS control points randomly
+
+Fig. 5 An example of material composition from two material grading sources
+
+Fig. 3 The flow of generating a NURBS-based contour curve of a sliced layer
+
+design, etc. In [25–28], a finite element approach was applied to study wave propagation, thermal conductivity, large amplitude flexural vibration characteristics, and internal crack problem of FGM plates. In [29, 30], the recent status and advance of the FGM-based modeling methods were updated. Some of the above research adopted a parametric representation such as B-spline and NURBS to represent FGM-based products. However, a research gap still exists between the FGM modeling and the process planning of RP/M. It is timely to develop a generic presentation method with extensibility and flexibility to support complex FGM-based products such as biomedical models for layer-based RP/M processing.
+
+2.2 RP/M tool path generation In [1, 4], processing technologies for FGMs were surveyed, including powder metallurgy, centrifugal casting, sedimentation casting, controlled mold filling, directional solidification, infiltration processing, and reactive infiltration. In recent years, RP/M has been one of the primary and flexible methods to fabricate FGM-based products. In [31], various available RP/M technologies for FGM-based products were reviewed, such as the powder-based 3D printer (3-DP), laser selective sintering (SLS), fused deposition modeling, and
+
+stereolithography. RP/M technologies for biomedical products including FGM-based bio-products were summarized in [32]. Some developed RP/M technologies to fabricate FGMs are compared in Table 1. All of the above research works focused on developing some new mixed materials such as a ceramic and polymer mixed material and a PLA and HAp mixed material for RP/ M systems to fabricate FGM objects or design some key components of RP/M systems such as print heads and injection nozzles to fabricate FGM objects. However, due to the continuously varying material composition in each sliced layer during RP/M processing, it is a quite timeconsuming computational process in fabricating FGMbased objects. At the same time, the precision of the RP/M process is difficult to be managed and optimized. Therefore, it is vital to develop intelligent methods to optimize tool path planning and multiple material planning in RP/M to minimize the lead time and expense of processing. In [33], an algorithm was designed to generate multiple tool paths for FGMs and avoid redundant tool movements to enhance the processing efficiency. Another efficiency improvement algorithm was designed in [34]. FGMs were divided into some small homogenous sub-regions by the algorithm. After that, tool paths and process parameters for each sub-region were created separately using optimized contour/raster path patterns. In [35], a virtual machine for FGMs was developed, in which multiple material nozzles and three working subtractive stations for spreading, grinding/ milling, and engraving were configured. In this designed virtual machine, some materials are removed using the
+
+Fig. 4 Examples of two types of contour curves
+
+_ (Convex)
+X X
+
+Intersection line P
+X X
+
+X X X
+
+P
+
+X X X
+
+_ (Concave)
+
+NUBBS-based contour curve -
+
+NUBBS-based contour curve - -
+
+Int J Adv Manuf Technol (2013) 65:97–113
+u
+Composition of FGM - r (u)
+
+101
+
+C1 S1
+C
+
+An internal curve interpolated based on S1 and S2
+
+100%
+
+C2
+
+S2
+
+r1(u )
+Curve 1
+
+r2 (u)
+
+Fig. 6 The computation of the material composition based on geometrical variable
+0
+
+Curve 2
+
+(a) Representations of linear FGM distribution
+Composition of FGM - r (u )
+
+1
+
+u
+
+grinding/milling operations apart from the additive processing of RP/M so that the machine is more flexible for complex products with stricter technical requirements such as surface smoothness and strength. In the machine, strategies of planning and optimizing each nozzle and machining tool were proposed. In the meantime, functional gradation is an important characteristic of human tissues, and FGM can mimic such gradation. As thus, there is an increasing need in tissue engineering to adopt FGM and RP/M to process materials and relevant products. More details can be found in [36–38]. Further research is imperative below: & Majority of the developed RP/M tool path generation strategies are based on zigzag. Smart and hybrid tool path generation algorithms are expected to improve the surface quality of FGM-based biomedical models. The developed speed strategies for RP/M nozzles/print heads are mainly unified. Adaptive speed algorithms are desirable to optimize the build time of FGM-based biomedical models.
+
+100%
+
+r1(u )
+Curve 1 Curve 4 Tension Curve 2 Curve 3
+
+r2 (u)
+0
+
+(b) Representations of non-linear FGM distribution
+
+1
+
+u
+
+Fig. 7 Representations of linear and non-linear FGM distribution. a Representations of linear FGM distribution and b representations of non-linear FGM distribution
+
+&
+
+3 Methodology and characteristics The overview of the developed algorithms is presented as follows. The developed algorithms for the FGM-based product models in the RP/M process planning are shown in Fig. 1. 1. A slicing algorithm has been developed to represent the boundary contour of each sliced layer as a closed NURBS curve to maintain the geometrical representation accuracy of an original FGM-based product model, and FGM-based features have been designed to represent the model with flexible control parameters on multiple material composition. 2. A mixed tool path algorithm has been developed to generate contour/offset and zigzag tool paths to meet both the geometrical accuracy and build efficiency requirements. The contour/offset tool paths are used to fabricate the area along the boundary of each sliced layer to represent varying material composition and improve the geometrical quality of a model. The zigzag tool paths are used to fabricate the
+
+interior area of a single material in the model to improve the efficiency of computing and processing. 3. Adaptive algorithms have been designed to address the different geometrical characteristics of a model and achieve minimum build time. They include an algorithm to optimize the speed of the RP/M nozzle/print head along the contour/offset tool paths and an algorithm to obtain the best slope degree of the zigzag tool paths to achieve the minimum build time of the tool paths.
+
+C = 5, T = 0 C = 5, T = 0.015
+
+C = 5, T = 0.03
+
+Fig. 8 r1(u) with different tensions is plotted
+
+102
+
+Int J Adv Manuf Technol (2013) 65:97–113
+A Type II contour curve _ (Concave)
+
+4 FGM-based modeling and mixed tool path generation 4.1 NURBS-based RP/M layer representation
+
+.
+
+NURBS is effective to represent regular and non-regular (e.g., free-form) geometrical shapes so that it has been popularly used in modern CAD and RP/M systems [39]. Here, the NURBS geometrical representation has been introduced to represent the geometry of each FGM-based RP/M layer. In Fig. 2, a biomedical tibia model of human left feet is used to illustrate the above process. In order to establish the NURBS-based contour curve on the boundary between a sliced layer and the model (the boundary will be represented as C i,1 in the following), a fitting algorithm based on the intersected points between the sliced layer and the model is used here [40]. A flow of the algorithm is shown in Fig. 3. A general form of a NURBS-based contour curve is represented below. C i;j ðuÞ ¼
+n X i¼0
+
+New box 1 of control points
+
+.
+
+New box 2 of control points
+
+Fig. 10 An example for handling a type II contour curve
+
+wi Ni;p ðuÞC P i;j
+
+ð1Þ
+
+line only has two intersected points with the box formed by all the control points (the gray area in Fig. 4) and P is between the two intersected points, the control point C_P k+1,1 is defined as convex; otherwise, the control point C_P k+1,1 is concave. [Definition 2] If all the control points of a NURBSbased contour curve are convex, the curve is defined as a type I contour curve. Otherwise, the curve is a type II contour curve. Two examples for a type I contour curve and a type II contour curve, respectively, are illustrated in Fig. 4.
+
+where C i,j represents the jth contour curve on the ith RP/M layer, u is the parametric variable (u0[0,1]), wi is the weight associated with control points, C_P i,j is the control point, p is degree, and & 1 ui u uiþ1 Ni;0 ðuÞ ¼ ; and Ni;p ðuÞ 0 otherwise u À ui Ni;pÀ1 ðuÞ ¼ uiþp À ui þ uiþpþ1 À u Niþ1;pÀ1 ðuÞ uiþpþ1 À uiþ1 ð2Þ
+
+4.2 FGM representation A new FGM-based layer representation is expected to embrace a FGM domain defined over the geometrical modeling domain. Here, a FGM-based layer F can be symbolically described as: F ¼ ðPg ; Pm Þ ð3Þ
+
+The generated contour curves can be further classified into two types defined as follows: [Definition 1] A control point C_P k+1,1 and its two neighbor control points C_P k,1 and C_P k+2,1 form a triangle. Choose a random point P on the boundary or inside of the triangle, and draw a line to pass it. If the
+
+where Pg is the geometrical domain of the layer, and Pm is the material domain of the layer. The most widely used FGM representation method for a layer is the inverse distance-based weighting function [20, 21]. In the method, the concept of a “material grading source” has been introduced as the origin of a single material. The material composition from several FGM grading sources at a specific point P can be computed using the
+
+Contour curve -
+
+_
+
+_
+Offset contour curve XD
+
+Fig. 9 An example for computing the new control points of an offset contour curve
+
+Fig. 11 Contour and offset tool paths generated for the tibia model
+
+Int J Adv Manuf Technol (2013) 65:97–113 Fig. 12 Two types of lines in zigzag tool paths
+Type I line Type II line
+
+103
+
+following formulas. A specific case is that a FGM could be from the same material but with different densities. Pm ðPÞ ¼
+n X i¼1
+
+wðdi ÞSi i ¼ 1; 2; . . . n
+
+ð4Þ
+
+di ¼ dis tan ceðP; Si Þ
+n Q
+
+ð5Þ
+
+wðdi Þ ¼
+
+j¼1;j6¼i n n P Q
+
+dj ð6Þ dj
+
+j¼1 j¼1;j6¼i
+
+where Pm(P) is the FGM composition associated with a point P, Si is the ith material grading source, w(di) is the interpolation weight to the contribution of the ith material grading source according to the distance di; di is the distance between a point P, and the ith material grading source. The formulas are illustrated in Fig. 5. There are two material grading sources S1 and S2; the distances between an internal point P and S1/S2 are d1/d2, respectively; two weights to S1 and S2 are w(d1) and w(d2), respectively, which are computed to be d1d2 2 and d1d1 2 , respectively, þd þd according to formulas (5) and (6); Pm ðPÞ ¼ d1d2 2 M ðS1 Þþ þd
+d1 d1 þd2
+
+However, it is not efficient and flexible to use the distance function defined above to compute the material composition for each geometrical point. It is desirable to establish the relationship of the geometrical domain Pg and the material domain Pm to improve the computation processes of geometries and materials. With the purpose, the variables over the geometrical domain can be used to develop a material mathematical function so as to facilitate the computation of the material domain. For instance, the geometry of an internal curve interpolated based on the boundaries of S1 and S2 in Fig. 6 is defined as: Pg ¼ fg ðuÞ, where u is the geometrical variable from the center C1 of S1 to the center C2 of S2. As thus, a curve having the same value of u will have the same material composition generated from its material function Pm, and the computation efficiency will be improved. Based on the concept, a set of NURBS material features have been developed. In this research, the material composition functions in the above formulas (4), (5), and (6) are refined here in a linear or non-linear means. In a case for a linear change with two material grading sources (it can be extended to more grading sources), the material composition functions have been redefined in the following formulas (7), (8), and (9). Based on a geometrical variable u, a linear Pm of the material domain across the geometrical domain is illustrated in Fig. 7a. Pm ¼ fm ðr1 ðuÞ; r2 ðuÞÞ; u 2 ½0; 1 ð7Þ
+
+M ðS2 Þ according to formula (4).
+
+Fig. 13 Different slope degrees of zigzag tool paths leading to different build time. a 0° and b 20°
+
+104 Fig. 14 Examples to illustrate the segmentation process for the adaptive speed algorithm. a An example of segmentation, b potential segmented points, and c some removed points
+Bumpy segment
+
+Int J Adv Manuf Technol (2013) 65:97–113
+The points are removed since they are too close to their neighbor points
+
+Segmented point
+
+Potential segmented points
+
+Segmented point Segmented point
+
+Smooth segments
+
+Segmented point Segmented point jth contour or offset curve C i, j
+
+lth segment - S i , j ,l
+
+(a) An example of segmentation
+
+(b) Potential segmented points
+
+(c) Some removed points
+
+r1 ðuÞ ¼ 1 À u r2 ðuÞ ¼ u
+
+ð8Þ ð9Þ
+
+r2 ðuÞ ¼
+
+1 1þ eCðÀuþ0:5þT Þ=Norm
+
+ð11Þ
+
+Sigmoid functions (S curves) have been developed here to represent the non-linear heterogeneity of the material composition and the distance from material grading sources. The functions are illustrated using Fig. 7b, in which it assumes there are two material grading sources 1 and 2 to build up the overall material composition and distribution of a product (it can be extended to more grading sources similarly). Curve 1 is a “standard” sigmoid function to represent the composition contribution of material 1 r1(u) (from 100 to 0 % from its source), and curve 2 is mirrored from curve 1 to represent the composition of material 2. To develop a more flexible representation, a “tension” is incorporated to adjust the trend of the compositions of materials 1 and 2 according to users' design requirements (e.g., curves 3 and 4). The following formulas have been developed for the above representation. r1 ðuÞ ¼ 1 À 1 1 þ eÀCðÀuþ0:5þTÞ=Norm ð10Þ
+
+where C is an adjustable constant (for instance, it can be set as 5 here as a best practice), T is an adjustable constant for the tension control, and Norm is the normalization value computed below: Norm ¼ 0:5 þ T ð12Þ
+
+Examples with several tension controlling parameters for r1(u) are plotted in Fig. 8.
+
+4.3 Contour/offset FGM-based tool path generation 4.3.1 Offset curve generation for a type I contour curve Based on the central point of the control points of the abovegenerated contour curve, each control point for a new NURBS-based curve that offsets the contour curve (i.e., offset contour curve) is computed in the following: C P k;j ¼ D þ u  ðC P k;1 À DÞ ð13Þ
+
+A contour or offset curve Select potential segment points if the normalized point curvatures are greater than a pre-set threshold value
+
+Create discrete points with the same length on the curve
+
+Calculate curvatures of the points
+
+Optimize the segments by removing some potential segments
+
+Apply a normalized method to the curvatures
+
+Apply adaptive forming speeds to the different segments
+
+Fig. 15 The flow of the segmentation and adaptive speed algorithm
+
+where C_P i,j represents an offset contour curve in the ith layer, D represents the geometric central point of the control points of the contour curve, and u is the variable to generate the new control points of the offset contour curve and used to calculate the material composition on the curve according to formulas (7), (8), (9), (10), (11), and (12) (e.g., u is set 0.9 in the following example). It is determined by the diameter of the RP/M nozzles/print head and the overlapping rate between two neighbor tool path lines. For example, illustrated in Fig. 9, a new control point C_P k,j of an offset contour curve is computed as follows.         ;j ;1 ;j x C P k ¼xðDÞþ0:9 x C P k À xðDÞ ;and y C P k ¼     ;1 yðDÞ þ 0:9 y C Pk À yðDÞ :
+
+Int J Adv Manuf Technol (2013) 65:97–113 Fig. 16 Illustration of the concepts in the contour/offset curve adaptive speed strategy
+
+105
+
+lth segment - S i , j ,l
+
+jth contour offset curve - C i , j
+
+ith RP/M layer -
+
+4.3.2 Offset curve generation for a type II contour curve Self-intersection could happen if an offset curve for a type II contour curve is generated by the above procedure. In order to address the issue, the following procedure is adopted. Each concave point in the box of the control points of a type II contour curve will be connected with another control point in the box to separate the box as two or more control point boxes, in which each control point is convex. An example is shown in Fig. 10. In each box, new control points for offset contour curves are generated using the above formula (3), and all the control points in a control point box are then used to generate an offset contour curve. With a series of u values for each segmented curve, the control points of offset contour curves and relevant offset contour curves can be generated using formula (13). Figure 11 shows the generated contour and offset tool paths for the tibia model. Along the contour curve and its series of offset contour curves, NURBS-based contour tool paths can be interpolated. 4.4 Zigzag-based tool path generation Once the contour or offset curves and related tool paths have been generated, zigzag lines and tool paths will be then generated to fabricate the internal area of a single material in the model to simplify computing and processing. In zigzag, there are two types of lines. [Definition 3] A type I zigzag line forms the main tool paths, and a type II zigzag is the connection line between two neighboring type I lines. An example of the two types of lines are shown in Fig. 12. The build time of the zigzag tool paths is related to the slope degree (illustrated in Fig. 13). A series of discrete relations between the build time of tool paths and slope degrees in a scope of [0°, 180°] are used to establish an interpolated curve, through which the best slope degree of the zigzag tool paths leading to the minimum build time can
+
+be computed. In this article, the overlapping rate between two neighbor zigzag tool paths set as 50 % step over (step over decides the overlap between two neighbor zigzag tool paths). Please note that the research in this paper is still based on simulation, and an optimized step over should be tested and decided in practical a FGM-based RP/M machine. Research on FGM-based RP/M machine design is ongoing by the same research group [41], and the relevant parameters are expected to be reported in future work.
+
+5 Adaptive algorithms for RP/M nozzles/print heads 5.1 An adaptive speed algorithm along the contour/offset tool paths In order to further optimize the build time, the contour or offset tool paths on a sliced layer is segmented according to its geometrical characteristics. For example, the segmented points in Fig. 14a are used to divide the curve as bumpy and smooth segments. According to the smoothness of a segment, an adaptive algorithm has been developed to slow down the speed of the RP/M nozzle/print head in the bumpy segments while keeping a higher speed in the smooth segments. With the mechanism, the forming quality can be ensured, and the build time can be minimized. The flow of the segmentation and adaptive algorithm of the RP/M nozzle/print head is shown in Fig. 15. Explanations are expanded below. A series of discrete points with the same length along a contour or offset curve are set. The curvatures of the points are normalized according to the following formula: NormalizationðPt Þ ¼
+t Pcurvature À Mincurvature Maxcurvature À Mincurvature
+
+ð14Þ
+
+where Pcurvaturet represents the curvature of point t on the curve, and Mincurvature and Maxcurvature stand for the minimum and maximum curvatures of all the points.
+
+106
+
+Int J Adv Manuf Technol (2013) 65:97–113
+
+potential segmented points is within this threshold (see the example in Fig. 14c). Based on the segmentation process, the build time of the tool paths on each contour or offset curve can be defined below. TimeðC i;j Þ ¼
+m X À Á ðTime S i;j;l Þ l¼1
+
+ð15Þ
+
+(a) The length of a segment is less than
+
+where Time represents build time, Ci,j represents the jth contour or offset curve on the ith layer (a set of tool paths will be generated along each curve), Si,j,l represents the lth segment in Ci,j, and m is the total number of the segments in Ci,j. Time(Si,j,l) is further computed in the following. An adaptive speed algorithm for the RP/M nozzle/print head along the tool paths was developed. An example shown in Fig. 16 is used to illustrate the concepts in the algorithm and the computation of Time(Si,j,l). The speed of the RP/M nozzle/print head along a contour-based tool path can be defined below. V i;j;l ¼ DistanceðS i;j;l Þ V LengthðS i;j;l Þ ð16Þ
+
+(b) The length of a segment equals
+
+where Vi,j,l represents the speed of the RP/M nozzle/print head on segment Si,j,l, Length(Si,j,l) represents the curve length of the segment, Distance(Si,j,l) represents the straight line length from the start point to the end point of the segment, and V is a standard reference speed. The build time spent on the segment Si,j,l is then computed as the following. À Á À Á LengthðS i;j;l Þ ðLength S i;j;l Þ2 1 Time S i;j;l ¼  ¼ V i;j;l DistanceðS i;j;l Þ V ð17Þ
+
+In the end, the RP/M build time for contour/offset tool paths based on the boundary of the ith RP/M layer is calculated below: n X TimeðLi Þ ¼ TimeðC i;j Þ ð18Þ
+j¼1
+
+(c) The length of a segment is more than
+Fig. 17 Three cases of a segment and the speed of2 the RP/M nozzle/ 3V print head. a The length of a segment is less than bmin . b The length2 of 2 3Vmin 3V a segment equals b . c The length of a segment is more than bmin
+
+where Time represents build time, Li represents the ith sliced layer, Ci,j represents the jth contour or offset curve on the ith layer (a set of tool paths will be generated along each curve),
+
+A threshold is set to filter out the discrete points with low curvatures, and the discrete points passing the threshold are kept as potential segmented points (see the example in Fig. 14b). Another threshold is set to remove those potential segmented points in which the distance from their neighbor
+
+(a) Negative tolerance
+
+(b) Positive tolerance
+
+(c) Mixed tolerance
+
+Fig. 18 Different tolerance distribution methods of RP/M. a Negative tolerance, b positive tolerance, and c mixed tolerance
+
+Int J Adv Manuf Technol (2013) 65:97–113 Fig. 19 Geometrical errors of RP/M. a A type I error. b A type II error
+The tool-path on the i th layer
+
+107
+
+The ith layer of the model
+
+(a) A Type I error
+and n is the total number of the contour and offset curves on the ith layer. 5.2 An adaptive algorithm along the zigzag tool paths Each type I or type II line consists of a number of segments. The build time of these segments can be calculated in the following process:
+n À Á X Time LiI ¼ TimeðSIi;k Þ k¼1
+
+(b) A Type II error
+
+the jth type II line, and SIIj,k represents the kth segment in the line (m is the total number of the segment in the line). In the following, Time(SIi,k) and Time(SIIj,k) are computed further:   LengthðSIi;k Þ Time SIi;k ¼ VelocityðSIi;k Þ
+j;k   LengthðSII Þ j;k Time SII ¼ j;k VelocityðSII Þ
+
+ð21Þ
+
+ð19Þ
+
+ð22Þ
+
+m À Á X j;k TimeðSII Þ Time LjII ¼ k¼1
+
+ð20Þ
+
+where Time is the build time function, LIi represents the ith type I line, and SIi,k represents the kth segment in the line (n is the total number of the segment in the line); LIIj represents
+Fig. 20 Case study I for a bone model
+
+where Length is the length function, and Velocity is the speed function of the RP/M nozzles/print heads along the tool paths. An adaptive speed algorithm to optimize the movement of the RP/M nozzles/print head along zigzag tool paths has been developed. That is, for a type I or type II line, the RP/M nozzle/
+
+(a) The bonemodel
+
+(b) The slicing layer
+
+(c) The sliced model
+
+(d) The FGM representation for one layer
+
+Zigzag tool-paths Material one Material two
+
+Contour tool-paths
+
+(e) The material distribution
+
+(f) The generated tool-paths for one layer
+
+108 Table 2 Build time of the contour/offset tool paths for the bone model Contour/offset tool paths no. 1 2 Length (mm) 295.394 269.260 Build time (s) 17.219 15.899 Total build time for contour tool paths0106.456 s 3 245.521 14.648 4 224.203 13.590
+
+Int J Adv Manuf Technol (2013) 65:97–113
+
+5 209.291 12.503
+
+6 196.762 11.696
+
+7 184.311 10.858
+
+8 174.970 10.143
+
+print head starts from a minimum speed, accelerates afterwards towards a maximum speed, and then decelerates towards the minimum speed at the end of the entire line. The design is aimed to improve the efficiency of the RP/M process by accelerating or decelerating the nozzle/print head in the different stages of zigzag. As thus, the following assumptions are made: & & The speed of the RP/M nozzle/print head from all the turning points of the two types of lines is the minimum speed (represented as Vmin). The maximum speed that the RP/M nozzle/print head can achieve is Vmax. The values of Vmax and Vmin will be set according to the specification of a RP/M machine. Here, an assumption is made to make Vmax twice of Vmin. The speed of the nozzle/print head in the zigzag tool paths is either uniformly accelerated or deceleration with an acceleration β.
+
+From formulas (23) and (24), t can be deduced as: t¼ Vmin b ð25Þ
+
+On the other hand, Length ¼ 1 2 bt þ Vmin t 2 ð26Þ
+
+The following will be obtained if formulas (25) and (26) are combined: Length ¼
+2 3Vmin 2b
+
+ð27Þ
+
+&
+
+Based on the above analysis, there are three cases for the RP/M nozzle/print head to move on a segment: & & & If the length of the segment is less than bmin , the nozzle/ print head's speed could not reach the maximum speed Vmax (shown in Fig. 17a). 3V 2 If the length of the segment is equal to bmin , the nozzle/ print head's speed just reaches the maximum speed Vmax in the middle of the segment (shown in Fig. 17b). 3V 2 If the length of the segment is less than bmin , the nozzle/ print head's speed reaches the maximum speed Vmax before the middle of the segment (shown in Fig. 17c).
+3V 2
+
+Based on those assumptions, the adaptive algorithm can be further represented as follows: Vmax ¼ 2Vmin ð23Þ
+
+Vmax ¼ Vmin þ bt
+
+ð24Þ
+
+where t is the time used to speed up the RP/M nozzle/print head from the minimum speed to the maximum speed. 8 > > > > < > > > > :
+
+Based on the above formulas, the build time of a type I or type II line of zigzag will be computed as follows:
+
+2Vmin b À2Vmin b
+
+TimeðLi;k Þ I
+
+¼
+
+þ
+
+r ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ 
+2Vmin b 2
+
+if LengthðLi;k Þ ¼ I
+
+2 3Vmin b 2 3Vmin b
+
+þ
+
+4LengthðLi;k Þ I b
+
+if 0 < LengthðLi;k Þ < I if
+2 3Vmin
+
+ð28Þ
+
+2Vmin b
+
+þ
+
+2 bÂLengthðLi;k ÞÀ3Vmin I
+
+2bÂVmin
+
+b
+
+< LengthðLi;k Þ I
+
+TimeðLj;k Þ ¼ II
+
+8 > > > > < > > > > :
+
+2Vmin b rﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ  2 4LengthðLj;k Þ À2Vmin 2Vmin II þ þ b b b 2Vmin b
+
+if LengthðLj;k Þ ¼ II
+
+2 3Vmin b 2 3Vmin b
+
+if 0 < LengthðLi;k Þ < II if
+2 3Vmin b
+
+ð29Þ
+
+þ
+
+2 bÂLengthðLj;k ÞÀ3Vmin II 2bÂVmin
+
+< LengthðLj;k Þ II
+
+Int J Adv Manuf Technol (2013) 65:97–113
+
+109
+
+Gerrori is comprised of a type I error Gerror_type1i and a type II error Gerror_type2i (shown in Fig. 19). The two errors are defined as follows: [Definition 4] A type I error Gerror_type1i is accumulated between consecutive layers, and it is the principle error of RP/M. It is affected by the thickness of the layer: the thicker the layer, the greater of the type I error. [Definition 5] A type II error Gerror_type2i is accumulated along the boundary of every layer. It is in the boundary area which is not filled during the RP/M process. Gerrori is computed below:   Gierror ¼ f Gierror type1 ; Gierror type2
+i i i ¼ Vmodel À SRP=M Â Hthickness
+
+Fig. 21 The interpolated curve for the relation between the build times and slope degrees of zigzag tool paths
+
+6 Geometrical accuracy analysis The tolerance distribution of RP/M can be defined as three scenarios: (1) negative, (2) positive, and (3) a combination of both (showed in Fig. 18) [42, 43]. In this research, the negative tolerance distribution is used for the geometrical accuracy analysis of RP/M models. The geometrical accuracy of a RP/M model can be calculated below: AccuracyðRÞ ¼ ðGmodel À Gerror Þ=Gmodel Â 100% ð30Þ
+
+ð32Þ
+
+where Vmodeli is the volume of the ith layer, SRP/Mi is the area covered by the tool paths of RP/M on the ith layer, and Hthicknessi is the thickness of the ith layer.
+
+7 Case studies and analysis 7.1 Case study I: demonstration of the algorithms and the flow The algorithms in this research have been implemented in an Open CASCADE modeling and C++ programming environment [44]. A bone model, created by CT scanning to obtain the cloud data and reconstructed as an IGES/IGS format model in CATIA V5™ with the QSR and DSE modules, has been tested to verify and validate the effectiveness and robustness of the developed research. The minimum and maximum speeds of the RP/M nozzle/print
+
+where Accuracy(R) represents the geometrical accuracy, Gmodel is the whole volume of the model, and Gerror is the whole geometrical error of the RP/M model. Gerror can be computed below: Gerror ¼
+n X i¼1
+
+Gierror
+
+ð31Þ
+
+where i∊[1,n] is the index of a sliced layer, n is the total number of the layers, and Gerrori is the geometrical error on the ith layer of the model.
+Fig. 22 Case study II—model 1: an iliac bone model
+
+(a) An iliac model
+
+(b) layer 3
+
+(c) layer 8
+
+(d) layer 13
+
+(e) layer 17
+
+(f) layer 23
+
+(g) The materials distribution of the corresponding sliced layers
+
+110 Fig. 23 Case study II—model 2: a talus bone model
+
+Int J Adv Manuf Technol (2013) 65:97–113
+
+(a) A talus model
+
+(b) layer 3
+
+(c) layer 8
+
+(d) layer 13
+
+(e) layer 17
+
+(f) layer 23
+
+(g) The materials distribution of the corresponding sliced layers
+
+Fig. 24 Case Study II—model 3: an ear model
+
+(a) An ear model
+
+(b) layer 3
+
+(c) layer 8
+
+(d) layer 13
+
+(e) layer 17
+
+(f) layer 23
+
+(g) The materials distribution of the corresponding sliced layers
+
+Fig. 25 Case study II—model 3: a calcaneus model
+
+(a) A calcaneus model (b) layer 3
+
+(c) layer 8
+
+(d) layer 13
+
+(e) layer 17
+
+(f) layer 23
+
+(g) The materials distribution of the corresponding sliced layers
+
+Int J Adv Manuf Technol (2013) 65:97–113 Table 3 Results of the build time with different sliced layers in the developed approach Model no. The build time Layer 3 of the developed Layer 8 approach (s) Layer 13 Layer 17 Layer 23 Model 1 Model 2 Model 3 Model 4 46.220 54.301 52.946 66.573 76.365 32.011 48.760 49.013 60.905 52.320 10.579 13.880 15.891 16.071 13.820 50.263 58.960 61.723 67.891 66.505 The geometrical accuracy of the typical zigzag tool paths (%) The geometrical accuracy of this developed approach (%) 94.290 95.832 93.124
+
+111 Table 5 Comparison of the geometrical accuracy of the models (layer 13) Model no. Model 1 Model 2 Model 3 Model 4 96.382
+
+96.846
+
+97.902
+
+96.273
+
+98.821
+
+head have been set to 10 and 20 mm/s, respectively, and the acceleration of the nozzle/print head 20mm=s2 ðVmin ¼ 10 mm=s; Vmax ¼ 20mm=s; a ¼ 20mm=s2 Þ . Please note that the parameter setting in this research is based on simulation, and the obtained results are preliminary [41]. Optimized parameters need to be found out by more physical experiments and will be reported in the future. All results have been obtained in a system with a Pentium Dual-Core CPU 2.10 GHz and 2 GB RAM. The length, width, height, and volume of the bone model are 108.76 mm, 80.63 mm, 68.342 mm and 122,432 mm3, respectively. The process for the NURBS-based contour/ offset curve generation, FGM-based representation, and the generation of contour/offset and zigzag tool paths are shown in Fig. 20. The result of the build time for the contour/offset tool paths is shown in Table 2. For the zigzag tool paths, different slope degrees in a layer can lead to different build times of tool paths based on the developed adaptive speed algorithm in Section 5.2. Figure 21 shows the interpolated curve built based on different slope degrees. From the curve, it can be obtained that at 149.0°, the build time of the zigzag tool paths is the minimum (52.356 s). The total build time for the shown layer of the bone model is 158.852 s (build times of the contour/offset tool paths+ zigzag tool paths0106.456+52.356 s).
+
+slope degree of 0° for each model in five different layers has been calculated, and the results are shown in Table 3. Then, the results of the build time for the comparison between our developed adaptive speed algorithms and a uniform speed algorithm of zigzag tool path for each model in the same layer (layer 13) are shown in Table 4. From the above data, it can be observed that the build time of this developed approach can be reduced about 30 % compared to that of the zigzag tool path generation approach in a uniform speed. Second, the surface accuracy from the developed mixed tool path generation algorithm and a typical zigzag tool path generation algorithm for each model in the same layer has been compared (the diameter of the RP/M nozzles/print head has been set as 1.0 mm), and the results are shown in Table 5. It can be observed that this developed approach has achieved better geometrical accuracy compared to that of the typical zigzag tool path generation approaches of RP/M. Therefore, this approach can achieve an overall improvement.
+
+8 Conclusions One of the main impediments in RP/M for FGM-based biomedical models is extensive build time and poor geometrical accuracy. Adaptive algorithms can effectively address the issue so as to better meet design and functional requirements of FGM-based biomedical models. In this research, systematic and innovative algorithms have been developed. The contributions of this research are summarized as follows: & The geometrical accuracy of original biomedical CAD models is maintained by introducing NURBS to represent the contours of sliced layers of biomedical CAD models to keep high-fidelity information. It establishes a good original data source for the further tool path generation of the biomedical models. The developed FGM-based modeling features can represent typical FGM-based biomedical models effectively. The linear and non-linear control parameters for FGM composition and distributions can enable users to address their specific functional needs. The developed mixed tool path generation algorithms can effectively balance RP/M geometrical quality and
+
+7.2 Case study II: benchmarking the efficiency and geometrical quality Four biomedical models have been used for this case study (shown in Figs. 22, 23, 24, and 25). First, the build time of the adaptive speed algorithms developed in this research with a
+Table 4 Results of the build time comparison in the same layer (layer 13) Model no. The build time of uniform speed approach (s) The build time of the developed approach (s). Reduced build time (%) Model 1 Model 2 Model 3 Model 4 74.327 52.946 28.77 72.176 49.013 32.09 23.672 15.891 32.87 90.021 61.723 31.43
+
+&
+
+&
+
+112
+
+Int J Adv Manuf Technol (2013) 65:97–113
+
+build efficiency. The developed adaptive speed algorithms along the contour/offset and zigzag tool paths for RM nozzles/print heads can effectively optimize build time towards a minimum target. Future research will be undertaken in the aspect of adaptive thickness adjustment mechanisms to further improve the build efficiency and geometrical quality of complex biomedical models during RP/M processes. References
+1. Miyamoto Y, Kaysser WA, Rabin BH, Kawasaki A, Ford RG (1999) Functionally graded materials: design, processing and applications. Kluwer Academic Publishers, Boston 2. Pompe W, Worch H, Epple M, Gelinsky W, Greil P, Hempel U, Scharnweber D, Schulte K (2003) Functionally graded materials for biomedical applications. Mater Sci Eng, A 362(1/2):40–60 3. Watari F, Yokoyama A, Omori M, Hirai T, Kondo H, Uo M, Kawasaki T (2004) Biocompatibility of materials and development to functionally graded implant for bio-medical application. Compos Sci Tech 64(6):893–908 4. Kieback B, Neubrand A, Riedel H (2003) Processing techniques for functionally graded materials. Mater Sci Eng, A 362:81–105 5. Cannillo V, Lusvarghi L, Manfredini T, Montorsi M, Siligardi C, Sola A (2007) Glass–ceramic functionally graded materials produced with different methods. J Eur Ceram Soc 27(2/3):1293–1298 6. Fang Z (2005) Image-guided modeling, fabrication and micromechanical analysis of bone and heterogeneous structure. PhD dissertation, Drexel University 7. Burstein AH, Wright TM (1994) Fundamentals of orthopedic biomechanics. Williams & Wilkins, Michigan 8. Kumar S, Kruth JP (2010) Composites by rapid prototyping technology. Mater Des 31(2):850–856 9. Bartolo P, Bidanda B (2008) Bio-materials and prototyping applications in medicine, 1st edn. Springer, Berlin 10. Almeida HA, Bartolo PJS (2010) Virtual topological optimization of scaffolds for rapid prototyping. Medic Eng Phys 32(7):775–782 11. Comesana R, Lusquinos F, Val J, Lopez-Alvarez M, Quintero F, Riveiro A, Boutinguiza M, Carlos A, Jones JR, Hill RG, Pou J (2011) Threedimensional bioactive glass implants fabricated by rapid prototyping based on CO2 laser cladding. Acta Biomater 7:3476–3487 12. Jackson TR, Liu H, Patrikalakis NM, Sachs EM, Cima MJ (1999) Modeling and designing functionally graded material components for fabrication with local composition control. Mater Des 20(2/3):63–75 13. Liu H, Maekawa T, Patrikalakis NM, Sachs EM, Cho W (2004) Methods for feature-based design of heterogeneous solids. Comput Aided Des 36(12):1141–1159 14. Liu H (2000) Algorithms for design and interrogation of functionally graded material solid. PhD dissertation, Massachusetts Institute of Technology 15. Nemat-Alla M (2003) Reduction of thermal stresses by developing two-dimensional functionally graded materials. Int J Solids Struct 40(26):7339–7356 16. Das S, Chung H (2006) Processing and properties of glass bead particulate-filled functionally graded Nylon-11 composites produced by selective laser sintering. Mater Sci Eng, A 437(2):226–234 17. Xia Q, Wang MY (2008) Simultaneous optimization of the material properties and the topology of functionally graded structures. Comput Aided Des 40(6):660–675 18. Chiu WK, Yu KM (2008) Multi-criteria decision-making determination of material gradient for functionally graded material objects fabrication. IMechE B 222(2):293–307
+
+19. Samanta K, Koc B (2005) Feature-based design and material blending for free-form heterogeneous object modeling. Comput Aided Des 37(3):287–305 20. Siu YK, Tan ST (2002) Source-based heterogeneous solid modeling. Comput Aided Des 34(1):41–55 21. Biswas A, Shapiro V, Tsukanov I (2004) Heterogeneous material modeling with distance fields. Comput Aided Geom Des 21(3):215–242 22. Qian XP, Dutta D (2003) Physics-based modeling for heterogeneous objects. J Mech Des, Trans ASME 125(3):416–427 23. Yang P, Qian XP (2007) A B-spline-based approach to heterogeneous objects design and analysis. Comput Aided Des 39(2):95–111 24. Warkhedkar RM, Bhatt AD (2009) Material-solid modeling of human body: a heterogeneous B-spline based approach. Comput Aided Des 41(8):586–597 25. Kasaeian AB, Vatan SN, Daneshmand S (2011) FGM materials and finding an appropriate model for the thermal conductivity. Procedia Eng 14:3199–3204 26. Prakash T, Singha MK, Ganapathi M (2012) A finite element study on the large amplitude flexural vibration characteristics of FGM plates under aerodynamic load. Int J Non-Linear Mech (in press) 27. Zhu J, Ye GR, Xiang YQ, Chen WQ (2011) Recursive formulae for wave propagation analysis of FGM elastic plates via reverberation-ray matrix method. Compos Struct 93:259–270 28. Torshizian MR, Kargarnovin MH, Nasirai C (2011) Mode III fracture of an arbitrary oriented crack in two dimensional functionally graded material. Mech Res Commun 38:164–169 29. Kou XY, Parks GT, Tan ST (2012) Optimal design of functionally graded materials using a procedural model and particle swarm optimization. Comput Aided Des 44:300–310 30. Kou XY, Tan ST (2007) Heterogeneous object modeling: a review. Comput Aided Des 39(4):284–301 31. Zhou MY (2004) Path planning of functionally graded material objects for layered manufacturing. Int J Prod Res 42(2):405–415 32. Chang R, Nam J, Sun W (2008) Computer-aided design, modeling, and freeform fabrication of 3D tissue constructs for drug metabolism studies. Comput Aided Des Appl 5(1–4):363–370 33. Shin KH (2002) Representation and process planning for layered manufacturing of heterogeneous objects. PhD dissertation, University of Michigan 34. Choi SH, Cheung HH (2006) A topological hierarchy-based approach to toolpath planning for multi-material layered manufacturing. Comput Aided Des 38(2):143–156 35. Chen KZ, Feng XY, Wang F, Feng XA (2007) A virtual manufacturing system for components made of a multiphase perfect material. Comput Aided Des 39(2):112–124 36. Gupta A, Seifalian AM, Ahmad Z, Edirisinghe MJ, Winslet MC (2007) Novel electro hydro dynamic printing of nano composite biopolymer scaffolds. J Bioact Compat Polym 22(3):265–280 37. Ryan GE, Pandit AS, Apatsidis DP (2008) Porous titanium scaffolds fabricated using a rapid prototyping and powder metallurgy technique. Biomaterials 29(27):3625–3635 38. Watanabe Y, Iwasa Y, Sato H, Teramoto A, Abe K, Fujiwara EM (2011) Microstructures and mechanical properties of titanium/biodegradable-polymer FGM for bone tissue fabricated by spark plasma sintering method. J Mater Process Tech 211 (12):1919–1926 39. Ma W, But WC, He P (2004) NURBS-based adaptive slicing for efficient rapid prototyping. Comput Aided Des 36:1309–1325 40. Ma YL, Hewitt WT (2003) Point inversion and projection for NURBS curve and surface: control polygon approach. Comput Aided Geom Des 20(2):79–99 41. Syed I (2011) Feasibility study of key components & algorithm design for multi-material RP&M Machine. Master dissertation, Coventry University 42. Armillotta A (2006) Assessment of surface quality on textured FDM prototypes. Rapid Prototyp J 12(1):35–41
+
+Int J Adv Manuf Technol (2013) 65:97–113 43. Bacchewar PB, Singhai SK, Pandey PM (2007) Statistical modelling and optimization of surface roughness in the selective laser sintering process. IMechE, B 221(1):35–52 44. Open CASCADE (2012) At: http://www.opencascade.org/ Accessed 15 November 2011 45. Yakovlev A, Trunova E, Grevey D, Pilloz M, Smurov I (2005) Laser-assisted direct manufacturing of functionally graded 3D objects. Surf Coat Tech 190(1):15–24 46. Hao L, Savalani MM, Zhang Y, Tanner KE, Harris RA (2006) Selective laser sintering of hydroxylapatite reinforced polyethylene
+
+113 composites for bioactive implants and tissue scaffold development. IMechE H 220(6):521–531 47. Han W, Jafari MA, Danforth SC, Safari A (2002) Tool path-based deposition planning in fused deposition processes. J Manuf Sci Eng 124(2):462–473 48. Chua CK, Leong KF, Tan KH, Wiria FE, Cheah CM (2004) Development of tissue scaffolds using selective laser sintering of polyvinyl alcohol/hydroxyapatite biocomposite for craniofacial and joint defects. J Mater Sci: Mater Med 15(10):1113– 1121
+

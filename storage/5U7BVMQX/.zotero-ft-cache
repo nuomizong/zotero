@@ -1,536 +1,0 @@
-ç¬¬ 29 å·ç¬¬ 7 æ 2012 å¹´ 7 æ
-
-Vol.29 No.7 July 2012
-
-å·¥
-
-ç¨
-
-å
-
-å­¦ 42
-
-ENGINEERING
-
-MECHANICS
-
-æç« ç¼å·ï¼1000-4750(2012)07-0042-07
-
-åºäºä¸é¶åªååå½¢çè®ºåç§»å¨æå°äºä¹è¿ä¼¼ç å èæ¿å±æ²ä¸´çè·è½½æ±è§£
-å½­ææ¬£ï¼æ¨ç»¿å³°
-(å¹¿è¥¿å¤§å­¦åæ¨å»ºç­å·¥ç¨å­¦é¢ï¼åå® 530004)
-
-æ
-
-è¦ï¼ éå¯¹å èæ¿å±æ²ä¸´çè·è½½çæ±è§£ï¼ æåºäºä¸ç§åºäºä¸é¶åªååå½¢çè®ºåç§»å¨æå°äºä¹è¿ä¼¼çæ ç½æ ¼æ¹æ³ã
-
-è¯¥æ¹æ³å°å èæ¿çèæ¡åå¹³æ¿åå¼èèï¼èæ¡ç¨æ¢æ¨¡åæ¥æ¨¡æï¼æç§ä¸é¶åªååå½¢çè®ºåç§»å¨æå°äºä¹è¿ä¼¼ç»åº å¹³æ¿åèæ¡çæ ç½æ ¼è¿ä¼¼ä½ç§»åºï¼åå©ç¨æ¿åèæ¡äº¤çä¸çä½ç§»åè°æ¡ä»¶æ¨å¯¼åºå°èæ¡çèç¹åæ°è½¬æ¢ææ¿èç¹ åæ°çå¬å¼ï¼æåéè¿è½¬æ¢å¬å¼ï¼å°æ¿åèæ¡çå¿è½å å ï¼ç±æå°å¿è½åçå¾å°æè¿°æ´ä¸ªå èæ¿çº¿æ§å±æ²è¡ä¸ºç æ§å¶æ¹ç¨ã è¯¥ææ¹æ³ç¸å¯¹æéåçä¼å¿å¨äºå èæ¿èæ¡ä¸å¿æ²¿ç½æ ¼çº¿å¸ç½®ï¼ å³ä½¿èæ¡ä½ç½®æ¹åä¹ä¸éè¦ç½æ ¼éæã ææ«éè¿å ä¸ªç®ä¾æ¯è¾äºè¯¥ææ¹æ³è§£åéç¨å®ä½ååç ANSYS æéåè§£ï¼ä¸¤èè¾ä¸ºæ¥è¿ï¼è¯æäºè¯¥ææ¹æ³çå ç¡®æ§ã å³é®è¯ï¼å èæ¿ï¼å±æ²ä¸´çè·è½½ï¼ä¸é¶åªååå½¢ï¼ç§»å¨æå°äºä¹è¿ä¼¼ï¼æ ç½æ ¼æ³ ä¸­å¾åç±»å·ï¼TU398 æç®æ å¿ç ï¼A doi: 10.6052/j.issn.1000-4750.2010.10.0725
-
-CRITICAL BUCKLING LOAD CALCULATION OF RIBBED PLATES BY THE FIRST-ORDER SHEAR DEFORMATION THEORY AND THE MOVING-LEAST SQUARE APPROXIMATION
-PENG Lin-xin , YANG Lu-feng
-(College of Civil Engineering and Architecture, Guangxi University, Nanning 530004, China)
-
-Abstract:
-
-In order to obtain the critical buckling load of ribbed plates, a meshfree method based on the
-
-first-order shear deformation theory (FSDT) and the moving-least square (MLS) approximation is introduced. The plate and the ribs of a ribbed plate are considered separately and the ribs are simulated with a beam model. The approximated displacement fields of the plate and the ribs are determined according to the FSDT and MLS approximation. Employing the displacement compatible conditions along the interface between the plate and ribs, the formula that transforms the nodal parameters of the ribs to those of the plate is derived. Superposing the potential energy of the plate and ribs, the governing equation for the buckling behavior of the entire ribbed plate is established by the principle of minimum potential energy. Compared with the FEM, the introduced method has such advantages that the ribs need not to be fitted along the mesh lines of the plate and remeshing is avoided if the rib position changes. The solutions given by the proposed method about several numerical examples are compared with those from ANSYS using solid elements. A close agreement has been observed, which proves the validity of the introduced method. Key words: ribbed plate; critical buckling load; first-order shear deformation theory; moving-least square approximation; meshfree method
-âââââââââââââââ
-æ¶ç¨¿æ¥æï¼2010-10-11ï¼ä¿®æ¹æ¥æï¼2011-01-13 åºéé¡¹ç®ï¼å½å®¶èªç¶ç§å­¦åºéé¡¹ç®(11102044ï¼51168003)ï¼å¹¿è¥¿èªç¶ç§å­¦åºéé¡¹ç®(æ¡ç§èª 0832053)ï¼å¹¿è¥¿å¤§å­¦ç§ç åºéé¡¹ç®(X081011)ï¼å¹¿è¥¿çå·¥ ç§å­¦å®éªä¸­å¿éç¹é¡¹ç®(LGZX201101) éè®¯ä½èï¼å½­ææ¬£(1977â)ï¼ç·ï¼æ¹åæ­¦åäººï¼ææï¼åå£«ï¼ä»äºè®¡ç®åºä½åå­¦ç ç©¶(E-mail: penglx@gxu.edu.cn). ä½èç®ä»ï¼æ¨ç»¿å³°(1966â)ï¼ç·ï¼æ²³åé²å±±äººï¼ææï¼åå£«ï¼åå¯¼ï¼å¹¿è¥¿åå­¦å­¦ä¼çäºé¿ï¼ä»äºç»æå·¥ç¨åè®¡ç®åå­¦ç ç©¶(E-mail: lfyang@gxu.edu.cn).
-
-å·¥
-
-ç¨
-
-å
-
-å­¦
-
-43
-
-ç±äºæçé«ååº¦ééæ¯çæ¾èç¹ç¹ï¼å èæ¿è¢« åºç¨äºä¼å¤é¢åï¼å¦æ¡¥æ¢ãè¹è¶ä»¥åèªç©ºèªå¤©ç­ã å¨è¿äºå·¥ç¨ä¸­ï¼ç»å¸¸ä¼æå èæ¿ç»æå¨è¾¹çæ¿åé¢ ååç¼©ãåªåç­è·è½½ä½ç¨çæåµï¼å¯ä»¥å¯¼è´å±æ²å¤± ç¨³èå¤±æãæ©æçç ç©¶èç¨æ¢æ ¼(Grillage)[1]ææ­£äº¤ ååå¼æ§æ¿æ¨¡å[2]æ¥è¿ä¼¼å èæ¿ï¼ä½è¿äºæ¨¡åç®å ç¨åº¦è¿å¤§ï¼åææ®éå èæ¿ç»æä¸çæ³ãåæ¥çç  ç©¶èå°å èæ¿è§ä¸ºä¸å¤åç»æï¼éè¿å¨æ¿ä¸èæ¡ä¹ é´æ½å ä½ç§»åè°æ¡ä»¶å°å®ä»¬ç»åæä¸ä¸ªæ´ä½ãè¿ä¹ æ¯ç®åä½¿ç¨æå¹¿ï¼ä¸å®éæåµè¾ä¸ºå»åçæ¨¡åã Bryan[3] é¦åç¨è½éååç ç©¶äºå èæ¿ååä¾§ åä¸çç¨³å®æ§é®é¢ã Timoshenko ä¸ Gere[4]ç»åºäºä¸ ç³»åä¸åé¿å®½æ¯ç©å½¢å èæ¿çå±æ²è½½è·ã [5]ç¨ç Cox å©éå¹æ³åæäºç®æ¯å èæ¿çåå§çº¿æ§å±æ²ãä¼´é çè®¡ç®æºææ¯çå¿«éåå±ï¼æ°å¼åææ¹æ³å¦æéæ¡ æ³[6
-â7]
-
-å¶ä¸­ï¼qi (x)æ¯å·²ç¥çå¤é¡¹å¼åºå½æ°ï¼m æ¯åºå½æ°ä¸ª æ°ï¼bi (x)æ¯ç¸åºçæªç¥ç³»æ°ãæ¬æä½¿ç¨äºæ¬¡åºï¼
-
-q T = [1, x, y , x 2 , xy , y 2 ] ï¼ m = 6 ãæªç¥ç³»æ° bi (x) å¯ä»¥éè¿ä½¿ä¸ä¸ª L2 æ¨¡ï¼
-
-G = Ã¥v ( x - x I )[q ( x I )T b( x ) - vI ]2
-I =1
-
-N
-
-(2)
-
-åå¾æå°å¼èæ±å¾ï¼å¶ä¸­ï¼ v ( x - x I ) æ¯æå½æ°ï¼ å¨å­å Wx å¤ v ( x - x I ) = 0 ï¼N æ¯å¨å­å W x åä½¿
-
-v ( x - x I ) > 0 çèç¹ä¸ªæ°ï¼vI æ¯èç¹åæ°(Nodal
-parameter)ãæ¬²ä½¿ G åå¾æå°å¼ï¼éä»¤ï¼ Â¶G =0 Â¶b( x ) ç±å¼(3)å¾å°ï¼ (3)
-
-b( x ) = B -1 ( x ) A( x )v
-å¶ ä¸­ ï¼
-
-(4) ï¼
-
-åæéåæ³[8
-
-â 10]
-
-ä¹è¢«å¼å¥åæå èæ¿çå±æ²
-
-B ( x ) = Ã¥v ( x - x I )q ( x I )q T ( x I )
-I =1
-
-N
-
-é®é¢ãå¶ä¸­ï¼æéåæ³ç±äºç²¾åº¦é«ï¼è½éåºåç§å¤ ææ±è§£åºåèè¢«å¹¿æ³ä½¿ç¨ï¼ç¶èï¼å½äººç±»æ¹é ä¸ç çæ­¥ä¼ä¸æ­å å¤§ï¼å·¥ç¨ä¸­éå°çé®é¢è¶æ¥è¶æç«¯ï¼ æéåæ³çåºç¨ä¹éå°äºç¶é¢ãå¨å¤çå¤§åå½¢ãè£ çº¹æ²¿å¤æè·¯å¾ä»»ææ©å±ç­é®é¢æ¶ï¼æéåæ³éä¸æ­ è¿è¡ç½æ ¼éæä»¥åæ é®é¢åçååï¼ä¼å¯¼è´è®¡ç®ç²¾ åº¦çæå¤±åè®¡ç®è´æçå éã ä½ä¸ºæéåæ³ä¹å¤çå¦ä¸éæ©ï¼æ ç½æ ¼æ¹ æ³
-[11â12]
-
-A( x ) = [v ( x - x1 )q( x1 ), L,v ( x - x N )q( x N )] ã å°
-å¼(4)ä»£å¥å¼(1)ï¼å¯ä»¥å° v h ( x ) è¡¨ç¤ºä¸ºæ åå½¢å¼ï¼
-
-v h ( x ) = Ã¥ N I ( x )vI
-I =1
-
-N
-
-(5)
-
-å¶ä¸­å½¢å½æ°ï¼
-
-N I ( x ) = q T ( x ) B -1 ( x )q ( x I )v ( x - x I )
-
-(6)
-
-2 å èæ¿çæ ç½æ ¼æ¨¡å
-ä¸è¬å èæ¿çæ ç½æ ¼æ¨¡å(å¾ 1)åæ¬ä¸å¹³æ¿å ä¸¤æ ¹å å¼ºèæ¡( x åå y å)ãæ¿åèæ¡åç¨ä¸ç³»å ç¹æ¥ç¦»æ£ï¼æ¿ä¸èç¹çèªç±åº¦æ¯(u0p, v0p, wp, fpx,
-
-è¿å¹´æ¥å¾å°äºè¶æ¥è¶å¤çå³æ³¨ã å®çç¹ç¹å¨
-
-äºå°é®é¢åç¨ä¸ç³»åç¹æ¥ç¦»æ£ï¼ç¹ä¸ç¹ä¹é´æ²¡æç´ æ¥èç³»ï¼å¨è¿äºç¹ä¸éè¿å½æ°æåå¾å°é®é¢çè¿ä¼¼ è§£ãå ä¸ºæè±äºååç½æ ¼çæç¼ï¼æ ç½æ ¼æ¹æ³å¯ä»¥ æ´å¥½æ´çµæ´»çå¤çä¸è¿°ç§»å¨ä¸è¿ç»­é®é¢[13]ã æ¬æå°è¯å°æ ç½æ ¼çä¼ç¹å¼å¥å èæ¿åæä¸­ï¼ æåºä¸ç§åºäºä¸é¶åªååå½¢çè®º [14] åç§»å¨æå°äº ä¹è¿ä¼¼[11]æ±è§£å èæ¿ç¨³å®æ§é®é¢çæ ç½æ ¼æ¹æ³ãä½¿ ç¨æ¿ãèåå¼èèçå èæ¿æ¨¡åï¼éè¿æ¨å¯¼çæ¿ä¸ èçèç¹åæ°è½¬æ¢å¬å¼å°ä¸¤èç»åæå èæ¿ãç±äº æ¬ææ¹æ³çæ ç½æ ¼ç¹æ§ï¼åæå èæ¿ç¨³å®æ§é®é¢ æ¶ï¼èæ¡ä¸å¿åæéåé£æ ·æ²¿ç½æ ¼çº¿å¸ç½®ï¼å³ä½¿è æ¡ä½ç½®çæ¹åä¹ä¸éè¦æ¿èç¹éæ°åå¸ã
-
-fpy)ï¼å¶ä¸­ï¼u0pãv0pãwp è¡¨ç¤ºæ¿èç¹æ²¿ x æ¹åãy æ¹åãz æ¹åçå¹³å¨ï¼fpxãfpy è¡¨ç¤ºç» y è½´å x è½´ç è½¬è§ã åèæ¡å y åèæ¡èç¹èªç±åº¦åä¸º(u0sx, wsx, x fsx)å(v0sy, wsy, fsy)ã è®¾èæ¡ä¸æ¿åç±ç¸åææå¶æï¼ å¼¹æ§æ¨¡éä¸º Eï¼æ³æ¾æ¯ä¸ºmã
-y
-
-P C z S x y åèæ¡èç¹
-
-æ¿èç¹ x åèæ¡èç¹
-
-1 ç§»å¨æå°äºä¹è¿ä¼¼
-è®¾æä¸ªå®ä¹äºå W ä¸çå½æ° v(x)å¯ä»¥è¢«å½æ° vh(x)å¨å­åW x ä¸è¿ä¼¼ï¼
-
-v h ( x ) = Ã¥ qi ( x )bi ( x ) = q T ( x )b( x )
-i =1
-
-m
-
-(1)
-
-Fig.1
-
-å¾ 1 å èæ¿çæ ç½æ ¼æ¨¡å Meshfree model of a ribbed plate
-
-44
-
-å·¥
-
-ç¨
-
-å
-
-å­¦
-
-2.1 ä¼¼
-[11]
-
-å èæ¿å¿è½ æä¸é¶åªååå½¢çè®º ï¼æ¿çä½ç§»åºä¸ºï¼
-[14]
-
-åç§»å¨æå°äºä¹è¿
-
-Ã¬ w p ( x, y ) Ã¼ Ã¬ Ã¼ w p ( x, y ) Ã¯ Ã¯ Ã¯ Ã¯ U p = Ã­u p ( x, y, z )Ã½ = Ã­u0 p ( x, y ) - zf px ( x, y )Ã½ = Ã¯v ( x, y , z ) Ã¯ Ã¯v ( x, y ) - zf ( x, y ) Ã¯ py Ã® p Ã¾ Ã® 0p Ã¾ 0 H I ( x, y ) Ã© 0 Ãª H ( x, y ) 0 0 Ã¥Ãª I I =1 Ãª 0 H I ( x, y ) 0 Ã« Ã¬u0 pI Ã¼ Ã¯ Ã¯ 0 0 Ã¹ Ã¯v0 pI Ã¯ ÃºÃ¯w Ã¯ - zH I ( x, y ) 0 Ãº Ã­ pI Ã½ - zH I ( x, y )Ãº Ã¯f pxI Ã¯ 0 Ã»Ã¯ Ã¯ Ã¯f pyI Ã¯ Ã® Ã¾
-n T
-
-Ã© Ã¹ Ãª1 m 0 Ãº Ãº Ã©G 0 Ã¹ E Ãª å¶ä¸­ï¼ D = m 1 0 Ãº ï¼ As = Ãª Ãºï¼ 2 Ãª 1- m Ãª Ã« 0 GÃ» 1- m Ãº Ãª0 0 Ãº 2 Ã» Ã« E G= ï¼ p ä¸ºæ¿åï¼ = 5 / 6 æ¯åªåä¿®æ­£ç³»æ°ï¼ h k 2(1 + m ) Ã¬ wp, x Ã¼ Ã© Rx Ã¯ Ã¯ Î²=Ã­ Ã½ ï¼é¢åè·è½½ R = Ãª Ã¯ wp, y Ã¯ Ã® Ã¾ Ã« Rxy
-Rx Rxy
-
-Rxy Ã¹ ã Ry Ãº Ã»
-
-(7)
-
-x åèæ¡ æ¿
-
-Ry y åèæ¡
-
-Ry
-
-å¶ä¸­ï¼ {u0 pI , v0 pI , w pI ,f pxI ,f pyI } = Î´ pI æ¯æ¿ä¸ç¬¬ I ä¸ªèç¹çèç¹åæ°ï¼ æ¯æ¿èç¹ä¸ªæ°ã px ä¸fpy åç¬ n f ç«äº wpãH I ( x, y ) æ¯æå¼(6)è®¡ç®çæ¿çå½¢å½æ°ï¼é ç¨ä¸æ¬¡æ ·æ¡å½æ°ä½ä¸ºæå½æ°ãä¹æä»¥éæ©ä¸æ¬¡æ ·æ¡ å½æ°ï¼ æ¯ç±äºè¯¥å½æ°æ¢æç´§æ¯ç¹æ§ï¼ åå·æ C çè¿ ç»­æ§ãç¹ ( x, y ) çåºåå¯è¡¨ç¤ºä¸ºï¼
-2
-
-Rxy Rx
-
-Ã¬ex Ã¼ Ã¯ Ã¯ Îºp = Ã­e y Ã½ = Ã¯g Ã¯ Ã® xy Ã¾ Ã¬ Ã¼ u0 p , x - zf px , x Ã¯ Ã¯ n v0 p , y - zf py , y Ã­ Ã½ = Ã¥ BbI Î´ pI (8) Ã¯u Ã¯ I =1 Ã® 0 p , y + v0 p , x - z (f px , y + f py , x ) Ã¾ Ã¬g xz Ã¼ Ã¬ w p , x Ã¯ Ã¯ Ã¯ Î³p = Ã­ Ã½ = Ã­ Ã¯g yz Ã¯ Ã¯ w p , y Ã® Ã¾ Ã® å¶ä¸­ï¼ Ã© H I ,x 0 Ãª BbI = Ãª 0 HI,y ÃªH I , y H I ,x Ã« - f px Ã¼ n Ã¯ Ã½= B Î´ - f py Ã¯ Ã¥ sI pI Ã¾ I =1 0 - zH I , x 0 0 0 - zH I , y 0 Ã¹ Ãº - zH I , y Ãº ï¼ - zH I , x Ãº Ã»
-(9)
-
-Fig.2
-
-å¾ 2 é¢åè·è½½ä½ç¨ä¸çå èæ¿ The ribbed plate subjected to in-plane loads
-
-x åèæ¡çä½ç§»åºï¼ wsx ( x) Ã¬ w ( x) Ã¼ Ã¬ Ã¼ U sx = Ã­ sx Ã½=Ã­ Ã½= Ã®usx ( x, z ) Ã¾ Ã®u0 s ( x) - zfsx ( x) Ã¾
-
-Ã¬ u0 sI Ã¼ 0 Y xI ( x) Ã© 0 Ã¹Ã¯ Ã¯ Ã¥ ÃªY xI ( x) 0 - zY xI ( x) Ãº Ã­ wsxI Ã½ Ã» Ã¯f Ã¯ I =1 Ã« Ã® sxI Ã¾
-N
-
-(11)
-
-å¶ä¸­ï¼ u0 sI , wsxI ,fsxI }T = Î´sxI æ¯èæ¡ä¸ç¬¬ I ä¸ªèç¹ç { èç¹åæ°ï¼N æ¯èæ¡çèç¹ä¸ªæ°ãYxI (x)æ¯æå¼(6) è®¡ç®çèæ¡çå½¢å½æ°ãæ­¤æ¶ï¼èæ¡çå¿è½ä¸ºï¼ 1 hsx / 2 Psx = E (u0 s , x - zfsx , x ) 2 Wsx dzdx + 2 - hsx / 2 1 GAsx 1 Rx Asx ( wsx , x - fsx ) 2 dx ( wsx , x ) 2 dx (12) 2 k 2 hp
-
-Ã²Ã²
-
-0 Ã¹ Ã©0 0 H I , x - H I BsI = Ãª ã 0 -H I Ãº Ã«0 0 H I , y Ã» å¯¹å¾ 1 ä¸­çå èæ¿æ½å å¾ 2 æç¤ºçé¢åè·è½½ï¼ æ¿çå¿è½ä¸ºï¼ hp / 2 1 Pp = Ã²Ã² Ã² Îº T DÎº p dzdxdy + p - hp / 2 2 hp 1 T T Ã²Ã² Î³ p As Î³ p dxdy - 2 Ã²Ã² Î² RÎ²dxdy (10) 2k
-
-Ã²
-
-Ã²
-
-è¿éï¼hsxãWsxãAsx åä¸º x åèæ¡ååº¦ãæªé¢å®½åº¦ã æªé¢ç§¯ãy åèæ¡å¿è½Psy ä¹æç¸ä¼¼çåå¼ã æ´ä¸ªå èæ¿çå¿è½ä¸ºï¼ P = P p + P sx + P sy 2.2 èç¹åæ°è½¬æ¢æ¹ç¨ å¾ 1 ä¸­ï¼å¯¹äº x åèæ¡ä¸çä¸ä¸ªèç¹ Sï¼å¨æ¿ ä¸­é¢ä¸å¿æä¸ç¸åºçç¹ Pï¼ä¸¤ç¹æçç¸åç x åæ  (13)
-
-å·¥
-
-ç¨
-
-å
-
-å­¦
-
-45
-
-å y åæ ãå®ä»¬çä½ç§»å­å¨ä»¥ä¸å³ç³»ï¼ [f px ]P = [fsx ]S
-
-å ç± å¼ (14)ç¥ f px ( xi , yi ) = fsx ( xi ), i = 1, L, N ï¼ æ (14) (15) ä»¥ï¼
-
-[ w p ]P = [ wsx ]S
-è¿æï¼
-
-å¯¹äºèç¹ S åç¹ P å¨èæ¡ä¸æ¿æ¥è§¦é¢ä¸çç¸åºç¹ Cï¼
-
-u0 p ( xi , yi ) +
-
-(h p + hsx ) 2
-
-f px ( xi , yi ) = u0 s ( xi ),
-i = 1, L, N
-n
-
-(26)
-
-[u p ]C = [usx ]C
-
-(16)
-
-å¼(26)å¯åæç¦»æ£å½¢å¼ä¸ºï¼
-
-æ³¨æï¼P ç¹ä¸ä¸å®æ¯æ¿çèç¹ãå¯¹äº x åèæ¡ä¸ç æ¯ä¸ªèç¹ï¼é½å¯ä»¥å¨æ¿ä¸æ¾å°ä¸ä¸ªç¹ä¸ä¹å¯¹åºãäº æ¯ï¼ç±å¼(14)å¯¹äºèæ¡ä¸çææèç¹åæ¿ä¸çç¸åº ç¹ï¼æä»¬æ N ä¸ªå³ç³»å¼ï¼ [f px ]i = [fsx ]i , æåæï¼
-
-Ã¥ H I ( xi , yi )u0 pI + eÃ¥ H I ( xi , yi )f pxI =
-I =1 I =1
-
-n
-
-Ã¥Y xJ ( xi )u0 sJ ,
-J =1
-
-N
-
-i = 1, L, N
-
-(27)
-
-i = 1, L, N
-
-(17) (18)
-
-æä»¥ç©éµå½¢å¼è¡¨ç¤ºæï¼ Tp Î´ pu + eTp Î´ pxf = Tsx Î´su
-
-(28)
-
-f px ( xi , yi ) = fsx ( xi ), i = 1, L, N
-N
-
-å¶ä¸­ï¼ pu = {u0 p1 , u0 p 2 ,L, u0 pn }T ï¼ = ( hp + hsx ) / 2 ï¼ Î´ e
-
-å¼(18)å¯æç§ç§»å¨æå°äºä¹è¿ä¼¼åæç¦»æ£å½¢å¼ï¼
-
-Ã¥ H I ( xi , yi )f pxI = Ã¥Y xJ ( xi )fsxJ , i = 1, L, N (19)
-I =1 J =1
-
-n
-
-Î´su = {u0 s1 , u0 s 2 ,L, u0 sN }T ãç±å¼(28)å¯å¾ï¼
-Î´su = Tsx1Tp Î´ pu + eTsx1Tp Î´ pxf
-
-(29)
-
-å¯¹äºåå¿èæ¡ï¼åªéä»¤ e=0ã ç»¼åå¼(21)ãå¼(22)åå¼(29)ï¼å¯å¾å° x åèæ¡ ææèç¹åæ°è½¬æ¢ææ¿èç¹åæ°çè½¬æ¢æ¹ç¨ï¼ Î´sx = Tspx Î´ p (30) å¶ ä¸­ ï¼ Î´sx = {u0 s1 , wsx1 , fsx1 ,L, u0 sN , wsxN , fsxN }T ï¼
-
-ç¨ç©éµè¡¨ç¤ºä¸ºï¼
-
-Tp Î´ pxf = Tsx Î´sxf
-
-(20)
-
-å¶ä¸­ï¼ Ã© H1 ( x1 , y1 ) H 2 ( x1 , y1 ) L H n ( x1 , y1 ) Ã¹ Ãº, Tp = Ãª M M O M Ãª Ãº Ãª H1 ( x N , y N ) H 2 ( x N , y N ) L H n ( x N , y N ) Ãº Ã« Ã»
-
-Î´ p = {u0 p1 , v0 p1 , w p1 ,f px1 ,f py1 ,L, u0 pn , v0 pn , w pn ,f pxn ,
-
-Î´ pxf = {f px1 ,f px 2 ,L,f pxn } ,
-T
-
-f pyn }T ï¼Tspx ä¸º 3NÂ´5n é¶ç©éµãè¥èæ¡ä½ç½®æ¹åï¼
-åªééæ°è®¡ç®ç©éµ Tpã ç±»ä¼¼çï¼æä»¬å¯ä»¥æ¨å¯¼åºå° y åèæ¡ææèç¹ åæ°è½¬æ¢ææ¿èç¹åæ°çæ¹ç¨ï¼ Î´sy = Tspy Î´ p 2.3 æ§å¶æ¹ç¨ (31)
-
-Ã©Y x1 ( x1 ) Y x 2 ( x1 ) L Y xN ( x1 ) Ã¹ Ãºã Tsx = Ãª M M O M Ãª Ãº ÃªY x1 ( xN ) Y x 2 ( xN ) L Y xN ( xN ) Ãº Ã« Ã» ç±å¼(20)ï¼å¯å¾ï¼ Î´sxf = Tsx1Tp Î´ pxf
-è½¬æ¢ææ¿èç¹åæ° wpI çæ¹ç¨ï¼
-Î´sxw = Tsx1Tp Î´ pw
-
-Î´sxf = {fsx1 ,fsx 2 ,L,fsxN }T ,
-
-(21)
-
-åçï¼ å¯ç±å¼(15)æ¨å¯¼åºå° x åèæ¡çèç¹åæ° wsxI (22)
-
-å¶ ä¸­ ï¼ Î´sxw = {wsx1 , wsx 2 ,L, wsxN }T ï¼ Î´ pw =
-
-{w p1 , w p 2 ,L, w pn }T ã ç±å¼(16)ä¹å¯æ¨åº N ä¸ªå³ç³»å¼ï¼ [u p ]i = [usx ]i , i = 1, L, N , (23)
-
-æåæï¼ u p ( xi , yi , - h p / 2) = usx ( xi , hsx / 2), i = 1, L, N (24) ç±ä¸é¶åªååå½¢çè®ºï¼å¼(24)å¯åæï¼ hp h u0 p ( xi , yi ) + f px ( xi , yi ) = u0 s ( xi ) - sx fsx ( xi ), 2 2 (25) i = 1, L, N
-
-å°å¼(10)ãå¼(12)ä»£å¥å¼(13)ï¼å¾ï¼ 1 1 1 T Î  = Î´T K p Î´ p - Î´TG p Î´ p + Î´sx K sx Î´sx p p 2 2 2 1 T 1 T 1 T Î´sxGsx Î´sx + Î´sy K sy Î´sy - Î´sy Gsy Î´sy (32) 2 2 2 å¶ä¸­ï¼ hp T hp / 2 T [ K p ]ij = Bbi DBbj dzdxdy + Bsi As Bsj dxdy , -hp / 2 k Ã©0 Ã¹ Ãª 0 0 Ãº Ãª Ãº [G p ]ij = Ãª R Ãº dxdy , Ãª 0 0 Ãº Ãª 0Ãº Ã« Ã»
-
-Ã²Ã²Ã²
-
-Ã²Ã²
-
-Ã²Ã²
-
-R = Rx H i , x H j , x + R y H i , y H j , y + Rxy ( H i , x H j , y + H i , y H j , x ) ,
-
-46
-
-å·¥
-
-ç¨
-
-å
-
-å­¦
-
-0 Ã©0 Asx Rx Ãª [Gsx ]ij = 0 Y xi , xY xj , x hp Ã² Ãª Ãª0 0 Ã«
-
-0Ã¹ 0 Ãº dx ï¼ [Ksy]ij ä¸ Ãº 0Ãº Ã»
-
-ä»£è¡¨èªç±ç«¯ï¼è½´åååä½ç¨ç«¯å§ç»ä¸ºç®æ¯ãæ¬ææ  ç½æ ¼è§£åºäºä»¥ä¸ç¦»æ£æ¹æ¡ï¼æ¿ï¼13Â´13 åå¸èç¹ï¼ æ¹å½¢å½±ååï¼å¤§å°å®ä¹ä¸ºï¼ Ã¬ hx = a Ã I x Ã¯ Ã­ Ã¯ hy = a Ã I y Ã®
-
-[Ksx]ij ç±»ä¼¼ï¼[Gsy]ij ä¸[Gsx]ij ç±»ä¼¼ã å°å¼(30)ãå¼(31)ä»£å¥å¼(32)ï¼å¾ï¼ 1 1 T Î  = Î´T K p Î´ p + Î´TTspx K sxTspx Î´ p + p p 2 2 1 T T 1 Î´ p Tspy K syTspy Î´ p - Î´ TG p Î´ p p 2 2 1 T T 1 T Î´ p TspxGsxTspx Î´ p - Î´ TTspy GsyTspy Î´ p p 2 2 å³ï¼ 1 1 Î  = Î´T KÎ´ p - Î´TGÎ´ p p p 2 2 å¶ä¸­ï¼
-T T K = K p + Tspx K sxTspx + Tspy K syTspy , T T G = G p + TspxGsxTspx + Tspy GsyTspy ã
-
-(37)
-
-å¶ä¸­ï¼hx ä¸ºå½±åå x åé¿åº¦ï¼hy ä¸ºå½±åå y åé¿åº¦ï¼ Ix ä¸º x åç¸é»ä¸¤èç¹é´è·ï¼Iy ä¸º y åç¸é»ä¸¤èç¹é´ è·ï¼åç³»æ°a=4ï¼èæ¡ä¸º 13 åå¸èç¹ï¼å½±ååå¤§å°
-s ä¸º hy = a s Ã I y ï¼å a s = 2 ãæéåè§£éè¿ ANSYS
-
-(33)
-
-è½¯ä»¶å¯¹è¯¥å èæ¿ä¸ç»´å®ä½å»ºæ¨¡ï¼ä½¿ç¨å®ä½åå SOLID45 å¾å°ï¼ ç¦»æ£ååæ»æ°ä¸º 7120ï¼ åæ¶è¿ç»åº äºèç¹ z åä½ç§»è®¡ç®äºå¾(å¾ 4)ã ç±è¡¨ 1 å¯è§æ¬ææ¹ æ³è§£ä¸æéåè§£å»åè¾å¥½ã
-
-(34)
-
-0.01 m
-
-1-1æªé¢
-1m
-
-ç±æå°å¿è½åçï¼ d Î  = 0 ï¼å¾ä¸åæ¹ç¨ï¼ ( K - G )Î´ p = 0 (35) è®¾ Rx = c1 Ry å Rx = c2 Rxy (c1ãc2 ä¸ºå¸¸æ°)ï¼å° Rx ä» G ä¸­æåºæ¥ï¼å¾ï¼ ( K - RxG Â¢)Î´ p = 0 (36)
-
-1
-
-1
-0.1 m
-
-y y
-
-èæ¡
-
-x x
-
-0.01 m
-
-è§£è¿ä¸ªç¹å¾å¼é®é¢ï¼å³å¾å±æ²ä¸´çè·è½½ãéè¦æåº çæ¯å®éå èæ¿ä¸­èæ¡ä¸æ¿æ¯ä¸ä¸ªæ´ä½ï¼èæ¬ææ  ç½æ ¼æ¨¡åä¸­èæ¡ä¸æ¿çç»åæ¯éè¿ä¸¤èé´çèç¹ ä½ç§»åè°æ¥å®ç°ï¼ä¸å®éæåµæ¯è¾ï¼å­å¨ä¸å®çè¯¯ å·®ï¼åªè½éè¿å¢å èç¹æ°éæ¥æ¶åï¼æä»¥è¥æ¿çè æ¡æ°éå¢å ï¼èç¹æ°éä¹åºå¢å ï¼æè½æµæ¶èæ¡æ° å¢å å¯¼è´çè¯¯å·®ç´¯ç§¯ã 2.4 æ¬è´¨è¾¹çæ¡ä»¶å¤ç ç±äºä»å¼(6)å¾å°çå½¢å½æ°ä¸æ»¡è¶³åç½ååæ¡ ä»¶ï¼æ¬è´¨è¾¹çæ¡ä»¶çæ½å è¾å°é¾ãæ¬æéç¨ Chen ç­[12]æåºçå®å¨è½¬æ¢æ³(Full transformation method) æ¥æ½å æ¬è´¨è¾¹çæ¡ä»¶ã
-
-Fig.3
-
-å¾ 3 åèæ¡æ¹æ¿ Square plate with one rib
-
-(a) SSSS
-
-(b) SSCS
-
-3 ç®ä¾
-3.1 åèæ¡æ¹æ¿ ä¸åèæ¡æ¹æ¿ï¼å°ºå¯¸å¦å¾ 3 æç¤ºï¼èæ¡ä½äº x=0.5m å¤ãæ¿ä¸èæ¡ææç¸åï¼E=17MPaï¼m=0.3ã æ¿å¨æ²¿èæ¡é¿åº¦æ¹ååé¢åè½´ååå¸è·è½½ä½ç¨æ¶ï¼ åè¾¹ä¸åè¾¹çæ¡ä»¶ä¸çå±æ²ä¸´çè·è½½åäºè¡¨ 1 ä¸­ï¼ å¶ä¸­âSâä»£è¡¨è¯¥è¾¹ä¸ºç®æ¯ï¼ âCâä»£è¡¨åºæ¯ï¼ âFâ
-(c) SSCF (d) SSSF
-
-å¾ 4 åèæ¡æ¹æ¿ä¸åè¾¹çæ¡ä»¶ä¸èç¹ z åä½ç§»è®¡ç®äºå¾ Fig.4 Contour plot for the z-direction nodal displacement of the square plate with one rib under different boundary conditions
-
-å·¥
-
-ç¨
-
-å
-
-å­¦
-
-47
-
-è¡¨ 1 é¢åè½´åååä½ç¨ä¸åèæ¡æ¹æ¿çå±æ²ä¸´çè·è½½ Table 1 Buckling loads of the square plate with one rib under uniaxial in-plane compression
-è¾¹çæ¡ä»¶ SSSS SSCS SSCF SSSF æ¬æè§£/(N/m) 248.605 275.773 58.1191 56.5653 ANSYS è§£/(N/m) 253.50 276.68 57.837 57.462 ç¸å¯¹è¯¯å·®/(%) 1.9 0.3 0.5 1.6
-
-æ»æ°ä¸º 7840ãé¤å±æ²ä¸´çè·è½½ï¼èç¹ z åä½ç§»è®¡ç® äºå¾(å¾ 6)ä¹ä¸å¹¶ç»åºã
-è¡¨3 Table 3 é¢åè½´åååä½ç¨ä¸åå¹³è¡èæ¡æ¹æ¿ç å±æ²ä¸´çè·è½½ Buckling loads of the square plate with two parallel ribs under uniaxial in-plane compression
-æ¬æè§£/(N/m) 345.019 348.169 210.356 209.818 ANSYS è§£/(N/m) 351.8 353.32 212.95 216.45 ç¸å¯¹è¯¯å·®/(%) 1.9 1.5 1.2 3.1
-
-è¾¹çæ¡ä»¶ SSSS SSCS SSCF SSSF
-
-ç±äºæ¬ææ¹æ³éç¨äºæ¬¡åºæ¥è®¡ç®å èæ¿ï¼å­å¨ ä¸å®è¿ä¼¼æ§ï¼ä¸ºäºä¼°ç®è¿ç§è¿ä¼¼å¼èµ·çè¯¯å·®ï¼ä»¥æ¬ ææ¹æ³æ±åºäºä¸åç¦»æ£æ¹æ¡(ä¸åèç¹æ°)ä¸åè¾¹ç® æ¯(SSSS)åèæ¡æ¹æ¿çå±æ²ä¸´çè·è½½ï¼ åå¨è¡¨ 2 ä¸­ï¼ å¹¶ä¸ ANSYS è§£è¿è¡äºæ¯è¾ã
-è¡¨ 2 ä¸åç¦»æ£æ¹æ¡ä¸ç®æ¯åèæ¡æ¹æ¿çå±æ²ä¸´çè·è½½ Table 2 Buckling loads of the simply supported square plate with one rib under different discretization schemes
-ç¦»æ£æ¹æ¡ 5Â´5 7Â´7 9Â´9 11Â´11 13Â´13 15Â´15 æ¬æè§£/(N/m) 514.537 269.908 257.97 256.852 248.605 248.402 ANSYS è§£/(N/m) 253.50 253.50 253.50 253.50 253.50 253.50 ç¸å¯¹è¯¯å·®/(%) 103.0 6.5 1.8 1.3 1.9 2.0
-
-(a) SSSS
-
-(b) SSCS
-
-ç±è¡¨ 2 å¯è§ï¼æ¬æè§£éç¦»æ£èç¹æ°çå¢å èè¶ è¿äº ANSYS è§£ï¼è¯¯å·®ä¸æ­åå°ï¼ç´è³è§£æ¶æï¼è¯¯ å·®åºå®å¨ 2%å·¦å³ï¼å¯æ¨æ­äºæ¬¡åºè¿ä¼¼å¸¦æ¥çè¯¯å·® åºå°äº 2%ã 3.2 åå¹³è¡èæ¡æ¹æ¿ ä¸åå¹³è¡èæ¡æ¹æ¿ï¼å°ºå¯¸å¦å¾ 5 æç¤ºï¼èæ¡ä½ äº x=0.25m ä¸ x=0.75m å¤ãæ¿ä¸èæ¡ææç¸åï¼ E=17MPaï¼ m=0.3ãè®©æ¿å¨æ²¿èæ¡é¿åº¦æ¹ååé¢å è½´ååå¸è·è½½ä½ç¨ï¼è®¡ç®åè¾¹ä¸åè¾¹çæ¡ä»¶ä¸çå± æ²ä¸´çè·è½½åäºè¡¨ 3 ä¸­ãä¸ 3.1 èç¸åï¼é¢åè½´å ååä½ç¨ç«¯å§ç»ä¸ºç®æ¯ãè¡¨ 3 ä¸­æ¬æè§£åºäºä»¥ä¸ç¦» æ£æ¹æ¡ï¼æ¿ï¼17Â´17 åå¸èç¹ï¼æ¹å½¢å½±ååï¼a=4ï¼ ä¸¤èæ¡åä¸º 17 åå¸èç¹ï¼å½±ååå a = 2 ï¼æé
-s
-
-(c) SSCF å¾6
-
-(d) SSSF
-
-åå¹³è¡èæ¡æ¹æ¿ä¸åè¾¹çæ¡ä»¶ä¸èç¹ z åä½ç§» è®¡ç®äºå¾
-
-Fig.6 Contour plot for the z-direction nodal displacement of the square plate with two parallel ribs under different boundary conditions
-
-ä¸ºäºè¿ä¸æ­¥è¯´ææ¬ææ¹æ³å¯¹äºåé¶ç¹å¾å¼å æè¶³å¤çç²¾åº¦ï¼é¤äºå±æ²æ§å¶æ¹ç¨å¼(36)çä¸é¶ç¹ å¾å¼(å±æ²ä¸´çè·è½½)æä»¬è¿è®¡ç®äºåè¾¹ç®æ¯(SSSS) æåµä¸å 5 é¶ç¹å¾å¼ï¼åå¨è¡¨ 4 ä¸­ã
-é¢åè½´åååä½ç¨ä¸åè¾¹ç®æ¯åå¹³è¡èæ¡æ¹æ¿ å±æ²æ§å¶æ¹ç¨çç¹å¾å¼ Table 4 Eigenvalues of the governing equation for elastic buckling of the square plate with two parallel ribs under uniaxial in-plane compression
-é¶æ° 1 2 3 4 5 æ¬æè§£/(N/m) 345.019 345.475 426.19 518.084 552.565 ANSYS è§£/(N/m) 351.80 352.17 428.53 503.05 550.02 ç¸å¯¹è¯¯å·®/(%) 1.9 1.9 0.5 3.0 0.5
-
-åè§£ä¹æ¯éè¿ ANSYS è½¯ä»¶å¯¹è¯¥å èæ¿ä¸ç»´å®ä½å»º æ¨¡(éç¨å®ä½åå SOLID45)ååæå¾å°ï¼ç¦»æ£åå
-0.01 m
-
-è¡¨4
-
-1-1æªé¢
-1m
-
-1
-
-1
-0.1 m
-
-yy
-
-èæ¡
-
-x x
-
-0.01 m
-
-Fig.5
-
-å¾ 5 åå¹³è¡èæ¡æ¹æ¿ Square plate with two parallel ribs
-
-ç±è¡¨ 3 åè¡¨ 4 å¯è§ï¼ æ¬æè§£ä¸ ANSYS è§£æ¥è¿ã
-
-48
-
-å·¥
-
-ç¨
-
-å
-
-å­¦
-
-3.3
-
-äº¤åèæ¡æ¹æ¿ å¨ 3.1 èä¸­æ¹æ¿ y=0.5m å¤å¢å ä¸ç¸åèæ¡ï¼ è®©
-
-ä»è¡¨ 5 ä¸­æä»¬åç°æ¬æè§£ä¸æéåè§£æä¸å®å·® è·ï¼è¿æ¯ç±äºæ¬æå èæ¿æ¨¡ååªèèäºèæ¡å¯¹æ¿ç æ¯æä½ç¨ï¼æªèèèæ¡ä¹é´çç¸äºæ¯æä½ç¨ï¼èæ éåå®ä½æ¨¡åä¸­ï¼ä¸¤æ ¹èæ¡å¨äº¤æ¥å¤èåï¼æä¸ºä¸ ä½ï¼å­å¨ç¸äºæ¯æä½ç¨ãè¿ç§ä½ç¨ä½ç°å¨åè¾¹ç®æ¯ (SSSS)æ¶ï¼æ¬ææ¹æ³æ±å¾ä¸´çè·è½½ä¸º 124.3N/mï¼çº¦ ä¸º 3.1 è(è¡¨ 1)ä¸­ç¸åè¾¹çæ¡ä»¶æ¶ä¸´çè·è½½ 248.6N/m çä¸åï¼è ANSYS ä¸ç»´æéåè§£ä¸º 135.3N/mï¼å¤§ äº 3.1 è(è¡¨ 1)ä¸­ç¸åºä¸´çè·è½½ 253.5N/m çä¸åã
-
-æ¿åè¾¹ååé¢åè½´ååå¸è·è½½ä½ç¨ï¼å¦å¾ 7 æç¤ºã åè¾¹ä¸åè¾¹çæ¡ä»¶ä¸çå±æ²ä¸´çè·è½½åäºè¡¨ 5 ä¸­ï¼ å¶ä¸­ï¼æ¬æè§£ç¦»æ£æ¹æ¡ä¸ 3.1 èç¸åï¼èæ¡åä¸º 13 åå¸èç¹ï¼ANSYS è§£ä¹éç¨å®ä½åå SOLID45 å¾ å°ï¼ç¦»æ£ååæ»æ°ä¸º 7849ï¼åæ¶è¿ç»åºäºèç¹ z å ä½ç§»è®¡ç®äºå¾(å¾ 8)ã
-
-4 ç»è®º
-æ¬æåºäºä¸é¶åªååå½¢çè®ºåç§»å¨æå°äºä¹ è¿ä¼¼æåºä¸ç§æ±è§£å èæ¿å±æ²ä¸´çè·è½½çæ ç½æ ¼
-y y
-
-æ¹æ³ãéç¨æ¿ãèåå¼èèçå èæ¿æ¨¡åï¼å©ç¨æ 
-x x
-
-ç½æ ¼çä¼å¿ï¼éè¿æ¨å¯¼çæ¿ä¸èèç¹åæ°è½¬æ¢å¬å¼ å°æ¿ãèç»åæä¸ä¸ªæ´ä½ãç±äºæ¬ææ¹æ³çæ ç½æ ¼ ç¹æ§ï¼å¯ä»¥çªç ´ç½æ ¼çéå¶ï¼è®©èæ¡éç½®å¨æ¿ä¸ç ä»»æä½ç½®ï¼å¹¶é¿åèæ¡ä½ç½®æ¹åå¼èµ·çæ¿ç½æ ¼é æãææ«éè¿ä¸ä¸ªç®ä¾ä¸ä¸ç»´å®ä½å»ºæ¨¡çæéåå æåäºæ¯è¾ï¼éªè¯äºæ¬ææ¹æ³çåç¡®æ§ã åèæç®ï¼
-[1] [2] Kendrick S. The analysis of a flat plated grillage [J]. European Shipbuilding, 1956, 5: 4â10. Schade H A. The orthogonally stiffened plate under uniform lateral load [J]. Journal of Applied Mechanics ASME, 1940, 62: 143â146. Bryan G H. On the stability of a plane plate under thrust in its own plane, with applications to the âbucklingâ of the sides of a ship [J]. Proceedings of the London Mathematical Society, 1890, 22: 54â67. Timoshenko S P, Gere J M. Theory of elastic stability [M]. New York: McGraw-Hill, 1961: 394â409. Cox H L. Computation of initial buckling stress of sheet stiffener combinations [J]. Journal of the Royal Aeronautical Society, 1954, 58: 634â638. Yoshida H, Maegawa K. Buckling strength of orthogonally stiffened plates [J]. Journal of Structural Mechanics, 1979, 7: 161â191. Cheung Y K, Delcourt C. Buckling and vibration of thin flat-walled structures continuous over several spans [J]. Proceedings of the Institution of Civil Engineers, 1977, Part II: 93â103. Guo M, Harik I E. Stability of eccentrically stiffened plates [J]. Thin-Walled Structures, 1992, 14: 1â20.
-
-Fig.7
-
-å¾ 7 äº¤åèæ¡æ¹æ¿ Square plate with two cross ribs
-
-è¡¨ 5 é¢åè½´åååä½ç¨ä¸äº¤åèæ¡æ¹æ¿çå±æ²ä¸´çè·è½½ Table 5 Buckling loads of the square plate with two cross ribs under uniaxial in-plane compression
-è¾¹çæ¡ä»¶ SSSS SSCS SSCF SSSF æ¬æè§£/(N/m) 124.304 135.491 68.7189 68.5263 ANSYS è§£ /(N/m) 135.3 146.64 70.821 71.52 ç¸å¯¹è¯¯å·®/(%) 8.1 7.6 3.0 4.2
-
-[3]
-
-[4] [5] (a) SSSS (b) SSCS [6]
-
-[7]
-
-(c) SSCF
-
-(d) SSSF
-
-[8]
-
-å¾ 8 äº¤åèæ¡æ¹æ¿ä¸åè¾¹çæ¡ä»¶ä¸èç¹ z åä½ç§»è®¡ç®äºå¾ Fig.8 Contour plot for the z-direction nodal displacement of the square plate with two cross ribs under different boundary conditions
-
-(åèæç®[9]â[14]è½¬ç¬¬ 55 é¡µ)
-
-å·¥
-
-ç¨
-
-å
-
-å­¦
-
-55
-
-[20] Nardini D, Brebbia CA. A new approach to free vibration analysis using boundary elements [J]. Applied Mathematical Modelling, 1983(7): 157â162. [21] Nowak A J, Brebbia C A. The multiple-reciprocity method: A new approach for transforming BEM. domain integrals to the boundary [J]. Engineering Analysis with Boundary Elements, 1989(6): 164â168. [22] Gao X W. A boundary element method without internal cells for two-dimensional and three-dimensional elastoplastic problems [J]. ASME Journal of Applied Mechanics, 2002(69): 154â160. [23] Dong C Y, Lo S H, Cheung Y K. Numerical solution for elastic inclusion problems by domain integral equation with integration by means of radial basis functions [J]. Engineering Analysis with Boundary Elements, 2004(28): 3â32. [24] Gao X W. A meshless BEM for isotropic heat conduction problems with heat generation and spatially varying conductivity [J]. International Journal for Numerical Methods in Engineering, 2006(66): 1411â 1431. [25] å¼ é, åå²©. æ ç½æ ¼æ³[M]. åäº¬: æ¸åå¤§å­¦åºçç¤¾, 2004. Zhang Xiong, Liu Yan. Meshless method [M]. Beijing: Tsinghua University Press, 2004. (in Chinese) [26] Franke R. Scattered data interpolation test of some methods [J]. Mathematics of Computation, 1982(38): 181â200. [27] Golberg M A, Chen C S, Karur S R. Improved multiquadric approximation for partial differential equations [J]. Engineering Analysis with Boundary Elements, 1996(18): 9â17. [28] Golberg M A. Numerical evaluation of particular
-
-[29]
-
-[30]
-
-[31]
-
-[32]
-
-[33]
-
-[34]
-
-[35]
-
-[36] [37]
-
-solutions in the BEM-A review [J]. Boundary Element Communications, 1995(6): 99â106. Karur S R, Ramachandran P A. Augmented thin plate spline approximation DRM [J]. Boundary Element Communications, 1995(6): 55â58. Facchinei F, Pang J S. Finite-dimensional variational inequalities and complementary problems [M]. New York: Springer Press, 2003. Mangasarian O L. Solution of symmetric linear complementarity problems by iterative methods [J]. Journal of Optimization Theory and Applications, 1977(22): 465â485. Karamardian S. Generalized complementarity problem, [J]. Journal of Optimization Theory and Applications, 1971(8): 161â168. Harker P T, Pang J S. Finite dimensional variational inequality and nonlinear complementarity problem: A survey of theory, algorithms and applications [J]. Mathematical Programming, 1990, 48: 161â220. Fukushima M. Merit functions for variational inequality and complementarity problem [M]// Di Pillo G, Giannessi F. Nonlinear Optimization and Applications. New York: Plenum Press, 1996: 155â170. Mangasarian O L. Equivalence of the complementarity problem to a system of nonlinear equations [J]. SIAM Journal on Applied Mathematics, 1976(31): 89â92. Fischer A. A special Newton-type optimization method [J]. Optimization, 1976(24): 269â284. ä½ç´ è³. äºè¡¥é®é¢ç®æ³ç ç©¶åå¶å¨åå­¦ä¸­çåºç¨[D]. å¤§è¿: å¤§è¿çå·¥å¤§å­¦, 2003. He Suyan. Studies on algorithms of complementarity problems and their applications in mechanics [D]. Dalian: Dalian University of Technology, 2003. (in Chinese)
-
-(ä¸æ¥ç¬¬ 48 é¡µ)
-[9] æ±èè¬, å¨æ¿è³. å ç­æ¿å£³ç¨³å®æ§åæä¸­ä¸ç§ç®åç æéåæ¨¡å¼[J]. åºç¨åå­¦å­¦æ¥, 1993, 10(4): 113â117. Zhu Jufen, Zhou Chengfang. A simple finite element model on the buckling analysis for stiffened shells [J]. Chinese Journal of Applied Mechanics, 1993, 10(4): 113â117. (in Chinese) [10] Barik M, Mukhopadhyay M. A new stiffened plate element for the analysis of arbitrary plates [J]. Thin-Walled Structures, 2002, 40: 625â639. [11] Belytschko T, Lu Y Y, Gu L. Element-free galerkin methods [J]. International Journal for Numerical Methods in Engineering, 1994, 37: 229â256. [12] Chen J S, Pan C, Wu C T, Liu W K. Reproducing kernel particle methods for large deformation analysis of nonlinear structures [J]. Computer Methods in Applied Mechanics and Engineering, 1996, 139: 195â227. [13] å¨å°å¹³, å¨çå¿ . æ ååæ³ç ç©¶ç°ç¶åå±æ[J]. å·¥ç¨ åå­¦, 2005, 22(1): 12â20. Zhou Xiaoping, Zhou Ruizhong. Current study and development of element-free Galerkin method [J]. Engineering Mechanics, 2005, 22(1): 12 â 20. (in Chinese) [14] Reddy J N. Theory and analysis of elastic plates [M]. London: Taylor & Francis, 1999: 426â434.
-

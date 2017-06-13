@@ -1,0 +1,472 @@
+C’ompurers StrurruresVol. 47. No. 6. PP. 987-993. 1993 & Printed in Great Britain.
+
+s
+
+0045-7949/93S6.00+ 0.00 1993PergamonPressLtd
+
+A FINITE
+D.
+
+ELEMENT LARGE DISPLACEMENT OF STIFFENED PLATES
+VENUGOPAL
+
+ANALYSIS
+
+RAO, A. H. SHEIKH and M. MUKHOPADHYAY~
+
+Department of Naval Architecture, Indian Institute of Technology, Kharagpur-721 302, India
+(Received 3 March 1992)
+
+Abstract-A finite element analysis of the large deflection behaviour of stiffened plates using the isoparametric quadratic stiffened plate bending element is presented. The evaluation of fundamental equations of the stiffened plates is based on Mindlin’s hypothesis. The large deflection equations are based on von KBrmBn’s theory. The solution algorithm for the assembled nonlinear equilibrium equations is based on the Newton-Raphson iteration technique. Numerical solutions are presented for rectangular plates and skew stiffened plates.
+
+1.
+
+INTRODUCTION
+
+Stiffened plate structures are very common in present day engineering, and are indispensable in aerospace and ship-building disciplines. The wings or fuselage of an aircraft consist of a skin with an array of stiffening ribs. The hull of a ship, its deck and superstructure, a road bridge or the launching pedestal of a rocket are only a few examples of stiffened plate structures. Problems involving deformations of the order of the thickness of the plate are called large deflection problems. Deformations of an elastic body can also be of a magnitude that does not overstrain the material or produce stretching under large deformations and thus lead to curvature-displacement nonlinearity. Since this is deformation dependent, it is also classified as geometrical nonlinearity. There are only a very few investigators who have studied the large deflection behaviour of stiffened plates and hence only a meagre literature is available in this field. Srinivasan and Ramachandran [I] have made large deflection analysis of skew stiffened plates with eccentric stiffeners using the integral equation method. The stiffened plate is idealized as an equivalent anisotropic bare plate in their formulation. As such, all the drawbacks inherent with their idealization such as the requirement that the stiffeners should be identical, light and equally spaced hold good. Olson and Koko [2] have used superelements for large deflection elasto-plastic analysis of stiffened plates. The formulation has been made for rectangular plates only where the stiffeners must pass through nodal lines. The results have indicated over estimation of deflections and under estimation of stresses. The main purpose of the present investigation is to study the large deflection behaviour of stiffened plate structures by an efficient and accurate finite element method. The bending deformation follows Mindlin’s
+tTo whom correspondence should be addressed.
+
+hypothesis. The large deflection analysis is based on von KinnAn’s nonlinear plate equations. The isoparametric quadratic stiffened plate bending element with five degrees of freedom per node, which has so far been limited to linear analysis [3-61, has now been extended to study the nonlinear behaviour of stiffened plates. The main feature of this element is that the formulation is based in a general manner without disturbing the position or the properties of the stiffeners. Even a stiffener having arbitrary orientation within an element remains undisturbed. Further, the element being isoparametric quadratic, irregular boundaries of the structure, and also the transverse shear deformations of the plate, and the stiffeners can be very conveniently accommodated. The nonlinear equations are solved iteratively using the NewtonRaphson technique. Several numerical examples depicting the range of problems involving rectangular and skew stiffened plates have been solved.
+2. PROPOSED ANALYSIS
+
+The evaluation of the fundamental equations of the stiffened plate structure is based on the following assumptions: I. The material of the plate and the stiffener obeys Hooke’s law. 2. The bending deformation follows Mindlin’s hypothesis. Therefore, the linear elements perpendicular to the middle plane of the plate before bending remain straight, but not necessarily normal to the middle plane after bending. 3. The deflection in the Z-direction is a function of x and y only. 4. The transverse normal stresses are neglected. 5. The lateral deflection is moderate. An eight-noded isoparametric quadratic element [4] is chosen for the proposed analysis. The detailed
+987
+
+988
+
+D.
+
+VENUCXJPAL RAO et al.
+
+derivation is given in [4], so it is not repeated here. In this element, serendipity shape functions are used to interpolate both coordinates and displacements. So the coordinate at any point within the element is
+
+[&I =
+
+M’[DIP,I do + P3JTPlPJ do iY sY + + FUrPl~~ol dv + PLI~PI~~LIdv sY sY [~l’LY[~l do, sY (6)
+
+where x,, y, are the coordinates and N, is the quadratic serendipity shape function corresponding to the node r. Similarly, the displacement components at any point within the element are
+
+where [D] is the elasticity matrix, [S] is the initial stress matrix, [B,,] is the linear strain matrix and [BJ is the nonlinear strain matrix. The nonlinear strain matrix can again be written as
+
+[ELI [AIPY, =
+
+(7)
+
+where U,, V,, W, are the displacements and O,, and f$, are the rotations made by normals about the y and x axes, respectively. The formulation presented here is based on the total Lagrangian coordinate system and it is given elsewhere in detail [7,8]. So the final forms are directly picked up with the standard notations used. The equilibrium equation and its incremental form is given below
+
+where [A] is dependent on the displacements, but [G] is free from that. The element stiffness matrix of a stiffened plate element consists of the contribution of the plate and the stiffener. The different matrices mentioned above corresponding to the plate and the stiffener are given below. 2. I. Plate element The stress-strain relation can be written as (6) =
+
+PlIa>v
+
+(8)
+
+where the stress resultant vector is {c I= {N.z Ev Et? M.v MT KY the elasticity matrix is
+
+Q, Q, f (9)
+
+-DXA DIA
+
+DIA DYA DXYA
+
+Symmetric
+DXF DIF DIF DYE DXYF 0 sx S,
+
+PI=
+
+(10)
+
+where [K,] and [Kr] are the secant and tangent stiffness matrices, respectively, {S> and (da } are the nodal displacements and its increment and {R} and {dR} are the nodal load and its increment. Again, the stiffness matrices can be written as P 1P
+
+and the strain vector is
+au/ax au lay aqay + au/ax - ae, Iax - 86,. iay - ae,jay - ae,,laa aw Iax - e., aw/ay -e, :(awjax)2 f(aw/ayy)2 :aw/ax)(aw/ay
+
+[f&-l =
+
+J”
+
+[B,JTIDI[&I +; dv
+
+JV
+
+B,1’P1&1 du
+
++
+
+0 0 0 0 0
+
+(5)
+
+(11)
+
+Large displacement analysis of stiffened plates With the help of eqn (2), the linear strain {L,,}can be expressed as The initial stress matrix is as follows:
+
+989
+
+(19)
+
+(12)
+1
+
+where
+
+ahyax
+0
+
+0
+
+0 0 0 0 0 0 -
+
+0 0 0
+
+0 0
+
+awaY
+]&I, =
+0 0 0 0 0
+
+awaY alv, Iax
+0 0
+
+0
+0 -
+
+aN,lax
+0
+
+0 0 0
+
+awaY - aNrlax - awaY
+-N,
+0
+
+(13)
+
+ahyax awaY
+
+0
+
+-N,
+
+The nonlinear
+
+strain {Lo} can be written as
+
+(wax)
+0
+
+0
+
+.
+
+(way)
+
+(way) (awlax)
+0 0 0 0 {
+
+2.2. Arbitrarily oriented stiffener element An eccentric stiffener within the plate element with arbitrary orientation is a general case. The stiffener properties are taken at the Gauss points in the tangential direction of the stiffener. This gives results in a different local axes system say, x’, y’ and it is converted into the global axes system accordingly. The contribution of the stiffener nonlinearity has not been considered, as its effect is negligible in the global response. A detailed derivation is given in [4], so it is only mentioned briefly. The generalized strain components of the stiffener in the x’, y’ axis system are
+
+(4 =;
+
+0 0 0 0 0
+
+awlax
+
+way
+
+I
+
+(14)
+
+0
+
+.
+(15)
+
+With the help of eqn (2), [A] and (0) can be expressed as
+
+c (awww,
+,=I
+
+8
+
+0
+,i,
+
+0
+
+wwww,
+It can easily be converted in the global axis system (x, y) as follows:
+
+,$, w,iww, ,$, wwww,
+Ml=
+0 0 0 0 0 0 0
+
+(16)
+where cos.2fp sin2 I$ sin 2412 0 0 0 0 cos2r$ sin’ C$ sin 2412 sin 2412 0 0 0 0 0 0 0 0 0 cos fp sin 4 0 0 0 -sin 24 /2 sin 2412 co? f#l - sin2 4 0 0 - (22) ,
+
+0 0
+0
+
+and
+
+(0) = ,= f:
+where
+
+P4,{~L
+
+(17)
+
+I
+
+[T]‘=
+
+0 0 0
+
+[Glr = 0 0 ahqax
+0 0
+
+0
+
+0 0
+
+aN,lay0
+
+(18)
+
+0 _ 0
+
+990
+
+D.
+
+VENUGOPALRAO et
+
+al.
+
+C#J the angle between the local and global axis is system and
+
+Nodal loading vector. The equivalent nodal load {R} due to the distributed loading q is written as
+
+{R } =
+where [N] = [. . 0
+
+Wlrq do, IY
+
+(28)
+
+0
+
+N,
+
+0
+
+0
+
+. . .I.
+
+(29)
+
+3. RESULTS AND DISCUSSION
+
+With the help of eqn (2) the strain vector (L}, can be written as (24) where
+
+A method to study the large deflection behaviour of stiffened plates under bending by isoparametric quadratic bending elements and the corresponding computer program in FORTRAN 77 have been developed. To verify the validity of the method and the program, a wide variety of plates and stiffened plates have been analysed. The range covers different plates with various arrangements of stiffeners and stiffener geometries, with different boundary conditions. The stiffened plates selected for the analysis are those which are analysed by earlier investigators. 3.1. Square clamped plate
+To check the formulation and the computer program, a clamped square plate is analysed. This is a standard example used by different investigators [7,9] to study the large deflection behaviour of plates. The details of the plate is given in Fig. 5 of [7]. The plate is analysed on the basis of 8 x 8 mesh division and the tolerance of convergence is taken as I %. The central deflection and stresses at the centre and edge of the plate are compared in Tables I and 2. The tables indicate good agreement of the results.
+
+200 ax
+0
+
+0 0
+o
+
+0 0
+0
+
+ay
+0 0 0 0
+
+aN,
+
+0
+o
+
+aN aN, 2
+
+ay ax
+0 0 0 0
+
+0 0 0 0
+
+-2
+0 0
+
+0
+
+[&lr =
+
+--aN,
+
+ay
+
+(25)
+
+-2 5X
+0 0
+
+3.2. Clamped rectangular plate with single stiffener A rectangular plate stiffened by a central eccentric stiffener along the shorter direction is analysed by the proposed method using a mesh division of 10 x 5 for the quarter plate. The plate is also solved by Olson and Koko [2] by using a superelement model and by Sheikh [lo] by the spline finite strip method. The details of the plate are given in Fig. 6 of [2]. The deflections and stresses at the centre of the plate and the panel are compared with those of Olson
+Table I. Central displacements of a clamped square plate (26) Load No.
+I 2 3 4 5 6 7 8 9
+
+-ah: ay
+-N,
+
+0 0
+
+0 0
+
+ax
+
+ah: aN,
+OY
+
+F
+
+0
+
+-N,
+
+The elasticity matrix [D,] of the stiffener at the Gauss point along the tangential direction x’ is
+
+PSI =
+
+So the stiffness matrix can be written as
+
+r
+EAs
+ES, 0
+
+symmetric
+
+EI, S,
+
+GJs
+
+4a4/(Eh’)
+17.79 38.30 63.40 95.00 134.90 184.00 245.00 318.00 402.00
+
+Central displacements, MI/II -Exact (9) Present Ref. [7]
+0.2370 0.4710 0.6950 0.9120 I.1210 I .3230 I.5210 I.7140 I .9020 0.2370 0.4673 0.6887 0.9003 I.1041 0.2346 0.4660 0.6862 0.8987 I. 1025 I .2979
+
+WI, =
+
+s;
+
+P,I’[~lTP,I[~IBU ck
+
+(27)
+
+1.2990
+I.4910 I .6774
+
+1.4890
+I .6750 I .8526
+
+where 1 is the mapped direction of the stiffener.
+
+1.8682
+
+Large displacement analysis of stiffened plates Table 2. Central and edge stresses of a clamped square Central stress ~tl(Eh*) Load No. Edge stress ?W~*) Present 2.6280 5.4810 7.2826 11.1327 13.8680 16.5480 19.2740 22.0400 24.8220 Exact (9) 5.48 11.52 18.03 25.32 33.50 42.40 52.80 63.90 75.80 Pica (7) 5.325 Il.155 17.515 24.522 32.278 40.710 50.043 60.064 70.897 Present 5.338 11.260 15.290 25.070 33.185 42.050 51.879 62.445 73.440
+
+991
+
+qd/(Eh”)
+17.79 38.39 63.40 95.00 134.90 184.00 245.00 318.00 402.00
+
+Exact (9) 2.60 5.20 8.00 11.10 13.30 15.90 19.20 21.90 25.10
+
+Pica (7) 2.6571 5.5137 8.3528 11.1150 13.8170 16.4610 19.1600 21.9000 24.7800
+
+Table 3. Displacements and stresses at the plate centre of a rectangular plate with a single stiffener Deflections (mm) No. 1 2 3 4 5 6 7 8 9 10 Load (MPa) 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 I.0 Ref [2] 3.197 5.526 7.172 8.631 9.868 Il.053 Ref. [IO] 3.441 5.815 7.698 9.276 10.644 11.857 12.950 13.947 14.867 15.721 Present 3.522 5.940 7.857 9.464 10.858 12.095 13.210 14.227 15.167 16.039 Stresses (MPa) Ref. [lo] 282.796 393.578 466.968 522.160 566.700 604.180 636.671 665.466 691.300 715.407 Present 279.885 381.168 466.807 493.000 530.800 562.000 589.008 613.160 634.900 655.000
+
+11.974
+12.961 -
+
+Table 4. Deflections and stresses at the panel centre of a rectangular plate with a single stiffener Deflections (mm) No. 1 2 3 4 5 6 7 8 9 10 Load (MPa) 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 Ref. [2] 8.711 Ref. (IO] 8.7413 Present 8.7756 Stresses (MPa) Ref. [IO] 14.4595 4 1.9470 64.4341 84.5106 103.0284 120.4313 136.9674 152.8138 168.0870 182.8724 Present 16.7947 44.0901 67.2384 87.9949 107.2042 125.3034 142.5363 159.0767 175.0394 190.5082
+
+I 1.376
+13.326 14.626 15.845 16.901 17.876 18.852
+
+1I .3705
+13.196 14.640 15.855 16.913 17.856 18.711 19.495 20.223
+
+I! .4336
+13.2858 14.755 15.992 17.072 18.035 18.909 19.713 20.458
+
+-
+
+Table 5. Delk-ction and bending moments at the plate centre of the DRES stiffened panel
+W (in)
+
+M, Ub) Present 0.3225 0.4720 0.5851 0.6815 0.7680 0.8478 0.9937 1.1272 1.2520 Ref. [IO] 146.919 187.118 210.629 228.039 242.383 254.855 276.526 295.291 312.106 Present 147.110 186.619 209.511 226.567 240.855 253.583 276.408 297.114 316.426
+
+Load (psi) 5.0 10.0 15.0 20.0 25.0 30.0 40.0 50.0 60.0
+
+MF (lb) Ref. [lo] 47.300 62.623 73. I34 81.883 89.735 97.033 110.566 123.109 134.908 Present 46.808 61.775 71.852 80.121 87.505 94.374 107.209 I 19.282 130.817
+
+ADINA 0.3125 0.5181 0.6332 0.7484 0.8717 0.9627 1.1184 1.1225 -
+
+Ref. [2] 0.3289 0.4934 0.6332 0.7484 0.8388 0.921 I 1.0855 1.1225 -
+
+Ref. [IO] 0.3162 0.4624 0.5719 0.6650 0.7483 0.825 I 0.9653 1.0934 1.2128
+
+992
+
+D. VENUGOPAL RAO et al. Table 7. Deflections and bending moments at the panel centre (A) of the skew stiffened plate Deflections (mm) No. Load (MPa) 0.05 0.20 0.30 0.40 0.50 0.60 0.70 0.80 0.90 1.00 Ref. [lo] 5.3396 9.3440 10.8606 12.0578 13.0634 13.9392 14.7196 IS.4272 16.0767 16.678 Present 5.4166 9.5600 10.1067 12.3299 13.3596 14.2576 15.0592 15.7865 16.0767 17.0745 Moments, M, (N) Ref. [lo] 52.584 66.695 72.675 77.791 82.307 86.371 90.080 93.503 96.687 99.67 1 Present 51.281 64.355 69.550 73.846 77.478 80.594 83.296 85.665 87.760 89.628
+
+Table 6. Normal stress at the centre of the stiffener of the DRES stiffened panel Stress (psi) Load No.
+
+fMPa)
+5.0 10.0 15.0 20.0 25.0 30.0 40.0 50.0 60.0
+
+Ref. 1101
+31295 59797 71141 93235 107115 119821 142646 162967 181441
+
+Present 37069 58893 75954 90448 103256 114845 135371 153363 169521
+
+1
+2 3 4 5 6 7 8 9 10
+
+and Koko [2] and Sheikh [lo] in Tables 3 and 4. The values of [2] are taken from the plots. The correlation of results has been good. 3.3. Clamped DRES stlflened panel The stiffened plate was constructed at the Defence Research Establishment in Suffield (DRES), Alberta, Canada [l l] and a static analysis was done using the general purpose computer program ADINA [12]. It is a rectangular plate with four equispaced eccentric stiffeners with four edges clamped. The details of the plate is given in Fig. 11 of [2]. The quarter plate is analysed on the basis of a 10 x 5 mesh division. The stiffened plate is solved by Olson and Koko [2] using a superelement model and also by Sheikh [lo] using the spline finite strip method. The deflection and bending moments at the centre of the plate are compared with those of Olson and Koko, ADINA and Sheikh in Table 5. The normal stress at the top of the plate, perpendicular to the stiffener at the centre of the inner stiffener is compared with that of Sheikh [lo] in Table 6. The results agree reasonably well. 3.4. Clamped skew stifSened plate The stiffened plate studied in example 2 is converted to a skew plate with an included angle of 60” (Fig. 1). This skew stiffened plate is analysed to check the formulation applicable to the analysis of plates having general shape and boundary condition with arbitrary stiffener orientation. The analysis is done on the basis of a 10 x 6 mesh size. The same plate is analysed by Sheikh[lO] using the spline finite strip method. The deflection and the bending moment at the panel centre for the different load levels are given in Table 7.
+Y
+
+Deflections compare well; the stress values have differed slightly for higher load levels.
+
+5. CONCLUSIONS The eight-noded isoparametric plate bending element is used to study the large deflection behaviour of stiffened plates. The formulation is generalized so that the stiffener may pass anywhere within the element and need not pass through the nodal line. This gives a considerable amount of flexibility in the mesh generation. The formulation is based on an isoparametric element using Mindlin’s hypothesis. So the shear deformation is taken into account and the arbitrary stiffener orientation and plate shape can be easily handled. Five degrees of freedom per node have been considered. Large deflection analysis is based on von K&man’s nonlinear plate theory. The solution algorithm used for solving the nonlinear equations is the Newton-Raphson method. Comparison with the published results indicates good correlation.
+REFERENCES
+
+1. R. S. Srinivasan and S. V. Ramachandran, Linear and
+
+nonlinear analysis of stiffened plates. Inr. J. Solids Srrucr. 13, 897-912 (1977). 2. M. D. Olson and T. S. Koko, Nonlinear analysis of
+stiffened plates using superelements. Inr. J. Numer. Merh. Engng 31, 319-343 (1991). 3. M. Mukhopadhyay and S. K. Satsangi, Analysis of double plated structures. Proceedings of the 3rd International Congress on Marine Technology, Athens, pp. 59-67 (1984). 4. M. Mukhopadhyay and S. K. Satsangi, Isoparametric stiffened plate bending element for the analysis of ships’ structures. Trans. Royal Inst. Naval Archiiects 126, 144-151 (1984). 5. M. Mukhopadhyay and S. K. Satsangi, Finite element analysis of girder bridges having arbitrary planform.
+Bridge and Structural Engineer 15, 267-273 (1986).
+
+YY
+
+1777
+
+500mm
+
+500mm
+
+-I
+
+Fig. 1. Configuration of two-bay skew stiffened plate.
+
+6. M. Mukhopadhyay, S. K. Satsangi and A. Mukherjee, A new isoparametric plate element for the analysis of ship structures. Int. Shipbuilding Progress 37, 79-117 (1990). 7. A. Pica, R. D. Wood and E. Hinton, Finite element analysis of geometrically nonlinear plate behaviour using Mindlin formulation. Comput. Snucf. 11,203-215 (1980).
+
+Large displacement analysis of stiffened plates 8. 0. C. Zienkiewicz, The Finite Element Method in Engineering Science, 3rd Edn. McGraw-Hill, London (1977). 9. S. Levy, Square plate with clamped edges under normal pressure producing large deflections. NACA, Technical note 847 (1942). 10. A. H. Sheikh, Linear and nonlinear, static and dynamic analysis of stiffened plates by the spline finite strip method. Doctoral thesis, Department of Naval Architecture, Indian Institute of Technology, Kharagpur (1992).
+
+993
+
+11. R. Houlston and J. E. Slater, A summary of experimental results on square plate and stiffened plates subjected to air-blast loading. 57th Shock and Vibration Bulletin, part 214, p. 55 (1987). 12. K. J. Bathe, ADINA-a finite element program for automatic dynamic incremental non-linear analysis. Report 82448-1, Acoustics and Vibration Laboratory, Department of Mechanical Engineering, Massachusetts Institute of Technology, Cambridge, MA (t975).
+

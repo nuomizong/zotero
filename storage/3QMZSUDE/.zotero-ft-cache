@@ -1,0 +1,3282 @@
+Calhoun: The NPS Institutional Archive
+Reports and Technical Reports All Technical Reports Collection
+
+1988-04
+
+A triangular thin shell element for the linear analysis of stiffened composite structures
+Wilson, Edward
+Monterey, California. Naval Postgraduate School http://hdl.handle.net/10945/29567
+
+'
+
+NPS69-88-003
+
+NAVAL POSTGRADUATE SCHOOL
+Monterey, California
+
+i^S^X
+
+3
+
+^
+• J*i'
+
+uQ
+
+A Triangular Thin Shell Element for the
+
+Linear Analysis of Stiffened Composite
+Structures
+
+Edward Wilson and Gilles Cantin
+April 1988
+Final Report for period Jan 1987
+-
+
+Jun 1987
+
+Approved for public release; distribution unlimited Prepared for:
+David Taylor Naval Ship R&D Center D -^esda, MD 20084-5000
+
+FedDocs
+D 208.14/2
+
+NPS-69-88-003
+
+NAVAL POSTGRADUATE SCHOOL Monterey, California
+Rear Admiral R.C. Austin Superintendent
+K.T. Marshall
+
+Acting Provost
+
+This report was prepared in conjunction with research conducted for
+the David W. Taylor Naval
+
+Ship R&D Center, Bethesda, MD.
+
+Reproduction of all or part of this report is authorized.
+This report was prepared by:
+
+Unclassified
+SECURITY CLASS ^CATION
+:
+
+TH
+
+5
+
+;
+
+ACE
+
+KMO NQXMRPAm,
+
+REPORT DOCUMENTATION PAGE ^ontef
+la
+
+REPORT SECURITY CLASSIFICATION
+SECURITY CLASSIFICATION AUTHORITY
+
+ID
+
+RESTRICTIVE MARKINGS
+
+ii*.
+
+Unclassified
+2a
+3
+
+DISTRIBUTION. AVAILABILITY OF REPORT
+
+2b
+
+DECLASSIFICATION
+
+/DOWNGRADING SCHEDULE
+5
+
+Approved for public release; distribution unlimited
+MONITORING ORGANIZATION REPORT NUMBER(S)
+
+4.
+
+PERFORMING ORGANIZATION REPORT NUMBER(S)
+
+NPS69-88-003
+6a.
+
+NAME OF PERFORMING ORGANIZATION
+
+6o OFFICE
+
+SYMBOL
+
+7a
+
+NAME OF MONITORING ORGANIZATION
+
+Naval Postgraduate School
+6c.
+
+Naval Postgraduate School
+7b.
+
+ADDRESS
+
+{City, State,
+
+and
+
+ZIP Code)
+
+ADDRESS
+
+{City, State,
+
+and
+
+ZIP Code)
+
+Monterey, California 93943-5000
+
+Monterey, California 93943-5000
+
+8a.
+
+NAME OF FUNDING /SPONSORING ORGANIZATION David W. Taylor R&D Center
+ADDRESS
+(City, State,
+
+8b OFFICE
+(if
+
+SYM80L
+
+9.
+
+PROCUREMENT INSTRUMENT IDENTIFICATION NUMBER
+
+applicable)
+
+N000167087 WR7-0062
+10
+
+8c.
+
+and ZIP Code)
+
+SOURCE OF FUNDING NUMBERS
+PROJECT NO.
+
+Bethesda, MD
+11.
+
+PROGRAM
+
+TASK
+
+WORK
+
+UNIT
+
+20084-5000
+
+ELEMENT NO
+
+NO
+
+ACCESSION NO
+
+62323N;
+TITLE (Include Security Classification)
+
+14120;
+
+RB23S11000
+
+A Triangular Thin'^Shell Element for the linear Analysis of Stiffened Composite Structures
+12
+
+PERSONAL AUTHOR(S)
+
+Edward Oilson and Gilles Cantin
+13a.
+
+TYPE OF REPORT
+
+13b TIME
+
+COVERED
+
+14.
+
+DATE OF REPORT
+
+(
+
+Year,
+
+Month, Day)
+
+15
+
+Final
+16.
+
+from
+
+Dec87
+
+TOJun88
+
+April
+
+1988
+
+PAGE COUNT 25
+
+SUPPLEMENTARY NOTATION
+
+17
+
+COSATI CODES
+FIELD
+
+18
+
+SUBJECT TERMS (Continue on reverse
+
+if
+
+necessary and identify by block number)
+
+GROUP
+
+SUB-GROUP
+
+19
+
+ABSTRACT (Continue on
+
+reverse
+
+if
+
+necessary
+
+and
+
+identify by block
+
+number)
+
+A three node flat shell element with six engineering displacement degree-of-f reedom at each node is developed. The basic formulation allows for the arbitrary location of the reference The well-known, surface in which the membrane forces and bending moments are fully coupled. higher order membrane element in highly accurate, DKT bending element is combined with a order to obtain a consistent formulation. The higher order memebrane behavior is obtained This report by the introduction of three additional normal rotational degree-of-f reedom. The presents a summary of the theoretical steps involved in the development of the element. and a accuracy of the element is illustrated by the solution of several standard problems comparison of results with other thin shell elements. The FORTRAN 77 listing of the subroutines which form the basic element matrices contain less than 300 statements and is presented in order to illustrate that the computer implementation of the element is
+<•
+
+relatively simple.
+
+20.
+
+DISTRIBUTION /AVAILABILITY OF ABSTRACT
+DTIC USERS
+
+21
+
+ABSTRACT SECURITY CLASSIFICATION
+
+f3 UNCLASSIFIED/UNLIMITED SAME AS RPT 22a. NAME OF RESPONSIBLE INDIVIDUAL
+
+Unclassified
+22b TELEPHONE (Include Area Code)
+22c.
+
+OFFICE
+
+SYMBOL
+
+Edward Wilson
+
+415-625-0438
+83 APR edition
+All
+
+DO FORM
+
+1473, 84 mar
+
+may be used
+
+until
+
+exhausted.
+
+SECURITY CLASSIFICATION OF THIS PAGE
+ft
+
+other editions are obsolete
+
+U.S.
+
+Govtrnm«nt
+
+Prlntlnf Offle*:
+
+ISM—40»-2O
+
+DD
+
+Jin .3 S/N 0162-014-6601
+1
+
+Form
+
+U.3
+
+H n
+
+r.
+
+1
+
+JtCu«'»» CLlUl'lCATiOH o' ••<• »»«• r*»«» o*i*
+
+a g g
+
+i
+
+f
+
+i
+
+p
+
+rl
+
+*-'.'•«!
+
+DUDLEY KNOX LIBRARY /AL POSTGRADUATE SCHOOL ONTEREY CA 93943-5101
+
+A TRIANGULAR THIN SHELL ELEMENT
+FOR THE LINEAR ANALYSIS OF
+
+STIFFENED COMPOSITE STRUCTURES
+By
+
+Edward Wilson and Gilles Cantin
+
+ABSTRACT
+A
+
+three node flat shell element with six engineering displacement
+at
+
+degrees-of-f reedom
+formulation
+coupled.
+
+each
+the
+
+node
+
+is
+
+developed.
+
+The
+
+basic
+
+allows
+
+for
+
+arbitrary location of the reference
+
+surface in which the membrane forces and bending moments are fully
+
+The
+
+well-known,
+a
+
+highly accurate, DKT bending element is combined
+order
+
+with
+
+higher
+
+membrane
+The
+
+element
+
+in
+
+order
+
+to
+
+obtain a
+
+consistent
+
+formulation.
+
+higher order membrane behavior is
+
+obtained by the introduction of three additional normal rotational
+
+degrees-of-f reedom.
+This
+
+report
+
+presents a summary of the theoretical steps involved
+The accuracy of the element is
+by
+the
+
+in the development of the element.
+
+illustrated
+
+solution
+
+of several standard problems and a
+
+comparison of results with other thin shell elements. The FORTRAN 77 listing of the subroutines which form the basic element
+matrices
+order
+to
+is
+
+contain
+
+less
+
+than that
+
+300
+
+statements and is presented in
+computer
+
+illustrate
+
+the
+
+implementation
+
+of the
+
+element
+
+relatively
+
+simple.
+
+-
+
+11 -
+
+TABLE OF CONTENTS
+
+ABSTRACT
+TABLE OF CONTENTS
+
+i
+
+ii
+
+INTRODUCTION
+BASIC EQUATIONS
+
+1
+
+3
+
+BENDING APPROXIMATION
+
+-
+
+THE DKT ELEMENT
+
+6
+
+MEMBRANE APPROXIMATION
+COMPUTER PROGRAM IMPLEMENTATION
+
+10
+
+12
+
+NUMERICAL EXAMPLES
+Cantileaver Beam Example
+
+12 13 14
+
+Twisted Beam
+Scordelis-Lo Roof
+Spherical Shell
+FINAL REMARKS
+
+15
+16
+
+17
+
+REFERENCES
+
+17
+
+FORTRAN LISTING OF 18 DOF TRIANGULAR SHELL ELEMENT
+
+18
+
+.
+
+-
+
+1
+
+-
+
+INTRODUCTION
+General Background
+use of composite materials allows for the efficient design of One of the major many different types of structural systems.
+
+The
+
+advantages
+
+of
+
+the
+
+material
+can
+be
+
+is
+
+that
+
+different
+
+stiffness
+
+and
+
+strength
+Therefore,
+
+properties
+more
+can
+be
+
+obtained
+structures
+in
+
+in different directions.
+
+efficient
+
+can be obtained since the
+
+material
+stresses.
+
+concentrated
+
+the
+
+directions
+
+of
+
+maximum
+
+Most
+in
+
+of
+
+the
+
+existing
+
+finite
+
+element
+
+programs
+
+do
+
+not
+
+have
+Also,
+
+sufficient generality to consider such material properties.
+the
+
+case
+to
+
+of thin shell structures very few programs have the
+
+ability
+forces
+
+consider
+coupled.
+of
+
+shells
+shell
+
+in
+
+which
+
+the bending and membrane
+
+are
+
+In addition, problems associated with the
+
+modelling
+exist
+
+complex
+the
+
+structures with thin shell elements
+thin shell formulation does not have
+
+since
+
+classical
+
+stiffness
+freedom.
+
+associated with the normal rotational degrees of Therefore, the user of the program is often required to
+terms
+
+add artificial members to a finite element model in order to avoid
+
+numerical
+system.
+
+instability
+
+in
+
+the
+
+solution
+
+of
+
+the
+
+finite element
+
+The purpose of this report is to present a new thin shell
+
+element
+
+which is sufficiently robust to solve the above mentioned
+
+problems
+Recent Research
+
+Within
+behavior
+present
+of
+
+the
+
+past
+
+two years several papers have presented methods
+
+which introduce a normal rotation in order to improve the membrane
+of
+a
+
+plane
+flat
+
+elements. Carpenter, Stolarski and Belytschko
+shell element with improved membrane
+
+triangular
+[1]
+
+interpolation.
+the
+
+constant
+
+They introduced normal mid-side displacements strain triangle. The normal displacements are
+
+eliminated and node rotations are introduced by the use of a cubic constraint function along each side of the triangle. A one point integration method is used in order to eliminate membrane locking
+
+within
+unstable
+
+the
+
+elements.
+however,
+
+The
+the
+
+element
+element
+
+yields
+is
+
+very
+
+accurate
+
+displacements;
+for
+
+rank
+
+deficient and is
+
+certain
+
+geometries.
+
+.
+
+-
+
+2
+
+-
+
+Taylor and Simo applied the same basic approach as presented in reference to [1] improve the membrane behavior of quadrilateral elements For many problems excellent displacements and [2] stresses are obtained. However, for shell structures such as a twisted beam the displacements become very large as the mesh was
+.
+
+refined.
+
+In
+
+addition,
+
+the flat quadrilateral element does not
+
+accurately model many common types of shell geometries. Also, the DKQ formulation was used to form the bending stiffness which has proven to be not as accurate as the DKT formulation.
+Bergan
+based
+stable
+to
+
+and
+on
+
+Felippa
+
+have developed a triangular membrane element
+[3]
+.
+
+with normal rotational degrees-of-f reedom
+
+The formulation is
+
+the "free formulation" and uses the continuum-mechanics
+of rotation.
+
+definition
+
+The element passes the patch test and is
+The element produces good values of
+the
+
+for all applications.
+
+displacements;
+the
+
+however, the values for stresses are poor compared
+
+values
+
+obtained
+
+from
+
+Taylor
+
+quadrilateral
+
+[4]
+
+mentioned have not been used for thin shells in which the membrane and bending forces are coupled. one of the purposes of this report is to develop an Therefore, element which has a consistent formulation for both the bending the problems with the and membrane behavior. In addition,
+The
+
+three
+
+elements
+
+previously
+
+instability associated with normal rotational degree-of-f reedom will be studied and a simple technique is suggested in order to
+avoid
+this
+
+problem.
+
+- 3 -
+
+BASIC EQUATIONS - ORTHOTROPIC MATERIALS
+The from
+18 x 18 triangular shell element stiffness matrix for a stiffened
+
+composite
+the
+
+material as shown in figure 1 can be directly calculated following well-known equation:
+
+K =
+
+BT
+
+DBdA
+matrix
+relates
+
+(1)
+
+The
+
+6x6
+
+D
+
+the forces to the deformations which are
+
+associated
+
+with
+the
+
+a
+
+differential element of area dA.
+
+Including thermal
+
+deformations
+the
+
+following
+f = D
+£
+
+force-deformation matrix equation:
+fo
+
+relationship can be expressed by
+
++
+
+(2)
+
+where
+f_T
+
+=
+
+[
+
+mi
+
+i
+
+nit
+
+mi
+
+x
+
+fi
+
+i
+
+fix
+
+fix
+
+]
+
+(3)
+
+and
+e_
+
+T
+
+=
+
+[
+
+ki
+
+i
+
+kxx
+
+kix
+
+tn
+2.
+
+cxx
+
+eix
+
+]
+
+(4)
+
+The
+
+positive
+in
+
+definition
+figure
+
+of
+
+these
+
+forces
+
+and
+
+deformations
+
+is
+
+illustrated
+
+Normally
+materials.
+from
+the
+
+the
+
+matrix
+
+D
+
+cannot
+
+be
+l
+
+defined
+
+directly
+
+for
+
+complex
+
+However, the inverse D~
+the
+
+can normally be easily calculated
+
+basic principles of mechanics or determined experimentally.
+terms
+for
+
+Therefore,
+the
+
+D-1
+
+are normally specified as input to a
+Hence, the basic behavior of the
+is
+
+computer program.
+element
+shell,
+
+The numerical values of D are then evaluated within
+
+stiffness
+
+subroutine.
+
+thin
+
+including
+
+thermal
+
+deformations,
+
+expressed
+
+in the
+
+following
+
+form:
+
+"kn"
+kxx kix
+£i
+l
+
+Pn
+Pxi Pxi
+
+Pix Pxx
+P3
+1
+
+Pis
+Pxx
+
+Cn
+Cxi Cxi
+
+Cis Cxx Cxx
+
+Cis
+Cxs
+
+mi
+
+i
+
+ai
+
+mx
+mi
+
+x
+
+ax as
+
+Pxx
+Cxi
+
+Css
+
+x
+
++ dT
+
+(5)
+
+Cn
+Cix
+
+Cxi
+
+Dn
+Dxi
+Dsi
+
+Dix
+Dxx
+
+Dix Dxx Dxs
+
+fn
+fxx fix
+
+04 as a«
+
+ex
+
+i
+
+Cxx Cxi
+
+Cxx Cxx
+
+El x
+
+Cis
+
+Dxx
+
+- 4 -
+
+*-2
+
+Figure
+
+1.
+
+EXAMPLE OF ANISOTROPIC SHELL
+
+'12
+
+m 22
+
+>m l2
+
+Figure 2. DEFINITION OF POSITIVE FORCES
+
+.
+
+- 5 -
+
+Or in terms of matrix notation:
+
+L
+Where
+in
+
+~ D"
+
+1
+
+f
+
++
+
+cp
+
+(5)
+
+dT
+
+is
+
+the
+
+temperature
+are
+
+change and
+from:
+
+cu
+
+to a*
+
+are the measured
+
+thermal expansion coefficients.
+
+Hence, the thermal forces indicated
+
+equation
+fo
+
+(2)
+
+calculated
+
+= - D
+
+e.o
+
+(6) (6)
+
+Each flexibility term in equation
+For
+ftz
+
+has a direct physical meaning.
+
+example,
+=
+1.
+
+the term
+
+Ci
+
+a
+
+is the curvature k\i due to a unit force,
+1
+
+Whereas,
+
+the term C2
+
+is the strain
+
+tn
+
+at the reference
+1
+
+plane
+for
+
+caused
+
+by the application of a unit bending moment, mi
+
+=1.
+
+It is apparent that these terms can be best determined experimentally
+
+complex composite materials. Also, the values of these terms are dependent on the definition of the reference plane which must be
+
+defined
+For
+the
+
+at
+
+the
+
+same time as the flexibility terms are determined. case
+the
+of
+
+special
+is
+
+constant
+terms
+are
+
+thickness isotropic shells the plane and the terms Cij and
+zero
+in
+
+mid-surface
+several
+In
+
+logical
+
+reference
+
+other
+
+flexibility
+(1)
+
+equation
+
+(5)
+
+equation
+system.
+£_
+
+the 6x18 B matrix defines the relationship between
+
+the
+
+deformation
+
+terms
+Or,
+
+and
+
+the node displacements v in the local
+form:
+(7)
+
+1,2,3
+
+in
+
+matrix
+
+=
+
+B
+
+v
+be
+Bj»
+
+which
+1p
+
+can
+= =
+
+written
+v v
+
+in
+
+submatrix
+
+form
+
+as
+(8a) (8b)
+
+£
+where
+
+Ba
+
+the
+
+"p" and "m H indicate the plate-bending and membrane terms
+
+respectively.
+
+-
+
+6
+
+-
+
+BENDING APPROXIMATION - THE DKT ELEMENT
+The
+[5]
+.
+
+development of the B P matrix is based on the standard DKT elemen Because the bending and membrane behavior are coupled the DK
+will
+
+formulation
+be
+
+developed
+report.
+
+be summarized here in order that the B a matrix wil with consistent approximations in the next section o
+
+this
+
+The
+
+element is based on the independent expansion of the inplan rotations of the reference surface for a 6 node triangle which i
+DKT
+
+shown
+the
+
+in
+
+figure
+x and
+the
+in
+
+3.
+
+If the local
+
+local
+
+y
+
+directions are indicated coordinates the finite element approximation
+1
+
+and
+
+2
+
+b
+i
+
+written
+Bz
+
+following
+
+form:
+fca*
+Jiai
+
+= ai = a7
+
++ at x + as y +
++ as x + a* y +
+ai
+i
+
+x2 +
+
+as
+
+xy +
++
+
+J4a*
+
+y1
+(9
+
+Br
+
+ox 1 +
+ax
+,
+
+anxy
+
+fcai s
+
+y*
+
+The
+
+six
+
+constants
+$x
+
+to ac
+»
+
+,
+
+can be expressed in terms of the si
+wi!
+
+node
+
+rotations
+an
+= H
+
+to B z
+of
+
+by an inversion of a 6x6 matrix which
+the
+
+produce
+ax
+
+equation
+B_x
+
+following
+
+form:
+(10)
+
+The
+the
+
+same
+
+6x6
+
+matrix, H, will relate the constants
+B_t
+.
+
+a?
+
+to
+
+an,
+
+ar
+
+,
+
+t
+
+node
+the
+
+rotations
+theory
+are
+,
+
+From
+
+of
+
+thin
+
+plates
+by
+the
+
+the
+
+curvature-displacement
+equations:
+(
+
+relationships
+kz
+i
+
+defined
+ax
+
+following
+
+= Bi
+
+.
+
+= =
++
+(J*
+
++ a* x + as y +
+
+k*F
+kz
+f
+
+= By
+3z
+
+,
+
+w
+
+•
+,x
+
+anx
+
++ aixy
+
+(
+
+,
+
+t
+
+.a
+
+-at+asx
+= Gp
+
++ aty +
+
+at+aiox+any
+
+(
+
+Or,
+
+in the following matrix form:
+tf
+
+a
+
+(12!
+
+- 7 -
+
+^X
+(a)
+
+BASIC ROTATIONAL UNKNOWNS
+
+Ljj is the length from
+
+I
+
+to J
+
+(b)
+
+DISPLACEMENTS ALONG TYPICAL SIDE
+
+Figure
+
+3.
+
+DISPLACEMENT APPROXIMATION - DKT ELEMENT
+
+-
+
+8
+
+-
+
+Where
+ap
+T
+
+=
+
+[a* +
+as
+
+a3
+
++ as
+
++ a«
+o
+
++ as
+
++ a* +
+
++
+]
+
++ a»
+
++ ai
+
++
+
+an
+
+an
+
+(13
+
+and
+Gp
+
+=
+
+lOxyOOOOOO OOOOOOlOxy OlOxylOxyO
+rotational
+side
+can I-J
+be
+
+(14
+
+The
+
+six
+
+degrees-of-f reedom
+
+which
+
+are associated withi
+(3a)
+.
+
+typical
+
+of the element are shown in figure
+
+The<
+{
+
+rotations
+The
+
+transformed
+a
+
+to
+
+a
+
+n-s reference system which
+as
+
+parallel and normal to
+basic
+1.
+
+typical element side as shown in figure
+are
+
+(3b,
+
+DKT
+
+constraints
+
+enforced
+
+follows:
+
+The mid-side rotation
+at point I and J.
+Or,
+
+9. .
+
+is set to the average of the valuj
+
+68
+
+.
+
+=
+
+(
+
+6»i
+
++ e.j
+
+)
+
+/
+
+2
+
+(15
+
+2.
+
+The s-displacements, above and below the reference plane,
+
+ac
+
+the normal displacement in the z-direction are forced to be
+
+cubic functions since the transverse shear strain is in the
+
+s-direction is set to zero. Therefore, the mid-side normal rotation must satisfy the following equation:
+enxa
+
+-
+
+-
+
+(e.i
+
++6.j)/4
+by
+
+-
+
+3(wi
+
++wj)/(2Lu)
+will
+
+(16
+
+The
+
+constraint
+to
+
+specified
+the
+
+equation
+Hence,
+
+(15)
+
+force the norm!
+and
+
+displacement
+plane,
+be
+
+along
+
+element sides, above and below the referenE
+function.
+
+linear
+
+displacement
+
+slope
+Since
+:
+
+compatibility
+
+is satisfied along the sides of all elements.
+
+attempt is made to set the transverse shear strains to zero within
+element the name Discrete Kichoff Triangle was selected as the name
+this
+
+t:
+I
+
+element.
+
+- 9 -
+
+Equation
+8s 9*
+
+(15)
+
+and (16) can be summarized in matrix form as
+6s
+i
+
+1/2
+
+1/2
+
+9s
+
+j
+
+Wi
+
++ 1.5/L i
+
+j
+
+(17)
+
+-1/4
+
+On
+
+i
+
+-1/4
+
+Oh
+
+j
+
+-1
+J_
+
+Wj
+
+The relationship between the N-S and X-Y coordinate systems are
+8s
+
+Cos5
+
+SinS
+
+9x
+
+(18a)
+
+eN
+
+-Sin5
+
+Cos5
+
+9y
+
+and
+9x 9y
+
+Cos5
+SinS
+
+-Sin5
+Cos5
+
+6s
+
+(18b)
+On
+
+Equation (17) can now be written in the X-Y system as
+9x 9y
+
+9xi 9yi
+
+Tl
+
+T2 T3
+
+9xj
++
+
+-Ts
+
+Ts
+
+Wi
+
+1.5/Lu
+Tc -Tc
+Wj
+
+(19)
+
+T2
+
+9y
+
+j
+
+Where
+Tl = 0.5 Cos 2 5 - 0.25 Sin 2 6
+
+T2
+
+1.5 Sin5 Cos5
+
+T3 = 0.5 Sin 2 5 - 0.25 Cos 2 6 Ts = 1.5
+
+Lu
+Li
+j
+
+Sin5
+
+Tc = 1.5
+
+Cos5
+
+The
+
+six
+
+rotational
+(19)
+
+degrees-of-freedom
+
+associated
+
+with
+
+the
+
+three
+
+mid-side nodes of the triangle can be eliminated by the application of equation
+equation
+.
+
+These transformations can be summarized by a matrix
+
+of
+
+the
+
+following
+
+form:
+
+e = tp w
+
+(20)
+
+where
+and
+wi
+
+Tp
+
+is
+
+a 12x9
+
+for
+
+the
+
+matrix and W represents a 9x1 vector of three nodes of the triangle.
+
+9x
+
+i
+
+,
+
+9v
+
+i
+
+.
+
+-
+
+10 -
+
+MEMBRANE APPROXIMATION
+membrane behavior of the triangular shell element is based on th basic six node quadratic membrane. If the 12 coefficents are define by the x 1 vector b the membrane strains can be expressed in th 12 following form:
+The
+£h
+
+= Gh b
+
+(21)
+
+As
+
+in
+
+the
+
+case
+
+of the DKT plate bending element the three mid-sid
+a
+
+displacements
+shown
+side
+can
+the
+us un
+
+are rotated to the local N-S coordinate of each side
+(4).
+
+in figure
+
+In order to maintain displacement compatibilit
+us
+
+between element the displacement
+and the displacement un
+
+is assumed to be linear along eac
+
+is a cubic function.
+
+These assumption
+a
+
+be summarized by the following equations for the displacements
+
+mid-side
+=
+=
+(
+
+nodes:
++ us
++
+j
+)
+
+us
+
+i
+
+/2
+
+(22)
+
+(uni
+
+unj)/2
+
++
+
+Lu(6zi
+
+-
+
+©zj)/8
+
+These equations can be written in terms of the X-Y coordinate system
+as
+ux uy
+
+.5
+
+o"
+
+Ux
+
+I
+
+".5
+
+o"
+
+Tux
+1
+
+j
+
+-SinS
+
+Sin5
+
+e2
+
+i
+
++
+5
+
+125Lu
+.5
+Uy
+j
+
+(23)
+
+Uy
+
+i
+
+Cos5 -Cos5
+
+e 2J
+b
+
+The
+
+six
+
+translational
+and
+by the
+
+displacements at the midside nodes can now
+rotational
+unknowns
+are
+
+eliminated
+vertices
+to
+
+three
+
+introduced
+.
+
+at
+
+th
+
+the direct application of equation (23)
+
+The same basi
+
+approach which was used in the DKT formulation is now applied in orde
+form
+
+matrix
+
+equation
+
+of
+
+the
+
+following
+
+form:
+(24)
+
+b = Tm u
+
+Therefore,
+nine
+Cm
+
+the
+
+three membrane strains can be written in terms of
+as
+
+th<
+
+node
+=
+Gm
+
+displacements
+Tm
+
+U
+24 x 24
+(1)
+
+(25)
+
+It
+
+is now possible to evaluate the
+
+element stiffness by
+
+th<
+
+direct
+
+application
+
+of
+
+equation
+
+- 11 -
+
+Figure
+
+5
+
+TRIANGULAR 18 DEGREE-OF-FREEDOM SHELL ELEMENT
+
+.
+
+-
+
+12 -
+
+COMPUTER PROGRAM IMPLEMENTATION
+The 18 x 18 triangular element stiffness matrix, for the element showi in figure is given by equation 5, (1) Where the the strain-displacement matrix B can now be written in terms of th
+.
+
+bending
+
+and
+Gp
+
+membrane
+Tp
+
+submatrices,
+
+or
+
+B =
+Gm
+
+=
+T*
+
+G(x,y) T
+
+(2
+
+Since
+
+the
+
+T
+
+matrix
+(1)
+
+is
+
+rewrite
+K
+3?
+
+equation
+GT D G
+G
+
+not a function of x and y it is possible the following form: in
+
+t>
+
+dA
+
+T
+
+(2'
+
+The
+
+matrix
+
+is very sparse and contains only the terms 1,
+
+x and y
+o
+i:
+
+therefore numerical
+
+the
+
+integral
+as
+
+cab
+
+be evaluated directly with a minimum
+
+effort
+A.
+
+illustrated
+order
+(3)
+
+by
+
+the
+
+FORTRAN
+
+listing given
+
+Appedix
+selective
+
+In
+
+addition, an integral reduction factor can be used
+in
+to
+
+o: a:
+
+terms
+in
+
+improve
+
+the
+
+membrane performance
+
+suggested
+
+reference
+
+NUMERICAL EXAMPLES
+In
+
+order to illustrate the behavior of the element and to compare
+
+thi
+
+results
+
+with other shell elements several examples will be presented Beam
+6
+
+Cantilever
+The
+is
+
+beam shown in figure
+
+is idealized by a 1x4 rectangular mesh
+
+an<
+
+subjected
+0.3558
+
+to a load of 40 kips at the tip of the cantilever.
+
+Th<
+
+theoretical
+is
+
+displacement
+inches.
+
+at the tip,
+
+including shearing deformation
+
+- 13 -
+
+The Taylor quadrilateral element shell yields a displacement of 0.3467 inches; or an error of -1.02 percent. Note that the rotations at the base of the cantilever are set to zero which is inconsistent with the existence of shearing deformations.
+
+presented in this report, TSHELL, was used to model this beam with two triangles to form each quadrilateral. The completely integrated element produces a displacement of 0.2695 inches, or an error of -24.3 percent. With a reduced integration factor of 0.5 the
+The
+
+element
+
+tip For
+
+displacement
+all
+
+is
+
+0.3726,
+
+or
+
+an
+
+error
+in
+
+of
+
++4.5
+
+percent.
+a
+
+example
+has
+the
+
+problems
+
+presented
+
+this
+
+report
+
+reduced
+a
+
+integration factor of 0.5 is used.
+factor
+"rank
+
+The use of the reduced integration
+
+major advantage over one point integration is that deficiency" is not introduced into the element.
+
+Figure 6.
+
+CANTILEVER BEAM EXAMPLE
+
+8
+
+-
+
+14 -
+
+Twisted Beam
+The twisted beam shown in figure
+for thin shell elements
+[6]
+.
+
+7
+
+has become a standard test problem
+1
+
+Table
+
+using four different elements. SHELL element does not converge as the mesh is refined. The reason for this unacceptable behavior is because the element is flat and it
+cannot model the twisted surface accurately.
+The new triangular
+
+summarizes the results obtained It is important to note that the
+
+element gives good results for this problem.
+
+WIDTH
+
+=
+
+I.I
+
+DEPTH = 0.32 TWIST = 90° E = 29.0x I0 6 POISSON RATIO
+I2x 1.0
+
+=
+
+0.22
+
+MESH
+
+=
+
+12
+
+x2
+
+Unit loads at end
+
+Figure 7. TWISTED BEAM EXAMPLE
+
+Table 1.
+
+Deflection Under Load For Twisted Beam
+IN-PLANE
+0.005424
+error
+
+Element Type and Mesh
+
+OUT-OF-PLANE
+0.001754
+
+erro
+
+Reference Values
+
+NASTRAN QUAD4 NASTRAN QUAD
+SHELL (2x12)
+(4x24)
+
+0.005386 0.005413 0.005779 0.006849 0.005390 0.005399
+
+-0.7 -0.2
++ 6.4
+
+0.001727 0.001750 0.001993 0.002750
+0.001717 0.001735
+
+-1.5 -0.2
+
++26.2
+-0.6 -0.5
+
++13.7 +56.9
+-2.1 -1.1
+
+TSHELL (2x12)
+(4x24)
+
+.
+
+- 15 -
+
+Scordelis-Lo Roof The shell structure shown in figure 8 is a standard test problem [6] Table 2 summarizes the maximum displacement obtained using different elements and meshes. For this problem the SHELL element results are However, very good. the TSHELL results appear to converge very
+slowly.
+
+However,
+
+for for
+
+even
+
+the
+
+coarse
+
+mesh,
+
+acceptable
+
+accuracy
+
+normal
+
+engineering
+
+the results are of analysis.
+
+THICKNESS =0.25 E =4.32x I0 8 POISSON RATIO =0.0 LOADING: 90/unit ores on curved edge u s w =
+
+in
+
+z dir.
+
+MESH NxN
+
+on quadrant
+
+Figure
+
+8.
+
+SCORDELIS-LO
+
+CYLINDRICAL SHELL
+
+Table
+
+2.
+
+Maximum Displacement Of Scordelis-Lo Roof
+VALUE
+0.3086 ft.
+
+Element Type and Mesh
+
+ERROR
+0.0 %
+
+Reference Value
+SHELL
+N*4 N=6 N=8 N=10
+N=4 N=8
+
++5.2 +1.7 +0.6 +0.2
+
+% % % %
+
+TSHELL
+
+0.3036 0.2982
+0.2997
+
+-1.6 % -3.4 %
+
+N=12
+
+-2.9 %
+
+-
+
+16 -
+
+Spherical Shell
+A spherical shell subjected to point loads is shown in figure
+9
+
+and
+
+is
+
+also
+the
+
+standard test problem [6] This structure clearly illustrates weakness of the TSHELL element. With a 12x12 mesh the error ir
+a
+.
+
+displacement
+convergence
+
+is
+is
+
+17.8 that
+the
+
+percent.
+the
+
+The
+
+reason
+elements
+
+for
+
+this
+
+very
+
+slov
+
+triangular
+flexible
+
+essentially
+surface.
+
+add ril
+
+reinforcement
+
+to
+
+very
+
+spherical
+«
+
+RADUS
+
+10.0
+
+THICKNESS "0.04 E» 6.825 ElO 7
+POISSION RATIO »0.3
+
+MESH>NxN
+
+(onquodront)
+
+F«2.0
+(onquodront)
+
+fSU
+
+*/f«2.0
+(onquodront)
+
+/•
+
+Figure
+
+9.
+
+SPHERICAL SHELL EXAMPLE
+
+Table
+
+3.
+
+Displacement of Spherical Shell
+VALUE
+0.0925 in.
+
+Element Type and Mesh
+
+ERROR
+0.0 -46.1 -3.3 -0.7
+% % % %
+
+Reference Value N=4 SHELL
+N=8 N=12
+
+TSHELL
+
+N=8
+
+N=12
+
+0.051265 0.075974
+
+-44.6 % -17.8 %
+
+- 17 -
+
+FINAL REMARKS
+A
+the
+to
+
+new
+
+anisotropic triangular shell element, with normal rotations at nodes has been developed. The element can be connected directly
+with
+
+nodes
+
+beam
+
+elements
+of
+
+without
+element
+
+special
+
+consideration.
+Care
+
+The
+
+general
+be
+
+accuracy
+taken
+if
+
+the
+
+has been demonstrated.
+
+should double
+
+the
+
+element is used to model shells which have
+
+curvature.
+
+REFERENCES
+1.
+
+Carpenter, N.
+
+,
+
+H.
+
+Stolarski and T. Belytschko, "A Flat Triangular
+1,
+
+Shell Element With Improved Membrane Interpolation", Communications
+in Applied Numerical Methods, Vol.
+pp.
+
+161-168,
+
+(1985).
+
+2.
+
+Taylor, R.L. and J.C. Simo,
+
+"Bending and Membrane Elements for The
+
+Analysis of Thick and Thin Shells", Proceedings of The NUMEETA-85
+Conference, Swansea, January 1985.
+Bergan, P.G. and C.A. Felippa,
+"A Triangular Membrane Element with
+,
+
+3.
+
+Rotational Degrees-of -Freedom"
+
+Computer Methods in Applied
+(1985).
+
+Mechanics and Engineering, Vol. 50, pp. 25-69,
+4.
+
+Stander, N.
+
+,
+
+"Finite Element Analysis of Prismatic Structures",
+
+Ph.D. Dissertation, University of California, Berkeley,
+
+August 1986.
+5.
+
+Batoj: > J.L.,
+
+"An Explicit Formulation for an Efficient Triangular
+(1982).
+
+Plate Bending Element", IJNME, Vol. 18, pp. 1077-1089,
+6.
+
+MacNeal, R.H. and R.L. Harder,
+
+"A Proposed Standard Set of
+
+Problems to Test Finite Element Accuracy", Finite Elements in
+
+Analysis and Design, Vol.
+
+1,
+
+pp.
+
+3-20,
+
+(1985).
+
+(
+
+,
+
+,
+
+)
+
+- 18
+
+-
+
+APPENDIX A
+c
+
+-
+
+FORTRAN LISTING OF TRIANGULAR SHELL ELEMENT
+
+c C C C C C C C C C C
+C C C C
+
+SHELLT SUBROUTINE SHELLT (S,T,F,D,C,V,X,Y, AREA PRES TEMP IMPLICIT REAL*8 (A-H,0-Z) INFORMATION CALCULATED = 18 X 18 STIFFNESS MATRIX IN X-Y-Z SYSTEM S =18x18 FORCE-TRANSFORMATION MATRIX T = 18 x 2 FORCES DUE TO PRESSURE AND TEMP. F INFORMATION SPECIFIED = 6 x 6 MATERIAL PROPERTY MATRIX D LOCAL FORCES ARE ASSUMMED TO BE IN THE ORDER Mil, M22, M12, Nil, N22 and N12 = 6 x 1 MATRIX OF THERMAL EXPANSION TERMS C V = THE DIRECTION COSINE ARRAY WHICH RELATES THE LOCAL 1-2-3 TO THE GLOBAL X-Y-Z SYSTEM X, Y, Z GLOBAL NODE COORDINATES AREA = ELEMENT AREA PRES = AVERAGE SURFACE PRESSURE TEMP = AVERAGE TEMPERATURE CHANGE
+,
+
+,
+
+C
+c-
+
+WRITTEN BY EDWARD
+, ,
+
+L.
+
+WILSON, JAN.
+,
+
+-
+
+JUNE
+,
+
+1987
+
+DIMENSION V (4 4) KL (24 3) ,XY (3) E (6) ,H (6 6) S(18,18),T(18,18),D(6,6),X(6),Y(6),AP(10,12) AM (10, 12) A (20, 18) ,AIN(3,3) ,G (20 20) JP (9)
+,
+,
+
+,
+
+,
+
+JM(9) ,TT (20,18) ,F (18,2) ,C (6)
+
+DATA
+JP /4,5 10,11,16,17 3,9,15/, JM /1,2 7,8,13,14,6 12,18/ DATA KL / 4 4,4, 1,1 1, 2 6 6,6, 6,6,6, 2, 5,5,5 10 11 13,14 17,19 20 12 14,1 5,16,18, 1,3 4, 7 1 2,3, 1 2,3, 1,2,3/ 1,2 3, 1 1,2,3 3, NT = 24 CHANGE TO LOCAL COORDINATES SYSTEM XC = X(l) X(2) X(3) / 3. YC = Y(l) Y(3 Y(2) / 3. DO 20 1=1,3 X(I) = X(I) - XC Y(I) = Y(I) - YC DO 20 J=l,3 AIN(I, J) - 0.0 COMPUTE INTEGRALS RED = 0. 50* AREA AIN(1,1) = AREA AINU, 2) =-RED* X(1)*X(2) X(3)*X(1) X(2)*X(3) 6. = RED* X(2)*Y(2) X(3)*Y(3) AIN(2,3) X(1)*Y(1) 12. AIN(3,3) =-RED* Y(1)*Y(2) Y(2)*Y(3) Y(3)*Y(1) 6. AINU, 2) = AIN(2 3)
+( ( ) ) )
+
+c
+
+20
+C
+
+- X9 -
+
+FORTRAN LISTING OF TRIANGULAR SHELL ELEMENT
+FORM "H" ARRAY FOR GENERAL 6-NODE TRIANGLE CALL FORMH(H,A,X,Y) FORM "AP" ARRAY FOR PLATE ELEMENT C CALL FORMAP(AP,H,X,Y) FORM "AM" ARRAY FOR PLANE ELEMENT C CALL FORMAM(AM,H,X,Y) FORM 20x20 "G" ARRAY C DO 160 K=l,20 DO 160 L=1,K 160 G(K,L) = 0.0
+C C
+
+DO 200 N=1,NT = KL(N,1) I = KL(N,2) K II = KL(N,3) DO 190 M=1,NT = KL(M,1) J IF (D(I, J) .EQ.0.0) GO TO 190 = KL(M,2) L IF (L.GT.K) GO TO 190 JJ = KL(M,3) G(K,L) - G(K,L) + D(I, J) *AIN(II,JJ)
+190 CONTINUE 200 CONTINUE
+C
+
+DO 210 K=l,20 DO 210 L=1,K 210 G(L,K) = G(K,L) FORM 20x18 "A" ARRAY C DO 300 J=l,18 F(J,1) = 0.0 F(J,2) = 0.0 DO 300 1=1,20 300 A(I,J) = 0.0
+DO 305 J=l,9 J J = JP(J) DO 305 1=1,10 305 A(I,JJ) = AP(I,J)
+
+DO 310 J=l,9 JJ = JM(J) DO 310 1=1,10 310 A(I+10,JJ) - AM(I,J) ROTATE TO GLOBAL X, Y, Z SYSTEM C DO 350 N=l,6 NZ = 3*N NY = NZ - 1 NX = NY - 1 DO 350 1=1,20 XX = A(I,NX)*V(1,1) + A (I, NY) *V(1,2) + A (I ,NZ) *V (1 YY = A(I,NX) *V(2,1) + A(I,NY) *V(2,2) + A (I ,NZ) *V(2 ZZ = A(I,NX)*V(3,1) + A(I,NY)*V(3,2) + A (I ,NZ) *V (3 A (I, NX) = XX A (I, NY) = YY 350 A(I,NZ) = ZZ
+
+, , ,
+
+3) 3) 3)
+
+FORTRAN LISTING OF TRIANGULAR SHELL ELEMENT
+C
+
+FORM 18x18 ELEMENT STIFFNESS DO 380 1=1,20 DO 380 J=l,18 CALL DOTP(G(l,I) ,A(1, J) ,SUM,20) 380 TT(I,J) = SUM
+
+C
+
+DO 400 1=1,18 DO 400 J=1,I CALL DOTP(A(l,I) ,TT(1, J) SUM, 20) S(I,J) = SUM 400 S(J,I) = SUM FORM FORCE-DISPLACEMENT TRANSFORMATION ARRAY C NO = DO 500 N=l,3 XY(1) = 1.0 XY(2) = X(N) XY(3) = Y(N)
+,
+
+C
+
+DO 450 K=l,18
+C
+
+DO 410 1=1,6 410 E(I) = 0.0
+C
+
+DO 420 M=1,NT I = KL(M,1) L = KL(M,2) J = KL(M,3)
+420 E(I)
+C
+= E(I) +
+
+XY(J)*A(L,K)
+
+DO 440 1=1,6 SUM =0.0 DO 430 J=l,6 430 SUM = SUM + D(J,I)*E(J) II = NO + I 440 T(II,K) = SUM
+C
+
+450 CONTINUE
+C
+
+500 NO = NO +
+C
+
+6
+
+FORM THERMAL FORCES IF (TEMP. EQ. 0.0) GO TO 625 DO 600 1=1,6 CALL DOTP(D(l,I) ,C(1) ,E(I) 600 CONTINUE DO 610 1=1,6 - TEMP*E(I) 610 C(I)
+DO 620 F(I,2) F(I,2) F(I,2) F(I,2) F(I,2) F(I,2)
+= = = = = =
+
+,6)
+
+C
+
+620
+
+1=1,18 C(1)*A(1,I) C(2)*A(7,I) C(3)*( A(2,I) + A(6,I) C(4)*A(ll I) C(5)*A(17,I) C(6)*( A(12,I) + A(16,I)
+f
+
+)
+
+)
+
+- 21 -
+
+FORTRAN LISTING OF TRIANGULAR SHELL ELEMENT
+C
+
+625
+
+630
+800
+c
+
+CALCULATE PRESSURE FORCES IF(PRES.EQ.O.O) GO TO 800 FORCE = - AREA*PRES/3.0 DO 630 1=1,18,6 F(I 1) = FORCE*V(l,3) F(I+1,1) = FORCE*V(2,3) F(I+2,1) = FORCE*V(3,3)
+,
+
+RETURN
+END
+
+c
+
+FORMH
+
+C
+
+SUBROUTINE FORMH (H, B ,X,Y) IMPLICIT REAL*8 (A-H,0-Z) DIMENSION H(6,6),B(6,6),Y(4),X(4) FORM COEFFICIENT MATRIX FOR 6 NODE TRIANGLE
+X(4) X(5) X(6) Y(4) Y(5) Y(6)
+= = = = = =
+(
+( ( (
+
+(
+(
+
+X(l) + X(2) X(2) + X(3) X(3) + X(l) Y(l) + Y(2) Y(2) + Y(3) Y(3) + Y(l)
+
+) )
+
+) ) )
+)
+
+/ / / / / /
+
+2. 2. 2. 2. 2. 2.
+
+DO 100 1 = 1 6 H(1,I) = 1 H(2 I) X(I) H(3 I) Y(I) H(4 I) X(I)*X(I) / 2 H(5 I) X(I)*Y(I) 100 H(6,I) Y(I)*Y(I) / 2 C INVERT TO FORM H MATRIX DO 200 1=1,6 DO 200 J=1,I SUM =0.0 DO 190 K=l,6 190 SUM = SUM + H(I,K)*H(J,K) B(J,I) = SUM 200 B(I,J) = SUM
+C
+
+CALL SYMSOL(B,H,6,6,0)
+C
+
+RETURN END
+
+- 22 -
+
+FORTRAN LISTING OF TRIANGULAR SHELL ELEMENT
+c
+
+FORMAP
+
+C
+
+SUBROUTINE FORMAP (AP H X Y) IMPLICIT REAL*8 (A-H,0-Z) DIMENSION AP(10,12) ,H(6,6) ,Y(4) ,X(4) ,IT(4) DATA IT /1,3,5,1/ FORM 12 DOF MATRIX DO 240 1=2,6
+, ,
+
+,
+
+K =
+
+DO 240 J=l,6
+K = K +
+1
+
+AP(I-1,K) = 0.0 AP(I+4,K) = H(I,J)
+K = K + 1
+
+240
+C
+
+AP(I-1,K) = - H(I,J) AP(I+4,K) = 0.0 ELIMINATION OF 4,5,6 MID-SIDE ROTATIONS
+X(4) = X(l) Y(4) = Y(l) DO 300 N=l,3 DX = X(N+1) - X(N) DY = Y(N+1) - Y(N) XL = DSQRT( DX*DX + DY*DY
+S
+
+)
+
+= DY / XL
+
+C DX / XL Tl = C*C/2. - S*S/4. T2 = 0.75*S*C T3 = S*S/2. - C*C/4.
+
+XX = 1.5/XL TC = XX*C TS = XX*S
+C = IT(N) = II + 1 = IT(N+1) = Jl + 1 = 6 + N + N = L2 - 1 I = N + 6 J = I + 1 IF (N.EQ.3) J = 7
+
+11 12 Jl J2 L2 LI
+
+C
+
+DO 300 K=l,10 AP(K,I1) = AP(K,I1) AP(K,I2) = AP(K,I2) AP(K,J1) = AP(K,J1) AP(K,J2) = AP(K,J2) W = - AP(K,L1)*TS + AP(K,L1) = 0.0 AP(K,L2) = 0.0 AP(K,I) = AP(K,I) + AP(K,J) = AP(K,J) 300 CONTINUE
+C
+
+AP(K,L1)*T1 + AP(K,L2)*T2 AP(K,L1)*T2 + AP(K,L2)*T3 AP(K,L1)*T1 + AP(K,L2)*T2 AP(K,L1)*T2 + AP(K,L2)*T3 AP(K,L2)*TC
++ + + +
+
+W W
+
+RETURN END
+
+- 23 -
+
+FORTRAN LISTING OF TRIANGULAR SHELL ELEMENT
+c
+
+FORMAM SUBROUTINE FORMAM (AM, H X, Y) IMPLICIT REAL*8 (A-H,0-Z) DIMENSION AM(10,12),H(6,6),Y(4),X(4),IT(4) DATA IT /1,3,5,1/ FORM 12 DOF MATRIX DO 240 1=2,6
+,
+
+C
+
+K = DO 240 J=l,6 K = K + 1 AM(I-1,K) = H(I,J) AM(I+4,K) = 0.0
+K = K + 1
+
+240
+c
+
+AM(I-1,K) = 0.0 AM(I+4,K) = H(I,J) ROTATE NODE 4, 5,
+X(4) Y(4)
+= X(l) = Y(l)
+
+6
+
+MID-SIDE DISPLACEMENTS
+
+DO 300 N=l,3 DX = X(N+1) - X(N) DY = Y(N+1) - Y(N)
+C
+
+NY = 2*N + 6 NX = NY - 1
+IX IY JX JY
+I
+
+JX + 1 = N + 6 J = I + 1
+IF
+C
+
+= = = =
+
+IT(N) IX + 1 IT(N+1)
+
+(N.EQ.3)
+
+J = 7
+
+ELIMINATE MID-SIDE DISPLACEMENTS
+DO 260 K=l,10 TT = .125* - AM(K,NX)*DY + AM(K,NY)*DX AM(K,IX) = AM(K,IX) + AM(K,NX)/2. AM(K,IY) = AM(K,IY) + AM(K,NY)/2. AM(K,JX) = AM(K,JX) + AM(K,NX)/2. AM(K,JY) = AM(K,JY) + AM(K,NY)/2. AM(K,NX) = 0.0 AM(K,NY) = 0.0 = AM(K,I) AM(K,I) +TT - TT = AM(K,J) AM(K,J)
+( )
+
+260 CONTINUE
+C
+
+300 CONTINUE
+C
+
+RETURN END
+
+)
+
+)
+
+,
+
+)
+
+- 24 -
+
+FORTRAN LISTING OF TRIANGULAR SHELL ELEMENT
+c
+
+LOCALT
+, ,
+, , ,
+
+SUBROUTINE LOCALT (XYZ X Y V AREA IAXIS IMPLICIT REAL*8 (A-H,0-Z) DIMENSION XYZ(3,3) ,X(6) ,Y(6) ,V(4,4) TRANSFORM TO LOCAL COORDINATE SYSTEM C WRITE (*,3000) XYZ C C 3000 FORMAT (3F15.4) IAXIS. NE.O) THEN IF DO 100 1=1,3
+(
+
+100
+
+C
+
+V(I,4) = 0.0 = IABS (IAXIS) V(I,4) = IAXIS/I END IF DEFINE LOCAL 1,2,3 REFERANCE SYSTEM CALL VECTOR (V (1,1) XYZ (1,1) XYZ (1,2) ,XYZ(1,3) XYZ (2,1), XYZ (2,2), XYZ (2,3)) CALL VECTOR (V (1,2) XYZ (1,1) ,XYZ(1,2) ,XYZ(1,3) XYZ (3,1), XYZ (3,2), XYZ (3,3)) CALL CROSS (V( 1,1) ,V(1,2) ,V(1,3) IF (IAXIS. NE.O) CALL CROSS(V(l,4) ,V(1,3) ,V(1,1) CALL CROSS(V(l,3) ,V(1,1) ,V(1,2)
+I
+, ,
+,
+
+C
+
+5
+
+C
+
+DO 5 N=l,3 X(N) = XYZ(N,1) *V(1,1) + XYZ(N,2) *V(2,1) Y(N) = XYZ(N,1) *V(1,2) + XYZ (N, 2 *V 2 2) CALCULATE AREA OF ELEMENT
+)
+
+(
+
+,
+
++ XYZ (N, 3) *V (3 1) + XYZ (N, 3) *V (3 2)
+, ,
+
+AREA =
+
+X(2)*Y(3) - X(3)*Y(2) + X(3)*Y(1) X(1)*Y(3) + X(1)*Y(2) - X(2)*Y(1) IF AREA. LE. 0.0) THEN PAUSE ZERO OR NEGATIVE AREA RETURN END IF
+(
+
+-
+
+)
+
+/
+
+2.0
+
+(
+
+'
+
+'
+
+c
+
+RETURN END
+
+INITIAL DISTRIBUTION LIST
+No.
+1.
+
+Copies
+2
+
+Defense Technical Information Center Cameron Station Alexandria, VA 22304-6145
+
+2.
+
+Research Administration, (Code 012) Naval Postgraduate School Monterey, CA 93943-5000
+Library, (Code 0142) Naval Postgraduate School Monterey, CA 93943-5000
+
+1
+
+3.
+
+2
+
+4.
+
+Professor Anthony J. Healey, Code 69Hy Chairman, Mechanical Engineering Department Naval Postgraduate School Monterey, CA 93943-5000
+
+1
+
+5.
+
+Professor Gilles Cantin, Code 69Ci Mechanical Engineering Department Naval Postgraduate School Monterey, CA 93943-5000
+Mr.
+
+2
+
+6.
+
+Joseph Corado, Code 1702 David W. Taylor Naval Ship Research and Development Center Bethesda, MD 20034
+
+2
+
+7.
+
+Professor Edward Wilson Mechanical Engineering Department Naval Postgraduate School Monterey, CA 93943-5000
+
+1
+
+DUDLEY KNOX LIBRARY
+
+3 2768 00347296
+

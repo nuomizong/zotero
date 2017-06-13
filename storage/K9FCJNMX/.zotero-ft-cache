@@ -1,0 +1,1234 @@
+Acta Mech 226, 2693–2713 (2015) DOI 10.1007/s00707-015-1339-x
+
+O R I G I NA L PA P E R
+
+H. Nguyen-Van · N. Nguyen-Hoai · T. Chau-Dinh · T. Tran-Cong
+
+Large deﬂection analysis of plates and cylindrical shells by an efﬁcient four-node ﬂat element with mesh distortions
+
+Received: 4 September 2014 / Revised: 2 March 2015 / Published online: 4 April 2015 © Springer-Verlag Wien 2015
+
+Abstract This study reports an improved ﬁnite element computational model using a ﬂat four-node element for nonlinear bending analysis of plates and cylindrical shells with element distortions. The von Kármán’s large deﬂection theory and the total Lagrangian approach are employed in the formulation to describe small strain geometric nonlinearity with large deformations using the ﬁrst-order shear deformation theory. The most important feature of the developed element is the evaluation of linear membrane bending and nonlinear geometric stiffness matrices based on integration along the boundary of smoothing elements. This technique can give more accurate numerical integrations even with badly shaped elements or coarse meshes when compared to other ﬂat elements using domain integration techniques. The accuracy and predictive capability of the present model is demonstrated by several numerical investigations and comparative studies with analytical/experimental and other numerical solutions available in the literature.
+
+1 Introduction Plate and shell structures have been widely used in practical engineering applications where large displacement analysis of such structures becomes important for a full investigation of their behaviour in the large deformation regime. Large deﬂection analysis or geometrically nonlinear analysis often refers to a nonlinear equilibrium path with linear elastic material behaviour. In the geometrically nonlinear analysis, the equilibrium is achieved in the deformed conﬁguration and not in the initial conﬁguration as with linear analysis. Therefore, geometrically nonlinear analysis is considered as a complex issue that requires efﬁcient and reliable advanced numerical methods to handle its equilibrium paths. Numerical methods such as ﬁnite element methods have been developed and widely used for nonlinear analysis of these structures with complex geometry and loading history. There is a rich amount of literature on geometrically nonlinear analysis of plates and shells which is impossible to list all here. An detail review of the recent development of plate/shell ﬁnite elements can be found in references [1–4], for example.
+H. Nguyen-Van (B) · N. Nguyen-Hoai Faculty of Civil Engineering, Ho Chi Minh City University of Architecture, Ho Chi Minh City, Vietnam E-mail: hieu.nguyenvan@uah.edu.vn Tel.: +84-938123299 T. Chau-Dinh GACES, Faculty of Civil Engineering and Applied Mechanics, University of Technical Education Ho Chi Minh City, Ho Chi Minh City, Vietnam T. Tran-Cong CESRC, School of Mechanical and Electrical Engineering, University of Southern Queensland, Toowoomba, QLD 4350, Australia
+
+2694
+
+H. Nguyen-Van et al.
+
+In general, the shells are discretized by three major approaches: (i) the classical shell elements are based on general shell theory; (ii) the continuum mechanics-based shell elements are derived from the displacement/rotation isoparametric elements degenerated from three-dimensional solid; and (iii) the ﬂat shell elements are obtained by the combination of plate and membrane elements. It is difﬁcult to identify which shell element is the most advantageous. However, as discussed in many references [4–8], ﬂat elements have been often and widely used because of their simple formulations, the effectiveness in performing computation and the ﬂexibility in applications to both shell and folder plate structures. Consequently, ﬂat elements are advantageous in solving the geometrically nonlinear problems, in which the response of the structure at each increment/iteration needs to be computed and stored with a large number of history variables. A large number of ﬂat four-node element formulations have been presented to date, for example [9,10], showing good performances. However, to the authors’ best knowledge, currently available ﬂat four-node elements do not perform well when their shapes deviate signiﬁcantly from a squarish form in dealing with geometrically nonlinear analysis of plates and shells. There is a need for quadrilateral elements that are able to work well in extremely distorted forms as problems coming from real life often involve irregular geometries. Therefore, the present study is undertaken to describe a contribution to further developments in this ﬁeld by extending a simple four-node element MISQ20 proposed recently [11–13] for nonlinear bending analysis of plates/shells. In this paper, the ﬂat element MISQ20 is further developed for a geometrically nonlinear analysis of plates and shells with both snap-through and snap-back behaviours as well as corner stress concentration problems. The considerations of this research are limited to static problems of plates/shells with linear elastic material properties and small strains. The von Kármán’s large deﬂection theory and the total Lagrangian (TL) approach are utilized in the small strain-large deformation formulation, and then, the solution of the nonlinear equilibrium equations is obtained by the arc-length method and automatic incremental algorithm [14,15]. With the aid of the assumed strain smoothing technique, the evaluations of the membrane, bending and geometric stiffness matrices are obtained through integration on the boundary of smoothing cells. This boundary integration contributes to the preservation of high accuracy of the method when highly distorted elements or coarse meshes are used. Numerical examples show that the present element is free from locking and exhibits good accuracy and stability in capturing geometric nonlinearity in plate and shell structures with distorted or coarse meshes. This paper is outlined as follows. First, a brief review of the ﬁrst-order shear deformation theory (FSDT) ﬁnite element formulations for large deﬂection analysis is introduced in Sect. 2. The description of the assumed strain smoothing approach for the generalized strain and the tangent stiffness matrix of the element for nonlinear bending analysis are derived in Sect. 3. Several numerical examples are reported in Sect. 4 in order to assess the performance of the developed element. Finally, concluding remarks are presented in Sect. 5. 2 Finite element formulation for large deﬂection analysis 2.1 Kinematic equations Based on the FSDT, the shell kinematics is governed by the midsurface displacement u 0 , v0 , w0 and the rotation θx , θ y of the normal to the midsurface about y and x axis, respectively [16], u(x, y, z) = u 0 (x, y) + zθx , v(x, y, z) = v0 (x, y) + zθ y , w(x, y, z) = w0 (x, y).
+
+(1)
+
+For large deformation analysis, the in-plane vector of Green–Lagrangian strain at any point in a shell element is ⎫ ⎧ ⎫ ⎧ 1 2 2 ⎪ u ,x + 2 (u 2 + v,x + w,x ) ,x ⎨ x ⎬ ⎪ ⎬ ⎨ 1 2 2 + w2 ) = = . (2) v,y + 2 (u ,y + v,y y ,y ⎩ ⎭ ⎪ ⎪ ⎭ ⎩ xy u ,y + v,x + (u ,x u ,y + v,x v,y + w,x w,y ) Substituting Eq. (1) into Eq. (2) and considering the von Kármán’s large deﬂection assumption, the in-plane strain vector can be rewritten as =
+m
+
++z
+
+b
+
+=
+
+L m
+
++
+m
+
+NL m +z b ,
+
+(3)
+
+Large deﬂection analysis of plates and cylindrical shells
+
+2695
+
+in which
+L m
+
+⎫ ⎬ u 0,x v0,y , = ⎩u + v ⎭ 0,y 0,x ⎧ ⎨
+
+NL m
+
+⎤ w,x 0 1 w,x = ⎣ 0 w,y ⎦ w,y 2 w w ,y ,x
+H θ
+
+⎡
+
+=
+
+1 Hθ , 2
+
+(4)
+
+and
+b
+
+⎫ ⎬ θx,x θ y,y . = ⎩θ + θ ⎭ x,y y,x ⎧ ⎨ γx z γ yz θx − w,x θ y − w,y
+∗
+
+(5)
+
+The transverse shear strain vector is given as γ = = . (6)
+
+The constitutive relationship of shells can be expressed as σ ∗ = D∗ where ⎧ ⎫ ⎨N⎬ σ∗ = M , ⎩T⎭ ⎧ ⎨ ⎫ ⎬ (7) ⎡
+
+∗
+
+⎤ 0 Dm , D∗ = ⎣ 0 Db 0 ⎦ , = ⎩γ ⎭ 0 0 Ds
+m b
+
+(8)
+
+and N = [N x N y N x y ]T is the in-plane traction resultant, T = [Q x Q y ]T is the out-of-plane traction resultant, and M = [Mx M y Mx y ]T is the out-of-plane moment resultant. Dm is the extensional stiffness, Db is the bending stiffness, and Ds is the transverse shear stiffness, which are given in the following: ⎡ ⎡ ⎤ ⎤ 1ν 0 1ν 0 3 Et ⎣ Et 10 ⎣ ν 1 0 ⎦ , Ds = κ Et ν 1 0 ⎦ , Db = (9) Dm = 1 − ν 2 0 0 1−ν 12(1 − ν 2 ) 0 0 1−ν 2(1 + ν) 0 1 2 2 where E is Young’s modulus, ν is Poisson’s ratio, t is the thickness of the plate/shell, and κ is the shear correction factor. 2.2 Finite element approximation Consider a bounded domain Ω =
+ne e=1
+
+Ωe of a ﬂat shell which is discretized into n e ﬁnite elements. The ﬁnite
+
+element solution u of a displacement-based 4-node quadrilateral model is expressed as ⎧ ⎫ ⎪u⎪ ⎪ ⎪ ⎪v⎪ 4 ⎨ ⎬ Ni qi u= w = ⎪θ ⎪ ⎪ x ⎪ i=1 ⎪ ⎪ ⎩ ⎭ θy where Ni is the matrix of the standard bilinear shape function Ni , qi = qmi qbi
+
+(10)
+
+are the displacement vectors
+
+of the element with qmi = [u i vi ]T and qbi = [wi θxi θ yi ]T . Substituting the ﬁnite element approximation in Eq. (10) into Eqs. (4), (5) and (6), we can obtain the following strain-displacement equations:
+4 L m
+
+=
+i=1
+
+L Bmi qmi ,
+
+NL m
+
+1 = 2
+
+4
+
+4
+
+4
+
+HGi qbi ,
+i=1 BNL mi
+
+b
+
+=
+i=1
+
+Bbi qbi , γ =
+i=1
+
+Bsi qbi ,
+
+(11)
+
+2696
+
+H. Nguyen-Van et al.
+
+in which BNL = HGi mi and
+L Bmi
+
+(12)
+
+⎤ Ni,x 0 = ⎣ 0 Ni,y ⎦ , Gi = Ni,y Ni,x
+
+⎡
+
+⎡ ⎤ 0 Ni,x 0 Ni,x 0 0 , Bbi = ⎣ 0 0 Ni,y ⎦ , Bsi = Ni,y 0 0 0 Ni,y Ni,x
+
+Ni,x Ni 0 . Ni,y 0 Ni
+
+(13)
+
+2.3 Weak form and linearization equations The ﬁnite element equations are derived from the weak form. In this case, the weak form is the principle of virtual work given with reference to the undeformed shell conﬁguration in the total Lagrangian description by
+ne
+
+Π=
+e=1
+
+Ωe
+
+(NT δ
+
+m
+
++ MT δ
+
+b
+
+ext + TT δγ )dΩ − fe δqe .
+
+T
+
+(14)
+
+ext Here, Π is the total potential energy in the domain Ω, fe are the external forces, and qe are the generalized nodal displacements of the ﬁnite element Ωe . In Eq. (14), the ﬁrst r.h.s term represents the virtual work of the internal forces, while the last term describes the virtual work of the external forces. From Eq. (11), the variations of strain components are as follows: 4 4 L Bmi δqmi i=1 4
+
+δ
+
+m
+
+=δ
+
+L m
+
++δ
+
+NL m
+
+=
+
++
+i=1
+
+L HGi δqbi = (Bm + BNL )δqe , m BNL mi
+
+δ
+
+b
+
+=
+i=1 4
+
+Bbi δqbi = Bb δqe , Bsi δqbi = Bs δqe ,
+i=1
+
+(15)
+
+δγ m =
+T
+
+L L in which qe = . . . qiT . . . , Bm = . . . Bmi 03×3 . . . , BNL = . . . 03×2 BNL . . . , Bb = . . . 03×2 Bbi . . . , m mi and Bs = . . . 02×2 Bsi . . . with i = 1.4 and 0a×b denotes a zero matrix with a rows and b columns. Substituting Eq. (15) into Eq. (14), the principle of virtual work can be rewritten as ⎧ ⎫ ⎪ ⎪ ⎪ ⎪ ⎪ ⎪ ⎪ ⎪ ⎪ ⎪ ne ⎨ ne ⎬ T T L NL T T ext T int ext δqe = Π= N (Bm + Bm ) + M Bb + T Bs dΩ −fe δqe (fe − fe ). (16) ⎪ Ωe ⎪ ⎪ ⎪ e=1 ⎪ e=1 ⎪ ⎪ ⎪ ⎪ ⎪ ⎩ ⎭ T
+int fe
+
+To use a Newton–Raphson iteration procedure for solving the geometric nonlinearity, we need to linearize the principal of the virtual work in Eq. (16) as follows:
+ne ne T int δqe δfe = e=1 e=1 T δqe Ωe
+
+δΠ =
+
+L (Bm + BNL )T δN + δBNL N + Bb T δM + Bs T δT dΩ. m m
+
+T
+
+(17)
+
+From Eqs. (7), (8), (15), we can obtain
+L δN = Dm (Bm + BNL )δqe , m δM = Db Bb δqe , δT = Ds Bs δqe .
+
+(18)
+
+Large deﬂection analysis of plates and cylindrical shells
+T
+
+2697
+
+From the deﬁnitions of BNL in Eq. (12), H in Eq. (4) and G in Eq. (13), the term Ωe δBNL N in Eq. (17) m m can be derived as follows: ⎧ ⎫ ⎨ Nx ⎬ T δw,x 0 δw,y N dΩ δBNL NdΩ = GT δHT NdΩ = GT m 0 δw,y δw,x ⎩ y ⎭ Ωe Ωe Ωe N
+xy
+
+=
+
+Ωe
+
+GT
+
+Nx Nx y Nx y N y
+
+δw,x δw,y
+
+dΩ =
+
+Ωe
+
+ˆ GT NGdΩ δqe ,
+
+(19)
+
+ˆ in which G = [. . . 02×2 Gi . . . ] and N =
+ne
+
+Nx Nx y . Nx y N y Using Eqs. (18) and (19), the variation of the principle of virtual work in Eq. (17) can be rewritten
+T δqe e=1 L L ˆ (Bm + BNL )T Dm (Bm + BNL ) + Bb T Db Bb + Bs T Ds Bs + GT NG dΩ δqe . m m
+
+δΠ =
+
+Ωe
+
+(20)
+
+e From Eq. (20), the element tangent stiffness matrix KT is determined as T L NL G Ke = Ke + Ke + Ke L Ke NL Ke
+
+(21)
+
+where represents the linear stiffness matrix, denotes the nonlinear stiffness matrix including initial G displacement contributions, and Ke is the geometric stiffness matrix. And these matrices are deﬁned as follows:
+L Ke = NL Ke = T T Ω L L Bm Dm Bm dΩ, T T
+
+(22) (23) (24)
+
+Ω
+
+L L (Bm Dm BNL + BNL Dm Bm + BNL Dm BNL + Bb T Db Bb + Bs T Ds Bs )dΩ, m m m m G Ke =
+
+Ω
+
+ˆ GT NGdΩ.
+
+For a geometrically nonlinear analysis, the total Lagrangian (TL) approach, in which the original conﬁguration is taken as the reference, is employed in this research. The linearized ﬁnite element equation of equilibrium in the TL approach can be expressed in the following form:
+t t+Δt f
+
+KT q = t+Δt fext − t fint
+
+(25)
+
+time t, and where ext is the element T is the global internal forces given in Eq. (16) and the element tangent stiffness matrices given in Eq. (21), respectively. T T q = [. . . qmi qbi . . . ]T is the generalized displacement increment with i from 1 to the number of nodes of the structures and qmi = [ u i vi ]T , qbi = [ wi θxi θ yi ]T .
+tK
+
+the global external force at time t + Δt, t fint is the global internal force at tangent stiffness matrix at time t, in which t fint and t KT are assembled from
+
+3 Strain smoothing formulations for large deﬂection analysis It is well explained in the references [11–13] that the strain smoothing technique can be considered as a constraint weakening method to avoid numerical over-stiffening of the elements. One of the advantages of the strain smoothing approach is that the numerical integration to obtain the element stiffness matrix can be performed on cell boundaries (Fig. 1). In this method, a quadrilateral element domain Ωe is further divided into nc smoothing cells as shown in Fig. 1. Then, the generalized strain ﬁeld is smoothed by a weighted average of the original generalized strain using the strain smoothing operation for each smoothing cell as follows: 1 Ae 1 ˜ NL = m Ae 1 ˜b = Ae
+L ˜m = Ωe Ωe Ωe L m (x)dΩ, NL m (x)dΩ, b (x)dΩ
+
+(26) (27) (28)
+
+2698
+
+H. Nguyen-Van et al.
+
+Fig. 1 Subdivision of an element into nc smoothing cells and the values of shape functions at nodes
+
+L where ˜ m , ˜ NL , ˜ b are the smoothed (averaged) strains and Ae is the area of the smoothing cell Ωe . m Introducing the approximation of the linear membrane strain from Eq. (4) and applying the divergence theorem, the smoothed membrane strain can be obtained as L ˜m =
+
+1 Ae
+
+Γe
+
+n(x)u(x)dΓ =
+
+1 Ae ⎛
+
+4 Γe i=1
+
+4
+
+n(x)Ni (x)qi dΓ =
+i=1
+
+˜L Bmi qi
+
+(29)
+
+where ˜L Bmi 1 = Ae
+
+⎞ Ni n x 0 0 ⎝ 0 Ni n y 0 ⎠dΓ, Γe Ni n y Ni n x 0
+
+(30)
+
+and n x , n y are the components of the outward unit vector n normal to the boundary Γe . Using integration with one-point Gauss quadrature to evaluate the above equation over 4 line segments of a smoothing cell, we get ⎞ ⎛ 0 0 Ni (xG )n x 4 j 1 ⎟ ⎜ ˜L 0 Ni (xG )n y 0 ⎠l e Bmi = (31) ⎝ j j Ae G )n N (xG )n 0 j=1 Ni (x j y i j x where xG and l e are the midpoint (Gauss point) and the length of Γe , respectively. j j Similarly, the smoothed nonlinear membrane strain over the element domain Ωe can be written as
+4
+
+˜ NL m
+
+=
+i=1
+
+˜ mi BNL qi
+
+(32)
+
+˜ where BNL is the smoothed nonlinear gradient matrix in the smoothing cell given as mi ˜ mi ˜ ˜ BNL = HGi , in which 1 ˜ Gi = Ae
+4 j=1 1 Ae
+
+(33)
+
+Ni (xG )n x 0 0 j Ni (xG )n y 0 0 j
+4 j=1
+
+le, j ⎞ ⎟ ⎟ ⎟ 4 ⎟ G )n l e w ⎟ Ni (x j y j i ⎟, j=1 ⎟ ⎟ 4 ⎠ Ni (xG )n x l e wi j j 0
+j=1
+
+(34)
+
+⎛
+
+⎜ ⎜ 4 ⎜ ⎜ ⎜ ˜ H= ⎜ i=1 ⎜ ⎜ ⎝
+
+Ni (xG )n x l e wi j j 0
+1 Ae 1 Ae
+
+(35)
+
+1 Ae
+
+4 j=1
+
+Ni (xG )n y l e wi j j
+
+Large deﬂection analysis of plates and cylindrical shells
+
+2699
+
+and wi is the deﬂection at the node i of the element. The smoothed bending strain over the element domain Ωe is expressed as
+4
+
+˜b =
+i=1
+
+˜ Bbi qi
+
+(36)
+
+where ˜ Bbi = 1 Ae
+4 j=1
+
+⎛
+
+⎜0 ⎝
+
+0 Ni (xG )n x j 0 Ni (xG )n y j
+
+0
+
+⎞ ⎟ (37)
+
+Ni (xG )n y ⎠l e . j j Ni (xG )n x j
+
+0
+
+The shear strain is approximated with independent interpolation ﬁelds in the natural coordinate system [17] as ⎡ A⎤ γη ⎢ B⎥ 1 1 ⎢ γξ ⎥ (1 − ξ ) 0 0 γx 2 (1 + ξ ) ⎢ ⎥ (38) = J−1 2 ⎢ C⎥ 1 1 γy (1 − η) 0 (1 + η) ⎣ γη ⎦ 0 2 2 γξD
+C where J is the Jacobian matrix and the midside nodes A, B, C, D are shown in Fig. 1. Expressing γηA , γη and B ,γ D in terms of the discretized ﬁeld q, we obtain the shear gradient matrix γξ ξ
+
+¯ Bsi = J−1 where
+
+Ni,ξ bi11 Ni,ξ bi12 Ni,ξ Ni,η bi21 Ni,η bi22 Ni,η
+
+(39)
+
+M M L L bi11 = ξi x,ξ , bi12 = ξi y,ξ , bi21 = ηi x,η , bi22 = ηi y,η
+
+(40)
+
+in which ξi ∈ {−1, 1, 1, −1}, ηi ∈ {−1, −1, 1, 1}, and (i, M, L) ∈ {(1, B, A); (2, B, C); (3, D, C); (4, D, A)}. J is the Jacobian operator relating the natural coordinate derivatives to the local coordinate derivatives. T Finally, the element tangent stiffness matrix Ke is modiﬁed as ˜T ˜L ˜ NL ˜G Ke = Ke + Ke + Ke where ˜L Ke = ˜ NL Ke =
+nc i=1 nc i=1
+
+(41)
+
+˜L ˜L (Bmi )T D∗ Bmi Ai ,
+
+(42)
+
+˜ mi ˜L ˜ mi ˜ ¯ ˜L ˜ mi ˜ mi ˜T ¯T ((Bmi )T Dm BNL + (BNL )T Dm Bmi + (BNL )T Dm BNL + Bbi Db Bbi + Bsi Ds Bsi )Ai , ˜G Ke =
+nc i=1
+
+(43)
+
+˜ ˆ ˜ GiT NGi Ai ,
+
+(44)
+
+˜L ˜ ¯ in which Bmi , Bbi , Bsi are the smoothed membrane, bending and shear strain gradient matrices deﬁned in ˜ Eqs. (31), (37) and (39), respectively. BNL is the smoothed nonlinear gradient matrix deﬁned in Eq. (33), and mi the number of smoothing cells nc = 4 is chosen in this study. Finally, Eq. (25) can be rewritten as
+t
+
+˜ KT q = t+Δt fext − t fint .
+
+(45)
+
+2700
+
+H. Nguyen-Van et al.
+
+By transforming Eq. (45) to the global coordinates via the standard procedure using the rotation matrix described in Zienkiewicz and Taylor [18], the resultant nonlinear equations can be used to analyse the nonlinear bending problem of shell structures.
+
+4 Numerical examples In this Section, we will test and assess the MISQ20 element by several nonlinear ﬂexural bending plate/shell applications with mesh distortions. The distorted elements are created by irregular interior nodes. These interior nodes are derived from a set of regular nodes by using a controlling distortion factor s. Thus, the coordinates of an irregular mesh are obtained by the following expressions: x = x + rc sΔx, y = y + rc sΔy (46)
+
+where rc is a computer-generated random number between −1.0 and 1.0; Δx, Δy are initial regular element sizes in the x and y directions, respectively, and s ∈ [0, 1] is used to control the shapes of the distorted elements. Numerical results obtained by the present method are discussed and compared with those obtained from other analytical and numerical solutions if available. In all the examples, the arc-length method and automatic incremental algorithm [19] are used to solve the nonlinear ﬁnite element equations, and the convergence tolerance of displacement is taken to be 0.001. For simplicity, the external load is considered to be conservative, and it does not change with the deformation of the geometry. Unless other speciﬁed, the shear correction factors are equal to 5/6, and SI units are used.
+
+4.1 Patch tests A patch test is a sufﬁcient requirement in assessing the convergence of a ﬁnite element method. It is an essential check in order to verify whether given elements are able to exhibit states of constant strain and stress in distorted meshes. This property is important to ensure well-behaved convergence characteristics since elements should exhibit constant strain in the limit of inﬁnitely small elements. A choice of material, mesh and boundary conditions was adopted, following the approach of MacNeal and Harder [20] as shown in Fig. 2. In the patch tests, the prescribed displacements are applied at the edges corresponding to the nodes: 1, 2, 3 and 4. Two sets of tests are conducted including in-plane membrane patch test and out-of-plane bending test. The following boundary conditions are used in the patch test:
+y – Membrane test: u = 10−3 (x + 2 ), v = 10−3 (y + x ), w = 0. 2 −3 (x 2 + x y + y 2 )/2, θ = 10−3 (y + x ), θ = 10−3 (x + y ). – Bending test: w = 10 x y 2 2
+
+As shown in Table 1, the MISQ20 element give exact results (up to 8 digit machine precision) for both test cases, and hence, the present element successfully passes the patch test.
+
+Fig. 2 Patch test geometry and mesh. Isotropic material properties: E = 106 , ν = 0.25, h = 0.001
+
+Large deﬂection analysis of plates and cylindrical shells
+
+2701
+
+Table 1 Results of patch test Test case Membrane Bending Stress σx σy σx y Mx My Mx y MISQ20 1.33300000E3 1.33300000E3 0.40000000E3 1.11111111E-7 1.11111111E-7 0.33333333E-7 Exact 1333 1333 400 1.11111111E-7 1.11111111E-7 0.33333333E-7
+
+0;50
+
+16.67;50
+
+33.33;50
+
+50;50
+
+0;33.33
+
+20.03;33.51
+20.0274;33.5148
+
+50;33
+32.2522;30.0756
+
+32.25;30.076 9.75;21.18 9.7468;21.1802 0;16.67 24.59;9.72
+24.5873;9.7182
+
+50;16
+
+0;0
+
+16.67;0
+
+33.33;0
+
+50;0
+
+(a)
+0;50 12.5;50 25;50 37.5;50 50;50
+0;50
+
+(b)
+10;50 20;50 30;50 40;50 20.45;43.53 39.12;41.54 20.4551;43.5297 0;40 11.82;40.20
+11.8192;40.2013 27.1932;42.2195
+
+50;50
+
+0;37.5
+
+13.33;39.45 13.3296;39.4548
+
+40.60;34.04 50;37.5 20.65;35.57
+20.6473;35.5693
+
+27.19;42.22
+
+50;40
+
+29.76;33.31 29.7652;33.3083 0;30 10.96;27.33 37.11;27.25 50;30 23.7402;28.7903 10.9595;27.3301 23.74;28.79 32.01;20.96 32.006;20.9585 0;20 13.54;15.76 22.3388;20.0491 42.61;23.17 50;20 22.34;20.1 13.544;15.7641 0;10 27.17;10.19 27.1754;10.185 50;10 12.50;5.74 22.2783;8.7081 36.7376;5.7878 12.4979;5.7362 22.28;8.71 36.74;5.79 10;0 20;0 30;0 40;0 50;0
+
+32.76;25.98 0;25 10.16;22.00 21.0587;23.156732.7659;25.9795 50;25 10.1611;22.0017 21.06;23.16 13.362;17.7759 40.79;15.56 13.36;17.78 0;12.5 50;12.5 30.1547;9.1217 30.15;9.12 0;0 12.5;0 25;0 37.5;0 50;0
+
+0;0
+
+(c)
+
+(d)
+
+Fig. 3 Meshes of a quarter of a simply supported plate: a typical 3×3 regular mesh; b 3×3 distorted mesh; c 4×4 distorted mesh; d 5×5 distorted mesh
+
+4.2 A simply supported square plate under uniform pressure A simply supported square plate subjected to a uniformly distributed load q is considered. The plate has a thickness h = 1 and a side length L = 100 with the material properties such as elastic modulus E = 2.1 × 106 and Poisson’s ratio ν = 1/3. Because of symmetry, only a quarter of the plate is discretized using 3×3, 4×4 and 5×5 meshes with regular as well as highly distorted elements as shown in Fig. 3. Table 2 shows the calculated non-dimensional central deﬂections (wc /h) obtained by the present element with uniform mesh and distorted mesh reﬁnement and those from the analytical solution by Chia [21] and the reﬁned non-conforming element of Zhang and Cheung [22]. The load–deﬂection curves are also plotted in Fig. 4 for comparison. It is obvious that the present results converge with mesh reﬁnement and are closer to the analytical results than those of the results of the reﬁned non-conforming element. In the case of highly distorted elements, it is particularly interesting to point out that the present element faces no difﬁculties to get the same results as in the case of uniform elements (Fig. 5).
+
+2702
+
+H. Nguyen-Van et al.
+
+Table 2 A simply supported square plate: normalized central deﬂections (wc/h) under a uniformly distributed load q Model q 0.2 MISQ20 3×3 (regular) 3×3 (irregular) 4×4 (regular) 4×4 (irregular) 5×5 (regular) 5×5 (irregular) Zhang and Cheung [22] Analytic [21] 0.416 0.406 0.419 0.402 0.407 0.406 0.400 0.411
+2 1.8 1.6 1.4 1.2 MISQ20 (3x3regular) MISQ20 (4x4regular) MISQ20 (5x5regular) Zhang & Cheung [22] Analytic [21]
+
+0.4 0.764 0.752 0.764 0.750 0.761 0.760 0.738 0.767
+
+0.6 1.048 1.044 1.049 1.043 1.056 1.043 1.023 1.061
+
+1.0 1.497 1.499 1.498 1.489 1.500 1.500 1.472 1.513
+
+1.4 1.840 1.826 1.842 1.833 1.846 1.843 1.821 1.854
+
+1.8 2.120 2.107 2.130 2.120 2.134 2.125 2.110 2.130
+
+2.0 2.250 2.235 2.260 2.250 2.260 2.259 2.239 2.251
+
+Load, q
+
+1 0.8 0.6 0.4 0.2 0 0 0.5 1 1.5 2 2.5
+
+Normalized central deflection, wc /h
+
+Fig. 4 Simply supported square plate under uniform load: load–deﬂection relationship curves
+
+2 1.8 1.6 1.4 1.2 MISQ20 (5x5regular) MISQ20 (5x5distorted) MISQ20 (4x4regular) MISQ20 (4x4distorted) MISQ20 (3x3regular) MISQ20 (3x3distorted)
+
+Load, q
+
+1 0.8 0.6 0.4 0.2 0 0 0.5 1 1.5 2 2.5
+
+Normalized central deflection, wc /h
+
+Fig. 5 Simply supported square plate under uniform load: effect of mesh distortion
+
+Large deﬂection analysis of plates and cylindrical shells
+
+2703
+
+0;50
+
+10;50 20;50 30;50 40;50
+
+50;50
+
+20.45;43.53 39.12;41.54 20.4551;43.5297 27.1932;42.2195 11.8192;40.2013 50;40 27.19;42.22 0;40 11.82;40.20 29.76;33.31 29.7652;33.3083 0;30 10.96;27.33 37.11;27.25 50;30 23.7402;28.7903 10.9595;27.3301 23.74;28.79 32.01;20.96 32.006;20.9585 0;20 13.54;15.76 22.3388;20.0491 42.61;23.17 50;20 22.34;20.1 13.544;15.7641 0;10 27.17;10.19 27.1754;10.185 50;10 12.50;5.74 22.2783;8.7081 36.7376;5.7878 12.4979;5.7362 22.28;8.71 36.74;5.79 10;0 20;0 30;0 40;0 50;0
+
+0;0
+
+(a)
+
+(b)
+
+Fig. 6 A quadrant of the clamped square plate: a 5 × 5 regular elements and b 5 × 5 distorted elements Table 3 A clamped square plate under uniformly distributed load: comparison of normalized central deﬂections w ∗ = wc/h with other solutions q 0.3 0.6 0.9 1.2 1.5 1.8 2.1 2.4 2.7 3.0 MISQ20 (regular mesh) 0.190 0.369 0.520 0.651 0.762 0.860 0.950 1.029 1.100 1.169
+3 MISQ20 (regular mesh) MISQ20 (distorted mesh) Zhang & Cheung [23] Analytic [21]
+
+MISQ20 (irregular mesh) 0.190 0.369 0.522 0.651 0.765 0.864 0.951 1.031 1.103 1.170
+
+Zhang and Cheung [23] 0.197 0.371 0.521 0.650 0.762 0.861 0.949 1.030 1.103 1.170
+
+Analytic [21] 0.201 0.378 0.526 0.651 0.758 0.851 0.933 1.008 1.076 1.138
+
+2.5
+
+2
+
+Load, q
+
+1.5
+
+1
+
+0.5
+
+0
+
+0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1
+
+1.2
+
+1.4
+
+Normalized central deflection, w /h c
+
+Fig. 7 Clamped square plate under uniformly distributed load: load–deﬂection relationship curve
+
+4.3 A clamped square plate under uniform pressure This Section deals with a clamped square plate with a side length L = 100, a thickness h = 1, an elastic modulus E = 2.1 × 106 , and the Poisson’s ratio ν = 0.316. The plate is subjected to a uniformly distributed
+
+2704
+
+H. Nguyen-Van et al.
+
+0;100 0;83.33 0;66.67 0;50
+
+25.88;96.59 50;86.60
+18.7726;80.7896
+
+18.77;80.79 70.71;70.71 37.63;63.33
+
+18.41;61.34
+
+57.59;52.76 7.95;47.32 86.60;50 53.1966;49.1588 7.9459;47.3172 29.13;42.35 53.20;49.16 22.99;40.12 22.9939;40.1172 33.584;36.6227 69.54;35.72 33.58;36.623 0;33.33 16.4297;30.0644 51.97;21.41 16.43;30.06 96.59;25.88 39.8881;24.1805 57.8627;22.8975 57.86;22.90 25.23;22.82 39.89;24.18 17.8058;15.7741 0;16.67 17.80;15.77 31.8787;13.5457 38.65;12.38 74.58;12.28 31.88;13.54 0;0 16.67;0 33.33;0 50;0 66.67;0 83.33;0 100;0
+
+(a)
+
+(b)
+
+Fig. 8 A quadrant of a clamped circular plate under uniform pressure with a mesh of 27 elements: a regular mesh, and b distorted mesh Table 4 A clamped circular plate under uniformly distributed load: comparison of normalized central deﬂections w ∗ = wc/h with other solutions
+q R4 (E 2 h 4 )
+
+MISQ20 (regular mesh) 0.170 0.327 0.465 0.780 1.067 1.320
+
+MISQ20 (irregular mesh) 0.170 0.326 0.465 0.781 1.068 1.320
+
+NRT15 [25] 0.169 0.325 0.463 0.783 1.075 1.333
+
+DKT [26] 0.172 0.330 0.470 0.791 1.082 1.342
+
+RNEM [27] 0.171 0.333 0.475 0.796 1.084 1.339
+
+Analytic [24] 0.169 0.323 0.457 0.761 1.035 1.279
+
+1 2 3 6 10 15
+
+load q. Taking advantage of symmetry, a quadrant of the plate is modelled and analysed with 5 × 5 uniform as well as distorted elements as shown in Fig. 6. The nonlinear solutions of the normalized central deﬂections (wc/h) obtained with the present elements, the reﬁned non-conforming element of Zhang and Cheung [23] and the analytical solution by Chia [21], are reported in Table 3. The load–deﬂection relationship curves are also plotted in Fig. 7. It can be seen that the present results are in good agreement with the solution of Zhang and Cheung and the analytical results with only slight disparities for both types of mesh. These differences may be due to the numerical error and coarse mesh. Numerical results also show that the present MISQ20 element is insensitive to mesh distortion. 4.4 A clamped circular plate under uniform pressure The large deformation analysis of a clamped circular plate under uniform pressure q is considered in this Section. The geometry data and material properties are: radius R = 100, thickness h = 2, Young’s modulus E = 107 , Poisson’s ratio ν = 0.3. Owing to symmetry, a quadrant of the plate is discretized and analysed with a 27-element uniform as well as highly distorted mesh as shown in Fig. 8. The computed normalized central deﬂections wc/h of the present method, together with the analytic solution of Schoop [24], and those obtained with Kirchhoff-based elements such as NRT15 element [25], DKT element [26] and RNEM element [27] are displayed in Table 4. The load–deﬂection curves are also plotted in Fig. 9 for comparison. It is interesting to note that the present MISQ20 element for both types of mesh shows better performance than that of the NRT15, DKT and RNEM elements for this thin plate problem even though the present element is based on the thick plate theory. 4.5 A clamped skew plate The bending behaviour of a skew plate is often considered as a corner stress concentration problem due to a strong singularity in bending moments at the obtuse vertex. It is often avoided for nonlinear analyses of plate
+
+Large deﬂection analysis of plates and cylindrical shells
+
+2705
+
+15 MISQ20 (regular mesh) MISQ20 (distorted mesh) NRT15 [25] DKT [26] RNEM [27] Analytic [24]
+
+10
+
+qR4/(Eh4)
+5 0 0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1
+
+1.2
+
+1.4
+
+Normalized central deflection, wc /h
+
+Fig. 9 Clamped circular plate under uniformly distributed load: load–deﬂection relationship curve
+
+1.75;3 2;3 1.25;3 0.75;3 0.25;3 0.5;3 1.5;3 1;3 0.27;2.76 0.26816;2.7643 1.08;2.62 1.48;2.62 2;2.625 0;2.625 1.2553;2.6274 0.75;2.48 1.082;2.6221 0.51;2.580.51255;2.58181.25;2.63 0.75023;2.4852 1.71;2.48 0.87;2.28 0.8741;2.2843 1.43;2.21 0;2.25 1.1775;2.2453 0.72;2.19 0.71601;2.1924 1.4268;2.2067 2;2.25 1.18;2.24 0.83746;2.1185 0.31273;2.0695 1.73;2.09 0.31;2.07 0.84;2.120.99978;1.9832 1.0;1.98 0.63;1.890.63284;1.8901 1.48;1.8 0;1.875 2;1.875 0.82904;1.862 1.1822;1.8516 0.83;1.86 1.18;1.85 0.19702;1.7366 0.2;1.74 1.78;1.7 0.91;1.5 1.1203;1.5728 1.31;1.48 0.52;1.44 0.65366;1.4948 2;1.5 0.16389;1.4939 0.91302;1.4988 0;1.5 1.3072;1.4759 1.72;1.5 0.51909;1.4361 0.66;1.49 1.12;1.57 0.16;1.49 1.52;1.27 0.93;1.12 1.2924;1.2726 0.5;0.99 0.84915;1.1344 0;1.125 1.29;1.27 0.3416;1.12560.93024;1.1217 2;1.125 0.34;1.12 0.85;1.13 0.50016;0.99139 1.74;1.05 0.99;0.84 1.5;0.84 0.55;0.76 0.25694;0.80893 0.99252;0.84041 0.67683;0.8034 0.55146;0.76432 2;0.75 0;0.75 0.26;0.801 0.68;0.80 1.1191;0.66735 1.12;0.67 1.75;0.62 0.50;0.48 0.50441;0.48011 0.20631;0.47827 1.02;0.42 1.0213;0.42389 1.55;0.45 2;0.375 0;0.375 0.21;0.48 1.2547;0.3262 1.25;0.33 0.80426;0.26059 0.80;0.26 0.5;0 1;0 1.5;0 1.87;0.14 0;3 0;0 0.25;0 0.75;0 1.25;0 1.75;0 2;0
+0;0
+
+2.6;1.5 2.85;1.5
+2.514;1.3727
+
+3.1;1.5 3.35;1.5
+
+3.6;1.5 3.85;1.5
+
+4.1;1.5 4.35;1.5
+
+4.6;1.5
+
+2.27;1.31
+
+2.51;1.37 1.95;1.13
+
+2.75;1.27 3.2546;1.3247 3.5083;1.3127 3.01;1.26 3.51;1.31 2.7553;1.2696 3.0082;1.2649 4.09;1.3 2.93;1.11 3.48;1.1
+
+3.25;1.32
+
+3.78;1.31
+
+4.27;1.31
+
+2.43;1.12 2.2;1.1 2.71;1.11
+
+3.1781;1.1332 2.4323;1.1234 2.7072;1.1134 2.9347;1.1094 2.1969;1.0965
+
+3.18;1.13
+
+3.7;1.15
+
+3.95;1.13
+
+1.62;0.94
+
+3.1;0.97 1.9;0.95
+1.8967;0.94912 2.4047;0.94123 2.11;0.90 2.6464;0.93734 2.8713;0.9288 2.1122;0.90408
+
+2.65;0.94
+
+3.37;0.93 3.62;0.94
+
+2.4;0.94
+
+2.87;0.93
+
+1.56;0.81 1.3;0.75
+1.557;0.80856 2.05;0.75 2.56;0.74 2.3131;0.78066 2.0506;0.74978 2.31;0.78 1.79;0.74 1.7941;0.74066 2.82;0.77
+
+3.06;0.77 3.3;0.75
+
+0.97;0.56
+
+1.21;0.56
+
+1.72;0.56 2.72;0.56 2.2242;0.59756 2.45;0.63 1.9486;0.56573 1.2138;0.55871 1.7259;0.56281 2.97;0.56 1.95;0.56 1.47;0.52 1.4744;0.51796 1.37;0.39 1.67;0.38 1.82;0.38 2.41;0.37 2.655;0.38
+
+2.22;0.6
+
+0.65;0.37
+
+0.92;0.36 1.21;0.37
+
+1.3698;0.39033 1.8229;0.37872 1.2084;0.37524 1.6697;0.37981 0.91969;0.36448
+
+2.16;0.37 2.05;0.21 1.8;0.21 2.32;0.19
+
+0.32;0.19
+
+0.84;0.18
+
+0.58052;0.21031 0.83626;0.185371.3044;0.19567 1.0954;0.18533
+
+1.09;0.18
+
+1.61;0.18 1.30;0.19
+
+0.58;0.21
+
+0.25;0
+
+0.5;0
+
+0.75;0 1;0
+
+2;0
+
+1.25;0 1.5;0
+
+1.75;0
+
+(a)
+
+(b)
+
+(c)
+
+Fig. 10 Meshes of a clamped skew plate: a 8×8 regular mesh; b 8×8 distorted mesh with α = 0◦ ; c 8×8 distorted mesh with α = 60◦
+
+bending problems, and there are very few published research papers on skew plates. Therefore, this Section deals with the large deﬂection of clamped skew plates with different skew angles α from 0◦ to 60◦ as shown in Fig. 10. The geometric and material parameters are as follows: a = 1.5b; h/a = 0.02; Young’s modulus E = 2 × 105 ; Poisson’s ratio ν = 0.3; the ﬂexural rigidity D = Eh 3 /(12(1 − ν 2 )). Two types of loading, namely a uniformly distributed load and a concentrated load, are examined in this study. The full plate is modelled using 8×8 elements with regular as well as highly distorted shapes as shown in Fig. 10. 4.5.1 Effect of skew angles The accuracy of the present solutions is investigated for both types of mesh with different skew angles α = 0◦ , 30◦ , 50◦ , 60◦ . The load–deﬂection curves obtained by the present elements are plotted and compared with theoretical solutions of Chia [21] and the hybrid mixed element’s results of Duan and Mahendran [28] as shown in Figs. 11 and 12. It is followed from Fig. 11 that the performance of the present elements is in good agreement with the theoretical solution for both types of mesh, and the present performance is better than that of the hybrid mixed element for the cases of skew angles α = 30◦ and 60◦ . For the skew plates subjected to a point load, there is no analytical solution, and the present results are compared very favourable with the solutions using a hybrid mixed element [28] for both types of mesh as can be seen in Fig. 12. Numerical results also show that the
+
+2706
+
+H. Nguyen-Van et al.
+
+350
+
+α=60
+300
+
+0
+
+α=50
+
+0
+
+Analytic solution [21] Hybrid mixed element [28] MISQ20 (regular mesh) MISQ20 (distorted mesh)
+
+Normalized load, qb4/Dh
+
+250
+
+α=30
+200
+
+0
+
+α=0
+
+0
+
+150
+
+100
+
+50
+
+0
+
+0
+
+0.5
+
+Normalized central deflection, wc /h
+
+1
+
+1.5
+
+2
+
+2.5
+
+Fig. 11 A clamped skew plate under uniformly distributed load: load–deﬂection relationship curves
+900 800 700
+
+α=600
+
+α=50
+
+0
+
+α=300 α=00
+
+Normalized load, Pb /Dh
+
+600 500 400 300 200 100 0 MISQ20 (regular mesh) MISQ20 (disstorted mesh) Hybrid mixed element [28] 0 0.5 1 1.5 2 2.5 3 3.5 4 4.5
+
+2
+
+Normalized central deflection, wc /h
+
+Fig. 12 A clamped skew plate under concentrated load: load–deﬂection relationship curves
+
+maximum central deﬂection decreases as the skew angle of the plate increases. Based on these results, the rigidity of skew plates can be improved by increasing the skew angles. 4.5.2 Effect of span-to-thickness ratios (shear-locking test) The effect of span-to-thickness (a/h) ratios on the nonlinear bending behaviour of the above clamped skew plate is also studied for four values, namely a/h = 10, 102 , 103 , 104 using a uniform mesh of 8 × 8 MISQ20 elements. Figure 13 illustrates the load–deﬂection curves for the case of the uniformly distributed load, while the load–deﬂection curves for the concentrated load are displayed in Fig. 14. As can be seen, the present MISQ20 element can capture the geometric nonlinear behaviours for the full range of span-to-thickness of the skew plate. It works for both thick and thin plates without shear lockings, even for a very thin plate of span-to-thickness a/h = 104 . It is also investigated that the effect of the span-to-thickness ratio on the central deﬂections has no inﬂuence for thin skew plates with a/h > 100 in both cases of loading. For the plates under the distributed load, the effect of the span-to-thickness ratio has a minor effect on the deﬂection when the skew angle α < 30◦ , while it has a larger effect for any skew angle α from 0◦ to 60◦ in the case of the point load.
+
+Large deﬂection analysis of plates and cylindrical shells
+
+2707
+
+300
+
+α=60
+250
+
+0
+
+a/h=10 a/h=102 a/h=10 a/h=10
+3 4
+
+Normalized load, qb /Dh
+
+200
+
+4
+
+α=45
+150
+
+0
+
+100
+
+α=30
+
+0 0
+
+α=0
+50
+
+0
+
+0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1
+
+1.2
+
+1.4
+
+Normalized central deflection, wc /h
+
+Fig. 13 A clamped skew plate under uniformly distributed load: effect of span-to-thickness ratios on the normalized central deﬂection
+
+180 160 140
+
+α=60
+
+0
+
+Normalized load, Pb2/Dh
+
+α=450
+120 100 80 60 a/h=10 40 20 0 a/h=10 a/h=10 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6
+2
+
+α=30
+
+0
+
+α=00
+
+a/h=103
+4
+
+1.8
+
+Normalized central deflection, wc /h
+
+Fig. 14 A clamped skew plate under point load: effect of span-to-thickness ratios on the normalized central deﬂection
+
+4.6 A clamped cylindrical shell under uniform pressure A clamped shallow cylindrical shell subjected to a uniformly distributed pressure q is examined (Fig. 15). The geometry parameters are: L = 20, R = 100, h = 0.125, ϕ = 0.1, and the material properties are: E = 4.5 × 105 , ν = 0.3. Taking advantage of symmetry, only a quadrant of the shell is modelled using a 6 × 6 mesh with regular as well as distorted elements as shown in Fig. 16. Figure 17 shows the normalized deﬂection wc/h at the centre of the shell versus the applied pressure q obtained by the present models together with other solutions of Reddy [29] and Palazotto and Dennis [30]. It is observed that the deﬂection response of this cylindrical shell changes from softening to hardening and the trends of these solutions agree well with each others with only small disparities. The present MISQ20 solution is closer to those obtained by Reddy, which are of slightly higher values. It is also noticed that the good performance of the present element to deal with bad element shapes is evident.
+
+2708
+
+H. Nguyen-Van et al.
+
+Fig. 15 A clamped cylindrical shell: geometry and boundary conditions
+
+0;10 1.67;10 1.67;8.92 1.67;5.93 0;3.33 3.33;10 0;1.67 1.67;2.55 1.67;5.04 3.33;7.53 3.33;8.61 z= 0 0;0 1.67;0.83 5;10 3.33;3.63 3.33;5.03 1.67;0 z= −0.01 5;5.99 5;7.73 3.33;1.02 5;3.93 3.33;0 6.66;10 z= −0.06 5;4.24 6.66;6.71 6.66;8.18 5;1.54 5;0 z= −0.12 6.66;4.81 6.66;2.22 6.66;2.53 8.32;10 z= −0.22 6.66;0 8.32;7.55 8.32;7.72 8.32;3.21 z= −0.35 8.32;4.11 9.98;10 8.32;0 8.32;1.28 9.98;8.33 z= −0.5 0;5 0;6.67
+2 4 6 8 0 2 4 6 8 10
+
+0;8.33
+
+0 −0.1 −0.2 −0.3 −0.4
+
+0
+
+9.98;5 9.98;1.67 9.98;3.33 9.98;0
+
+9.98;6.67
+
+(a)
+Fig. 16 A clamped cylindrical shell: a 6 × 6 regular mesh and b 6 × 6 distorted mesh
+
+(b)
+
+0.45 0.4 0.35 0.3 MISQ20 (regular mesh) MISQ20 (distorted mesh) Reddy [29] Palazoto & Demis [30]
+
+Load, q
+
+0.25 0.2 0.15 0.1 0.05 0
+
+0
+
+0.5
+
+1
+
+1.5
+
+2
+
+2.5
+
+3
+
+3.5
+
+Normalized central deflection, wc /h
+
+Fig. 17 Clamped cylindrical shell under uniformly distributed load: load–deﬂection relationship curve
+
+Large deﬂection analysis of plates and cylindrical shells
+
+2709
+
+Fig. 18 A hinged cylindrical shell: geometry and boundary conditions
+0;254 0;211.67 42.33;254 0;169.33 42.33;181.14 0;127 0;84.67 42.33;131.70 42.33;208.43 84.65;254 0;42.33 42.33;67.97 0;0 84.65;209.86 84.65;170.48 42.33;34.93 84.65;75.39 z= 0 84.65;124.46126.95;219.12 126.95;254 42.33;0 84.65;27.67 z= −0.35 126.95;146.37 126.95;158.36 84.65;0 126.95;61.11 z= −1.41 169.21;218.77 169.21;254 126.95;90.50 z= −3.17 z= −5.64 z= −8.81 z= −12.69
+250 50 100 150 200 250 0 50 100 150 200
+
+0 −2 −4 −6 −8 −10 −12 0
+
+126.95;0 169.21;50.59 169.21;0
+
+169.21;116.62 169.21;157.65 169.21;66.38 211.42;206.87 211.42;254 211.42;173.66 253.58;254
+
+211.42;106.12 211.42;54.21 211.42;92.09 211.42;0
+
+253.58;211.67 253.58;127 253.58;169.33 253.58;42.33 253.58;84.67 253.58;0
+
+(a)
+Fig. 19 A hinged cylindrical shell: a 6 × 6 regular mesh and b 6 × 6 distorted mesh
+
+(b)
+
+4.7 A hinged cylindrical shell under point load This Section is concerned with the effect of thickness-to-length ratios effect on the nonlinear bending behaviour of a cylindrical shell subjected to a concentrated central load as shown in the Fig. 18. Two longitudinal edges of the shell are hinged, whereas the curved edges are free. The length of the shell panel is L = 508 mm with a shell radius R = 2540 mm and an open angle 2ϕ = 0.2 rad. The material properties are: E = 3.10275 kN/mm2 , ν = 0.3. Four different thickness, namely h = 25.4, 12.7, 6.35 and 3.175 mm, respectively, are examined in this study. By making use of symmetry of geometry and boundary conditions, only one quadrant of the shell is analysed with a 6 × 6 uniform mesh and distorted mesh as shown in Fig. 19. For the shell with the thickness h = 25.4 mm, the present computed results for the normalized central deﬂection wc/h are plotted together with those reported by Frank Pai [31] in Fig. 20. It can be seen that the deﬂection response changes from softening to hardening, and the present element performs quite well in both types of mesh in comparison with the reference solution. Figure 21 illustrates the nonlinear bending response of the shell panel with the thickness h = 12.7 mm. The nonlinear solutions given by Sabir and Lock [32], Crisﬁeld [33] and Sze et al. [34] are also plotted in this ﬁgure for comparison. It can be seen that ﬁve curves agree well together with the same limit points for the response of the central point C. The nonlinear bending behaviour of the point B at the free curved edge is also plotted in Fig. 22 for both types of mesh. It is found that a snap-through behaviour is observed for this shell panel as can be seen from these ﬁgures. Figure 23 shows the load–deﬂection relationship curves for the shell panel with the thickness h = 6.35 mm. A snap-back phenomenon is noticed for this shell panel. The present solutions for both types of mesh are compared with the results computed by Sze et al. [34]. It is clearly investigated that the present method has successfully captured the negative load limit point, and the present results agree well with those given in the
+
+2710
+
+H. Nguyen-Van et al.
+
+25 MISQ20 (regular mesh) MISQ20 (distorted mesh) Pai (uniform mesh) [31]
+
+20
+
+Load, P (kN)
+
+15
+
+10
+
+5
+
+0
+
+0
+
+5
+
+10
+
+15
+
+20
+
+25
+
+30
+
+35
+
+Central deflection, wc (mm)
+
+Fig. 20 A hinged cylindrical shell with the thickness h = 25.4 mm: load–deﬂection response
+3.5 MISQ20 (6x6 regular mesh) MISQ20 (6x6 distorted mesh) Crisfield [33] Sabir and Lock [32] Sze et al. (16x16 regular mesh) [34]
+
+3
+
+2.5
+
+Load, P (kN)
+
+2
+
+1.5
+
+1
+
+0.5
+
+0
+
+0
+
+5
+
+10
+
+15
+
+20
+
+25
+
+30
+
+Central deflection, wc (mm)
+
+Fig. 21 A hinged cylindrical shell with the thickness h = 12.7 mm: load–deﬂection responses
+
+literature with only a coarse mesh of 6 × 6 elements. The nonlinear response of the point B is also displayed in Fig. 24. As we can see, the present solutions with distorted mesh and uniform mesh yield the same results. For the shell panel with the very thin thickness h = 3.175 mm, the present computed results for the central deﬂection are plotted in Fig. 25. As can be seen, the obtained results of the regular and irregular elements are very similar. Figure 25 also shows that the nonlinearity of the structure tends to be stronger when the shell panel becomes thinner, and the load–deﬂection curve becomes more complex with several limit points. The reason for this complex response may be that the decrease in the shell thickness leads to decrease its stiffness. All in all, the effect of mesh distortion on the MISQ20’s performance displayed in Figs. 20, 21, 22, 23, 24, 25 does conﬁrms that the present element is insensitive to badly shaped elements. 5 Conclusions In this paper, the MISQ20 element is further developed and successfully applied to the geometrically nonlinear analysis of plate and shell structures in the framework of the FSDT. The von Kármán’s large deﬂection
+
+Large deﬂection analysis of plates and cylindrical shells
+
+2711
+
+4 3.5 3 2.5 MISQ20 (regular mesh) MISQ20 (distorted mesh)
+
+Load, P (kN)
+
+2 1.5 1 0.5 0
+
+0
+
+5
+
+10
+
+Deflection, wB (mm)
+
+15
+
+20
+
+25
+
+30
+
+Fig. 22 A hinged cylindrical shell with the thickness h = 12.7 mm: load–deﬂection response of point B
+
+3 2.5 2 1.5 1 0.5 0 −0.5 −1 MISQ20 (6x6 regular mesh) MISQ20 (6x6 distorted mesh) Sze et al. (24x24 regular mesh) [34]
+
+Load, P (kN)
+
+0
+
+5
+
+10
+
+Central deflection, wc (mm)
+
+15
+
+20
+
+25
+
+30
+
+35
+
+40
+
+Fig. 23 A hinged cylindrical shell with the thickness h = 6.35 mm: load–deﬂection responses
+
+theory and the total Lagrangian approach are employed in the formulation of the elements to describe small strain geometric nonlinearity with large displacements. Several numerical examples have been carried out, and the present element is found to yield satisfactory results in comparison with other available ﬁnite element solutions as well as theoretical results. It is observed that the present element is able to offer good prediction in geometrically nonlinear analysis of thick to moderately thin plates/shells without shear locking and can capture several limit points in snap-through and snap-back phenomena of shell structures. When compared to other ﬂat elements in the literature, the present element is simple in formulation, and its implementation into an existing ﬁnite element code is straightforward. The evaluation of membrane, bending and geometric stiffness matrices of the present formulation is computed by integration along the boundary of smoothing elements which can give more accurate numerical integrations even with badly shaped elements or coarse meshes and reduce computational costs when compared to other ﬂat elements using domain integration techniques.
+
+2712
+
+H. Nguyen-Van et al.
+
+1 MISQ20 (regular mesh) MISQ20 (distorted mesh)
+
+0.8
+
+0.6
+
+Load, P (kN)
+
+0.4
+
+0.2
+
+0
+
+−0.2
+
+−0.4
+
+0
+
+5
+
+10
+
+15
+
+20
+
+25
+
+30
+
+Deflection, wB (mm)
+
+Fig. 24 A hinged cylindrical shell with the thickness h = 6.35 mm: load–deﬂection response of point B
+0.25 0.2 0.15 0.1 MISQ20 (6x6 regular mesh) MISQ20 (6x6 distorted mesh)
+
+Load, P (kN)
+
+0.05 0 −0.05 −0.1 −0.15 −0.2
+
+0
+
+5
+
+10
+
+15
+
+20
+
+25
+
+30
+
+35
+
+Central deflection, wc (mm)
+
+Fig. 25 A hinged cylindrical shell with the thickness h = 3.175 mm: load–deﬂection response Acknowledgments This research is funded by Vietnam National Foundation for Science and Technology Development (NAFOSTED) under Grant Number 107.02-2012.27.
+
+References
+1. Reddy, J.N., Arciniega, R.A.: Shear deformation plate and shell theories: from Stavsky to present. Mech. Adv. Mater. Struct. 11, 535–582 (2004) 2. Zhang, Y.X., Yang, C.H.: Recent developments in ﬁnite element analysis for laminated composite plates. Compos. Struct. 88, 147–157 (2009) 3. Kreja, I.: A literature review on computational models for laminated composite and sandwich panels. Cent. Eur. J. Eng. 1, 59– 80 (2011) 4. Gal, E., Levy, R.: Geometrically nonlinear analysis of shell structures using a ﬂat triangular shell ﬁnite element. Arch. Comput. Method. Eng. 13, 331–388 (2006) 5. Liu, J., Riggs, H.R., Tessler, A.: A four-node, shear-deformable shell element developed via explicit Kirchhoff constraints. Int. J. Numer. Methods. Eng. 49, 1065–1086 (2000) 6. Choi, C.-K., Lee, T.-Y.: Efﬁcient remedy for membrane locking of 4-node ﬂat shell elements by non-conforming modes. Comput. Method. Appl. Mech. Eng. 192, 1961–1971 (2003)
+
+Large deﬂection analysis of plates and cylindrical shells
+
+2713
+
+7. Pimpinelli, G.: An assumed strain quadrilateral element with drilling degrees of freedom. Finite Elem. Anal. Des. 41, 267– 283 (2004) 8. Kim, K.D., Lomboy, G.R., Voyiadjis, G.Z.: A 4-node assumed strain quasi-conforming shell element with 6 degrees of freedom. Int. J. Numer. Method. Eng. 58, 2177–2200 (2003) 9. Nguyen-Xuan, H., Rabczuk, T., Bordas, S., Debongnie, J.F.: A smoothed ﬁnite element method for plate analysis. Comput. Method. Appl. Mech. Eng. 197, 1184–1203 (2008) 10. Cui, X. et al.: A smoothed ﬁnite element method (SFEM) for linear and geometrically nonlinear analysis of plates and shells. CMES 28, 109–125 (2008) 11. Nguyen-Van, H., Mai-Duy, N., Tran-Cong, T.: A simple and accurate four-node quadrilateral element using stabilized nodal integration for laminated plates. CMC 6, 159–176 (2007) 12. Nguyen-Van, H., Mai-Duy, N., Tran-Cong, T.: Free vibration of laminated plate/shell structures based on FSDT with a stabilized nodal-integrated quadrilateral element. J. Sound Vib. 313, 205–223 (2008) 13. Nguyen-Van, H.: Development and application of assumed strain smoothing ﬁnite element technique for composite plate/shell structures. Ph.D. thesis, University of Southern Queensland (2009) 14. Crisﬁeld, M.A.: Non-linear Finite Element Analysis of Solids and Structures vol. 1. Wiley, New York (1991) 15. de Souza Neto, E.A., Feng, Y.T.: On the determination of the path direction for arc-length methods in the presence of bifurcations and “snap-backs”. Comput. Method. Appl. Mech. Eng. 179, 81–89 (1999) 16. Reddy, J.N.: Mechanics of Laminated Composite Plates and Shells-Theory and Analysis. CRC Press, Florida (2004) 17. Bathe, K.J., Dvorkin, E.N.: A four node plate bending element based on Mindlin-Reissner plate theory and a mixed interpolation. Int. J. Numer. Method. Eng. 21, 367–383 (1985) 18. Zienkiewicz, O.C., Taylor, R.L.: The ﬁnite element method, vol. 2: solid mechanics. Butterworth Heinemann-Oxford, 5th edn, (2000) 19. Crisﬁeld, M.A.: A fast incremental/iterative solution procedure that handles snap-through. Comput. Struct. 13, 55–62 (1981) 20. MacNeal, R.H., Harder, R.L.: A proposed standard test problems to test ﬁnite element accuracy. Finite Elem. Anal. Des. 1, 3– 20 (1985) 21. Chia, C.Y.: Nonlinear Analysis of Plates, McGraw-Hill, NewYork (1980) 22. Zhang, Y.X., Cheung, Y.K.: A reﬁned non-conforming triangular plate/shell element. Int. J. Numer. Method. Eng. 56, 2387– 2408 (2003) 23. Zhang, Y.X., Cheung, Y.K.: Geometric nonlinear analysis of thin plates by a reﬁned nonlinear non-conforming triangular plate element. Thin-Walled Struct. 41, 403–418 (2003) 24. Schoop, H.: A simple nonlinear ﬂat element for large displacement structures. Comput. Struct. 32, 379–385 (1989) 25. Cheung, Y.K., Zhang, S., Cheng, W.: Reﬁned non-conforming triangular plate element for geometrically nonlinear analysis. Sci. Iran. 8, 81–91 (2001) 26. Stricklin, J.A., Haisler, W.E., Tisdale, P.R.: A rapidly converging triangular plate element. AIAA J. 7, 180–181 (1969) 27. Zhang, Y.X., Kim, K.S.: Linear and geometrically nonlinear analysis of plates and shells by a new reﬁned non-conforming triangular plate/shell element. Comput. Mech. 36, 331–342 (2005) 28. Duan, M., Mahendran, M.: Large deﬂection analyses of skew plates using hybrid/mixed ﬁnite element method. Comput. Struct. 81, 1415–1424 (2003) 29. Reddy, J.N.: An Introduction to Nonlinear Finite Element Analysis. Oxford University Press, Oxford (2004) 30. Palazotto, A.N., Dennis, S.T.: Nonlinear Analysis of Shell Structures. AIAA education series, Washington DC (1992) 31. Pai, P.F.: Total-Lagrangian formulation and ﬁnite element analysis of highly ﬂexible plates and shells. Math. Mech. Solids 12, 213–250 (2007) 32. Sabir, A.B., Lock, A.C. : The application of ﬁnite elements to large deﬂection geometrically nonlinear behaviour of cylindrical shells. In: Brebbia, C.A., Tottenham, H. (eds.) Variational Methods in Engineering, Southampton University Press, Southampton (1973) 33. Crisﬁeld, M.A.: A fast modiﬁed Newton–Raphson iteration. Comput. Method. Appl. Mech. Eng. 20, 267–278 (1979) 34. Sze, K.Y., Liu, X.H., Lomboy, S.H.: Popular benchmark problems for geometric nonlinear analysis of shells. Finite Elem. Anal. Des. 40, 1551–1569 (2004)
+

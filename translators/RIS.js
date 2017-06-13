@@ -17,7 +17,7 @@
 		"exportNotes": true,
 		"exportFileData": false
 	},
-	"lastUpdated": "2017-01-26 13:35:00"
+	"lastUpdated": "2017-06-11 22:45:00"
 }
 
 function detectImport() {
@@ -1454,9 +1454,12 @@ function applyValue(item, zField, value, rawLine) {
 		break;
 		case 'DOI':
 			value = ZU.cleanDOI(value);
+			//add DOI to extra field, 
 			if (!ZU.fieldIsValidForType("DOI", item.itemType) && value) {
 				if(item.extra) {
-					item.extra += '\nDOI: ' + value;
+					if (item.extra.search(/^DOI:/) == -1) {
+						item.extra += '\nDOI: ' + value;
+					}
 				} else {
 					item.extra = 'DOI: ' + value;
 				}

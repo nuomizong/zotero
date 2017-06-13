@@ -9,7 +9,7 @@
 	"priority": 320,
 	"inRepository": true,
 	"browserSupport": "gcsibv",
-	"lastUpdated": "2017-05-28 23:25:00"
+	"lastUpdated": "2017-06-09 20:40:00"
 }
 
 /*
@@ -770,6 +770,9 @@ function finalDataCleanup(doc, newItem) {
 	 * This will deal with multiple tags, some of them comma delimited,
 	 * some semicolon, some individual
 	 */
+	if (typeof newItem.tags == 'string') {
+		newItem.tags = [ newItem.tags ];
+	}
 	if (newItem.tags && newItem.tags.length && Zotero.parentTranslator) {
 		if (exports.splitTags) {
 			var tags = [];

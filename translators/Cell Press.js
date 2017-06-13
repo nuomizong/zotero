@@ -1,15 +1,15 @@
 {
 	"translatorID": "f26cfb71-efd7-47ae-a28c-d4d8852096bd",
+	"translatorType": 4,
 	"label": "Cell Press",
 	"creator": "Michael Berkowitz, Sebastian Karcher, Aurimas Vinckevicius",
 	"target": "^https?://([^/]*\\.)?cell\\.com",
 	"minVersion": "3.0",
-	"maxVersion": "",
+	"maxVersion": null,
 	"priority": 100,
 	"inRepository": true,
-	"translatorType": 4,
 	"browserSupport": "gcsibv",
-	"lastUpdated": "2016-09-09 20:58:17"
+	"lastUpdated": "2017-06-09 20:40:00"
 }
 
 /*
@@ -84,7 +84,7 @@ function scrape(doc, url) {
 		}
 
 		var abstractDiv = doc.getElementById('main_fulltext_content');
-		var abstract = ZU.xpathText(doc, '//div[@class="abstract"]/p')
+		var abstract = ZU.xpathText(doc, '//div[contains(@class, "abstract")]/div[contains(@class, "content")]/p')
 			item.abstractNote = abstract;
 
 		//fetch direct PDF link (ScienceDirect)

@@ -1,0 +1,1202 @@
+Analysis of Stiffened Rectangular Plate
+A thesis submitted to National Institute of Technology, Rourkela in partial fulfilment for the degree of Master of Technology in Mechanical Engineering (Machine Design and Analysis)
+
+by Akhileshwar Singh 211ME1180
+
+Department of Mechanical Engineering National Institute of Technology, Rourkela Rourkela - 769008, Odisha, India. June - 2013
+
+Analysis of Stiffened Rectangular Plate
+A thesis submitted to National Institute of Technology, Rourkela in partial fulfilment for the degree of Master of Technology in Mechanical Engineering (Machine Design and Analysis)
+
+by Akhileshwar Singh 211ME1180 Under the guidance of Anirban Mitra Assistant Professor
+
+Department of Mechanical Engineering National Institute of Technology, Rourkela Rourkela - 769008, Odisha, India. June - 2013
+
+DEPARTMENT OF MECHANICAL ENGINEERING NATIONAL INSTITUTE OF TECHNOLOGY ROURKELA, ODISHA- 769008
+
+CERTIFICATE
+
+This is to certify that thesis entitled, ‚ÄúAnalysis of Stiffened Rectangular Plate‚Äù, which is submitted by Mr. Akhileshwar Singh in partial fulfilment of the requirement for the award of degree of M.Tech in Mechanical Engineering to National Institute of Technology, Rourkela is a record of candidate‚Äôs own work carried out by him under my supervision. The matter embodied in this thesis is original and has not been used for the award of any other degree.
+
+Place : Rourkela Date:
+
+Prof. Anirban Mitra Department Of Mechanical Engineering National Institute Of Technology Rourkela, Odisha- 769008
+
+ACKNOWLEDGEMENT
+
+I am deeply indebted to Professor ANIRBAN MITRA, Department of Mechanical Engineering, National Institute of Technology, Rourkela for his guidance in terms of providing the right of way of doing the research for the project. Also for his special attention and valuable suggestions provided by him in between his busy schedule.
+
+I am extremely grateful to Dr. K.P. MAITY, Professor and Head of Department of Mechanical Engineering for giving me this opportunity.
+
+I am also thankful to all the laboratory staff, Cad Cam Laboratory for their dedicated assistance during experimentation.
+
+Also I take this opportunity to thank all the faculty and staff members of Mechanical Engineering Department and all those who are associated directly or indirectly in completion of this project.
+
+AKHILESHWAR SINGH 211ME1180
+
+CONTENT
+TITLE ABSTRACT LIST OF SYMBOL LIST OF FIGURE S LIST OF TABLES CHAPTER 1. INTRODUCTION 1.1 INTRODUCTION TO STIFFENED PLATE 1.2 ADVANTAGE 1.3 APPLICATIONS 1.4 LITREATURE REVIEW CHAPTER 2. ENERGY METHODS 2.1 PRINCIPLE OF VIRTUAL WORK 2.2 CASTIGLIANO‚ÄôS THEOREM 2.3 PRINCIPLE OF MINIMUM POTENTIAL ENERGY 2.4 RAYLEIGH-RITZ METHOD 2.5 NUMERICAL IMPLEMENTATION OF SOLUTION SCHEME 2.5.1 DIRECT SUBSTITUTION TECHNIQUE CHAPTER 3. ANALYSIS OF BEAM 3.1 STRAIN ENERGY AND WORK POTENTIAL OF BEAM 3.1.1 GENERATION OF START FUNCTION 3.2 GOVERNING SYSTEM OF EQUATIONS 3.3 RESULT AND DISCUSSION 3.3.1 LINEAR STATIC ANALYSIS OF BEAM UNDER DIFFERENT BOUNDARY CONDITIONS 3.3.2 NONLINEAR STATIC ANALYSIS OF BEAM UNDER DIFFERENT BOUNDARY CONDITIONS CHAPTER 4. ANALYSIS OF STIFFENED RECTANGULAR PLATE 4.1 MATHEMATICAL FORMULATION 4.2 APPROXIMATE DISPLACEMENT FIELD 4.3 GOVERNING SYSTEM OF EQUATION 4.4 SOLUTION METHODOLOGY FOR STATIC DISPLACEMENT FIELD
+
+PAGE NO
+I II-III IV-V VI 1-10 1 1-2 2 3-10 11-15 11 12 12-13 13-14 14-15 15 16-25 16-20 18-20 20-21 21-25 22-23 23-25 26-38 28-31 31-32 33-35 36-38
+
+CHAPTER 5. RESULT AND DISCUSSION 5.1 VALIDATION STUDY 5.2 DEFLECTION OF RECTANGULAR PLATE UNDER DIFFERENT FLEXURAL BOUNDARY CONDITION 5.3 DEFLECTION OF STIFFENED RECTANGULAR PLATE UNDER DIFFERENT FLEXURAL BOUNDARY CONDITIONS 5.4 CONTOUR PLOT FOR THE DEFLECTED STIFFENED PLATE 5.5 DEFLECTION OF STIFFENED RECTANGULAR PLATE UNDER DIFFERENT STIFFENER CROSSECTION CHAPTER 6. CONCLUSIONS AND FUTURE SCOPE 6.1 CONCLUSIONS 6.2 FUTURE SCOPE
+
+39-49 39-40 40-41 41-42
+42-44
+
+44-49 50-51 50 50-51
+
+REFRENCES
+
+52-54
+
+ABSTRACT
+
+Observations of structures created by nature indicate that in most cases strength and rigidity depend not only on the material but also upon its form. This fact was probably noticed long ago by some shrewd observers and resulted in the creation of artificial structural elements having high bearing capacity mainly due to their form such as girders, arches and shells. Adding stiffeners to the plate complicates the analysis and several assumptions must be made in order to facilitate a solution to the problem. In the present study, a simulation model for large deflection static analysis of a thin rectangular stiffened plate under transverse loading has been presented. The mathematical formulation is based on variational form of energy principle, where the displacement fields are assumed as finite linear combination of admissible orthogonal functions, satisfying the corresponding flexural and membrane boundary conditions of the plate. Geometric nonlinearity has been incorporated through consideration of nonlinear strain-displacement relationship. The resulting nonlinear set of governing equations is solved through a numerical procedure involving direct substitution method using relaxation parameter. Entire computational work is carried out in a normalized square domain, which is divided into subdomains depending on the number, orientation and location of the stiffeners. The domain decomposition technique is specially developed to introduce adequate number of computation points around the location of stiffeners and boundaries of the plate. Validation of the present method and solution technique has been carried out successfully with available results. Various results are presented using different types of stiffeners attached to plate. Different results have also been furnished for variation of stiffener location.
+
+–Ü
+
+LIST OF SYMBOL USED
+U = Total strain energy.
+
+Ub = Strain energy due to bending. Um = Strain energy due to stretching of the mid plane. Up = Total strain energy of plate Us = Total strain energy of stiffener Ì†µÌ±àÌ†µÌ±†Ì†µÌ±• = Strain energies stored in p-th stiffener along x-direction Ì†µÌ±àÌ†µÌ±†Ì†µÌ±¶ = Strain energies stored in q-th stiffener along y-direction V = Work function œÉx = Tensile/compressive stress in axial direction. ‘êx = Strain in axial direction. Ì†µÌºÄÌ†µÌ±†Ì†µÌ±• = Axial strain of a stiffener along x-direction E = Modulus of elasticity of material. I = Moment of inertia
+Ì†µÌ±ù Ì†µÌ±û Ì†µÌ±ù
+
+Q = First moment of area u v = Displacement in axial direction due to stretching of mid-plane. = Displacement in axial direction due to stretching of mid plane.
+
+w = Displacement in transverse direction. Œæ Œ∑ = Normalized coordinate in x direction. = Normalized coordinate in y direction.
+
+A = Area of crossection of beam. [K] = Stiffness matrix.
+
+II
+
+{f} = Load vector. œïi = Displacement field due to bending Ì†µÌªºÌ†µÌ±ñ = Displacement field due to stretching Ì†µÌªΩÌ†µÌ±ñ = Displacement field due to stretching di = Unknown coefficient.
+
+D = Flexural rigidity of rectangular plate tp = Thickness of the plate from the neutral plane ¬µ = Poisson‚Äôs ratio
+
+III
+
+LIST OF FIGURES
+
+Sr. No. Figure 1.1. Figure 3.1.
+
+TITLE Rectangular stiffeners placed along rectangular plate Linear normalized load-deflection curve of beam having t/b = 0.25, under uniformly distributed transverse load
+
+PAGE NO 1
+
+23
+
+Figure 3.2
+
+Nonlinear normalized load-deflection curve of beam having under uniformly distributed transverse load different t/b ratios 24
+
+Figure 3.3
+
+Nonlinear load-deflection curve of beam having under uniformly distributed transverse load for different t/b ratios under (a) CC (b) SS 25
+
+Figure 4.1.
+
+Geometry and dimension of Rectangular Plate with (a) Flat, (b) Tee Stiffener 26 37
+
+Figure 4.2. Figure 5.1.
+
+Flow chart for solution algorithm for a particular load step. Comparison of load-deflection behavior of clamped stiffened plate at point of maximum deflection for validation
+
+40
+
+Figure 5.2.
+
+Static deflection of a Rectangular plate under uniformly distributed load for different flexural boundary conditions 41
+
+Figure 5.3.
+
+Deflection of Stiffened Rectangular Plate under Different Flexural Boundary Conditions with inverted-T stiffener and I stiffener. 42
+
+Figure 5.4.
+
+Deflected shape of rectangular plate with Inverted-T stiffener under uniformly distributed loading for various flexural boundary conditions: (a) SSSS, (b) SCSS, (c) CSCS, (d) CCSS, (e) CCCS
+IV
+
+and (f) CCCC Figure 5.5. Statically deflected shape of rectangular plate with I Bar stiffener along the center line under uniformly distributed loading for various flexural boundary conditions: (a) SSSS, and (b) CCCC
+
+43-44
+
+44
+
+Figure 5.6.
+
+Deflection of rectangular plate stiffened by flat, inverted-tee, I stiffener placed uniaxially along the center line under different boundary condition (a) SSSS, (b) SCSS, (c) CSCS, (d) CCSS, (e) CCCS and (f)CCCC 45-46
+
+Figure 5.7.
+
+Deflection of rectangular plate stiffened by Inverted-T stiffener uniaxially along the center line when flange dimension is constant and the web dimensions vary but keeping the cross sectional area constant for stiffener (a) CCCC & (b) SSSS 47
+
+Figure 5.8.
+
+Deflection of rectangular plate stiffened by Inverted-Tstiffener uniaxially along the center line when web dimension is constant and the flange dimensions vary but keeping the cross sectional area constant for stiffener (a) CCCC & (b) SSSS 47
+
+Figure 5.9.
+
+Deflection of rectangular plate stiffened by Inverted-T stiffener uniaxially along the along the different normalised scale from left edge of the plate for (a) CCCC (b) SSSS 48
+
+Figure 5.10.
+
+Deflection of rectangular plate under UDL of 60000, 30000 N/m2 for different stiffener position from the leading edge for (a) CCCC (b) SSSS 49
+
+V
+
+LIST OF TABLE
+
+Sr. No. Table 3.1. Table 3.2. Table 3.3. Table 4.1.
+
+TITLE Start function for displacement w for beam. Material Properties of beam: Geometrical properties of beam Start Function for Displacement w for rectangular plate
+
+PAGE NO 20 22 22 32
+
+VI
+
+CHAPTER 1: INTRODUCTION
+
+1.1.
+
+INTRODUCTION TO STIFFENED PLATE
+
+Man has always been inspired from the nature be it art or engineering. Perhaps one of the derivatives of such inspiration is stiffened engineering structures. Sea shells, leaves, trees, vegetables - all of these are in fact stiffened structures. Observations of structures created by nature indicate that in most cases strength and rigidity depend not only on the material but also upon its form. This fact was probably noticed long ago by some shrewd observers and resulted in the creation of artificial structural elements having high bearing capacity mainly due to their form such as girders, arches and shells.
+
+Figure 1.1. Rectangular Stiffeners Placed Along Rectangular Plate
+
+1.2.
+
+ADVANTAGE
+
+Stiffeners in a stiffened plate make it possible to sustain highly directional loads, and introduce multiple load paths which may provide protection against damage and crack growth under the compressive and tensile loads. The biggest advantage of the stiffeners is the increased bending
+1
+
+stiffness of the structure with a minimum of additional material, which makes these structures highly desirable for loads and destabilizing compressive loads. In addition to the advantages already found in using them, there should be no doubt that stiffened plates designed with different techniques bring many benefits like reduction in material usage, cost, better performance, etc.
+
+1.3.
+
+APPLICATIONS
+
+The wide use of stiffened structural elements in engineering start in the nineteenth century: mainly with the application of steel plates for the hulls of ships and with development of steel bridges and aircraft structures. Stiffened plates mostly find applications in the modern industry. Stiffened plates have wide applications in different field, like civil engineering, aerospace and marine structures. They are used in cube girders, plate‚Äôs girders, ship hulls and wing structures. In aerospace and marine constructions, where minimization of weight of the components is of paramount interest, stiffened plates find extensive application. They are used in off-shore constructions like oil rigs, marine constructions such as ship and submarine hulls, decks and bridges of ships. In aerospace applications, aircraft wings are made out of stiffened plates. Apart from that they are also utilized in making advanced rocket launching structures. Stiffened plates are of common occurrence in the field of highway bridges and elevated roadways, where they are generally employed to build the bridge decks. Among land based structures, lock gates, box girders, plate girders etc. are also some of the fields of application for such plates. In some building structures floor slab systems are often made out of these components in order to avoid uncomfortable vibrations. There are some examples of stiffened plates being used in railway wagons, cargo containers, goods vehicle sidewalls etc.
+
+2
+
+1.4.
+
+LITERATURE SURVEY
+
+Research into stiffened plates has been a subject of interest for many years. Extensive efforts by many researchers were devoted to investigate the response of the structure. However, due to its complexity and the many parameters involved, a complete understanding of all aspects of behavior is still not fully realized. The research done on stiffened plates can be classified into two categories, analysis and design. The objectives of researchers in the first category are to develop numerical or analytical formulations to predict the global and local buckling load of the structure. In doing so, several assumptions are postulated in idealizing the structure in order to facilitate a solution. In the following paragraphs a brief review of some of the relevant research work has been provided. Klitchief and Belgrade [1] analyzed the stability of infinitely long, simply supported, transverse stiffened plates under uniform compression and lateral load. An extreme motivation of the work was to assess for design rules used in naval architecture. Even though their objective was to analyze eccentric stiffeners. Their approach appears to be valid only for the concentric case. In the eccentric case, difficulties appear over the concentric configuration in the coupling between the in-plane and out-of-plane displacements, by which results in an increase of the order of the differential equations for the structure which has been ignored in the analysis of their solution. Hoppmann [2] and Hoppmann and Baltimore [3] used an orthotropic plate approach for analyzing simply supported orthogonally stiffened plates under static and dynamic loading. The plate rigidities and stiffness were determined experimentally. Soper [4] investigated a large deflection analysis for laterally loaded orthotropic plates using Levy's approach. An approximated the stress functions by a trigonometric series and solved the resulting set of non-linear equations numerically. He presented numerically results for simply
+3
+
+supported and clamped edges beam. The beam model presented in [3] investigated for the ydirection strains which are neglected in conventional type modeling [4]. These models are compatible and most preferable for the analysis of stiffened laminated plates. This journal paper is concerned with the application of plate and beam finite elements in the analysis of the nonlinear response of eccentrically stiffened laminated plates. For large deformations, the von Karman kinematic relations of the plate and stiffener are considered in the formulation. The formulation analyze for transverse shear deformation effects of the plate and stiffener, and the model is approximately designed for the analysis of both thin and thick stiffened laminated plates. The finite element model consisting of representing plate by nine-noded isoparametric quadrilateral elements and the stiffener by three-noded isoparametric beam elements. Numerical evaluation and examples are presented for the non-linear responses of stiffened laminated plates. Wah [5] used an energy model approach to analyze equally spaced, concentric stiffeners with identical cross-sectional properties. At a first stage, a numerical procedure for the computational evaluation of the fundamental frequency is presented. The strain energy of the designed plate/stiffener elements is derived in terms of generalized in- and out-of-plane displacement functions and Mathematical Programming is used to determine the lowest natural frequency. The prediction of a described algorithm is verified with other numerical procedures like finite-element, finite-strip and finite-difference methods. Results are then presented, by showing the influence of the plate/stiffener geometric parameters on the fundamental frequency of structure with different concentric and eccentric stiffening configurations. Wittrick [6] pointed out an alternative procedure for modeling the structure. In this approach, the plate and the stiffeners are treated as a series of long, flat strips, rigidly connected at their edges. A sinusoidal distribution of forces and moments is assumed in the longitudinal direction for each
+
+4
+
+plate/stiffener. By solving the imposing differential equation of each plate element, a sinusoidal stiffness matrix of undetermined coefficient for each plate is obtained. By equating the edges displacement of each panel, the problem again reduces to finding the solution of the determinant which provides the natural frequency. Kagan and Kubo [7] presented an elasto-plastic approach to analyze perfect, laterally loaded, orthogonally stiffened plates. The plate was idealized as an elastic perfectly plastic and yielding was considered to initiate and extend in the stiffeners. The equilibrium differential and coupled compatibility equations were solved numerically using a finite difference scheme for the elastic and elasto-plastic ranges. They evaluated plate rigidities by smearing out the stiffeners. Reduced values of the plate rigidities were used for each load increment in the post-yielding stage. Several finite element formulation have been presented for stability analysis of stiffened plates. In this case the plate panels are idealized by a series of inter-connected elements of plate. The Accuracy of the solution depends upon the shape functions derived and on the boundary conditions simulating compatibility along the element boundaries configuration. Several modeling strategies were used depending upon kinematical assumptions relates the displacements of the stiffeners to the middle surface of the plate and on the stiffener geometric configuration. The method also may require extensive computer storage and cost if the stiffeners are not equally spaced or have different profiles since discretization of the whole structure becomes unavoidable. Finite element applications for stability analysis of stiffened plates are reported by several researchers. Long [8, 9] used the stiffness method of structural analysis for the computational evaluation of the natural frequency of simply supported plates stiffened in the longitudinal direction. They illustrated the method for the analysis of a plate with one longitudinal stiffener and a plate with one longitudinal and one transverse stiffeners.
+
+5
+
+Beside the orthotropic plate model several numerical algorithms have been formulated for the analysis of stiffened plates. Asku and Ali [10, 11] presented a numerical algorithm procedure for equally spaced stiffeners. The method is based on the variational principles in addition with finite difference techniques to determine the natural frequency of the structure. Free vibration characteristics of rectangular stiffened plates with a single stiffener have been examined by using the finite difference method. The variational technique has been formulated to minimize the total energy of the stiffened plate and the derivatives appearing in the energy functional are interchanged by finite difference equations. The energy functional is minimized with respect to discretized displacement components and natural frequencies and mode shapes of the stiffened plate have been determined as the solutions of a linear algebraic eigenvalue problem. The analysis takes into consideration inplane deformation of the plate and the stiffener and the effect of in plane inertia on the natural frequencies and mode shapes function. The effect of the ratio of stiffener depth to plate thickness for the natural frequencies of the stiffened plate has also been examined. Avent and Bounin [12] presented an discrete element approach to compute the elastic buckling of stiffened plates subjected to uniform longitudinal compression. These formulations were connected to simply supported plates with the equally spaced and equally sized stiffeners. In that analysis, using the equilibrium and compatibility conditions between the plate panel and the stiffener, a set of differential equations were obtained. Using the double Fourier series approximation, the buckling load was calculated by solving the resulting eigenvalue problem. The main advantage of this approach is the size of the eigenvalue problem is not depending of the number of ribs compared with other numerical methods. This is because of the confinement of the derivation to equally spaced and geometrically identical stiffeners.
+
+6
+
+Hovichitr [13] presented the analytical approach to analyze an orthogonally, equally distributed, and simply supported stiffened plates. They treated the stiffener sections, which were assumed to be identical, and portion of that plate act as single unit. Using a Variational approach method, the governing differential equations of order tenth were generated. They are used to simplifying the assumptions to reduce the order to eight and then to four. Using Fourier series approximations, numerical solutions also obtained for simply supported panel stand comparisons were made between the tenth, eighth and fourth order solutions. This method was used for both stability and bending analysis of the simply supported stiffened plates. Horne and Narayanan [14] uses the strut approach to present an approximate solution for the analysis of the compressive load of continuous stiffened panels under uniform axial compression. The stiffened plate was assumed to be fully elastic in nature, until local buckling of each component was fully developed. The pre and post buckling behavior of a single panel was pre directed by assuming the plate to be hinged along the unloaded edges. The stiffeners were assumed to be of a sufficiently stocky cross-section to be able to develop yield at their extreme fibers before collapsing by local torsional buckling. The plate was then discretized into a series of pin-ended columns, by which each column consisted of a stiffener and an associated width of plate. The analysis was further carried numerically on a single strut and the load deflection characteristics were then predicted up to the collapse load. The influence of the initial plate and stiffener imperfections and residual stresses were considered into the analysis by using reduced sectional properties. Mukhopadhyay [15- 18] used a finite-difference method for the analysis of the structure. He derive the governing differential equations for the structure by assuming the stiffeners are symmetric about the mid-plane of the plate and ignored their torsional stiffness and shear deformation. A
+
+7
+
+displacement function satisfying the boundary condition is later substituted into the governing differential equations by which the resulting equations was transformed into ordinary differential equations with constant coefficients that are solved by a finite-difference method. S. Krishna [19] and Martin and Chen [20] analysed the initial buckling of longitudinal and transverse concentric plates with the simply supported boundaries under uniaxial compression. Their approach was to develop a differential equation operating under certain assumptions and, in other cases, by using the Rayleigh-Ritz method. They presented results for panels with two or three concentric stiffeners. In their analysis they ignored the torsional stiffness of the stiffeners due to the complications arrived in interpreting the results. The finite-element method [21] has also been used for the analysis of the structure. Some Finiteelement analysis are based on the orthotropic plate model and others consider it as discrete model. The plate is divided into sub elements and the stiffeners are regarded as beam or plate elements with imposed compatibility equations along the line of junctions. The main advantage of the method can be taken if the stiffeners are identical and equally spaced rather than computation cost becomes excessive since the whole structure needs to be discretized. In a series of analysis by Bedair and Sherbourne [22] the behavior between the plate and stiffener element was forecasted. References [22, 23] presented the local buckling of stiffened plates under uniform compression. The effect on the characteristic of the rotational restraint, in-plane bending and translation restraints upon the local buckling and post-buckling characteristic were investigated. The geometric properties of the plate and stiffeners proportions that give the ‚Äúintensities‚Äù of these restraints were defined and many boundaries were modeled for torsional rigidity of the stiffeners, from rotationally free to rotationally clamped; a similar analysis was provided for in-plane translation, from a free boundary, with edges free to move, to a fixed
+
+8
+
+boundary developing uniform quasi-biaxial compression, a similar treatment were also done for in-plane bending, from a free boundary, free to deform in the plane of the plate, to the straight edges. The investigation shows the importance of the in-plane restraints that the stiffeners provide to the attached plate, by which the local buckling load may decrease by up to 30 percent. It was found that the buckling mode in some cases is very sensitive to this in-plane boundary condition. It was also pointed out that the post-buckling stiffness increases due to the degree of in-plane translation and bending. On the basis of these investigations, sometime it was possible to quantify the in-plane bending rigidity so as to maintain the edges straight and the amount of rotational restraint required to achieve a rotationally clamped condition. The research was further expanded by Bedair and Sherbourne [24] to present a semi analytical approach to determine the local buckling load of stiffened plates under any combination of inplane loading, i.e. compression, shear and in-plane bending. The edges were designed as partially restrained against rotation and in-plane translation. The plate was treated as infinitely long and the curved nodal lines are idealized by straight lines with two arbitrary parameters. The energy method was then utilized to derive a generalized K factor in terms of these parameters which defines the idealized buckling mode. The buckling stress was still computed by using sequential quadratic programming to find the particular combination of these parameters in the idealized buckling mode which minimizes the coefficient K. Modification factors were then suggested to compute the local buckling stress for plates of finite length. Further research investigated were directed towards developing theoretical tools to predict the ultimate strength of stiffened plates. Analytical models with simplifying assumptions, were offered to compute the ultimate strength or the collapse load of stiffened plates. finally, three formulations has been uses with the different theoretical philosophies, for the prediction of the
+
+9
+
+ultimate strength of stiffened plates: (1) the strut approach; (2) orthotropic plate theory; and (3) numerically, by using the finite element or finite strip methods. In the strut approach, the stiffened panel is consider as a series of disconnected struts. Each strut consists of a stiffener and an associated width of plate. When transverse stiffeners exist, they are treated as stiff elements to provide nodal lines acting as simple, rotationally free supports for the longitudinal struts. The analysis is further investigated on a single strut using beam-column theory. Mukhopadhyay, M and Sheikh, A. H [25], spline finite strip method is applied to the large deflection analysis of plates and stiffener. The formulation is investigated in the total Lagrangian coordinate system using von Karman's large deflection plate theory. The governing equations are nonlinear which are further solved by iterative technique using Newton Raphson method. As the computational time involves in the generation of a tangent stiffness matrix is significant, a slight modification is made in the iteration procedure. Once the tangent stiffness matrix is generated and factorized, it is used for a further iterations which has helped to reduce some computational time. In order to provide a better rate of convergence, it should be updated after a few iterations. The generalised form of the spline finite strip method is used to analyze plates having any shape and configuration. The stiffener was modelled in such a way that it may be lie anywhere within the plate strip even though it may have any orientation and eccentricity. The same displacement interpolation functions are also used for the plate and the stiffener. Which were ensures compatibility between these two models.
+
+10
+
+CHAPTER 2: ENERGY METHODS
+
+Energy principles in structural mechanics express the relationship between stresses, strain or deformations, displacements, material properties, and external effects in the form of energy or work done by internal and external forces. Since energy is a scalar quantity, these relationships provide convenient and alternative means for formulating the governing equations of deformable bodies in solid mechanics. They can also be used for obtaining approximate solutions of fairly complex systems, bypassing the difficult task of solving the set of governing partial differential equations.
+
+2.1.
+
+PRINCIPLE OF VIRTUAL WORK
+
+If a force acts on a particle as it moves from point A to point B, then, for each possible trajectory that the particle may take, it is possible to compute the total work done by the force along the path. The principle of virtual work, which is the form of the principle of least action applied to these systems, states that the path actually followed by the particle is the one for which the difference between the work along this path and other nearby paths is zero. The formal procedure for computing the difference of functions evaluated on nearby paths is a generalization of the derivative known from differential calculus, and is termed the calculus of variations. Let the function x(t) define the path followed by a point. A nearby path can then be defined by adding the function Œ¥x(t) to the original path, so that the new path is given by x(t) +Œ¥x(t). The function Œ¥x(t) is called the variation of the original path, and each of the components of Œ¥x = (Œ¥x, Œ¥y, Œ¥z) is called a virtual displacement. This can be generalized to an arbitrary mechanical system defined by the generalized coordinates qi, i=1,..., n. In which case, the variation of the trajectory
+11
+
+qi(t) is defined by the virtual displacements Œ¥qi, i=1,..., n. Virtual work can be described as the work done by the applied forces and the inertial forces of a mechanical system as it move through a set of virtual displacements.
+
+2.2.
+
+CASTIGLIANO'S METHOD
+
+Named for Carlo Alberto Castigliano is a method for determining the displacements of a linearelastic system based on the partial derivatives of the energy principle structures. The basic concept may be easy to understand by recalling that a change in energy is equal to the causing force times the resulting displacement. Therefore, the causing force is equal to the change in energy divided by the resulting displacement. Alternatively, the resulting displacement is equal to the change in energy divided by the causing force. Partial derivatives are needed to relate causing forces and resulting displacements to the change in energy. Castigliano's first theorem ‚Äì for forces in an elastic structure Castigliano's method for calculating forces is an application of his first theorem, which states that if the strain energy of an elastic structure can be expressed as a function of generalised displacement qi; then the partial derivative of the strain energy with respect to generalised displacement gives the generalised force Qi. In equation form,
+, where, U is the strain energy.
+
+2.3.
+
+PRINCIPLE OF MINIMUM TOTAL POTENTIAL ENERGY
+
+A specific form of the principle of virtual work that applies to only elastic (linear and nonlinear) bodies is known as the principle of minimum total potential energy. It states that for conservative systems, of all the kinematically admissible displacement fields, those corresponding to
+12
+
+equilibrium extremize the total potential energy and if the extremum condition is a minimum, the equilibrium state is stable. Kinematically admissible displacements are those that satisfy the compatibility and boundary conditions. The total potential energy (œÄ) of a body is made up of total strain energy stored in the system (U) and the work potential (V), which implies that, œÄ = U + V. According to minimum total potential energy principle, the equilibrium condition of the system is obtained by letting Œ¥(œÄ) = 0, Œ¥ being the variational operator. It should be pointed out that this principle gives the equilibrium equations in terms of displacements as a constitutive relation, obtained by substituting stresses with displacements. In the present work, static problems of stiffened plate are solved approximately to determine the displacement fields following the minimum total potential energy approach.
+
+2.4.
+
+RAYLEIGH-RITZ METHOD
+
+Rayleigh-Ritz method provides an implementation of minimum total potential energy principle and was first introduced by Lord Rayleigh. Later a generalization of the method was put forward by Walter Ritz. According to this method the displacement field (w) is approximated by finite linear combinations of admissible coordinate functions ( ÔÅ¶i ) and unknown coefficients (di) as,
+
+w ÔÅÄ ÔÉ•i ÔÄΩ1 d iÔÅ¶i . The approximate displacement fields are substituted in the governing equations
+nw
+
+and the variational operation at this stage gives rise to simultaneous algebraic equations [K]{d} = {f} with coefficients di as unknowns. The terms associated with the unknown coefficients form the stiffness matrix [K], which based on the nature of the system and problem under consideration may be linear or nonlinear, and the load vector is denoted by {f}. Solution of this algebraic set of equations gives the values of the coefficients which in turn give the displacement fields. The solution obtained by this method converges towards the exact solution as the number of terms for
+13
+
+approximating the displacement is increased. There are many tricks with this method, the most important is to try and choose realistic assumed mode shapes. For example in the case of beam deflection problems it is wise to use a deformed shape that is analytically similar to the expected solution.
+
+2.5.
+
+NUMERICAL IMPLEMENTATION OF SOLUTION SCHEME
+
+Approximate or direct variational methods when applied to a problem converts the governing differential equations into a set of algebraic equations, which can be linear or nonlinear depending on the nature of the problem. In structural mechanics a problem is considered as nonlinear if the stiffness matrix [K], or the load vector {f}, becomes dependent on the displacement field {u}. Generally, for a static problem denoted as [K]{u} = {f}, linear analysis corresponds to both [K] and{f} independent of {u}, whereas in nonlinear analysis one or both of them are functions of {u}. Nonlinearity in structures can arise from material nonlinearity (associated with stress-strain relations, as in plasticity) and geometric nonlinearity (associated with strain-displacement relations, as in case of large deflection of systems). Various numerical solution methods of multidimensional problems are in existence to obtain the solutions of the linear and nonlinear set of equations.
+
+2.5.1. Direct Substitution Technique A representative static nonlinear problem can be expressed in matrix form as [K]{u} = {f}. Here, the load vector {f}, is known apriory for an externally applied load and stiffness matrix [K] is a function of the displacement field {u}. It is required to compute {u} for a given load value. The stiffness matrix can be broken up into two components - linear, [K0], which is constant being
+14
+
+independent of {u} and nonlinear, [Kn], which is dependent on {u}. For the first iteration, the displacement field is assumed as 0 and on the basis of this assumption [K] is computed. It should be mentioned here that the first iteration actually gives the linear solution of the problem. Thereafter the first approximation of the displacement field is calculated using matrix inversion technique.
+
+{u}1 ÔÄΩ [ K 0 ]ÔÄ≠1{ f }
+Using {u}1, a new stiffness matrix, [K0 + Kn1], and consequently the new approximation for displacement field is computed. Thus a sequence of approximations, as shown below, is generated and after several iterations the correct solution is closely approximated.
+1 i {u}1 ÔÄΩ [ K 0 ]ÔÄ≠1{ f } , {u}2 ÔÄΩ [ K 0 ÔÄ´ K n ]ÔÄ≠1{ f } , ‚Ä¶. , {u}i ÔÄ´1 ÔÄΩ [ K 0 ÔÄ´ K n ]ÔÄ≠1{ f }
+
+To help the convergence of the iterative procedure an under relaxation scheme can be incorporated. Thus, instead of updating the calculated value, say {u}i+1, to its full extent, a relaxation parameter ( ÔÅ¨ ) is used for updating purpose.
+{u}i ÔÄ´1 ÔÄΩ ÔÅ¨ {u}i ÔÄ´1 ÔÄ´ (1 ÔÄ≠ ÔÅ¨ ){u}i , where, 0 ÔÄº ÔÅ¨ ÔÄº 1 .
+
+15
+
+CHAPTER 3: ANALYSIS OF BEAM
+
+Beam is a structural element which is capable of sustaining load by bending. The bending phenomenon is induced into the material of beam as a result of external loads. Beam are usually used for buildings or civil engineering structures but smaller frames like truck or automobile, machine and mechanical systems also contain beam structures. A thin walled beam is a very important type of beam. The cross section of thin walled beams is made up from thin panels connected among together to form closed or open cross sections of a beam. Typical closed sections include round, square, and rectangular tubes. Open sections include I-beams, T-beams, L-beams, etc. Thin walled beams preferably exist because their bending stiffness per unit cross sectional area is higher than that for solid cross sections such a rod or bar. In this way, stiffness in beams can be achieved with minimum weight. Strain energy for bending and in-plane stretching of beam can be obtained for the desired profile by using strain energy relations. In the present work, minimum total potential energy principle is used to formulate the problem and direct substitution method is utilized to solve the governing set of equations. Maximum deflection of the beam for static loads and different flexural boundary conditions have been analyzed. Results are presented in terms of load-deflection plots in normalised plane.
+
+3.1.
+
+STRAIN ENERGY AND WORK POTENTIAL OF BEAM
+
+Strain energy is the energy due to elastic force in material. As the load acting on the beam, deflection produced on the beam and strain energy stored on the beam in the form of potential energy at the extreme point of deflection. It is known from the principle of minimum potential
+16
+
+energy that for a conservative system, of all the kinematically admissible displacement fields, the one corresponding to the stable equilibrium minimizes the total potential energy of the system. The above statement is expressed mathematically as, Œ¥(U +V) =0 (3.1)
+
+Here, U is total strain energy stored in the system, and V is work function or potential of the external forces. In case of large displacement analysis with geometric nonlinearity both bending and stretching effects are taken into consideration. It is also well known that geometric nonlinearity in structural mechanics arises from nonlinear strain-displacement relations. Ì†µÌ±à = 2 ‚à´ œÉx Ì†µÌºÄÌ†µÌ±• ‚àÇv vol
+1 .
+
+(3.2)
+
+Total strain energy of the beam is combination of strain energy due to bending and stretching, which is expressed as, U = Ub + Um where, Ub = Strain energy due to bending and Um = Strain energy due to stretching. Ì†µÌ±à =
+Eb 2
+
+(3.3)
+
+‚à´ ‚à´ (Œµb + Œµs ) dxdz x x ‚àít/2 0
+1 2
+
+t/2
+
+L
+
+2
+
+(3.4) (Ì†µÌ±§,Ì†µÌ±• )
+2
+
+Axial strain due to in-plane stretching (‘êÌ†µÌ±ö ) = (Ì†µÌ±¢,Ì†µÌ±• ) + Ì†µÌ±•
+
+(3.5)
+
+For the present analysis, notations have been used for single derivative of function w with respect to function x as Ì†µÌ±§,Ì†µÌ±• while for double derivative, it is Ì†µÌ±§,Ì†µÌ±•Ì†µÌ±• . It should be mentioned here that w and u represents the transverse and in-plane displacements of the mid-plane of the beam, while x is the axial coordinate. However, all the computations are carried out in a non-dimensional plane, where, Œæ is the normalised coordinate given by, Ì†µÌºâ = Ì†µÌ∞ø . By using the above strain displacement relations we get strain energy due to bending and stretching of beam as
+Ì†µÌ±•
+
+Ub = 2L3 ‚à´0 (Ì†µÌ±§,Ì†µÌºâÌ†µÌºâ ) dŒæ
+
+EI
+
+1
+
+2
+
+(3.6)
+
+17
+
+Um =
+
+EA 2
+
+‚à´ {(Ì†µÌ±¢,Ì†µÌ±• ) + 4 (Ì†µÌ±§,Ì†µÌ±• ) + (Ì†µÌ±¢,Ì†µÌ±• )(Ì†µÌ±§,Ì†µÌ±• ) }dŒæ 0
+
+L
+
+2
+
+1
+
+4
+
+4
+
+(3.7)
+
+Hence, the total strain energy expression of the beam is given as, U=
+EI 2
+
+‚à´ (Ì†µÌ±§,Ì†µÌ±•Ì†µÌ±• ) dx + 0
+
+L
+
+2
+
+EA 2
+
+‚à´ {(Ì†µÌ±¢,Ì†µÌ±• ) + 4 (Ì†µÌ±§,Ì†µÌ±• ) + (Ì†µÌ±¢,Ì†µÌ±• )(Ì†µÌ±§,Ì†µÌ±• ) }dx 0
+
+L
+
+2
+
+1
+
+4
+
+2
+
+(3.8)
+
+By using Variational operator (Œ¥) Œ¥(U) = Œ¥(Ub + Um ) =L3 ‚à´ (Ì†µÌ±§,Ì†µÌºâÌ†µÌºâ )Œ¥(Ì†µÌ±§,Ì†µÌºâÌ†µÌºâ ) dŒæ + 0
+EA EI 1 EA L
+
+‚à´ (Ì†µÌ±¢,Ì†µÌºâ )Œ¥(Ì†µÌ±¢,Ì†µÌºâ )dŒæ + 2L2 ‚à´ (Ì†µÌ±§,Ì†µÌºâ ) Œ¥(Ì†µÌ±¢,Ì†µÌºâ )dŒæ + 0 0
+3 EA 1 ‚à´ (Ì†µÌ±§,Ì†µÌºâ ) Œ¥(Ì†µÌ±§,Ì†µÌºâ )dŒæ 2L3 0
+
+1
+
+EA
+
+1
+
+2
+
+1 ‚à´ (Ì†µÌ±§,Ì†µÌºâ )(Ì†µÌ±¢,Ì†µÌºâ )Œ¥(Ì†µÌ±§,Ì†µÌºâ )dŒæ L2 0
+
++
+
+(3.9)
+
+The work potential of external forces is given by, Ì†µÌ±â = ‚à´ Ì†µÌ±ùÌ†µÌ±§Ì†µÌ±ëÌ†µÌºâ 0 where, p is the intensity or magnitude of the uniformly distributed loading. The displacement fields w and u can be represented as linear combinations of a set of orthogonal admissible functions and unknown coefficients as shown below, w(Œæ) = ‚àëÌ†µÌ±õÌ†µÌ±§ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌºôÌ†µÌ±ñ Ì†µÌ±ñ=1 u(Œæ) = ‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌªºÌ†µÌ±ñ‚àíÌ†µÌ±õÌ†µÌ±§ Ì†µÌ±ñ=1+nÌ†µÌ±§ (3.11) (3.12)
+1
+
+(3.10)
+
+œï and Œ± represents the set of orthogonal admissible functions for w and u respectively and di represent the unknown parameters. The necessary start functions for w are selected to satisfy the flexural boundary conditions of the beam. The necessary start function for u is selected to satisfy the in-plane boundary conditions of the beam.
+
+3.1.1. Generation of Start Function The start function for clamped-clamped beam is calculated as: w(x) = c0 + c1x + c2x2 +c3x3 + c4x4 (3.13)
+18
+
+Boundary condition for clamped-clamped can be mathematically expressed as, At x = 0 and L, w = 0 and
+Ì†µÌ±ëÌ†µÌ±§ Ì†µÌ±ëÌ†µÌ±•
+
+= 0;
+
+So, putting the values corresponding to x = 0: c1 = 0 and c0 = 0; By putting the above value in general equation (3.13) At x = L, w(x) = 0; c2 = - (c3L + c4L2) At x = L,
+Ì†µÌ±ëÌ†µÌ±§ Ì†µÌ±ëÌ†µÌ±•
+
+(3.14)
+
+= 0;
+
+2c2 +3c3L +4c4L2 = 0; c2 =-(3c3L +4c4L2) From (3.14) & (3.15) c2 = c4L2 c3 = -2c4L w = c4L2x2 ‚Äì 2c4Lx3 + c4x4 Inserting the normalised coordinate, Œæ, in place of x and also replacing L by 1; w = c4Œæ2 (1-2Œæ+Œæ2) Considering c4 as constant and equal to unity final form of the start function corresponding to clamped-clamped boundary condition becomes, w = Œæ2 (1-Œæ)2 Similarly start function for other boundary conditions are as follows, (3.16) (3.15)
+
+19
+
+Table 3.1. Start function for displacement w for beam. Boundary condition SS CS CF Start Function œïi (Œæ) sin(œÄŒæ) Œæ2(3-5Œæ+2Œæ2) Œæ2(Œæ2-4Œæ+6)
+
+3.2.
+
+GOVERNING SYSTEM OF EQUATIONS
+
+Substituting the energy expressions along with the approximate displacement fields in Eq. (3.1) the governing system of equations are obtained in the matrix form, as follows, [K]{d} = {f} (3.17)
+
+where, [K], {d} and {f} are the stiffness matrix, vector of unknown coefficients and load vector, respectively. The dimensions of all the matrices and vectors are same (nw + nu). The total stiffness matrix of the system is given by [K] = [Kb] + [Km], where, [Kb] and [Km] are contributions from bending and stretching action of the beam. The stiffness matrix, [K], and load vector, {f}, are in the form given below [K] = [ [Ì†µÌ∞æ11 ] [Ì†µÌ∞æ21 ]
+Ì†µÌ∞∏Ì†µÌ∞º Ì†µÌ∞ø
+
+[Ì†µÌ∞æ12 ] ] & { f } = {Ì†µÌ±ì11 [Ì†µÌ∞æ22 ]
+1 Ì†µÌ±ë2 Ì†µÌºôÌ†µÌ±ñ Ì†µÌ±ëÌ†µÌºâ 2 1 Ì†µÌ∞∏Ì†µÌ∞¥
+
+Ì†µÌ±ì12 }
+1 Ì†µÌ±ëÌ†µÌºôÌ†µÌ±ñ 2 Ì†µÌ±ëÌ†µÌºôÌ†µÌ±ñ Ì†µÌ±ëÌ†µÌºôÌ†µÌ±ó ) Ì†µÌ±ëÌ†µÌºâ Ì†µÌ±ëÌ†µÌºâ Ì†µÌ±ëÌ†µÌºâ
+
+[Ì†µÌ∞æ11 ] =
+
+‚àëÌ†µÌ±õÌ†µÌ±§ ‚àëÌ†µÌ±õÌ†µÌ±§ ‚à´ Ì†µÌ±ó=1 Ì†µÌ±ñ=1 0 3 +
+Ì†µÌ∞∏Ì†µÌ∞¥ Ì†µÌ∞ø2
+
+dŒæ + 2Ì†µÌ∞ø3 ‚àëÌ†µÌ±õÌ†µÌ±§ ‚àëÌ†µÌ±õÌ†µÌ±§ ‚à´ ‚àëÌ†µÌ±õÌ†µÌ±§ (Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌ±ó=1 Ì†µÌ±ñ=1 0 Ì†µÌ±ñ=1
+Ì†µÌ±ëÌ†µÌªºÌ†µÌ±ñ‚àíÌ†µÌ±õÌ†µÌ±§ Ì†µÌ±ëÌ†µÌºôÌ†µÌ±ñ Ì†µÌ±ëÌ†µÌºôÌ†µÌ±ó Ì†µÌ±ëÌ†µÌºâ
+
+dŒæ
+
+‚àëÌ†µÌ±õÌ†µÌ±§ ‚àëÌ†µÌ±õÌ†µÌ±§ ‚à´ (‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌ±ó=1 Ì†µÌ±ñ=1 0 Ì†µÌ±ñ=Ì†µÌ±õÌ†µÌ±§+1
+
+)
+
+Ì†µÌ±ëÌ†µÌºâ Ì†µÌ±ëÌ†µÌºâ
+
+dŒæ
+
+[K12] = 0, [K21] = 2Ì†µÌ∞ø2 ‚àënw+nu ‚àënw ‚à´ (‚àënw di j=1 i=1 0 i=1
+Ì†µÌ∞∏Ì†µÌ∞¥ 1 dœïi dŒæ
+
+)
+
+dœïi dŒ±j‚àínw dŒæ dŒæ
+
+dŒæ
+
+20
+
+[K22] =
+
+EA L
+
+‚àënw+nu ‚àënw+nu ‚à´ j=1 i=1 0
+
+1 dŒ±i‚àínw dŒ±j‚àínw dŒæ dŒæ
+
+dŒæ
+
+{Ì†µÌ±ì11 } = ‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢ Ì†µÌ±ÉÌ†µÌºôÌ†µÌ±ó {Ì†µÌ±ì12 } = 0 Ì†µÌ±ó=1 As large displacement induced by geometric nonlinearity is incorporated in the formulation of the problem, the stiffness matrix becomes a function of the undetermined parameters. Hence, the system governing equations become nonlinear in nature and cannot be solved directly. To solve the set of nonlinear equations an iterative procedure employing direct substitution method with successive relaxation scheme is employed.
+
+3.3.
+
+RESULTS AND DISCUSSION
+
+The objective of the present chapter is to determine the load-deflection behavior of slender beams under transverse loading and different geometrical boundary conditions. Four boundary condition of the beam is formulated for the present analysis. First one is clamped-clamped, in which both the side of the beam are clamped or fixed. Second is clamped-simply supported. Third one is simply supported-simply supported and the last one is clamped-free (cantilever). The transverse loading for all the cases is considered to be uniformly distributed. However, the present methodology can be applied for any other transverse loading pattern, mathematically expressible as a function of the coordinates. The results of the static response of the system under transverse loading are presented in normalised load-deflection plane, where the ordinate represents maximum normalised displacement (wmax/t) and abscissa is normalised load (16Ì†µÌ±§Ì†µÌ∞ø4 ‚ÅÑÌ†µÌ∞∏Ì†µÌ±° 4 , for uniformly distributed load). For normalized graph maximum value of normalised deflection has been restricted to a value of 2, so that the normalised load goes up to certain value only. The material properties and dimensions of the beam used for generating the results are tabulated below.
+
+21
+
+Table 3.2. Material Properties of beam: Modulus of Elasticity (E) Density (œÅ) Poisson‚Äôs ratio (¬µ) 210 GPa 7850 Kg/m3 0.3
+
+Table 3.3. Geometrical properties of beam: Length (L) Width (b) Thickness (t) 1.0 m 0.02 m 0.005 m
+
+For the present chapter results for both linear and nonlinear static bending analysis under transverse uniformly distributed load have been generated. In the linear analysis scenario the stretching part of the stiffness matrix is neglected. Results for both the studies are provided in the following sections.
+
+3.3.1. Linear Static Analysis of Beam under Different Boundary Conditions Figure 3.1 presents the normalised load-deflection plot under uniformly distributed transverse load for a beam having thickness to width ratio of 0.25. Separate plots are generated for four different boundary conditions and are presented in the same figure for comparison purpose. From the Figure 3.1, it is clear that clamped-clamped beam has maximum load carrying capacity and lowest value of deflection at a particular load. It is also evident that the cantilever beam exhibits highest
+22
+
+deflection at any load. The maximum normalised deflection value of 2.0 is achieved at different normalised load value for the four boundary conditions. For clamped-clamped, clamped-simply supported, simply supported and clamped-free beams it is obtained at 20.11, 9.14, 3.66 and 0.61, respectively. It indicates that the clamped end condition has the highest stiffness. However, it is to be noted that the location of the point of maximum deflection is not same in all the cases.
+
+Figure 3.1. Linear normalized load-deflection curve of beam having t/b = 0.25, under uniformly distributed transverse load.
+
+3.3.2. Nonlinear Static Analysis of Beam under Different Boundary Conditions Figure 3.2 shows the nonlinear normalised load-deflection plots of the beam under uniformly distributed transverse loading corresponding to various boundary conditions and t/b ratio. For calculation of different thickness to width ratio (t/b), the value of b is kept fixed while the value of thickness is varied to generate the different plots. In Figure 3.2 results pertaining to t/b ratio of 0.25, 0.50, 1.00, and 2.0 are presented.
+
+23
+
+Fig 3.2 (a)
+
+Fig 3.2 (b)
+
+Fig3.2 (c)
+
+Fig 3.2 (d)
+
+Figure 3.2. Nonlinear normalized load-deflection curve of beam having under uniformly distributed transverse load for different t/b ratios
+
+To get a clearer picture of the effect of t/b ratio on the static response of the system, curves corresponding to different t/b ratios are furnished in a single dimensional plot for clamped and simply-supported boundaries in Figure 3.3.
+
+24
+
+Fig. 3.3 (a)
+
+Fig 3.3 (b)
+
+Figure 3.3. Nonlinear load-deflection curve of beam having under uniformly distributed transverse load for different t/b ratios under (a) CC (b) SS
+
+25
+
+CHAPTER 4: ANALYSIS OF STIFFENED RECTANGULAR PLATES
+
+A stiffened plate with a single stiffener attached parallel to y-axis along with the notations for significant dimensions and coordinate system used for the present analysis is shown in Figure 4.1. It is assumed that the stiffeners are always parallel to the edges of the plate and they are rigidly connected to the plate. The mathematical formulation is further based on the following assumptions: 1. Plate and stiffener materials are isotropic, homogeneous, and linearly elastic. 2. Thicknesses of the plate and stiffener are uniform. 3. The thickness of the plate is sufficiently small compared to the lateral dimensions, so that the effect of shear deformation and rotary inertia may be neglected.
+
+Fig.4.1 (a)
+
+Fig 4.1 (b)
+
+Figure 4.1. Geometry and dimension of Rectangular Plate with (a) Flat, (b) T Stiffener
+
+26
+
+Figure 4.1 shows the geometry of flat stiffener and inverted-T stiffener. For the present analysis both the stiffeners are placed parallel to the Y-axis of the plate. Dimensions shown in Figure 4.1(a) are used for the validation of the result, which is carried out by comparing the generated results with those of Sheikh and Mukhopadhyay [25]. The dimensions of the plate are as follows, length (a) = 0.6, width (b) = 0.41, thickness (tp) = 0.0633. Inverted-T stiffener dimensions are as follows Flange dimension are Height (hf) = 0.008, Width (bf) = 0 .017, web dimensions are Height (hw) = 0.028, Width (bw) = 0.005, all dimensions are in meter. In the present formulation the physical domain is converted to computational domain by normalizing the mid-plane coordinates to dimensionless form as Œæ = x /a, Œ∑ = y/ b. In this Œæ ‚àíŒ∑ plane, gauss points are generated along the two orthogonal coordinate directions and the intersection of constant Œæ and constant Œ∑ lines passing through the gauss points provide the reference points for computation. In the present work 24 gauss points are generated along the two directions, these points are not evenly spaced. Such a grid does not ensure maximum number of computation points around the stiffener, which may be placed at any location inside the domain. Hence, in the present work a new method is employed to decompose the domain into sub-domains depending on the number, orientation and location of the stiffener. The sub-domains have their own gauss points spaced in the same ratio as the total domain. This technique helps to have adequate number of computation points around the location of stiffeners and boundaries so that the displacement field in these important locations can be captured accurately.
+
+27
+
+4.1.
+
+MATHEMATICAL FORMULATION
+
+It is known from the principle of minimum potential energy that for a conservative system, of all the kinematically admissible displacement fields, the one corresponding to the stable equilibrium minimizes the total potential energy of the system. The above statement is expressed mathematically as, Œ¥ (U +V)=0 (4.1)
+
+Here, U is total strain energy stored in the system, which comprises of two components -strain energy of the plate (Up) and total strain energy stored in all the stiffeners (Us), and V is work function or potential of the external forces. In case of large displacement analysis with geometric nonlinearity both bending and stretching effects are taken into consideration. It is also well known that geometric nonlinearity in structural mechanics arises from nonlinear strain-displacement relations. So, strain energy of the plate (Up) comprises of two parts - strain energy due to pure bending (Ub) and strain energy due to stretching (Um) of its midplane. The expressions of Ub and Um are well known for rectangular plates and are indicated here for ready reference. Ì†µÌ±àÌ†µÌ±è = 2 (Ì†µÌ±éÌ†µÌ±è) ‚à´ ‚à´ [{Ì†µÌ±é2 (Ì†µÌ±§,Ì†µÌºâÌ†µÌºâ ) + Ì†µÌ±è2 (Ì†µÌ±§,Ì†µÌºÇÌ†µÌºÇ )} + 2(1 ‚àí Ì†µÌºá) Ì†µÌ±é2 Ì†µÌ±è2 {(Ì†µÌ±§,Ì†µÌºâÌ†µÌºâ ) + (Ì†µÌ±§,Ì†µÌºâÌ†µÌºâ )(Ì†µÌ±§,Ì†µÌºÇÌ†µÌºÇ )}] Ì†µÌ±ëÌ†µÌºâÌ†µÌ±ëÌ†µÌºÇ 1 0 (4.2) Ì†µÌ±àÌ†µÌ±ö =
+1 1 Ì†µÌ∞∏Ì†µÌ±ù Ì†µÌ±°Ì†µÌ±ù 2(1‚àíÌ†µÌºá 2) Ì†µÌ∞∑ 0 1 1 1 2 1 2
+
+(Ì†µÌ±éÌ†µÌ±è) ‚à´ ‚à´ [Ì†µÌ±é2 (Ì†µÌ±¢,Ì†µÌºâ )2 + Ì†µÌ±é3 (Ì†µÌ±¢,Ì†µÌºâ )(Ì†µÌ±§,Ì†µÌºâ )2 + Ì†µÌ±è2 (Ì†µÌ±£,Ì†µÌºÇ )2 + Ì†µÌ±è2 (Ì†µÌ±£,Ì†µÌºÇ )(Ì†µÌ±§,Ì†µÌºÇ )2 + 0 0
+1 2 1 1 2 1 2
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+{ (Ì†µÌ±§,Ì†µÌºâ )2 + 2 (Ì†µÌ±§,Ì†µÌºÇ )2 } + 2Ì†µÌºá { (Ì†µÌ±¢,Ì†µÌºâ )(Ì†µÌ±£,Ì†µÌºÇ ) + 2 (Ì†µÌ±£,Ì†µÌºÇ )(Ì†µÌ±§,Ì†µÌºÇ ) + 2 (Ì†µÌ±¢,Ì†µÌºâ )(Ì†µÌ±§,Ì†µÌºÇ ) } + 4 Ì†µÌ±é 2 Ì†µÌ±è Ì†µÌ±éÌ†µÌ±è 2Ì†µÌ±é Ì†µÌ±è 2Ì†µÌ±è Ì†µÌ±é
+1‚àíÌ†µÌºá 2 2 Ì†µÌ±é 2 Ì†µÌ±è
+
+{ 2 (Ì†µÌ±¢,Ì†µÌºÇ )2 + (Ì†µÌ±¢,Ì†µÌºÇ )(Ì†µÌ±£,Ì†µÌºâ ) + 2 (Ì†µÌ±£,Ì†µÌºâ )2 + 2 (Ì†µÌ±¢,Ì†µÌºÇ )(Ì†µÌ±§,Ì†µÌºâ )(Ì†µÌ±§,Ì†µÌºÇ ) + Ì†µÌ±è Ì†µÌ±éÌ†µÌ±è Ì†µÌ±é Ì†µÌ±è Ì†µÌ±é (Ì†µÌ±£,Ì†µÌºâ )(Ì†µÌ±§,Ì†µÌºâ )(Ì†µÌ±§,Ì†µÌºÇ )}] Ì†µÌ±ëÌ†µÌºâÌ†µÌ±ëÌ†µÌºÇ (4.3)
+
+1
+
+2
+
+1
+
+2
+
+28
+
+Here, Ep, ¬µ and D = {Ept3p /12(1-¬µ2)} are the elastic modulus, Poisson‚Äôs ratio and the flexural rigidity of the plate, respectively. u, v and w represent the displacement fields of the plate along x, y and z directions, respectively. It is to be noted that u and v are in-plane deformation displacement whereas w is transverse body displacement or deflection. In the present analysis these three displacements (u, v and w) are the basic unknown variables. The expression for total strain energy stored in the stiffeners (Us) can be written as,
+Ì†µÌ±¶ Ì†µÌ±• Ì†µÌ±àÌ†µÌ±† = ‚àëÌ†µÌ±ù=1 Ì†µÌ±àÌ†µÌ±†Ì†µÌ±• + ‚àëÌ†µÌ±û=1 Ì†µÌ±àÌ†µÌ±†Ì†µÌ±¶
+
+Ì†µÌ±õÌ†µÌ±†
+
+Ì†µÌ±ù
+
+Ì†µÌ±õÌ†µÌ±†
+
+Ì†µÌ±û
+
+(4.4)
+
+where, Ì†µÌ±àÌ†µÌ±†Ì†µÌ±• Ì†µÌ±àÌ†µÌ±†Ì†µÌ±¶ are strain energies stored in p-th stiffener along x-direction and q-th stiffener along y-direction, respectively. In order to derive the expressions for strain energies of the individual stiffeners a compatible strain distribution at the line joining the plate and the stiffener is assumed. Hence, the axial strain of a stiffener along x-direction is derived from the expression given by,
+Ì†µÌ±ù Ì†µÌºÄÌ†µÌ±†Ì†µÌ±• = Ì†µÌºÄÌ†µÌ±ùÌ†µÌ±• |Ì†µÌ±ß=Ì†µÌ±°Ì†µÌ±ù /2 ‚àí (Ì†µÌ±ß ‚àí 2 ) Ì†µÌ±§,Ì†µÌ±•Ì†µÌ±• ‚àí Ì†µÌ±¶Ì†µÌ±† Ì†µÌ±£,Ì†µÌ±•Ì†µÌ±•
+
+Ì†µÌ±ù
+
+Ì†µÌ±û
+
+Ì†µÌ±ù
+
+Ì†µÌ±°
+
+(4.5)
+
+Where, ys denotes distance from the local minor axis. The plate strain at z = tp/2 is denoted by Ì†µÌºÄÌ†µÌ±ùÌ†µÌ±• |Ì†µÌ±ß=Ì†µÌ±°Ì†µÌ±ù /2 and it is expressed as follows. Ì†µÌºÄÌ†µÌ±ùÌ†µÌ±• |Ì†µÌ±ß=Ì†µÌ±°Ì†µÌ±ù /2 = Ì†µÌ±¢,Ì†µÌ±• + 0.5(Ì†µÌ±§,Ì†µÌ±• )2 ‚àí (Ì†µÌ±°Ì†µÌ±ù /2)Ì†µÌ±§,Ì†µÌ±•Ì†µÌ±• (4.6)
+
+Substituting the expression for plate strain at z = tp/2 into Eq. (4.5), the expression for total strain of an x-direction stiffener is obtained as, Ì†µÌºÄÌ†µÌ±†Ì†µÌ±• = Ì†µÌ±¢,Ì†µÌ±• + 0.5(Ì†µÌ±§,Ì†µÌ±• )2 ‚àí Ì†µÌ±ßÌ†µÌ±§,Ì†µÌ±•Ì†µÌ±• ‚àí Ì†µÌ±¶Ì†µÌ±† Ì†µÌ±£,Ì†µÌ±•Ì†µÌ±•
+Ì†µÌ±ù
+
+(4.7)
+
+So, the axial strain of a stiffener along x-direction includes axial strain due to bending action about major axis, stretching of the neutral axis and bending action about minor axis. It should be point out that the effect of shear deformation due to direct shear and torsion has not been taken into consideration while calculating the total axial strain. Substituting the total strain in the generalized
+
+29
+
+expression of strain energy, Ì†µÌ±àÌ†µÌ±†Ì†µÌ±• = (Ì†µÌ∞∏Ì†µÌ±Ü /2) ‚à´ ( Ì†µÌºÄÌ†µÌ±†Ì†µÌ±• ) Ì†µÌ±ëÌ†µÌ±â the final expression of the strain energy Ì†µÌ±£Ì†µÌ±úÌ†µÌ±ô stored in an x-direction stiffener is obtained. Similarly, the strain energy expression of a y-direction stiffener can be obtained.
+Ì†µÌ±ù Ì†µÌ±àÌ†µÌ±†Ì†µÌ±•
+
+Ì†µÌ±ù
+
+.
+
+Ì†µÌ±ù
+
+2
+
+=
+
+Ì†µÌ∞∏Ì†µÌ±† Ì†µÌ±é
+
+2 1 (Ì†µÌ∞ºÌ†µÌ±¶ +Ì†µÌ∞¥Ì†µÌ±¶ Ì†µÌ±íÌ†µÌ±• ) (Ì†µÌ±§,Ì†µÌºâÌ†µÌºâ ) ‚à´ [ 2 0 Ì†µÌ±é 4
+
+Ì†µÌ±ù
+
+Ì†µÌ±ù Ì†µÌ±ù 2
+
++
+
+(Ì†µÌ∞ºÌ†µÌ±¶Ì†µÌ±ß +Ì†µÌ∞¥Ì†µÌ±¶ (Ì†µÌ±éÌ†µÌºÇÌ†µÌ±†Ì†µÌ±°Ì†µÌ±ì ) ) Ì†µÌ±é 4
+
+Ì†µÌ±ù
+
+Ì†µÌ±ù
+
+Ì†µÌ±ù
+
+2
+
+(Ì†µÌ±£,Ì†µÌºâÌ†µÌºâ ) { 3 (Ì†µÌ±¢,Ì†µÌºâ )(Ì†µÌ±§,Ì†µÌºâÌ†µÌºâ ) +
+Ì†µÌ±é
+
+2
+
+2
+
+1 Ì†µÌ±é 4
+
+(Ì†µÌ±§,Ì†µÌºâÌ†µÌºâ )(Ì†µÌ±§,Ì†µÌºâ ) } + Ì†µÌ∞¥Ì†µÌ±ù { 2 (Ì†µÌ±¢,Ì†µÌºâ ) + 4 (Ì†µÌ±§,Ì†µÌºâ ) + 3 (Ì†µÌ±¢,Ì†µÌºâ )(Ì†µÌ±§,Ì†µÌºâ ) }] Ì†µÌ±ëÌ†µÌºâ Ì†µÌ±¶ Ì†µÌ±é 4Ì†µÌ±é Ì†µÌ±é
+Ì†µÌ±ù Ì†µÌ±û Ì†µÌ±û 2
+
+2
+
+1
+
+2
+
+1
+
+4
+
+1
+
+2
+
+(4.8)
+
+Ì†µÌ±û Ì†µÌ±àÌ†µÌ±†Ì†µÌ±¶
+
+=
+
+Ì†µÌ∞∏Ì†µÌ±† Ì†µÌ±è
+
+1 (Ì†µÌ∞ºÌ†µÌ±• +Ì†µÌ∞¥Ì†µÌ±• Ì†µÌ±íÌ†µÌ±¶ ) (Ì†µÌ±§,Ì†µÌºÇÌ†µÌºÇ ‚à´ [ 2 0 Ì†µÌ±è 4
+
+) +
+
+2
+
+(Ì†µÌ∞ºÌ†µÌ±•Ì†µÌ±ß +Ì†µÌ∞¥Ì†µÌ±• (Ì†µÌ±éÌ†µÌºÇÌ†µÌ±†Ì†µÌ±°Ì†µÌ±ì ) ) Ì†µÌ±è4
+
+Ì†µÌ±û
+
+Ì†µÌ±û
+
+Ì†µÌ±û
+
+2
+
+Ì†µÌ±û (Ì†µÌ±¢,Ì†µÌºÇÌ†µÌºÇ ) ‚àí Ì†µÌ±ÑÌ†µÌ±• { 3 (Ì†µÌ±£,Ì†µÌºÇ )(Ì†µÌ±§,Ì†µÌºÇÌ†µÌºÇ ) + Ì†µÌ±è
+
+2
+
+2
+
+1 Ì†µÌ±è4
+
+(Ì†µÌ±§,Ì†µÌºÇÌ†µÌºÇ )(Ì†µÌ±§,Ì†µÌºÇ ) } + Ì†µÌ∞¥Ì†µÌ±ù { 2 (Ì†µÌ±£,Ì†µÌºÇ ) + 4 (Ì†µÌ±§,Ì†µÌºÇ ) + 3 (Ì†µÌ±£,Ì†µÌºÇ )(Ì†µÌ±§,Ì†µÌºÇ ) }] Ì†µÌ±ëÌ†µÌºÇ Ì†µÌ±• Ì†µÌ±è 4Ì†µÌ±è Ì†µÌ±è
+Ì†µÌ±û Ì†µÌ±û Ì†µÌ±û 3 Ì†µÌ±ù Ì†µÌ±ù Ì†µÌ±ù 3
+
+2
+
+1
+
+2
+
+1
+
+4
+
+1
+
+2
+
+(4.9)
+Ì†µÌ±û
+
+Here, Es is the elastic modulus of the stiffener material. Ì†µÌ∞ºÌ†µÌ±• = Ì†µÌ±èÌ†µÌ±†Ì†µÌ±¶ Ì†µÌ±°Ì†µÌ±†Ì†µÌ±¶ /12, Ì†µÌ∞ºÌ†µÌ±¶ = Ì†µÌ±èÌ†µÌ±†Ì†µÌ±• Ì†µÌ±°Ì†µÌ±†Ì†µÌ±• /12 Ì†µÌ∞ºÌ†µÌ±•Ì†µÌ±ß = Ì†µÌ±èÌ†µÌ±†Ì†µÌ±• Ì†µÌ±°Ì†µÌ±†Ì†µÌ±¶ /12 and Ì†µÌ∞ºÌ†µÌ±¶Ì†µÌ±ß = Ì†µÌ±èÌ†µÌ±†Ì†µÌ±¶ Ì†µÌ±°Ì†µÌ±†Ì†µÌ±• /12 Ì†µÌ∞ºÌ†µÌ±•Ì†µÌ∞ºÌ†µÌ±á = (Ì†µÌ±èÌ†µÌ±†Ì†µÌ±§ Ì†µÌ±°Ì†µÌ±†Ì†µÌ±§ + Ì†µÌ±èÌ†µÌ±†Ì†µÌ±ì Ì†µÌ±°Ì†µÌ±†Ì†µÌ±ì ) /12 Ì†µÌ∞ºÌ†µÌ±¶Ì†µÌ∞ºÌ†µÌ±á = (Ì†µÌ±èÌ†µÌ±†Ì†µÌ±•Ì†µÌ±§ Ì†µÌ±°Ì†µÌ±†Ì†µÌ±•Ì†µÌ±§ + Ì†µÌ±èÌ†µÌ±†Ì†µÌ±•Ì†µÌ±ì Ì†µÌ±°Ì†µÌ±†Ì†µÌ±•Ì†µÌ±ì ) /12 Ì†µÌ∞ºÌ†µÌ±•Ì†µÌ∞ºÌ†µÌ±á = (Ì†µÌ±èÌ†µÌ±†Ì†µÌ±•Ì†µÌ±§ Ì†µÌ±°Ì†µÌ±†Ì†µÌ±¶Ì†µÌ±§ + Ì†µÌ±èÌ†µÌ±†Ì†µÌ±•Ì†µÌ±ì Ì†µÌ±°Ì†µÌ±†Ì†µÌ±¶Ì†µÌ±ì ) /12 Ì†µÌ∞ºÌ†µÌ±¶Ì†µÌ±ßÌ†µÌ∞ºÌ†µÌ±á = (Ì†µÌ±èÌ†µÌ±†Ì†µÌ±¶Ì†µÌ±§ Ì†µÌ±°Ì†µÌ±†Ì†µÌ±•Ì†µÌ±§ + Ì†µÌ±èÌ†µÌ±†Ì†µÌ±¶Ì†µÌ±ì Ì†µÌ±°Ì†µÌ±†Ì†µÌ±•Ì†µÌ±ì ) /12 These are moment of inertia about the major and minor axis of the stiffener cross-section, while the inertia terms containing ‚ÄòIT‚Äô represent the moment of inertia of inverted-T stiffener and w, b represents dimensions of web and flange respectively. Ì†µÌ±ÑÌ†µÌ±¶ = Ì†µÌ∞¥Ì†µÌ±• Ì†µÌ±íÌ†µÌ±¶ , Ì†µÌ±ÑÌ†µÌ±• = Ì†µÌ∞¥Ì†µÌ±¶ Ì†µÌ±íÌ†µÌ±• are the first moment of area about the plate mid-plane and Ì†µÌ∞¥Ì†µÌ±• , Ì†µÌ∞¥Ì†µÌ±¶ are the cross-sectional areas of the p-th x- and q-th y-direction stiffeners, respectively. The total potential energy (V) due to externally applied uniformly distributed load of intensity p is expressed as follows,
+Ì†µÌ±û Ì†µÌ±ù Ì†µÌ±ù Ì†µÌ±û Ì†µÌ±û Ì†µÌ±û Ì†µÌ±ù Ì†µÌ±ù Ì†µÌ±ù Ì†µÌ±ù 3 Ì†µÌ±ù Ì†µÌ±ù 3 Ì†µÌ±ù Ì†µÌ±ù Ì†µÌ±ù Ì†µÌ±ù 3 Ì†µÌ±ù Ì†µÌ±ù 3 Ì†µÌ±û Ì†µÌ±û 3 Ì†µÌ±û Ì†µÌ±û 3 Ì†µÌ±û Ì†µÌ±û 3 Ì†µÌ±û Ì†µÌ±ù Ì†µÌ±ù 3 Ì†µÌ±ù Ì†µÌ±û Ì†µÌ±û Ì†µÌ±û 3 Ì†µÌ±û Ì†µÌ±û 3
+
+30
+
+Ì†µÌ±â = ‚àí(Ì†µÌ±éÌ†µÌ±è) ‚à´ ‚à´ (Ì†µÌ±ùÌ†µÌ±§)Ì†µÌ±ëÌ†µÌºâÌ†µÌ±ëÌ†µÌºÇ 0 0
+
+1
+
+1
+
+(4.10)
+
+It should be mentioned here that the total potential energy corresponding to other type of transverse loading pattern p(x,y) expressible mathematically by analytical or numerical functions, can be determined from the above expression. Hence the applicability of the method is not limited to only uniformly distributed loading. In the expressions of the energy functions Œæ and Œ∑ are the dimensionless form of the mid-plane coordinates which are associated with the computational domain.
+
+4.2.
+
+APPROXIMATE DISPLACEMENT FIELD
+
+The plate displacement fields (w, u and v) can be depicted as linear combinations of orthogonal functions and unknown coefficients (di) as shown below. Ì†µÌ±§(Ì†µÌºâ, Ì†µÌºÇ) = ‚àëÌ†µÌ±õÌ†µÌ±§ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌºôÌ†µÌ±ñ (Ì†µÌºâ, Ì†µÌºÇ) Ì†µÌ±ñ=1 Ì†µÌ±¢(Ì†µÌºâ, Ì†µÌºÇ) = ‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌªºÌ†µÌ±ñ‚àíÌ†µÌ±õÌ†µÌ±§ (Ì†µÌºâ, Ì†µÌºÇ) Ì†µÌ±ñ=Ì†µÌ±õÌ†µÌ±§+1 Ì†µÌ±£(Ì†µÌºâ, Ì†µÌºÇ) = ‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+Ì†µÌ±õÌ†µÌ±£ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌªΩÌ†µÌ±ñ‚àíÌ†µÌ±õÌ†µÌ±§‚àíÌ†µÌ±õÌ†µÌ±¢ (Ì†µÌºâ, Ì†µÌºÇ) Ì†µÌ±ñ=Ì†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+1 (4.11) (4.12) (4.13)
+
+Here, (Ì†µÌºâ, Ì†µÌºÇ) , Ì†µÌªº (Ì†µÌºâ, Ì†µÌºÇ) and Ì†µÌªΩ (Ì†µÌºâ, Ì†µÌºÇ) are sets of nw, nu and nv numbers of orthogonal functions for w, u and v, respectively. The functions Ì†µÌºôÌ†µÌ±ñ (Ì†µÌºâ, Ì†µÌºÇ) are associated with displacements due to bending, whereas, Ì†µÌªºÌ†µÌ±ñ (Ì†µÌºâ, Ì†µÌºÇ) and Ì†µÌªΩÌ†µÌ±ñ (Ì†µÌºâ, Ì†µÌºÇ) describe stretching of the midplane of the plate. Appropriate start functions for these orthogonal sets are selected in such a way that they satisfy the flexural and membrane boundary conditions of the plate. The two dimensional (2-D) start functions are generated from one dimensional (1-D) functions corresponding to the two coordinate directions. The 1-D starting functions for transverse displacement are taken to be the beam deflection functions, derived from static deflection shape of the beam, corresponding to the boundary
+31
+
+condition of the plate along the particular coordinate axis. The higher-order functions are generated from the selected start functions following a two-dimensional implementation of the Gram-Schmidt orthogonalization scheme. It should be noted that the generated functions are for the total domain and they need to be broken down in terms of the subdomains. The sub-domains
+Ì†µÌ±öÌ†µÌ±õ are represented by the sets of functionsÌ†µÌºôÌ†µÌ±ñ , Ì†µÌªºÌ†µÌ±ñÌ†µÌ±öÌ†µÌ±õ and Ì†µÌªΩÌ†µÌ±ñÌ†µÌ±öÌ†µÌ±õ derived through interpolation of the
+
+whole field functions, where m = 1,‚Ä¶‚Ä¶, nsy + 1 and n = 1,‚Ä¶‚Ä¶, nsx + 1. The displacement fields associated with the plate presented in Eq. (4.11-4.13) are two dimensional in nature. But the stiffeners are one dimensional elements and hence the energy functional expressions related to them include single integrations (as shown in Eqs. (4.8) and (4.9). So, the plate displacement fields in their original form cannot be used in these expressions. To make the functions compatible with the stiffeners, plate displacement function is evaluated at the stiffener location ( Œæstf , Œ∑stf ) depending on the orientation of the stiffener. For example, in case of a y-direction stiffener the transverse displacement function is taken as, Ì†µÌ±§(Ì†µÌºâ, Ì†µÌºÇ)|Ì†µÌºâ Ì†µÌ±û = Ì†µÌ±§(Ì†µÌºâÌ†µÌ±†Ì†µÌ±°Ì†µÌ±ì , Ì†µÌºÇ).
+Ì†µÌ±†Ì†µÌ±°Ì†µÌ±ì
+
+Ì†µÌ±û
+
+Table 4.1. Start Function for Displacement w for rectangular plate Flexural Boundary Condition SSSS SCSS CSCS CCSS CCCS CCCC Start Function For w ( œï1( Œæ ,Œ∑)) {sin(œÄŒæ)}{sin(œÄŒ∑)} {sin(œÄŒæ)}{Œ∑2 (3-5Œ∑+2Œ∑2)} {Œæ(1-Œæ)}2{sin(œÄŒ∑)} {Œæ2(3-5Œæ+2Œæ2)}{Œ∑2(3-5Œ∑+2Œ∑2)} {Œæ(1-Œæ)}2{Œ∑2(3-5Œ∑+2Œ∑2)} {Œæ(1-Œæ)}2{Œ∑(1-Œ∑)}2
+
+32
+
+4.3.
+
+GOVERNING SYSTEM OF EQUATION
+
+Substituting the complete energy expressions along with the approximate displacement fields in Eq. (4.1) the set of system governing equations in matrix form is obtained as, [(Ì†µÌ∞æ{Ì†µÌ±ë })]{Ì†µÌ±ë } = {Ì†µÌ±ì} (4.14)
+
+Here, [K], {d} and {f} are stiffness matrix, vector of unknown coefficients and load vector, respectively. The dimensions of all the matrices and vectors are (nw + nu + nv). The total stiffness
+Ì†µÌ±õÌ†µÌ±†Ì†µÌ±• Ì†µÌ±¶ matrix [K] of the system is given by, [Ì†µÌ∞æ ] = [Ì†µÌ∞æÌ†µÌ±è ] + [Ì†µÌ∞æÌ†µÌ±ö ] + ‚àëÌ†µÌ±ù=1[Ì†µÌ∞æÌ†µÌ±†Ì†µÌ±• ]Ì†µÌ±ù + ‚àëÌ†µÌ±û=1[Ì†µÌ∞æÌ†µÌ±†Ì†µÌ±¶ ] Ì†µÌ±õÌ†µÌ±† Ì†µÌ±û
+
+Where, [Ì†µÌ∞æÌ†µÌ±è ]and [Ì†µÌ∞æÌ†µÌ±ö ] are contributions from bending and stretching action of the plate, whereas [Ì†µÌ∞æÌ†µÌ±†Ì†µÌ±• ]Ì†µÌ±ù and [Ì†µÌ∞æÌ†µÌ±†Ì†µÌ±¶ ]
+Ì†µÌ±û
+
+represent stiffness matrices of the p-th stiffener along x-direction and q-th
+
+stiffener along y-direction, respectively.
+
+Ì†µÌ±è Ì†µÌ±ò11 [Ì†µÌ∞æÌ†µÌ±è ] = [ [0] [0]
+
+Ì†µÌ±ö Ì†µÌ±ò11 [0] [0] Ì†µÌ±ö [0] [0]] , [Ì†µÌ∞æÌ†µÌ±ö ] = [Ì†µÌ±ò21 Ì†µÌ±ö Ì†µÌ±ò31 [0] [0] Ì†µÌ±†Ì†µÌ±¶ Ì†µÌ±†Ì†µÌ±¶
+
+Ì†µÌ±ö Ì†µÌ±ò12 Ì†µÌ±ö Ì†µÌ±ò22 Ì†µÌ±ö Ì†µÌ±ò32
+
+Ì†µÌ±ö Ì†µÌ±†Ì†µÌ±• Ì†µÌ±ò13 Ì†µÌ±ò11 Ì†µÌ±ö Ì†µÌ±†Ì†µÌ±• Ì†µÌ±ò23 ] , [Ì†µÌ∞æÌ†µÌ±†Ì†µÌ±• ] = [Ì†µÌ±ò21 Ì†µÌ±ö Ì†µÌ±†Ì†µÌ±• Ì†µÌ±ò33 Ì†µÌ±ò31
+
+Ì†µÌ±†Ì†µÌ±• Ì†µÌ±ò12 Ì†µÌ±†Ì†µÌ±• Ì†µÌ±ò22 Ì†µÌ±†Ì†µÌ±• Ì†µÌ±ò32
+
+Ì†µÌ±†Ì†µÌ±• Ì†µÌ±ò13 Ì†µÌ±†Ì†µÌ±• Ì†µÌ±ò23 ] and Ì†µÌ±†Ì†µÌ±• Ì†µÌ±ò33
+
+Ì†µÌ±ò11 Ì†µÌ±†Ì†µÌ±¶ [Ì†µÌ∞æÌ†µÌ±†Ì†µÌ±¶ ] = [Ì†µÌ±ò21 Ì†µÌ±†Ì†µÌ±¶ Ì†µÌ±ò31
+
+Ì†µÌ±†Ì†µÌ±¶
+
+Ì†µÌ±ò12 Ì†µÌ±†Ì†µÌ±¶ Ì†µÌ±ò22 Ì†µÌ±†Ì†µÌ±¶ Ì†µÌ±ò32
+
+Ì†µÌ±ò13 Ì†µÌ±†Ì†µÌ±¶ Ì†µÌ±ò23 ] Ì†µÌ±†Ì†µÌ±¶ Ì†µÌ±ò33
+
+Ì†µÌ±è [Ì†µÌ∞æ11 ] = 1 Ì†µÌ±é 2 Ì†µÌ±è2
+
+Ì†µÌ∞∏Ì†µÌ±ù Ì†µÌ±°Ì†µÌ±ù 3 (Ì†µÌ±éÌ†µÌ±è) 12(1‚àíÌ†µÌºá 2 )
+
+‚àëÌ†µÌ±õÌ†µÌ±§ ‚àëÌ†µÌ±õÌ†µÌ±§ ‚à´ ‚à´ [{ 4 (Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºâÌ†µÌºâ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºâÌ†µÌºâ ) + 4 (Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇÌ†µÌºÇ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºÇÌ†µÌºÇ ) + Ì†µÌ±ó=1 Ì†µÌ±ñ=1 0 0 Ì†µÌ±é Ì†µÌ±è + Ì†µÌ±é2 Ì†µÌ±è2 (Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇÌ†µÌºÇ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºâÌ†µÌºâ )} ‚àí
+1 (1‚àíÌ†µÌºá) Ì†µÌ±é 2 Ì†µÌ±è2
+
+1
+
+1
+
+1
+
+1
+
+(Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºâÌ†µÌºâ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºÇÌ†µÌºÇ )
+
+(Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºâÌ†µÌºâ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºÇÌ†µÌºÇ ) + (Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇÌ†µÌºÇ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºâÌ†µÌºâ ) ‚àí
+
+2(Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºâÌ†µÌºÇ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºâÌ†µÌºÇ )] Ì†µÌ±ëÌ†µÌºâÌ†µÌ±ëÌ†µÌºÇ
+
+33
+
+Ì†µÌ±ö [Ì†µÌ∞æ11 ] = 1 Ì†µÌ±è4
+
+Ì†µÌ∞∏Ì†µÌ±ù Ì†µÌ±°Ì†µÌ±ù 3(Ì†µÌ±éÌ†µÌ±è) 12(1‚àíÌ†µÌºá 2) 2
+
+‚àëÌ†µÌ±õÌ†µÌ±§ ‚àëÌ†µÌ±õÌ†µÌ±§ ‚à´ ‚à´ [{ 4 (‚àëÌ†µÌ±õÌ†µÌ±§ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºâ ) (Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºâ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºâ ) + Ì†µÌ±ó=1 Ì†µÌ±ñ=1 0 0 Ì†µÌ±ñ=1 Ì†µÌ±é
+1 Ì†µÌ±é 2 Ì†µÌ±è2
+
+1
+
+1
+
+1
+
+2
+
+(‚àëÌ†µÌ±õÌ†µÌ±§ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇ ) (Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºÇ ) + Ì†µÌ±ñ=1
+2
+
+(‚àëÌ†µÌ±õÌ†µÌ±§ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºâ ) (Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºÇ ) + Ì†µÌ±ñ=1 (Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºâÌ†µÌºâ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºÇÌ†µÌºÇ ) + (Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇÌ†µÌºÇ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºâÌ†µÌºâ ) ‚àí 2(Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºâÌ†µÌºÇ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºâÌ†µÌºÇ ) + (‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+Ì†µÌ±õÌ†µÌ±£ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌªΩÌ†µÌ±ñ‚àíÌ†µÌ±õÌ†µÌ±§‚àíÌ†µÌ±õÌ†µÌ±¢,Ì†µÌºÇ ) (Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºÇ ) + Ì†µÌ±ñ=Ì†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+1
+2Ì†µÌºá Ì†µÌ±è2 Ì†µÌ±é 2
+
+2
+
+1 Ì†µÌ±é 2 Ì†µÌ±è2 2 Ì†µÌ±é 3
+
+(‚àëÌ†µÌ±õÌ†µÌ±§ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇ ) (Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºâ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºâ )} ‚àí Ì†µÌ±ñ=1
+2
+
+(1‚àíÌ†µÌºá) Ì†µÌ±é 2 Ì†µÌ±è2
+
+(‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌªºÌ†µÌ±ñ‚àíÌ†µÌ±õÌ†µÌ±§,Ì†µÌºâ ) (Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºâ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºâ ) + Ì†µÌ±ñ=Ì†µÌ±õÌ†µÌ±§+1
+2
+
+2 Ì†µÌ±è3
+
+2Ì†µÌºá Ì†µÌ±é 2 Ì†µÌ±è
+
+(‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+Ì†µÌ±õÌ†µÌ±£ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌªΩÌ†µÌ±ñ‚àíÌ†µÌ±õÌ†µÌ±§‚àíÌ†µÌ±õÌ†µÌ±¢,Ì†µÌºÇ ) (Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºâ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºâ ) + Ì†µÌ±ñ=Ì†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+1 (‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌªºÌ†µÌ±ñ‚àíÌ†µÌ±õÌ†µÌ±§,Ì†µÌºÇ ) (Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºâ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºÇ ) + Ì†µÌ±ñ=Ì†µÌ±õÌ†µÌ±§+1
+2 (1‚àíÌ†µÌºá) Ì†µÌ±è2 Ì†µÌ±é
+
+(‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌªºÌ†µÌ±ñ‚àíÌ†µÌ±õÌ†µÌ±§,Ì†µÌºâ ) (Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºÇ ) + Ì†µÌ±ñ=Ì†µÌ±õÌ†µÌ±§+1
+2
+
+2
+
+(1‚àíÌ†µÌºá) Ì†µÌ±è2 Ì†µÌ±é
+
+(‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌªºÌ†µÌ±ñ‚àíÌ†µÌ±õÌ†µÌ±§,Ì†µÌºÇ ) (Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºâ )] Ì†µÌ±ëÌ†µÌºâÌ†µÌ±ëÌ†µÌºÇ Ì†µÌ±ñ=Ì†µÌ±õÌ†µÌ±§+1
+
+Ì†µÌ±ö Ì†µÌ±ö [Ì†µÌ∞æ12 ] = [Ì†µÌ∞æ13 ] = 0 Ì†µÌ∞∏Ì†µÌ±ù Ì†µÌ±°Ì†µÌ±ù (Ì†µÌ±éÌ†µÌ±è) 2(1‚àíÌ†µÌºá 2) 1 1 1
+
+Ì†µÌ±ö [Ì†µÌ∞æ21 ] = Ì†µÌºá Ì†µÌ±éÌ†µÌ±è2
+
+‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢ ‚àëÌ†µÌ±õÌ†µÌ±§ ‚à´ ‚à´ [{ 3 (‚àëÌ†µÌ±õÌ†µÌ±§ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºâ )(Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºâ )(Ì†µÌºôÌ†µÌ±ó‚àíÌ†µÌ±õÌ†µÌ±§,Ì†µÌºâ ) + Ì†µÌ±ó=Ì†µÌ±õÌ†µÌ±§+1 Ì†µÌ±ñ=1 0 0 Ì†µÌ±ñ=1 Ì†µÌ±é
+(1‚àíÌ†µÌºá) Ì†µÌ±éÌ†µÌ±è2
+
+(‚àëÌ†µÌ±õÌ†µÌ±§ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇ )(Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇ )(Ì†µÌªºÌ†µÌ±ó‚àíÌ†µÌ±õÌ†µÌ±§,Ì†µÌºâ ) + Ì†µÌ±ñ=1
+Ì†µÌ∞∏Ì†µÌ±ù Ì†µÌ±°Ì†µÌ±ù (Ì†µÌ±éÌ†µÌ±è) 2(1‚àíÌ†µÌºá 2) 1
+
+(‚àëÌ†µÌ±õÌ†µÌ±§ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºâ )(Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇ )(Ì†µÌªºÌ†µÌ±ó‚àíÌ†µÌ±õÌ†µÌ±§,Ì†µÌºÇ )}] Ì†µÌ±ëÌ†µÌºâÌ†µÌ±ëÌ†µÌºÇ Ì†µÌ±ñ=1
+
+Ì†µÌ±ö [Ì†µÌ∞æ22 ] = Ì†µÌºá Ì†µÌ±éÌ†µÌ±è2
+
+‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢ ‚àëÌ†µÌ±õÌ†µÌ±§ ‚à´ ‚à´ [{ 2 (Ì†µÌºôÌ†µÌ±ñ‚àíÌ†µÌ±õÌ†µÌ±§,Ì†µÌºâ )(Ì†µÌºôÌ†µÌ±ó‚àíÌ†µÌ±õÌ†µÌ±§,Ì†µÌºâ ) + Ì†µÌ±ó=Ì†µÌ±õÌ†µÌ±§+1 Ì†µÌ±ñ=1 0 0 Ì†µÌ±é
+(1‚àíÌ†µÌºá) Ì†µÌ±è2 1 1
+
+1
+
+2
+
+(‚àëÌ†µÌ±õÌ†µÌ±§ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇ )(Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇ )(Ì†µÌªºÌ†µÌ±ó‚àíÌ†µÌ±õÌ†µÌ±§,Ì†µÌºâ ) + Ì†µÌ±ñ=1
+Ì†µÌ∞∏Ì†µÌ±ù Ì†µÌ±°Ì†µÌ±ù (Ì†µÌ±éÌ†µÌ±è) 2(1‚àíÌ†µÌºá 2)
+
+(Ì†µÌºôÌ†µÌ±ñ‚àíÌ†µÌ±õÌ†µÌ±§,Ì†µÌºÇ )(Ì†µÌªºÌ†µÌ±ó‚àíÌ†µÌ±õÌ†µÌ±§,Ì†µÌºÇ )}] Ì†µÌ±ëÌ†µÌºâÌ†µÌ±ëÌ†µÌºÇ
+1
+
+Ì†µÌ±ö [Ì†µÌ∞æ31 ] = ¬µ Ì†µÌ±é 2 Ì†µÌ±è
+
+‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+Ì†µÌ±õÌ†µÌ±£ ‚àëÌ†µÌ±õÌ†µÌ±§ ‚à´ ‚à´ [{ 3 (‚àëÌ†µÌ±õÌ†µÌ±§ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇ )(Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇ )(Ì†µÌªΩÌ†µÌ±ó‚àíÌ†µÌ±õÌ†µÌ±§‚àíÌ†µÌ±õÌ†µÌ±¢,Ì†µÌºÇ ) + Ì†µÌ±ó=Ì†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+1 Ì†µÌ±ñ=1 0 0 Ì†µÌ±ñ=1 Ì†µÌ±è
+(1‚àíÌ†µÌºá) Ì†µÌ±é 2Ì†µÌ±è
+
+(‚àëÌ†µÌ±õÌ†µÌ±§ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºâ )(Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºâ )(Ì†µÌªΩÌ†µÌ±ó‚àíÌ†µÌ±õÌ†µÌ±§‚àíÌ†µÌ±õÌ†µÌ±¢,Ì†µÌºÇ ) + Ì†µÌ±ñ=1
+Ì†µÌ∞∏Ì†µÌ±ù Ì†µÌ±°Ì†µÌ±ù 2(1‚àíÌ†µÌºá 2) 1 1
+
+(‚àëÌ†µÌ±õÌ†µÌ±§ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇ )(Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºâ )(Ì†µÌªºÌ†µÌ±ó‚àíÌ†µÌ±õÌ†µÌ±§‚àíÌ†µÌ±õÌ†µÌ±¢,Ì†µÌºâ )}] Ì†µÌ±ëÌ†µÌºâÌ†µÌ±ëÌ†µÌºÇ Ì†µÌ±ñ=1
+
+Ì†µÌ±ö [Ì†µÌ∞æ32 ] =
+
+‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+Ì†µÌ±õÌ†µÌ±£ ‚àëÌ†µÌ±õÌ†µÌ±§ ‚à´ ‚à´ [{2Ì†µÌºá(Ì†µÌªºÌ†µÌ±ñ‚àíÌ†µÌ±õÌ†µÌ±§,Ì†µÌºâ )(Ì†µÌªΩÌ†µÌ±ó‚àíÌ†µÌ±õÌ†µÌ±§‚àíÌ†µÌ±õÌ†µÌ±¢,Ì†µÌºÇ ) + (1 ‚àí Ì†µÌ±ó=Ì†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+1 Ì†µÌ±ñ=1 0 0
+
+Ì†µÌºá)(Ì†µÌªºÌ†µÌ±ñ‚àíÌ†µÌ±õÌ†µÌ±§,Ì†µÌºÇ )(Ì†µÌªΩÌ†µÌ±ó‚àíÌ†µÌ±õÌ†µÌ±§‚àíÌ†µÌ±õÌ†µÌ±¢,Ì†µÌºâ )}]Ì†µÌ±ëÌ†µÌºâÌ†µÌ±ëÌ†µÌºÇ
+Ì†µÌ±ö [Ì†µÌ∞æ33 ] = (1‚àíÌ†µÌºá) Ì†µÌ±é 2 Ì†µÌ∞∏Ì†µÌ±ù Ì†µÌ±°Ì†µÌ±ù (Ì†µÌ±éÌ†µÌ±è) 2(1‚àíÌ†µÌºá 2 )
+
+‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+Ì†µÌ±õÌ†µÌ±£ ‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+Ì†µÌ±õÌ†µÌ±£ ‚à´0 ‚à´0 [{ 2 (Ì†µÌªΩÌ†µÌ±ñ‚àíÌ†µÌ±õÌ†µÌ±§‚àíÌ†µÌ±õÌ†µÌ±¢,Ì†µÌºÇ )(Ì†µÌªΩÌ†µÌ±ó‚àíÌ†µÌ±õÌ†µÌ±§‚àíÌ†µÌ±õÌ†µÌ±¢,Ì†µÌºÇ ) + Ì†µÌ±ó=Ì†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+1 Ì†µÌ±ó=Ì†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+1 Ì†µÌ±è
+
+1
+
+1
+
+2
+
+(Ì†µÌªΩÌ†µÌ±ñ‚àíÌ†µÌ±õÌ†µÌ±§‚àíÌ†µÌ±õÌ†µÌ±¢,Ì†µÌºâ )(Ì†µÌªΩÌ†µÌ±ó‚àíÌ†µÌ±õÌ†µÌ±§‚àíÌ†µÌ±õÌ†µÌ±¢,Ì†µÌºâ )}] Ì†µÌ±ëÌ†µÌºâÌ†µÌ±ëÌ†µÌºÇ
+34
+
+Ì†µÌ±†Ì†µÌ±¶ [Ì†µÌ∞æ11 ] Ì†µÌ±û 2 Ì†µÌ±è 4
+
+=
+
+Ì†µÌ±õÌ†µÌ±†Ì†µÌ±¶ Ì†µÌ∞∏ Ì†µÌ±è ‚àëÌ†µÌ±û=1 [ Ì†µÌ±† 2
+
+1 2(Ì†µÌ∞º +Ì†µÌ∞¥Ì†µÌ±• Ì†µÌ±í ) ‚àëÌ†µÌ±õÌ†µÌ±§ ‚àëÌ†µÌ±õÌ†µÌ±§ ‚à´ { Ì†µÌ±• 4 Ì†µÌ±¶ (Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇÌ†µÌºÇ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºÇÌ†µÌºÇ ) Ì†µÌ±ó=1 Ì†µÌ±ñ=1 0 Ì†µÌ±è 2 1 Ì†µÌ±è4
+
+Ì†µÌ±û
+
+Ì†µÌ±û
+
+Ì†µÌ±û 2
+
+‚àí
+
+Ì†µÌ±ÑÌ†µÌ±• Ì†µÌ∞¥Ì†µÌ±•
+
+Ì†µÌ±û (‚àëÌ†µÌ±õÌ†µÌ±§ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇÌ†µÌºÇ ) (Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇÌ†µÌºÇ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºÇ ) ‚àí Ì†µÌ±ÑÌ†µÌ±• Ì†µÌ±ñ=1 2 2 Ì†µÌ±è3
+
+(‚àëÌ†µÌ±õÌ†µÌ±§ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇ )(Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºÇ ) + Ì†µÌ±ñ=1
+2
+
+Ì†µÌ±û 1 Ì†µÌ±è 4
+
+(‚àëÌ†µÌ±õÌ†µÌ±§ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇ ) (Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºÇ ) + Ì†µÌ∞¥Ì†µÌ±û Ì†µÌ±ñ=1 Ì†µÌ±•
+
+(‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+Ì†µÌ±õÌ†µÌ±£ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌªΩÌ†µÌ±ñ‚àíÌ†µÌ±õÌ†µÌ±§‚àíÌ†µÌ±õÌ†µÌ±¢,Ì†µÌºÇ ) (Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºÇ )} Ì†µÌ±ëÌ†µÌºÇ] Ì†µÌ±ñ=Ì†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+1
+2
+
+Ì†µÌ±†Ì†µÌ±¶ [Ì†µÌ∞æ22 ]
+
+=
+
+Ì†µÌ±õÌ†µÌ±†Ì†µÌ±¶ Ì†µÌ∞∏ Ì†µÌ±è 1 2(Ì†µÌ∞ºÌ†µÌ±•Ì†µÌ±ß +Ì†µÌ∞¥Ì†µÌ±• (Ì†µÌ±éÌ†µÌºâÌ†µÌ±†Ì†µÌ±°Ì†µÌ±ì ) ) ‚àëÌ†µÌ±û=1 [ Ì†µÌ±† ‚àëÌ†µÌ±õÌ†µÌ±§ ‚àëÌ†µÌ±õÌ†µÌ±§ ‚à´ { (Ì†µÌªºÌ†µÌ±ñ‚àíÌ†µÌ±õÌ†µÌ±§,Ì†µÌºÇÌ†µÌºÇ )(Ì†µÌªºÌ†µÌ±ó‚àíÌ†µÌ±õÌ†µÌ±§,Ì†µÌºÇÌ†µÌºÇ )} Ì†µÌ±ëÌ†µÌºÇ] Ì†µÌ±ó=1 Ì†µÌ±ñ=1 0 2 Ì†µÌ±è4
+
+Ì†µÌ±û
+
+Ì†µÌ±û
+
+Ì†µÌ±û
+
+Ì†µÌ±†Ì†µÌ±¶ Ì†µÌ±¶ [Ì†µÌ∞æ33 ] = ‚àëÌ†µÌ±û=1 [
+
+Ì†µÌ±õÌ†µÌ±†
+
+Ì†µÌ∞∏Ì†µÌ±† Ì†µÌ±è 2
+
+‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+Ì†µÌ±õÌ†µÌ±£ ‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+Ì†µÌ±õÌ†µÌ±£ ‚à´ { Ì†µÌ±ó=Ì†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+1 Ì†µÌ±ñ=Ì†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢1 0 ‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+Ì†µÌ±õÌ†µÌ±£ ‚àëÌ†µÌ±õÌ†µÌ±§ ‚à´ { Ì†µÌ±ó=Ì†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢1 Ì†µÌ±ñ=1 0
+1 2(Ì†µÌ±ÑÌ†µÌ±• ) Ì†µÌ±è3
+Ì†µÌ±û
+
+1 2(Ì†µÌ∞¥Ì†µÌ±• ) Ì†µÌ±è2
+
+Ì†µÌ±û
+
+(Ì†µÌªΩÌ†µÌ±ñ‚àíÌ†µÌ±õÌ†µÌ±§‚àíÌ†µÌ±õÌ†µÌ±¢,Ì†µÌºÇ )(Ì†µÌªΩÌ†µÌ±ó‚àíÌ†µÌ±õÌ†µÌ±§‚àíÌ†µÌ±õÌ†µÌ±¢,Ì†µÌºÇ )} Ì†µÌ±ëÌ†µÌºÇ ]
+
+Ì†µÌ±†Ì†µÌ±¶ Ì†µÌ±¶ [Ì†µÌ∞æ31 ] = ‚àëÌ†µÌ±û=1 [ Ì†µÌ±û 1 Ì†µÌ±è 3
+
+Ì†µÌ±õÌ†µÌ±†
+
+Ì†µÌ∞∏Ì†µÌ±† Ì†µÌ±è 2
+
+(Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇÌ†µÌºÇ )(Ì†µÌªΩÌ†µÌ±ó‚àíÌ†µÌ±õÌ†µÌ±§‚àíÌ†µÌ±õÌ†µÌ±¢,Ì†µÌºÇ ) +
+
+Ì†µÌ∞¥Ì†µÌ±•
+
+(‚àëÌ†µÌ±õÌ†µÌ±§ Ì†µÌ±ëÌ†µÌ±ñ Ì†µÌºôÌ†µÌ±ñ )2 (Ì†µÌºôÌ†µÌ±ñ,Ì†µÌºÇ ) (Ì†µÌªΩÌ†µÌ±ñ‚àíÌ†µÌ±õÌ†µÌ±§‚àíÌ†µÌ±õÌ†µÌ±¢,Ì†µÌºÇ )} Ì†µÌ±ëÌ†µÌºÇ] Ì†µÌ±ñ=1
+Ì†µÌ±õÌ†µÌ±† Ì†µÌ∞∏Ì†µÌ±† Ì†µÌ±è 2 1 2(Ì†µÌ±ÑÌ†µÌ±• ) Ì†µÌ±è3
+Ì†µÌ±û
+
+Ì†µÌ±†Ì†µÌ±¶ Ì†µÌ±¶ [Ì†µÌ∞æ13 ] = ‚àëÌ†µÌ±û=1 [
+
+‚àëÌ†µÌ±õÌ†µÌ±§ ‚àëÌ†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+Ì†µÌ±õÌ†µÌ±£ ‚à´ {‚àí Ì†µÌ±ó=1 Ì†µÌ±ñ=Ì†µÌ±õÌ†µÌ±§+Ì†µÌ±õÌ†µÌ±¢+1 0
+
+(Ì†µÌªΩÌ†µÌ±ñ‚àíÌ†µÌ±õÌ†µÌ±§‚àíÌ†µÌ±õÌ†µÌ±¢,Ì†µÌºÇ )(Ì†µÌºôÌ†µÌ±ó,Ì†µÌºÇÌ†µÌºÇ )} Ì†µÌ±ëÌ†µÌºÇ ]
+
+Ì†µÌ±†Ì†µÌ±¶ Ì†µÌ±†Ì†µÌ±¶ Ì†µÌ±†Ì†µÌ±¶ Ì†µÌ±†Ì†µÌ±¶ [Ì†µÌ∞æ12 ]= [Ì†µÌ∞æ21 ] [Ì†µÌ∞æ23 ] = [Ì†µÌ∞æ32 ] = 0
+
+The load vector {f } is of the form {Ì†µÌ±ì11 , Ì†µÌ±ì12 , Ì†µÌ±ì13 }T {Ì†µÌ±ì11 } = ‚àëÌ†µÌ±õÌ†µÌ±§ Ì†µÌ±ÉÌ†µÌºôÌ†µÌ±ó |Ì†µÌºâ,Ì†µÌºÇ + Ì†µÌ±ù(Ì†µÌ±éÌ†µÌ±è) ‚àëÌ†µÌ±õÌ†µÌ±§ ‚à´ ‚à´ Ì†µÌºôÌ†µÌ±ó Ì†µÌ±ëÌ†µÌºâÌ†µÌ±ëÌ†µÌºÇ, {Ì†µÌ±ì12 } = {Ì†µÌ±ì13 } = 0 Ì†µÌ±ó=Ì†µÌ±ñ Ì†µÌ±ó=1 0 0
+1 1
+
+35
+
+4.4.
+
+SOLUTION METHODOLOGY FOR STATIC DISPLACEMENT FIELD
+
+As large displacement induced by geometric nonlinearity is taken into consideration, the stiffness matrix [K] includes elements that contain the unknown coefficients {d}, to be determined subsequently. The stiffness matrices for the stiffeners also include some terms containing the unknown coefficients. As a result the system governing equations presented in Eq. (4.14) become nonlinear in nature and cannot be solved directly. Hence, the solution methodology specially adopted to solve the set of nonlinear equations employs an iterative procedure utilizing the direct substitution technique with successive relaxation scheme. The solution procedure is elaborated through a flow chart in Figure 4.2. At the start of solution procedure, necessary parameters that cater to the iterative scheme, for example, relaxation parameter (Œª), error limit (–µ) etc. are chosen along with a starting load value The linear component of the stiffness matrix [Kb] is computed and an initial guess for the unknown coefficients is assumed (generally taken as 0). The total stiffness matrix [K] is calculated on the basis of the assumed values and a new set of unknown coefficients is determined from the expression {d}(n + 1) = [K({d}(n))]-1{f}, where n denotes the iteration counter. A comparison between the calculated values of {d} and the corresponding values in the previous iteration is carried out to determine the error. If the error comes out to be within the predefined limit of tolerance, convergence is achieved. Otherwise, the next iteration is performed with modified values of unknown coefficients, computed by the relation, {d} = {d}old + Œª.({d} - {d}old), where Œª is the relaxation parameter. Once convergence is achieved for a particular load step, an increment is provided to the load and the next load step starts with the present solution as the initial guess for {d}.
+
+36
+
+Figure 4.2. Flow chart for solution algorithm for a particular load step.
+
+It is possible to take the initial guess of each and every load step as 0, but in that case the number of iterations required to achieve converged solution may increase. It is also possible to introduce an extrapolation scheme to obtain the initial guess for the next load step. For example ratio of the unknown coefficients for the preceding two load steps may be used to extrapolate a set of guess
+
+37
+
+values when convergence gets difficult. It should also be kept in mind that the load step itself is an important parameter in case of determining the initial guess. If a very large load step is taken then the previous converged solution may not work properly as initial parameter and convergence may not be achieved within the prescribed number of iterations. In such situations some improvised technique, like the extrapolation scheme mentioned above, may have to be introduced. However, for small load steps the present technique of taking the previous solution as the initial guess of the next step works quite well.
+
+38
+
+CHAPTER 5: RESULT AND DISCUSSION
+
+The objective of the present study is to investigate the effect of large deflection on the static behaviour of stiffened plates and also to determine the influence of different stiffener crosssections on the static behaviour. The present analysis is carried out only for uni-axially single stiffened plate, where a single y-direction stiffener is present along the center line of the plate. However, six different types of classical flexural boundary conditions, namely, SSSS, SCSS, CSCS, CCSS, CCCS and CCCC, arising out of the combinations of clamped (C) and simply supported (S) end conditions are considered. In the present work, three different types of stiffener cross-section, namely, rectangular, inverted-T and I sections, are taken into account. In all the cases uniformly distributed transverse loading has been considered.
+
+5.1.
+
+VALIDATION STUDY
+
+The results of the present analysis are validated through comparison with previously published and established results. The results of the static analysis (load‚Äìdeflection curve) incorporating geometric nonlinearity are compared with those of Sheikh and Mukhopadhyay [25]. The details of the geometry and dimensions (in mm) of the clamped stiffened plate under transverse pressure loading are shown in Figure 4.1(a). The comparison plot for the maximum deflection of the stiffened plate are presented in Figure 5.1 and a fairly good agreement is observed between the two sets of results.
+
+39
+
+Figure 5.1. Comparison of load-deflection behavior of clamped stiffened plate at point of maximum deflection for validation.
+
+5.2.
+
+DEFLECTION OF RECTANGULAR PLATE UNDER DIFFERENT FLEXURAL BOUNDARY CONDITIONS
+
+The results for static response of the system under transverse loading are presented in normalized load-displacement plane. Here the ordinate represents normalized maximum displacement (wmax/tp) and abscissa represents normalized load, which is defined as pa4/ (16Dtp), for uniformly distributed load. These results are generated for a rectangular stiffened plate with a = 0.60 m, b = 0.41 m and tp = 0.00633 m. The material properties used for this purpose are Ep = 211 GPa, œÅp = 7830 kg/m3. Figures 5.2 present the static deflection of rectangular plate under uniformly distributed load. The figure contain six normalized load-displacement curves corresponding to various flexural boundary conditions, namely, SSSS, SCSS, CSCS, CCSS, CCCS and CCCC. It indicates that clamped boundary condition provides maximum stiffness, whereas for simply
+
+40
+
+supported case stiffness is minimum. It is also important to notice that location of maximum deflection is not same for all cases.
+
+Figure 5.2. Static deflection of a Rectangular plate under uniformly distributed load for different flexural boundary conditions.
+
+5.3.
+
+DEFLECTION OF STIFFENED RECTANGULAR PLATE UNDER DIFFERENT FLEXURAL BOUNDARY CONDITIONS
+
+Figure 5.3 has been plotted for rectangular plate stiffened with inverted-T and I stiffener for different flexural boundary condition. Figure 5.3 contain six normalized load-displacement curves corresponding to various flexural boundary conditions, namely, SSSS, SCSS, CSCS, CCSS, CCCS and CCCC, arising out of the combinations of clamped (C) and simply supported (S) end conditions are considered. Here the ordinate represents normalized maximum displacement (wmax/tp) and abscissa represents normalized load, which is defined as pa4/ (16Dtp), for uniformly distributed load. These results are generated for a rectangular stiffened plate with a = 0.60 m, b =
+41
+
+0.41 m and tp = 0.00633 m. The dimensions for inverted-T stiffener is mentioned in Figure 4.1(b) and for I bar stiffener dimensions are as follows Flange dimension are Height (hf) = 0.0095 m, Width (bf) = 0 .01 m, web dimensions are Height (hw) = 0.015 m, Width (bw) = 0.005 m. The material properties of stiffener used for this purpose are Es = 211 GPa, œÅs = 7830 kg/m3. Figures indicate that clamped boundary condition provides maximum stiffness, whereas for simply supported case stiffness is minimum while it is important to reveal that maximum deflection is not same for all boundary condition.
+
+Fig 5.3 (a)
+
+Fig 5.3 (b)
+
+Figure 5.3. Deflection of Stiffened Rectangular Plate under Different Flexural Boundary Conditions with inverted-T stiffener and I stiffener.
+
+5.4.
+
+CONTOUR PLOT FOR THE DEFLECTED STIFFENED PLATE
+
+Deflected shapes corresponding to all the six boundary conditions (SSSS, SCSS, CSCS, CCSS, CCCS and CCCC) of the stiffened plate using inverted-T stiffener under the uniformly distributed
+
+42
+
+load are presented in Figure 5.4. In each figure, the contour plot for the deflected stiffened plate have been furnished along with the three dimensional surface plot. Figure 5.5 presents the deflected shapes of a stiffened plate having I stiffener under uniformly distributed load with all around clamped (CCCC) and simply supported (SSSS) boundary conditions. It should be pointed out that all the results correspond to the maximum normalized deflection on the load-deflection curve, i.e., wmax/tp = 2.0, presented in Figures 5.4 and 5.5. The effect of loading pattern on the deflected profile is obvious. At first glance the surface plots for the different boundary conditions under a particular type of loading look quite similar. However, a closer inspection of the contour plots reveals the subtle differences among the deflected shapes caused due to change in end conditions.
+
+Fig 5.4 (a)
+
+Fig 5.4. (b)
+
+Fig 5.4 (c)
+
+Fig 5.4 (d)
+
+43
+
+Fig 5.4 (e)
+
+Fig 5.4 (f)
+
+Figure 5.4. Deflected shape of rectangular plate with Inverted-T stiffener under uniformly distributed loading for various flexural boundary conditions: (a) SSSS, (b) SCSS, (c) CSCS, (d) CCSS, (e) CCCS and (f) CCCC.
+
+Fig 5.5 (a)
+
+Fig 5.5. (b)
+
+Figure 5.5. Statically deflected shape of rectangular plate with I Bar stiffener along the center line under uniformly distributed loading for various flexural boundary conditions: (a) SSSS, and (b) CCCC.
+
+5.5.
+
+DEFLECTION OF STIFFENED RECTANGULAR PLATE UNDER DIFFERENT STIFFENER CROSS-SECTIONS
+
+The objective of the present study is to investigate the effect of large deflection on the static behavior of stiffened plates attached with different stiffener cross-sections and also determine the influence of different classical boundary conditions on the static behavior. The present analysis is
+44
+
+carried out only for uni-axially single stiffened plate, where a single y-direction stiffener is present at the center of the plate. However, six different types of classical flexural boundary conditions, namely, SSSS, SCSS, CSCS, CCSS, CCCS and CCCC, arising out of the combinations of clamped (C) and simply supported (S) end conditions are considered.
+
+Fig 5.6 (a)
+
+Fig 5.6 (b)
+
+Fig 5.6 (c)
+
+Fig 5.6 (d)
+
+45
+
+Fig 5.6 (e)
+
+Fig 5.6 (f)
+
+Figure 5.6. Deflection of rectangular plate stiffened by flat, inverted-T, I stiffener placed uniaxially along the center line under different boundary condition (a) SSSS, (b) SCSS, (c) CSCS,(d) CCSS, (e) CCCS and (f) CCCC
+
+In Figure 5.6 load-deflection plots for different stiffener cross-section are presented corresponding to various flexural boundary condition and transverse loading. Individual load-deflection curves for rectangular, inverted-T and I stiffener are provided in each case. The cross-sectional area for all the stiffeners are kept constant. Also plots corrsponding to the unstiffened scenario is incorporated to provide a better perspective to the situation. It is obvious that the plate without stiffener has the lowest load carrying capacity, while the inverted-T stiffener provides the highest load bearing capacity. In further analysis of rectangular plate stiffened with inverted-T stiffener, the dimension of either the flange or web is varied but area of cross-section of stiffener remaining unchanged. Here once flange dimensions are kept constant and varying the dimensions of web while on other hand keeping web dimensions constant and varying the dimensions of flange. The corresponding figures are presented in Figures 5.7 and 5.8.
+
+46
+
+Figure 5.7 (a)
+
+Figure 5.7 (b)
+
+Figure 5.7. Deflection of rectangular plate stiffened by Inverted-T stiffener uniaxially along the center line when flange dimension is constant and the web dimensions vary but keeping the cross sectional area constant for stiffener (a) CCCC & (b) SSSS.
+
+Figure 5.8. (a)
+
+Figure 5.8. (b)
+
+Figure 5.8. Deflection of rectangular plate stiffened by Inverted-T stiffener uniaxially along the center line when web dimension is constant and the flange dimensions vary but keeping the cross sectional area constant for stiffener (a) CCCC & (b) SSSS.
+
+47
+
+Figure 5.9. (a)
+
+Figure 5.9. (b)
+
+Figure 5.9. Deflection of rectangular plate stiffened by Inverted-T stiffener uniaxially along the along the different normalised scale from left edge of the plate for (a) CCCC (b) SSSS.
+
+Figure 5.9 shows the variation in stiffness properties of stiffened plate when stiffener is attached at a distance 0.1, 0.2, 0.3, 0.4 and 0.5 (normalised scale) from the edge of the plate along x-axis and parallel to y-axis. Figure 5.9 has been plotted for two flexural boundary condition (CCCC, SSSS) for static analysis of stiffened plate under uniform transverse loading. It is indicated from the figure, stiffness of the stiffened plate increases as the position of stiffener changes from left end to center of the plate. Figure 5.10 shows the deflection of clamped (CCCC) and simply supported (SSSS) rectangular stiffened plates under a fixed load for different stiffener positions. In this case, two different magnitudes of the transverse uniformly distributed load has been considered, as indicated in the figure legends. It shows that minimum deflection occurs when the stiffener is placed at the center of the plate. In other words, a centrally stiffened plate offers the maximum stiffness and
+48
+
+corresponding high load carrying capacity. It is also seen from the figures that as the stiffener shifts towards the edge of the plate, stiffness of the system reduces. It is also clear from the plot that SSSS boundary condition gives rise to larger deflection than CCCC boundary for all stiffener positions.
+
+Fig 5.10 (a)
+
+Fig 5.10 (b)
+
+Figure 5.10. Deflection of rectangular plate under UDL of 60000, 30000 N/m2 for different stiffener position from the leading edge for (a) CCCC (b) SSSS
+
+49
+
+CHAPTER 6: CONCLUSIONS AND FUTURE SCOPE
+
+6.1.
+
+CONCLUSIONS
+
+Large displacement static analysis of beams and stiffened plates are carried out using energy method, the underlying principle being the extermination of total energy of the system in its equilibrium state. The mathematical formulation of the static problem is based on the principle of minimum potential energy. A direct substitution method with successive relaxation scheme is used to solve the governing set of nonlinear equations. Results generated by the new methodology are compared with those available in literature and they show excellent agreement, thus establishing the accuracy of the present method. Results in the form of normalized load-displacement curve are presented for different combinations of flexural boundary conditions and stiffener crosssections. Also, three dimensional deflected shape plots are furnished along with the contour plots of the deflected system for all the cases. The results demonstrate varying degrees of nonlinearity corresponding to different flexural boundaries. From the present analysis of rectangular plates comparison has been made between inverted-T stiffener, rectangular stiffener and I stiffener. It is found that inverted-T stiffener shows the best stiffness or resistance against deflection.
+
+6.2.
+
+FUTURE SCOPE
+
+In the present thesis work large displacement static analyses of stiffened rectangular plate has been carried out in the elastic regime for homogeneous and isotropic materials. Geometric nonlinearity, expressed in terms of nonlinear strain-displacement relations, is incorporated in the formulation of the above mentioned problem. However, in structural analysis another form of nonlinearity is encountered very often and it is material nonlinearity, which is manifested by nonlinear stress50
+
+strain relationship. There is a scope for extending the studies carried out in the present thesis work to the post-elastic domain. It is also possible to extend the present formulation in the field of dynamic studies. Free and forced vibration analysis of stiffened plate structures can be carried out following the strain energy expressions developed in the present work. From the material point of view, the entire work has been undertaken for isotropic and homogeneous material behaviour. In the context of present wide spread use of plates of composites and functionally graded materials (FGM) in industrial and structural application, extension of the present formulation of static and dynamic behaviour of stiffened plates to include variable material properties is an obvious choice and can be taken up in future. In the present work only classical end condition, clamped and simply supported ends, are taken into account. But the formulation can be extended to simulate elastically restrained ends or plate edges resting on elastic foundations. The endeavour of simulation studies is to predict system behaviour with accuracy on the basis of mathematical modeling. there is always scope for improving the simulation model by incorporating complications hitherto neglected in order to make the prediction for system output as close to the true behaviour as possible.
+
+51
+
+REFERENCES
+[1] Klitchief, J. M. and Belgrade, Y., ‚ÄúOn the stability of plates reinforced by ribs‚Äù Journal of Applied Mechanics, 1949, 16, 74-76. [2] Hoppmann, W. H. and Baltimore, ‚ÄúM. Bending of orthogonally stiffened plates‚Äù, Journal of Applied Mechanics, 1955, 22, 267-271. [3] Hoppman, H. W., Hungton, N. J. and Magness, L. S., ‚ÄúA study of orthogonally stiffened plates‚Äù, Journal of Applied Mechanics, Transactions of the ASME, 1956, 23, 243-250. [4] Soper, W., ‚ÄúLarge deflection of stiffened plates‚Äù, Journal of Applied Mechanics, 1958, Vol. 25, 444- 448. [5] [6] Wah, T., ‚ÄúVibration of stiffened plates. Aeronautical Quarterly‚Äù, 1964, 15, 285-298. Wittrick, W. H., ‚ÄúGeneral sinusoidal stiffness matrices for buckling and vibration analysis of fiat-walled structures‚Äù, International Journal of Mechanical Sciences, 1968, 10, 949-966. [7] Kagan, H. A. and Kubo, G. G., ‚ÄúElasto-plastic analysis of reinforced plates‚Äù, ASCEST4, 1968, 94, 943-958. [8] Long, B. R., ‚ÄúA stiffness-type analysis of the vibration of a class of stiffened plates‚Äù, Journal of Sound Vibrations, 1971, 16, 323-335. [9] Long, B. R., ‚ÄúVibration of eccentrically stiffened plates‚Äù, Shock and Vibration Bulletin, 1969, 38, 45-53. [10] Asku, G. and Ali, R., ‚ÄúFree vibration analysis of stiffened plates using finite difference method‚Äù, Journal of Sound Vibrations, 1976, 48, 15-25.
+
+52
+
+[11] Asku, G, ‚ÄúFree vibration analysis of stiffened plates by including the effect of in-plane inertia‚Äù, Journal of Applied Mechanics, 1982, 49, 206-212. [12] Avent, R. and Bounin, D., ‚ÄúDiscrete field stability analysis of ribbed plates‚Äù, ASCE, Journal of Structural Engineering, 1976, 102(ST9), 1917-1937. [13] Hovichitr, I., Karasudhi, P., Nishino, F. and Lee, S. L. ‚ÄúA rational analysis of plates with eccentric stiffeners.‚Äù IABSE Proceedings, 1977, 77, 1-14. [14] Horne, M. R. and Narayanan, R. ‚ÄúThe strength of straitened welded steel stiffened plates.‚Äù The Structural Engineer, 1986, 54, 437-443. [15] Mukhopadhyay, M., ‚ÄúVibration and stability of stiffened plates by semi-analytic finite difference method, Part I Consideration of bending displacement only.‚Äù Journal of Sound Vibrations, 1989, 130, 27-39 [16] Mukhopadhyay, M., ‚ÄúVibration and stability of stiffened plates by semi-analytic finite difference method, Part II Consideration of bending and axial displacements.‚Äù Journal of Sound Vibrations, 1989, 130, 41-53. [17] Mukherjee, A. and Mukhopadhyay, M., ‚ÄúFinite element free vibration analysis of stiffened plates.‚Äù Aeronautical Journal, 1986, 267-273. [18] Mukherjee, A. and Mukhopadhyay, M., ‚ÄúFinite element free vibration of eccentrically stiffened plates.‚Äù Computers and Structure, 1989, 33, 295-305. [19] S. Krishnaswamy, K. Chandrashekhara and W. Z. B. Wu, ‚ÄúAnalytical solutions to vibration of generally layered composite beams.‚Äù J. Sound Vibration. 159, 85 (1992). [20] C.J. Chen, W. Liu, S.M. Chern ‚ÄúVibration analysis of stiffened plates‚Äù, 1994, Pages 471‚Äì480
+
+53
+
+[21] Koko, T. S., ‚ÄúSuper finite elements for non-linear static and dynamic analysis of stiffened plate structures.‚Äù Ph.D. Dissertation, University of British Columbia, 1990. [22] Bedair, O. K. and Sherbourne, A. N. ‚ÄúPlate/stiffener assemblies in uniform compression: Part ID buckling.‚Äù ASCE, Journal of Engineering Mechanics, 1993,119, 1937-1955. [23] Sherbourne, A. N. and Bedair, O. K. ‚ÄúPlate/stiffener assemblies in uniform compression: Part IID post-buckling.‚Äù ASCE, Journal of Engineering Mechanics, 1993, 119, 1956-1972. [24] Bedair, O. K. and Sherbourne, A. N. ‚ÄúUnified approach to the local stability of plate/stiffener assemblies.‚Äù ASCE, Journal of Engineering Mechanics, 1995, 121(2), 214-229. [25] Mukhopadhyay, M and Sheikh, A. H. ‚ÄúGeometric nonlinear analysis of stiffened plate by the spline finite strip method‚Äù, Computers & Structure, 2000, 76, 765-785.
+
+54
+

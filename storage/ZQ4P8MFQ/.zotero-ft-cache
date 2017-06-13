@@ -1,0 +1,1481 @@
+Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+Contents lists available at ScienceDirect
+
+Computers and Mathematics with Applications
+journal homepage: www.elsevier.com/locate/camwa
+
+Nonlinear bending analysis of radial-stiffened annular laminated sector plates with dynamic relaxation method
+M. Mehrabian, M.E. Golmakani ∗
+Department of Mechanical Engineering, Mashhad branch, Islamic Azad University, Mashhad, Iran
+
+article
+
+info
+
+abstract
+In this paper the nonlinear bending of laminated stiffened annular sector plates under mechanical loading with various boundary conditions is investigated. The plates are made of layers with orthotropic properties and different fiber orientations, which the aforementioned fibers are placed in a Cartesian coordinate system. Based on first-order shear deformation plate theory (FSDT) and von Karman relations for large deflection, nonlinear equilibrium equations are developed. Dynamic relaxation (DR) numerical method combined with the finite difference discretization technique is used to solve the plate nonlinear partial differential equations and FORTRAN program is developed to generate the numerical results. Effects of the plate thickness-to-radius ratio, boundary condition, stiffener depth, plate lay-ups and the sector angle are discussed. © 2015 Elsevier Ltd. All rights reserved.
+
+Article history: Received 29 November 2013 Received in revised form 10 February 2015 Accepted 12 March 2015 Available online 1 April 2015 Keywords: Dynamic relaxation method Nonlinear bending Partial differential equations Laminated plate
+
+1. Introduction The wide use of stiffened structural elements in engineering began in the nineteenth century, mainly with the application of steel plates for the hulls of ships and development of steel bridges and aircraft structures. With the introduction of laminated composite plates, they are being widely used in various branches of industry and engineering such as mechanical, aerospace, nuclear powerhouse and marine structures due to good mechanical properties like light weight, high strength, low thermal and electrical conductivity and corrosion resistance. In order to achieve greater structural efficiency of this type of structures, in particular, regarding the bending and buckling behavior, the laminated composite plate is stiffened by use of the stiffeners. To achieve this goal, such structures are frequently adjoined with beam-like stiffener components and usually called as the stiffened laminated plates. Stiffeners in a stiffened plate make it possible to resist highly directional loads, and introduce multiple load paths that may provide protection against damage and crack growth under both compressive and tensile loads. From an analytic stance, stiffened sector plates maybe studied as equivalent anisotropic uniform thickness plates providing the number of stiffeners is large. According to this approach, research effort is centered on the transformation of the structural orthotropic to equivalent material orthotropic [1]. For practical and economic reasons, small numbers of stiffeners are generally used to stiffened plates [2]. Thus, the first approach is not under investigation here. Instead, attention is focused on sector plates stiffened by a single eccentric radial stiffener. The second approach is valid when only a few stiffeners are presented, the plate and stiffeners are treated as separate entities and kinematic continuity and force interaction at the plate–stiffener junctions is enforced [1]. One such theory that has been developed for discretely stiffened rectangular plate
+
+∗ Correspondence to: Department of Mechanical Engineering, Mashhad branch, Islamic Azad University, Mashhad, Iran. P.O.B. 9187144123; Tel.: +98 51 36625046; fax: +98 51 36627560. E-mail address: m.e.golmakani@mshdiau.ac.ir (M.E. Golmakani).
+http://dx.doi.org/10.1016/j.camwa.2015.03.021 0898-1221/© 2015 Elsevier Ltd. All rights reserved.
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+1273
+
+is due to Basu et al. [3]. Both approaches are explained in detail in Troitsky’s classic text [4]. Several years ago, Turvey [5] developed a discretely stiffened circular plate analysis and applied it to the elastic large deflection analysis of ring-stiffened circular composite plates. Turvey and Der Avanessian [6] analyzed the governing equations for the axisymmetric elastic large deflection of ring stiffened circular plates using dynamic relaxation (DR) method. By developing a set of incremental equations for the elastic large deflection of ring stiffened circular plate, a similar analysis was also carried out by these authors [7,8] to investigate the effect of ring-stiffener depth on the elastic and elasto-plastic large deflection response of steel plates. Turvey and Salehi [9] solved the governing equations for the elastic large deflection of uniformly pressure loaded axisymmetric discretely stiffened isotropic circular plates based on the classical plate theory (CPT). Turvey and Salehi [1,2] also used a finite-difference implementation of the DR algorithm to analyze non-axisymmetric elastic large deflection of solid and annular thin sector plates stiffened by a single eccentric rectangular cross-section radial stiffener. They also [10] investigated the elasto-plastic large deflection non-axisymmetric response of uniformly loaded discretely stiffened circular plates by a diametral shallow and deep stiffener of rectangular cross-section. Recently, Golmakani and Kadkhodayan [11] investigated the small and large deflection analysis of eccentrically stiffened annular functionally graded (FG) sector plates under mechanical and thermo-mechanical loading. Many studies concerned with bending of isotropic sector plates [12–15] can be found in the literature. As mentioned before, sector laminated composite plates are extensively used in many engineering applications due to their excellent properties with lower weight and higher strength and stiffness compared to most of metallic materials. So that, many researchers have been motivated to study on this issue. Small deflection analysis of fiber-reinforced thick sector plates is presented in [16]. Afterward, in order to complete the work presented in [16], a comprehensive set of results for linear and non-linear static analyses of thick composite sector plates in which fibers are in the radial and circumferential directions are also presented [17] using DR method. Non-linear static analysis of laminated sector plates with any combination of clamped, simply supported and free edges is presented by Andakhshideh et al. [18] using Generalized differential quadrature (GDQ) method. In the same year, Salehi and Falahatgar [19] studied the geometrically non-linear behavior of unsymmetrical fiber-reinforced laminated sector plates, using the DR method. Many engineering structures made with composite materials have one dimension much smaller than the other two and can be modeled as plates. The simplest composite plate theory is the classical lamination theory, which is based on the Kirchhoff hypothesis [20]. There have been many attempts to rationally improve upon the classical model, almost all of which have shortcomings. Most of the models that have appeared in the literature are based on kinematic assumptions that cannot be reasonably justified for composite structures. Although, these models based on kinematic assumptions regularly appear in the literature, there is no basis whatsoever to justify such assumptions [21]. Yu et al. [22] introduced the new method which is called VAM (Variational Asymptotic Method). The VAM is then used to rigorously split the three-dimensional plate problems into two reduced-dimensional problems. The prediction of this theory for the in-plane quantities is slightly better than that of FSDT. Recently, Yu et al. [23] conducted the investigation to develop two Reissner–Mindlin type theories for composite laminated plates, namely, VAPAS (Variational Asymptotic Plate and Shell analysis) and EFSDT (Enhanced FirstOrder Shear-Deformation Theory). Both models maintain the efficiency of FSDT in the global plate analysis, circumvent the use of shear correction factors, and greatly improved the accuracy of the predicted 3D displacement/stress/strain distributions through the thickness. To the best knowledge of the authors, no research has been found dealing with nonlinear bending analysis of eccentrically stiffened annular laminated sector plates. Thus, the authors have been motivated to conduct this study. In the present paper, the elastic large deflection analysis of laminated annular sector plates with discrete radial stiffener subjected to a uniform transverse loading is considered for various boundary conditions based on FSDT. The DR method is used together with central finite differences to solve the nonlinear equilibrium equations. Additionally, to check the accuracy and reliability of the present results, the comparison studies with available results in the literature and Abaqus finite element package as well, are carried out. Finally, the effects of different parameters such as the plate thicknesses, boundary conditions, stacking sequences, stiffener depth, and the sector angle are discussed on results in detail. 2. Governing plate and stiffener equations Fig. 1 illustrates a laminated annular sector plate composed of two or more layers of material made up of matrix and fiber reinforcement with total thickness ho , sector angle α , inner radius ri and outer radius ro , which is stiffened by a single diametric isotropic stiffener of rectangular cross section. The elastic characteristics of the isotropic stiffener are also as the same as Young’s modulus to the matrix part of the composite. The width of the stiffener is bs and its depth is hs (Fig. 1). Each lamina considered to be orthotropic with the fibers aligned in the Cartesian coordinate system. The fiber angle is measured from the radial axis. In this section, the governing and compatibility equations for the annular sector laminated plate with radial stiffener are presented. 2.1. Plate governing equations The cylindrical coordinate system (r , θ , z ) and axial symmetry in loading and geometry are taken into account. The displacement field based on FSDT is expressed as [18]:
+
+1274
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+Fig. 1. The eccentrically stiffened annular laminated sector plate geometry under transverse mechanical loading.
+
+U (r , θ , z ) = u(r , θ ) + z φr (r , θ ) V (r , θ , z ) = v(r , θ ) + z φθ (r , θ ) W (r , θ , z ) = w(r , θ ) where u, v and w are the displacement components along the radial, circumferential and the thickness directions, respectively. Also, φr and φθ are angular displacement about the θ and r directions. The strain displacement equations due to the von Karman large deflection theory can be expressed as follows:
+0 εr = εr + z κ r 0 εθ = εθ + z κ θ 0 εr θ = εr θ + z κr θ
+
+(1)
+
+(2)
+
+∂w εrz = ε = φr + ∂r
+0 rz 0 εθ z = εθ z = φθ +
+
+1 ∂w r ∂θ
+
+0 0 0 where εr θ , εrz and εθ z are the shear strains in r θ , rz and θ z planes. Moreover, εr , εθ and εr θ are the radial, circumferential and shear strains at the mid-plane, respectively, defined as follows:
+
+0 εr =
+
+∂u 1 + ∂r 2
+1 r 1 r
+
+
+
+∂w ∂r 
+
+2
+
+0 εθ =
+
+
+u+
+
+∂v ∂θ
+
++
+
+1 2r 2
+
+
+
+∂w ∂θ
+
+2
+
+0 εr θ =
+
+
+
+    ∂u ∂v 1 ∂w ∂w −v + + ∂θ ∂r r ∂r ∂θ
+
+(3)
+
+κr = κθ = κr θ =
+
+∂φr ∂r ∂φθ φr + ∂θ r
+1 ∂φr r ∂θ
+
++
+
+∂φθ φθ − . ∂r r
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+1275
+
+Furthermore, according to Hooke’s law the stress–strain relationship can be written as [24]:
+
+
+
+σr σθ σr θ
+
+
+
+Q 11 = Q 12 Q 16
+
+
+
+Q 12 Q 22 Q 26 Q 45 Q 55
+
+Q 16 Q 26  Q 66
+
+
+
+εr εθ γr θ
+
+
+(4)
+
+
+
+τθ z τrz
+
+ =
+
+
+
+Q 44 Q 45
+
+
+
+γθ z γrz
+
+
+
+where the coefficients Q ij are called the reduced stiffness constants calculated in terms of fiber angles and the engineering constant of the material. The membrane forces, bending moments and the transverse shear stress resultant per unit edge length Nα , Mα and Qβ respectively, are defined by:
+
+
+Nα =
+
+h/2
+
+−h/2
+
+σα dz
+
+
+Mα =
+
+h/2
+
+−h/2
+
+σα zdz
+
+
+Qβ =
+
+h/2
+
+−h/2
+
+τβ dz
+
+(5)
+
+where α = r , θ , z and β = rz , r θ . By substituting Eqs. (2) and (4) into Eq. (5) the constitutive relations are stated as [19]:
+
+
+
+Nr Nθ Nr θ
+
+ =
+
+
+
+A11 A12 A16
+
+A12 A22 A26
+
+A16 A26 A66
+
+ 0   εr     B11 0 εθ + B12    0 B16 γr θ
+
+B12 B22 B26
+
+B16 B26 B66
+
+    κr0    κ0  θ  0 κr θ
+(6)
+
+
+
+Mr Mθ Mr θ
+
+
+
+
+
+B11 B16
+
+= B12
+
+B12 B22 B26
+
+   ε0    B16  r  D11 0 B26 εθ + D12   B66  0  D16 γr θ
+
+D12 D22 D26
+
+   κ0   D16  r  0 D26 κθ   D66  0  κr θ
+
+where Aij , Bij and Dij are extensional, bending and the bending-extensional coupling stiffness respectively, defined by:
+N  k=1 N 1 k Qij (zk − zk−1 ) i, j = 1, 2, 6
+
+Aij =
+
+(7)
+
+Bij =
+
+2 k=1
+N 1
+
+2 k 2 Qij (zk − zk−1 ) i, j = 1, 2, 6
+
+Dij =
+
+3 k=1
+
+3 k 3 Qij (zk − zk−1 ) i, j = 1, 2, 6.
+
+Also, the transverse shear stress resultants are stated as below:
+
+
+
+Qr
+
+ =
+
+
+
+ks A44 ks A45
+
+ks A45 ks A55
+
+
+
+0 εrz
+
+ .
+(8)
+
+Qθ
+
+0 εθ z
+
+The ks parameter in (8) refers to the shear correction factor. It is introduced to correct the discrepancy between the actual transverse shear force distributions and those computed using the kinematics relations of the FSDT. The determination of the ks value in multilayered media is still a complicated issue. The factor is computed such that the strain energy due to the transverse shear stresses of the FSDT equals with the predicted value by the three-dimensional elasticity theory or its equivalent and such an approach combines simplicity with a significant effectiveness [25,26]. Thus, as indicated in [27,28] using the constant shear correction factor ks = 5/6 the maximum deflection predicted by the first-order shear deformation theory coincides with the ones predicted by the third-order plate theory. Therefore, in this study, for the sake of computations with satisfactory results, the constant shear correction factor ks is taken as 5/6 [27–29]. Moreover, Aij is obtained by:
+N  k=1 k Qij (zk − zk−1 ) i, j = 4, 5.
+
+Aij =
+
+(9)
+
+1276
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+By substituting Eqs. (2) and (3) into Eqs. (6) and (8) the constitutive relations in terms of displacement field are obtained as:
+
+
+Nr = A11
+
+∂u 1 + ∂r 2
+
+
+
+∂w ∂r
+
+2  + A12
+
+ 
+1 r
+
+∂v u+ ∂θ
+1 ∂φr r ∂θ
+
+ +
+
+1 2r 2
+
+
+
+∂w ∂θ 
+
+2  + A16
+
+
+
+∂v 1 ∂u v 1 + − + ∂r r ∂θ r r
+
+
+
+∂w ∂θ
+
+
+
+∂w ∂r
+
+
+
+
+B11
+
+∂φr ∂r
+
+ + B12 
+
+
+
+1 ∂φθ r ∂θ
+
++
+
+φr
+r
+
+ + B16
+
+
+
++
+
+∂φθ φθ − ∂r r
+1 2r 2
+
+Nθ = A12
+
+∂u 1 + ∂r 2  + B22
+
+
+
+∂w ∂r
+
+2  + A22
+
+ 
+1 r u+
+
+∂v ∂θ
+
+ +
+
+
+
+∂w ∂θ 
+
+2  + A26
+
+
+
+∂v 1 ∂u v 1 + − + ∂r r ∂θ r r
+
+
+
+∂w ∂θ
+
+
+
+∂w ∂r
+
+
+
+
+B12
+
+∂φr ∂r
+
+
+
+1 ∂φθ r ∂θ
+
++
+
+φr
+r
+
+ + B26
+
+
+
+1 ∂φr r ∂θ
+
++
+
+∂φθ φθ − ∂r r  +
+1 2r 2
+
+
+Nr θ = A16
+
+∂u 1 + ∂r 2 
+
+
+
+∂w ∂r
+
+2  + A26
+
+ 
+1 r u+
+
+∂v ∂θ
+
+
+
+∂w ∂θ 
+
+2  + A66
+
+
+
+∂v 1 ∂u v 1 + − + ∂r r ∂θ r r
+
+
+
+∂w ∂θ
+
+
+
+∂w ∂r
+
+
+
+
+B16
+
+∂φr ∂r
+
+ + B26 
+
+1 ∂φθ r ∂θ
+
++
+
+φr
+r
+
+ + B66
+
+
+
+1 ∂φr r ∂θ
+
++
+
+∂φθ φθ − ∂r r
+1 2r 2
+
+Mr = B11
+
+∂u 1 + ∂r 2  + D12
+
+
+
+∂w ∂r
+
+2  + B12
+
+ 
+1 r
+
+∂v u+ ∂θ
+1 ∂φr r ∂θ
+
+ +
+
+
+
+∂w ∂θ 
+
+2  + B16
+
+
+
+∂v 1 ∂u v 1 + − + ∂r r ∂θ r r
+
+
+
+∂w ∂θ
+
+
+
+∂w ∂r
+
+
+(10)
+
+
+D11
+
+∂φr ∂r
+
+
+
+1 ∂φθ r ∂θ
+
++
+
+φr
+r
+
+ + D16
+
+
+
++
+
+∂φθ φθ − ∂r r
+1 2r 2
+
+
+Mθ = B12
+
+∂u 1 + ∂r 2  + D22
+
+
+
+∂w ∂r
+
+2  + B22
+
+ 
+1 r
+
+∂v u+ ∂θ
+1 ∂φr
+
+ +
+
+
+
+∂w ∂θ 
+
+2  + B26
+
+
+
+1 ∂u v 1 ∂v + − + ∂r r ∂θ r r
+
+
+
+∂w ∂θ
+
+
+
+∂w ∂r
+
+
+
+
+D12
+
+∂φr ∂r
+
+
+
+1 ∂φθ r ∂θ
+
++
+
+φr
+r
+
+ + D26
+
+
+
+∂φθ φθ + − r ∂θ ∂r r ∂v u+ ∂θ  +
+1 2r 2
+
+
+Mr θ = B16
+
+∂u 1 + ∂r 2 
+
+
+
+∂w ∂r
+
+2  + B26
+
+ 
+1 r
+
+
+
+∂w ∂θ 
+
+2  + B66
+
+
+
+∂v 1 ∂u v 1 + − + ∂r r ∂θ r r
+
+
+
+∂w ∂θ
+
+
+
+∂w ∂r
+
+
+
+
+D16
+
+∂φr ∂r
+
+ + D26 
+
+1 ∂φθ r ∂θ
+
++
+
+φr
+r
+
+ + D66 
+1 ∂w r ∂θ
+
+
+
+1 ∂φr r ∂θ
+
++
+
+∂φθ φθ − ∂r r
+
+Qr = ks A44
+
+∂w + φr ∂r ∂w + φr ∂r
+
+ + ks A45  + ks A55
+
++ φθ
+
+
+
+
+Qθ = ks A45
+
+
+
+1 ∂w r ∂θ
+
+ + φθ .
+
+To derive the equilibrium equations, the stiffened plate are considered as an ordinary one that is subjected to the set of body forces, acting as reaction of rectangular cross-section stiffener on the plate. Fig. 2 shows the internal and external forces and moments acting on the cross section areas of the annular FG sector plate. The in and out-of-plane force and moments equilibrium equations along the radial and circumferential direction based on FSDT take the following forms [11]:
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+1277
+
+Fig. 2. Free diagram of the stiffened annular sector plate.
+
+∂ Nr 1 ∂ Nr θ 1 Fr + + (Nr − Nθ ) + =0 ∂r r ∂θ r r θ ∂ Nr θ 1 ∂ Nθ 2 Fθ + + Nr θ + =0 ∂r r ∂θ r r ∂ Mr ∂ Mr θ Mr − Mθ T + + − Qr + =0 ∂r r ∂θ r r θ ∂ Mθ ∂ Mr θ 2 + + Mr θ − Qθ = 0 r ∂θ ∂r r     Qr ∂ Qr 1 ∂w 1 ∂ 2w ∂ 2w 1 ∂ 2w 1 ∂w ∂ Qθ + + + Nθ + 2 2 + Nr 2 + 2Nr θ − 2 +q r ∂θ r ∂r r ∂r r ∂θ ∂r r ∂ r ∂θ r ∂θ  + Fr ∂w 1 ∂r r θ  + Fθ  ∂w 1 ∂θ r r  + Fz 
+1 r θ (11)
+
+
+
+= 0.
+
+The underlined terms are expressing the body force contributions of the radial stiffener to the plate equilibrium. By substituting Eq. (10) into (11), the five equilibrium equations are achieved in displacement field of sector plate and the reaction forces of the stiffener on the plate. Due to the length of the derived relations, as an example, the first relation of Eq. (11) is given below:
+
+
+A11
+
+∂ 2 u ∂ 2 w ∂w 1 ∂u 1 + 2 + + ∂r2 ∂r ∂r r ∂r 2r 
+u r2 1 ∂v r 2 ∂θ 1 2r 3
+
+
+
+∂w ∂r
+
+2  + A12
+
+
+
+1 ∂ 2v r ∂ r ∂θ
+
++
+
+1 ∂ 2 w ∂w r 2 ∂ r ∂θ ∂θ
+
+−
+
+1 2r 3
+
+
+
+∂w ∂θ
+
+2 −
+
+1 2r
+
+
+
+∂w ∂r
+
+2 
+
+
+
++A22 −  +A26
+
+−
+
+−
+
+∂w ∂θ
+
+2  + A16 v
+r2
+
+
+
+2 ∂ 2u ∂ 2v 1 ∂ 2 w ∂w 2 ∂ 2 w ∂w + + + 2 2 ∂θ ∂r r ∂ r ∂θ r ∂r r ∂ r ∂θ ∂ r
+
+
+
+1 ∂ 2v r 2 ∂θ 2
+
++
+
+1 ∂ 2 w ∂w r 3 ∂θ 2 ∂θ
+
+−
+
+1 ∂v r ∂r
+
++
+
+−
+
+1 ∂w ∂w r 2 ∂ r ∂θ
+
+
+
+1278
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+ +A66  +B11  +B26
+
+1 ∂ 2v r ∂ r ∂θ
+
++
+
+1 ∂ 2u r 2 ∂θ 2
+
+−
+
+1 ∂v r 2 ∂θ
+
++
+
+1 ∂ 2 w ∂w r 2 ∂ r ∂θ ∂θ
+
++
+
+1 ∂ 2 w ∂w r 2 ∂θ 2 ∂ r
+
+
+
+∂ 2 φr 1 ∂φr + ∂r2 r ∂r
+1 ∂ 2 φθ r2
+
+ + B12
+
+
+
+1 ∂ 2 φθ r ∂ r ∂θ
+
+
+
+    1 ∂φθ 2 ∂ 2 φr φr ∂ 2 φθ + B22 − 2 − 2 + B16 + r ∂θ r r ∂ r ∂θ ∂r2
+1 ∂ 2 φθ r ∂ r ∂θ
+
+∂θ
+
+2
+
+−
+
+1 ∂φθ r ∂r
+
++
+
+φθ
+r2
+
+ + B66
+
+
+
++
+
+1 ∂ 2 φr r2
+
+∂θ
+
+2
+
+−
+
+1 ∂φθ r 2 ∂θ
+
+ +
+
+Fr r θ
+
+= 0.
+
+(12)
+
+2.2. Stiffener equations As stated for the plate, the system of equations is governed on the stiffener. The stiffener equilibrium equations relate the plate body forces (Fr , Fθ , Fz ) and the torsional interaction couple, T to the stiffener centroidal forces and moments NA , MV , MH and MT . The mentioned forces and moments are associated with mutually perpendicular axes passing through the center of area axis of the stiffener cross-section and also the centroidal displacements, vc and wc , as follows [11]: Fr =
+
+∂ NA ∂r ∂ 2 MH ∂ NA ∂vc ∂ 2 vc + + NA 2 ∂r2 ∂r ∂r ∂r
+(13)
+
+Fθ = −
+
+Fz =
+
+∂ 2 MV 1 ∂ 2 MH ∂wc ∂ 2 NA ∂ 2 wc + + e + NA 2 2 2 ∂r r ∂r ∂θ ∂r ∂r2
+
+T =
+
+∂ 2 MH ∂ MT e+ 2 ∂r ∂r  s  e = ho + ho /2.
+
+In Eq. (13) MH and MV are the internal moments acting about vertical and horizontal axes, respectively, through the center area of the stiffener cross-section. Also, NA is the force directed normally to the stiffener cross-section along the center of area axis. Moreover, e is the vertical distance of the center of area of the stiffener from the plate mid-plane and vc , wc are the displacements of the center of area in the circumferential and normal directions, respectively. Moreover, MT is the internal torsional moment on the stiffener cross-section. It should also be noted that the forces per unit length Fr , Fθ and Fz act at the level of the plate mid-plane and not at the top of the stiffener, which coincides with the lower surface of the plate. The stiffener is elastic and isotropic, so that the axial force is related to the radial strain and the moments and torque are related to the curvatures and twist as follows [2]:
+0 NA = E s hs bs εr ,s o
+
+
+
+
+
+
+MV =
+
+E s hs o
+
+ 3
+12
+
+bs
+
+ κr0,s
+(14)
+
+
+MH =
+
+E s hs (bs )3 o 12
+
+
+
+κθ
+
+0,s
+
+MT = K s Gs hs bs o
+
+
+
+ 3 
+
+κr0θ,s
+
+where E s and Gs are the Young and shear moduli of the stiffener, respectively, and K s is a numerical factor which depends on the ratio, hs /bs . It should, however, be appreciated that in the parameter studies reported in the later sections of the paper o
+0 ,s 0,s
+
+0 be specified. Moreover, the relationship between the stiffener axial strain and curvatures, εr ,s , κr0,s and κθ , of Eq. (14) with the stiffener centroidal displacement components, uc , vc , wc are:
+
+twisting of the stiffener does not arise (for reasons of symmetry) [1]. Therefore, MT is zero, thus K s and κr θ do not need to
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+1279
+
+0 εr ,s =
+
+∂ uc 1 + ∂r 2 ∂ 2 wc ∂r2
+
+
+
+∂wc ∂r
+
+2 +
+
+1 2
+
+
+
+∂vc ∂r
+
+2
+
+κr0,s = −
+0 κ θ ,s
+
+(15)
+
+∂ 2 vc =− 2 ∂r
+1 ∂ 2 wc 2 ∂ r ∂θ
+
+κr0θ,s = −
+
++
+
+1 ∂wc r 2 ∂θ
+
+.
+
+2.3. Plate boundary conditions The boundary conditions used in the present study are simply supported and clamped edge constraints. The edge constraints along the radial and circumferential edges are stated below: Along the radial edges at α = 0, β : (a) For simply supported—in-plane fixed u = v = w = φr = Mθ = 0. (b) For clamped edge—in-plane fixed u = v = w = φr = φθ = 0. Along the circumferential edges at r = ri and r = ro : (c) For simply supported—in-plane fixed u = v = w = φθ = Mr = 0. (d) For clamped—in-plane fixed u = v = w = φr = φθ = 0. (16d) (16c) (16b) (16a)
+
+2.4. Stiffener boundary conditions Two types of boundary conditions, similar to those which were stated for the plate, arise for the radial stiffener. Atr = ri , θ = α/2 and r = ro , θ = α/2, both simply supported and clamped in-plane fixed conditions are considered. These conditions imply the following constraints on displacements and stress couples [11]: For simply supported edges:
+
+vc = wc = MV = 0,
+For clamped edges: uc = vc = wc =
+
+uc = −e
+
+∂wc . ∂r
+
+(17a)
+
+∂wc = 0. ∂r
+
+(17b)
+
+Along the plate–stiffener junction displacement continuity dictates that a relationship exists between the plate midplane displacements and the displacements of the center of area of the stiffener cross-section. By assuming that the stiffener eccentricity is small in relation to the plate curvature, it is reasonable to assume that the stiffener curvature is approximately equal to the plate curvature. In addition, it is assumed that the normal strains in the stiffener are negligible [1]. These simplifying assumptions allow introducing the following relationships between the displacements of the center of area of the stiffener cross-section in terms of the plate mid-plane displacements at the plate–stiffener junction [11]: uc = u0 + eφr
+
+vc = v0 + eφθ wc = w0 .
+
+(18)
+
+1280
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+3. Solution methodology of the nonlinear equations The laminated and composite plates have inherent complexity to be analyzed. Thus, many sophisticated methods such as Rayleigh–Ritz, finite strip, finite difference and finite element have been used for the acceptable solution of these types of materials. A comprehensive literature review on computational models for laminated composite and sandwich panels is presented by Kreja [30]. The set of equilibrium equations of the stiffened laminated annular sector plate are too complicated and are not amenable to closed-form solution. So, the DR iterative method together with the finite difference discretization technique is used to solve the non-linear differential equations of the stiffened laminated plate, which has been used previously in the studies reported in [31–39]. The DR method is based on the fact that the static solution of a mechanics system could be referred to as the steady state part of the transient response of the system to step loading. Thus, the basic idea of DR is to transfer a static problem into a fictitious dynamic one by adding artificial inertia and damping forces. The DR is a step-by-step method for tracing the motion of a structure from the time of loading to when it reaches a steady state position due to the effects of damping. The DR is a powerful and reliable technique for solving the highly nonlinear plate, dealing with bending and buckling problems. The DR algorithm is a time stepping initial value iterative procedure. In order to use this algorithm, the system of equations, which describe a boundary value problem, must be changed to the initial value problem form. This is accomplished by the device of adding the acceleration and damping terms to the right hand side of the equilibrium equations (Eq. (11)), which transfer the static problem into dynamic one [11]: 1 ∂ Nr θ 1 Fr d2 u du ∂ Nr + + (Nr − Nθ ) + = mu 2 + cu ∂r r ∂θ r r θ dt dt
+
+∂ Nr θ 1 ∂ Nθ 2 Fθ d2 v dv + + Nr θ + = mv 2 + cv ∂r r ∂θ r r dt dt ∂ Mr θ Mr − Mθ T d2 φr dφr ∂ Mr + + − Qr + = mφ 2 + cφ ∂r r ∂θ r r θ dt dt ∂ Mθ ∂ Mr θ 2 d2 φθ dφθ + + Mr θ − Qθ = mφ 2 + cφ r ∂θ ∂r r dt dt     Qr ∂ Qr 1 ∂w 1 ∂ 2w ∂ 2w 1 ∂ 2w 1 ∂w ∂ Qθ + + + Nθ + 2 2 + Nr 2 + 2Nr θ − 2 +q r ∂θ r ∂r r ∂r r ∂θ ∂r r ∂ r ∂θ r ∂θ  + Fr ∂w 1 ∂r r θ  + Fθ  ∂w 1 ∂θ r r  + Fz 
+1 r θ (19)
+
+ = mw
+
+d2 w dt 2
+
++ cw
+
+dw dt
+
+where mu , mv , mφ , mϕ , mw and cu , cv cφ , cϕ , cw are the elements of diagonal fictitious mass and damping matrices M and C, respectively. Basically, the dynamic relaxation iterations are unstable, so that, the mass matrix and nodal damping factor should be defined to guarantee the stability and convergence of the procedure. In accordance with Gershgörin theorem, a general expression is given to determine mlii [l : u, v, φ, ϕ, w] [40]: mlii ≥ 1 4 t2
+n   kl  ij j=1
+
+(20) t is the increment of fictitious time. The element, kij , of the stiffness
+
+where superscript n indicates the nth iteration and matrix, K , is calculated by: K =
+
+∂F ∂x
+
+(21)
+
+where x = u, v, φ, ϕ, w is the approximate solution vector, and F is the left hand side of Eq. (19). As mentioned, proper selection of C can improve the convergence rate of the DR method. Five main approaches have been proposed in the published literature which is summarized in [41]. In this study, by applying the Rayleigh principle to each node, the instant critical damping factor cin for node i at the nth iteration expressed as [41]: cin
+
+(xn )T Fin i =2 (xn )T mn xn i ii i 
+
+1/2
+
+.
+
+(22)
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+1281
+
+To complete the transformation process in this method, the acceleration and velocity terms at time step with the following equivalent central finite-difference expressions [41]:
+
+t are replaced
+
+{¨ }n = x
+
+{˙ }n+ 2 − {˙ }n− 2 x x
+tn
+
+1
+
+1
+
+(23)
+
+{˙ }n− 2 = x
+
+1
+
+{x}n + {x}n−1
+tn
+
+.
+
+(24)
+
+By substituting Eqs. (23) and (24) into the right-hand side of Eq. (19), the equilibrium equations can be rearranged into an initial value format as follows:
+
+˙ ui
+
+n+1/2
+
+=
+
+2τ n
+
+2 + τ n ci 2τ n 2+τ
+
+(mn )−1 ii n (mn )−1 ii n (mn )−1 ii n ( )
+
+
+
+Fr 1 ∂ Nr θ 1 ∂ Nr + + (Nr − Nθ ) + ∂r r ∂θ r r θ
+
+n +
+i
+
+2 − τ n cin 2 + τ n cin
+
+˙ ui
+
+n−1/2
+
+vi ˙
+
+n+1/2
+
+
+
+=
+
+nc i
+
+∂ Nr θ 1 ∂ Nθ 2 Fθ + + Nr θ + ∂r r ∂θ r r
+
+n +
+i
+
+2 − τ n cin 2 + τ n cin
+
+vi ˙
+
+n−1/2
+
+˙ n+1/2 = φri ˙ n+1/2 = φθ i wi ˙
+n+1/2
+
+2τ n 2+τ
+
+
+
+nc i
+
+∂ Mr θ Mr − Mθ T ∂ Mr + + − Qr + ∂r r ∂θ r r θ ∂ Mr θ 2 ∂ Mθ + + Mr θ − Qθ r ∂θ ∂r r ∂ Qθ Qr ∂ Qr + + + Nθ r ∂θ r ∂r  ∂w 1 ∂r r θ  + Fθ   n +
+i
+
+n +
+i
+
+2 − τ n cin 2 + τ n cin
+
+˙ n−1/2 φri
+(25)
+
+2τ n 2+τ
+
+mn −1 ii ncn i
+
+
+
+2 − τ n cin 2 + τ n ci
+
+˙ n−1/2 φ n θi  + 2Nr θ n +
+i
+
+=
+
+2τ n
+
+2 + τ n ci
+
+(mn )−1 ii n
+
+
+
+1 ∂w r ∂r
+
++
+
+1 ∂ 2w r 2 ∂θ 2
+
+
+
+1 ∂ 2w r ∂ r ∂θ
+
+−
+
+1 ∂w r 2 ∂θ
+
+
+
+∂ 2w + Nr 2 + q + Fr ∂r
+
+∂w 1 ∂θ r r
+
+ + Fz
+
+
+
+1 r θ
+
+2 − τ n cin 2 + τ n cin
+
+wi ˙
+
+n−1/2
+
+.
+
+Obviously, the values of velocity vector approach zero at the steady state situation. In the current study, the minimum  n+1/2 ˙ of kinetic energy ( j xj ≤ 10−12 ) is used as the convergence criterion. As mentioned before, in the DR method, the mass matrix and nodal damping factor should be defined to guarantee the stability and convergence of the iterative procedure [35]. At the end of each time step, the displacement must be calculated, which is achieved using the following simple integration relation from the velocities Eq. (25): xn+1 = xn +
+
+˙ t n+1 xn+1/2 .
+
+(26)
+
+In order to apply the DR method to solve the system of equations, they must be discretized. To attain this, the central finite difference technique is applied to replace the derivatives. Finally, Eqs. (25), (26), and (1)–(15), together with the appropriate boundary conditions in their finite difference forms constitute the set of equations for solution. For the sake of brevity, the DR algorithm which clearly explained in [40,41] is omitted. 4. Numerical results and discussions 4.1. Comparison study To demonstrate the efficiency and accuracy of the presented method, the current solutions obtained by DR method are compared with those available in the literature and Abaqus finite element [42] as well. The authors set out three examples for achieving this goal. It is notable that for a more comprehensive study, different boundary conditions, namely, clamped (C) and simply supported (S) in plane fixed are considered for whole edges of the sector plate and stiffener. For instance, CCCC shows that all edges are clamped and the sector is in the form of annular shape. However, CCC one illustrates that the sector is solid. Furthermore, as shown in Fig. 1, the edges of the plate are numbered from 1 to 4. For example, the symbol SCSC identifies a plate with edges 1 and 3 simply supported, edges 2 and 4 clamped. Example 1. This example aims to verify the present solutions for large deflection analysis of the solid and annular isotropic moderately thick sector plates based on FSDT with the results reported by Refs. [12,15,39]. To implement a nonlinear analysis, the mentioned references have benefited from the Newton–Raphson and DR methods. Tables 1 and 2 show the comparison between the results of the current analysis with the ones reported by Refs. [12,15,39] for the maximum
+
+1282
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+Table 1 Comparison between the nonlinear bending result of the present solution with those reported by [15,12,39] for the maximum dimensionless deflection (w max ) of an isotropic CCC solid sector plate at (r 1 = 0.647, α = 30°). q=
+4 Qro
+
+Eh4 o
+
+λ = 0.1
+Ref. [15] Ref. [12] 0.4576 0.7544 0.9629 1.1246 1.2580 Ref. [39] 0.3603 0.6368 0.8464 1.0141 1.1545 Present solution 0.3827 0.6541 0.8501 1.0031 1.1283 0.3940 0.6670 0.8615 1.0124 1.1365
+
+λ = 0.2
+Ref. [15] 0.5599 0.8254 1.0007 1.1354 1.2465 Ref. [12] 0.6404 0.9260 1.1167 1.2640 1.3860 Ref. [39] 0.5703 0.8730 1.0773 1.1406 1.2670 Present solution 0.5526 0.8231 1.0020 1.1392 1.2522
+
+100 200 300 400 500
+
+Table 2 Comparison between the nonlinear bending result of the present solution with those reported by [15,12,39] for the maximum dimensionless deflection (w max ) of an isotropic SSS solid sector plate at (r 1 = 0.647, α = 30°). q=
+4 Qro
+
+Eh4 o
+
+λ = 0.1
+Ref. [15] Ref. [12] 0.6751 0.9343 1.0700 1.2400 1.3500 Ref. [39] 0.6341 0.9248 1.1193 1.2710 1.3963 Present solution 0.6421 0.9037 1.0723 1.2067 1.3153 0.6618 0.9167 1.0848 1.2143 1.3215
+
+λ = 0.2
+Ref. [15] 0.6899 0.9301 1.0910 1.2164 1.3209 Ref. [12] 0.7057 0.9525 1.1190 1.2480 1.3560 Ref. [39] 0.7110 0.9619 1.1765 1.2406 1.3126 Present solution 0.6696 0.9177 1.0832 1.2116 1.3185
+
+100 200 300 400 500
+
+Table 3 Comparison between the nonlinear bending result of the present solution with those reported by [15], for the dimensionless deflection of an isotropic CCCC annular sector plate at (r 1 = 0.176471, α = 30°) with λ = 0.2 and q = 500.
+
+µ=0
+Ref. [15] Present solution 0.22333 0.2303
+
+µ = 0.05
+0.30596 0.3208
+
+µ=1
+0.39811 0.4186
+
+µ = 0.2
+0.56931 0.5976
+
+Table 4 Comparison of maximum dimensionless deflection (w max ) of a CCC laminated sector plate [0/90/90/0] with α = 60°, q = 1 obtained from the linear analysis of present solution with those of Salehi and Sobhani [17] and Abaqus finite element [42]. ho /ro K/E Ref. [17] 0.05 0.2 1.1e−3 5.3e−3 Ansys [17] 1.1087e−3 5.3315e−3 Abaqus [42] 1.158e−3 5.958e−3 Present solution 1.119e−3 5.43e−3 G/E Ref. [17] 8.6e−4 4.6e−3 Ansys [17] 8.6544e−4 4.6327e−3 Abaqus [42] 9.208e−4 5.113e−3 Present solution 8.746e−4 4.742e−3
+
+dimensionless deflection of an isotropic solid sector plate with two cases of thickness-to-radius ratios of λ = h/ro = 0.1, 0.2 and the sector angle of α = 60° at θ = 30°, r 1 = r − ri /ro − ri = 0.647. The solid sector plate is subjected to different values 4 of q = Qro /Eh4 with the fully clamped and simply supported boundary conditions named as CCC and SSS, respectively. Also, o in Table 3 the deflection acquired at θ = 30° and r 1 = r − ri /ro − ri = 0.176471 of an annular isotropic sector plate with α = 60° and λ = 0.2 is compared to the results obtained by Ref. [15] for different ratios of µ = ri /ro . In this case, the annular plate with CCCC boundary condition is subjected to q = 500. As seen, a good agreement can be observed among Tables 1–3. Example 2. The comparison is here carried out between the linear and the nonlinear bending analysis of solid and annular laminated sector plates, with the results reported by Refs. [17,18] and the commercial finite element package of Abaqus [42] for the both fully clamped and simply supported boundary conditions in Tables 4–6. As shown in Table 4, the obtained linear results are compared with Refs. [17,42] using Kevlar/Epoxy (K/E) and Graphite/Epoxy (G/E) substances for a [0/90/90/0] lay4 up of CCC solid sector plate with α = 60° and λ = 0.05 and 0.2 subjected to uniform mechanical load of q = Qro /E2 h4 = 1. The nonlinear results of the current study are compared with the ones of Refs. [17,18,42] in Table 5 for a solid sector plate with the same geometry, lay-up and thickness-to-radius ratios as the linear ones, but with solely consideration of (K/E) in clamped boundary condition under uniform loads of q = 50, 100. In Table 6, for different lay-ups of the annular (K/E) laminated sector plates, a comparison has been also conducted between the present solutions with those obtained by FEM [42] considering the geometrical features of α = 60°, λ = 0.05, µ = 0.5 under a dimensionless uniform load of q = 500 for both CCCC and SSSS boundary conditions. It is seen that the present results are in good consistency with the other solutions for nonlinear and linear elastic bending analyses of solid and annular laminated sector plates. Example 3. As the final sample, the results obtained from the analysis of a radially stiffened annular (K/E) laminated sector plate with [0/90/90/0] lay-up under a uniform mechanical load with CCCC boundary condition are compared with those
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+1283
+
+Table 5 Comparison of maximum dimensionless deflection (w max ) of CCC and SSS laminated sector plate [0/90/90/0] with α = 60° obtained from the nonlinear analysis of present solution with those of Salehi and Sobhani [17], Andakhshideh et al. [18] and Abaqus finite element [42]. ho /ro q CCC Ref. [17] 0.05 0.2 50 100 50 100 0.053 0.1 0.18 0.35 Ansys [17] 0.0562 0.11194 0.18505 0.35859 Ref. [18] 0.0528 0.1206 0.19 0.3661 Abaqus [42] 0.0575 0.1142 0.2444 0.3842 Present solution 0.05486 0.1088 0.2194 0.3496 SSS Abaqus [42] 0.1654 0.2942 0.2766 0.412 Present solution 0.1494 0.2685 0.2593 0.3886
+
+Table 6 Comparison of maximum dimensionless deflection (w max ) of CCCC and SSSS laminated sector plate with α = 60°, ri /ro = 0.5 and h/ro = 0.05 obtained from the nonlinear analysis of present study and Abaqus finite element [42]. q=
+4 Qro
+
+E2 h4
+
+= 500
+
+Abaqus [42] CCCC SSSS 0.4882 0.5666 0.4736
+
+Present solution CCCC 0.2216 0.3411 0.3058 SSSS 0.4414 0.5602 0.4856
+
+[0/90/90/0] [90/0/0/90] [45/−45/45/−45]
+
+0.2658 0.3468 0.307
+
+Table 7 Comparison of maximum dimensionless deflection (w max ) of CCCC stiffened laminated sector plates with α = 60°, ri /ro = 0.5, h/ro = 0.05 and ξ = hs /ho = 1 under various transverse o loading between the present solution and Abaqus finite element [42].
+4 q = Qro /E2 h4
+
+Abaqus [42] 0.019292 0.03856 0.07688 0.11474 0.15196 0.18836 0.2238 0.2582 0.2916 0.324 0.355
+
+Present solution 0.018029 0.03606 0.07202 0.10766 0.142809 0.177278 0.210943 0.243698 0.275480 0.306249 0.335898
+
+50 100 200 300 400 500 600 700 800 900 1000
+
+of FEM [42] in Table 7. The results are presented in terms of dimensionless deflection parameters under various values of transverse loads. In this analysis, the ratios of inner to outer radius, thickness to outer radius, stiffener depth to the thickness of the plate are η = ri /ro = 0.5, λ = ho /ro = 0.05 and ξ = hs /ho = 1, respectively. Moreover, for the all cases, the stiffener o is along θ = 30° and the stiffener’s width is equal to its thickness. Also, the material of the stiffener and the matrix are the same. It can be observed that the results obtained by the present method are in close agreement with those obtained by FEM [42].
+
+4.2. Parametric study In this section, the numerical results of an annular laminated sector plate stiffened by a radial stiffener with sector angle 4 of α = 60° are presented under a transverse mechanical load of q = Qro /E2 h4 = 500 in different boundary conditions, for o ratios of thickness to radius λ = 0.05, stiffener depth to thickness plate ξ = 1 and the inner-to-outer radius of η = 0.5, unless stated otherwise. Moreover, all the layers of the laminated plate are equally thick. The Kevlar/Epoxy (K/E) laminated composite plate with the following material properties is considered here [17]: E1 = 54 GPa, E2 = E3 = 5 GPa G12 = G23 = G13 = 2 GPa
+
+υ12 = υ13 = 0.4,
+
+υ23 = 0.47.
+
+(27)
+
+Furthermore, the width of rectangular cross section stiffener (which is oriented eccentrically at θ = α/2 = 30°) is equal to its height and the material property of the radial stiffener is identical to the matrix phase of sector plate. The lay-ups to analyze are presented below:
+
+[0/90/90/0] [90/0/0/90] [45/−45/45/−45]
+
+Symmetric Ply Anti-symmetric Angle-Ply
+
+Lay-up A Lay-up B Lay-up C
+
+1284
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+The provided results here are taken into account in terms of parameters of dimensionless deflection, load, moment, 4 2 2 radial forces and radial stresses which are defined as w = w/ho , q = Qro /E2 h4 , M r = Mr ro /E2 h4 , N r = Nr ro /E2 h3 and o o o 2 2 σ r = σr h /qro respectively. Figs. 3 and 4 show the dimensionless vertical displacement (w = w/ho ) of a fully clamped (CCCC) annular laminated sector plate with and without stiffener along the radial (θ = α/2) and circumferential (r = (ro + ri )/2) directions for different lay-ups A, B and C. The obtained results corresponding to the SSSS laminated sector plate are also presented in Figs. 5 and 6. As seen, in the case that the stiffener does not exist, for both fully clamped and simply supported boundary conditions, the lay-ups A and B will face the least and the most amount of vertical displacement, respectively. However, applying the stiffener in clamped boundary condition for the lay-up A makes the least effect on reducing the deflection so that, the deflection falls about %20 in the middle of symmetry line (θ = α/2, r = (ro + ri )/2) for two ratios of λ = 0.05, 0.1. But, for the other two lay-ups, the deflection reduction is about %35 and %29 at the ratios of λ = 0.1 and λ = 0.05, respectively. Furthermore, the largest effect of the stiffener on deflection reduction occurs in the SSSS boundary condition for the lay-up C so that, the deflection reduction is about 37% at ratios of λ = 0.1 and 33.5% at λ = 0.05. Although, for both lay ups A and B, the same value changes to about 26.6% at λ = 0.1 and 31.5% at λ = 0.05. Moreover, as illustrated in Figs. 4 and 6, as θ approaches to the stiffener orientation in θ = 30°, slope of w decreases abruptly due to increase of plate stiffness. The mentioned variation in the slope of the diagram is more noticeable at λ = 0.1 for both simply supported and clamped boundary conditions rather than at λ = 0.05. According to the results, in CCCC boundary condition, the stiffener has the lowest effect on reducing the deflection for the lay-up A and greatest one for lay-ups B and C in common. In addition, for SSSS boundary condition, the smallest effect belongs to lay-ups A and B commonly and the largest one is counted with lay-up C. Therefore, the type of boundary condition plays a noticeable role in the effect of stiffener on the deflection reduction for lay-up B in comparison with the two other lay-ups. Furthermore, based on the obtained results, it can be generally expressed that the stiffener effect on reducing the deflection of the anti-symmetric angle-ply (for both CCCC and SSSS boundary conditions) is greater than the symmetric lay-up with 0° and 90° fiber angle. Effect of stiffener depth on the values of dimensionless vertical displacement (w = w/ho ) along the circumferential direction of CCCC and SSSS stiffened laminated sector plate is illustrated in Figs. 7 and 8, respectively. It is observed that increase of the stiffener depth will cause the diagram slope to move toward negative values. Obviously, this event occurs after the θ = 15° for ξ = hs /ho = 2, 3, 4. Moreover, as it is observed through the figures, with rise of ξ , the difference o between the maximum deflections of every stage of this increase (ξ : 1 → 2, 2 → 3, 3 → 4), is to decrease in comparison with the previous stage. In the first phase of increasing the stiffener depth ξ = 1 → 2 for the CCCC boundary condition, lay-ups C and A receive the most and the least percentage of deflection reduction resulting about 52.2%, 50.12% and 42% for lay-ups C, B and A, respectively. The same trend recurs in the next phase of increasing the stiffener depth ξ = 2 → 3 and as the previous order of lay-ups the deflection reduction results in 55.76%, 50.62% and 48.72%. On the contrary, in the last stage of increasing the stiffener depth ξ = 3 → 4, a totally inverse trend occurs in which the deflection reduction is about 36.9%, 42.9% and 47.05% for the lay-ups C, B and A, respectively. Similarly, in SSSS boundary condition, the same behavior is repeated as in CCCC boundary condition. That is, at ξ = 1 → 2, lay-ups C, B and A receive 57.48%, 53.89% and 50.37% of deflection reduction, respectively. These values change to 62.87%, 52.46% and 49.33% at ξ = 2 → 3 and finally at ξ = 3 → 4, they change to 38.6%, 54.38% and 55.66%. Thus, in both boundary conditions, the order of the percentage of deflection reduction for the lay-ups is entirely related to the increasing the stiffener depth, which the trend of this order in the higher increasing (ξ = 3 → 4) is totally inversed. Furthermore, increase of stiffener depth makes a greater effect on the deflection reduction in simply supported boundary condition rather than the clamped one so that, increase of ξ from 1 to 4 will bring about an approximately 89% decrease of maximum vertical displacement in all the lay-ups. This is while the mentioned value is approximated about 85% in clamped boundary condition. Figs. 9 and 10 illustrate the effect of stiffener depth on the variation of dimensionless radial moment resultant (M r = 2 Mr ro /E2 h4 ) of a laminated sector plate along the radial directions (θ = α/2) for clamped (Fig. 9) and simply supported o (Fig. 10) boundary conditions, respectively. The effect of increasing stiffener depth on the values of M r is clearly observed inr = r /ro = 0.75. As seen, in lay-up B, for the both clamped and simply supported boundary conditions, the calculated value of dimensionless radial moment resultant in the middle of symmetry line (θ = α/2, r = (ro + ri )/2) for ξ = hs /ho = 1 o is about 16 times greater as for ξ = 4. However, the mentioned values considering the lay-up A are 12.4 and 9.3 times greater in simply supported and clamped boundary conditions, respectively. The sector does not have the axisymmetric geometry, thus the strains and curvatures are raised in the r θ direction. Due to the un-symmetric stacking of layers of lay-up C the coupling terms B16 and B26 do not result in zero. So that these terms multiplied by the amount of shear deformation γr0 θ creating the extension-twist coupling (related to Nr ) and bending-shear coupling (related to Mr ), do not exist in the two other lay-ups (all the elements of Bij are zero). Similar to the lay-ups A and B, increase of stiffener depth leads to decrease of radial moment resultant in lay-up C, however, in this case, unlike the two other lay-ups, the values of M r are negative at (θ = α/2, r = (ro + ri )/2) for ξ = 3, 4 in both CCCC and SSSS boundary conditions and the trend of the values of M r are changed slightly as well, which could be occurred because of the mentioned reason. Additionally, the effect of stiffener depth on reduction of M r is greater in simply supported boundary condition rather than the clamped one in lay-up C. As a result, the effect of increasing the stiffener depth in reducing the value of M r for different boundary conditions is related to the stacking of layers.
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+1285
+
+Fig. 3. Dimensionless vertical displacement along the radial direction (θ = α/2) of CCCC laminated sector plate with and without stiffener for different ratio of ho /ro and lay-ups A, B and C.
+2 Figs. 11 and 12 demonstrate the variations of dimensionless radial membrane force (N r = Nr ro /E2 h3 ) of a radially o stiffened laminated sector plate in clamped and simply supported boundary conditions, respectively. The effect of increase of stiffener depth on the variation of N r is clearly observed in the middle of symmetry line. Moreover, increase of ξ from
+
+1286
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+Fig. 4. Dimensionless vertical displacement along the circumferential direction (r = (ro + ri )/2) of CCCC laminated sector plate with and without stiffener for different ratio of ho /ro and lay-ups A, B and C.
+
+1 to 2 results in abrupt changes of radial membrane forces for all the lay-ups in both boundary conditions. However, the resulted values corresponding to increase of ξ from 2 to 4 are close to each other and show a little decrease so that at ξ = 4 the N r possesses the minimum values compared to ξ = 2, 3. So that, the values of N r with ξ = 4 for lay-ups A, B and C are
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+1287
+
+Fig. 5. Dimensionless vertical displacement along the radial direction (θ = α/2) of SSSS laminated sector plate with and without stiffener for different ratio of ho /ro and lay-ups A, B and C.
+
+1288
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+Fig. 6. Dimensionless vertical displacement along the circumferential direction (r = (ro + ri )/2) of SSSS laminated sector plate with and without stiffener for different ratio of ho /ro and lay-ups A, B and C.
+
+about 2.16, 1.36 and 4.83 times greater than that of ξ = 4, respectively, for CCCC boundary condition. As it is seen, in simply supported boundary condition for all the lay-ups, values of N r are positive at ξ = 1 in (θ = α/2, r = (ro + ri )/2) which
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+1289
+
+Fig. 7. Effect of stiffener depth on the values of dimensionless vertical displacement along the circumferential direction (r = (ro + ri )/2) of CCCC stiffened laminated sector plate with lay-ups A, B and C.
+
+will be switched to negative values due to increase of stiffener depth at ξ = 2, 3, 4. Although, N r possesses negative values in (θ = α/2, r = (ro + ri )/2) for the whole values of ξ in clamped boundary condition. Therefore, the changes of amounts and signs of N r by increasing the stiffener depth, are more affected by the boundary condition rather than the stacking of the layers.
+
+1290
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+Fig. 8. Effect of stiffener depth on the values of dimensionless vertical displacement along the circumferential direction (r = (ro + ri )/2) of SSSS stiffened laminated sector plate with lay-ups A, B and C.
+2 Figs. 13 and 14 show the variation of dimensionless radial moment resultant (M r = Mr ro /E2 h4 ) of a CCCC and o SSSS laminated sector plates with and without presence of the stiffener along the radial (θ = α/2) and circumferential (r = (ro + ri )/2) directions, respectively. The effect of stiffener’s existence on the values of M r is clearly perceived in
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+1291
+
+Fig. 9. Effect of stiffener depth on the values of M r along the radial direction (θ = α/2) of CCCC stiffened laminated sector plate with lay-ups A, B and C.
+
+different boundary conditions so that, in all the lay-ups, as a result of the existing stiffener, values of M r are to decrease. The most prominent effect of the existing stiffener occurs in lay-up C for both CCCC and SSSS boundary conditions. The sequence of Lay-up B < Lay-up A < Lay-up C shows the most-to-least percentage of reduction of M r at (θ = α/2, r = (ro + ri )/2) in
+
+1292
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+Fig. 10. Effect of stiffener depth on the values of M r along the radial direction (θ = α/2) of SSSS stiffened laminated sector plate with lay-ups A, B and C.
+
+simply supported boundary condition. This order in clamped boundary condition follows Lay-up A < Lay-up B < Lay-up C . Consequently, the presence of the stiffener is more effective in decreasing the values of M r for anti-symmetric angle-ply compared to the symmetric ones for both clamped and simply supported boundary conditions.
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+1293
+
+Fig. 11. Effect of stiffener depth on the values of N r along the radial direction (θ = α/2) of CCCC stiffened laminated sector plate with lay-ups A, B and C.
+2 Similar to Figs. 13 and 14, the effect of stiffener on the variation of (N r = Nr ro /E2 h3 ) is considered in Figs. 15 and 16. As o what is observed in Figs. 13 and 14 the same results occur for N r so that, N r experiences an abrupt reduction at (θ = α/2, r = (ro + ri )/2). Moreover, as shown in Fig. 16, values of N r suddenly decrease at stiffener’s location which causes the
+
+1294
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+Fig. 12. Effect of stiffener depth on the values of N r along the radial direction (θ = α/2) of SSSS stiffened laminated sector plate with lay-ups A, B and C.
+
+diagram’ slope turn into negative values. In this case, unlike the M r , the slightest effect of the stiffener on the variation of N r is seen in lay-up C for both boundary conditions so that, the order of Lay-up C < Lay-up A < Lay-up B shows the mostto-least percentage of reduction of N r at (θ = α/2, r = (ro + ri )/2) in simply supported boundary condition. However,
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+1295
+
+Fig. 13. Dimensionless moment resultant (M r ) along the radial direction (θ = α/2) of CCCC and SSSS laminated sector plate with/without stiffener for lay-ups A, B and C.
+
+1296
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+Fig. 14. Dimensionless moment resultant (M r ) along the circumferential direction (r = (ro + ri )/2) of CCCC and SSSS laminated sector plate with/without stiffener for lay-ups A, B and C.
+
+the order in clamped boundary condition follows Lay-up C < Lay-up B < Lay-up A. Therefore, the effect of applying the stiffener in changing the values of N r is related to the type of boundary condition, which alters its sign in clamped boundary condition unlike the simply supported one.
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+1297
+
+Fig. 15. Dimensionless stress resultant (N r ) along the radial direction (θ = α/2) of CCCC and SSSS laminated sector plate with/without stiffener for lay-ups A, B and C.
+
+As it is demonstrated by Yu et al. [20–23], although FSDT is attractive due to its simplicity, efficiency, and convenience in its treatment of boundary conditions, conventional FSDT, even aided with appropriate shear correction factors, cannot
+
+1298
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+Fig. 16. Dimensionless stress resultant (N r ) along the circumferential direction (r = (ro + ri )/2) of CCCC and SSSS laminated sector plate with/without stiffener for lay-ups A, B and C.
+
+accurately provide the through-the thickness variations of displacement, strain, and stress. In spite of that, by the comparison which was conducted between the DR results and Abaqus finite element outcomes [42] and ignoring the differences between
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+1299
+
+2 Fig. 17. Comparison of dimensionless radial stress (σ r = σr h2 /qro ) at c : ((ri + ro ) /2, α/2) through the thickness of CCCC stiffened laminated sector plates [45/−45/45/−45] with α = 60°, ri /ro = 0.5, h/ro = 0.05 and ξ = hs /ho = 1 under q = 500 between the DR results and Abaqus finite o element [42].
+
+Table 8 Maximum dimensionless deflection (w max ) of CCCC and SSSS stiffened laminated sector plate [90/0/0/90] under various sectorial angle and transverse loading. q=
+4 Qro
+
+E 2 h4
+
+α = 30°
+CCCC SSSS 0.0318 0.0626 0.0934 0.1236 0.1528 0.0171 0.0343 0.0514 0.0685 0.0854
+
+α = 60°
+CCCC 0.0492 0.0981 0.1462 0.1929 0.2378 SSSS 0.0977 0.1885 0.2680 0.3362 0.3951
+
+α = 90°
+CCCC 0.0622 0.1233 0.1817 0.2365 0.2873 SSSS 0.1253 0.2302 0.3130 0.3798 0.4356
+
+100 200 300 400 500
+
+these two graphs in Fig. 17, the trend of the through-the thickness variations of stress for all lay-ups, with four different types of boundary condition, can be exhibited approximately. 2 Therefore, the distributions of dimensionless radial stresses (σ r = σr h2 /qro ) through the thickness of plate at point c : ((ri + ro ) /2, α/2) for different lay-ups with ξ = hs /ho = 1, λ = ho /ro = 0.05, η = ri /ro = 0.5, q = 500 regarding o four boundary conditions of CCCC, SSSS and combinations of CSCS and SCSC are shown in Fig. 18. It can be clearly seen that the trend of radial stresses is discontinuous at layer interfaces that shows the well-known zigzag shaped pattern, which is a consequence of the different values of the reduced stiffness constants in subsequent layers. Numerical results show that there is not any significant difference between the amounts of radial stresses of CCCC and CSCS boundary conditions as well as between SSSS and SCSC ones for all lay-ups. Moreover, the minimum and maximum amounts of radial stresses for lay-ups A and C occur at the mid-plane (z /ho = 0) top and bottom surfaces and (z /ho = +0.5 & −0.5) respectively, for all the boundary conditions. Nevertheless, in lay-up B both the minimum and maximum values of radial stresses rise at the z /ho = +0.25 & −0.25. In Table 8, a comparison is conducted for dimensionless maximum deflection (w max = wmax /ho ) resulted from nonlinear analysis of a stiffened laminated sector plate with lay-up [90/0/0/90] considering three different angle values of the sector α = 30°, 60°, 90°. The results are presented for both CCCC and SSSS annular sector plate subjected to various dimensionless 4 load of q = Qro /E2 h4 at ξ = hs /ho = 1, λ = ho /ro = 0.05 and η = ri /ro = 0.5. According to the table, it is o o expectedly perceived that by increasing the angle, a corresponding increase in vertical displacement also happens. Anyhow, the mentioned increase of the vertical displacement is more noticeable while the angle rises from 30° to 60° compared to the ranges of 60°–90°. For all the angle values of the sector (α = 30°, 60°, 90°) in CCCC boundary condition, maximum amount of vertical displacement at q = 500 is 4.78 times greater than at q = 100. However, for different angle values of α = 30°, 60°, 90°, the variations are about 4.8, 4.04 and 3.47 times, respectively, for SSSS boundary condition. In Table 9, a comparison is performed among dimensionless vertical displacement (w c ), dimensionless radial membrane c c force (N r ) and dimensionless radial moment (M r ) at point c : ((ri + ro ) /2, α/2) for different lay-ups of a laminated sector s plate with ξ = ho /ho = 1, λ = ho /ro = 0.05, η = ri /ro = 0.5, q = 500 considering four boundary conditions of CCCC, SSSS and combinations of CSCS and SCSC. As shown in Fig. 1, the edges of the plate are numbered from 1 to 4. For example, the symbol CSCS identifies a plate with edges 1, 3 clamped and edges 2, 4 simply supported. So, considering the existing values in the table, it is clearly seen that vertical displacement is larger in SCSC boundary condition rather than CSCS for all the lay-
+
+1300
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+2 Fig. 18. Dimensionless radial stress (σ r = σr h2 /qro ) at c : ((ri + ro ) /2, α/2) through the thickness of three different lay-ups under q = 500 with various boundary conditions.
+
+ups. Regarding lay-up A, the amount of dimensionless vertical displacement in SCSC boundary condition is 1.5 times greater than the one in CSCS. The mentioned value for the lay-ups B and C resulted in 1.27 and 1.12 times greater, respectively. In addition, for all various boundary conditions, the calculated maximum and minimum of dimensionless deflection have been attributed to [90/0/0/90] and [0/90/90/0] lay-ups, respectively. Moreover, dimensionless radial-membrane force c (N r ) achieves a negative value in CCCC and CSCS boundary conditions for all the lay-ups, however, as the boundary condition
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+1301
+
+Table 9 Dimensionless deflection, stress and moment resultants at c : ((ri + ro ) /2, α/2) of stiffened laminated sector plate under q = 500 for three different lay-up and various boundary conditions. BC [0/90/90/0] wc 0.1772 0.1807 0.2731 0.2951 [90/0/0/90] Nr
+c
+
+[45/−45/45/−45] Nr
+c
+
+Mr
+
+c
+
+wc
+0.2378 0.2821 0.3176 0.3951
+
+Mr
+
+c
+
+wc
+0.2166 0.2314 0.2947 0.3231
+
+Nr
+
+c
+
+Mr
+
+c
+
+CCCC CSCS SCSC SSSS
+
+−2.8302 −2.8511
+0.3494 0.8542
+
+4.1603 4.2185 7.5514 7.9918
+
+−6.0584 −6.6138 −0.6738
+1.2537
+
+2.1375 2.5195 2.7653 3.2414
+
+−0.3702 −0.3675
+1.8004 2.2964
+
+2.5471 2.6013 3.1554 3.2920
+
+Table 10 Maximum dimensionless deflection of stiffened laminated sector plate under q = 500 for different angle ply lay-ups and various boundary conditions. CCCC CSCS 0.1731 0.1929 0.2314 0.2560 0.2966 0.3174 SCSC 0.2560 0.2707 0.2947 0.3258 0.3506 0.3621 SSSS 0.2671 0.2874 0.3231 0.3828 0.4476 0.4841
+
+[15/−15/15/−15] [30/−30/30/−30] [45/−45/45/−45] [60/−60/60/−60] [75/−75/75/−75] [90/−90/90/−90]
+
+0.1719 0.1878 0.2166 0.2301 0.2488 0.2761
+
+changes to SSSS, the value turns into positive. The minimum to maximum values of (M r ) can be attributed to CCCC, CSCS, SCSC and SSSS, respectively. Besides, in SSSS boundary condition for the lay-up A, values of M r is 1.9 times greater than those obtained in CCCC. The mentioned value for the lay-ups B and C resulted in 1.5 and 1.3 times greater, respectively. Thus, in all c lay-ups, the conversion of boundary condition from CCCC to SSSS changes the values of N r from negative to positive, which shows the direction of radial membrane force is strongly influenced by changing the boundary conditions. Finally, in Table 10, a comparison is conducted on maximum dimensionless vertical displacement (w max ) for different anti-symmetric angle ply lay-ups with ξ = hs /ho = 1, λ = ho /ro = 0.05, η = ri /ro = 0.5, q = 500 considering four o boundary conditions of CCCC, CSCS, SCSC and SSSS. As clearly observed, with a fifteen-degree increase of fiber angle, the dimensionless maximum deflection is also increased, which has the most and the least amount of effect in CSCS and SCSC boundary conditions, respectively. Moreover, in CCCC boundary condition, the value of dimensionless maximum deflection in the lay-up [90−/90/90−/90] is 1.6 times greater than those obtained in [15−/15/15−/15], which the mentioned values are calculated about 1.83, 1.41 and 1.81 for CSCS, SCSC and SSSS respectively.
+c
+
+c
+
+5. Conclusion In this paper, the nonlinear bending analysis of stiffened annular laminated sector plates with uniform thickness for each layer under mechanical loading with different boundary conditions is investigated. Based on FSDT and using the vonKarman theory for large deflections, the nonlinear equilibrium equations were developed, and a dynamic relaxation method combined with a finite difference discretization technique was used to solve these equations. Effects of the plate thicknessto-radius ratio, type of boundary condition, stiffener depth, plate lay-ups and the sector angle were studied. Some general inferences are mentioned as below:
+
+• The effect of presence of stiffener in reduction the deflection is greater for the anti-symmetric angle-ply (in both CCCC
+and SSSS boundary conditions) compared to the symmetric lay-up with 0° and 90° fiber angle.
+
+• The type of boundary condition in the effect of applying the stiffener on the deflection reduction is more noticeable for
+lay-up B in comparison with the two other lay-ups.
+
+• Effect of increasing the stiffener depth on decreasing the absolute values of w , N r and M r are more noticeable in SSSS
+boundary condition rather than CCCC.
+
+• Changing the values of N r by increasing the stiffener depth is more affected by the boundary condition. However, in M r
+case, it is related to the stacking of the layers.
+
+• Applying the stiffener causes reduction of the value of N r (in SSSS boundary condition) and M r (in both boundary conditions) at (θ = α/2, r = (ro + ri )/2). However, in the clamped one, the value of N r is turned into negative, which
+shows the changing in its direction.
+
+• The stiffener has the most effect in reducing the values of M r for anti-symmetric angle-ply. However, in the N r case, it is
+changed to the least one in comparison with two symmetric lay-ups.
+
+• Increasing of the vertical displacement is more noticeable while the angle rises from 30° to 60° compared to the range
+of 60°–90°.
+
+1302
+
+M. Mehrabian, M.E. Golmakani / Computers and Mathematics with Applications 69 (2015) 1272–1302
+
+References
+[1] G.J. Turvey, M. Salehi, Large deflection analysis of eccentrically stiffened sector plates, Comput. & Structures 68 (1–3) (1998) 191–205. [2] G.J. Turvey, M. Salehi, Elastic large defelection anlysis of stiffened annular sector plates, Int. J. Mech. Sci. 40 (1998) 51–70. [3] A.K. Basu, P. Djahani, P.J. Dowling, Elastic post-buckling behavior of discretely stiffened plates, in: Colloquium on the Stability of Steel Structures, Liege, Belgium, 1977. [4] M.S. Troitsky, Stiffened Plates, Bending, Stability and Vibrations, Elsevier Scientific Publishing Company, Amsterdam, 1976. [5] G.J. Turvey, Axisymmetric elastic large deflection behaviour of stiffened composite plates, Compos. Struct. 2 (1983) 72–88. [6] G.J. Turvey, N.G.V. Der Avanessian, Elastic large deflection analysis of ring-stiffened circular plates using graded finite-differences, in: 1st International Conference on Numerical Methods in Engineering: Theory and Applications. Swansea, Balkema, 1985, pp. 875–884. [7] G.J. Turvey, N.G.V. Der Avanessian, Axisymmetric elasto-plastic large deflection response of ring stiffened circular plates, Int. J. Mech. Sci. 31 (11–12) (1989) 905–924. [8] G.J. Turvey, N.G.V. Der Avanessian, Full-range response of clamped ring-stiffened circular steel plates comparisons between experiment and theory, Comput. & Structures 37 (1989) 55–70. [9] G.J. Turvey, M. Salehi, Circular plates with one diametral stiffener—an elastic large deflection analysis, Comput. & Structures 63 (4) (1997) 775–783. [10] G.J. Turvey, M. Salehi, Elasto-plastic large deflection response of pressure loaded circular plates stiffened by a single diametral stiffener, Thin-Walled Struct. 46 (2008) 991–1002. [11] M.E. Golmakani, M. Kadkhodayan, Large deflection thermoelastic analysis of functionally graded stiffened annular sector plates, Int. J. Mech. Sci. 69 (2013) 94–106. [12] M. Salehi, A. Shahidi, Large deflection analysis of elastic Mindlin sector plates, Comput. & Structures 52 (5) (1994) 987–998. [13] L. Liu, K.M. Liew, Differential quadrature element method for static analysis of Reissner–Mindlin polar plates, Internat. J. Solids Struct. 36 (1999) 5101–5123. [14] G.T. Lim, C.M. Wang, Bending of annular sectorial Mindlin plates using Kirchhoff results, Eur. J. Mech. A Solids 19 (2000) 1041–1057. [15] Y. Nath, H.B. Sharda, A. Sharma, Non-linear analysis of moderately thick sector plates, Commun. Nonlinear Sci. Numer. Simul. 10 (2005) 765–778. [16] M. Salehi, M. Shakeri, A. Khorsandi, Small deflection analysis of fiber-reinforced laminated sector Mindlin plate, in: Proceedings of the 4th International Conference on Computational Structures Technology, Edinburgh, 18th–20th August, 1998. pp. 199–208. [17] M. Salehi, A.R. Sobhani, Elastic linear and non-linear analysis of fiber-reinforced symmetrically laminated sector mindlin plate, Compos. Struct. 65 (2004) 65–79. [18] A. Andakhshideh, S. Maleki, M.M. Aghdam, Non-linear bending analysis of laminated sector plates using Generalized Differential Quadrature, Compos. Struct. 92 (2010) 2258–2264. [19] M. Salehi, S.R. Falahatgar, Geometrically non-linear analysis of unsymmetrical Fiber-reinforced laminated annular sector composite plates, Sci. Irancia 3 (2010) 205–216. [20] W. Yu, D. Hodges, V. Volovoi, Asymptotic construction of Reissner-like composite plate theory with accurate strain recovery, Internat. J. Solids Struct. 39 (2002) 5158–5203. [21] W. Yu, D. Hodges, V. Volovoi, Asymptotic generalization of Reissner–Mindlin theory: accurate three-dimensional recovery for composite shells, Comput. Methods Appl. Mech. Engrg. 191 (2002) 5087–5109. [22] W. Yu, D. Hodges, V. Volovoi, Asymptotically accurate 3-D recovery from Reissner-like composite plate finite elements, Comput. & Structures 81 (2003) 439–454. [23] W. Yu, J. Kim, D. Hodges, M. Cho, A critical evaluation of two Reissner–Mindlin type models for composite laminated plates, Aerosp. Sci. Technol. 12 (2008) 408–417. [24] U. Topal, Ü. Uzman, Frequency optimization of laminated composite angle-ply plates with circular hole, Mater. Des. 29 (8) (2008) 1512–1517. [25] J. Chróścielewski, W. Pietraszkiewicz, W. Witkowski, On shear correction factors in the non-linear theory of elastic shells, Internat. J. Solids Struct. 47 (2010) 3537–3545. [26] A. Sabik, I. Kreja, Large thermo-elastic displacement and stability FEM analysis of multilayered plates and shells, Thin-Walled Struct. 71 (2013) 119–133. [27] J.N. Reddy, Mechanics of Laminated Composite Plates, Theory and Analysis, CRC, Boca Raton, 1997. [28] C.M. Wang, J.N. Reddy, K.H. Lee, Shear Deformable Beams and Plates: Relationships with Classical Solutions, Elsevier, New York, 2000. [29] E. Reissner, The effect of transverse shear deformation on the bending of elastic plates, J. Appl. Mech. 12 (1945) 69–77. [30] I. Kreja, A literature review on computational models for laminated composite and sandwich panels, Cent. Eur. J. Eng. 1 (1) (2011) 59–80. [31] M. Kadkhodayan, J. Alamatian, G.J. Turvey, A new fictitious time for the dynamic relaxation (DXDR) method, Internat. J. Numer. Methods Engrg. 74 (2008) 996–1018. [32] M. Rezaiee-pajand, M. Kadkhodayan, J. Alamatian, Timestep selection for dynamic relaxation method, Mech. Based Des. Struct. Mach. 40 (1) (2012) 42–72. [33] M. Rezaiee-pajand, M. Kadkhodayan, J. Alamatian, L.C. Zhang, A new method of fictitious viscous damping determination for the dynamic relaxation method, Comput. & Structures 89 (2011) 783–794. [34] M. Kadkhodayan, L.C. Zhang, A simple algorithm for stamping circular plates by hemispherical punches, J. Mater. Process. Technol. 68 (1997) 33–38. [35] M.E. Golmakani, M. Mehrabian, Nonlinear bending analysis of ring-stiffened circular and annular general angle-ply laminated plates with various boundary conditions, Mech. Res. Comm. 59 (2014) 42–50. [36] M.E. Golmakani, M. Kadkhodayan, Nonlinear bending analysis of annular FGM plates using higher-order shear deformation plate theories, Compos. Struct. 93 (2011) 973–982. [37] M.E. Golmakani, M. Kadkhodayan, Large deflection analysis of circular and anular FGM plates under thermo-mechanical loadings with temperatura dependent properties, Composites B 42 (2011) 614–625. [38] M.E. Golmakani, Large deflection thermoelastic analysis of shear deformable functionally graded variable thickness rotating disk, Composites B 45 (2013) 1143–1155. [39] M.E. Golmakani, J. Alamatianc, Large deflection analysis of shear deformable radially functionallyGraded sector plates on two-parameter elastic foundations, Eur. J. Mech. A Solids 42 (2013) 251–265. [40] P. Underwood, Dynamic relaxation, in: Computational Methods for Transient Analysis, Elsevier, Amsterdam, 1983, (Chapter 5). [41] L.C. Zhang, M. Kadkhodayan, Y.W. Mai, Development of the maDR method, Comput. & Structures 52 (1994) 1–8. [42] Abaqus. Ver 6.10–1, Dassualt Systems Inc., 2010.
+

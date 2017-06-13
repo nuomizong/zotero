@@ -1,0 +1,721 @@
+Engineering Science and Technology, an International Journal 17 (2014) 247e259
+
+H O S T E D BY
+
+Contents lists available at ScienceDirect
+
+Engineering Science and Technology, an International Journal
+journal homepage: http://www.elsevier.com/locate/jestch
+
+Full length article
+
+Laminated composite stiffened shallow spherical panels with cutouts under free vibration e A ﬁnite element approach
+Sarmila Sahoo
+Department of Civil Engineering, Heritage Institute of Technology, Kolkata 700107, India
+
+a r t i c l e i n f o
+Article history: Received 23 May 2014 Received in revised form 30 June 2014 Accepted 14 July 2014 Available online 16 September 2014 Keywords: Laminated composites Stiffened shallow spherical shell panel Cutout Free vibration Finite element
+
+a b s t r a c t
+In this paper, ﬁnite element method has been applied to analyze free vibration problems of laminated composite stiffened shallow spherical shell panels with cutouts employing the eight-noded curved quadratic isoparametric element for shell with a three noded beam element for stiffener formulation. Speciﬁc numerical problems of earlier investigators are solved and compared to validate the present formulation. Moreover, free vibration problem of stiffened shallow spherical shell panels with different size and position of the cutouts with respect to the shell centre for different edge constraints are examined to arrive at some conclusions useful to the designers. The results are presented in the form of ﬁgures and tables. The results are further analyzed to suggest guidelines to select optimum size and position of the cutout with respect to shell centre considering different practical constraints. Copyright © 2014, Karabuk University. Production and hosting by Elsevier B.V. All rights reserved.
+
+1. Introduction Finite element method has become an efﬁcient tool to analyze complex structures and materials. The dynamic analysis of shell structures, which may have complex geometry and arbitrary loading and boundary conditions, can be solved efﬁciently by the ﬁnite element method, even including cutouts in shells. Laminated composites are increasingly being used nowadays in aerospace, civil, marine and other related weight-sensitive engineering applications requiring high strength-to-weight and stiffness-to weight ratios. Some of the structural components of aircrafts, missile and ship structures can be idealized as composite shell panels. The most commonly encountered types of shell structures are shells of revolution. Amongst all the existing shells of different geometry, spherical shells, shells of revolution with curved meridian, have many applications in all types of industries. Spherical pressure vessels are a common phenomenon in the chemical and process industries. Quite often, to save weight and also to provide a facility for inspection, cutouts are provided in these panels. In practice the margin of the cutouts must be stiffened to take account of stress concentration effects. Also, there can be some instruments directly ﬁxed on these panels, and the safety of these instruments
+
+E-mail addresses: sarmila.sahoo@gmail.com, sarmila_ju@yahoo.com. Peer review under responsibility of Karabuk University.
+
+can be dependent on the vibration characteristics of the panels. Hence free vibration studies on laminated composite spherical shell panels with cutouts are of interest to both structural engineers and materials scientists. Different computational models for laminated composites were proposed by Kapania [1], Noor and Burton [2], and Reddy [3]. Chao and Reddy [4] reported on the dynamic response of simply supported cylindrical and spherical shells. The transient response of spherical and cylindrical shells with various boundary conditions and loading was reported by Reddy and Chandrashekhara [5]. Chao and Tung [6] presented an investigation on the dynamic response of axisymmetric polar orthotropic hemispherical shells. Later free vibration study of doubly curved shells was done by Qatu [7], Liew and Lim [8-9], Chakravorty et al. [10e12], Shin [13] and Tan [14]. Kant et al. [15] solved problems of a clamped spherical and simply supported cylindrical cap under external pressure. Sathyamoorthy [16] reported the nonlinear vibration of moderately thick orthotropic spherical shells. Later in 1997, Gautham and Ganesan [17] reported free vibration characteristics of isotropic and laminated orthotropic spherical caps while Chia and Chia [18] reported nonlinear vibration of moderately thick antisymmetric angle ply shallow spherical shell. Free vibration of curved panels with cutouts was reported by Sivasubramonian et al. [19]. Qatu et al. [20] reviewed the work done on the vibration aspects of composite shells between 2000 and 2009 and observed that most of the researchers dealt with closed cylindrical shells.
+
+http://dx.doi.org/10.1016/j.jestch.2014.07.002 2215-0986/Copyright © 2014, Karabuk University. Production and hosting by Elsevier B.V. All rights reserved.
+
+248
+
+S. Sahoo / Engineering Science and Technology, an International Journal 17 (2014) 247e259
+
+Notations a,b length and width of shell in plan a0 ,b0 length and width of cutout in plan bst width of stiffener in general bsx, bsy width of x- and y-stiffeners respectively dst depth of stiffener in general dsx, dsy depth of x- and y-stiffeners respectively {de} element displacement E11, E22 elastic moduli G12, G13, G23 shear moduli of a lamina with respect to 1, 2 and 3 axes of ﬁbre h shell thickness Mx, My moment resultants Mxy torsion resultant np number of plies in a laminate N1eN8 shape functions Nx , Ny inplane force resultants
+
+Nxy Qx , Qy Rxx, Ryy, u, v, w x, y, z X, Y, Z zk
+
+inplane shear resultant transverse shear resultant Rxy radii of curvature of shell translational degrees of freedom local co-ordinate axes global co-ordinate axes distance of bottom of the kth ply from mid-surface of a laminate a,b rotational degrees of freedom εx , εy inplane strain component gxy, gxz, gyz shearing strain components n12, n21 Poisson's ratios x , h, t isoparametric co-ordinates r density of material sx, sy inplane stress components txy, txz, tyz shearing stress components u natural frequency u non-dimensional natural frequency ¼ua2(r/E22h2)1/2
+
+Other shell geometries have also been investigated. Among those conical shells and shallow shells on rectangular, triangular, trapezoidal, circular, elliptical, rhombic or other planforms are receiving considerable attention. Shallow spherical shells also received some attention. Wang et al. [21] studied wave propagation of stresses in orthotropic thick-walled spherical shells. Lellep and Hein [22] did an optimization study on shallow spherical shells under impact loading. Dai and Wang [23] analyzed stress wave propagation in laminated piezoelectric spherical shells under thermal shock and electric excitation. Dynamic stability of spherical shells was studied by Ganapathi [24] and Park and Lee [25]. Recently, Kumar et al. [26-29] considered ﬁnite element formulation for shell analysis based on higher order zigzag theory. Vibration analysis of spherical shells and panels both shallow and deep has also been reported for different boundary conditions [30e33]. A complete and general view on mathematical modeling of laminated composite shells using higher order formulations has been provided in recent literature [34e36]. However shallow spherical shell panels on rectangular or circular planform (spherical cap) with cutout (stiffened along the margin) are missing in the existing literature. Accordingly, the present endeavor focuses on the free vibration behavior of composite shallow spherical shell with cutout (stiffened along the margin) with concentric and eccentric cutouts, and considers the shells to have various boundary conditions.
+
+2. Mathematical formulation A laminated composite spherical shell of uniform thickness h (Fig. 1) and radius of curvature Rxx and Ryy is considered. Keeping the total thickness the same, the thickness may consist of any number of thin laminae each of which may be arbitrarily oriented at an angle q with reference to the x-axis of the co-ordinate system. The constitutive equations for the shell are given by (Deﬁnitions of symbols used are given in list of notations):
+
+fFg ¼ ½Efεg
+where, fFg ¼ fεg ¼ and È n Nx ; ε0 ; x Ny ; ε0 ; y Nxy ; g0 ; xy Mx ; kx ; My ; ky ; Mxy ; g0 ; xz Qx ; g0 yz Qy oT ÉT ; ;
+
+(1)
+
+kxy ;
+
+A11 6 A12 6 6 A16 6 6B ½E  ¼ 6 11 6 B12 6 6 B16 6 4 0 0
+
+2
+
+A12 A22 A26 B12 B22 B26 0 0
+
+A16 A26 A66 B16 B26 B66 0 0
+
+B11 B12 B16 D11 D12 D16 0 0
+
+B12 B22 B26 D12 D22 D26 0 0
+
+B16 B26 B66 D16 D26 D66 0 0
+
+0 0 0 0 0 0 S11 S12
+
+3 0 0 7 7 0 7 7 0 7 7 0 7 7 0 7 7 S12 5 S22
+
+The detailed expressions of the elements of the elasticity matrix are available in several references including Vasiliev et al. [37] and Qatu [38]. The elements of the stiffness matrix [E] are deﬁned as.
+
+Aij ¼
+
+np XÀ
+
+Qij
+
+1 Dij ¼ 3
+and
+
+k¼1 np X k¼1
+
+np Á À Á Á 1 XÀ Á À 2 z À zkÀ1 ; Bij ¼ Qij k zk À z2 kÀ1 ; k k 2 k¼1
+
+À Á À 3 Á Qij k zk À z3 kÀ1 i; j ¼ 1; 2; 6;
+
+Sij ¼
+Fig. 1. Spherical shell panel with a concentric cutout stiffened along the margins.
+
+np X k¼1
+
+À Á À Á Fi Fj Gij k zk À zkÀ1 i; j ¼ 4; 5:
+
+S. Sahoo / Engineering Science and Technology, an International Journal 17 (2014) 247e259
+
+249
+
+In the above equations zk and zk-1 are the distances measured from the midsurface of a laminate to the bottom of the kth and (kÀ1)th laminate, respectively. np is the number of plies in a laminate. Qij are elements of the off-axis elastic constant matrix which is given by.
+
+È
+
+εx ; εy ; gxy ; gxz ; gyz
+
+ÉT
+
+¼
+
+n
+
+oT ε 0 ; ε 0 ; g0 ; g0 ; g0 x y xy xz yz È ÉT þ z kx ; ky ; kxy ; kxz ; kyz (5)
+
+Â Â
+
+Qij Gij
+
+Ã Ã
+off off
+
+Â Ã ¼ ½T1 À1 Qij on ½T1 ÀT ; i; j ¼ 1; 2; 6; and Â Ã ¼ ½T2 À1 Qij on ½T2 ; i; j ¼ 4; 5: 2 n2 m2 mn 3 2mn À2mn 5; ½T2  ¼ m2 À n2 ! Àn ; m
+
+where, the ﬁrst vector is the mid-surface strain for a spherical shell and the second vector is the curvature and are related to degrees of freedom as:
+
+m2 4 n2 ½T1  ¼ Àmn
+
+m n
+
+8 0 9 8 9 > εx > > vu=vx > > 0 > > > > > > ε > > > > > > y > < vv=vy = < =    0 gxy ¼ vu vy þ vv vx À 2w Rxy > > 0 > > > > a þ vw=vx > >g > > > > xz > > > > ; > : 0 > : ; b þ vw=vy gyz
+and
+
+(6)
+
+in which m ¼ cosq and n ¼ sinq.
+
+Â
+
+Qij
+
+Ã
+on
+
+Q11 6 ¼ 4 Q12 0
+
+2
+
+Q12 Q22 0
+
+0 7 0 5; i; j ¼ 1; 2; 6; and Q66
+
+3
+
+Â
+
+Qij
+
+Ã
+on
+
+¼
+
+Q44 0
+
+! 0 ; i; j ¼ 4; 5: Q55
+
+8 9 8 9 va=vx > kx > > > > > > > > > > > > ky > > > vb=vy < = < = kxy ¼ va=vy þ vb=vx > > > > > kxz > > > 0 > > > > > > > > : ; : ; kyz 0
+
+(7)
+
+In which,
+
+3. Finite element formulation 3.1. Finite element formulation for shell An eight-noded curved quadratic isoparametric ﬁnite element is used for spherical shell analysis. The ﬁve degrees of freedom taken into consideration at each node are u, v, w, a, b. The following expressions establish the relations between the displacement at any point with respect to the co-ordinates x and h and the nodal degrees of freedom.
+
+Q11 ¼ ð1 À n12 n21 ÞÀ1 E11 ; Q22 ¼ ð1 À n12 n21 ÞÀ1 E22 ; Q12 ¼ ð1 À n12 n21 ÞÀ1 E11 n21 ; Q44 ¼ G13 ; Q55 ¼ G23 ; Q66 ¼ G12 :
+Fi and Fj are two factors presently taken as unity for thin shells. When the shell is moderately thick, the product of Fi and Fj is taken as 5/6, which is commonly used since the evaluation of shear correction factor from exact theory of elasticity is difﬁcult. The stressestrain relations are given by.
+
+u¼
+
+8 P i¼1
+
+Ni ui v ¼
+
+8 P i¼1
+
+Ni vi w ¼
+
+8 P i¼1
+
+Ni wi a ¼
+
+8 P i¼1
+
+Ni ai b ¼
+
+8 P i¼1
+
+Ni bi (8)
+
+8 9 2 Q11 < sx = sy ¼ 4 Q12 : ; txy Q16
+and
+
+Q12 Q22 Q26
+
+388 0 Q16 >> εx << ε0 Q26 5 >> y Q66 :: ε0
+
+xy
+
+99 8 = < kx => þ z ky ;> > : ; kxy ; 9 > =
+
+(2)
+
+where the shape functions derived from a cubic interpolation polynomial [22] are:
+
+&
+
+txz tyz
+
+' ¼
+
+Q44 Q45
+
+Q45 Q55
+
+!(
+
+g0 xz g0 yz
+
+) (3)
+
+Ni ¼ ð1 þ xxi Þð1 þ hhi Þðxxi þ hhi À 1Þ=4; Ni ¼ ð1 þ xxi Þð1 À h2 Þ=2; Ni ¼ ð1 þ hhi Þð1 À x2 Þ=2;
+
+for i ¼ 1; 2; 3; 4 for i ¼ 5; 7 for i ¼ 6; 8
+
+(9)
+
+where,
+
+The generalized displacement vector of an element is expressed in terms of the shape functions and nodal degrees of freedom as:
+
+Q45 ¼ ðG13 À G23 Þmn:
+The force and moment resultants are expressed as.
+
+½u ¼ ½Nfde g 8 9 2 Ni >u> > > > > > v > X6 8 6 < = 6 i:e:; fug ¼ w ¼ 6 > > > a > i¼1 4 > > > > : ; b dz 38 9 > ui > > > > > 7> vi > 7< = 7 wi 7> > 5> a i > > > > > : ; Ni bi
+
+(10)
+
+È
+
+Nx ; ¼
+
+Ny ;
+h=2 Z
+
+Nxy ; È sx ;
+
+Mx ; sy ;
+
+My ; txy ;
+
+Mxy ; sz $z;
+
+Qx ; sy $z;
+
+Qy
+
+ÉT ÉT
+
+Ni Ni Ni
+
+txy $z;
+
+txz ;
+
+tyz
+
+Àh=2
+
+(4)
+The strain-displacement relations on the basis of improved ﬁrst order approximation theory for thin shell (Dey et al. [39]) are established as.
+
+3.1.1. Element stiffness matrix The strain-displacement relation is given by.
+
+fεg ¼ ½Bfde g;
+
+(11)
+
+250
+
+S. Sahoo / Engineering Science and Technology, an International Journal 17 (2014) 247e259 Table 2 Non-dimensional Fundamental Frequencies ðuÞ for laminated composite spherical shell panel with cutout. a0 /a CS Chakravorty et al. [12] 0.0 0.1 0.2 0.3 0.4 34.948 35.175 36.528 37.659 39.114 Present model 34.601 35.926 36.758 37.206 39.412 SS Chakravorty et al. [12] 47.109 47.524 48.823 50.925 53.789 Present model 47.100 47.114 48.801 50.920 53.788 CL Chakravorty et al. [12] 118.197 104.274 98.299 113.766 110.601 Present model 117.621 104.251 97.488 113.226 110.094
+
+Fig. 2. (a) Eight noded shell element with isoparametric co-ordinates (b) Three noded stiffener elements (i) x-stiffener (ii) y-stiffener.
+
+a/b ¼ 1, a/h ¼ 100, a0 /b0 ¼ 1, h/Rxx ¼ h/Ryy ¼ 1/300, CS¼Corner point supported, SS¼Simply supported, CL¼Clamped.
+
+½Me  ¼ ∬ ½NT ½P½Ndxdy;
+where,
+
+(14)
+
+Ni 6 8 P6 0 60 ½N ¼ 6 i¼14 0 0 in which P ¼
+Fig. 3. Typical 10 Â 10 non-uniform mesh arrangements drawn to scale.
+
+2
+
+0 Ni 0 0 0
+np P k¼1
+
+0 0 Ni 0 0 Zzk
+zkÀ1
+
+0 0 0 Ni 0 rdz
+
+3 2 P 0 0 6 07 8 7 P6 0 P 60 0 0 7; ½P ¼ 7 6 i¼14 0 0 05 0 0 Ni zk np X Z and I ¼ zrdz
+k¼1 z
+kÀ1
+
+0 0 P 0 0
+
+0 0 0 I 0
+
+3 0 07 7 0 7; 7 05 I
+
+(15)
+where np is the number of plies in a laminate.
+
+where
+
+2 N 6 i;x 6 6 6 6 0 6 6 6 6 6N 8 X6 i;y 6 ½B ¼ 6 6 i¼1 6 0 6 6 0 6 6 6 0 6 6 6 0 4 0 0 Ni;y Ni;x 0 0 0 0 0
+
+À
+
+Ni Rxx
+
+3 0 0 0 Ni;x 0 Ni;y Ni 0 7 7 7 7 0 7 7 7 7 7 0 7 7 7 7 0 7 7 7 Ni;y 7 7 7 Ni;x 7 7 7 0 7 5 Ni 0
+3.2. Finite element formulation for stiffener of the shell Three noded curved isoparametric beam elements (Fig. 2) are used to model the stiffeners, which are taken to run only along the boundaries of the shell elements. In the stiffener element, each node has four degrees of freedom i.e. usx, wsx, asx and bsx for xstiffener and vsy, wsy, asy and bsy for y-stiffener. The generalized forceedisplacement relation of stiffeners can be expressed as:
+
+N À i Ryy 2N À i Rxy 0 0 0 Ni;x Ni;y
+
+(12)
+
+y À stiffener :
+where,
+
+x À stiffener : fFsx g ¼ ½Dsx fεsx g ¼ ½Dsx ½Bsx fdsxi g; È É Â ÃÈ É Â ÃÂ ÃÈ É Fsy ¼ Dsy εsy ¼ Dsy Bsy dsyi
+
+(16)
+
+The element stiffness matrix is.
+
+fFsx g ¼ ½ Nsxx (13) fεsx g ¼ ½ usx$x
+and
+
+Msxx asx$x
+
+Tsxx bsx$x
+
+Qsxxz T ; ðasx þ wsx$x Þ T
+
+½Ke  ¼ ∬ ½BT ½E½Bdxdy
+
+È
+3.1.2. Element mass matrix The element mass matrix is obtained from the integral.
+Table 1 Natural frequencies (Hz) of centrally stiffened clamped square plate. Mode no. Mukherjee and Mukhopadhyay [41] 711.8 768.2 1016.5 Nayak and Bandyopadhyay [42] N8 (FEM) 725.2 745.3 987.6 N9 (FEM) 725.1 745.3 987.1 Present method 733 748.25 991.23
+
+È
+
+É Â Fsy ¼ Nsyy É Â εsy ¼ vsy$y
+
+Msyy bsy$y
+
+Tsyy asy$y
+
+ÃT Qsyyz ; À Á ÃT bsy þ wsy$y
+
+Table 3 Non-dimensional Fundamental Frequencies ðuÞ for laminated composite clamped spherical shell with cutout. Chakravorty et al. [12] Present FEM 8 Â 8 10 Â 10 12 Â 12 16 Â 16 98.299 96.541 97.488 97.489 97.490
+
+1 2 3
+
+a ¼ b ¼ 0.2032 m, shell thickness ¼ 0.0013716 m, stiffener depth 0.0127 m, stiffener width ¼ 0.00635 m, stiffener eccentric at bottom, Material property: E ¼ 6.87 Â 1010 N/m2, n ¼ 0.29, r ¼ 2823 kg/m3.
+
+a/b ¼ 1, a/h ¼ 100, a0 /a ¼ 0.2, a0 /b0 ¼ 1, h/Rxx ¼ h/Ryy ¼ 1/300.
+
+S. Sahoo / Engineering Science and Technology, an International Journal 17 (2014) 247e259 Table 4 Non-dimensional Fundamental Frequencies ðuÞ for laminated composite (0/90/0/ 90) stiffened spherical shell panel for different sizes of the central square cutout and different boundary conditions. Boundary conditions Cutout size (a0 /a) 0 CCCC CSCC CSSC CSCS CSSS SSSS Point supported
+0 0
+
+251
+
+vector of the shell excluding the displacement component along the other axis. Elasticity matrices are as follows:
+
+2
+0.2 128.97 112.31 83.00 109.58 75.91 68.25 38.78 0.3 137.61 115.09 86.71 109.97 79.34 71.49 40.43 0.4 138.63 116.30 90.79 110.73 83.30 75.35 41.18
+
+0.1 112.03 99.49 78.91 95.40 72.92 64.72 37.92
+
+122.17 90.87 70.90 95.10 64.66 57.48 36.98
+
+6 0 6 B11 bsx 6 ½Dsx  ¼ 6 6 0 6 B12 bsx 4 0 2 Â Ã
+
+A11 bsx
+
+B0 bsx 11 D0 bsx 11 D0 bsx 12 0
+
+B0 bsx 12 D0 bsx 12 1 ðQ þ Q66 Þdsx b3 sx 6 44 0 B0 bsy 12 D0 bsy 12 D0 dsy b3 sy 11 0
+
+0 0 0 bsx S11 0 0 0
+
+3 7 7 7 7 7 7 5
+
+(19)
+
+a/b ¼ 1, a/h ¼ 100, a /b ¼ 1, h/Rxx ¼ h/Ryy ¼ 1/300; E11/E22 ¼ 25, G23 ¼ 0.2E22, G13 ¼ G12 ¼ 0.5E22, n12 ¼ n21 ¼ 0.25.
+
+Dsy
+
+Table 5 Non-dimensional Fundamental Frequencies ðuÞ for laminated composite (þ45/À45/ þ45/À45) stiffened spherical shell panel for different sizes of the central square cutout and different boundary conditions. Boundary conditions Cutout size (a /a) ¼ 0 0.1 CCCC CSCC CSSC CSCS CSSS SSSS Point supported 129.15 108.21 102.59 100.28 95.56 91.47 33.89 141.07 116.74 111.21 109.61 104.82 101.30 36.75
+0
+
+6 6 0 6 B22 bsy 6 ¼6 6 6 B0 bsy 4 12 0
+
+A22 bsy
+
+1 Q þ Q66 bsy 6 44 D0 bsy 12 0
+
+
+
+B0 bsy 22
+
+3 7 7 7 7 7 7 7 5 (20)
+
+
+
+bsy S22
+
+0.2 147.00 118.97 111.08 115.53 109.31 105.41 38.57
+
+0.3 140.95 117.96 108.88 116.13 106.47 105.20 41.43
+
+0.4 135.56 115.44 106.62 112.36 103.04 100.13 41.75
+
+where,
+
+D0 ¼ Dij þ 2eBij þ e2 Aij ; B0 ¼ Bij þ eAij ; ij ij
+
+(21)
+
+a/b ¼ 1, a/h ¼ 100, a0 /b0 ¼ 1, h/Rxx ¼ h/Ryy ¼ 1/300; E11/E22 ¼ 25, G23 ¼ 0.2E22, G13 ¼ G12 ¼ 0.5E22, n12 ¼ n21 ¼ 0.25.
+
+The generalized displacements of the x-stiffener and the shell are related by the transformation matrix {dsxi} ¼ [Tx]{d} where.
+
+and Aij, Bij, Dij and Sij are explained in an earlier paper by Sahoo and Chakravorty [40]. Here for the stiffener considering it as moderately thick, the shear correction factor is taken as 5/6. The sectional parameters are calculated with respect to the mid-surface of the shell by which the effect of eccentricities of stiffeners is automatically included. The element stiffness matrices are of the following forms.
+
+Z for x À stiffener : ½Kxe  ¼ Â Ã for y À stiffener : Kye ¼ Z
+
+2 6 6 6 ½Tx  ¼ 6 6 6 4
+
+1þ
+
+e Rxx
+
+symmetric 1 0 0 1 0 1
+
+3 7 7 7 7 7 7 5
+
+½Bsx T ½Dsx ½Bsx dx; Â ÃT Â ÃÂ Ã Bsy Dsy Bsy dy (22)
+
+0 0 0
+
+(17)
+
+The generalized displacements of the y-stiffener and the shell are related by the transformation matrix {dsyi} ¼ [Ty]{d} where.
+
+The integrals are converted to isoparametric coordinates and are carried out by 2-point Gauss quadrature. Finally, the element stiffness matrix of the stiffened shell is obtained by appropriate matching of the nodes of the stiffener and shell elements through the connectivity matrix and is given as:
+
+2 6 6 Â Ã 6 Ty ¼ 6 6 6 4
+
+1þ
+
+e Ryy
+
+symmetric 1 0 0 1 0 1
+
+3 7 7 7 7 7 7 5
+
+Â Ã ½Ke  ¼ ½Kshe  þ ½Kxe  þ Kye :
+
+(23)
+
+0 0 0
+
+The element stiffness matrices are assembled to get the global matrices.
+
+(18)
+3.2.1. Element mass matrix The element mass matrix for shell is obtained from the integral.
+
+These transformations are required due to curvature of x-stiffener and y-stiffener. In the above equations, e is the eccentricity of the stiffeners. {d} is the appropriate portion of the displacement
+
+½Me  ¼ ∬ ½NT ½P½Ndxdy;
+where,
+
+(24)
+
+Table 6 Clamping options for 0/90/0/90 spherical shell panels with central cutouts having a0 /a ratio 0.2. Number of sides to be clamped 0 0 1 2 3 4 Clamped edges Corner Point supported Simply supported no edges clamped (SSSS) One edge (CSSS) a)Two alternate edges (CSCS) b)Two adjacent edges (CSSC) 3 edges (CSCC) All sides (CCCC) Improvement of frequencies with respect to point supported shells e Good improvement Good improvement Marked improvement Good improvement Marked improvement Frequency attains highest value Marks indicating the efﬁciencies of no of restraints 0 33 41 79 49 82 100
+
+252
+
+S. Sahoo / Engineering Science and Technology, an International Journal 17 (2014) 247e259
+
+Table 7 Clamping options for þ45/À45/þ45/À45 spherical shell panels with central cutouts having a0 /a ratio 0.2. Number of sides to be clamped 0 0 Clamped edges Improvement of frequencies with respect to point supported shells e Good improvement Marks indicating the efﬁciencies of no of restraints 0 62
+
+The element mass matrices are assembled to get the global matrices. 3.3. Modeling the cutout The code developed can take the position and size of cutout as input. The program is capable of generating non uniform ﬁnite element mesh all over the shell surface. So the element size is gradually decreased near the cutout margins. One such typical mesh arrangement is shown in Fig. 3 where the mesh divisions are in the ratio 6:4:4:3:3:3:3:4:4:6. Such ﬁnite element mesh is redeﬁned in steps and a particular grid is chosen to obtain the fundamental frequency when the result does not improve by more than one percent on further reﬁning. Convergence of results is ensured in all the problems taken up here. 3.4. Solution procedure for free vibration analysis
+
+1 2
+
+3 4
+
+Corner Point supported Simply supported no edges clamped (SSSS) One edge (CSSS) a)Two alternate edges (CSCS) b)Two edges (CSSC) 3 edges (CSCC) All sides (CCCC)
+
+Good improvement Marked improvement Marked improvement Marked improvement Frequency attains highest value
+
+65 71 67 74 100
+
+Ni 6 8 P6 0 60 ½N ¼ 6 i¼14 0 0 in which P ¼
+
+2
+
+0 Ni 0 0 0
+np P k¼1
+
+0 0 Ni 0 0 Zzk
+zkÀ1
+
+0 0 0 Ni 0 rdz
+
+3 0 07 7 0 7; 7 05 Ni and
+
+P 0 6 8 P6 0 P 60 0 ½P ¼ 6 i¼14 0 0 0 0 zk np X Z I¼ zrdz
+k¼1 z
+kÀ1
+
+2
+
+0 0 P 0 0
+
+0 0 0 I 0
+
+3 0 07 7 0 7; 7 05 I
+
+The free vibration analysis involves determination of natural frequencies from the condition.
+
+    ½K À u2 ½M ¼ 0
+
+(28)
+
+(25)
+where np is the number of plies in a laminate. Element mass matrix for stiffener element.
+
+½Msx  ¼ and
+
+½NT ½P½Ndx for x À stiffener Z Â Ã Msy ¼ ½NT ½P½Ndy for y À stiffener
+
+Z
+
+(26)
+
+Here, [N] is a 3 Â 3 diagonal matrix for stiffener.
+
+This is a generalized eigen value problem and is solved by the subspace iteration algorithm. The present formulation does not use penalty method. A general formulation is attempted using eight noded curved quadratic isoparametric ﬁnite elements with all three radii of curvature. Each of the nodes has ﬁve degrees of freedom: two in-plane displacement, one transverse displacement and two rotations. Each of these parameters is approximated by quadratic polynomials having eight terms. The general dynamic problem is derived from Lagrange's equation using Hamilton's principles. Subspace iteration is employed to solve the free vibration problem. The generalized formulation considers all three radii of curvature viz. Rxx, Ryy and Rxy. The shell surface considered for the present study is spherical which has the following features and can be handled by the proposed formulation as a special case: Doubly curved and synclastic surface having 1/Rxx ¼ 1/Ryy, both positive and 1/Rxy ¼ 0. Here
+
+2 r$b d sx sx 0 3 X6 6 ½P ¼ 6 0 4
+i¼1
+
+0 r$bsx dsx 0 0
+
+0 0 . r$bsx d2 12 sx 0
+
+0
+
+ . r bsx $d3 þ b3 $dsx 12 sx sx
+
+0 0 0
+
+3 7 7 7 for x À stiffener 5
+
+r$bsy dsy 0 3 6 X6 6 ½P ¼ 0 6 i¼1 4 0
+
+2
+
+0 r$bsy dsy 0 0
+
+0 0 . r$bsy d2 12 sy 0
+
+0 0  . r bsy $d3 þ b3 $dsy 12 sy sy 0
+
+3 7 7 7 for y À stiffener 7 5
+
+The mass matrix of the stiffened shell element is the sum of the matrices of the shell and the stiffeners matched at the appropriate nodes.
+
+Â Ã ½Me  ¼ ½Mshe  þ ½Mxe  þ Mye :
+
+(27)
+
+reduced integration has been used to avoid shear locking. The element stiffness, mass matrices and element load vector are derived using the minimum energy principle. The two dimensional integral is converted to isoparametric co-ordinates and is carried out by 2x2 Gauss quadrature because the shape functions are
+
+S. Sahoo / Engineering Science and Technology, an International Journal 17 (2014) 247e259
+
+253
+
+Fig. 4. First mode shapes of laminated composite (0/90/0/90) stiffened spherical panel for different sizes of the central square cutout and boundary conditions.
+
+derived from a cubic interpolation polynomial. It is an established fact that a polynomial of degree (2nÀ1) is integrated exactly by n point Gauss quadrature. 4. Validation study The results of Table 1 show that the agreement of present results with the earlier ones is close and the correctness of the stiffener formulation is established. The present results differ from previous published literature [41] which follows Mindlin's hypothesis. Moreover, the formulation therein considers shear deformation; hence it is applicable for both thick and thin plates. The present formulation uses modiﬁed Sander's ﬁrst approximation theory for thin shells. Here for comparison, a shell has been converted to a plate considering a high value of radius of curvature. This may be the reason for the present results differing from the previous published literature. Free vibration of corner point supported, simply supported and clamped spherical shells of (0/90)4 lamination with cutouts is also considered. The fundamental frequencies of spherical shell with cutout obtained by the present method agree well with those reported by Chakravorty et al. [12] as evident from Table 2, establishing the correctness of the cutout formulation. Thus it is evident that the ﬁnite element model proposed here can successfully analyze vibration problems of stiffened composite spherical shells with cutout which is reﬂected by close agreement of present results with benchmark ones. The results in Table 3 show that the
+
+convergence of the results is monotonic. Finer mesh beyond 10x10 does not improve the result. Thus 10 Â 10 mesh is chosen in the present study. 5. Results and discussion In order to study the effect of cutout size and position on the free vibration response additional problems for spherical shells with 0/ 90/0/90 and þ45/À45/þ45/À45 lamination and different boundary conditions have been solved. The positions of the cutouts are varied along both of the plan directions of the shell for different practical boundary conditions to study the effect of eccentricity of cutout on the fundamental frequency. 5.1. Free vibration behavior of shells with concentric cutouts Tables 4 and 5 furnish the results of non-dimensional frequency ðuÞ of 0/90/0/90 and þ45/À45/þ45/À45 stiffened spherical shells with cutout respectively. The shells considered are of square plan form (a ¼ b) and the cutouts are also taken to be square in plan (a0 ¼ b0 ). The cutouts placed concentrically on the shell surface. The cutout sizes (i.e. a0 /a) are varied from 0 to 0.4 and boundary conditions are varied along the four edges. Cutouts are concentric on shell surface. The stiffeners are placed along the cutout periphery and extended up to the edge of the shell. The boundary conditions are designated by describing the support clamped or simply supported as C or S taken in an anticlockwise
+
+254
+
+S. Sahoo / Engineering Science and Technology, an International Journal 17 (2014) 247e259
+
+Fig. 5. First mode shapes of laminated composite (þ45/À45/þ45/À45) stiffened spherical panel for different sizes of the central square cutout and boundary conditions.
+
+order from the edge x ¼ 0. This means a shell with CSCS boundary is clamped along x ¼ 0, simply supported along y ¼ 0 and clamped along x ¼ a and simply supported along y ¼ b. For clamped boundary condition, all ﬁve degrees of freedom are restrained. For simply supported boundary condition, three degrees of freedom (v, w and b) are restrained which implies shear force is present at simply supported edge but bending moment is zero. The material and geometric properties of shells and cutouts are mentioned along with the Tables.
+
+angle ply shells with the increase of cutout size loss of stiffness is more than loss of mass. Hence fundamental frequency decreases except in case of CSCS and corner point supported angle ply shells (a0 /a ¼ 0.2e0.3). In such cases, as the cutout grows in size the loss of mass is more signiﬁcant than loss of stiffness, and hence the frequency increases. As with the introduction of a cutout of a0 /a ¼ 0.2, in shell surface, the frequency increases in most of the cases, this leads to the engineering conclusion that concentric cutouts with stiffened margins may be provided safely on shell surfaces for functional requirements upto a0 /a ¼ 0.2.
+
+5.1.1. Effect of cutout size on fundamental frequency From Tables 4 and 5 it is seen that when a cutout is introduced to a stiffened shell the fundamental frequency increases in all the cases. This increasing trend is noticed for both cross ply and angle ply shells. This initial increase in frequency is due to the fact that with the introduction of cutout, numbers of stiffeners are increase from two to four in the present study. It is evident from Tables 4 and 5 that in all the cases with the introduction of cutout with a0 /a ¼ 0.2 the frequencies increase. But further increase in cutout size, fundamental frequency may increase or decrease. When the cutout size is further increased, but the number and dimensions of the stiffeners do not change, the shell surface undergoes loss of both mass and stiffness. It is evident from Tables 4 and 5 that when the cutout size is increased, fundamental frequency is increased in all cases of cross ply shells. For angle ply shells also with the increase of cutout size fundamental frequency increases upto a0 /a ¼ 0.2, but with further increase of cutout size reverse trend is observed. So for
+
+5.1.2. Effect of boundary conditions The boundary conditions may be arranged in the following order, considering number of boundary constraints. CCCC, CSCC, CSSC, CSCS, SSSS and Corner Point supported. Tables 6 and 7 show the efﬁciency of a particular clamping option in improving the fundamental frequency of a shell with minimum number of boundary constraints relative to that of a clamped shell. Marks are assigned to each boundary combination in a scale assigning a value of 0 to the frequency of a corner point supported shell and 100 to that of a fully clamped shell. These marks are furnished for cutouts with a0 /a ¼ 0.2 These tables will enable a practicing engineer to realize at a glance the efﬁciency of a particular boundary condition in improving the frequency of a shell, taking that of clamped shell as the upper limit. It is seen from Tables 6 and 7, that fundamental frequencies of members belonging to same number of boundary constraints may not have close values. So the boundary constraint is
+
+S. Sahoo / Engineering Science and Technology, an International Journal 17 (2014) 247e259 Table 8 Values of ‘r’ for 0/90/0/90 spherical shell panels. Edge condition CCCC y x 0.2 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.2 0.3 0.4 0.5 0.6 0.7 0.8 89.69 89.22 91.15 94.08 91.15 89.22 89.42 92.33 93.92 94.60 93.94 89.61 85.30 83.12 80.71 84.93 88.11 86.47 81.61 77.78 75.60 82.20 85.44 90.52 93.88 90.52 85.44 90.40 76.78 80.28 84.72 87.67 84.72 80.28 76.70 75.63 80.19 85.48 89.04 85.48 80.19 75.52 97.50 98.76 99.61 99.95 99.61 98.74 97.16 0.3 89.25 89.68 92.14 94.68 92.14 89.68 89.11 90.94 94.57 97.17 95.20 88.50 84.08 82.02 83.47 88.07 91.69 89.59 84.02 79.96 77.77 81.61 84.60 89.68 95.61 89.68 84.59 81.61 78.86 82.49 87.30 90.73 87.30 82.49 78.78 80.13 84.50 89.74 93.23 89.74 99.15 80.00 99.25 99.72 99.85 99.79 99.85 99.72 98.99 0.4 91.19 92.15 94.92 97.53 94.92 92.15 91.08 90.03 95.37 101.36 97.87 89.47 84.73 82.62 88.00 92.92 96.80 94.40 88.34 83.98 81.53 80.79 84.24 90.01 98.86 90.01 84.24 80.78 82.65 86.54 91.61 95.22 91.61 86.54 82.53 85.27 89.63 94.68 97.70 94.68 89.63 85.11 101.08 100.80 100.21 99.85 100.23 100.77 100.93 0.5 94.17 94.67 97.51 100.00 97.51 94.67 94.81 89.61 95.92 104.31 100.00 90.54 85.54 83.36 93.16 98.14 101.86 100.00 94.23 89.34 86.18 80.39 84.24 90.51 100.00 90.51 84.24 80.36 87.54 91.89 96.98 100.00 96.98 91.89 87.41 88.67 92.97 97.60 100.00 97.60 92.97 88.53 102.24 101.86 100.52 100.00 100.67 101.47 102.19 0.6 91.19 92.15 94.92 97.53 94.94 92.15 91.17 90.02 95.37 101.36 97.99 89.57 84.79 82.66 91.86 97.66 102.36 101.69 96.40 91.19 87.58 80.79 84.24 90.01 98.49 90.01 84.24 80.77 88.24 93.24 98.59 101.42 98.59 93.24 88.05 85.27 89.63 94.68 97.70 94.68 89.63 85.11 101.08 100.77 100.23 99.92 100.23 100.77 100.85 0.7 89.25 89.67 92.14 94.68 92.14 89.67 89.18 90.94 94.57 97.17 95.25 88.58 84.13 82.07 85.07 91.64 97.71 98.01 92.57 87.63 84.43 81.61 84.59 89.68 95.61 89.68 84.60 81.61 83.26 88.70 94.65 98.21 94.65 88.70 83.09 80.13 84.50 89.74 93.23 89.74 84.50 79.97 99.25 99.72 99.85 99.79 99.85 99.72 98.99 0.8 89.79 89.22 91.15 94.43 91.15 89.22 89.56 92.36 93.92 94.60 93.80 89.20 84.91 82.77 78.07 85.14 92.02 93.13 87.73 83.14 80.36 82.20 85.43 90.51 93.88 90.51 85.43 82.20 77.38 83.14 89.45 93.64 89.45 83.14 77.22 75.63 80.19 85.48 89.04 85.48 80.19 75.49 97.50 98.76 99.61 99.92 99.61 98.74 97.16 Table 9 Values of ‘r’ for þ45/À45/þ45/À45 spherical shell panels. Edge condition CCCC y x 0.2 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.2 0.3 0.4 0.5 0.6 0.7 0.8 78.58 79.71 80.56 81.06 80.62 79.77 78.59 93.10 97.00 93.25 87.73 85.98 87.24 89.03 90.45 94.43 94.52 90.12 88.52 89.72 90.28 91.02 88.82 86.21 85.01 86.27 88.86 90.80 88.51 89.64 86.75 85.10 86.31 88.97 88.27 89.43 89.03 87.10 86.05 86.97 88.76 88.49 94.84 98.60 96.81 95.18 96.47 98.73 95.85 0.3 79.77 82.12 84.46 86.02 84.54 82.21 79.82 94.97 100.52 98.20 91.89 89.65 90.54 92.31 89.36 93.77 97.58 94.36 91.83 91.65 89.40 94.01 92.32 90.38 89.55 90.47 92.50 94.45 87.70 91.83 91.19 89.92 90.42 91.11 87.75 88.84 93.12 92.29 91.27 91.81 92.48 88.45 97.72 102.64 100.03 98.06 99.33 101.09 97.80 0.4 80.67 84.52 89.07 93.14 89.16 84.61 80.71 97.58 103.77 103.56 96.84 94.14 94.35 95.07 89.05 93.58 98.07 97.22 93.98 91.76 88.22 96.45 96.24 95.54 95.59 95.68 96.62 97.06 87.16 91.96 94.79 95.57 93.71 91.52 87.42 86.94 92.17 96.15 96.70 95.38 91.70 86.70 96.21 99.71 101.56 99.90 100.13 98.99 95.88 0.5 81.18 86.13 93.23 100.00 93.20 86.12 81.17 99.39 106.35 106.09 100.00 97.27 97.34 98.42 91.18 96.07 100.83 100.00 97.19 94.27 89.87 99.50 99.60 99.31 100.00 99.31 99.60 100.07 88.52 93.79 98.08 100.00 97.00 93.61 88.94 85.92 91.19 96.64 100.00 96.64 91.19 85.84 94.66 97.72 99.77 100.00 99.79 97.72 94.61 0.6 80.71 84.61 89.17 93.12 89.07 84.52 80.66 97.52 103.73 103.61 96.76 93.96 93.98 94.42 96.30 102.18 106.34 101.46 98.21 97.79 94.49 97.09 96.62 95.68 95.59 95.54 96.24 96.42 92.22 98.01 98.61 98.13 97.83 98.09 92.82 86.78 91.70 95.38 96.70 96.15 92.15 86.78 95.90 99.01 100.13 99.90 101.56 99.71 96.16 0.7 79.82 82.21 84.54 86.01 84.46 82.12 79.76 94.91 100.55 98.04 91.40 89.31 90.28 91.97 99.86 107.04 102.31 96.22 93.77 94.00 94.64 94.47 92.50 90.47 89.55 90.38 92.32 94.00 95.28 94.67 93.27 92.51 92.88 94.16 94.91 88.54 92.48 91.81 91.27 92.26 93.12 88.74 97.85 101.06 99.30 98.06 100.05 102.64 97.64 0.8
+
+255
+
+CSCC
+
+CSCC
+
+CSSC
+
+CSSC
+
+CSCS
+
+CSCS
+
+CSSS
+
+CSSS
+
+SSSS
+
+SSSS
+
+CS
+
+CS
+
+78.62 79.77 80.61 81.06 80.57 80.57 78.56 93.07 96.78 92.49 86.85 85.40 86.98 88.96 96.66 99.83 96.40 91.35 89.28 89.62 90.66 90.94 88.86 86.27 85.01 86.21 88.82 90.90 91.11 90.12 88.45 87.51 88.13 89.73 90.64 88.65 88.75 86.96 86.05 87.09 89.03 89.44 96.06 98.70 96.47 95.18 96.81 98.60 94.66
+
+a/b ¼ 1, a/h ¼ 100, a0 /b0 ¼ 1, h/Rxx ¼ h/Ryy ¼ 1/300; E11/E22 ¼ 25, G23 ¼ 0.2E22, G13 ¼ G12 ¼ 0.5E22, n12 ¼ n21 ¼ 0.25.
+
+a/b ¼ 1, a/h ¼ 100, a0 /b0 ¼ 1, h/Rxx ¼ h/Ryy ¼ 1/300; E11/E22 ¼ 25, G23 ¼ 0.2E22, G13 ¼ G12 ¼ 0.5E22, n12 ¼ n21 ¼ 0.25.
+
+not the sole criteria for its performance. The free vibration characteristics mostly depend on the arrangement of boundary constraints rather than their actual numbers. It can be seen from the present study that if the circular edge along x ¼ a is released from clamped to simply supported, the change of frequency is more in case of an angle ply shells than that for cross ply shells. Again, if the two adjacent edges are released, fundamental frequency decreases than that of a clamped shell. This is true for both cross and angle ply shells. For cross ply shells this decrease in frequency is very much signiﬁcant. Further, if the two alternate edges are released from clamped to simply supported fundamental frequency do not change to a great extent in case of a cross ply shells whereas, change in frequency is about 29% in case of an angle ply shell. For cross ply shells if three or four edges are simply supported, frequency values undergo marked decrease but for angle ply shells with the
+
+introduction of more number of simply supported edges the frequency value does not change so drastically. The results indicate that two alternate edges should preferably be clamped in order to achieve higher frequency values. 5.1.3. Mode shapes The mode shapes corresponding to the fundamental modes of vibration are plotted in Figs. 4 and 5 for cross-ply and angle ply shells respectively. The normalized displacements are drawn with the shell mid-surface as the reference for all the support condition and for all the lamination used here. The fundamental mode is clearly a bending mode for all the boundary condition for cross ply and angle ply shell, except corner point supported shell. For corner point supported shells the fundamental mode shapes are complicated. With the introduction of cutout mode shapes remain almost similar. When the size of the cutout is increased from 0.2 to 0.4 the
+
+256
+
+S. Sahoo / Engineering Science and Technology, an International Journal 17 (2014) 247e259
+
+Table 10 Maximum values of r with corresponding coordinates of cutout centres and zones where r ! 90 and r ! 95 for 0/90/0/90 spherical shell panels. Boundary Condition CCCC Maximum values of r 100.00 Co-ordinate of cutout centre x ¼ 0.5 y ¼ 0.5 x ¼ 0.5 y ¼ 0.4 x ¼ 0.6 y ¼ 0.4 x ¼ 0.5 y ¼ 0.5 x ¼ 0.6 y ¼ 0.5 x ¼ 0.5 y ¼ 0.5 x ¼ 0.5,y ¼ 0.2 x ¼ 0.5,y ¼ 0.8 Area in which the value of r ! 90 0.4 0.2 0.7 0.2 0.2 0.5 0.3 0.4 0.4 0.4 0.4 0.4 0.4 0.2 0.2 x0.6, 0.2 x0.3, 0.4 x0.8, 0.4 x 0.8, y 0.5 x 0.7, y 0.6 x 0.6, y 0.6 x 0.7, y 0.6 x 0.6, y 0.6 x 0.8, y 0.8 y y y 0.8; 0.6; 0.6
+
+CSCC CSSC CSCS CSSS SSSS CS
+
+104.31 102.36 100.00 101.42 100.00 102.24
+
+a/b ¼ 1, a/h ¼ 100, a0 /b0 ¼ 1, h/Rxx ¼ h/Ryy ¼ 1/300; E11/E22 ¼ 25, G23 ¼ 0.2E22, G13 ¼ G12 ¼ 0.5E22, n12 ¼ n21 ¼ 0.25. Table 11 Maximum values of r with corresponding coordinates of cutout centres and zones where r ! 90 and r ! 95 for þ45/À45/þ45/À45 spherical shell panels. Boundary Condition CCCC CSCC Maximum values of r 100.00 106.35 Co-ordinate of cutout centre x ¼ 0.5 y ¼ 0.5 x ¼ 0.5 y ¼ 0.3 Area in which the value of r ! 90 x ¼ 0.5, 0.4 y 0.6; 0.4 x 0.6,y ¼ 0.5 0.2 x 0.8, 0.2 y 0.4; 0.3 x 0.6, 0.7 y 0.8 0.5 x 0.8, 0.2 y 0.5; 0.2 x 0.4, 0.3 y 0.5 0.3 x 0.7, 0.2 y 0.8 0.4 x 0.7, 0.3 y 0.7 0.3 x 0.7, 0.3 y 0.7 0.2 x 0.8, 0.2 y 0.8
+
+fundamental modes of vibration do not change to an appreciable amount. 5.2. Effect of eccentricity of cutout position 5.2.1. Fundamental frequency The effect of eccentricity of cutout positions on fundamental frequencies, are studied from the results obtained for different locations of a cutout with a0 /a ¼ 0.2. The non-dimensional coordinates of the cutout centre ðx ¼ x=a; y ¼ y=aÞ was varied from 0.2 to 0.8 along each directions, so that the distance of a cutout margin from the shell boundary was not less than one tenth of the plan dimension of the shell. The margins of cutouts were stiffened with four stiffeners. The study was carried out for all the seven boundary conditions for both cross ply and angle ply shells. The fundamental frequency of a shell with an eccentric cutout is expressed as a percentage of fundamental frequency of a shell with a concentric cutout. This percentage is denoted by r. In Tables 8 and 9 such results are furnished. It can be seen that eccentricity of the cutout along the length of the shell towards the edges makes it more ﬂexible. It is also seen that almost all the cases r value is
+
+CSSC
+
+107.04
+
+x ¼ 0.7 y ¼ 0.3
+
+CSCS CSSS SSSS CS
+
+100.00 100.00 100.00 102.64
+
+x ¼ 0.5 y ¼ 0.5 x ¼ 0.5 y ¼ 0.5 x ¼ 0.5 y ¼ 0.5 x ¼ 0.7,y ¼ 0.7 x ¼ 0.3, y ¼ 0.3
+
+a/b ¼ 1, a/h ¼ 100, a0 /b0 ¼ 1, h/Rxx ¼ h/Ryy ¼ 1/300; E11/E22 ¼ 25, G23 ¼ 0.2E22, G13 ¼ G12 ¼ 0.5E22, n12 ¼ n21 ¼ 0.25.
+
+Fig. 6. First mode shapes of laminated composite (0/90/0/90) stiffened spherical panel for different positions of the square cutout with CCCC boundary condition.
+
+S. Sahoo / Engineering Science and Technology, an International Journal 17 (2014) 247e259
+
+257
+
+Fig. 7. First mode shapes of laminated composite (0/90/0/90) stiffened spherical panel for different positions of the square cutout with CSCC boundary condition.
+
+maximum in and around x ¼ 0:5 and y ¼ 0:5. It is noticed that towards the clamped edge r value is greater than that of the simply supported edge when only one edge is simply supported. When two adjacent edges are simply supported no such uniﬁed trend is observed. Moreover, when three edges are simply supported, the simply supported edge opposite to the clamped one shows more frequency value than that of the clamped edge. For corner point supported shells the maximum fundamental frequency always occurs along the diagonal of the shell. Tables 10 and 11 provide the maximum values of r together with the position of the cutout. These tables also show the rectangular zones within which r is always greater than or equal to 90. It is to be noted that at some other points r values may have similar values,
+
+but only the zone rectangular in plan has been identiﬁed. These tables indicate the maximum eccentricity of a cutout which can be permitted if the fundamental frequency of a concentrically punctured shell is not to reduce a drastic amount. So these tables will help practicing engineers. 5.2.2. Mode shapes The mode shapes corresponding to the fundamental modes of vibration are plotted in Figs. 6e9 for cross-ply and angle ply shell of CCCC and CSCC shells for different eccentric position of the cutout. All the mode shapes are bending mode. It is found that for different position of cutout mode shapes are somewhat similar to one another, only the crest and trough position changes.
+
+Fig. 8. First mode shapes of laminated composite (þ45/À45/þ45/À45) stiffened spherical panel for different positions of the square cutout with CCCC boundary condition.
+
+258
+
+S. Sahoo / Engineering Science and Technology, an International Journal 17 (2014) 247e259
+
+Fig. 9. First mode shapes of laminated composite (þ45/À45/þ45/À45) stiffened spherical panel for different positions of the square cutout with CSCC boundary condition.
+
+The laminated composite ﬁnite element shell model proposed in the present study can work also with anisotropic lamination schemes such as 30/45 or 30/60, 30/65/45 etc. However, the present study considers only symmetric and antisymmetric lamination schemes. Future studies will consider anisotropic lamination schemes. 6. Conclusions The following conclusions may be drawn from the present study: 1. As this approach produces results in close agreement with those of the benchmark problems the ﬁnite element code used here is suitable for analyzing free vibration problems of stiffened spherical panels with cutouts. 2. The arrangement of boundary constraints along the four edges is far more important than their actual number so far the free vibration is concerned. 3. If fully clamped shell is released for any functional reason, then opposite edges must be released to avoid excessive loss in frequency. 4. The relative free vibration performances of shells for different combinations of edge conditions along four sides are expected to be very useful in decision-making for practicing engineers. 5. The information regarding the behavior of stiffened spherical shell panel with eccentric cutouts for a wide spectrum of eccentricity and boundary conditions for cross ply and angle ply shells may also be used as design aids for structural engineers. 6. From this study we get the speciﬁc zones within which the cutout centre may be moved so that the loss of frequency is less than 10% with respect to a shell with a central cutout. That will help an engineer to make a decision regarding the eccentricity of the cutout centre that he can allow. References
+[1] R.K. Kapania, A review on the analysis of laminated shells, J. Pressure Vessel Technol. 111 (2) (1989) 88e96.
+
+[2] A.K. Noor, W.S. Burton, Assessment of computational models for multi-layered composite shells, Appl. Mech. Rev. 43 (1990) 67e97. [3] J.N. Reddy, Finite element modeling of layered, anisotropic composite plates and shells: review of recent research, Shock Vibration Digest 13 (12) (1981) 3e12. [4] W.C. Chao, J.N. Reddy, Analysis of laminated composite shells using a degenerated 3-d element, Int. J. Numer. Methods Eng. 20 (1984) 1991e2007. [5] J. N. Reddy, K. Chandrashekhara, Geometrically nonlinear transient analysis of laminated doubly curved shells, Int. J. Nonlinear Mech., 20(2), 79e90. [6] C.C. Chao, T.P. Tung, Step pressure and blast response of clamped orthotropic hemispherical shells, Int. J. Impact Eng. 8 (3) (1989) 191e207. [7] M.S. Qatu, Natural frequencies for cantilevered doubly-curved laminated composite shallow shells, Comput. Struct. 17 (1991) 227e255. [8] K.M. Liew, C.W. Lim, Vibration of perforated doubly-curved shallow shells with rounded corners, Int. J Solids Struct. 31 (11) (1994) 1519e1536. [9] K.M. Liew, C.W. Lim, Vibration behaviour of doubly-curved shallow shells of curvilinear planform, ASCE J. Eng. Mech. 121 (12) (1995) 1277e1283. [10] D. Chakravorty, P.K. Sinha, J.N. Bandyopadhyay, Free vibration analysis of point supported laminated composite doubly curved shells- a ﬁnite element approach, Comput. Struct. 54 (2) (1995) 191e207. [11] D. Chakravorty, P.K. Sinha, J.N. Bandyopadhyay, Finite element free vibration analysis of doubly curved laminated composite shells, J. Sound Vibration 191 (4) (1996) 491e504. [12] D. Chakravorty, P.K. Sinha, J.N. Bandyopadhyay, Applications of FEM on free and forced vibration of laminated shells, ASCE J. Eng. Mech. 124 (1) (1998) 1e8. [13] D.K. Shin, Large amplitude free vibration behavior of doubly curved shallow open shells with simply supported edges, Comput. Struct. 62 (1) (1997) 35e49. [14] D.Y. Tan, Free vibration analysis of shells of revolution, J. Sound Vibration 213 (1) (1998) 15e33. [15] T. Kant, S. Kumar, U.P. Singh, Shell dynamics with three dimensional ﬁnite elements, Comput. Struct. 50 (1) (1994) 135e146. [16] M. Sathyamoorthy, Nonlinear vibrations of moderately thick orthotropic shallow spherical shells, Comput. Struct. 57 (1) (1995) 59e65. [17] B.P. Gautham, N. Ganesan, Free vibration characteristics of isotropic and laminated orthotropic spherical caps, J. Sound Vibration 204 (1) (1997) 17e40. [18] C.Y. Chia, D.S. Chia, Nonlinear vibration of moderately thick anti-symmetric angle-ply shallow spherical shell, Comput. Struct. 44 (4) (1997) 797e805. [19] B. Sivasubramonian, A.M. Kulkarni, G. Venkateswara Rao, A. Krishnan, Free vibration of curved panels with cutouts, J. Sound Vibration 200 (2) (1997) 227e234. [20] M.S. Qatu, R.W. Sullivan, W. Wang, Recent research advances on the dynamic analysis of composite shells:2000e2009, Compos. Struct. 93 (2010) 14e31. [21] X. Wang, G. Lu, S.R. Guillow, Stress wave propagation in orthotropic laminated thick-walled spherical shells, Int. J. Solids Struct. 39 (2002) 3027e4037. [22] J. Lellep, H. Hein, Optimization of clamped plastic shallow shells subjected to initial impulsive loading, Eng. Optimization 34 (2002) 545e556. [23] H.L. Dai, X. Wang, Stress wave propagation in laminated piezoelectric spherical shells under thermal shock and electric excitation, Eur. J. Mech. A Solids 24 (2005) 263e276.
+
+S. Sahoo / Engineering Science and Technology, an International Journal 17 (2014) 247e259 [24] M. Ganapathi, Dynamic stability characteristics of functionally graded materials shallow spherical shells, Compos. Struct. 79 (2007) 338e343. [25] T. Park, S.Y. Lee, Parametric instability osf delaminated composite spherical shells subjected to in-plane pulsating forces, Compos. Struct. 91 (2009) 196e204. [26] A. Kumar, A. Chakrabarti, P. Bhargava, Finite element analysis of laminated composite and sandwich shells using higher order zigzag theory, Compos. Struct. 106 (2013) 270e281. [27] A. Kumar, A. Chakrabarti, P. Bhargava, Vibration of laminated composites and sandwich shells based on higher order zigzag theory, Eng. Struct. 56 (2013) 880e888. [28] A. Kumar, A. Chakrabarti, P. Bhargava, Vibration of laminated composite shells with cutouts using higher order shear deformation theory, Int. J. Sci. Eng. Res. 4 (5) (2013) 199e202. [29] A. Kumar, A. Chakrabarti, P. Bhargava, Accurate dynamic response of laminated composites and sandwich shells using higher order zigzag theory, Thin Walled Struct. 77 (2014) 174e186. [30] T. Ye, G. Jin, Y. Chen, X. Ma, Z. Su, Free vibration analysis of laminated composite shallow shells with general elastic boundaries, Compos. Struct. 106 (2013) 470e490. [31] T. Ye, G. Jin, Y. Chen, S. Shi, A uniﬁed formulation for vibration analysis of open shells with arbitrary boundary conditions, Int. J. Mech. Sci. 81 (2014) 42e59. [32] G. Jin, T. Ye, X. Jia, S. Gao, A general fourier solution for the vibration analysis of composite laminated structure elements of revolution with general elastic restraints, Compos. Struct. 109 (2014) 150e168.
+
+259
+
+[33] T. Ye, G. Jin, Z. Su, X. Jia, A uniﬁed ChebysheveRitz formulation for vibration analysis of composite laminated deep open shells with arbitrary boundary conditions, Arch. Appl. Mech. 84 (2014) 441e471. [34] F. Tornabene, N. Fantuzzi, M. Bacciocchi, The local GDQ method applied to general higher-order theories of doubly-curved laminated composite shells and panels: the free vibration analysis, Compos. Struct. 116 (2014) 637e660. [35] F. Tornabene, N. Fantuzzi, E. Viola, J.N. Reddy, Winkler-Pasternak foundation effect on the static and dynamic analyses of laminated doubly-curved and degenerate shells and panels, Compos. B Eng. 57 (1) (2014) 269e296. [36] F. Tornabene, E. Viola, N. Fantuzzi, General higher-order equivalent single layer theory for free vibrations of doubly-curved laminated composite shells and panels, Compos. Struct. 104 (1) (2013) 94e117. [37] V.V. Vasiliev, R.M. Jones, L.L. Man, Mechanics of Composite Structures, Taylor and Francis, USA, 1993. [38] M.S. Qatu, Vibration of Laminated Shells and Plates, Elsevier, UK, 2004. [39] A. Dey, J.N. Bandyopadhyay, P.K. Sinha, Finite element analysis of laminated composite paraboloid of revolution shells, Comput. Struct. 44 (3) (1992) 675e682. [40] S. Sahoo, D. Chakravorty, Finite element vibration characteristics of composite hypar shallow shells with various edge supports, J. Vibration Control 11 (10) (2005) 1291e1309. [41] A. Mukherjee, M. Mukhopadhyay, Finite element free vibration of eccentrically stiffened plates, Comput. Struct. 30 (1988) 1303e1317. [42] A.N. Nayak, J.N. Bandyopadhyay, On the free vibration of stiffened shallow shells, J. Sound Vibration 255 (2) (2002) 357e382.
+

@@ -1,0 +1,357 @@
+Finite Elements in Analysis and Design 43 (2007) 989 – 1002 www.elsevier.com/locate/ﬁnel
+
+A new approach for the large deﬂection ﬁnite element analysis of isotropic and composite plates with arbitrary orientated stiffeners
+Roberto Ojeda a , B. Gangadhara Prusty b,∗ , Norman Lawrence a , Giles Thomas a
+a Department of Maritime Engineering, Australian Maritime College, Launceston, TAS-7250, Australia b School of Mechanical and Manufacturing Engineering, University of New South Wales, Sydney, NSW-2052, Australia
+
+Received 3 October 2006; received in revised form 15 June 2007; accepted 17 June 2007 Available online 26 July 2007
+
+Abstract A new approach for the large deﬂection analysis of isotropic and composite arbitrary orientated stiffened plates is presented. Non-linear equilibrium equations are derived using the principle of virtual work applied to a continuum with a total Lagrangian description of motion. Eight node isoparametric plate elements are combined with three node beam elements, using the concept of equal displacements at the plate–stiffener interface, to represent the stiffened plate. The stiffness of the beam element is computed ﬁrst irrespective of its position within the plate element and then transferred to the plate nodes depending on its orientation and position within the plate element. The Newton–Raphson incrementaliterative solution technique is used to obtain the non-linear response path. Results obtained by the present approach are compared with those available in the open literature to demonstrate the validity and efﬁciency of the proposed approach and good agreement is found in all the investigated cases. 2007 Elsevier B.V. All rights reserved.
+Keywords: Stiffened plate; Arbitrary stiffener orientation; Large deﬂection; Geometric non-linearities; Finite element method; Composite
+
+1. Introduction Isotropic and composite stiffened plate structures are indispensable in shipbuilding and aerospace designs, as they allow designers to drastically reduce the total structural weight. In the preliminary design phase, a quantitative assessment of the effects of stiffeners on the global behaviour of a structure is crucial to gain a clear understanding of its response and reliability [1]. However, since computational resources and design cycle time are limited, designers face a choice between the cost and the number of structural analyses that can be performed and their complexity [2]. Linear ﬁnite element analysis has been adopted by designers as the standard tool for the structural analysis of highperformance marine and aerospace structures. However, it is known that the geometrically non-linear behaviour of laterally loaded FRP plates is signiﬁcant, even at low load levels [3]. Hence linear analysis may lead to overestimates of the
+∗ Corresponding author. Tel.: +61 2 9385 5939; fax: +61 2 9663 1222.
+
+E-mail address: g.prusty@unsw.edu.au (G. Prusty). 0168-874X/$ - see front matter doi:10.1016/j.ﬁnel.2007.06.007 2007 Elsevier B.V. All rights reserved.
+
+displacement levels and result in the design of conservative structures. An understanding of this behaviour is therefore essential to produce an optimal design. The analytical solution of stiffened plates with geometric non-linearities subjected to transverse loading is very difﬁcult [4]. There is therefore a need for an effective and efﬁcient numerical technique for the study of the complex structural response of stiffened plates in the non-linear range. One of the available techniques is the ﬁnite element method. The ﬁnite element method is an accurate and versatile technique, but it can take large amount of computer storage and processing time [5]. One method of accounting for the presence of stiffening beams, attached to plates and shells in a ﬁnite element model, is to approximate these members by the same element types as used for the shell. For efﬁciency, a ﬁnite element model should give sufﬁciently accurate results with minimum number of degrees of freedom [6]; however, in the absence of repeated symmetry conditions, the ﬁnite element analysis of such models becomes very resource intensive due to the large number of elements and the geometric non-linearities inherent in the
+
+990
+
+R. Ojeda et al. / Finite Elements in Analysis and Design 43 (2007) 989 – 1002
+
+Nomenclature { } [B] {P } { } [D] [B 0 ] [B L ] [G] { } sum of the internal and external generalised forces non-linear strain displacement matrix generalised nodal force vector stress vector elasticity matrix linear strain displacement matrix non-linear strain displacement matrix component of the non-linear strain displacement matrix deﬁned purely on terms of the nodal coordinates nodal displacement vector [KS ] [KT ] {dP } {d } [S] [ ] [T ] { st }j { }i secant stiffness matrix tangent stiffness matrix incremental force vector incremental displacements vector initial stress matrix orientation matrix, deﬁning the orientation of the stiffener in the plate element transformation matrix displacements at the j th node of the stiffener element displacements at the ith node of the plate element
+
+analysis. The inefﬁciency of idealising stiffened structures with only plate, shell or solid ﬁnite elements has led researchers to search for accurate and computationally efﬁcient beam-plate models. Koko and Olson [4] used a super-element approach for the large deﬂection and elastoplastic analyses of orthogonally stiffened plates. The super-elements are designed to contain all the basic mode of deformation so that only one plate element per bay and one beam element per span are needed to analyse a stiffened structure, therefore reducing the storage requirement and solution times. The authors further extended the proposed method for the non-linear modal and transient analyses of stiffened plates [7,8]. The proposed method was limited to the study of isotropic rectangular plates and shells, stiffened in mutually perpendicular directions. Hence the super-element approach is restricted by the condition that the stiffeners must pass through the edges of the super-element. An optimal beam-plate model should involve, as explained by Barut et al. [9], the placement of the beam element within the plate or shell element at an arbitrary orientation. This requires the deﬁnition of the displacement ﬁelds at any point within a slave element (beam element) in terms of the ﬁeld variables of a master element (plate or shell element). Since the beam kinematic ﬁeld is described by the shell kinematic ﬁeld, only the master plates or shells are needed to discretize the entire stiffened shell structure. Thus eliminating the modelling difﬁculties attributed to the conventional beam-plate and beam-shell models. This approach is referred to as the arbitrary-orientated stiffener approach and has been widely applied for more than two decades to the linear analysis of stiffened plates [10–12] and stiffened shells [13,14]. However, reported work on the application of this approach to geometrically non-linear analysis of stiffened plates and shells is scarce. The ﬁrst application of this approach for the geometrically non-linear analysis of stiffened plates was reported by Rao et al. [15]. The authors presented the ﬁnite element static analysis of the large deﬂection response of isotropic stiffened plates using an isoparametric quadratic stiffened plate bending element. The stiffened element was a development of the linear formulation presented by Mukhopadhyay and Satsangi [10]. The authors excluded the contribution of the stiffener non-linearities
+
+in the formulation. This was later introduced by Chattopadhyay et al. [16]. In this later work, the large deﬂections of laminated composite stiffened plates were analysed using an eight noded isoparametric element. The element formulation was based on Reissner–Mindlin’s hypothesis with a total Lagrangian description of motion. In both works the arbitrary orientated stiffener approach was applied so that the stiffener may lay within the element, with the limitation that the stiffener ends had to pass through two opposite edges of the element. The presented formulation was not capable of modelling stiffeners of arbitrary cross-section. The arbitrary-orientated stiffener approach was applied to the geometrically non-linear analysis of stiffened shells by Goswami and Mukhopadhyay [17]. Geometrically non-linear ﬁnite element static, modal and transient analyses of laminated composite stiffened shells were carried out using a nine noded Lagrangian curved shear ﬂexible isoparametric stiffened element with ﬁve degrees of freedom per node. Again the formulation accounts for arbitrarily orientated stiffeners with the limitation that stiffeners have to pass through two opposite edges of the element. Hence, it is not possible to model stiffeners that are required to pass through two adjacent edges of the shell element. In view of this restriction, Samanta and Mukhopadhyay [18] presented a formulation for the large deﬂections of deep isotropic stiffened shells. The analysis was conducted using a combination of Allman’s plane stress triangle and the discrete Kirchhoff triangle plate bending element which was previously used by the authors to solve linear examples of stiffened shells [13]. The element initially had 24 degrees of freedom which were later reduced to 18 using appropriated constraint equations. The proposed formulation was limited to thin, isotropic plates and shells reinforced with stiffeners of rectangular cross-section only. The element, being faceted, differs slightly from the actual shell and hence the coupling of stretching and bending is excluded from the element due to the absence of element curvature. Barut et al. [9] recently presented a stiffened shell element formulation for the geometric nonlinear analysis of composite laminated stiffened shells. It is a four node, triangular, C0 anisoparametric element with ﬁve degrees of freedom at the
+
+R. Ojeda et al. / Finite Elements in Analysis and Design 43 (2007) 989 – 1002
+
+991
+
+corner nodes and two degrees of freedom at the centre node. The formulation accounts for transverse shear deformation and material anisotropy in both the shell and stiffener. The laminated stiffeners may be arbitrary in orientation and cross-section. Although the study discusses the incorporation of arbitrarily shaped and arbitrarily orientated stiffeners, only one example for laminated cross-ply stiffened shell with rectangular stiffeners was covered. Therefore, the main emphasis of the present work lies in presenting a new ﬁnite element formulation for the geometrically non-linear analysis of isotropic and laminated arbitraryorientated stiffened panels. The non-linear formulation has been based on the linear, arbitrarily oriented, stiffener formulation of Prusty [14] for the analyses of stiffened plates and shells. Arbitrary orientation, eccentricity, and diverse cross-sectional shapes of the stiffener are taken into account to generate the stiffness matrix of the stiffened element in the geometrically non-linear range. According to this, the stiffener may lie anywhere within the plate element, and hence, the mesh lines are not restricted to be aligned with the stiffener. Therefore, the discretization of the stiffened plate becomes more ﬂexible. 2. Finite element formulation In the formulation of linear ﬁnite elements it is assumed that deformations remain small so that linear relations can be used to represent the strain in a body. Whereas in the formulation of geometrically non-linear ﬁnite elements the possibility that deformations may become large during a loading process is introduced. In stiffened plates, subjected to in-plane and transverse loads, the large lateral displacements will be responsible for the development of membrane strains. The emphasis of the present work is on developing a new formulation for the analysis of isotropic and laminated composite stiffened plates rather than on a new element type. Nonlinear equilibrium equations were derived using the principle of virtual work applied to a continuum with a total Lagrangian description of motion. The stiffness matrix of the stiffener element was ﬁrst evaluated independently of the plate element by considering it to be a beam element. Then it was transformed into the plate nodes by considering its position within the plate element. This result in an expression that represents the combined stiffness of plate and stiffener expressed only on terms of the plate element degrees of freedom. 2.1. Equilibrium equations For a continuum undergoing large displacements, the equation of equilibrium of the external and the internal forces may be expressed, using the principle of virtual work, as { }=
+A
+
+strain displacement matrices and the nodal displacement vector { }, the governing equation (1) can be written in the standard form as [KS ]{ } = {P }, (2)
+
+where [KS ] is the secant stiffness matrix, in standard form, derived according to Pica et al. [19] and Zienkewicz and Taylor [20], as [KS ] =
+A
+
+[B 0 ]T [D][B 0 ] dA +
+A
+
+1 2
+
++
+
+[B L ]T [D][B 0 ] dA +
+
+1 2
+
+A
+
+[B 0 ]T [D][B L ] dA
+A
+
+[B L ]T [D][B L ] dA. (3)
+
+Eq. (2) is non-linear in nature and may be solved iteratively using an incremental equation. This may be computed by a linearisation of Eq. (2) as [KT ]{d } = {dP }, (4)
+
+where {d } and {dP } are the increment of displacement and force vector, respectively, and [KT ] is the tangent stiffness matrix, in standard form, derived according to Pica et al. [19] and Zienkewicz and Taylor [20], as [KT ] = [K 0 ] + [K L ] + [K ] with [K 0 ] = [K L ] =
+A
+
+(5)
+
+[B 0 ]T [D][B 0 ] dA [B 0 ]T [D][B L ] dA + [B L ]T [D][B L ] dA (6) [B L ]T [D][B 0 ] dA
+
+A
+
+A
+
++ [K ] =
+
+A
+
+A
+
+[G]T [S][G] dA.
+
+The secant and tangent stiffness matrices of the stiffened element are composed by the addition of the respective plate and beam element stiffness matrices. 2.2. Plate element formulation The plate element formulation has been achieved by combining an eight-node isoparametric quadratic, shear deformable plate bending element with an eight-node isoparametric quadratic plane stress element with the inclusion of ﬁrst-order non-linearities in the strain–displacement relations according to von Kármán’s large deﬂection plate theory. This element was selected since it is already available in the element library of almost every commercial ﬁnite element package which may facilitate the adoption of this formulation in existing programs. A detailed description of the derivation the non-linear plate element can be found in the work of Rao et al. [15] and Chattopadhyay et al. [16].
+
+[B]T { } dA − {P } = 0,
+
+(1)
+
+where { } is the sum of the internal and external of eneralised forces, [B] is the non-linear strain displacement matrix and {P } is the generalised nodal force vector. By expressing { } in terms of the elasticity matrix [D], the linear [B 0 ] and non-linear [B L ]
+
+992
+
+R. Ojeda et al. / Finite Elements in Analysis and Design 43 (2007) 989 – 1002
+
+or { st } = { 0 } + { L } st st (12)
+
+where, { 0 } and { L } are the linear and non-linear components st st of the strain–displacement relation of the stiffener. The linear components of strain can be expressed in terms of the nodal values as
+3
+
+{ 0}= st
+j =1
+
+[B 0 ]j { j },
+
+(13)
+
+where
+Fig. 1. Plate-stiffener system.
+
+⎡ jNj ⎢ jx ⎢ ⎢ ⎢ 0 ⎢ ⎢ [B 0 ]j = ⎢ ⎢ ⎢ 0 ⎢ ⎢ ⎣ 0
+
+0 0 0 0
+
+0 0 jNj jx 0
+
+0 jNj − jx −Nj 0
+
+2.3. Stiffener element formulation The stiffener element formulation has been computed using a three-node isoparametric quadratic beam element. The middle plane of the plate element has been used as the reference plane of the beam-plate system. A schematic representation of the beam element within the plate element is presented in Fig. 1. The coordinate at any point within the beam element can be described as
+3
+
+⎥ ⎥ ⎥ 0 ⎥ ⎥ ⎥ ⎥. ⎥ 0 ⎥ ⎥ ⎥ jNj ⎦ − jx
+
+0
+
+⎤
+
+(14)
+
+x =
+j =1
+
+Nj x j ,
+
+(7)
+
+The non-linear components of the strain can also be derived in terms of the nodal values, as presented by Chattopadhyay et al. [16], as
+3 L [Bst ] = j =1
+
+where Nj are the interpolation functions of the isoparametric beam element at a node j, deﬁned as N1 = − (1 − ) , 2 N2 = (1 − ) , 2 N3 = (1 + ) . 2 (8)
+
+[Ast ]j [Gst ]j ,
+
+(15)
+
+where ⎧ 3 dN j ⎪ ⎪ ⎪ ⎪ j =1 dx ⎪ ⎨ 0 [Ast ] = ⎪ ⎪ ⎪ 0 ⎪ ⎪ ⎩ 0 and [Gst ]j = 0 0 jNj 0 0 . jy (17) ⎫ wj , ⎪ ⎪ ⎪ ⎪ ⎪ ⎬ ⎪ ⎪ ⎪ ⎪ ⎪ ⎭ (16)
+
+The displacement ﬁeld of the stiffener is deﬁned, in the skew axes system (x − y ), by ﬁve degrees of freedom (three translations and two rotations) {
+st } = {u
+
+v w
+
+x
+
+y
+
+}T .
+
+(9)
+
+The displacement ﬁeld can be interpolated at any point within the beam element from the nodal unknowns using the shape functions as
+3
+
+{
+
+st } = j =1
+
+Nj { j }.
+
+(10)
+
+The ﬁrst-order non-linear strains in the stiffener can be expressed in terms of the displacements of its neutral axis, in the skew axes system (x − y ), as ⎫ ⎧ ju ⎪ ⎪ ⎪ ⎪ ⎪ ⎧ ⎪ jx ⎪ ⎪ 2⎫ ⎪ ⎪ ⎪ ⎪ 1 jw ⎪ ⎪ ⎪ ⎪ ⎪ ⎪ j x ⎪ ⎪ ⎪ ⎪ ⎪ ⎪ ⎪ ⎪ 2 jx ⎪ ⎪ − ⎪ ⎪ ⎪ ⎪ ⎬ ⎨ ⎬ ⎨ jx 0 { st } = + (11) ⎪ ⎪ ⎪ ⎪ jw ⎪ ⎪ ⎪ ⎪ ⎪ ⎪ − x⎪ ⎪ 0 ⎪ ⎪ ⎪ ⎪ ⎪ ⎪ ⎪ ⎪ jx ⎪ ⎩ ⎭ ⎪ ⎪ ⎪ ⎪ ⎪ 0 ⎪ ⎪ ⎪ j y ⎪ ⎪ ⎪ ⎭ ⎩ − jx
+
+The derivation of the stress–strain relationship, and the rigidity matrix [D] of the beam element for open or closed, eccentric or concentric sections made from isotropic or composite materials has been discussed in detail by Prusty et al. [14,21–24]. 2.4. Transformation of the stiffener stiffness In order to obtain a single set of nodal unknowns to describe the plate–stiffener system the displacement ﬁeld of the beam element is expressed, as suggested by Ray and Satsangi [25], using the plate element degrees of freedom. First the displacement ﬁeld is expressed in the plate element coordinate system by considering the stiffener inclination ( ) with respect to the plate x-axis using the following transformation
+
+R. Ojeda et al. / Finite Elements in Analysis and Design 43 (2007) 989 – 1002
+
+993
+
+Fig. 2. Cross stiffened isotropic plate.
+
+Fig. 3. Load-deﬂection results for an cross stiffened, isotropic plate.
+
+equations: u = u cos + v sin , v = −u sin + v cos , w = w,
+x y
+
+=
+
+x
+
+cos +
+x
+
+y
+
+sin ,
+y
+
+where [ ] is ⎡ c ⎢ −s ⎢ [ ]=⎢ 0 ⎢ ⎣ 0 0 (18)
+
+the orientation matrix deﬁned as s 0 0 0⎤ c 0 0 0 0 1 0 0 0 0 c −s 0⎥ ⎥ 0 ⎥ , c = cos , s = sin . ⎥ s⎦ c (20)
+
+=−
+
+sin +
+
+cos .
+
+The previous set of equations can be expressed in matrix form as {
+st } = [
+
+Since the nodes of the beam element are within the plate element, it is possible to interpolate the nodal displacements of the beam element from the plate element nodal displacements by
+3 3 8
+
+]{ },
+
+(19)
+
+{
+j =1
+
+st }j
+
+=
+j =1
+
+[ ]j [T ]
+i=1
+
+{ }i ,
+
+(21)
+
+994
+
+R. Ojeda et al. / Finite Elements in Analysis and Design 43 (2007) 989 – 1002
+
+Fig. 4. Cross stiffened composite plate.
+
+Fig. 5. Load-deﬂection response of the cross stiffened composite plate.
+
+where [T] is the transformation matrix of the nodal displacements from the beam element into the plate element nodes deﬁned as
+3 8
+
+Hence, the secant and tangent stiffness matrices in Eqs. (2) and (5) of a stiffener element can be expressed in terms of the plate nodal degrees of freedom as [KT ]plate = [T ]T [ ]T [KT ]stiffener [ ][T ],
+
+[T ] =
+j =1 i=1
+
+(Ni [I5 ])j ,
+
+(22)
+
+[KS ]plate = [T ]T [ ]T [KS ]stiffener [ ][T ].
+
+(23)
+
+where Ni are the plate element shape functions and [I5 ] is a ﬁve by ﬁve identity matrix.
+
+In this work, the element stiffness matrices were integrated numerically using the reduced integration technique to avoid shear locking.
+
+R. Ojeda et al. / Finite Elements in Analysis and Design 43 (2007) 989 – 1002
+
+995
+
+3. Solution procedure The non-linear equilibrium equations were solved using the Newton–Raphson incremental–iterative method. This method was adopted since it has proven itself, according to Stricklin and Haisler [26], as one of the best methods of solution available, particularly for large deﬂection and stability analyses. The convergence of each load step was checked using the total residual norm convergence criterion which is deﬁned as (
+T
+
+where is the internal-applied force imbalance, R is the applied external force and is the Newton–Raphson convergence tolerance which for the present work was taken as 0.1%. 4. Numerical examples and discussion In the previous sections, the development of a ﬁnite element formulation has been presented for the large deﬂection analysis of arbitrarily stiffened plates. In this section, the performance of the proposed formulation is validated through a series of numerical examples. In order to study the large deﬂection behaviour of stiffened plates, the formulation was coded into a FORTRAN 90 computer program named NLSPAN (Non-Linear Stiffened Panel ANalysis). To verify the accuracy and applicability of this program, a wide range of stiffened plate examples were solved using NLSPAN and the results compared both with those available in the open literature and those obtained using ANSYS commercial ﬁnite element package [27]. The range of examples covers a variety of plate aspect ratios, arrangements of stiffeners, stiffener geometries and boundary conditions. Due to space limitation, only the most representative of these examples are presented here. 4.1. Cross stiffened isotropic plate A simply supported isotropic square plate stiffened by two central stiffeners, as shown in Fig. 2, was analysed using the proposed formulation. This stiffened plate has been previously studied by Liao and Reddy [28] and by Chattopadhyay et al. [16] using the ﬁnite element method. Taking advantage of the symmetry of the structure, only one quarter of the stiffened plate was modelled in NLSPAN using
+
+)
+
+(R T R)
+
+× 100
+
+,
+
+(24)
+
+Fig. 6. Two-bay rectangular stiffened plate.
+
+Fig. 7. Load-deﬂection results at point A of the two-bay stiffened plate.
+
+996
+
+R. Ojeda et al. / Finite Elements in Analysis and Design 43 (2007) 989 – 1002
+
+Fig. 8. Load-deﬂection results at point B of the two-bay stiffened plate.
+
+Fig. 9. Load-stress results at point A of the two-bay stiffened plate.
+
+a 4 × 4 mesh Fig. 3. presents a comparison of the results of the central deﬂection of stiffened and unstiffened plates for different load level obtained by the present method and those of Liao and Reddy [28], Chattopadhyay et al. [16] and ANSYS [27]. All results were found to agree very well for the unstiffened case with only the results of Chattopadhyay et al. diverging slightly at high load levels for the stiffened case.
+
+4.2. Cross stiffened composite plate A simply supported cross stiffened composite plate, as shown in Fig. 4, has been analysed for cross-ply and angle-ply lamination schemes. Results for this example have been previously reported by Chattopadhyay et al. [16] and Liao and Reddy [28]. Composite beam elements were unavailable in the ANSYS
+
+R. Ojeda et al. / Finite Elements in Analysis and Design 43 (2007) 989 – 1002
+
+997
+
+Fig. 10. Load-stress results at point B of the two-bay stiffened plate.
+
+Fig. 11. Square plate with diagonal stiffeners.
+
+element library; therefore beam-plate model results could not be produced for this example. The full stiffened plate was modelled in NLSPAN using a 4 × 4 mesh since, as stated by Reddy [29], the non-linear response of a quarter symmetry model do not agree, in general, with those of the corresponding full-plate model. In Fig. 5 the results of the central deﬂections of the stiffened plate have been compared with those by Chattopadhyay et al. and Liao and Reddy. All results are seen to compare well for the cross-ply
+
+lamination; however there is discrepancy for the angle-ply lamination where the results of Liao and Reddy overestimate the deﬂection values. The discrepancy increases with the intensity of the transverse load. This discrepancy can be explained by the modelling approach adopted by Liao and Reddy. The authors used a quarter-symmetry model to represent the stiffened plate. As previously mentioned, this approach gives the same nonlinear results as the full plate model for anti-symmetric crossply laminates but not for anti-symmetric angle-ply laminates.
+
+998
+
+R. Ojeda et al. / Finite Elements in Analysis and Design 43 (2007) 989 – 1002
+
+Fig. 12. Load-deﬂection result of the diagonally stiffened plate.
+
+Fig. 13. Square plate with arbitrary orientated stiffener.
+
+4.3. A two-bay rectangular stiffened panel A rectangular plate, reinforced with a central eccentric stiffener and with all edges clamped, has been studied using the proposed formulation. The details of this example are illustrated in Fig. 6. This example has previously been analysed by Koko and Olson [4] using the super-element approach, Sheikh and Mukhopadhyay [30] using the spline ﬁnite strip method and by Rao et al. [15] using the ﬁnite element method.
+
+A quarter of the structure was modelled in NLSPAN, using an 8×5 mesh, by taking advantage of the symmetry. The stiffened plate was also modelled in ANSYS using a 20×10 mesh for the full plate model; SHELL93, eight-node, shell elements together with BEAM189, three-node, beam elements were used to model the plate and the stiffener respectively. Figs. 7 and 8 compare the load-deﬂection results at the panel centre (A) and stiffener mid-point (B) obtained using NLSPAN, with those obtained by the previously mentioned authors and ANSYS. It can be seen
+
+R. Ojeda et al. / Finite Elements in Analysis and Design 43 (2007) 989 – 1002
+
+999
+
+Fig. 14. Load-deﬂection result of the arbitrary stiffened plate.
+
+Fig. 15. Five-bay rectangular stiffened panel.
+
+that all the results agree well except those obtained using the super-element approach at point A. The total normal stress in the x-direction at points A and B, obtained by combining the effects of the membrane and the bending stresses, are presented in Figs. 9 and 10. Here NLSPAN results are compared with those presented by Sheikh and Mukhopadhyay and Rao et al. only since Koko and Olson did not present stress results data for this example; results for the proposed formulation are found to compare better with those of Rao et al. 4.4. Square plate with diagonal stiffeners The large deﬂections of a simply supported square plate with two stiffeners along the diagonals of the plate were analysed, for both concentric and eccentric stiffeners, by Samanta and Mukhopadhyay [18] using the ﬁnite element method. The material properties and geometric dimensions of the plate and stiffeners are presented in Fig. 11.
+
+Samanta and Mukhopadhyay conducted the analysis using an 8 × 8 triangular mesh and modelled the stiffened plate using quarter-symmetry. The authors presented only the loaddeﬂection results corresponding to a load of 1379.4 kPa (200 times the initial load). The NLSPAN program was used to solve the same example using a 4 × 4 square mesh to model the plate using quarter-symmetry. In order to compare the loaddeﬂection response, the full non-linear response path was calculated using ANSYS, where the stiffened plate was modelled with an 8 × 8 irregular mesh for the quarter-symmetry model SHELL93, eight-node, shell elements together with BEAM189, three-node, beam elements were used to model the plate and the stiffener respectively. It is important to note that, in ANSYS, the mesh is determined by the position and orientation of the stiffener within the plate which limits the ﬂexibility of the plate mesh. The comparison of the load-deﬂection results obtained using NLSPAN and ANSYS are presented in Fig. 12, together with the results of Samanta and Mukhopadhyay for the load of
+
+1000
+
+R. Ojeda et al. / Finite Elements in Analysis and Design 43 (2007) 989 – 1002
+
+Fig. 16. Load-deﬂection results at point A of the ﬁve-bay panel.
+
+Fig. 17. Moment Mx at point A of the ﬁve-bay panel.
+
+1379.4 kPa. It can be seen (Fig. 12) that very close agreement has been achieved for all load steps for all three cases (i.e. bare plate, eccentrically stiffened plate and concentrically stiffened plate). 4.5. Square plate with arbitrary stiffeners In order to validate the applicability of the proposed formulation for the analysis of plates with arbitrary orientated stiffeners, a new example is suggested. This example studies the large
+
+deﬂections of a simply supported plate with a stiffener placed at an arbitrary orientation. Both concentric and eccentric stiffener conﬁgurations are studied. The dimensions and material properties of the panel are presented in Fig. 13. For comparison purposes, the complete stiffened plate was modelled in ANSYS with an irregular mesh composed of 272 SHELL93 shell and 16 BEAM189 beam elements. The full non-linear response path was calculated in NLSPAN using an 8 × 8 square mesh and then compared with the one obtained using ANSYS. A comparison of load-deﬂection results at point
+
+R. Ojeda et al. / Finite Elements in Analysis and Design 43 (2007) 989 – 1002
+
+1001
+
+Fig. 18. Moment My at point A of the ﬁve-bay panel.
+
+A are presented in Fig. 14. Close agreement of results using the present formulation (NLSPAN) and ANSYS have been achieved for all load steps for both stiffening cases (i.e. eccentrically stiffened plate and concentrically stiffened plate). 4.6. A ﬁve-bay rectangular stiffened panel A rectangular eccentrically stiffened plate clamped along all edges, as shown in (Fig. 15), was analysed by Koko and Olson [4] using a super-element approach. They used two different super-element models with different symmetry conditions to represent only one bay of the stiffened plate. The panel was also analysed by Sheikh and Mukhopadhyay [30] using the spline ﬁnite strip method and by Rao et al. [15] using the ﬁnite element method. In the present work, a quarter of the plate was analysed using NLSPAN with a 10 × 5 mesh. In (Fig. 16), the load-deﬂection results at the centre of the panel (A), obtained using NLSPAN, are compared with those obtained by Koko and Olson, Rao et al., Sheikh and Mukhopadhyay, and ANSYS. Results from NLSPAN agree well with those obtained using ANSYS and those presented by Rao et al. It can be seen that the Koko and Olson results differ from the other results, in both cases (i.e. model 1 and 2). This may be explained by the fact that the boundary and symmetry conditions used were based on the assumption of an inﬁnitely long panel [4] The moments Mx and My at the centre of the panel are presented in Figs. 17 and 18, respectively. The results obtained using NLSPAN were compared only with those obtained by Rao et al. and Sheikh and Mukhopadhyay, since no moment results were presented by Koko and Olson for this example. The results were found to be in good agreement with the published ones in both cases.
+
+5. Conclusions A new ﬁnite element formulation to model stiffened and unstiffened isotropic and composite plates with arbitrary orientated stiffeners in geometrically non-linear situation has been proposed. The advantage of this ﬁnite element approach is that an unlimited number of stiffeners can be placed at any directions inside the plate element. The formulation accepts eccentric and concentric stiffeners of different cross-section. This provides a considerable amount of computational economy and efﬁciency in the ﬁnite element analysis of stiffened structures. The validity of this new formulation was established using examples of stiffened isotropic and composite stiffened plates from the open literature. Examples were analysed using the present ﬁnite element formulation (NLSPAN) and the results compared with those published and those obtained using the commercial ﬁnite element analysis software ANSYS. In addition, a new example on arbitrary orientated stiffened plate is presented to validate the applicability of the formulation for this type of problems. In all of the cases the results were found to agree well, which veriﬁes the accuracy of the proposed approach and establishes an efﬁcient, new ﬁnite element formulation for the geometric non-linear static analysis of arbitrarily orientated stiffened structures. References
+[1] S.K. Kassegne, J.N. Reddy, Local behaviour of discretely stiffened composite plates and cylindrical shells, Compos. Struct. 41 (1998) 13–26. [2] L. Lamberti, S. Venkataraman, R.T. Haftka, T.F. Johnson, Preliminary design optimization of stiffened panels using approximate analysis models, Int. J. Numer. Methods Eng. 57 (2003) 1351–1380.
+
+1002
+
+R. Ojeda et al. / Finite Elements in Analysis and Design 43 (2007) 989 – 1002 [17] S. Goswami, M. Mukhopadhyay, Geometrically non-linear transient dynamic response of laminated composite stiffened shells, J. Reinf. Plast. Compos. 14 (1995) 618–640. [18] A. Samanta, M. Mukhopadhyay, Finite element large reﬂection analysis of shallow and deep stiffened shells, Finite Elem. Anal. Des. 33 (1999) 187–208. [19] A. Pica, R.D. Wood, E. Hinton, Finite element analysis of geometrically nonlinear plate behaviour using a mindlin formulation, Comput. Struct. 11 (1980) 203–215. [20] O.C. Zienkiewicz, R.L. Taylor, The Finite Element Method, ButterworthHeinemann, Oxford, 2000. [21] B.G. Prusty, Analysis of stiffened shell for ships and ocean structures by ﬁnite element method, Ocean Eng. 28 (2001) 621–638. [22] B.G. Prusty, C. Ray, S.K. Satsangi, First ply failure analysis of stiffened panels—a ﬁnite element approach, Compos. Struct. 51 (2001) 73–81. [23] B.G. Prusty, S.K. Satsangi, Finite element transient dynamic analysis of laminated stiffened shells, J. Sound Vib. 248 (2001) 215–233. [24] B.G. Prusty, S.K. Satsangi, C. Ray, First ply failure analysis of laminated panels under transverse loading, J. Reinf. Plast. Compos. 20 (2001) 671–684. [25] C. Ray, S.K. Satsangi, Finite element analysis of laminated hat-stiffened plates, J. Reinf. Plast. Compos. 15 (1996) 1174–1193. [26] J.A. Stricklin, W.E. Haisler, Formulations and solutions procedures for non-linear structural analysis, Comput. Struct. 7 (1977) 125–136. [27] Ansys university advance, Version 9.0, 2004. [28] C.-L. Liao, J.N. Reddy, Analysis of anisotropic stiffened, composite laminates using a continuum-based shell element, Comput. Struct. 34 (1990) 805–815. [29] J.N. Reddy, Mechanics of Laminated Composite Plates and Shells Theory and Analysis, CRC Press, Washington, DC, 1997. [30] A.H. Sheikh, M. Mukhopadhyay, Geometric non-linear analysis of stiffened plates by the ﬁnite strip method, Comput. Struct. 76 (2000) 765–785.
+
+[3] S.S.J. Moy, R.A. Shenoi, H.G. Allen, Strength and stiffness of ﬁbrereinforced plastic plates, Proc. Inst. Civil Eng.—Str. B 116 (1996) 202–220. [4] T.S. Koko, M.D. Olson, Non-linear analysis of stiffened plates using super elements, Int. J. Numer. Methods Eng. 31 (1991) 319–343. [5] A.H. Sheikh, M. Mukhopadhyay, Linear and nonlinear transient vibration analysis of stiffened plate structures, Finite Elem. Anal. Des. 38 (2002) 477–502. [6] R. Houlston, J.E. Slater, Global and local modelling of naval panels subjected to shock loads, Comput. Struct. 40 (1991) 353–364. [7] T.S. Koko, M.D. Olson, Nonlinear transient response of stiffened plates to air blast loading by a superelement approach, Comput. Method Appl. M 90 (1991) 737–760. [8] T.S. Koko, M.D. Olson, Vibration analysis of stiffened plates by super elements, J. Sound Vib. 158 (1992) 149–167. [9] A. Barut, E. Madenci, A. Tessler, J.H.J. Starnes, A new stiffened shell element for geometrically nonlinear analysis of composite laminates, Comput. Struct. 77 (2000) 11–40. [10] M. Mukhopadhyay, S.K. Satsangi, Isoparametric stiffened plate bending element for the analysis of ships’ structures, Trans. RINA 126 (1984) 144–151. [11] S.K. Satsangi, C. Ray, Structural analysis of ships’ stiffened plate panels in bending, Int. Shipbuilding Progr. 45 (1998) 181–195. [12] B. Chattopadhyay, P.K. Sinha, M. Mukhopadhyay, Finite element analysis of blade-stiffened composite plates under transverse loads, J. Reinf. Plast. Compos. 12 (1993) 76–100. [13] A. Samanta, M. Mukhopadhyay, Finite element static analysis of stiffened shells, IJME 3 (1998) 55–87. [14] B.G. Prusty, Linear static analysis of composite hat-stiffened laminated shells using ﬁnite elements, Finite Elem. Anal. Des. 39 (2003) 1125–1138. [15] D.V. Rao, A.H. Sheikh, M. Mukhopadhyay, A ﬁnite element large displacement analysis of stiffened plates, Comput. Struct. 47 (1993) 987–993. [16] B. Chattopadhyay, P.K. Sinha, M. Mukhopadhyay, Geometrically nonlinear analysis of composite stiffened plates using ﬁnite elements, Compos. Struct. 31 (1995) 107–118.
+

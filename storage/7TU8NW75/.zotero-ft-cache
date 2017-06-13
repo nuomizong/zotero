@@ -1,0 +1,5266 @@
+Lehigh University
+
+Lehigh Preserve
+Fritz Laboratory Reports Civil and Environmental Engineering
+
+1967
+
+Ultimate strength design of longitudinally stiffened plate panels with large b/t, August 1967
+J. F. Vojta A. Ostapenko
+
+Follow this and additional works at: http://preserve.lehigh.edu/engr-civil-environmental-fritz-labreports Recommended Citation
+Vojta, J. F. and Ostapenko, A., "Ultimate strength design of longitudinally stiffened plate panels with large b/t, August 1967" (1967). Fritz Laboratory Reports. Paper 1666. http://preserve.lehigh.edu/engr-civil-environmental-fritz-lab-reports/1666
+
+This Technical Report is brought to you for free and open access by the Civil and Environmental Engineering at Lehigh Preserve. It has been accepted for inclusion in Fritz Laboratory Reports by an authorized administrator of Lehigh Preserve. For more information, please contact preserve@lehigh.edu.
+
+,
+j
+
+,
+r7?/TZ
+\~ C/L?7~4r£ $r.A?,.6';o¥GP'~,.y
+
+A.£ABC:;~ATO~Y_.
+
+. ~,..q~&..L.:
+
+A-"~~..R _..;;?~Lt:9
+
+.o..e:-s/6"N o",.c- &::O/VG/r-~~"'-:/V'4L~Y
+
+__,,2 /;:~;;c;~/V&"""O
+
+"'~~'A:??;.':""" ~~,.y.£Z~"""'005~~ Ve:~
+q~
+
+~/~~.4Rt:P"C"
+
+~..f.
+
+,ry
+
+.......
+
+--;-------------------------------_.-_._-_...,-------.----,-.._------Cd;?
+Io-"7?-"?
+
+A'k.¥/s
+
+C7~?~:1~
+
+k
+
+/rc"'S,;?7'bt?"
+
+k
+
+.r-?re:rfr-?7iP:;/~.
+
+-6" r.-?'C'"
+
+t:?Y'e o/C" .....
+
+rk t?Yt:"--~
+
+!
+
+- - - - _..._,..
+$~
+
+.v
+
+_._.~---------_._
+
+...__ .'-"--" -... _....__...-_..__.._ .._._. -----_..- - - - - - -..
+
+$40.>''-1;;' 6av~
+
+/V=- ~ ~.2..
+
+~.s)
+
+'"
+'"
+
+,,~
+
+/f' =-
+
+.3$,
+
+as-
+
+6)
+
+J!
+
+!~
+
+! ,..::;'AG£.-!-!
+
+i
+
+I
+
+•__.~~.=_C-?7c;:vv
+
+I te/ ;rCev.> ~ 1/-}
+
+I
+
+--------_.-----_P._--_.-.._.- -.
+:-.2:?t S'2 .....:,.• .:z.
+
+.5:r~ P
+
+At ,. "ffl._2 =- . (!:ft:?, 6 .....; ,.. ~
+~tb
+
+s""'v~
+
+4Qn'" ••
+
+diO
+
+4·~
+
+" a""9'~(~;;J!'.r2 /.; ~ =-/.1.2/ /~ ~
+2
+2'-
+
+~ -=-...$~ ~ a -3"sr;.9. ~/ /:d. :y:J:" JI'. £9/";.
+
+I
+
+-1.. ,. ~ -~ ,. ,/..:J, 2 / /.7,. /;;"~/ /'I~ -- .4"" ~
+#
+
+~ 6.3 /.7,. 2....
+
+0:..r4.;;". e
+
+/.9• .2/ /~ .2,;-.2 ~ 5.2 /~ ~.= "1"'c:::::! 7..?''''~ 12
+e
+
+--iI
+N _-
+
+!
+I
+
+..#;r< "."",.. .....
+
+~ ~"""" t:i,.. ':;.i';; /~ s;or /3-
+
+-
+
+-
+
+($2
+
+,...# ... ""'~b
+
+I Arr ~(/-~ r'"
+I I
+I
+
+I
+I
+
+;
+
+~: ~ 4/
+
+-
+
+1:1
+
+-t'9 0 I'};.
+reo
+
+.. a 66' /;'..
+
+~..~r· aG~",~ (/6)~ /~~/~..
+L.
+
+Cl~4(/-e>.$.S) : / "/tIJ., If:' ...( ~~
+q~
+
+· )
+6/"'1.
+
+.
+
+.. O. '.;JI'..."
+
+~O~ /~
+•
+
+~..
+
+;J(~
+~r
+
+~.
+
+~ e:;J..,";;~
+Zl:
+
+a:;? . , . ...
+
+==-
+
+6: . $....... 4'#
+
+*
+
+//0
+
+7-
+
+oft/O
+
+<:~tI?~.s Al&4"r-./~ ~,e ~ t::'cr~o;';J~ rl? ~~ c:.~'ZPtJ'.s
+~¢d~
+r:::l?
+
+~. c;;-'" qt:1 G 2
+
+;:,~
+
+.1:'G8
+
+Iff
+
+a7t6/ .. /4'" "
+
+aGS "
+
+9.9,,0"
+~7..sn
+
+Built-Up Members in Plastic Design
+
+ULTIMATE STRENGTH DESIGN OF LONGITUDINALLY STIFFENED PLATE PANELS WITH LARGE bit
+/
+
+by Joseph F. Vojta and Alexis Ostapenko
+•
+
+This work has been carried out as part of an investigation sponsored by the Department of the Navy with funds furnished by the Naval Ship Engineering Center Contract Nobs-94092. Reproduction of this report in whole or in part is permitted for any purpose of the United States Government. Qualified requesters may obtain copies of this report from the Defense Documentation Center.
+
+Fritz Engineering Laboratory Department of Civil Engineering Lehigh University Bethlehem, Pennsylvania August, 1967 Fritz Engineering Laboratory Report No. 248.18
+
+248.18
+
+-i
+
+TABLE OF CONTENTS
+
+ABSTRACT
+1. 2.
+
+iii
+1
+
+INTRODUCTION DEVELOPMENT OF THE METHOD FOR THE DETERMINATION OF ULTIMATE STRENGTH 2.1 Moment-Curvature Relationships 2.1.1 Cross-Section and Loads 2.1.2 Residual Stresses
+2.1.3 2.1.4 2.1.5 2.1.6 2.1.7 2.2
+
+5 5
+6
+
+7
+8 9
+
+Critical Buckling Stress Plate Buckling Action Stress-Strain Diagrams Equations Governing the MomentCurvature Relationships Computation Procedure
+
+11
+
+12 26
+
+Numerical Integration to Determine Ultimate Strength
+2.2.1 2.2.2
+
+27 29 33 39 40 40 41 42 42
+
+Derivation of Equilibrium Equations Discussion of the
+Proc~dure
+
+3.
+
+NUMERICAL RESULTS OF THE ANALYSIS 3.1 Moment-Curvature Computations
+3.1.1 3.1.2 3.2
+
+Moment Capacity of the Cross Section Moment-Curvature Curves
+
+Numerical Integl'ation 3.2.1 Typical Ultimate Strength Plots
+3.2.2
+
+Effects of Geometric Parameters
+
+43
+45 47 47 50 54
+
+3.3 4.
+
+Comparison With Test Results
+
+ULTIMATE STRENGTH DESIGN CURVES 4.1 Development of the Design Curves 4.1.1 Simply-Supported Ends
+4.1.2 .Fixed Ends
+
+248.18
+
+-ii
+
+4.2
+
+The Use of the Design Curves 4.2.1 Schematic Example 4.2.2 4.2.3 4.2.4 4.2.5 Outline of Steps to Follow Numerical Examples Topics Concerning the Use of the Design Curves Errors Involved in the Use of the Design Curves
+
+56
+
+57
+59 60
+
+64
+66
+
+5.
+
+CONCLUSIONS AND RECOMMENDATIONS FOR FUTURE RESEARCH 5.1 5.2 Conclusions Recommendations for Future Research
+
+68 68 69 71 76 111
+111
+
+6. 7. 8.
+
+NOMENCLATURE TABLES AND FIGURES APPENDIX 8.1 Numerical Integration for Ultimate Strength 8.1.1 Subscripting 8.1.2 Initial Values 8.1.3 First Segment 8.1.4 8.1. 5 Other Segments End Conditions A) Pinned Ends B) Fixed Ends Ultimate Condition
+
+111
+112
+
+112 114116 116 117 117
+120
+
+8.1.6
+9.
+
+REFERENCES
+
+•
+
+248.18
+
+-iii
+
+ABSTRACT
+
+This report presents the results of an analytical investigation of the ultimate strength of longitudinally stiffened plate panels with plate width to thickness ratios such that the plate buckles before the ultimate strength of the panel is reached. The loading conditions considered are axial loads at the ends and a simultaneous uniformly.distributed load applied laterally. The major element of the panels is a plate having a large widththickness ratio (bit) such that the plate buckles before the attainment of the ultimate axial load. The analysis is performed by solving equilibrium equations numerically with a digital computer. Non-linear effects, non-
+
+symmetrical cross section and inelastic behavior are considered in the analysis. A comparison between analytical results and test
+
+results shows that the analytical method can accurately predict the ultimate load. Information from the numerical analysis has been organized in the form of design curves for steel with a yield stress of 47 ksi and a bit greater than about 45 for the main plate element.
+
+•
+
+Optimum cross sections can be readily obtained through the use of these design curves.
+
+248.18
+
+-1
+
+1.
+
+INTRODUCTION
+
+..
+A ship hull is essentially a hollow box girder composed of plates stiffened by a grid of longitudinal and transverse members, Fig. 1.1. The deck and bottom plating are stiffened panels which The principal function
+
+serve as flanges of this hollow girder.
+
+of the panels is to resist the longitudinal forces induced by bending of the ship under wave action, Fig. 1.2. The longitudinal
+
+framing resists the bending action and also increases the buckling strength of the outer plating by subdividing it into a series of
+
+..
+
+subpanels.
+
+Because of these advantages many ships use this system
+
+of longitudinal framing. This report deals with the analysis and design of the longitudinally stiffened plate panels which serve as the bottom plating. It considers the panels under the severe loading
+
+condition of axial compression due to bending of the hull combined with a uniformly distributed lateral load. The conventional method used for design of the longitudinally stiffened plate panels is based on elastic considerations. An
+
+allowable stress is chosen as some function of the yield stress of the material and is kept below the buckling stress of the plate elements. A major disadvantage of the method is that the first
+
+yield is not consistently related to the ultimate failure load.
+
+248.18
+
+-2
+
+The design curves and the method of analysis presented in this report are based on the ultimate failure load. This
+
+approach provides a more logical criterion as well as a simpler analysis. In 1965 Kondo presented a theoretical elastic-plastic analysis for the beam-column capacity of longitudinally stiffened plate
+
+panels subjected to an axial thrust and a uniformly distributed lateral loading.
+(l)~
+
+His analysis was for sections having plate
+
+elements that did not buckle. Unlike columns where failure is often instantaneous with
+bucklin~
+
+plate panels can sustain axial loads well in excess of the This depends largely on the structural action of
+
+buckling load.
+
+its main plate element, and the correct prediction of the failure load depends on the knowledge of the component. The history of the stability of plates under edge compression dates back to 1891, when Bryan presented the analysis for a simply supported rectangular plate acted upon by a uniformly distributed compressive load on two opposite edges of the plate.** Davidson studied plate action in the P9stbuckling range.(6) He recommended
+be~avior
+
+of this plate
+
+that Koiter1s equation be used to determine the postbuckling
+
+numbers in parentheses refer to the list of references, Chapter 9. **References 1 and 7 give brief discussions of the history and development of plate stability theory.
+
+* The
+
+248.18
+
+-3
+
+behavior of long rectangular plates subjected to edge compression
+
+•
+
+as they are used in stiffened plate panels.
+
+In 1965 Tsuiji
+
+applied Davidson's findings and revised Kondo's method of analysis for use on sections having plates that buckle before attaining the ultimate load~3)This method of analysis was used in this report. In the analysis it is assumed that the stress-strain relationship in the plate after buckling can be presented by the average stress vs. edge strain curve for a flat plate. The ultimate
+
+strength of the plate panel is thus obtained without a complex analysis of stresses in the plate. The problem is thus reduced to
+
+an ultimate strength analysis of plate panels which consist of a stiffener and a plate having different structural properties; the stiffener follows an elastic-plastic stress-strain curve while the plate is governed by Koiter's equation in 'the post-buckling range. The analysis becomes complex because it utilizes a non-linear moment-curvature relationship and deals with an unsymmetric cross section. However, the required iteration procedure is readily
+
+handled through the use of a digital computer. Since a design would require repeated use of the method of analysis, it becomes useful to have design curves which would give
+
+.,
+..
+
+suitable cross sections without a detailed analysis for each section. report. For this reason design curves are presented in this The curves also illustrate the feasibility of preparing
+
+such curves for various combinations of material properties.
+
+248.18
+
+-4
+
+Chapter 2 presents a discussion of the method of analysis with its development and use. Chapter 3 discusses results of the
+
+use of the method and compares this to experimental test results. The development and use of the design charts is presented in Chapter 4. The Appendix contains detailed information concerning
+
+some specific topics in the analytical procedure.
+
+,
+
+..
+
+,.
+
+248.18"
+
+-5
+
+2.
+
+DEVELOPMENT OF THE METHOD FOR THE DETERMINATION OF ULTIMATE STRENGTH
+
+•
+The ultimate strength of longitudinally stiffened plate panels is determined by an analysis which considers
+~he
+
+panel as
+
+a beam column with a cross section containing a plate element that buckles. The analysis consists of two main parts; the calculation
+
+of a moment-curvature relationship for a given axial load,
+(m-~-P),
+
+which evaluates the response of the cross section to the
+
+given loading conditions, and a numerical integration of small segments to determine the maximum lengths that the panel can have under these loads. The development of the moment curvature relationships is presented in Sec. 2.1. utilizes these 2.1
+m-~-P
+
+The numerical integration procedure which
+
+curves is presented in Sec. 2.2.
+
+Moment-Curvature Relationships Kondo developed
+M-~
+
+relationships for constant axial loads
+
+for the case where the cross section contained plate elements that have width-thickness ratios, (bit), sufficiently low, such that the plate would not buckle until after the ultimate load is reached.(l) Davidson investigated the action of the plate when Tsuijiused this information to develop a
+
+buckling did occur.(6)
+
+method to find the M-0 relationships for cross sections where the main element was a plate having a large bit value and which buckled before failure.(3) This method, with further improvements is
+
+l
+
+248.18
+
+-6
+
+'.
+•
+
+utilized here . Moment-curvature relationships for constant axial thrust, depend on the magnitude of the axial load, the moment, the material properties of the member, namely the yield stresses of the plate and stiffener, the dimensions of the cross section, and the magnitude and distribution of the residual stresses. 2.1.1 Cross Section and Loads
+
+The analyzed cross section is composed of a plate and a series of equally spaced tee stiffeners as shown in Fig. 2.1. The
+
+loads considered are a compressive axial load, pI, acting into the plane of the paper and "a uniformly distributed lateral load, q, on the plate side of the cross section causing compresssion in the plate at the center of the span during bending, (Fig. 2.2). The
+
+ends C and D can either be both fixed or both simply-supported in the analysis that follows. An idealized cross section is used for the analysis (Fig. 2.3). The axial load acting on the idealized cross section is termed P and is a portion of the total axial'load Pl. Similarly the end
+
+moments, m and m , are a portion of the total panel moment, mI. D C The end moments are assumed equal and are called m. In the
+
+idealized cross section the areas of the plate and stiffener flange are assumed to be concentrated about a horizontal line through their
+
+248.18
+
+-7
+
+mid-thicknesses.*
+
+The stiffener depth, d, is assumed to be
+
+•
+
+approximately equal to the distance from the mid-thickness of the plate to the mid-thickness of the stiffener flange. 2.1.2 Residual Stresses
+
+An idealized residual stress distribution in the plate is assumed as shown in Fig. 2.4.** The tensile residual stress is assumed to be equal to the yield stress of the plate. The zone
+
+containing this stress is assumed to have a width c, and to be centered about the connection to the stiffener.*** The compressive
+
+residual stress zone spans the remainder of the plate width. For equilibrium, (2.1)
+
+where
+
+cr r
+c
+b
+
+= the
+= the = the
+
+plate compressive residual stress. width of the tensile yield stress zone.
+
+= the plate width, center-to-center of stiffeners.
+
+yield stress of the plate.
+
+For later convenience this is non-dimensionalized to cr cR c = b cr r C1 yp -- + cr cR cr cR
+
+(2.2)
+
+The stress is assumed constant through the thickness of the plate. ** References 8 and 9 show that this assumption closely approximates the true measured distribution. *~':*Points TTA" denote both edges of the tensile residual stress zone. These points are very important in the stress-strain diagram discussed in Sec. 2.1.5.
+
+*
+
+248.18
+
+-8
+
+-.
+
+where
+
+•
+
+a
+
+cR
+
+is the critical buckling stress discussed below .
+
+No residual stresses are assumed to act in the stiffener. Kondo showed that these stresses have had a negligible effect.(l) 2.1.3 Critical Buckling Stress
+
+By assuming that the plate in one subpanel (between two stiffeners) is not affected by the adjacentsubpanels, as in the case of antisymmetric buckling, the plate is essentially simplysupported at the stiffeners. . then defined as:
+1
+
+The critical buckling stress is
+
+(2.3)
+
+where E is the modulus of elasticity,
+
+~
+
+is PoissonTs ratio, and k
+
+is the plate buckling coefficient which depends on the length-towidth ratio of the plate. The ratio .vb for "longitudinally stiffened panels is usually larger than 3 and the corresponding k value is approximately equal to 4. The critical buckling stress then becomes:
+
+a cR
+
+=
+
+TT
+
+2
+
+3(1-~
+
+E 2
+
+1
+
+(2.4)
+
+)
+
+(b/t)2
+
+which is a function of bit for a given material.
+
+248.18
+
+-9
+
+Equation 2.4 is used throughout the analysis when defining
+
+•
+
+the critical buckling stress of the plate.
+
+This equation is appli-
+
+cable only to plates subjected to a uniform compressive stress. The residual stress pattern is not uniform, but since the tensile stress zone is narrow in comparison with the total width, only a small error is involved in assuming that the compressive residual stress crris uniform over the full width. Because the narrow tensile zones have only a small influence on the buckling of the plate, the critical buckling stress is assumed to be reduced by an amount equal to cr r . 2.1.4 Plate Buckling Action
+
+In a typical longitudinally stiffened plate panel, the plate element in Fig. 2.1 is restrained by the stiffeners in the xdirection. stiffeners. It is otherwise considered as simply supported at the When loaded with increasing compressive stresses
+
+with no residual stresSes present, the plate will behave in the manner shown in Yig. 2.5. 1) For low stresses the stress distribution is uniform across the width of the subpanel, (Fig. 2.5a). This
+
+is true until the stress, cr, reaches the critical buckling stress, cr cR ' 2) The plate .begins to buckle at crcR' When the average
+
+stress is increased above cr cR some of the added stress is transferred from the center of the plate to the
+
+248.18
+
+-10
+
+edges (at the junction with the stiffener), (Fig.2.5b). The stresses at the edges then
+
+continue to increase above the stress in the middle until the maximum plate stress is reached. 3) With only a small error the maximum condition occurs when the edge stress reaches the value of the plate yield stress, cr yp ' (Fig. 2.5c). The plate
+
+has then reached its maximum stress and will take no more load.
+4)
+
+After reaching its maximum stress, the average plate stress, cravg ' is assumed to remain constant and equal to cr max .
+
+•
+
+Davidson states that Koiter's equation appears to accurately describe the plate action in the post-buckling range, (steps 2 and 3). (6) Koiter's equation
+
+= 1.2
+
+(~)0.6
+€cR
+
+0.65
+
+(€EO
+
+€cR
+cr
+
+I
+
+0.2
++ 0.45
+
+-0.2
+
+(::R)
+
+(2.5)
+
+defines the average plate stress, -2-, as a function of the strain, ocR at the edge~ (connection of the stiffener).
+'a,
+
+When residual stresses are included, the residual stress pattern in Fig. 2.4 is used. shown in Fig. 2.6. The plate action for this case is
+
+Here the important stresseS are at points "A"
+
+248.18
+
+-11
+
+at the edges of the tensile residual stress zone._ The maximum compressive membrane stress will occur here and Fig. 2.6c shows the assumed ultimate condition when the stresses at points T!AT!,
+cr
+
+eA , are equal to the yield stress of the plate. The stress distribution is unknown, but by assuming that it
+
+is parabolic the ultimate condition is found by solving Eq. 2.5 simultaneously with Eq. 2.6. 0.6
+crp ) = 12 (€e ) ( -. cr cR max· .. €cR
+
+- 0.65 (
+
+~)
+€cR
+
+0.2 '
+
+-0.2 +0.45 (~) (2.5) €cR
+
+=
+
+2(€YP} + 3 €cR t
+
+r (l-E~ -lJ (2-) max . cr
+cR
+c
+2 - 1
+
+(2.6)
+
+3( 1 - E)
+
+where
+
+€e
+
+is still the strain at the stiffener.
+
+2.1.5
+
+Stress-Strain Diagrams
+stress~strain
+
+In the determination of the m-0 relationships,
+
+diagrams for the plate and for the stiffener are very important. Utilizing the plate buckling action, the diagrams chosen are shown in Fig. 2.7. The stress-strain diagram for the plate has 3 steps for the compression range, '(Fig. 2. 7a). The diagram is linear from the
+
+origin to the critical buckling stress which is reached at point T. Koiter's equation then defines the non-linear portion until yielding
+
+248.18
+
+-12
+
+begins at points T!AT! of the cross section.
+
+This occurs for an
+
+average plate stress that never exceeds cryp and is designated by point W on the stress-strain curve. For higher values of strain,
+
+the stress remains constant and equal to (crp)max' The tension range of the stress-strain diagram for the plate is fully elastic-plastic as shown in Fig. 2.7a. The stiffener follows an elastic-plastic relationship between stress and strain for both tension and compression, Fig. 2.7b. 2.1.6 Equations Governing the Moment-Curvature Relationships
+
+Governing the moment-curvature relationships is a series of equations for various conditions of plate buckling action and yielding of the various component elements of the cross section. The equations will now be presented separately for positive and negative bending. A. Assumptions
+
+The following assumptions are made for this analysis: 1) The stress-strain relationships for the stiffener and plate are as described in Sec. 2.1.5 and as shown in Fig. 2.7.
+2)
+
+No local instability takes place in the stiffeners prior to the ultimate failure.
+
+3)
+
+The structural action and the loading are identical in all subpanels (between adjacent stiffeners) of the
+cro~s
+
+section.
+
+The idealized
+
+248.18
+
+-13
+
+cross section is thus representative of its
+·.t
+
+portion of the total cross section.
+4)
+
+Stresses in the plate and stiffener flange are constant through their thickness.
+
+5)
+
+The lateral loading is applied uniformly over the plate side of the panel and the moment and axial loading are applied at the centroid of the cross section.
+
+j
+
+6)
+
+The analysis cons,iders the uniformly distributed lateral loading to act as concentrated line loads at the stiffeners. In other words the effect of
+
+plate bending between stiffeners is neglected. 7) 8) Shear deformation is neglected. The distribution of residual stresses does not change over the length. 9) Sections that are plane before deformation remain plane after deformation.
+10)
+
+The plate panels are initially flat and there are no initial deformations.
+
+11)
+•
+
+The axial thrust is constant along the stiffener, (for m-0 relationships only) .
+
+12)
+
+Plate bending and buckling causes no change in the geometry of the cross section.
+
+248.18
+
+13)
+
+No strain reversal occurs before the ultimate panel load is reached.
+
+14)
+
+Strain hardening effects are not considered.
+
+When
+
+the moment reaches 99 per cent of its maximum value the moment-curvature curve is assumed to have a flat plateau of constant moment for all curvatures. B. Sign Convention
+
+The following sign convention is used for the momentcurvature relationships:
+1)
+•
+2)
+
+Compressive stresses and compressive axial loads are considered positive . Bending moments and curvatures causing compression in the plate are positive.
+
+3)
+
+Plate and stiffener stress and strain values must have correct signs when substituted into the equations. However, positive values are always to
+
+be used for cr ys ,cr yp ,cr c R' and cr p max C. Positive Bending
+
+A general stress distribution in the idealized cross section for positive bending is shown in Fig. 2.8. The axial force
+
+•
+
+obtained from this distribution is:
+
+cr - fA w (e s + ~)E w e E - crys ) E - gA (e
+
+(2.7)
+
+248.18
+
+-15
+
+where P
+
+= the
+
+axial load for the idealized cross section.
+
+A ,Af,A p ,A = are the areas from the standardized cross w section of the web, flange, plate, and total, respectively. es,ee
+
+= the
+
+strains in the stiffener flange and in the plate at the connection to the stiffener,
+
+. respectively.
+cr cr cr
+
+p ys
+r
+
+= the average stress in the plate = the yield stress of the stiffener = the plate compressive residual stress
+
+.
+f
+
+f,g
+
+= the
+
+non-dimensional depths of yield penetration measured from the flange and plate, respectively .
+
+The moment about the X-axis is:
+1 1 ·11 m = -2 (.;d3 -ad)E(e e -e)A w + -f (d-a d - -3fd )(crys +Ee)A w s 2 s (2.8)
+
+where d = the depth of the stiffener.
+a
+
+= the
+as
+
+non-dimensional distance from the plate to the centroid of the cross section. This can be written
+0'=
+
+'2 (A + A
+
+1
+
+AW
+
+)
+
+Af
+
+(2.9)
+
+248.18
+
+-16
+
+From the geometry it is possible to express relationships between the plate and flange strains, the curvature, and the yield penetration distances. €s = €e - 0d
+(2.10 )
+
+gd = d
+
+(
+
+€e-€ys ee-e s
+
+)
+€:+:~s
+e
+
+(2.11)"
+
+fd = d [ 1 - (
+!
+
+s
+
+)J
+The non-
+
+(2.12)
+
+Since the equations are more conviently utilized in non-
+
+• dimensional form, the equations will be rewritten.
+dimensional forms of Eqs. 2.7 to 2.12 are: A es W P - - = - - + 2A e cR PcR Ap (crp + A cr cR w A (~ + cryS ) A e cR cr cR Aw A . e cR
+
+(2
+ecR (Jr
+
+f ~) - 2" ecR
+~
+
+Af(cryS+~)
+A crcR e cR (2.13 )
+
+-
+
+-- _2)e cr
+cR cR
+
+2
+
+( l _ cryS )
+crcR
+
+€e A 1 1 cr € A ___) _ w + -f (l-a--f)( YS4 s·~ €cR A 2 3 cr cR eCRrA
+
++ (l-a) ( --- +
+
+€s e cR
+
+cr yS ) cr cR (2.14)
+
+- 2" g
+
+1
+
+(0' -
+
+1 39")
+
+(2.15 )
+
+248.18
+
+-17
+
+~
+
+...
+g
+
+= a (2_~)(1) €cR €cR T
+, ¢cR
+
+(2.16)
+
+..
+f = 1 - a
+
+(2 + ~) (+) €cR €cR ~
+cR
+
+(2.17)
+
+where €cR
+
+= the
+€cR
+
+strain corresponding to the critical buckling stress
+
+=E
+
+O'cR
+
+(2.18)
+
+.
+
+~CR = the curvature corresponding to . the moment mc R
+m = the critical moment cR m = O'cRSpL cR SpL = the section modulus with respect to the plate SpL = ad
+.P
+
+(2.19)
+
+I
+
+(2.20)
+
+CR
+
+= the
+
+axial load which causes buckling in the plate. (2.21)
+
+P CR = AO'cR
+
+S L
+
+~d = the section modulus in non-dimensional form
+
+(2.22)
+
+From Eqs. 2.13 to 2.17 for positive bending, the relationships for various strain states can be calculated and put into the forms shown in Table lao These values were all computed by using the
+
+248.18
+
+-18
+
+following procedure:
+( 1)
+
+When I€s/<€ys' no yielding occurs in the stiffener flange or in the portion of the web immediately adjacent to it. The terms (C1 yS + ~) do not exist C1 cR €cR and are assumed to be equal to zero.
+
+(2)
+
+When (€e + If) < €ys,no yielding occurs in the at the connection to the plate. The terms (
+
+C1
+
+r
+
+~eb
+
+~
+€cR
+
+_
+
+C1 ) C1 c R
+
+YS
+
+do not exist and are equal to zero.
+C1
+
+(3)
+
+•
+
+< €cR' the plate has not buckled. ee The term! C1 p _ C1 r ) is set equal to \C1 C1 cR cR
+
+When (€e +
+
+If)
+
+r
+
+C1
+
+(4 )
+
+When ecR < (ee + 1:) < e p max' the plate has buckled, but the average plate stress has not yet reached its
+
+r
+
+C1
+
+( 5)
+
+When (ee + 1:) > €p max' the average plate stress has reached its maximUm value and remains constant.
+C1
+
+r
+
+Thus
+
+pmax In this
+
+As an example consider the first case in Table lao case there is no buckling or by
+yielding~
+
+The strain state is defined
+
+248.18·
+
+-19
+
+Using steps (1), (2), and (3), above, the axial load and moment can be written as P
+P cR
+
+_ €s Aw - €cR + 2A
+
+(2_i)
+€cR €cR
+) ( €s
+
+(2.23)
+
+m
+
+mcR
+
+= (SpL) ['2
+Ad
+
+1· [
+
+1 (1
+
+"3 -
+
+ex
+
+r€CR
+
+By substituting Eqs. 2.9 and 2.15 these can be rewritten as
+P
+
+PcR
+
+=
+
+L
+
+~cR
+
+(2.25)
+
+...E:.....
+mcR
+
+= _1_ [ l (l_ ex) (2 (SpL)L 2
+Ad
+
+3
+.
+
+€cR
+
+(2.26)
+
+which are in the form presented in Table lao The numerical integration procedure uses the equations of Table la to find the
+m-~
+
+relationships.
+
+The moment equations are
+
+solved directly while the axial load equations are rearranged and used to solve for
+~/~cR.
+
+The value of the ultimate '"bending moment for the cross section is required by the numerical integration procedure. This moment
+
+determines the limit of the load carrying capacity under constant axial load. For the case of positive bending there are three
+
+possible cases depending on the location of the neutral axis.
+
+248.18
+
+-20
+
+1)
+
+When the neutral axis is located in the stiffener web, the maximum positive bending moment is
+
+( ...!!!.....). m
+eR
+
+= _ 1 ~1"(O'_!') 2 max (S"T'· ~
+. .Ad
+
+~)J O'eR
+(2.27)
+
+where 1" is the non-dimensional distance from the plate to the neutral axis, and for this case is defined by
+.1" =
+
+(2.28)
+
+2)
+
+When the neutral axis is in, or above, the stiffener flange
+1 r: = ~ L(l-O') (O'vs ~ max (PL) O'eR
+
+m .( ---) meR
+
+O'S) Af - --- A 0' eR
+
+Q'
+
+Ap C· O'ys _ A O'eR
+
+0' pmax
+
++ O'r "l O'eR O'eR LJ (2.29)
+
+Ad
+
+where (2.30)
+
+3)
+
+When the neutral axis is in, or below, the plate, the maximum positive bending moment is
+
+( where
+
+m--
+
+m) eR max
+
+= (SlpL
+Ad
+
+)[0' Ap (O'ys A O'eR
+
++
+
+O'p _ O'ru O'eR O'eR
+
+(2.31)
+
+=
+
+GL
+
+Pe R
+
++(O'yS) As +( O'r) Apl ~ O'R A (JR AJA p e e
+
+(2.32)
+
+248.18
+
+-21
+
+D.
+
+Negative Bending
+
+A general stress distribution in the idealized cross section for negative bending is shown in Fig. 2.9. moment obtained 'from this cross section are: The axial force and
+
+1f - -2 (E€,s -cr ys )Aw- 29"1(E€e+crys) A w
+
+(2.33)
+
+(2.34)
+
+..,
+
+From geometric re lationships €s = €e - 0d gd = _ ( €e +~ys ) d €see fd = (2.35)
+
+(2.36)
+
+[1 + ( €e€s+e YS) ] d. _ €e
+_
+
+(2.37)
+
+Non-dimensionalizing Eqs. 2.33 to 2.37
+P
+
+es
+
+1 (
+
+€S
+
+_
+
+ee ) Aw
+
+P cR - €cR.- 2"
+
+e cR
+
+€cR
+
+T -
+
+(€ s
+e cR (2.38)
+
+248.18
+
+-22
+
+1:f 2
+
+(1-0'-
+
+1:f ) 3
+
+(2.39)
+
+(2.40)
+
+1
+
+(2.41)
+
+f =1 - 0'
+
+(2 - ~ ) e e
+cR cR
+
+1
+
+As in the case for positive moments, these equations are used to find the formulas for various possible strain states. Table 2b
+
+contains the equations for axial load and bending moment for various strain conditions for negative bending. computed using the following procedure:
+( 1)
+
+These values were all
+
+< e ,no yielding occurs in the stiffener yp s flange or in the web immediately adjacent to it. The es O'ys term ( --- )does not exist and is assumed to be e cR O'cR equal to zero.
+
+When e
+
+248.18 O'r
+
+-23
+
+(2)
+
+When
+
+-€
+
+ys < (€e
+
++
+
+T) < €ys' no yielding occurs in
+The term
+
+the web at the connection to the plate.
+
+€e O'ys ) does not exist and is assumed to be ( -- + €cR O'cR· equal to zero.
+(3)
+
+When - €yp < (€ e - - < €cR' the plate has neither + O'r) E yielded in tension nor buckled in compression. The
+. .
+
+.term
+(4 )
+
+(--2.
+O'cR
+
+0'
+
+O'r ) is set equal to € I€ R. O'yp e c
++ --E)<€ pmax ,the plate has buckled
+Or
+
+When €cR < (€e
+
+but the average plate stress has not yet reached its maximum value. Then
+0'
+
+p
+
+is computed from Koiter1s
+
+Formula, Eq. 2.5.
+(5 )
+
+O'r' When (€e + --E) > €pmax ,the average plate stress has . reached its maximum value and remains constant. O'p =
+0'
+
+Thus
+
+pmax .
+
+(6 )
+
+O'r When (€e + T) < - €yp' the plate has yielded in tension. Thus
+~p v
+
+=-
+
+~ v
+
+yp .
+
+As an example consider Case 5 of Table lb . . For this case the stiffener yields at the flange while the plate has buckled but has not yet reached its ultimate average stress. is expressed by This strain state
+
+•
+
+O'r €s > €ys' (€e+ --) > €c R , E
+
+-
+
+O'r €ys < (€e + r) < €ys
+
+248.18
+
+-24
+
+From steps (1) and (4), above, the axial load and moment can be written as
+_e)~_(_s
+€
+
+A
+
+€
+
+€cR O"pKoiter O"cR
+
+A
+
+€cR
+(2.43 )
+
++(
+
+A
+
+A + ~f (l-~- ~f)
+W
+
+(2.44)
+
+Substituting Eqs. 2.40 and 2.42 in the above, the following equations are obtained: _ P - -€p - (€e -PeR €cR €cR O"pKoiter + O"cR ( €e _ ~) €cR €cR
+
+0":; ) f - (€CR- ~) €cR
+2
+
+A
+
+€e
+
+(2.45)
+
+(A:
+
++
+
+A;)
+
++ 2"
+
+~
+
+(:w)
+
+1
+
+(~)
+
+248.18
+
+-25
+
+m
+
+1 = --;:::--
+
+mcR
+
+(s~~)
+
+[~
+(2.46)
+
+These are presented in Table lb. As in the case for positive bending, the ultimate moments for the cross section are needed for the computation of the m-0curves. For negative bending only two cases are feasible, and they depend on the location of the neutral axis.
+1)
+
+When the neutral axis is located in the stiffener web, the maximum bending moment is
+
+(.l!!.-)max = m
+cR
+
+1
+
+C~~)
+( 2 .47)
+
+~ a]
+where:T is the non-dimensional distance from the plate to the
+, ,
+
+neutral axis, and for this case is defined by As [ A
+
+T =
+
+(~)_
+C1
+
+(C1 pmax
+C1 cR
+
+-
+
+cR
+
+..2)J
+ocR
+
+1
+
+(2.48)
+
+.24.8.18
+
+-26
+
+2)
+
+When the neutral axis is in, or below, the plate, the maximum bending moment is
+
+(2.49)
+
+where (2.50)
+
+2.1.7
+
+Computation Procedure
+m-~
+
+The procedure for computing the thrust, P, will be described here. in FORTRAN I I language. Fig. 2.10. The steps are as follows:
+1)
+
+curves for constant axial
+
+The procedure was programmed
+
+A brief schematic flow diagram is shown in
+
+Compute the cross-sectional parameters. Compute the maximum average plate stress corresponding ·to the yield stress at points "All by simultaneously solving Eqs. 2.5 and 2.6 for continually increasing
+€.
+
+2)
+
+plate strains,
+
+e
+
+€
+
+cR
+
+3)
+
+Compute the location of the neutral axis and the maximum bending moment for positive and negative bending using Eqs. 2.27 to 2.32 or Eq. 2.47 to 2.50, respectively;
+
+*A more detailed description of this procedure as used by the digital computer is contained in Ref. 4.
+
+248.18
+
+-27
+
+4) . Assume a plate strain. 5)
+6)
+
+Increment the plate strain. Determine the configuration of the stresses for the strain state thus described. This entails finding
+
+what portions have yielded and whether the plate has buckled or reached its maximum stress.
+7)
+
+Calculate the curvature,
+
+cR corresponding to this strain state. 8)
+
+~,
+
+and the moment,
+
+~,
+
+m
+
+cR
+
+When the change in curvature exceeds some specified value go to step 9). If the value is not exceeded go
+
+back and· repeat steps 5) to 7).
+9)
+
+This is done for 100 sets of moment and corresponding curvature for both positive and negative bending.
+
+Approximately
+
+l-~
+
+minutes of computation time on a G.E. 225
+
+digital computer is required to compute the 200 points of the
+m-~
+
+curve. The m-~ curve thus computed is ready for use in the numerical
+
+integration procedure which is discussed in the following section. 2.2 Numerical Integration to Determine Ultimate Strength The ultimate strength of longitudinally stiffened plate panels under combined axial and lateral loading is determined by a stepwise numerical integration procedure. This procedure utilizes
+
+the moment-curvature curves for constant axial load, the deter-
+
+248.18
+
+-28
+
+mination of which was discussed in Sec. 2.1. The numerical integration procedure presented in this chapter was originally developed by Kondo for sections having plates with low bit values.(l) Improvements have been made to
+
+apply this method to sections with a plate having high bit such -that the plate buckles. The procedure is used to compute, for given material parameters, the maximum slenderness ratio that the panel can have while sustaining the assigned loading conditions. found for both fixed and pinned end conditions. Solutions are By assuming a
+
+curvature at mid-span of the panel, equilibrium equations are solved for each of a series of small segments of the panel. Then,
+
+by plotting a non-dimensional graph of assumed mid-span curvature vs. the slenderness ratio for each end c.:mdition, the maximum slenderness. ratios can be obtained when a series of points is obtained. Here (t/r) max is the value desired while the line represents slenderness ratios for Figure 2.11 illustrates this.
+
+various chosen values of the mid-span curvature. Numerical results from this method can be plotted in the form. of curves for the evaluation of the effect of various parameters on the ultimate strength of the panels. Chapter 3 deals with these
+
+•
+
+plots .
+
+248.18
+
+-29
+
+2.2.1
+
+Derivation of Equilibrium Equations
+
+For the derivation of equilibrium equations for small segments of the panel an assumption is made in addition to the assumptions made in computing the moment-curvature relationships (see Sec. 2.1.6); the curvature change along each small segment is assumed to be linear. A small segment is shown in Fig. 2.12. The directions shown
+
+are considered positive. Positive moment is a moment that causes compression in the plate. Curvature can be written as the rate of change of slope with respect to the length along the member ..
+~
+
+= ds = the = the = the
+slope. distance along the centroid of the panel. curvature of the panel.
+
+de
+
+(2.51)
+
+where e s
+~
+
+Summing forces and moments about point G gives:
+
+=0 tFy = 0 IMG = 0
+tF z
+
+h + qbds p sin e v + Qbds p cos e m vdscos e
+
+=0 (v+dv) = 0 ds hds sin e - qbds p 2 (h+dh)
+
+(2.52) (2.53) (m+dm)
+
+=0
+
+(2.54 )
+
+248.18
+
+-30
+
+>
+
+'.'
+
+,.
+
+where Eq. 2.54 neglects second order terms such as dhdy. addition it can be shown that: ds p = ds (1 dz dy
+~
+
+In
+
+ad)
+
+(2.55) (2.56) (2.57)
+
+= ds
+
+cos 8
+
+= ds sin 8
+
+Thus, the new forms of Eqs. 2.52 and 2.53 will be dh ds dv ds dm ds
+
+= qb = qb =
+
+(1 - ~ad) sin8
+
+(2.58)
+
+cos 8
+
+(l-~ad)
+
+(2.59)
+
+'.
+
+- v cos 8 - h sin 8
+
+(2.60)
+
+If the variation in curvature
+
+0
+
+were known along the segment,
+
+the bending moment could be obtained by integrating Eqs. 2.51, 2.58, 2.59, and 2.60. A linear variation in curvature is assumed, giving
+
+the curvature at any point
+
+~
+
+= 0· 1
+
++
+
+0i +l
+
+6s.
+J
+
+- ~i
+
+s
+
+(2.61)
+
+where . n n l"i'l"i+l
+6s.
+J
+
+=
+
+the curvatures at the i th and (i+l)th cross
+
+s
+'J
+
+248.18
+
+-31
+
+Integrating from point i to point (i+l), and utilizing Eqs.
+2.55 to 2.57, the slope .between those points is
+~
+
+ds
+
+(2.62)
+
+For _point (i+l) this becomes 8. +8 . 1 1+ 1 8. 1 = 8. + ( 2 )s. 1 1+ 1 1+ and the horizontal and vertical forces and the moment are
+(2.63)
+
+. ...
+~
+
+h. 1 = hi + . s. 1+
+
+S
+
+Si+l
+qb(l-~ad)
+
+sin 8ds
+
+1
+
+= h. 1
+v. 1 1+
+
++ bql1y.+ qbad (cos 8. 1 1+ J +
+
+-
+
+cos 8. ) 1
+
+(2.64)
+
+li+l s. qb(l-~ad) cos 8 ds 1 = v. + qbl1z. - qbad ( sin 8 i +l - sin 8. ) 1 1 J
+
+= v. 1
+
+(2.65)
+
+. mi + l = m. 1
+= m.
+
+1
+
+fi+l fi+l v cos 8 ds - s. h sin 8 ds S. 1 1 2 2 6z. 6y. _ J__ _J_ h. l1y . -v . l1z . - qb ad6z. 2 + 2 1 J 1 J J
+
+[
+
+(s in8. l-s in8 1 ) + adl1y· (cos8·1-coS8 1 . .) 1+ J 1+
+J J J
+
+]
+
+(2.66)
+
+where the z and y components (l1z.,6y.) of 6s.; are found by considering a linear variation in curvature l1z. =
+J
+
+..
+
+·Ji+l _ cos8ds ~ l1s .cos8. s. J 1
+1
+
+(~i 3
+
++
+
+~i+l) 6.
+
+sin 8. (6s.)
+1
+
+2
+
+J
+
+(2.67)
+
+248.18
+
+-32
+
+b.y.
+J
+
+The axial thrust, n, is related to h and v as follows: n
+
+=h
+
+cos 8 - v sin 8
+
+(2.69)
+
+The shortening of the member is caused not only by the axial thrust, but also by the strain at the centroid.
+
+t
+i+l where
+
+= t
+
++
+
+2b.s.
+
+i
+
+~~ei+l-€ei-(0i+1-0i) ad}
+
+J'7-:::r_---::~-....",
+
+(2.70)
+
+•
+
+€ei' €ei+l are plate strains Eqs. 2.62 to 2.68 constitute the equilibrium equations and form the basis for the numerical integration procedure. and 2.70 are also needed. are non-dimensionalized. r 1 2 8 = 8. + iP. S -d ~+ -2 (iP. l-iP.)(S) 1 1 a yp 1+ 1
+8. 1 1+
+
+Eqs. 2.69
+
+For convenience all of these equations
+
+(2.71)
+
+= 8. 1 =
+
++ -2 (iP. l-iP.) b.S. --d ~€ yp 1+ 1 J a iP. iP i + T + -6-l ) + ( :i + aS j ) 2
+
+1
+
+r
+
+(2.72)
+
+b.Z.
+J
+
+b. Sj cos8 i - (
+
+~
+
+j
+
+€y~ sin 8 i
+
+(2.73)
+
+b. y . = b.S.
+J
+
+J v gyp
+
+,L
+
+sin 8
+
+i
+
+iP~+l)
+
+(b.S .)2
+J
+
+CfU
+
+_~
+
+cos 8
+
+i
+
+(2.74)
+
+V. 1 = V. + QIR [bZ ' - ad 1+ 1 r J
+
+~(sin8. l-sin8.)]' yp 1+ 1
+
+(2.75)
+
+(2.76)
+
+248.18
+
+-33
+
+1 M. 1=M.-V.6Z.-H.6Y. ad -QIR [!(6y.)2 + -2 (6Z.)2_ 6Z . a d (sin8. l-sin8.) 1+ 1 1 J 1 J r 2 J €yp J Jr. 1+ 1
++ 6Y. ad J r
+'€
+
+yp
+
+(cos8. l-COS9.)J 1+ 1
+(2.77)
+
+N . 1 = H· lCes 8. 1 - V. 1
+
+1+
+
+1+
+
+1+
+
+1+
+
+ard
+
+Ie::: yp
+
+sin 8. 1 1+
+
+(2.78)
+
+L. +
+1
+
+J -------='-----
+
+268.
+
+2-
+
+If:: . +G. 1- ( ~ 1.1+ 1 )1 . + ~. . yp [1 1+ 'j
+€
+
+(2.79)
+
+where
+
+...
+'
+
+6Y = ~
+
+6 .
+
+Y
+
+= Y~ r
+crA'.
+yp
+h V
+
+mad
+G
+
+yp Ar -
+
+2'
+
+QIR
+
+= qbEad 2'
+Gyp A
+
+H -
+
+-
+
+= adv Ar
+
+J~
+
+Gyp
+
+3'
+
+L - t
+
+r
+
+J
+
+€yp'
+
+G. 1 = 1+
+
+€e( i+l) , r 1 - ad €yp' - - ~ ~
+
+A
+
+Af l ' Aw 2 (1-2a) --A + (-3 -a)--A +a
+
+N=
+
+n
+
+GypA
+
+2 .2.2
+
+Discussion of the Procedure
+num~rical
+
+This section will contain a brief discussion of the
+
+integration procedure to determine the ultimate strength of the plate panels.
+
+248.18
+
+-34
+
+•
+
+.>'
+
+Since the conditions at both ends are identical and the lateral load is applied uniformly, symmetry requires that the shear force and slope at the mid-span of the panel are zero. Using this
+
+as a starting point the integration need only be applied to one half of the panel length. Thus, by assuming a mid-span curvature
+
+the integration starts here and progresses segment by segment along the member (Fig. 2.13) until it reaches the pinned-end condition as defined by m
+
+=0
+fixed~end
+
+(2.80 ) condition, defined by (2.81)
+
+•
+
+and then the 8=0
+
+Values of deflections, length, moment, etc., are computed for each
+,I ,
+
+case. Throughout the procedure Eqs. 2.71 to 2.77 are used to maintain equilibrium for each segment. Knowing the values and forces
+~(i+l)a
+
+at one end (initial end) and assuming a curvature,
+
+at the
+
+other end (terminal end) these equations are solved to find the moment by Eq. 2.77.. Knowing the moment, the corresponding curvature
+
+can be obtained from the moment-curvature curve which is now nondimensionalized to the
+formM-~.
+
+The computed curvature
+
+~(i+l)C
+
+is
+
+compared with the assumed one. curvatures is large,
+~(i+l)c
+
+If the difference between the
+
+becomes the new assumed curvature and
+
+the procedure is repeated.
+
+Finally, when the difference converges
+
+to a small value, equilibrium is considered to be fulfilled for the
+
+248.18
+
+-35
+
+segment. computed.
+
+The forces and moments at the terminal end are then The length of the plate panel is determined by summation
+
+of the segment
+L=2I;6S. j J
+
+(2.82 )
+
+Similarly for the chord length and the deflection at
+Z=2I;6Z. j J Y=I;6Y. j J
+
+mid~span
+
+(2.83)
+
+(2.84)
+
+.
+
+.
+
+The next segment is then selected and the iteration is repeated. The terminal values for the previous segment become
+
+the initial values for the new segment. The steps in the procedure for a given axial thrust and lateral loading are as fellows, Fig. 2.14:
+( 1)
+
+Assume the curvature,
+
+~
+
+o
+
+, at the mid-span of the
+
+panel and find the corresponding moment from the
+M-~
+
+curves of Section 2.1.
+
+(2) (3)
+
+Select a segment length. Assume the terminal curvature of the segment •
+~(i+l)a
+
+at the end
+
+•
+
+*A brief flow diagram for this procedure is presented in Fig. 2.14. A more detailed flow diagram is presented in Ref. 4. The Appendix, Chapter 8, further discusses some aspects of the computations.
+
+248.18
+
+-36
+
+•
+
+.i
+
+(4)
+
+Compute the Z and Y components of the segment from Eqs. 2.73 and 2.74.
+
+(5)
+
+Knowing the vertical and horizontal segments at the initial point and the values from step (4), compute the moment at the terminal end of the new segment by using Eq. 2.77.
+
+(6)
+
+From the
+
+M-~
+
+curves of Sec. 2.1 find the curvature
+
+~(i+l)C corresponding to this moment.
+
+..
+•
+
+(7)
+
+Check the difference between the assumed curvature from step (3) and the computed curvature from step (6). If the absolute value of this difference is larger than a certain specified amount use
+~(i+l)c
+
+as a new
+
+estimate of the terminal curvature and return to step (3). If the difference is less than the
+
+specified amount compute 9. l' H. l' and V. 1 from 1+ 1+ 1+ Eqs. 2.72, 2.76, and 2.75, sum L, Z, and Y by Eqs. 2.82, 2.83, and 2.84. Then let the terminal values
+
+of this segment become initial values for the next segment, and go to step (2) and begin computations for the next point." This pattern is followed until the When this happens
+
+terminal moment changes sign.
+
+proceed to step (8) instead of step (2). (8) By Newton's Method compute the increment of segment length corresponding to zero moment. Compute L, Z,
+
+248.18
+
+-37
+
+•
+
+..
+
+Y for the panel to the point of zero moment, and by Eq. 2.71 find the slope 8 corresponding to this point. These are the pinned-end values for the
+
+assumed mid-span curvature. (9) Continue the computation of steps (2) to (7) until the s lope 'computed in step (7) -change s sign. When
+
+this occurs use Newton's Method to find the increment of segment length to the zero slope. Calculate L,
+
+Z, Y for the panel to the point of zero slope and
+
+•
+
+by using a parabolic interpolation find the moment at the point of zero slope. These are the fixed-end
+
+values for the assumed mid-span curvature. ( 10) Increment the mid-span curvature by
+~ ~
+
+o
+
+and repeat
+
+steps (2) to (9) until one of the total panel length values from steps (8) or (9) is lower than the previous value. (11) Then go to step (11).
+fixed~that
+
+For the end condition,simply-supported or
+
+corresponds to the decrease in length, compute the length value corresponding to zero slope on the .L vs
+~
+
+plot.
+
+This is done by a parabolic interpolation The result is
+
+using the last three computed values.
+
+the maximum length that the panel can have for the given set of loads.
+'! .
+
+Using a linear interpolation
+
+compute the mid-span curvature corresponding to the maximum length. Using a parabolic interpolation,
+
+248.18
+
+-38
+
+compute the corresponding values of chord length, mid-span curvature, end moment,and end slope. Also find the corresponding axial force. (12) Repeat steps (2) to (10) until the ultimate condition is reached for the end condition that remains. When
+
+this occurs, compute the values described in step (11). This numerical integration method for finding the ultimate strength of longitudinally stiffened plate panels has been
+
+..
+
+programmed in FORTRAN II language for the digital computer. the
+M-~
+
+Given
+
+relationships, and using a GE.225 computer, approximately
+
+50 seconds of computer time is required to simultaneously find the two maximum lengths that correspond to the pinned and fixed end conditions. This computer program was used extensively for computing the design curves described in Chapter 4 ..
+
+248.18
+
+-39
+
+•
+
+•
+
+3.
+
+NUMERICAL RESULTS OF THE ANALYSIS
+
+Numerous computer runs were made and the m-0. curves and maximum lengths
+we~e
+
+computed and printed out for each case.
+
+The
+
+major emphasis in these runs was for steels having yield stresses of 34, 47, and 80 ksi which correspond respectively to the MS-34, HTS-47, and BY-80 steels used by the Navy.* for the following ranges of parameters: As _ A - 0.20 to 0.48
+II,
+
+The runs were all made
+
+p
+
+•
+
+.
+t
+
+= 0.35· to 0.. 60
+
+b = 60.to 110
+
+(3.1) to 480 psi
+
+Q
+
+=q
+
+(d/t)
+
+= 40
+
+= 0.00 to 0.15
+
+However, 'extrapolations outside these ranges can easily be made in most cases. This chapter presents a brief explanation of the results for typical cases. The moment curvature curves are shown in Sec. 3.1,
+
+and the results of the numerical integration are discussed in Sec. 3.2.
+....
+
+Sec. 3.3
+
+compares the developed theoretical results
+
+*A listing of the input and results for these cases is available to interested persons upon request.
+
+248.18
+
+-40
+
+.
+9
+
+/
+
+with the results of tests performed at Lehigh University and at the Naval Construction Research Establishment. 3.1 Moment-Curvature Computations The computation of moment-curvature relationships consist mainly of two parts: the determination of the moment capacity of
+
+the cross section, and the computation of the moment and corresponding curvature for the various strain states. 3.1.1 Moment Capacity of the Cross Section
+
+'.
+•
+
+Figure 3.1 shows a typical curve of the maximum externally applied moments that a cross section can withstand in positive and The solid line represents the case with no O"r residual stresses while the dotted line is for = 0.15. O"yp This figure shows that the maximum positive bending moment, (causing compress ion in the plate ), occurs at an axial load other than zerO.. Here it occurs at about P/Pcr in negative bending.
+
+= 1.15. Since the cross
+
+section is not symmetric about its bending axis the positive bending moment increases until the maximum plate stress is reached and thus the moment" capacity will increase until this point; afterwards it decreases. In addition, the maximum axial load corresponds to a moment that is not zero, but rather some negative value. due to the non-symmetry of the cross section. This is again
+
+248.18
+
+-41
+
+•
+
+..
+
+·Figure 3.1 also shows the effect of residual stresses.*
+
+The
+
+maximum positive moment is decreased while the maximum negative moment is increased in magnitude. The corresponding axial loads
+
+differ from the case with no residual stresses. 3.1.2 Moment-Curvature Curves
+
+Figure 3.2 shows the moment-curvature curves for the same cross section for which the moment capacity was discussed.
+(1)
+
+The curves differ for positive and negative bending· ranges. This is due to the.non-symmetry of the
+
+'.
+•
+
+cross section .
+(2). For high axial loads the. moment is not zero for zero
+
+curvature.
+
+This is exemplified by the axial load .. for no residual stresses. For axial
+
+PiP cr
+
+= 1.80
+
+loads of even higher magnitude the moment tends to remain negative for all values of curvature. (3) The maximum positive moment occurs at a non-zero value of axial load. This was previously discussed
+
+but is better seen physically on this momentcurvature plot. The reducing effect of the residual stresses is again pointed out by the noticeable differences in the maximum moments when high axial loads are reached; for example, PIPer
+
+= 1.60.
+
+*See Ref. 3 for the effect of post buckling on the moment capacity of the section, as well as its effect on the moment curvature curves.
+
+248.18
+i
+
+-42
+
+,.
+
+•
+
+An important assumption has been made in obtaining these moment curvature plots, and it is very important for the shape of the curves presented here. When the moment reaches 99% of its
+
+maximum value, the moment is "assumed to be essentially constant for all curvatures. The actual structural action and hence the
+
+true shape of the curves is yet unknown in this range. 3.2 Numerical Integration 3.2.1 Typical Ultimate Strength Plots
+
+The relation between the loading and the maximum length that
+
+•
+•
+
+a cross section can sustain can be displayed by an ultimate strength plot of the axial load PIP ratiot/r.
+
+.
+
+CR vs. the maximum slenderness This is shown in Fig. 3.3a for pinned ends and Fig. 3.3b
+The cross section used is the same as in Figs. 3.1
+a"
+
+for fixed ends. and 3.2.
+
+The solid lines shoW the curves for no residual stresses
+r = O.lS. a yp "
+
+while the dotted. lines are for a· residual" stress
+
+Separate curves are drawn for various lateral loads. In the case of high lateral load, (Q
+
+=q
+
+(d/t)
+
+= 180
+
+or 320),
+
+and low axial load, the curves are relatively insensitive to changes in axial load.
+in~rease
+
+In fact, an increase in lateral load may slightly
+
+the maximum length that the cross section can sustain by
+
+virtue of the changes in moment capacity for these axial loads. In the fixed end case the negative moment at the ends will counteract this to some extent, and the maximum t/r continually decreases for increasing PIP cR values.
+
+248.18
+
+-43
+
+•
+
+~.
+
+At some axial load the ultimate strength curves have a distinct bend and suddenly show large decreases in t/r for increases in axial load. This is primarily true for high In some such cases the curve
+
+axial loads and low bit values.
+
+will have a nearly flat plateau where the slenderness ratio rapidly approaches zero. These effects again can be attributed
+
+to the change in moment capacity for high axial loads. The effect of residual stresses is also shown in this plot. The dotted lines, (with residual stresses), begin to separate from the solid lines, (no residual stresses), for low axial loads and diverge rapidly for high axial loads. If d/t is held constant the effect of the lateral load q can be seen in Figs. 3.3a and 3.3b where the Q values represent different lateral loads. The effects vClry approximately with the
+
+log of Q such that if t/r is plotted upward on a vertical axis and log Q is plotted to the right, the plot is very nearly linear except for extremely high and very low axial loads where the curves become slightly concave upward. 3.2.2 Effects of Geometric Parameters
+
+The general trends caused by the changes in the various nondimensional geometric parameters will now be briefly discussed. These are utilized in the development of the design curves presented in Chapter 4.
+
+248.18
+
+-44
+
+Figures 3.3a and 3.3b show plots for various values ofq(d/t) .
+.~
+
+If q is held constant the effect of the stiffener depth factor d/t can be seen. For a given residual stress the curves all tend to
+
+converge to the same maximum axial load as t/r approaches zero. Figures 3.4a and 3.4b show ultimate strength plots for various
+bit ratios and for fixed and simply-supported end conditions.
+
+Curves for high bit ratios are consistently above those with lower ratios. The spread in the curves is quite large,but for a given·
+
+t/r they vary approximately with the stress ratio cryp Icr c R raised to
+
+•
+•
+
+"
+
+For instance, if Fig. 3.4a is replotted when PIP R cr 1 c is divided bye :":i2-)"2, and if Fig. 3.4b is replotted when PIPeR is cr cR cr 0.675 divided by Figs. 3.5a and 3.5b respectively are cr cR obtained. The curves for various bit ratios have thus been brought some power.
+
+(.2£.)
+
+,
+
+much closer together. Ultimate strength curves are also substantially affected by the ratio of stiffener area to plate area, that is A IA. This is s p displayed by Figs. 3.6a where three values of'As/Ap are plotted for both end conditions . . For low values ofP/P cr ' high values of As/Ap give greater t/r values for both end conditions. The reverse is
+
+true for high PIPeR values when the ends are simply-supported or when bit is less than 80 for the fixed end conditions. However,
+
+for fixed ends cases with bit greater than 80 the curves for various As/Ap tend toward convergenceat t/r = O,(Fig. 3.6b) .
+\
+
+•
+
+248.18
+A
+
+-45
+
+•"
+
+f The stiffener area ratio, X-' has only a small effect on the s ultimate strength plots of PIP cR vs. t/r. This is shown in Figs.
+
+3.7a anQ 3.7b.
+
+The greatest difference in the curves generally
+
+occurs for high axial load and for cases of high Q. 3.3 Comparison With Test Results Figures 3.8 and 3.9 show comparisons of the results from the numerical analysis with tests performed at Fritz Engineering . . La borat ory on one-quarter Slze speclmens. ( 8 , 9) The curves s h own
+
+are the results predicted by the numerical analysis procedure, and points for the tests results are plotted for comparison. Figure
+
+3.8 shows specimens with simply-supported end conditions from tests performed in 1960. Figure 3.9 shows specimens with fixed end Specimens T-2, T-4, and T-13 had The bit
+
+conditions from tests of 1963.
+
+lateral loads of 6.5 psi while T-3 and T-14 had 13.0 psi. of the plate was about 57 for all specimens.
+
+T-2, which was
+
+identical to T-4 had initial imperfections and T-13 had an initial curvature which was opposite to the deflection caused by the lateral loading. The imperfections in this two specimens account
+
+for some of the errors in the predictions. Figure 3.10 shows a comparison with a test performed in 1965 at the Naval Construction Research Establishment, (N.C.R.E.), in Fife.* The test was made on a grillage assembly which had a series of longitudinal panels separated by large transverse members. This arrangement is very similar to sections used in a ship hull, *Personal communication from Dr. C. S. Smith, June 20, 1966.
+
+248.18
+
+-46
+
+(see Chapter 1).
+
+No residual stress measurements were taken and
+
+thus an assumed value of or = 3.0 psi. was used in the theoretical analysis. The solid lines are for no residual stresses; the
+
+-dotted lines are for cases with assumed plate compressive residual stresses. The grillage psi.
+~ested
+
+at N.C.R.E. had a lateral loading of 15
+
+The longitudinal panels contained plates with bit values of
+
+76.25 which was considerably higher than the values used in the tests at Lehigh University. The panel ends had very small rotations
+
+at failure signifying that the end conditions were probably close to full fixity. Figure 3.10 shows that the panel failed at a load
+
+that. was between the fixed and simply-supported values predicted by the numerical analysis. The r&sult is closer to the fixed end value
+
+and hence appears to correspond well with the theoretical analysis. The test specimens at Lehigh University were composed of four stiffeners and a plate spanning between them, thus creating three subpanels. Boundary conditions imposed by this section as compared
+
+to the infinite length plate assumed in the numerical analysis could conceivably account for the slight discrepancies that exist between the predictions and the actual test results. Nevertheless, it
+
+appears that the method of numerical analysis can accurately predict the ultimate strength of longitudinally stiffened plate panels.
+
+248.18
+
+-47
+
+;,
+
+f
+
+4.
+
+ULTIMATE STRENGTH DESIGN CURVES
+
+The method of analysis presented in Chapter 2 is much too cumbersome to use for the design of longitudinally stiffened plate panels. The ultimate strength design curves presented in this By using these curves
+
+chapter provide a shorter method of design.
+
+the designer can rapidly determine the dimensions of a panel that will just sustain the prescribed loading conditions. Given a set of loads, material parameters, and overall dimensions, and assuming some relative proportions of the cross
+
+• ~
+i,
+
+section, the design curves can be used to find the dimensions of the required cross section.
+A
+
+series of different sets of relative
+
+proportions can be tried and the most advantageous section selected from these. Kondo presented a similar set of ultimate strength design curves for plate panels having no platebuckling.(l) This chapter
+
+describes ultimate strength design curves for cases where the main plate element of the panel is in.the postbuckling range (bit> 45). *
+~
+
+4.1
+
+Development of the Design Curves
+
+~
+
+Steel plate panels having stiffener and plate yield stress values of 47 ksi were chosen as a basis for the design curves.** The ranges of the parameters used are given by Eq. 3.1. These
+
+Reference 5 contains a resume of the use of these design curves. **The yield stress value of 47 ksi corresponds to HTS-47 steel used by the U. S. Navy.·
+
+*
+
+248.18
+
+-48
+
+..
+
+design curves, presented for one yield stress value, display the feasibility of obtaining design curves for plate panels with large b/t. Corresponding design curves for other yield stress values
+
+can be patterned from these curves because of similar parameter interactions. The problem of organizing the data from the computer runs for47 ksi was complicated by irregular interaction of the parameters as caused by unsymmetry of the cross section, non-linear diagrams of stress-strain and moment-curvature, and buckling of a component member. These complications rendered simple formulations impossible.
+
+The method finally resorted to was virtually one of trial-and-error. Various likely modification factors were tried until one was found that nullified the effect of one or more other parameters. This
+
+was continually done until the influence of the parameters could be separated out. Then by proper arrangement of the nullifying
+
+factors a logical pattern was devised to organize the information into a form that is relatively easy to use. Known from loading, geometry, and material parameters are the parameters . cr r , q, cryp , cys, E, pI, t, and B, where pI and B denote r the axial load and width, respectively, for the total the full cross section).
+panel~hat
+
+is,
+
+The unknown values are the relative cross-
+
+sectional parameters As/A p ' Af/A s ' b/t, and d/t, and some dimensional value that will fully dimensionalize the cross section.
+
+248.18
+
+-49
+
+. ..
+
+For later convenience the relative cross-sectional parameters of the standardized cross section will now be termed,
+
+= 13 = w = y =
+p
+
+A/A p s Af/A s bit d/t
+(4.1)
+
+The devised method uses the known values in various 'equations and lets the designer assume the relative proportions of the cross section.
+sectiona~
+
+The design curves determine the dimensional crossvalue, b, the plate width or center-to-center distance of' The idealized cross-sectional areas can be computed
+
+..
+
+the stiffeners. as follows: Ap As
+
+= b 2 /w
+
+2 = p b /w = pA P 2 Af = Sp b /w = SA s 2 Aw = p b /w (l-~) = As 2 A = b /w (l+p)
+
+(4.2)
+
+- A f
+
+Comparison of these values for various sets of assumed parameters will permit a selection of the most advantageous cross section. This will depend upon criteria such as availability of
+
+materials, welding costs, depth requirements, local buckling of other plate elements, etc .. The designer must evaluate these in
+
+order to decide which cross section to use.
+
+248.18
+
+-50
+
+The design curves are presented separately for fixed and simply-supported ends, Figs. 4.9 and 4.8,respectively. development is quite similar. 4.1.1 Simply-Supported Ends
+0'
+
+Their
+
+The effect of w is found to be related to I~ O'cR that a plot of tjr vs. ----p--- will, for each Q, (Q
+
+in such a way
+d = q . (F)'
+
+Pctx
+
+give
+
+p
+
+O'cR
+
+a series of curves that are quite closely banded. together.
+
+By
+
+representing these curves as one single curve we have a graph that will account for the effect w. constant. However, since This holds true for
+p
+
+and 8 held
+
+(4.3) and
+P
+
+P
+
+P cR O'cR
+
+~
+
+-
+
+2 P'w Bb(l+p)
+
+P
+V5.
+
+it can be seen that an ultimate strength plot of t/r
+
+would contain the unknown dimensiqnal vplue b.
+:..
+
+Dividing the two
+
+equations, howe'ver, has the desired effect of cancelling the b terms. Noting this and using constant terms of p
+
+= Po = 0.34
+
+and
+
+".
+
+a =8 o
+
+= 0.60 it was found to be convenient to plot S vs. N
+
+248.18
+
+-51
+
+~
+
+~
+
+where
+S
+
+~
+
+=
+
+.·(tlr)
+P
+
+(1+P7 2)]
+
+PoR
+
+/1yp
+
+= 8l.8
+
+pt;
+yP'W
+p'w2 .
+
+(4.5)
+
+O'cR
+
+and P
+N
+
+(1+p/2)
+
+=
+
+PCRO'CR in which O'yp
+
+/yp
+
+=
+
+0.0003895
+
+Bb
+
+(4.6)
+
+= 47.0
+
+ksi, E
+
+= 29,600,
+
+J.L
+
+= 0.30
+
+and P' is in kips,
+
+Band t are in inches. This plot is sl1own,in Fig. 4.1. Here the dots genote computer
+
+,
+
+results using numerical analysis for various bIt ratios, while the lines plot the approximate average. value. Deviation of the dots
+
+from the lines shows the error involved in the approximation. This plot provides a place to enter the design curves. substituting the known values of P', t, and B and the chosen geometric values of By
+
+y and
+
+w, a value of S can be computed .. Using
+
+Fig. 4.1 the value of N can be found· which corresponds to a cross section having y and w as chosen and
+p
+
+= 0.34
+
+and
+
+e = 0.60.*
+
+The
+
+other portions of the design curves will then modify the value of N for various values of p and
+
+e.
+
+*r£
+(.
+
+the designer were to choose the values of p and B to be 0.34 and 0.60 for the trial cross section, the fully dimensionalized cross section could be computed at this point. Equations 4.9 and· 4.10 would determine the cross section and Eq. 4.2 would determine areas of the. idealized cross section. Values of p = 0.34 and 13 = 0.60 must of course be used in these equations.
+
+248.18
+
+-52
+
+The design curves for simply-supported end conditions utilize plots similar to Fig. 4.1. The effect of plate buckling increases
+
+as bit values get larger, hence in this graph and in the graphs that follow the curves for bit values greater than SO diverge noticeably from. those having bit less than SO. For this reason
+
+the final design curves utilize separate plots for bit <. 80 and bit> 80 (see the center graph in Fig. 4.8).
+~
+
+,- Figure 4.1 is based on zero residual stress
+cr . cryp Identical plots, except for --E 1 0, give curves that are again cryp cl?selybanded together and can be well represented by one curve
+
+. for each-In addition, for p and e other than used in Fig. 4.1 cr yp the action is relatively unchanged by the residual stresses. Thus the residual stress variations are accounted for directly in this starting graph (Fig. 4.8). The value N must now be modified for different values of p and
+
+crr
+
+a.
+
+Since
+
+a has
+p
+
+a small effect on the ultimate strength plot of will be dealt with first.
+
+t/r vs. PIPeR'
+
+N, from Eq. 4.6, can be written in the form:
+2 .
+
+N
+
+= 0.000223
+
+P'w Bb
+
+(2+ P ) l+p
+
+(4.7)
+
+Plotting N vs. t/r typically gives a curve as shown in Fig. 4.2. To bring these curves together this is replotted as N vs. R where
+R
+
+=
+
+(1 -
+
+~)(~)
+
+[1
+
+_(Pi~4)(0.707+0.00150*Q)(-21. 9/N-.S/2+32.5/N-.8/-1)]
+(4.8)
+
+248.18
+
+-53
+
+and the terms in Fig. 4.3.
+
+IN-.81
+
+signify absolute values.
+
+This plot is shown
+
+Since the plot in Fig. 4.3 works well for each
+
+~,
+
+it was
+
+used for the final two portions of the design curve (two graphs at either side of Fig. 4.8). First, for a given Q the graph is drawn
+p (0.20,0.34,0.48).
+
+as separate curves for three values of
+
+Entering with N, the correct R value can be obtained for the chosen p.* SecondlY,using this R and proceeding to the next plot,
+
+N is modified for the 8 that has been chosen. In the plot that modifies N for various
+~,
+
+curves of N vs. R
+
+•.
+
+for various p are combined into one line that represents all p for a given value of
+
+e.
+
+This is for B
+
+= 0.35
+
+and 8
+
+= 0.60
+
+with Then,
+
+variations approximately linear for intermediate values.** entering with R, a value of N can be
+obt~ined.
+
+This N now represents
+
+the value modified for all four assumed cross-sectional parameters. The fully dimensionalized cross section can now be obtained from the obtained value of N. The plate width, b, is computed
+(4.9)
+
+PIW2 (2+ p ) from b (inches) = 0.000223 BN l+p
+
+•
+•
+
+this point the obtained value of R corresponds to 8 = 8 with the other cross-sectional values as assumed. Thus, if e w2re chosen to be 8 , the cross section could be found directly through the use.of thi~ value of R. However, since this is an extremely complicated expression it is better to continue on for all values of 8 • **An added modification was presented here. The input value of R is dependent on 8 = e and thus when plotted using the same axis an "equivalent R" wasoused to convert to values of R based on e = e· For the parameter ranges chosen, this conversion was mainl? dependent on 8.
+
+* At
+
+248.18
+
+-54
+
+..
+•
+
+The other values follow: plate thickness, t = b/w stiffener depth, d = t Y = yb/w web thickness, w = Aw/d =(pb/y)Cl~6) The stiffener flange can be proportioned as desired SUCh. that Af CEq. 4.2) is fulfilled. The area values for the idealized cross section can be computed from Eq. 4.2 for purposes of comparing to other geometric configurations. The area of the total cross section C4 .10)
+
+can be obtained by mUltiplying these ratios by the ratio B/b which represents the ratio of total panel width to the width of the subpanel. 4.1.2 Fixed Ends
+
+The development of design curves for plate panels having fixed ends is similar to that used for the simply-supported case discussed in the previous section.
+P
+
+For constant values of p and 6 a plot of
+
+O'yp) 0.675 vs. PeR( O'cR
+
+t/r was found to be reasonably close to a single line for a given Q and residual stress. By again using p = Po= 0.34 and 6 = 60 = 0.60;
+
+a good starting point for the design curves is a plot of S vs. N, where
+S =ECt/ ) P
+
+r
+
+~
+
+= 45 •
+
+° f;t
+.
+
+p t . 65
+
+C4.11)
+
+PCR(;yp)0.67) cR
+
+yW
+
+248.18
+
+-55
+
+'.
+,
+
+.
+
+N = ---p---
+
+= 0.001287
+
+(4.12)
+
+P
+
+•
+
+cR (JcR
+
+(eYYP ) 0.675
+
+for eY =47.0 ksi, E = 29,600, I-L = 0.30 and pI is in kips, Band yp t are in inches. Such a plot is shown in Fig. 4.4 where the dots denote results of computer runs from the numerical analysis for various bit values, while the lines plot the approximate average values. By computing S, Fig. 4.4 can be used to find N for p and
+"
+
+= Po
+
+a = eo .*
+As for the simply-supported case, separate curves are drawn For various residual stress
+
+for bit values above and below 80.
+
+values the curves again band together so that families of curves can be represented by distinct curves for each residual stress. In attempting to modify for p and
+p
+~
+
+it is seen that plots of
+
+t/r vs.
+
+P c R(eY .::.l£ )0.675
+
+had characteristic forms as shown in Fig.
+
+eYcR 4.5. To bring these curves closer together they were replotted
+
+as R vs. N
+pI w1. 650
+
+N = 0.0017246
+
+Bb(l+p)
+
+(4.13)
+
+•
+
+R
+
+~ ~ (1 - ~.5) [1+
+.
+
+[<O.0915/(N-.37)/-O.025)+(
+
+.3~i:,fp)
+J(4.14)
+
+[0.1585/(N-.68)/+O.012~][~-(Q2~~80)(N - 0.50)]
+
+*If the designer chooses p = p and S = a , this value of N can be used to find the fUlly dimens~onalized c~oss section. Eqs. 4.15 . and 4.10 would determine the cross section while Eq. 4.2 determines the area values. Of course, a = 0.60 and p = 0.34 must then be used in these equations.
+
+.'
+
+248.18
+
+-56
+
+•
+
+,.
+
+where the terms
+
+I(N-O.37)/and/(N~0.68)/signifyabsolute
+
+values .
+
+This plot is shown in Fig. 4.6. Modifying 'N Jor various p and 6 involves finding R from an N vs. R plot for a chosen p.* cations to N must be made for Then using the value of R, modifi-
+
+e.
+
+Here, as in the simply-
+
+supported case, the curves for various p are combined into one and the curves are modified to give an R that is "equivalent" to R based of 6
+
+= 60 ,
+
+Using these curves and selecting the correct The plate width, b, is
+
+e,
+
+the modified value of N is obtained.
+
+• • ...
+
+computed as b (inches) = 0.0017246
+p' wl. 650
+
+BN(l+p)
+
+(4.15)
+
+The fully-dimensionalized cross-section can then be computed from Eq. 4.10. Area values for the idealized cross section are
+
+computed by Eq. 4.2 and the areas of the total cross section can be obtained by multiplying these ratios by the width ratio, Bib. 4.2 The Use of the Design Curves The ultimate strength design curves are arranged so that bit and residual stresses are accounted for immediately. This is done
+
+in Box "All of the schematic sketch of the design curves which is shown in Fig. 4.7. The factor N,containing the plate width b, is
+o
+
+...
+
+thus obtained for standard values of p and 6 (i.e. p= p
+
+= 0.34,
+
+•
+
+e = eo
+
+= 0.60).
+
+Boxes"B" and llC ll then modify N for the chosen. From the resulting value of N, b
+
+values of p and 8, respectively.
+
+*Due to the complexity of R, do not stop here, but continue on in all cases.
+
+248.18
+
+-57
+
+It
+
+.
+
+can be obtained so that it corresponds to the chosen non-dimensional cross section. The stiffener depth factor, y, is accounted
+
+,
+
+for in each box by having curves drawn for each Q, (Q
+
+=q
+
+(y)).
+
+Since q is specified the curves are essentially drawn for various
+dlt values.
+
+From the obtained value of b and the
+~,
+
+~ssumed
+
+values of y, w,
+
+and p, a cross section is obtained that will just sustain the By repeated usage of the design curves the most
+advan~
+
+loads.
+
+tageous section can be obtained.
+
+If more exact information is
+
+•
+
+required concerning some specific cross sections the computer program can be employed. The use of the design curves is the same for both the fixed end and simply-supported end cases. The use of the design schematic example. curves,will now be explained by a
+
+•
+
+This will be followed by an outline of the
+
+steps used; two numerical examples will then be presented to further clarify the procedure. 4.2.1 Schematic Example
+
+Beginning·at Box "All of Fig. 4.7, compute S from the known loading, geometry and material parameters for the chosen bit and
+dlt values.
+~
+
+For bit < 80 use S2 on the bottom scale; for bit With the assumed dlt and the known
+(
+
+80 use Sl on the top scale.
+
+q, compute Q.
+
+Project a vertical line to the curve with the correct
+
+248.18
+O"r
+
+-58
+
+residual stress ratio, O'yp' and the correct Q.*
+
+A horizontal
+
+•
+
+line is
+
+theri~o
+
+be drawn to the right for b!t < 80, following
+~
+
+dotted lines, or to the left for bit
+
+80, following solid lines.
+
+The intercept on the N axis (N' value in Fig. 4.7) is a value based on the standard values Po and So. If the designer chooses
+
+these for his cross section, he can stop here and compute b as follows: b (inches) = 0.0003895 b (inches) .- 0.001287
+
+"""EN"""
+P'w
+
+P'w
+
+2 for S· S· Ends for Fixed-Ends (4.16) (4.17)
+
+1.65 BN'
+
+.
+
+'.,
+
+If values other than "B" and "C". For p i- po and N axis to the curve Box "B".
+
+Q ~o
+
+and p0 are chosen, continue on to Boxes
+
+,
+
+e. i-
+
+80 project a horizontal line through the to the correct Q and p in
+
+correspondi~g
+
+Draw a vertical line down through the R axis to the A horizontal line then gives the final
+
+correct curve in Box "C". N value.
+4.15.
+
+The plate width, b, can then be found from Eq. 4.9 or
+
+b ( inches) = 0.000223 b (inches) = 0.0017246
+
+P' w (2+ p )
+
+2
+
+BN
+
+l+p 1.65 P'w BN(l+p)
+
+for S. S. Ends for Fixed Ends
+
+(4.9) ( 4 .15)
+
+*Interpolation 'between curves for various Q values varies ~pproximately with the logarithm of Q. All other interpolations are approximately linear.
+
+248.18
+
+-59
+
+Having obtained b from the equations just mentioned, the
+
+"•
+
+other area values may then be computed for the idealized cross section by Eqs. 4.2. The dimensions of the idealized cross
+
+section are obtained from Eq. 4.10 and the values for the total cross section are obtained by multiplication by Bib. 4.2.2 Outline of Steps to Follow
+
+The ultimate strength design curves are shown in Figs. 4.8 and 4.9. form. The steps in their use are summarized below in an outline O'r
+
+•
+-0
+
+1)
+
+Assume y, w, p, and
+
+O'yp Formulas for S are given on the design charts (or Eqs. 4.5 or 4. 11) ,Q O'r O'yp
+
+~;'
+
+compute
+
+S,
+
+Q,
+
+=q
+
+(y), q in psi.
+
+= 47'
+
+O'r
+
+0'
+
+r
+
+in ksi, 47 ksi is the yield stress for which these curves are valid.
+
+2)
+
+Pick the correct scale for the starting point S depending on bit < 80 Or bit Draw a vertical O'r line to the curve for the correct Q and ---. O'yp
+~
+
+80.
+
+3)
+
+Proceed to the right for bit < 80 and to the left for bit
+~
+
+80.
+
+Draw a horizontal line to the N axis. and
+~
+
+4)
+
+If P
+
+= Po = 0.34
+
+= ~o = 0.60
+
+compute -b from If either
+p~
+
+Eq. 4.16 or 4.17, then go to step-8.
+p
+
+or ~ ~ 0 0
+
+a
+
+project a horizontal line to the curve
+
+corresponding to the chosen p.
+
+248.18
+
+-60
+
+5)
+~,
+
+Draw a vertical line down to the curve corresponding to the chosen a .
+
+6) 7) 8)
+
+Draw a horizontal line to the N axis. Compute b from Eq. 4.9 or 4.15. Compute cross-sectional dimensions (Eq. 4.10) and areas (Eq. 4 w 2) if desired.
+
+4.2.3
+
+Numerical Examples
+
+Numerical examples will now be given for two cases; a'panel
+
+•
+
+with-fixed ends and a panel with simply-supported ends . Example 1 Given: Panel with fixed ends
+pI = 12,800 ~ips
+
+q
+
+- 11.25 psi
+
+= 0.. 00
+
+kSi
+
+B
+t
+1)
+
+= 41 1 = '22'
+
+8' = 500" 8" = 272 in.
+
+(J ys =(J yp = 47.0 ksi
+
+Assumew = bit = 60, y=d/t=16.0, a=Af/As=0.35, p=A IA =0.48 s 'p , (Jt Compute S, Q --- and use Fig .. 4.9. 'cryp ' S = 45.0
+= 45.0
+
+500(272) = 9.~75 12800(16)(60)°·65
+
+Q = q (d/t) = 11.25(16) = 180 psi
+0.00
+
+2) Since bit < 80. the lower S scale is used., A line is ' cr r drawn upward to the curve for Q = 180, --- = ,0.00. cr yp
+
+248.18
+
+-61
+
+•
+
+•
+
+3)
+
+Drawing a horizontal line to the right, (bit < 80), gives N = 0.676.
+
+/
+
+"
+
+.'
+4) 5)
+
+Both
+
+p
+
+and
+
+~
+
+were chosen not to be the standard
+
+values, thus a horizontal line is drawn to the curve for p =
+0.~8,
+
+Q = 180.
+
+A vertical line is drawn to the curve for S = 0.35. (This intercepts the R axis at R = 32.05).
+
+6)
+•
+
+Dra~ing
+
+a
+
+horizont~lline
+
+to the left gives N =
+
+0~653.
+
+7)
+• '"'
+
+From Eq. 4.15 p,(w)1.650 _ [(12800)(60)1.650]_ BN(l+p) .- 0.0017246 500(0.653)(1~8) - 39.0 in.
+
+b=0.0017246 8)
+
+Computing the, values of the areas of the cross sectlon from Eq. 4.2: 2 b (39.0 in.)2 25 35' 2 60 =. In. Ap = tv = 2 . As = pAp = 0.48(25.35 In. 2) = '12.17 in. 2. Af = SA s = 0.35(12.17 In. 2) = 4.26 in.
+=
+
+. 2 2 12.17 In. - 4.26 in.
+
+= 7.912
+
+in.
+
+2
+
+Total area = As+A p = 12.17 in. Note:
+
+2
+
++ 25.35 in.
+
+= 37.52 in.
+
+2
+
+These values are for the idealized cross section. For the panel, the values are multiplied by Bib =
+
+3~~~ = 12.82
+from Eq. 4. 10 :
+
+z
+
+13.
+
+Computation of the dimensions of the idealized cross section
+
+248.18
+
+-62
+
+•
+
+b
+
+~
+
+39.0 as computed in step 7
+
+b t - - - 39.0in. = 0.65 in. 60 w d
+
+-
+
+= ty = 0.65 in.( 16. ) = 10.4 in. w = P(l-B)b = 0.48(1-0.35) 39.0 = 0.761 16.0 y
+(That is t f
+
+in.
+
+Arbitrarily let the stiffener flange be 3/4 in. thick.
+
+= 0.75
+
+in)
+
+Th
+
+en
+
+b
+
+_ Af _ f - t f
+
+4.26in~ - 5.68 in. O:75in.-
+
+The idealized cross section for this example is shown in Fig., 4.10. The total panel will then consist of a plate 500 in. wide with
+'"
+
+stiffeners spaced 39 in. center to center. Example 2 Given: Panel with simplysupported ends P'
+B
+.(,
+
+q O'r O'yp
+
+=
+
+5800 kips
+OTT
+
+= 16.0 psi = 5.0 ksi = O'ys = 47.0
+
+ksi
+
+= 30' = 17'
+
+0"
+p
+
+= = 204 TT
+360 TT
+
+1)
+
+Assume ~
+
+= 0.60,
+
+= 0.48,
+
+w
+
+= 85,
+
+Y
+
+= 20.
+
+O'r Compute S, Q, - - , and use Fig. 4.8. O'yp
+
+S
+
+= 81.8~P'yw -
+
+81.8
+
+360( 204) 5800( 20) 85
+
+= 7.05
+
+Q = qy = 16.0(20) = 320 psi
+_ 5.0 - r - 4"7- 0 . 1062 O'yp
+cr
+
+248.18
+
+-63
+
+•
+-~
+
+2)
+
+Since bit> 80 the upper Sscale is used.
+
+Drawing
+
+•
+
+a line downward to the curve for Q = 320, an approximate linear interpolation is made -between O'r O'r = 0.075 and - - = O. 15. O'yp O'yp 3) Drawing a horizontal line to the left (bit> 80) gives N = 0.7:t8. 4) 8 is the standard value (0.60) but p is Thus b cannot be obtained yet.
+not,(p~0.34).
+
+A hori 4ontal line is
+
+drawn to the curve for p = 0.48, Q = 320.
+f
+
+5)
+
+A vertical line is drawn down to the curve for 8 = 0.60. (This intercepts the R axis at R = 24.15).
+
+6)
+7)
+
+Drawing a horizontal line to the right gives N = 0.696. F:rom Eq. 4.9 2 b=O 000223 pt w (2+P)= 0 000223[(5800)(85)2 2.48)= 62.45 . BN l+p . _ (360){.696) 1.48 in .•
+
+8)
+
+Computation
+
+of the areas of the idealized cross section
+
+from Eq. 4.2 gives - 2 b2 (62 .45in~ 2 Ap = - w = = 45.8 in. 85 As = pAp = 0.48(45.8in~) = 22.0 in~ Af = aAs = 0.60(22.0in~) = 13.2 in~ A = As - Af = 22.0in~ - 13.2 in~ = 8.8 in~ w The total area of the idealized cross section is A=As+A p
+
+--.
+
+248.18
+
+-64
+
+• •
+
+= 67.8in~.
+67.8 (Bib)
+
+=
+
+The total required panel area is about 2 67.8 in ( 6~~~~~~.) = 391 in~ .
+
+The dimensions of the idealized cross section, from Eq. 4.10 b t d
+
+= 62.45
+
+in. from step 7 . In. in.
+
+0 = ·bl w = 62.45in. =. 735 85
+
+= ty = 0.73
+p(l-B)b
+.y
+
+in. (20) 20
+
+= 14.69
+
+= 0.48(.40)
+
+(62.45) = 0.599 in~
+
+Arbitrarily choosing the stiffener flange to be 7/8 in. thick, then b - f - 12.9in. = 14.75 . f - t - O. 875in. In. f
+A . 2
+
+The idealized cross section for this example is shown in Fig. 4.11. The total panel will then consist of a plate 360 in.
+
+wide with stiffeners spaced at 62.45 in. center to center. 4.2.4 Topics Concerning the Use.of the Design Curves
+
+A typical problem was selected and 10 trial cross sections were computed for this problem by using the design curves. Table 2. tabulates the results of the computations. Some remarks
+
+will be made about this problem to bring forth some interesting points. The average time required to compute all the values shown was 9.8 minutes for each cross section. This represents an appreciable
+
+..
+
+saving in time when compared with various other design methods used
+
+248.18
+
+-65
+
+•
+~ .
+
+on longitudinally stiffened plate panels.
+
+Many of the values
+
+,.
+
+computed here would not be computed in normal procedures except in a few tentative cross sections that have been decided upon for further analysis. In addition, the curves for simply-supported
+
+ends require less time than do the curves for the fixed end case that was used here, by virtue of more convenient powers of w in the various formulas used. No criteria were enforced for determining the most advantageous cross section. For instance,if the minimum weight (or area) were However, section
+
+the sole objective, section 7 would then be used.
+
+7 requires larger fabrication costs as compared, for example, to section 6 because of the small spacing between the stiffeners that Other requirements such as those imposed on
+
+section 7 requires.
+
+depth or local·· buckling might prove to be the governing factors. * If important criteria are known in advance, the design curves can be used to rapidly converge . to the cross sections that are closest to the optimum. instance. The design curves presented in this chapter determine a cross section that will just sustain the loading. Factors of safety need This report does Many needless trials can be omitted in this
+
+be selected for the practical use of these curves.
+-~
+
+~'iOne
+
+..
+
+•
+,
+
+such criterion for local buckling might be that given for the web in Reference 2. This conservatively gives d/w < 8000 (for 47 ksi this gives d/w < 36.9) - j(Jys Note that section 5 of the 10 trial sections has d/w ~ 40.9 which does not fulfill this requirement.
+
+248.18
+
+-66
+
+not discuss the determination of these factors, nor does it discuss • the determination of the forces that will act on a specific cross section when it is analyzed as a component of some larger structure. 4.2.5 Errors Involved in the Use of the Design Curves
+an~lysis
+
+The correlation of test results and theoretical discussed in Section 3.3.
+
+was
+
+Inherent in the differences are such
+
+causes as assumptions in the theory, representation of the total cross section by a series of idealized cross sections, torsional effects, etc. The design curves presented in this chapter have families of curves with distinct
+
+errors .caused by representing single curves.*
+
+A check has been made of the percent errors caused
+
+by this substitution. To calculate these percent errors, computer. results were used
+
+for various cases of non-dimensional values of geometry, loading conditions, and material parameters. By assuming arbitrary values
+
+of band B and working backwards, the normal design curve input *The design curves were formulated from many computer runs. After these curves were completed, it was found that the computer program had a slight error. The design curves and the various other graphs presented in this report still retain this slight error. However, the comparisons with test results described in Section 3.3 have been corrected. The discussion of computer programs has also been corrected. The corrected slenderness ratios are always higher "than the previous erroneous results. The differences are generally about 3 percent for fixed end cases and 5 percent for simply-supported ends. The extreme maximum errors are about 6.5% for fixed ends and 8.5% for simply-supported ends. This means that the design curves as presented are slightly conservative and therefore have a small safety factor already applied .
+
+".
+
+.
+
+248.18
+
+-67
+
+.
+
+values can be obtained.
+
+Then by using the design curves in the The
+
+normal way, the TlcomputedTl values of b can be obtained. differences" between the assumed and TlcomputedTl values are considered the errors. These errors are listed in Table 3.
+
+They are not large except Although
+
+"in two specific cases where the axial loads are very low.
+
+the magnitude of error was small for these cases, the percent errors are still large. However, it seems reasonable to say fairly that
+
+the average percent errors are about 1.6 and 2.1 percent respectively
+fo~
+
+the simply.supported and fixed ends.
+
+This error could
+
+• ,.
+
+definitely not be considered important in most design procedures .
+
+.,
+
+•
+
+248.18
+
+-68
+
+•
+
+5~
+
+CONCLUSIONS AND RECOMMENDATIONS FOR. FUTURE RESEARCH
+
+5~lConclusions
+
+The following conclusions can be drawn from· information presented in this report: 1) The results predicted by the theoretical method of analysis of longitudinally stiffened plate panels with large bit show good correlation with experimental test results. The tests were in some cases
+
+'
+
+..
+
+performed on plate panels as an integral part of a typical grillage structure and also on plate panels as separate members. The good correlation in both
+
+cases shows that this method is sufficiently accurate for design purposes. 2) Design curves were presented for plate panels of steel having a value.
+~articular
+
+plate and stiffener yield stress
+
+This shows that design curves are possible for
+
+stiffened plate panels with large bit values, and are feasible for different values of the yield stresses. Due to similar parameter interactions, these other design curves could conceivably be obtained by a pattern similar to the one discussed in the report .
+
+..
+
+248.18
+
+-69
+
+5.2
+
+Recommendations·for Future Research A study of the following topics should prove to be benefi-
+
+•
+
+•
+
+cial to a better understanding of stiffened plate panels. 1) A study of the true stress-strain relationship for the plate. when the edge stress (or the stress at point "AT!) reaches the value of the plate yield stress, the stress is assumed to be constant for all higher values 6f edge strain. The true stress in this range The effect of strain hard-
+
+•
+
+should be investigated.*
+
+•
+2)
+
+•
+
+ening might also be inclUded in this study . An analysis of stiffened plate panels composed of materials other than steel; such as aluminum.** 3)A study of hybrid sections. When the stiffener and plate have different yield stresses some interesting and beneficial results can be obtained. Especially promising are cross sections
+
+containing stiffeners with high yield stress values. The computer program discussed in this report can analyze such sections without any revisions required in the program.
+
+* Research
+".
+
+on this topic is presently being conducted at Fritz Engineering Laboratory of Lehigh University. **Work on this topic is presently being conducted at Fritz EngineeFing Laboratory of Lehigh University.
+
+248.18
+
+-70
+
+4)
+
+A study of economic factors. Such an analysis might determine the most economical cross section from a series of possible cross sections by an evaluation based on minimum material cost, minimum welding and fabrication costs, etc. With
+
+•
+
+.
+
+relative ease the existing computer program can'be extended to incorporate such an evaluation. 5) An analysis of the effects of other factors. Investigations should be made to determine the effects of the following:
+o.
+1II
+
+a) b) c) d) e)
+
+0
+
+Torsion and shear deformation. Initial imperfections. Residual st1l'esses in the stiffener. Various loading distributions. The change in the cross section when the plate buckles.
+
+Experimental studies may be required in some cases to 'verify the theoretical formulations.
+
+,;
+
+•
+
+. 248.18
+
+-71
+
+6.
+
+NOMENCLATURE
+
+cross-sectional area of idealized cross section area of stiffener flange in idealized cross section area of plate flange in idealized cross section area of stiffener flange in idealized cross section area of stiffener web in idealized cross section total width of panel panel with for idealized cross section, center to center of stiffeners
+
+•
+"
+
+bf
+c
+
+width of stiffener flange width of tensile residual stress zone in the plate depth of stiffener incremental change in horizontal force acting on the idealized cross section
+
+d dh
+
+dm
+
+incremental change in bending moment acting on the idealized cross section
+
+ds dv
+
+incremental change in distance along the panel incremental change in vertical force acting on the idealized cross section
+
+E
+
+modulus of elasticity height of yield zone in stiffener web at the junction with the flange
+
+f
+
+G
+g
+
+strain ratio height of yield zone in stiffener web at the junction with the plate
+
+248.18
+
+-72
+
+..
+
+H
+
+non-dimensional horizontal force acting on the idealized section;
+
+~ cr
+yp
+
+h
+
+horizontal force acting on the idealized cross section statical moment of inertia of the idealized cross plate buckling coefricient
+non~dimensional
+
+I
+
+k
+L
+
+length of stiffened plate panel;
+
+t
+
+length of stiffened plate panel
+
+Mnon-dimensional bending moment acting on the idealized
+
+.'
+m
+
+cross section, m/m
+
+yp
+
+bending moment acting on the idealized cross sedion
+~ending
+
+.'
+
+mT mT c m cR mT
+0
+
+moment acting on the total panel
+
+bending moment .at end
+
+"e"
+
+of the total panel
+
+critical bending moment as defined by cryp SpL bending moment at end TID" of the total panel non-dimensional axial load on the idealized cross section; - crypA
+n
+
+N
+
+n P
+P
+
+horizontal (z direction) force in the idealized cross section axial load on the idealized cross section CR axial load which causes buckling in the plate as defined by Acr cR
+
+P
+
+yp
+T
+
+axial yield load as defined by Acryp axial load on idealized cross section
+
+p
+
+248.18
+
+-73
+
+•
+
+•
+
+Q
+
+q (d/t)
+
+QIR
+q R r S lateral load symbol used in design curves radius of gyration for the idealized cross section symbol· used for starting value in design charts, also non-dimengional distance along centroid of plate panel;
+
+~ J€yp (on one-half of panel)
+s distance along centroid of plate panel (one-half of panel) distance along plate section modulus for the idealized cross section; .00 increment of non-dimensional segment length increment of dimensional segment length thickness of plate thickness of flange non-dimensional vertical force acting on the idealized cross-section;
+I
+
+•
+
+•
+
+sp SpL t.S . t.s t tf .
+V
+
+v
+
+vertical force acting on the idealized cross section thickness of web of stiffener axis about which moments are taken non-dimensional deflection of the plate panel; Y
+r
+
+w
+
+x
+y
+
+•
+
+y
+
+deflection of the plate panel increment of non-dimensional deflection of the plate panel
+
+•
+
+t.Y
+
+248.18
+
+-74
+
+t,y
+
+increment of deflection of the plate panel non-dimensional chord distance along the plate panel;(~) J€yp chord distance along the plate panel increment of non-dimensional chord distance along the plate panel (on one-half of the panel)
+
+".
+
+z
+z
+t,Z
+
+t,zincrement of chord distance along the plate panel(half of panel)
+
+.a
+OCR 0p
+
+stress critical plate ,buckling stress average stress
+~n
+
+plate
+
+maximum 'average plate stress as computed by Koiter's equation
+r
+
+'.
+
+a yp °ys
+e cR
+
+yield stress of the plate material yield stress of the stiffener material plate critical buckling strain as defined by aeRIE average strain in the plate maximum average strain in the plate as computed by Keiter's equation
+
+€p €p max
+
+€s €yp
+e ys
+
+strain in the stiffener flange yield strain in the plate, Oyp/E yield strain in the stiffener; ays/E non-dimensional distance from the plate to the centroid
+
+a
+
+..
+•
+curvature
+
+\i1cR \i1 yp
+
+critical curvature corresponding to MeR;
+
+~
+
+€cR
+
+€yp curvature corresponding to plate yield; ad
+
+248.18
+
+-75
+
+oj
+
+•
+
+increment of curvature(non-dimensional)
+
+,.
+
+non-dimensional distance from the plate to the neutral axis slope Poisson I S Ratio width-to-thickness ratio of plate; b/t depth-to-thickness ratio; d/t area ratio of plate for idealized cross section, A /A s P standard value of p = 0.34 flange area ratio for idealized cross section; Af/A s standard value of B = 0.60
+
+•
+
+248.18
+
+-76
+
+,
+
+•
+
+•
+
+7.
+
+TABLES AND FIGURES
+
+Table I-a Strain State Strain Values
+-~s-<~ -< ~s
+
+m-~-P
+
+- (POS. BENDING) Moment, m/m cR
+
+Axial Force, PIPeR
+
+@2r
+Ce
+~ce
+
+0~
+c!"s t-----'1
+~s
+
+(G"do"" 5)~c;~
+
+"'do
+
+~.,. 5)<E~
+-~.. -< -&
+-<
+
+&.q
+
+-
+
+¢
+~..,.
+
+_/ (foJ ~ '2(3-~ C&A - c:s )(!~ ~& &~ ,4 - ' ' j(.EfP ~ A'" &-v- 6 X~J
+
+cfYs
+E"",
+
+(4~5)<4s
+(4+
+
+4- _~,.(~ _ ~ _
+~ ~ ~
+
+:;-J >Ec-"
+«if...
+
+6-~
+
+ce)(:1
+A
+
+/
+
+(~:;)
+
+[i@-~X.t - 2;J(~)+~(~- ~ - ~)(*~
+
+h
+
+~ 'I------l @;f'
+®
+6/6"
+F..
+
+-<fjer .... C; <
+
+(~""7
+
+t----I.-1/a"
+
+c-.
+
+(C; ....
+e;
+
+5»E;:",. "
+
+~ ><tYs
+
+edt
+- ¢J
+
+Ce
+
+~~ffe. _ ~ _ ~(~)
+~""i'
+
+a;;.
+
+",
+
+(;.~V ~
+
+[-pp -ceXf'" - frYM,.cx(fi -a:'''I' - 6)(11 tkA ~
+C"_
+&-;.....
+&,.,
+
+A
+
+~
+
+-
+
+2
+
+,£({e - ~l5i1rr~ &'" e:- A (£))
+
+_2.(t>&_.Y)(4 ~ ~)(!"~J 2 3 E_ tE:;.... A
+
+>c5-...
+
+(~ .... 5).:: §-s
+
+Z - (~ . . ~)(~s.)
+,. !E
+
+I------f
+
+ce
+~
+
+(c;7' 5)~ 4-.q
+~ >~I
+
+(;Ce .,. t:F.r.... ~ .2 C"~
+4;;
+~
+
+)rA;}{ii),~ ~
+A (
+
+(-;;'1
+-L-
+
+/
+
+[.L{~-c9~~ - c::e;.A'X~~ EfT Sr", ",
+3
+
+. .(/--e;(P "&[(1
+FC-..., . E~
+,4
+
++;(/-~- ~)(Z +2,)(~~,.rx:({; -~~(49J
+[- ~(-j - "'X~ - fr )(~1+cr(.tIe_ d .... - ~~~ e:c-..., ~ A ~ a:;;f. c"t A
+
+@
+
+~~~
+I-----f E~
+
+( E., ....
+
+5-)< ~s
+
+tff.,q
+
+ce ... ~ _ a;- _
+4....
+
+cc-....
+
+~j(&)
+A
+£e>If.
+
+(-z)
+A
+
+(.4
+( £.
+
+d4) . ...F >~,q
+~ ~-»C;s
+
+-(r· . . §i~~+~~"~1il
+a;;,.
+A
+2
+
++(/--eJ(j: ,.:;)6~; ;f-ce- j~+.t)(~J
+-L
+
+d'S
+
+IJU'r~c.
+
+i =-:L!:: ~
+
+@)
+
+~~.
+
+L'tP <;.
+
+I~J /-r"
+
+n
+
+C;>~
+
+Z . . 2oc(!)(f;XM((/)) r:;;;J
+-~£~ ~)(1t){! - ~ - E.,.~~ ~+&A ~'~A'A
+
+[~{:f-~}~ - ~~~~+c:(tt - ~ - ft)(~) + {~-ot"- -f}(ftr,. fi;.;.)(~~
+
+(~?'::=J~~
+
+,
+
+,
+
+~(~ot"}{:: "'2)(11- :J-(~-i)~ -~)(~J
+
+,. ....
+
+..
+
+..
+
+Table l-b Strain State Strain Values
+-~ .. <c!'; <~..
+
+m-~P
+
+- (NEG. BENDING) Moment, m/mcR
+
+Axial Force, PTP cR
+~
+
+0
+
+~
+~~
+
+-6-- <~+~}<~
+
+¢
+
+4-~
+
+- 4,q
+
+(:-~)
+
+-L~/(-L _cocj(CS - ~c>4')(~.y_q:~ - ty4j] ~ A .2 3 e;.~ ~_ A
+c;'!;;
+
+@
+
+~:
+ce
+1---1
+
+- ~~+fo/«t;s -~.. <cs <4.
+
+(E,o'- ~>c;~
+- e;,.. < (6 +fi}<c;. - etYs < c; <" '5-.
+-
+
+ee.
+E-r
+
+-
+
+¢ <Zl.....
+
+/ ';(3 -(1: - q;~ ~(1) ~.s;-) [CL - eX£.
+&"1'
+
+4W
+
+tt;;,.
+
+A
+
+Eo ec &", - ~
+
+Jt=r c:c....,;:~ (.~ A
+
+-
+
+1& thr "a: A
+
+~:~
+
+t---I
+@
+
+~&
+ce
+I---l
+Ee
+~s
+
+c..
+
+~~ >(t:";r'" ~-)
+..
+
+.::c;....
+
+E., -
+
+~c~~a;,A
+
+~
+
+-(F
+
++~ +
+_
+
+a;)(:&
+A
+
+-.!- 2 . 3 U~ tf;..,~..,. ~~ ({;;J [-!(L_~)r· ~ A - ~E; + ~ + t?;; A ~
+
+-
+
+~d~~"
+@')
+~~
+
+e~~
+--.l
+
+~r---t4
+
+-~. oC~ 5f-~
+4 > 4..
+
+- <§ <(t:.. .. ...
+
+:J<c:... -~s «c;, ...5k
+t!; > ~s
+( df,'"
+
+E. _ &~
+
+(~
+
+c:r..,.
+
+E~
+
+~)(~y
+
+_/_~ 3 -"r; &::-R ~}(:'! (;7) 2 (' - oc){;E. - ~"f:)(~ +2" /- ~ -3f,t& - ~ ,41 E~ ~ A
+
++ ce
+
+E... ~ / 2(E~ _ ~A); ~ rr7"iJ""': J (A ~ (ab,)
+
+.,.(/_oc)~Es - c.:,q A <>C~t!S ~)(:1- &:'" ~'"
+_I' ( ; ; ; ) .2 .:J
+
+- C;
+
+t:1<r""'. A
+
+)(&jJ
+
+L
+
+@t /d
+
+%
+e;,...
+.f;... .
+~8
+
+m~
+
+5J> t!;,q
+...
+
+~...,
+
+F~
+
++.2
+
+oc(c; - !err1;9~+V ~.. 4... A ('I)
+
+~-L_~~6 &'"
+/-tJ(;
+
+t!:r
+
+E'J(5r)r .2 /f-te- f}(R -~,~ A Cor Cdr. A
+3
+t:C
+
+-e;.. «4"'5J<~
+~>cy
+
+_~E. - &,19 A ~.q -~A ez:;; 4) &j(1t)-~Ee d;;... 4J~~ 4-....
+£. ~... + 2" ~~ -.::c;~
+
+~ )~Es - Ec-A A - , ~E; - t7;"..,. ...a;:,. A ] 6;,s)(41 &..., d;; ~(;J c;.,q
+~c. &)(A~9 - at:~Es ., ~ .... 4,p A -A -a;)(,~J &..... a;.q ,
+I
+
+-c;~ >(~ ..~
+
+«:~& ~)r#~+~ (i;-)~(-; -c4(~ - Z)(-:;vj.,. :-(/-q:- t}(tc:-~f~ A . (~
++ /-cc CCR - E;.q -
+
+1---1
+
+- e;,.. ~f!i~~~
+
+-(~ -~Y17-~+1e:+;r~ ~.... c~ A ~ t& 4; A
+
+(/
+
+-....J CO
+
+..
+
+"
+
+.
+
+•
+
+Table I-b (Cont'd.) Strain Values
+
+m-~-P
+
+- (NEG. BENDING) Moment, m/m"R
+
+Strain State
+
+Axial Force, PIPeR
+
+-~, <f!; 7'-~f~
+(4
+-.10
+
+(i;;'j[~(j-co/C~: -:;}(;~-oc(::
+
+-Z)67
+
+5-)<-$s
+
+-f (<<:-iJ(;;: 7'- £;)(~J
+
+~>~ ..
+
+-~ -<@;ry4ff}<:E;"l
+(47'-5)< -~s
+
+."
+
+..
+
+A
+
+"
+
+Table 2
+
+TRIAL SECTIONS
+
+Given:
+
+Fixed Ends
+.f,
+
+= 210" =. 17' 8"
+:=
+
+q
+0 0
+
+= 11.5 psi
+ys r
+
+B
+
+600" = 50' 0"
+
+=
+
+0
+
+yp
+
+= 47.0 ksi
+
+pI = 9000 kips
+
+= 4.0 psi
+
+The ten trial sections are: Assumed Tria No. p Computed
+
+Values Found in
+Design Curves
+
+Values
+
+Values
+Y
+w
+
+Computed Cross-Sectional Values A p
+A
+
+a
+.60 .60 .60 .35 .60 .60 .60 .40 .50 .50
+
+S
+
+Q
+143.7 143.7 207.2 115.0 161.0 241.7 201.3 92.1 138.0 184.0
+
+\...2:..a
+
+0
+
+yp
+
+N'
+
+R
+
+N
+
+b
+
+S
+
+A f
+
+A
+
+W
+
+A
+
+t
+
+d
+
+W
+
+t
+
+f
+
+b
+
+f
+
+1
+
+.34 .48 .34 .48 ,20 .45 .45 .25 .30 .35
+
+12.5 12.5 18 10
+14
+
+85 85 110 60 60 110 60 75 90 70
+
+11.25 11.25 8.62 14.06 11.88 7.97 10.62 14.59 11.22 10.6
+
+.0852 .538 .0852 .67
+
+---
+
+-.550
+
+54.05" 47.9" 62.5" 40.1" 36.95" 49.75" 27.26" 68.9" 61.6" 38.35"
+
+34.4 11. 7 27.0 12.9 35.5 12.1 26.8 12.9 22.8 12.4 4.5 5.6 22.5 10.1 63.1 13.3 42.1 12.6 21.0 7.4
+
+7.0 4.68 7.7 5.18 7.2 4.76 4.5 8.36 2.7 1.82 6.1 4.04 3.4 2.23 5.3 7.96 6.3 6.33 3.7 3.67
+
+4G.l .637 39.9 .563 39.7 .669 27.3 .616 32.6 .453 18.0 .455 76.4 .918 54.7 .685 28.4 .548
+
+7.95 .589 7.0 6.7 8.6 9.5 7.9 7.3 8.2 8.8 .736 .465 .26 .211 .426 .281
+/
+
+.75 .75 .75 .5 .5 .75 .50
+
+9.34 6.90 9.65 5.46 6.70 8.45 7.35
+
+2
+3 4 5 6 7 8 9 10
+
+.0852 .538 .455 .0852 .430 62.0 .0852 .507 59.5 .0852 .775 22.0 .0852 .550 38.5 .0852 .44 .0852 .55 64.0 45.0
+
+-.373 .500 .775 .560 .370 .540 .550
+
+47.6 .568 10.2
+
+.625 7.20 .625 9.76 .625 8.51
+
+21.0 17.5 8 12 16
+
+.867 .772 .419
+
+.0852 .567 39.5
+
+I
+
+o
+
+CO
+
+248.18
+
+-81
+
+••
+
+Table 3
+
+ABSOLUTE VALUE OF ERROR FROM DESIGN CHARTS
+
+3.2%
+
+Average Error
+
+3.6%
+
+1.6%
+
+Average Error if largest value is omitted
+
+2.1% .
+
+248.18
+
+-82
+
+.)
+
+•It
+
+Transverse Rib
+
+Longitudinal Bulkhead
+
+I
+
+Longitudinal Stiffener
+
+..,..==========:!::::!:::====-====-r
+
+r
+
+LOngitudina I . Girder
+
+Fig. 1.1
+
+Hull Cross Section
+
+Fig. 1.2
+
+Wave Forces
+
+,.
+
+248.18
+
+-83
+
+..
+
+Fig. 2.1
+
+Panel Cr6ss Section
+
+..
+q
+I
+
+•
+
+=mo =mI
+Fig. 2.2
+
+·~+PI
+mlo
+
+Loading Conditions
+
+...
+
+-84
+~
+
+Symm.
+
+Ap = bt Af = bf tf Aw = dw As = bftf + dw A = bt + bf tf + dw
+~d
+
+d
+
+-x
+
+Fig. 2.3
+
+Idealized Cross Section
+
+,-~
+
+Symm.
+
+CTyp (Tension)
+
+~
+b
+•
+
+Fig. 2.4
+
+Residual Stress Distribution
+
+248.18
+
+-85
+
+1_ _1
+
+.>6.
+
+O"edge O"avg.
+
+~
+
+i"oi"o
+
+--~
+
+ax.
+
+(c) O"avg. = O"max.
+
+Fig. 2.5
+
+Plate Action - (No Residual Stresses)
+
+248.18
+
+-86
+
+(
+
+it
+
+=r;= \\I
+Point
+II
+
+A II
+
+I I I I
+
+I
+
+I
+
+I
+I I I
+
+I I
+
+,.
+... ...
+O"edge
+
+O"edge
+
+0:=0;
+A
+
+YP O"'p max.
+
+(C) O"'avg. =O"'p max.
+
+Fig. 2.6
+•
+
+Plate Action' - (With Residual Stresses)
+
+.
+
+248.18
+Average Stress
+(]"
+
+-87
+
+..
+,
+
+.
+
+(]"p
+
+r~
+
+Koiter's p max. Eqn. Compression Edge Strain, Ee
+
+OJ
+
+rJimL
+
+Tension
+
+,.
+
+Fig~
+
+2.7a
+
+Stress-Strain Diagram for the Plate
+
+Average Stress
+(]"
+
+Compression
+
+--------------.f-------------t- E S Strain
+
+Tension
+
+Fig. 2.7b
+
+Stress-Strain Diagram for the Stiffener
+
+248.18
+
+-88
+
+Flange
+
+d
+
+9d)__ ;f--+__....O"p O"ys
+
+-----LPlate
+
+EEe
+
+r,
+•
+
+Fig. 2.8
+
+General Stress Distribution for Positive Bending
+
+..
+Flange
+
+f~_· _ _
+
+d
+
+gd
+Plate
+O"p O"ys
+
+-EEe
+•
+
+Fig. 2.9
+
+General Stress Distribution for Negative Bending
+
+..
+
+248.18
+
+-89
+
+READ
+
+.'.
+
+Input Values
+
+COMPUTE & PRINT 1) Cross-sectional parameters 2) Max. average plate stress 3) Location of neutral axis and max. moment (pas. & neg. bending)
+
+t
+ASSUME Plate edge strain €e/€CR
+
+,
+
+INCREMENT or DECREMENT Plate strain by ~€e/€CR
+100 points for
+.-,
+
+•
+
+•
+•
+CALCULATE ¢/¢CR & m/mCR for strain state PRINT ee/€CR' ¢/¢CR' M/M CR
+~¢/¢CR<
+
+Ineg. bending then
+100 points for
+
+specified value
+
+pas. bending
+
+• •
+•
+
+PROCEED To numerical integration to find the maximum length
+
+Fig. 2.10
+
+Simplified Flow Diagram of
+
+m-~-P
+
+Calculations
+
+248.18
+
+-90
+
+•
+
+'"
+
+o :;: o
+
+.
+
+P = Constant
+
+a::
+c
+~
+
+en en
+Q) Q) 1:)
+
+·c
+
+Q)
+
+Ci5
+Non - Dimensional Center Curvature
+I
+
+!o
+""CR
+
+.
+
+Fig. 2.11
+
+Determination of the Maximum Slenderness Ratio
+
+dz
+
+•
+flo.
+
+Fig. 2.12
+
+Typical Segment of a Plate Panel
+
+248.18
+
+-91
+
+•
+
+P
+
+y
+
+8=0-
+
+~
+
+8=v=0
+
+t
+
+8=0
+
++
+
+~
+LJ...J.--.......~ •
+P Deflected Shope
+
+m
+Diagram
+4:
+
+Length for Pinned Ends Length for Fi xed Ends
+
+Fig. 2.13
+
+Deflected Shape of the Panel
+
+248.18
+
+-92
+
+I
+.'•
+........
+
+CALL m-):l relationship for constant P ASSUME midspan curvature t Calways pos.) 0
+
+I
+I
+
+I
+
+I
+I
+New tCi+l)a assumed as old tCi+l)c
+
+FIND corresponding moment Mol
+
+•
+
+• IsegmentSELECT fiS length
+COMPUTE fiZ j , fiY j , M +l , i CALL Hi' Vi
+
+j
+
+I
+
+ASSUME terminal. curvature t Ci+l)a
+
+•
+•
+t
+
+I
+I
+
+I I
+>0.00001
+
+COMPUTE terminal curvature t Ci+l)c COMPUTE /[tCi+l)a - tCi+l)c]/ <0.00001 COMPUTE 9i +l , H +l , Vi +l , i SUM t'lj' I::Z y I::S j
+
+Increment midspan curvature by M o
+
+I
+I
+
+t
+M> 0 S.S. values previously comDuted Let terminal values here become initial values on the next segment
+
+COMPUTE fiS for m=O, LP, x P, y P, & eP for S.S. case
+
+CL i +l -, Li ) > 0 or &S.ult. conds. previously computed 9>0
+
+I
+
+COMPUTE S.S. ULTIMATE VALUES L, Yo' Z, M, to' e, CP/PCR)o
+
+I
+
+I
+
+e<o
+COMPUTE
+.&
+
+I fiS
+
+f for 9=0 , Lf , X , y f ,
+
+f M for fixed case CLi+i - Li)fix>O
+
+I
+
+I I
+Fig. 2.14
+
+COMRlTE foE. ULTIMATE VALUES L, Yo' Z, M, to' e, CP/PrR)o PRINT values and CONTINUE on
+
+F.E. ult. conds. previously computed S.S. ult. conds. not already known
+
+Simplified Flow Diagram of the Numerical Analysis Technique
+
+.'.
+
+..
+
+".
+
+2.40
+- - _ . No Residual Stress - - - With Residual Stress,
+
+b -t-=85
+
+:~ =0.20
+: ; =0.60
+
+~=O.l5
+CTyp
+1.60
+
+CTys = CTyp =47.0 ksi
+
+(~pcr)max.
+1.20
+
+...... ......
+
+,,
+
+0.80
+
+0.40
+
+-0.80
+
+-0.60
+
+-0.40
+
+-0.20
+
+o
+
++0.20
+
++0.40
+
++0.60
+
++0.80
+
+(~mcr )max.
+Fig. 3.1 Maximum Moment Vs. Axial Thrust Curve
+

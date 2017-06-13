@@ -1,0 +1,1302 @@
+384-18681
+
+N A S A Contractor R e p o r t 172261
+
+S k i d s t i f f e n e r Interface Stresses in Composite Stiffened Panels
+J. T. S.
+Wang
+
+S. B. Biggers
+
+LOCKHEED-GEORG IA COMPANY A Divi sion of Lockheed Cor por at ion
+M a r iet ta, Georgi a
+
+Contract NAS1-15949 January 1984
+
+National Aeronautics and Space Administration
+
+Langley Research Center Hampton,Virginia 23665
+
+F RW R OE OD
+
+T h i s r e p o r t i s p r e p a r e d by t h e Lockheed-Georgia Company under c o n t r a c t NASl-15949, "Advanced Composite S t r u c t u r a l Design Technology f o r Commercial
+It describes in d e t a i l an a n a l y s i s procedure f o r
+
+Transport Aircraft."
+
+d e t e r m i n i n g t h e stresses i n t h e i n t e r f a c e l a y e r between t h e s k i n and a t t a c h e d f l a n g e o f s t i f f e n e d composite p a n e l s . Assignment No. 5 of t h e c o n t r a c t . T h i s work w a s performed under Task
+
+The program i s s p o n s o r e d by t h e N a t i o n a l
+
+A e r o n a u t i c s and Space A d m i n i s t r a t i o n , Langley R e s e a r c h C e n t e r (NASAILaRC).
+D r . James H. S t a r n e s is t h e P r o j e c t E n g i n e e r f o r NASA/LaRC.
+
+J o h n N. Dickson Wang, P r o f e s s o r
+
+i s t h e Program Manager f o r t h e Lockheed-Georgia Company.
+Technology, i s a c o n s u l t a n t t o Lockheed-Georgia.
+
+J.T.S.
+
+i n t h e School of E n g i n e e r i n g S c i e n c e and Mechanics a t G e o r g i a I n s t i t u t e of
+
+i
+
+TABLE OF CONTENTS Page
+SUMMARY
+INTRODUCTION STRUCTURAL MODEL
+XNALY SIS FIETHOD
+
+1 1
+2
+
+3
+7
+12
+
+Antisymmetric Deformation Symmetric Deformation
+EXAMPLES
+
+14
+14
+15 17 18 21 22 24 24 25
+
+C onve rg enc e Stress Distribution Rotational Restraint Axial Compressive Load Flange Width Relative Thickness Laminate Stacking Sequence
+CONCLUDING REMARKS
+
+REFERENCES
+
+ii
+
+SUMMARY
+A structural model and an analysis method for evaluating the stresses
+
+in the interface layer between the skin and the attached stiffener flange of stiffened composite panels is described. When stiffened panels are loaded in the postbuckling regime andlor are subject to normal pressure loads, deformations develop that tend to cause separation of the skin and the stiffeners. The analysis procedure described here provides a means to study the effects of material and geometric design parameters on the interface stresses. The tendancy toward skinlstiffener separation may therefore be minimized by chosing appropriate values for the design variables. This interface stress analysis procedure is included in a stiffened panel sizing code previously developed and reported under this contract (References 1 and 2 ) .
+
+INTRODUCTION Panels stiffened with attached stiffeners are frequently used in aeros i ~ s c e ,naval, and various civil engineering structures when structural weight
+
+is an important concern.
+
+If the panel is loaded
+
+so
+
+that the skin (web) enters
+
+the postbuckling regime and/or the panel is subject to normal pressure loads, the skin and stiffener tend to separate. Postbuckling deformation is Separation of the skin and stiffener normally indicates or in Figure 1. participates in failure of the panel.
+
+Figure 1 .
+
+Deformation of Postbuckled Stiffened Panel
+
+1
+
+Resin-matrix composite stiffened panels are normally fabricated by cocuring the skin and stiffeners or by bonding precuted stiffeners to the skin. Hechanical fasteners or stitching may also be used to attach the stiffeners to the skin in some cases. The purpose of this study is and the stiffener attached flange. panels (References 1 and 2 ) .
+to
+
+develop a model and solution method for
+An efficient, analytical solution procedure
+
+4
+
+determining the normal and shear stresses in the interface between the skin
+c
+
+fs required since the analysis is incorporated in a sizing code for stiffened
+
+The present model does not account for the presence of mechanical fasteners or stitching.
+
+. -
+
+STRUCTURAL MODEL
+
+The portion of the stiffened panel that is modeled includes the attached flange of the stiffener, the skin directly in contact with the stiffener,
+and the interface or bond layer.
+
+The model is shown j.n Figure 2.
+
+The skln
+
+between stiffeners is replaced by moments and shear loads obtained from an independent solution for the response of the skin plate to the applied panel loads. The deformation of the skin between stiffeners may not be small enough, especially if the skin is postbuckled, to allow small deformation theory to be used. It is assumed, however, that the deformations of the stiffener flange and the attached portion of the skin are small and that small deformation theory is valid for this region of the panel. The stiffener web is replaced by rotational and extensional springs along the line y = z = 0 with stiffnesses k and kZ, respectively. inplane load, Nx loads, N and N
+X
+
+f
+
+, is present in the stiffener flange and biaxial inplane
+
+r
+
+A longitudinal
+
+are present in the skin. X transverse extensiona1 spring, Y’ representing the transverse stiffness (Icy) of the skin, is present on the edges y
+=
+
++b - of the skin plate.
+
+Both flange and skin plates are orthotropic.
+
+c
+
+The interface layer between the flange and skin has a finite thickness, and is assumed to be isotropic and linear elastic. Stresses in the interface layer are distributed uniformly through the thickness of the layer.
+
+a
+
+2
+
+~-~
+
+VERTICAL 6 , ROTATI@NAL RESTRAINT AT
+
+2
+
+INTERFACE LAYER MCOULl
+b
+
+t
+
+E
+
+N Y
+
+Figure 2. Structural Model for Interface Stress Analysis
+
+ANALYSTS METHOD
+The flange and skin plates are treated as separate orthotropic plates. The plates are loaded on the interface planes by the unknown interface normal and shear stresses and on the longitudinal skin plate edges by the applied noment and transverse shear loads due to normal pressure and/or postbuckling. The inplane loads previously defined are assumed to remain unchanged during defo m a t ion. The displacements of t h e plates in the x , y, and z directions are u, v , and w, respectively. Using a comma followed by a subscript to denote differentiation, the relations of stress resultants and stress couples t o the displaceaents and interacting interface stresses may be expressed as follows:
+
+3
+
+Vx
+
+= Q,
+
++M
+XYBY
+
+(9)
+
+i n which t h e A nesses,
+
+ij
+
+are t h e inplane s t i f f n e s s e s , t h e D
+
+ij
+
+are t h e bending s t i f f -
+
+t h e t a n g e n t i a l l o a d i n g components on t h e u p p e r and lower s u r f a c e s
+f X Z , T+ YZ
+
+of t h e p l a t e a r e
+thickness.
+
++
+
+and T-
+
+xz,
+
+T
+
+-
+
+YZ
+
+r e s p e c t i v e l y , and t i s t h e p l a t e
+
+The t a n g e n t i a l l o a d i n g s a r e z e r o on t h e p l a t e f r e e s u r f a c e s and
+
+r e p r e s e n t t h e i n t e r f a c e shear s t r e s s e s on t h e i n t e r f a c e s u r f a c e s . s u r f a c e l o a d i n g on t h e p l a t e s i s denoted normal stress.
+
++ u
+
+2'
+
+u
+
+The normal
+
+z
+
+and r e p r e s e n t s t h e i n t e r f a c e
+
+The g e n e r a l e q u a t i o n s f o r t h e a n a l y s i s of t h e s k i n and t h e f l a n g e
+p l a t e s may b e o b t a i n e d a s f o l l o w s . For a p l a t e i n a r e g i o n A , w i t h t h e
+
+boundary S, and h a v i n g l i n e s of e l a s t i c s u p p o r t S v i r t u a l work may be e x p r e s s e d a s
+
+j'
+
+t h e p r i n c i p l e of
+
+where rr i s t h e t o t a l p o t e n t i a l e n e r g y , and n and s r e f e r r e s p e c t i v e l y t o t h e outward normal and t a n g e n t i a l d i r e c t i o n s a l o n g t h e p l a t e b o u n d a r i e s o r l i n e s of e l a s t i c s u p p o r t . The s u b s c r i p t "a" d e n o t e s s h e a r , moment, and i n p l a n e L'he u s u a l index n o t a t i o n i s
+
+l o a d s a p p l i e d a l o n g t h e edge of t h e p l a t e .
+
+followed for a and B ranging from 1 to 2 with 1 corresponding t o a and 2 to y . The inplane displacements U
+n
+
+and U
+S
+
+are related
+
+to
+
+Ua.
+
+The stiffnesses
+
+of elastic supports are k kZ and kr. To account for the effects of n’ ks’ inplane loading, the inplane strain-displacement relations
+ta0 = (Ua, B + U8,a + w , ~ w ,) / 2 are used and the relations Qa - Mf3a,8 are 8 recogni-zed in equation ( 1 . After employing Green’s theorem, equation 1)
+
+.
+
+(11) may be written as
+
+In equation ( 1 2 ) ,
+
+we require integrals involving the variations of U
+
+and w to vanish individually. form.
+
+a This results in three equations in integral
+
+= -N and N12 = 0, x’ N22 Y are assumed to be distributed uniformly prior to the bending of the plate.
+
+The lnplane stress resultants, Nll = -N
+
+The Ua represent incremental inplane displacements after bending. dimensionless coordinates defined as
+
+Using
+
+x = x/a and j;
+and
+
+= y/b, the aspect ratio
+
+r = a/b, the half-plate thickness, e = t/2, and an over dot and over prime
+
+for differentiation with respect to
+
+7,
+
+respectively, the three equations
+
+with linearized coefficients may be written as follows:
+
+5
+
+where the subscript " ' denotes applied longitudinal edge shear and moment a' loads. Equations (13)
+
+-
+
+(15) may be written for the flange plate and the
+
+skin plate. Solutions for the response of the plates and the resulting interface stresses may be developed separately for the antisymmetric and the symmetric load cases.
+
+ANTISYMMETRIC DEFORMATION
+If the web of the stiffener is along the center ine of the flange and
+=
+
+the stiffened panel is postbuckled but is subject to no normal pressure load, the flange and skin plates will deform antisymmetrically about y applied longitudinal edge loads are
+
+0 The .
+
+qj;,l = -M a Iy=-1
+
+= M
+
+(I)
+
+The displacements and interface stresses are represented in the following series form with n
+=
+
+0, 2, 4
+
+. . . ;m
+
+= 0,
+
+1, 2 , 3
+
+...
+
+; and
+
+M
+
+(E)
+
+=
+
+t m
+
+M
+
+m
+
+sin
+
+mnE
+
+u
+
+=I 1u
+m
+
+n
+
+m n
+
+P
+
+n+l
+
+(5) cos m n Z
+
+.
+
+7
+
+$x =
+
+g f Pmn
+
+Pn+l
+
+(7)
+
+COS' m
+
+nr
+
+q =
+
+11q
+m n
+
+mn
+
+P
+
+n+l
+
+(5)
+
+sin m w Z
+L
+
+where t h e P ( y ) a r e Legendre polynomials.
+
+n
+
+The nonzero s u r f a c e l o a d s on t h e s k i n plate are
+
++
+= p*
+
+f+
+
+Y=
+
+-
+
+-
+
+pY
+
++ uz
+
+= 4
+
+(26)
+
+The nonzero s u r f a c e l o a d s on the f l a n g e plate are
+
+S u b s t i t u t i o n of equations ( Z O ) ,
+
+(Zl), (23), and (24) i n t o equations
+
+( 1 3 ) , and ( 1 4 ) w r i t t e n f o r t h e s k i n p l a t e yields
+
+where
+
+r = mT/r. n
+
+-
+
+Since the coefficient matrix in equation ( 2 8 ) must be symmetric, for each m and for j 2 n
+
+CmnJ
+
+= bmJn
+
+d = d mnj mjn
+
+Equations (28) may be written for the flange plate if A
+
+f
+
+are used in equations
+b mnj,
+
+(29)
+
+-
+
+fij ( 3 2 1 , k y is set equal to zero, and the symbols a mnjr
+
+f
+
+C
+
+f
+
+mnj, and
+
+rnnj are used for the flange. Substitution of equations ( 2 2 ) flange and for the skin yields
+
+-
+
+( 2 5 ) into equation (15) written for the
+
+in which, for the skin equation ( 3 7 ) , and for j 2 n, the elements of the matrices are
+
+S
+
+mjn
+
+=-;
+
+e b3 6jn/(2n+3)
+
+tmjn
+
+= - e b3 Pj+l(l) Pn(l)
+= b4
+
+h
+
+m jn
+
+6. /(2n+3)
+Jn
+
+9
+
+The coefficients for the flange equation may be obtained from equations ( 3 8 )
+
+(41) by using e , Dij and Nxf and setting N = 0. In normal usage, the Y rotational restraint (kJ at y = 0 will be zero on the skin and nonzero on the flange. Equations ( 2 8 1 , ( 3 6 1 , and (37) relate the displacement coefficients
+to the interface stress coefficients defined in equations (20) - ( 2 5 ) . The displacements of the skin and flange plates are coupled through the elastic interface layer having thickness h and moduli E and G . conditions are The continuity
+
+f
+
+',
+
+-
+
+Substitution of these continuity conditions in conjunction with the series expressions for the displacements and interface stresses, equations (20)
+( 2 5 ) , into equations (13)
+
+-
+
+- (14), based
+
+on the Galerkin procedure and written
+
+f o r the flange plate, yields the following equations:
+
+in which, f o r j 2 n, t h e elements of t h e matrices are
+
+11
+
+S u b s t i t u t i o n of e q u a t i o n s ( 2 2 ) , ( 2 5 ) , and ( 4 6 ) i n t o e q u a t i o n y i e l d s
+
+.
+Four sets of e q u a t i o n s are now a v a i l a b l e f o r d e t e r m i n i n g t h e unknown
+coefficients. E q u a t i o n s ( 4 7 1 , ( 4 8 1 , (561, and (37) may now be w r i t t e n i n combined matr&c form as
+
+1". I
+The c o e f f i c i e n t s of sets.
+
+(57)
+
+A and Bm may b e i d e n t i f i e d from t h e f o u r e q u a t i o n m I f t h e series e x p r e s s i o l i s , e q u a t i o n s (20) - (25) a r e t r u n c a t e d a t
+
+-
+
+-
+
+n = 2 N , e q u a t i o n (57) r e p r e s e n t s 4N l i n e a r a l g e b r a i c e q u a t i o n s t h a t must: be s o l v e d f o r each v a l u e of m r e q u i r e d by t h e s e r i e s e x p r e s s i o n f o r t h e a p p l i e d s h e a r s and moments g i v e n i n e q u a t i o n s (18) and ( 1 9 ) . Once a f i n i t e number of pxmn' Pymn' qmn, and Wm are determined from n t h e s o l u t i o n t o e q u a t i o n (57), t h e i n t e r f a c e stresses may be o b t a i n e d d i r e c t l y from e q u a t i o n s (23)
+
+-
+
+(25).
+
+The d i s p l a c e m e n t s may be o b t a i n e d from e q u a t i o n s
+
+(20)
+
+-
+
+(22) i n c o n j u n c t i o n w i t h e q u a t i o n s ( 2 8 ) , ( 4 4 ) , ( 4 5 ) , and ( 4 6 ) .
+
+S W T R I C DEFORMATION
+
+When a s t i f f e n e d p a n e l is s u b j e c t t o normal p r e s s u r e t h e f l a n g e of t h e s t i f f e n e r and t h e s k i n are deformed s y m m e t r i c a l l y a b o u t t h e c e n t e r l i n e of the flange. I n t h i s case, t h e d i s p l a c e m e n t s and i n t e r f a c e stresses may b e
+
+r e p r e s e n t e d i n t h e f o l l o w i n g series form w i t h n = 0, 2, 4 ,
+
+1, 2 , 3 ,
+
+...
+
+. . . ; m = 0,
+
+I
+
+:
+
+12
+
+P
+
+Using e x a c t l y t h e same procedure, a l l e q u a t i o n s presented f o r t h e p r e v i o u s antisymmetric c a s e a r e a p p l i c a b l e i f t h e f o l l o w i n g e x p r e s s i o n s a r e used i n s t e a d of t h o s e d e f i n e d i n the previous s e c t i o n :
+
+drnjn
+
+-
+
+-
+
+A22 '+ jl 2
+
+(1) p' (1) + rn A66 -2 n+ 1
+
+6. /(2n+3) + ky Pn+l (1) P
+Jn
+
+j+l (1)
+
+gm jn = b
+
+6. /(2n+l)
+Jn
+
+k
+rn jn
+9
+
+= b
+
+2
+
+6 /(2n+3)
+In 6jn/(2n+1)
+
+rnjn = -rn e b'
+= -e b
+
+-
+
+r
+
+3
+
+rn jn
+
+P . (1) Pn+l (1) J
+
+hrn jn
+
+= b
+
+4
+
+6 . /(2n+l)
+Jn
+
+13
+
+To i l l u s t r a t e t h e a p p l i c a t i o n of t h e a n a l y s i s procedure d e s c r i b e d i n t h e
+' p r e v i o u s s e c t i o n s , t h e s t r e s s e s a t t h e i n t e r f a c e of a s t i f f e n e r f l a n g e and a s k i n p l a t e r e p r e s e n t a t i v e of p o s t b u c k l e d , l a r g e c a r g o a i r c r a f t f u s e l a g e construction are calculated. The f l a n g e l a m i n a t e i s (90/+45/0)s and t h e s k i n
+
+l a m i n a t e i s (90/+45/02/745/90>s. tape. The h a l f - w a v e l e n g t h ,
+
+-
+
+Both l a m i n a t e s a r e 5 m i l g r a p h i t e epoxy
+
+a , of t h e assumed b u c k l e i s 5 i n c h e s and t h e
+A 0.01 i n c h t h i c k a d h e s i v e s e r v e s a s t h e
+
+f l a n g e w i d t h , b , i s 0.75 inch. interface layer.
+
+The e l a s t i c and s h e a r moduli of t h e a d h e s i v e a r e 245,180 p s i The r a p i d convergence of t h e a n a l y s i s p r o c e d u r e
+
+and 93,400 p s i , r e s p e c t i v e l y .
+
+and t h e e f f e c t s of s e v e r a l p h y s i c a l p a r a m e t e r s on t h e i n t e r f a c e s t r e s s e s a r e demonstrated i n t h e f o l l o w i n g examples.
+
+CONVERGENCE
+To examine t h e convergence p r o p e r t i e s of t h e a n a l y s i s procedure, c o n s i d e r t h e a n t i s y m m e t r i c c a s e w i t h f l a n g e and s k i n l a m i n a t e s a s d e f i n e d above and w i t h t h e s k i n p l a t e s u b j e c t t o a u n i t a p p l i e d moment
+
+M = (1) s i n
+
+T X
+
+*
+
+The maximum i n t e r f a c e normal and s h e a r s t r e s s e s a r e p l o t t e d i n F i g u r e 3 a s r a t i o s
+
+14
+
+of computed t o converged v a l u e s f o r v a r i o u s numbers of terms N i n t h e s e r i e s exp r e s s i o n s , e q u a t i o n s (20)-(25). t h e converged v a l u e . converged v a l u e . s t r a i n t kr.
+
+With N = 4, s t r e s s e s a r e w i t h i n 3 p e r c e n t of
+
+With N = 8, a l l s t r e s s e s a r e w i t h i n 0.1 p e r c e n t of the
+
+These r e s u l t s a p p l y t o t h e c o n d i t i o n o f z e r o r o t a t i o n a l r e With k r = 10
+
+The p r e s e n c e of r o t a t i o n a l r e s t r a i n t r e s u l t s i n a reduced r a t e of
+
+c o n v e r g e n c e as shown i n F i g u r e 4.
+
+3
+
+, 12
+
+terms a r e r e q u i r e d t o b r i n g
+S i m i l a r conver-
+
+a l l of t h e s t r e s s e s w i t h i n 3 p e r c e n t o f t h e ccnverged v a l u e .
+
+gence c h a r a c t e r i s t i c s may be shown f o r a p p l i e d s h e a r l o a d s and f o r t h e symmetric load c a s e s .
+
+I n a l l r e s u l t s p r e s e n t e d i n the f o l l o w i n g s e c t i o n s , 12 terms were
+
+used i n t h e c o m p u t a t i o n s .
+
+T
+
+XZ
+
+R
+
+r
+
+=o
+I
+
+I
+1
+
+4
+
+a
+N
+
+1
+
+1
+
+12
+
+16
+
+Figure 3.
+
+Convergence
+
+of Solution Procedure ( r = 0) k
+
+15
+
+k
+1
+
+r
+
+=
+
+I in-lblin d
+L -
+
+1
+
+I
+
+4
+
+8 N
+
+I 2
+
+16
+
+Figur;. 4.
+
+Convergence of Solution Procedure
+
+(k = lo3 in-lb/in)
+r
+
+STRESS DISTRIBUTION
+The d i s t r i b u t i o n of t h e i n t e r f a c e s t r e s s e s a c r o s s t h e f l a n g e w i d t h i s shown i n F i g u r e 5 f o r t h e a n t i s y m m e t r i c c a s e w i t h k r = 0 and a u n i t a p p l i e d moment. The s t r e s s e s shown a r e t h e maximum v a l u e s t h a t o c c u r o v e r t h e l e n g t h "a". The l o c a l i z e d d i s t r i b u t i o n of normal stress and t h e more uniform d i s t r i b u t i o n of t h e s h e a r s t r e s s e s i s t y p i c a l f o r c a s e s w i t h z e r o e l a s t i c r e s t r a i n t a l o n g
+y = z = o .
+
+16
+
+I
+
+I
+
+I
+
+0.2
+
+0.4
+=
+
+0.6
+ylb
+
+0.8
+
+Figure 5 . Interface Stress Distribution, Antisymmetric Condition
+
+ROTATIONAL RESTRAINT
+h a s on t h e i n t e r f a c e s t r e s s e s r f o r t h e c a s e d i s c u s s e d above a r e shown i n F i g u r e s 6-8. The normal s t r e s s ( F i g u r e 6 ) a t t h e f l a n g e edge i s e s s e n t i a l l y u n a f f e c t e d by t h e r o t a t i o n a l r e s t r a i n t .
+A l a r g e normal s t r e s s , however, r e s u l t s n e a r t h e r e s t r a i n t due t o t h e r e s t r a i n i n g
+
+The e f f e c t s t h a t r o t a t i o n a l r e s t r a i n t k
+
+moment a c t i n g on t h e f l a n g e p l a t e .
+
+I f t h e r e s t r a i n t i s l a r g e i n magnitude,
+Similar may be s e e n i n
+T xz’ a r e ,
+
+t h i s normal s t r e s s may exceed the normal s t r e s s a t t h e f l a n g e edge. e f f e c t s of r o t a t i o n a l r e s t r a i n t on t h e s h e a r s t r e s s , Figure 7.
+T
+
+YZ’
+
+The e f f e c t s of r o t a t i o n a l r e s t r a i n t on t h e s h e a r s t r e s s ,
+
+t o t h e c o n t r a r y , s t r i c t l y b e n e f i c i a l a s shown i n F i g u r e 8.
+
+17
+
+Z
+
+200
+
+-200
+1
+
+1
+
+0.2
+Figure 6.
+
+0.4
+=
+
+0.6
+ylb
+
+0.8
+
+-
+
+Effect of Rotational Restraint on Normal Stress
+
+0
+
+-1 0 0
+-20
+
+pi
+LA-I
+1
+
+-
+
+0.2
+Figure 7.
+
+0.4
+
+3
+18
+
+0.6
+=
+
+0.8
+T
+YZ
+
+ylb
+
+Effect of Rotational Restraint on Shear Stress,
+
+1
+
+I
+
+0.2
+Figure
+
+0.4
+=
+
+0.6
+ylb
+
+0.8
+T
+
+8. Effect of Rotational Restraint on Shear Stress,
+
+xz
+
+The s t r o n g e f f e c t of r o t a t i o n a l r e s t r a i n t on t h e i n t e r f a c e s t r e s s e s i s e v i d e n t from t h e s e r e s u l t s . C l e a r l y an i n t e r m e d i a t e v a l u e o f r e s t r a i n t should Since t h i s r e s t r a i n t
+
+be provided t o minimize b o t h normal and s h e a r s t r e s s e s .
+
+i s p r i m a r i l y a f u n c t i o n of t h e bending s t i f f n e s s of t h e s t i f f e n e r web p l a t e i n
+t h e s h o r t d i r e c t i o n and t h e t o r s i o n a l p r o p e r t i e s of t h e s t i f f e n e r , an optimum v a l u e may be p r o v i d e d by s p e c i f y i n g an a p p r o p r i a t e web l a m i n a t e and s t i f f e n e r geometry.
+
+Due t o t h e i r low t o r s i o n a l s t i f f n e s s b l a d e s t i f f e n e r s may n o t p r o v i d e
+
+sufficient rotational restraint.
+
+AXIAL COMPRESSIVE LOAD
+P
+
+The a x i a l compressive l o a d i n a s t i f f e n e d p a n e l d i r e c t l y a f f e c t s t h e e x t e n t of p o s t b u c k l i n g i n t h e p a n e l and, t h e r e f o r e , t h e magnitude of t h e s h e a r V and moment M
+
+(x)
+
+(G) t r e a t e d
+
+as a p p l i e d l o a d s i n t h i s a n a l y s i s p r o c e d u r e .
+
+Aside
+
+from t h i s e f f e c t , t h e compressive l o a d s i n t h e f l a n g e and skin under t h e f l a n g e i n c r e a s e t h e i n t e r f a c e stresses due t o t h e d e s t a b i l i z i n g e f f e c t of t h e compressive loads.
+
+19
+
+P a r t i a l v e r i f i c a t i o n of t h e a n a l y s i s p r o c e d u r e may be o b t a i n e d by s t u d y i n g t h e e f f e c t s o f a x i a l compressive l o a d s on t h e i n t e r f a c e stresses. shoks t h e r e s u l t s o f such a s t u d y . Figure 9
+
+I f t h e i n t e r f a c e moduli a r e reduced t o The s o l i d
+
+e s s e n t i a l l y z e r o , t h e f l a n g e and s k i n p l a t e hacome uncoupled. l i n e s i n t h i s figure represent t h i s condition. a t two v a l u e s o f l o a d i n t h e s k i n , N
+X’
+
+The normal s t r e s s d i v e r g e s
+Y
+
+i n d i c a t i n g two u n s t a b l e c o n d i t i o n s .
+
+These two v a l u e s of l o a d c o r r e s p o n d e x a c t l y t o t h e b u c k l i n g l o a d s of the f independent f l a n g e (Nx = 0.5 Nx = 282 l b / i n ) and s k i n (Nx = 2590 l b / i n ) plates. With a r e a l i s t i c i n t e r f a c e e l a s t i c modulus E and an e s s e n t i a l l y z e r o
+
+s h e a r modulus G , t h e r e s u l t s shown by t h e s h o r t - d a s h e d l i n e s a r e o b t a i n e d . I n t h i s c a s e , the p a r t i a l l y coupled p l a t e s have a s i n g l e b u c k l i n g l o a d between t h e independent b u c k l i n g l o a d s . Here t h e f l a n g e t r i e s t o buckle a t
+
+a low l o a d b u t i s r e s t r a i n e d by t h e s k i n p l a t e through t h e i n t e r f a c e normal
+stresses. The load can be i n c r e a s e d u n t i l t h e d e s t a b i l i z i n g e f f e c t of t h e f l a n g e overcomes t h e r e s i s t a n c e of t h e s k i n and t h e two-plate system b u c k l e s . I f an i n t e r f a c e w i t h r e a l i s t i c E and G i s u s e d , b u c k l i n g o c c u r s a t a load h i g h e r than e i t h e r i n d e p e n d e n t p l a t e b u c k l i n g l o a d .
+A s E and G i n c r e a s e
+
+( n o t shown) t h e b u c k l i n g l o a d approaches t h a t of a s i n g l e l a m i n a t e d e f i n e d by f l a n g e / i n t e r f a c e / s k i n l a m i n a t e s . a r e shown i n t h e f o l l o w i n g s e c t i o n . A d d i t i o n a l e f f e c t s of compressive l o a d
+
+400
+
+WIMUMNORMAL 0 STRESS (PSI)
+G = I
+
+-200
+
+-400
+-
+
+Figure
+
+9.
+
+Buckling Loads for Cwpled and Uncoupled Plates
+20
+
+FLANGE WIDTH The w i d t h of t h e a t t a c h e d f l a n g e of t h e s t i f f e n e r i s a n i m p o r t a n t d e s i g n
+
+parameter.
+
+I n t e r f a c e stresses f o r t h e p r e v i o u s l y d e f i n e d example case a r e F i g u r e 10 r e p r e s e n t s The maximum normal
+
+shown i n F i g u r e s 10 and 11 a s f u n c t i o n s of f l a n g e width b. t h e c a s e i n which t h e r o t a t i o n a l r e s t r a i n t k
+
+r i s zero.
+
+stress and s h e a r stress
+t i o n i s approached.
+
+T
+YZ
+
+a r e n o t s t r o n g l y a f f e c t e d by an i n c r e a s e i n b
+X
+
+u n l e s s s i g n i f i c a n t compressive l o a d N
+
+i s p r e s e n t and an i n s t a b i l i t y c o n d i T
+XZ
+
+On the o t h e r hand, t h e maximum s h e a r stress
+X
+
+i n c r e a s e s r a p i d l y as b i n c r e a s e s even w i t h N
+a m p l i f i e s the increase i n
+T
+
+= 0.
+
+Compressive l o a d simply
+
+with i n c r e a s i n g f l a n g e width. Similar results xz 3 The t r e n d s h e r e a r e shown i n F i g u r e 1 f o r t h e c a s e w i t h kr = 10 l b - i n / i n . 1
+
+a r e s i m i l a r i n most r e s p e c t s t o t h e p r e v i o u s c a s e (k = 0 ) b u t a r e somewhat r l e s s dramatic. The r e s u l t s of b o t h c a s e s d e m o n s t r a t e t h e b e n e f i t of a narrow
+attached flange.
+
+MAXlMUM STRESS 8
+
+b (IN)
+Figure 10. Effect of Flange Width and Axial Load on Maximum Stresses (k =0) r
+
+21
+
+600
+MAXIMUM STRESS (PSI)
+400
+I
+
+k
+
+r
+
+=
+
+Id IN-LBIIN
+
+N X = lOOO/
+
+/
+
+200
+
+0
+
+Figure 11.
+
+Effect of Flange Width and Axial Loud on Maximum Stresses (k = lo3 in-lb/in)
+
+r
+
+RELATIVE THICKNESS
+
+The r e l a t i v e t h i c k n e s s and r e s u l t i n g r e l a t i v e bending s t i f f n e s s e s of t h e f l a n g e and skin p l a t e s have a s i g n i f i c a n t e f f e c t on t h e i n t e r f a c e s t r e s s e s . S i n c e the
+
+s k i n l a m i n a t e may be l o c a l l y thickened under t h e f l a n g e w i t h t h e a d d i t i o n o f a pad o r s t r a p , and s i n c e t h e f l a n g e t h i c k n e s s i s not s t r o n g l y c o n s t r a i n e d by s t r e n g t h o r s t a b i l i t y r e q u i r e m e n t s , t h e r e l a t i v e f l a n g e t o s k i n t h i c k n e s s becomes an i m p o r t a n t and a d a p t a b l e d e s i g n v a r i a b l e . C o n s i d e r t h e same c a s e as i n t h e p r e v i o u s examples b u t o n l y w i t h r o t a t i o n a l : 3 r e s t r a i n t k = 10 i n - l b / i n . Normal stresses f o r f i v e c o m b i n a t i o n s of d i f f e r e n t r f l a n g e and s k i n l a m i n a t e t h i c k n e s s e s a r e shown i n F i g u r e 1 2 . The p r e v i o u s l y d e f i n e d b a s e l i n e f l a n g e and s k i n l a m i n a t e s a r e denoted F 1 and S1, r e s p e c t i v e l y .
+
+?
+
+Thicker f l a n g e and s k i n l a m i n a t e s a r e denoted by F 2 , F 3 and S 2 .
+change i n t h e s k i n , t h e peak normal stress d e c r e a s e s n e a r
+
+Cases (F1, Sa),
+
+#
+
+(F2, S1) and (F3, S1) show t h a t a s t h e f l a n g e t h i c k n e s s i s i n c r e a s e d w i t h no
+
+f
+
+= 0.1 b u t i n c r e a s e s
+
+22
+
+a t y = 1.0. compared.
+
+-
+
+The same t r e n d i s e v i d e n t when c a s e s ( F l , S2) and (F2, S2) a r e
+
+On t h e o t h e r hand, a s t h e s k i n t h i c k n e s s i s i n c r e a s e d w i t h no change
+= 0.1
+
+i n t h e f l a n g e , t h e peak normal s t r e s s d e c r e a s e s s i g n i f i c a n t l y a t b o t h and
+
+p
+
+= 1.0.
+
+T h i s c a n be v e r i f i e d by comparing c a s e s (Fl, S1) and ( F l , S2) a s
+
+w e l l a s c a s e s (F2, S1) and (F2, S2).
+
+I FLG. I
+200
+F1
+
+LAMI NATE
+
+I SKIN I
+S1
+
+190I
+[90 I
+[90/
+f
+
+45/02/;45/%)1 45 I O2 I +45 I901 4 5 / 0 2 I i 4 5 1 90lzS S 2
+
+F2
+10 0
+
+F3
+
+0
+
+- 100
+
+\
+
+U F 1 , s1
+
+rFZ1
+s1
+
+k
+
+-2GO
+
+r
+
+=
+
+10 in-lblin
+
+3
+
+0.2
+
+0.4
+=
+
+0.6
+
+0.3
+
+ylb
+
+Figure 12.
+
+Effect of Relative Thickness of Plates on Normal Stress
+
+The e f f e c t s of r e l a t i v e t h i c k n e s s on i n t e r f a c e s h e a r s t r e s s e s a r e e s s e n t i a l l y i d e n t i c a l t o t h o s e d i s c u s s e d above f o r normal s t r e s s . be shown f o r t h e symmetric l o a d c o n d i t i o n . S i m i l a r r e s u l t s c4n a l s o
+
+23
+
+LmINkTE STACKING SEQUENCE
+The s t a e k i n g sequence used i n l a m i n a t e d p l a t e s a f f e c t s t h e Bending s t i f f n e s s e s T h e r e f o r e , j u s t a s t h e l a m i n a t e t h i c k n e s s e s have s i g n i f i c a n t e f f e c t s on Dij* i n t e r f a c e s t r e s s e s , t h e s t a c k i n g sequences may a l s o have s i z a b l e e f f e c t s on t h e s e Stresses. F i g u r e 13.
+As an example, c o n s i d e r t h e t h r e e f l a n g e l a m i n a t e s l i s t e d i n
+
+The f i r s t l a m i n a t e , t h e b a s e l i n e used i n t h e p r e v i o u s examples, Simply i n t e r c h a n g i n g t h e 0
+
+apperirs t o b e t h e b e s t of t h e t h r e e i n t h i s case. and s m a l l e r i n c r e a s e s i n s h e a r s t r e s s e s .
+
+and 9 0 d e g r e e p l i e s r e s u l t s i n a 42 p e r c e n t i n c r e a s e i n maximum normal s t r e s s '
+T h i s shows t h a t c a r e f u l a t t e n t i o t l must be p a i d t o t h e l a m i n a t e s t a c k i n g sequences.
+
+MAXIMUM STRESS (PSI)
+FLANGE LAMI NATE
+7
+
+xz
+
+7
+
+yr
+184
+
+I901 45iOIs
+[O/
+
+125
+
+45/90], 45/0/901 s
+
+156
+143
+
+261
+
+[
+
+232
+
+Figure 13.
+
+Effect of Flange Stacking Sequence on Maximum Stresses
+
+CONCLUDING REMARKS
+
+The examples d i s c u s s e d i n t h e p r e v i o u s s e c t i o n s i l l u s t r a t e t h a t much may be done t o minimize t h e s k i n l s t i f f e n e r i n t e r f a c e s t r e s s e s by u s i n g p r o p e r d e s i g n p r a c t i c e s i n the i n t e r f a c e region. G u i d e l i n e s f o r d e s i g n i n g t o minimize t h e
+
+tendency for s k i n / s t i f f e n e r separation a r c summarized below.
+
+24
+
+1.
+
+The t r a n s v e r s e bending s t i f f n e s s of t h e s t i f f e n e r web and t h e t o r s i o n a l s t i f f n e s s of t h e s t i f f e n e r s h o u l d p r o v i d e s i g n i f i -
+
+cant r o t a t i o n a l r e s t r a i n t .
+
+The s t a c k i n g sequence of t h e
+
+s t i f f e n e r web may b e a d j u s t e d t o p r o v i d e t h e p r o p e r amount
+
+of r e s t r a i n t .
+
+The optimum amount of r e s t r a i n t w i l l b e a
+
+f u n c t i o n of t h e o t h e r d e s i g n p a r a m e t e r s s u c h a s f l a n g e w i d t h , f l a n g e and s k i n l a m i n a t e t h i c k n e s s e s and s t a c k i n g s-equences.
+2.
+
+To minimize t h e maximum v a l u e of t h e s h e a r stress
+minimum p r a c t i c a l f l a n g e w i d t h s h o u l d b e used.
+
+'I I
+
+XZ
+
+'
+
+the
+
+Flange width
+
+does n o t s t r o n g l y a f f e c t t h e normal stress o r t h e s h e a r
+
+stress
+
+T
+YZ
+
+.
+To minimize t h e
+
+3.
+
+To minimize t h e i n t e r f a c e s t r e s s e s a t t h e f l a n g e e d g e , a t h i n
+f l a n g e a n d / o r t h i c k s k i n s h o u l d b e used.
+
+stresses n e a r t h e s t i f f e n e r web, a t h i c k f l a n g e a n d / o r a t h i c k
+s k i n s h o u l d be used. Since a t h i c k s k i n i s d e s i r a b l e i n b o t h c a s e s , a l o c a l pad i n t h e s k i n under t h e s t i f f e n e r may b e considered.
+4.
+
+The s t a c k i n g sequences of t h e f l a n g e and s k i n laminates a f f e c t t h e i n t e r f a c e stresses and may b e d e f i n e d t o minimize t h e interface stresses.
+
+REFERENCES
+
+1.
+
+Dickson, John N. and S h e r r i l l B. B i g g e r s , "POSTOP" P o s t b u c k l e d O p e n - S t i f f e n e r Optimum P a n e l s - Theory and C a p a b i l i t y . " NASA C R - 1 7 2 2 5 9 , .January 1984. B i g g e r s , S h e r r i l l B. and John N. Dickson, "POSTOP: P o s t b u c k l e d O p e n - S t i f f e n e r Optimum P a n e l s - User's Manual." NASA C R - 1 7 2 2 6 0 , .January 1984.
+
+2.
+
+1. Aoport
+
+No. NASA CR-172261
+
+2. G a v r n m n t Accession No.
+
+3. Recipient's Catalog No.
+5. Report Oate
+
+I
+
+4. Title and Subtitle
+
+SKIN/STIFFENER INTERFACE STRESSES IN COMPOSITE STIFFENED PANELS
+7. Author(,)
+
+J a n u a r y 1984
+6. Performing Organization Code
+
+8. Performing Organization Report No.
+
+J . T. S. Wang and S . B. B i g g e r s
+10. Work Umt No.
+
+9. Pwfwming Organization Name and Address
+
+I
+12.
+Sponsoring Agency Name and Address
+
+1 1 . Contract or Grant No
+
+NASA1-15949
+13. Type of Report and Period Covered
+
+C o n t r a c t o r Report
+14. Sponsoring Agency Code
+
+N a t i o n a l A e r o n a u t i c s and Space A d m i n i s t r a t i o n Washington, DC 20546
+15. Supplementary Notes
+
+Langley T e c h n i c a l Monitor:
+
+D r . James H. S t a r n e s
+
+16. Abstract
+
+P a n e l s s t i f f e n e d w i t h a t t a c h e d s t i f f e n e r s a r e f r e q u e n t l y used i n a e r o s p a c e , n a v a l , and v a r i o u s c i v i l e n g i n e e r i n g s t r t i c t u r e s w h t . 1 1 S I r u c t i i r , i l weight i s a n i m p o r t a n t concern. I f t h e p a n e l i s l o a d e d s o t h a t tlie s k i n (web) e n t e r s thc p o s t b u c k l i n g regime a n d / o r t h e panel i s s u b j e c t t o n o r r r d p r e s s u r e l o d s , the s k i n and s t i f f e n e r t e n d t o s e p a r a t e . S e p a r d t i o n of t h e s k i n and s t i f f e n e r n o r m a l l y i n d i c a t e s o r p a r t i c i p a t e s i n f a i l u r e of t h e p a n e l . The purpose of t h i s s t u d y i s t o d e v e l o p a model and s o l u t i o n method f o r d e t e r m i n i n g t h e norm,il and s h e a r s t r e s s e s i n t h e i n t e r f a c e between t h e s k i n and t h e s t i f f e n e r a t t a c h e d f l a n g e . An e f f i c i e n t , a n a l y t i c a l s o l u t i o n p r o c e d u r e h a s been developed and i n c o r p o r a t e d i n a s i z i n g code f o r s t i f f e n e d p a n e l s d e s c r i b e d i n NASA CR-172259 The a n a l y s i s p r o c e d u r e d e s c r i b e d i n t h i s r e p o r t p r o v i d e s and NASA CR-172260. a means t o s t u d y t h e e f f e c t s o f m a t e r i a l and g e o m e t r i c d e s i g n parameters 011 t h e i n t e r f a c e s t r e s s e s . These stresses i n c l u d e t h e normal s t r e s s , and t h e s h e a r stresses i n b o t h t h e l o n g i t u d i n a l and t h e t r a n s v e r s e d i r e c t i o n s . The tendency toward s k i n / s t i f f e n e r s e p a r a t i o n may t h e r e f o r e be minimized by c h o o s i n g a p p r o p r i a t e v a l u e s f o r t h e d e s i g n v a r i a b l e s . The most i m p o r t a n t d e s i g n v a r i a b l e s i n c l u d e t h e r e l a t i v e bending s t i f f n e s s t s o f t h e s k i n and s t i f f e n e r a t t a c h e d f l a n g e , t h e bending s t i f f n e s s of t h e s t i f f e n e r web, and t h e f l a n g e w i d t h . The l o n g i t u d i n a l c o m p r e s s i v e l o a d s i n t h e fldrige and s k i n have s i g n i f i c a n t e f i e c t s un t h e i n t e r c a c e slresses.
+
+17. Key Words (Suggested by Author(r))
+
+18. Distribution Statement
+
+Postbuckling, Stiffened Panels, Composites, S k i d s t i f f e n e r S e p a r a t i o n , I n t e r f a c e S t r e s s e s , A n a l y s i s Nethods
+
+Unclassified
+
+-
+
+Unlimited
+
+S u b j e c t Category 39
+19. Security Classif (of this report)
+
+20. Security Clanif (of this page)
+
+21. No, of P
+
+e
+
+22. Rice
+
+Unclassified
+
+Unclassified
+
+28
+
+A03
+-.
+

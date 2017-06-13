@@ -1,0 +1,298 @@
+Thin-Walled Structures 82 (2014) 46–54
+
+Contents lists available at ScienceDirect
+
+Thin-Walled Structures
+journal homepage: www.elsevier.com/locate/tws
+
+Hybrid optimization of hierarchical stiffened shells based on smeared stiffener method and ﬁnite element method
+Peng Hao a, Bo Wang a,n, Gang Li a, Zeng Meng a, Kuo Tian a, Xiaohan Tang b
+a State Key Laboratory of Structural Analysis for Industrial Equipment, Department of Engineering Mechanics, Dalian University of Technology, Dalian 116023, China b Beijing Institute of Astronautical Systems Engineering, Beijing 100076, China
+
+art ic l e i nf o
+Article history: Received 13 December 2013 Received in revised form 3 April 2014 Accepted 4 April 2014 Available online 25 April 2014 Keywords: Hierarchical stiffened shell Axial compression Buckling Imperfection sensitivity Hybrid optimization
+
+a b s t r a c t
+In this study, Smeared Stiffener Method (SSM) of hierarchical stiffened shells is derived to release the prediction burden of buckling loads. Then, a minimum-weight optimization formulation for hierarchical stiffened shells is developed based on SSM, attempting to demonstrate the higher lightweight potential of hierarchical stiffened shells compared to the traditional ones. Further, the main aim of this paper is to present a hybrid optimization framework of hierarchical stiffened shells including imperfection sensitivity, combining the efﬁciency of SSM with the accuracy of FEM, since there are currently no closed-form solutions to take imperfections into account accurately. The illustrative example demonstrates that the proposed framework has a higher optimization efﬁciency and global optimization capability compared to the conventional methods. & 2014 Elsevier Ltd. All rights reserved.
+
+1. Introduction Axially compressed stiffened shells are relevant to many industries and applications such as the design of launch vehicles. In this case, structural instability (buckling, collapse) is the main failure mode [1]. Until now, several methods and programs are available for the load-carrying capacity analysis of stiffened panels, ranging from simple closed-form solutions to complicated discrete solutions [2–4]. Speciﬁcally, Smeared Stiffener Method (SSM) together with simple analytical methods was utilized to calculate the critical buckling load of stiffened shell for preliminary design [5], due to the high computational efﬁciency. Furthermore, in order to account for material and geometrical nonlinearities, nonlinear post-buckling analysis methods, such as the Newton– Raphson method [6], the modiﬁed Riks method [7], and the explicit dynamic method [8], have been commonly employed to simulate the post-buckling behavior of stiffened panels [8–10]. Stiffened shells are usually designed for maximum stiffness, strength and load-carrying capacity. To further improve the structural efﬁciency, optimization of stiffened shells has drawn considerable attention in recent years [11–17]. Optimizations of stiffened panels under combined loads were performed using PANDA2 and veriﬁed by STAGS [11]. Leriche and Haftka [12]
+
+n Corresponding author. Tel.: þ 86 411 84706382 (Ofﬁce); fax: þ86 411 84708390. E-mail address: wangbo@dlut.edu.cn (B. Wang).
+
+demonstrated the efﬁciency of the Genetic Algorithm (GA) in dealing with discrete design variables for composite stiffened panels. Besides, a design strategy for the optimum design of stiffened shells subject to global and local buckling constraints and strength constraints was presented by Jaunky et al. [13]. In order to reduce the computational burden caused by the large number of iterations, surrogate models have been successfully utilized in the optimization of stiffened panels [14–16]. Furthermore, Hao et al. [17] developed a bi-step surrogate-based optimization framework with adaptive sampling to obtain the optimum design for non-uniform stiffened shells, which achieves a higher efﬁciency compared to traditional optimization methods. Additionally, a concept of stiffened panel with varying stiffener sizes was developed to improve the local stability and thus static strength performance [18–22]. Then the concept of sub-stiffened shells was intensively promoted and integrated into PANDA2 by Bushnell and Rankin [18], and then the experimental validation was carried out later by Quinn et al. [20]. However, extensive studies have proven that initial geometrical imperfections can lead to large discrepancies between predicted and actual buckling or collapse loads [23–26]. With the advent of Chinese newly developed and future heavy-lift launch vehicles, diameter of the core stage increased from 3.35 m to 5 m, then to 8.5 m, however, the equivalent thickness increases only in a small amplitude due to the weight limit of launch vehicle. The increase of R/teq (ratio of shell radius to equivalent thickness) leads to the fact that the effects of initial imperfections on the load-carrying capacity of stiffened shells become more signiﬁcant, which results
+
+http://dx.doi.org/10.1016/j.tws.2014.04.004 0263-8231/& 2014 Elsevier Ltd. All rights reserved.
+
+P. Hao et al. / Thin-Walled Structures 82 (2014) 46–54
+
+47
+
+in an extremely high imperfection sensitivity, as indicated in NASA SP-8007 [27]. Considerable efforts have been put forth to investigate the reduction of load-carrying capacity of stiffened shells by various types of imperfections. Based on a semi-empirical method and large collections of experimental data, Knockdown Factors (KDF) were recommended for thin-walled structures with various R/teq, in order to accommodate the large discrepancy between theoretical and experimental buckling loads, which remains prominent in industry practice, as evidenced by the extensive use of the NASA space vehicle design recommendations [28]. Actually, the degree of imperfection sensitivity for a thin-walled structure is not only related to the value of R/teq, but also highly related to manufacturing process and other structural parameters, etc. Consequently, there are currently no closed-form solutions to take various factors into account during the early design phases. As an alternative way, modern CAE technology is another promising approach [29–35], since accounting for imperfections requires more detailed modeling of structures and nonlinear analysis for predicting the load redistribution due to pre-buckling bending. Among various types of imperfections, eigenmode-shape imperfection is the most commonly adopted one at the design stage [32]. The European standard for steel shell structures [33] recommends that the imperfection should be speciﬁed in the form of eigenmode shape, with its amplitude linked to fabrication quality, unless a different unfavorable pattern is justiﬁed. For a real thin-walled structure, it should be emphasized that the decrease of imperfection sensitivity usually corresponds to a decrease in structural weight, which is particularly important in the development of large-diameter launch vehicles. Obviously, it is crucial to develop an innovative concept of stiffened shells to resist and tolerate geometric imperfections, together with an effective optimization formulation to achieve the optimum design. In essence, ﬁnding a robust design to tolerate imperfections is of great signiﬁcance for realistic stiffened shells, because imperfections are unavoidable in the manufacturing, transportation and assembly processes of thin-walled structures. Increasing the hierarchy of stiffened shells may bring on excellent mechanical properties, particularly reﬂects in the ability to tolerate and resist imperfections. Considering the existing manufacturing technology, there are two ways to increase the hierarchy of stiffened shells: One is the utilization of various generatrix shapes. Hao et al. [35] proposed a concept of stiffened shell with outward hyperbolic generatrix shape to prevent the reduction of imperfections, and then an optimization framework including load-carrying capacity and imperfection sensitivity was presented to ﬁnd a robust design. Another alternative way is to introduce some suitable wall constructions [36], or various groups of stiffeners with different crosssections for thin-walled structures. Obviously, the latter choice is more attractive, since it is convenient to manufacture and fabricate. A concept of hierarchical stiffened shells was proposed by Wang et al. [37], aiming at reducing the imperfection sensitivity without adding additional weight, since major stiffeners in hierarchical stiffened shells can restrict the development of the initial out-of-plane deformations compared to traditional stiffened shells. However, due to the existence of minor stiffeners, the computational cost of a post-buckling analysis for such a hierarchical stiffened shell is usually expensive, even if surrogate model is utilized. In this study, SSM for obtaining the buckling load of hierarchical stiffened shells is derived. Then, a minimum-weight optimization formulation for the hierarchical stiffened shell is proposed based on the SSM, in order to demonstrate that the hierarchical stiffened shell has higher structural efﬁciency compared to the traditional one. Further, imperfections sensitivities of traditional and hierarchical stiffened shells are compared by exact FEM and SSM together with the empirical guideline from NASA. Due to the
+
+fact that there are currently no closed-form solutions to take imperfections into account accurately, a hybrid optimization framework of the hierarchical stiffened shell including imperfection sensitivity is proposed herein, combining the efﬁciency of SSM with the accuracy of FEM. The illustrative example is established to demonstrate the efﬁciency and the ability of global optimization of the proposed framework.
+
+2. Methodology 2.1. SSM for traditional stiffened shells The analytical solution of critical buckling load is based on the buckling governing equations for cylindrical shells subjected to axial compression. For a simply supported end condition, the displacement components u, v and w (axial, circumferential and radial, respectively) can be deﬁned as follows: u¼ ∑
+1 1
+
+m¼1n¼1 1
+
+∑ Amn cos ðmαxÞ sin ðnβyÞ
+
+1
+
+ð1Þ
+
+v¼ ∑
+
+m¼1n¼1 1 1
+
+∑ Bmn sin ðmαxÞ cos ðnβ yÞ ∑ C mn sin ðmαxÞ sin ðnβ yÞ
+
+ð2Þ
+
+w¼ ∑
+
+m¼1n¼1
+
+ð3Þ
+
+where α ¼ π/L, β ¼2π/D, m is the number of axial half waves, n is the number of circumferential full waves. After the substitution of the assumed buckling displacements into the governing equations, the critical buckling load for orthogrid stiffened shells under axial compression can be expressed as    A11 A12 A13    A A A   21 22 23      2R L 2  A31 A32 A33    P cr ¼ ð4Þ  A11 A12  π m      A21 A22  A11 ¼ Ex A22 ¼ Ey A33 ¼ Dx  mπ  2 L n2 R þ Gxy n 2 R ð5Þ ð6Þ
+
+þ Gxy
+
+ mπ  2 L
+
+ n4  mπ  2  n  2 þ Dxy þ Dy R R L L Ey 2C y n2 2C xy mπ 2 þ 2þ þ R R R L R  mπ  4
+
+ð7Þ ð8Þ ð9Þ ð10Þ
+
+  mπ n A12 ¼ A21 ¼ Exy þ Gxy L R n3    mπ  2 n E n y A23 ¼ A32 ¼ C xy þ 2K xy þ þ Cy R RR R L A31 ¼ A13 ¼  mπ  n  2  mπ  3  Exy mπ þ Cx þ C xy þ 2K xy R L L L R
+
+where Pcr is the critical buckling load, R and L are the radius and length of the stiffened shell. A stiffened shell can be considered as an assembly of unit cells, which is a repetitive unit of skin and stiffener elements, as shown in Fig. 1(a) and (b). The equivalent stiffness parameters of per unit cell can be expressed as Ex ¼ Et s EAs þ 1 À μ2 bn ð11Þ
+
+48
+
+P. Hao et al. / Thin-Walled Structures 82 (2014) 46–54
+
+Fig. 1. Schematic diagrams and representative units of traditional and hierarchical stiffened shells.
+
+Ey ¼
+
+Et s EAr þ 1 À μ2 dn
+
+ð12Þ
+
+Exy ¼
+
+μEt s 1 À μ2
+Et s 2ð1 þ μÞ
+
+ð13Þ
+
+Gxy ¼
+
+ð14Þ
+
+Dx ¼
+
+Et s 3 EI s EAs þ þ zs 2 bn 12ð1 À μ2 Þ bn
+
+ð15Þ
+
+where E is Young's modulus, υ is Poisson's ratio, b and d are the distances of axial and circumferential stiffeners respectively, h is the stiffener height, tr is the stiffener thickness. By solving Eq. (4), the critical buckling load and corresponding modes (m, n) can be obtained. For the case of local buckling, the skin of per unit cell can be considered as a simply supported rectangular plate. Thus, the critical buckling load for such a plate can be written as  4  2  4 ! m π 2 D1 dn þ2D3 bmnn þ D2 bnn nd P plate ¼ ð24Þ  2
+m dn
+
+Et s 3 EI r EAr þ þ zr 2 Dy ¼ dn 12ð1 À μ2 Þ dn Dxy Et s 3 GJ GJ þ sþ r ¼ 6ð1 þ μÞ bn dn
+
+ð16Þ D1 ¼ D2 ¼ ð17Þ Et s 3 12ð1 À μ2 Þ  Et s 3 þ D3 ¼ 6ð1 þ μÞ
+
+ð25Þ  ts 3
+
+Eμ þG 1 À μ2
+
+EAs C x ¼ zs bn EAr C y ¼ zr dn C xy ¼ K xy ¼ 0
+
+ð18Þ ð19Þ ð20Þ
+
+12
+
+ð26Þ
+
+Furthermore, the local buckling load of the traditional stiffened shell can be expressed as P local ¼ t s bn þ t r h P plate t s bn ð27Þ
+
+where zs and zr are the distances of centroid of axial and circumferential stiffeners, respectively. By the geometric analysis of the unit cell, the geometric characteristics of equivalent sections in two directions can be obtained As ¼ Ar ¼ t r h I s ¼ I r ¼ t r h =12 Js ¼ Jr ¼  ! ht r 3 16 tr tr 4 À 3:36 1À 4 16 3 h 12h
+3
+
+2.2. SSM for hierarchical stiffened shells The hierarchical stiffened shell is composed of major stiffeners and minor stiffeners, and the minor stiffeners generally lie between adjacent major stiffeners. To obtain the equivalent stiffness parameters, a unit cell is taken out of the hierarchical stiffened shell, as shown in Fig. 1(a) and (c). According to the homogenization method, the equivalent stiffness parameters of such a unit cell can be written as Ex ¼ Es ðAsn þ Asj Þ Et s þ bj 1 À μ2 ð28Þ
+
+ð21Þ ð22Þ ð23Þ
+
+P. Hao et al. / Thin-Walled Structures 82 (2014) 46–54
+
+49
+
+Ey ¼
+
+Er ðArn þ Arj Þ Et s þ dj 1 À μ2 Es ðI sn þ I sj Þ Es Asj Et s 3 Es Asn þ þ zsn 2 þ zsj 2 bj bj bj 12ð1 À μ2 Þ
+
+ð29Þ
+
+Furthermore, the local buckling load of the hierarchical stiffened shell can be expressed as P local ¼ t s bj þ t rj hj þ ððNan þ Naj Þ=N aj À1Þt rn P plate t s bj þ ððN an þ N aj Þ=Naj À 1Þt rn ð48Þ
+
+Dx ¼
+
+ð30Þ
+
+Er ðI rn þ I rj Þ Er Arj Et s 3 Er Arn þ Dy ¼ þzrn 2 þ zrj 2 dj dj dj 12ð1 À μ2 Þ Dxy ¼ Gs ðJ sn þ J sj Þ Gr ðJ rn þ J rj Þ Et s 3 þ þ 6ð1 þ μÞ bj dj
+
+ð31Þ
+
+ð32Þ
+
+Cx ¼
+
+Á Es À zsn Asn þ zsj Asj bj
+
+It should be noted that the smeared stiffener method is accurate and applicable only for the stiffened shells with close-spaced stiffeners (especially for major stiffeners). Therefore, this method is widely used in the preliminary design stage of stiffened shells. When accounting for the effects of geometric nonlinearity, boundary condition, initial imperfections, etc., more detailed model is required, however, the computational time may cause serious concerns. 2.3. Imperfection sensitivity analysis Based on large collections of experimental data, an empirical guideline to obtain the KDF was recommended by NASA [27] for thin-walled structures with various R/t, in order to accommodate the large discrepancy between theoretical and experimental buckling loads, which can be expressed as KDF ¼ 1 À 0:901ð1 À e À φ Þ qﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ φ ¼ R=t eq =16 t eq ¼ qﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ 4 144Dx Dy =Ex Ey ð49Þ ð50Þ ð51Þ
+
+ð33Þ
+
+Similarly, the geometric characteristics of equivalent sections in two directions can be written as Asn ¼ ððNan þ Naj Þ=N aj À 1Þt rn hn Arn ¼ ððNcn þ N cj À 1Þ=ðN cj À 1Þ À 1Þt rn hn Asj ¼ Arj ¼ t rj hj I sn ¼ ððN an þN aj Þ=N aj À 1Þt rn hn =12 I rn ¼ ððNcn þ N cj À 1Þ=ðN cj À 1Þ À 1Þt rn hn =12 I sj ¼ I rj ¼ t rj hj =12 " !# À Áhn t rn 3 16 t rn t rn 4 À3:36 J sn ¼ N an =Naj À 1 1À 4 3 16 hn 12hn J rn ¼ ððN cn þ N cj À 1Þ=ðN cj À 1Þ À 1Þ
+3 3 3
+
+ð34Þ ð35Þ ð36Þ ð37Þ ð38Þ ð39Þ
+
+ð40Þ
+
+" !# hn t rn 3 16 t rn t rn 4 À 3:36 1À 4 3 16 hn 12hn ð41Þ
+
+J sj ¼ J rj ¼
+
+" !# hj t rj 3 16 t rj t rj 4 À 3:36 1À 4 16 3 hj 12hj
+
+ð42Þ
+
+Cy ¼
+
+Á Er À zrn Arn þ zrj Arj bj
+
+ð43Þ
+
+where teq is the equivalent skin thickness of an orthogrid stiffened shell. Thus the design load is obtained by multiplying the theoretical critical buckling load with this KDF, in order to roughly predict the load-carrying capacity of real structure. However, it is not adequate to represent the actual condition, since the imperfection sensitivities of thin-walled structures are strongly inﬂuenced by manufacturing process and other structural parameters. Moreover, various forms of imperfections can be caused by manufacturing, transportation, installation and serving processes of stiffened shells and other thin-walled structures. According to the previous studies [24,30,31], different imperfection shapes and patterns may have various effects on the pre-buckling evolution and post-buckling path, reﬂecting as different values of KDF. On this account, it requires more detailed modeling of structures and nonlinear analysis for predicting the load redistribution due to pre-buckling bending. In a detailed way, the geometry of an imperfect stiffened shell can be deﬁned by X ¼ Xp þ Ximp Ximp ¼ δN ð52Þ ð53Þ ð54Þ
+
+where Na and Nc are the numbers of axial and circumferential stiffeners respectively, the subscripts n and j stand for the minor and major stiffeners respectively. For the case of local buckling, the skin of per unit cell can be considered as a simply supported orthotropic plate. Consequently, the equivalent stiffness for such an orthotropic plate can be written as  4  2  4 ! mn n π 2 D1 mj þ 2D3 bj dj þ D2 bj d P plate ¼ ð44Þ  2
+m dj
+
+α ¼ δ=ðhþ t s Þ
+
+D1 ¼
+
+Et s 3 EI sn þ zsn 2 EAsn þ bj 12ð1 À μ2 Þ Et s 3 EI rn þ zrn 2 EArn þ 2Þ dj 12ð1 À μ  Et s 3 2GJ sn þ EJ sn 2GJ rn þ EJ rn þ þ þ 6ð1 þ μÞ 2bj 2dj
+Eμ þG 1 À μ2
+
+ð45Þ
+
+where Xp is the nodal coordinates vector of perfect geometry, Ximp is the nodal displacement vector caused by imperfection, representing deviations from the perfect geometry, δ is the maximal amplitude of the deviations along the radial direction, α is the non-dimensional imperfection amplitude, N is the nodal coordinates vector of the base imperfection shape. Various forms of imperfection sensitivities can be obtained by the post-buckling analysis of imperfect structures.
+
+D2 ¼
+
+ð46Þ 
+
+3. Optimization framework for minimum-weight design 3.1. Optimization formulation
+
+D3 ¼
+
+ts
+
+3
+
+12
+
+ð47Þ
+
+The aerospace industry increasingly relies on the use of lightweight structures to meet ﬁnancial and environmental targets.
+
+50
+
+P. Hao et al. / Thin-Walled Structures 82 (2014) 46–54
+
+Thus structural weight is selected as the objective function, and the critical buckling load constraint is considered, which can be calculated by SSM. The minimum-weight optimization formulation can be expressed as Minimize : W Subject to : P cr Z P cr0 X li r X i r X u ; i i ¼ 1; 2; :::; 9 ð55Þ ð56Þ ð57Þ
+
+where W is the structural weight, Pcr is the critical buckling load of the hierarchical stiffened shell, Pcr0 is the critical buckling load of the initial design, Xi is the ith design variable, including the skin thickness ts, the numbers of circumferential and axial stiffeners Nc and Na, the stiffener thicknesses tr, the stiffener heights h for major and minor stiffeners, X li and X u are the lower and upper bounds of i the ith design variable, respectively, as listed in Table 1 in detail, which are set to guarantee that the stiffened shell maintained a generally reasonable dimension. Since the values of optimization objective and constraints can be obtained analytically, heuristic optimization methods could be used to solve this problem. MultiIsland Genetic Algorithm (MIGA) is adopted to ﬁnd the optimum design in this study. The key parameters for MIGA are set as follows: the rates of crossover, mutation, migration are 1.0, 0.1 and 0.5, respectively. The interval of migration is 0.5. The numbers of islands and population per island are 9 and 90, respectively. 3.2. Illustrative example Two orthogrid stiffened shells are established in this study, including a traditional one and a hierarchical one, whose design parameters are exactly identical with the ones in Ref. [37], as well as the boundary conditions, material properties, element meshing, etc. The critical buckling loads of these two stiffened shells are calculated based on the SSM in this study, which are 12,747 kN and 14,421 kN, respectively, compared to the results obtained by linear buckling analyses in Ref. [37], 13,542 kN and 14,790 kN, respectively. Good agreements are found between two analysis methods for both types of stiffened shells. Then, the optimizations for traditional and hierarchical stiffened shells are performed respectively. Iterations of the optimizations for traditional and hierarchical stiffened shells are plotted in Fig. 2. As can be seen, a larger weight reduction is achieved for the hierarchical stiffened shell. Speciﬁcally, reductions of 9.3% and 30.0% are reached for two shells. The critical buckling loads of two optimum designs predicted by SSM are 13,610 kN and 13,561 kN, respectively, while the ones obtained by linear buckling analyses are 14,483 kN and 14,210 kN, together with eigenmode shapes shown in Fig. 2.
+Table 1 Design space of the variables in the traditional and hierarchical stiffened shells. ts trj [mm] [mm] Initial design (traditional) Lower bound (traditional) Upper bound (traditional) Initial design (hierarchical) Lower bound (hierarchical) Upper bound (hierarchical) 4.0 2.5 5.5 4.0 2.5 5.5 — — — 9.0 3.0 12.0 trn [mm] 9.0 3.0 12.0 9.0 3.0 12.0 hj [mm] — — — 23.0 15.0 30.0 hn [mm] 15.0 6.0 30.0 11.5 6.0 15.0 Ncj Ncn Naj Nan
+
+Fig. 2. Iteration histories of the minimum-weight optimizations for traditional and hierarchical stiffened shells.
+
+The detailed variable values of two initial designs and two optimum designs are listed in Table 2, and the performances of different designs are given in Table 3. It can be found that both the stiffener thicknesses of two optimum designs are close to the lower bound, and thus it can be concluded that the contribution of stiffener thickness to bending stiffness is limited. The main difference of two optimum designs lies in the skin thickness: the smaller skin thickness allows for the increases of stiffener height and number, however, this may be accompanied with a risk of local skin buckling between adjacent stiffeners, which is not permitted in a practical design. The existence of minor stiffeners has the ability to prevent from the skin buckling, while the major stiffeners can provide a high bending stiffness against global buckling. The non-uniform stiffness distribution of the hierarchical stiffened shell enhances the advantage of ﬂexibility and the potential of weight saving.
+
+4. Optimization framework for low imperfection sensitivity 4.1. Imperfection sensitivity analysis Experimental results showed that shells with equal buckling loads of the perfect cylindrical shells may have different buckling loads of the imperfect shells [38]. This discrepancy has been generally attributed to the presence of imperfections in real cylinders. Consequently, imperfection sensitivity must be incorporated within the context of a design process. Firstly, KDFs of two initial designs are calculated by Eqs. (49)–(51), which equal to 0.60 and 0.61 for the traditional and hierarchical stiffened shells, respectively. Thus, the critical buckling loads including imperfection sensitivity are 7624 kN and 8817 kN, respectively. Alternatively, the effects of various forms of imperfections can be investigated by exact FEM analysis. According to the previous study in Ref. [37], the concerned maximal imperfection amplitude was speciﬁed as the sum of stiffener height and skin thickness (δ ¼ 19.0 mm), which is assumed to be sufﬁcient to include a practical range of imperfection amplitudes that would be acceptable for as-built cylinders [39]. The minimum collapse loads along the eigenmode-shape imperfection sensitivity curves of traditional and hierarchical stiffened shells are 7954 kN and 9237 kN, respectively. The predictions of the reduction of load-carrying capacity by the empirical formula and exact FEM analysis generally agree well. However, it is worth noting that, the computational time of an explicit dynamic analysis for such a hierarchical stiffened shell is
+
+— — — 7 4
+
+25 11 39 18 3
+
+— — — 30 20
+
+90 50 130 60 20
+
+10 36
+
+50 200
+
+P. Hao et al. / Thin-Walled Structures 82 (2014) 46–54
+
+51
+
+Table 2 Variable values of two initial designs and two optimum designs in the minimum-weight optimization. ts [mm] Initial design (traditional) Initial design (hierarchical) Lightweight optimum design (traditional) Lightweight optimum design (hierarchical) 4.0 4.0 5.0 2.8 trj [mm] — 9.0 — 6.3 trn [mm] 9.0 9.0 3.1 3.1 hj [mm] — 23.0 — 29.9 hn [mm] 15.0 11.5 19.2 14.4 Ncj — 7 — 7 Ncn 25 18 17 6 Naj — 30 — 47 Nan 90 60 129 94
+
+Table 3 Performances of two initial designs and two optimum designs in the minimumweight optimization. Pcr [kN] (SSM) Initial design (traditional) Initial design (hierarchical) Lightweight optimum design (traditional) Lightweight optimum design (hierarchical) 12,747 14,442 13,610 13,561 Pcr [kN] (FEM) 13,542 14,790 14,483 14,210 Weight [kg] 354.6 354.6 321.5 248.2
+
+about 1.8 h, using while such a linear buckling analysis based on the SSM only needs about 1 s. 4.2. Optimization formulation As such, a design can be named ‘optimal’ only if the inﬂuence of imperfections and the resulting decrease of the load-carrying capacity are added to the design criteria. However, accounting for imperfections requires more detailed modeling of structures and nonlinear analysis for predicting the load redistribution due to pre-buckling bending. This may cause serious concerns on the computational burden for such an optimization, even if surrogatebased technology is utilized. In this study, a hybrid optimization framework of the hierarchical stiffened shell including imperfection sensitivity is proposed, as illustrated in Fig. 3. Firstly, SSM is used to predict the theoretical critical buckling load in the Design of Experiment (DOE), which usually occupies most of the computational cost in a surrogate-based optimization. Then, the KDF is calculated by Eqs. (49)–(51), and the design load is obtained by multiplying the theoretical critical buckling load with this KDF. Obviously, this design load is only a rough prediction of the load-carrying capacity of the real structure, although the tendency of this design load is generally coincident with the actual condition, it is not adequate to substitute for the actual load-carrying capacity. Consequently, exact FEM analysis is performed to correct the predicted value by the surrogate model in the outer updates. The new design point is added to the training sample set, and another new surrogate model is built until a convergence is reached. More speciﬁcally, the convergence criteria is only used in the outer update. 4.3. Illustrative example In this section, the optimizations for traditional and hierarchical stiffened shells are performed respectively. The objective is to maximize the load-carrying capacity of imperfect structures under the weight constraint. The optimization formulation can be expressed as Maximize : P imp Subject to : W rW 0 X li r X i r X u ; i i ¼ 1; 2; :::; 9 ð58Þ ð59Þ ð60Þ
+
+where Pimp is the load-carrying capacity of imperfect structures. In the DOE, it can be derived by multiplying the theoretical critical buckling load with the empirical KDF. While in the outer update process, it can be obtained by the nonlinear post-buckling analysis of imperfect stiffened shell. Speciﬁcally, eigenmode-shape imperfection with δ ¼19.0 mm is taken into account in this study. The upper and lower bounds of all the variables are listed in Table 1 in detail. In the DOE, a set of 1000 sampling points is generated using the Optimal Latin Hypercube Sampling (OLHS) method throughout the entire design space, which is a stratiﬁed sampling approach with the restriction that each input variable has all portions of its distribution represented by input values [40]. Then, the Radial Basis Function (RBF) model is constructed based on the sampling data, which was proven to be the most dependable surrogatebased method in most situations for global optimization in terms of accuracy and robustness [41]. MIGA is adopted to ﬁnd the optimum design in the inner optimization process. The parameters setting of MIGA are identical with the previous lightweight optimization. For the sake of clarity, only the iteration histories of the outer updates for traditional and hierarchical stiffened shells are plotted in Fig. 4. As can be seen, two curves show somewhat oscillations due to the inﬂuence of designs violating the constraint. However, with the aid of continuous outer updates, convergences are ﬁnally achieved. The critical buckling loads of traditional and hierarchical optimum designs obtained by FEM are 22,348 kN and 18,073 kN, respectively, with the eigenmode shapes shown in Fig. 4. Consequently, nonlinear explicit dynamic analyses are carried out, and the collapse loads of two optimum designs with eigenmode-shape imperfections (δ ¼ 19.0 mm) are 10,586 kN and 12,903 kN, respectively. To validate the optimum designs, eigenmode-shape imperfection sensitivity analyses are performed, and the corresponding curves are given in Fig. 5. Although the collapse loads of the traditional optimum design are higher than the ones of the hierarchical optimum design for small-amplitude imperfections, the advantages of the hierarchical one are further emerging with the increase of imperfection amplitude, since the lower bound of the imperfection sensitivity curve of the hierarchical optimum design is improved by 21.9% compared to the one of the traditional optimum design, which indicates a more efﬁcient design. 4.4. Comparison of different optimum designs For the purpose of comparison, the load-carrying capacity optimization of the hierarchical stiffened shell is carried out based on SSM, and the iteration history using MIGA is shown in Fig. 6. The critical buckling loads of the corresponding optimum design obtained by SSM and FEM are 21,353 kN and 22,348 kN, respectively, which are larger than the design obtained by the hybrid optimization due to the global searching capacity of MIGA. However, the lower bound of the corresponding imperfection sensitivity curve shown in Fig. 5 is relatively small, and this increases the potential design risk. Further, knockdown effects are considered into the optimization objective by the KDF guideline in Eqs. (49)–(51), and another
+
+52
+
+P. Hao et al. / Thin-Walled Structures 82 (2014) 46–54
+
+Fig. 3. Hybrid optimization framework of stiffened shells based on SSM and FEM.
+
+Fig. 4. Iteration histories of the hybrid optimizations for traditional and hierarchical stiffened shells.
+
+Fig. 6. Iteration history of the load-carrying capacity optimization for the hierarchical stiffened shell based on SSM.
+
+Fig. 5. Eigenmode-shape imperfection sensitivity curves of different designs.
+
+Fig. 7. Iteration history of the load-carrying capacity optimization for the hierarchical stiffened shell based on SSM and NASA's guideline.
+
+optimization of the hierarchical stiffened shell is performed by utilization of MIGA, with the iteration history shown in Fig. 7. The detailed variable values of the optimum designs are listed in Table 5. The critical buckling loads of the corresponding optimum
+
+design obtained by SSM and FEM are 21,444 kN and 22,146 kN, respectively. Nevertheless, from Fig. 5 and Table 4, it is evident that the tendency of the corresponding imperfection sensitivity
+
+P. Hao et al. / Thin-Walled Structures 82 (2014) 46–54
+
+53
+
+Table 4 Performances of two initial designs and four optimum designs. Pcr [kN] (SSM) Initial design (traditional) Initial design (hierarchical) Hybrid optimum design (traditional) Hybrid optimum design (hierarchical) Optimum design by SSM (hierarchical) Optimum design by SSM and guideline (hierarchical) Optimum design by FEM (hierarchical) 12,747 14,442 19,659 19,882 21,370 21,444 15,194 Pcr [kN] (FEM) 13,542 14,790 21,452 18,073 22,348 22,146 16,202 P0 [kN] 16,853 17,265 20,263 21,075 21,154 21,855 19,893 Pimp [kN] 7954 9237 10,586 12,903 10,165 10,915 12,103 Weight [kg] 354.6 354.6 353.3 354.6 351.3 353.2 353.6 CPU time [h] — — 19 18 5 5 178
+
+Table 5 Variable values of two initial designs and four optimum designs. ts [mm] Initial design (traditional) Initial design (hierarchical) Hybrid optimum design (traditional) Hybrid optimum design (hierarchical) Optimum design by SSM (hierarchical) Optimum design by SSM and guideline (hierarchical) Optimum design by FEM (hierarchical) 4.0 4.0 3.6 4.5 4.3 4.2 4.2 trj [mm] — 9.0 — 8.5 8.5 9.9 9.7 trn [mm] 9.0 9.0 5.7 5.9 3.1 3.2 7.7 hj [mm] — 23.0 — 30.0 30.0 29.7 30.0 hn [mm] 15.0 11.5 27.4 13.5 14.7 14.9 6.0 Ncj — 7 — 5 8 7 5 Ncn 25 18 22 4 14 6 16 Naj — 30 — 50 45 49 48 Nan 90 60 99 50 45 49 48
+
+concluded that the proposed hybrid optimization framework has the potential to ﬁnd the global optimum with high efﬁciency.
+
+5. Conclusion Smeared Stiffener Method (SSM) of the hierarchical stiffened shell is derived in this study, which is efﬁcient in the preliminary design phase. Then, a minimum-weight optimization formulation for the hierarchical stiffened shell is proposed based on the SSM, and the illustrative example demonstrates that the hierarchical stiffened shell has a higher structural efﬁciency compared to the traditional one. From the point-of-view of manufacturing, the hierarchical stiffened shell is convenient to fabricate by numerical control milling, and this further enhances the beneﬁts of the hierarchical stiffened shell. Further, imperfections sensitivities of traditional and hierarchical stiffened shells are compared by the FEM and SSM together with the empirical guideline from NASA. Due to the fact that there are currently no closed-form solutions to take imperfections into account accurately, a hybrid optimization framework of the hierarchical stiffened shell including imperfection sensitivity is proposed herein, combining the efﬁciency of SSM with the accuracy of FEM. The illustrative example is established to demonstrate the high optimization efﬁciency of the proposed framework, as well as the ability of global optimization compared to the current approaches. Finally, it should be mentioned that the hybrid optimization framework is also applicable to other types of traditional and hierarchical stiffened shells, e.g. isogrid, kagome, angle-grid, etc., as well as composite stiffened shells.
+
+Fig. 8. Iteration histories of the optimizations for the hierarchical stiffened shell based on FEM.
+
+curve is similar to the one of the optimum design by SSM, and the imperfection sensitivity is reduced in a small amplitude. Moreover, a direct surrogate-based optimization of the hierarchical stiffened shell is carried out based on FEM. Due to the high computational cost of post-buckling analysis, only a small sample set is used in the DOE. According to Ref. [41], a sample set of 90 points is generated by the OLHS. Similarly, RBF model is then built and MIGA is adopted to carry out the surrogate-based optimization. The iteration history of the outer updates is given in Fig. 8. The critical buckling loads of the optimum design obtained by SSM and FEM are 15,194 kN and 16,202 kN, respectively. Since imperfection sensitivity is taken into account in the optimization objective, the corresponding curve shown in Fig. 5 is generally similar to the one of the hybrid optimum design. The lower bound of this design is slightly higher than the one of the hybrid optimum design, as listed in Table 4. However, the direct surrogatebased optimization needs a total number of 99 exact FEM analyses (takes about 178 h in total), while the hybrid optimization only needs a total number of 9 exact FEM analyses (only takes about 18 h in total), as listed in Table 4. Consequently, it can be
+
+Acknowledgments The research is supported by the National Basic Research Program of China (2014CB049000, 2014CB046506), the National Natural Science Foundation of China (11372062, 91216201 and 11128205), the Project funded by China Postdoctoral Science Foundation (2014M551072), the Fundamental Research Funds for the Central Universities (DUT14RC(3)028) and LNET Program (LJQ2013005).
+
+54
+
+P. Hao et al. / Thin-Walled Structures 82 (2014) 46–54
+
+Additionally, C. Huang, X. Zhang and D.J. Zeng from Beijing Institute of Astronautical Systems Engineering are much appreciated for their helpful comments and suggestions. References
+[1] Venkataraman S, Lamberti L, Haftka RT. Challenges in comparing numerical solutions for optimum weights of stiffened shells. J Spacecr Rockets 2003;40 (2):183–92. [2] Calladine CR. Theory of shell structures. Cambridge, UK: Cambridge University Press; 1983. [3] Thompson JMT, Hunt GW. Elastic instability phenomena. Chicester, UK: John Wiley; 1984. [4] Croll JGA. Towards a rationally based elastic–plastic shell buckling design methodology. Thin-Walled Struct 1995;23(1–4):67–84. [5] Kidane S, Li G, Helms J, et al. Buckling load analysis of grid stiffened composite cylinders. Compos Part B: Eng 2003;34(1):1–9. [6] Crisﬁeld MA. A faster modiﬁed Newton–Raphson iteration. Comput Methods Appl Mech Eng 1979;20(3):267–78. [7] Crisﬁeld MA. A fast incremental/iteration solution procedure that handles ‘snap-through. Comput Struct 1981;13(1–3):55–62. [8] Lanzi L, Giavotto V. Post-buckling optimization of composite stiffened panels: computations and experiments. Comput Struct 2006;73(2):208–20. [9] Bushnell D. Static collapse: a survey of methods and modes of behavior. Finite Elem Anal Des 1985;1(2):165–205. [10] Wu H, Yan Y, Yan W, et al. Adaptive approximation-based optimization of composite advanced grid-stiffened cylinder. Chin J Aeronaut 2010;23(4): 423–9. [11] Bushnell D, Bushnell WD. Minimum-weight design of a stiffened panel via PANDA2 and evaluation of the optimized panel via STAGS. Comput Struct 1994;50(4):569–602. [12] Leriche R, Haftka RT. Optimization of laminate stacking sequence for buckling load maximization by genetic algorithm. AIAA J 1993;31(5):951–6. [13] Jaunky N, Knight NF, Ambur DR. Optimal design of general stiffened composite circular cylinders for global buckling with strength constraints. Compos Struct 1998;41(3):243–52. [14] Venkataraman S, Lamberti L, Haftka RT. Challenges in comparing numerical solutions for optimum weights of stiffened shells. J Spacecr Rockets 2003;40 (2):183–92. [15] Rikards R, Abramovich H, Kalnins K, et al. Surrogate modeling in design optimization of stiffened composite shells. Compos Struct 2006;73(2):244–51. [16] Lamberti L, Venkataraman S, Haftka RT, et al. Preliminary design optimization of stiffened panels using approximate analysis models. Int J Numer Methods Eng 2003;57(10):1351–80. [17] Hao P, Wang B, Li G. Surrogate-based optimum design for stiffened shells with adaptive sampling. AIAA J 2012;50(11):2389–407. [18] Bushnell D, Rankin C. Optimum design of stiffened panels with sub-stiffeners. In: Proceedings of the 46th AIAA/ASME/ASCE/AHS/ASC structures, structural dynamics and materials conference. Austin, TX, 2005 [AIAA 2005-1932]. [19] Watson A, Featherston CA, Kennedy D. Optimization of postbuckled stiffened panels with multiple stiffener sizes. In: Proceedings of the 48th AIAA/ASME/ AHS/ASC structures, structural dynamic, and materials conference. Honolulu, HI, 2007 [AIAA 2007-2207]. [20] Quinn D, Murphy A, McEwan W, et al. Stiffened panel stability behaviour and performance gains with plate prismatic sub-stiffening. Thin-Walled Struct 2009;47(12):1457–68.
+
+[21] Quinn D, Murphy A, McEwan W, et al. Non-prismatic sub-stiffening for stiffened panel plates – stability behaviour and performance gains. ThinWalled Struct 2010;48(6):401–13. [22] Quinn D, Murphy A, Glazebrook C. Aerospace stiffened panel initial sizing with novel skin sub-stiffening features. Int J Struct Stab Dyn 2012;12(5):1–23. [23] Arbocz J, Starnes JH. Future directions and challenges in shell stability analysis. Thin-Walled Struct 2002;40(9):729–54. [24] Hilburger MW, Starnes JH. Effects of imperfections of the buckling response of composite shells. Thin-Walled Struct 2004;42(3):369–97. [25] Lindgaard E, Lund E, Rasmussen K. Nonlinear buckling optimization of composite structures considering worst shape imperfections. Int J Solids Struct 2010;47(22–23):3186–202. [26] Wang B, Hao P, Li G, et al. Determination of realistic worst imperfection for cylindrical shells using optimization algorithm. Struct Multidiscip Optim 2013;48(4):777–94. [27] Seide P, Weingarten VI, Peterson JP Buckling of thin-walled circular cylinders. NASA space vehicle design criteria. 1968 [NASA SP-8007]. [28] Hilburger MW, Nemeth MP, Starnes JH. Shell buckling design criteria based on manufacturing imperfection signatures. AIAA J 2006;44(3):654–63. [29] Bushnell D, Bushnell WD. Approximate method for the optimum design of ring and stringer stiffened cylindrical panels and shells with local, inter-ring, and general buckling modal imperfections. Comput Struct 1996;59(3): 489–527. [30] Wang B, Hao P, Li G, et al. Improved knockdown factors for cylindrical shells using worst multi-perturbation load approach. Shell Structures: Theory and Application 2013:263–6. [31] Calladine CR. Understanding imperfection-sensitivity in the buckling of thinwalled shells. Thin-Walled Struct 1995;23(1):215–35. [32] Teng JG, Song CY. Numerical models for nonlinear analysis of elastic shells with eigenmode-afﬁne imperfections. Int J Solids Struct 2001;38(18):3263–80. [33] Anonymous. Design of steel structures, Part 1.6: general rules-supplementary rules for the strength and stability of shell structures. Eurocode 1999;3. [34] Castro SGP, Zimmermann R, Arbelo MA, et al. Geometric imperfections and lower-bound methods used to calculate knock-down factors for axially compressed composite cylindrical shells. Thin-Walled Struct 2014;74:118–32. [35] Hao P, Wang B, Li G, et al. Surrogate-based optimization of stiffened shells including load-carrying capacity and imperfection sensitivity. Thin-Walled Struct 2013;72(15):164–74. [36] Obrecht H, Fuchs P, Reinicke U, et al. Inﬂuence of wall constructions on the load-carrying capacity of light-weight structures. Int J Solids Struct 2008;45 (6):1513–35. [37] Wang B, Hao P, Li G, et al. Optimum design of hierarchical stiffened shells for low imperfection sensitivity. Acta Mechan Sin 2013. http://dx.doi.org/10.1007/ s10409-014-0003-3. [38] Hühne C, Rolfes R, Breitbach E, et al. Robust design of composite cylindrical shells under axial compression – simulation and validation. Thin-Walled Struct 2008;46(7):947–62. [39] Haynie W.T., Hilburger M.W. Comparison of methods to predict lower bound buckling loads of cylinders under axial compression. In: Proceedings of the 51st AIAA/ASME/ASCE/AHS/ASC structures, structural dynamics and materials conference. Orlando, FL, 2010 [AIAA 2010-2532]. [40] Park JS. Optimal Latin-hypercube designs for computer experiments. J Stat Plan Infer 1994;39(1):95–111. [41] Jin R, Chen W, Simpson TW. Comparative studies of metamodelling techniques under multiple modelling criteria. Struct Multidisc Optim 2001;23(1): 1–13.
+

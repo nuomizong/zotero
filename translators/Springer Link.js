@@ -9,7 +9,7 @@
 	"priority": 100,
 	"inRepository": true,
 	"browserSupport": "gcsbv",
-	"lastUpdated": "2017-03-01 21:00:00"
+	"lastUpdated": "2017-06-12 00:40:00"
 }
 
 function detectWeb(doc, url) {
@@ -208,7 +208,7 @@ function scrape(doc, url) {
 			trans.doWeb(doc, doc.location.href);
 		});
 	} else {
-		var risURL = url.replace(/springer\.com/, "springer.com/export-citation/").replace(
+		var risURL = url.replace(/springer\.com/, "springer.com/export-citation").replace(
 				/[#?].*/, "") + ".ris";
 			//Z.debug(risURL)
 		var DOI = url.match(/\/(10\.[^#?]+)/)[1];

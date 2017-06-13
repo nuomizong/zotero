@@ -1,0 +1,3726 @@
+THE BEHAVIOUR
+
+AND DESIGN OF TRANSVERSE
+
+WEB STIFFENERS IN BRIDGE GIRDERS.
+A thesis submitted for the degree of DOCPDROF PIRLOSOPHY
+
+by
+
+KASSEM. N. RAHAL
+
+Department of Civil Engineering University Surrey of
+
+SEPTEMBER 1989
+
+I
+
+ABSTRACT The objective of the work presented in this thesis is to investigate the behaviour of transverse stiffeners in transversely stiffened girder webs to various combinations of shear and in-plane longitudinal subjected A fully nonlinear finite element package is used to examine stresses. the effect of panel and stiffener geometrical parameters and initial imperfections on the behaviour of the stiffeners. Particular attention is paid to the way in which the various geometrical parameters affect the deflection and stress state of the stiffener and the peak capacity of the stiffened plate. Variation in material yield stress is also considered. The results of capacity varies concludes that As a result, a is proposed. the parametric study demonstrate the way in which panel with stiffener size for a full range of geometries and stiffener bending rigidity is the major design parameter. new design philosophy for the stiffener optimum rigidity
+
+The basis of current design formulations for transverse stiffeners are compared with the results of the current numerical studies. A simple analytical model is then formulated which reproduces the numerical parametric results. The model produced is appropriate for design and is compatible with the clauses within the current British design rules. Examples are given of the use of the design procedure, and the resulting transverse stiffener rigidities are compared with those obtained from the finite element results and w ith existing design methods.
+
+II
+
+like to express my eternal gratitude to my supervisor I would firstly this Professor John E. Harding, without whose guidance and inspiration I would have been accomplished within three years. thesis would not like to thank Professor N. E. Simons for allowing this research to be also Engineering the Department at Surrey of Civil carried out within University.
+
+A very special mention must be made of the Hariri Foundation, without financial support this project would not have been possible. I am whose to their UX representative Miss Mona Knio for her also grateful unfailing support. The assistance provided by Finite Element Analysis Ltd who developed the software package used for the current parametric studies is sincerely acknowledged. The patience shown by the personnel of the University of Surrey computer unit in dealing with vast quantities of computer printouts is highly appreciated. Particular thanks are due to my colleagues Mr Louca Louca and Mr Walid Hindi for the invaluable discussions throughout the course of this work. I am indebted to Mr Harry Wickens for his high standard of draughtmanship of the figures and to Miss Nicky Owen for her excellent typing of the manuscript. A mention must be made of my brother Hassan and my fiance Baria for their support and encouragement. Finally heartfelt gratitude is expressed to all my colleagues, too many to for their help and advice. Many thanks also to my family and mention, friends in and outside Britain for their patience, support and constant encouragement throughout the completion of this work.
+
+To my parents, Nimer and Mounira Rahal
+
+III
+
+CONTENTS
+
+Page
+ABSTRACT ACKNOWLEDGENENTS CONTENTS NOTATION CHAPTER 1.1 1.2 I INTRODUCTION AND LITERATURE SURVEY
+
+Ix 1 2 METHODS 3 3 3 4 5 5 6 7 9 9 10 10 11 13 15 15
+
+IN1RODUMON REVIEW OF STABILITY PLATE ANALYSIS 1.2.1 Basis of review 1.2.2 Small deflection theory Direct integration 1.2.2.1 Energy methods 1.2.2.2 1.2.2.3 Finite differences 1.2.2.4 Finite element method 1.2.3 Large deflection theory
+
+1.3
+
+ULTIMATE CAPACITTES OF PLATES 1.3.1 Introduction 1.3.2 Strength of web panels in girders without longitudinal stiffeners 1.3.2.1 Panels subjected to uniform longitudinal compression 1.3.2.2 Panels subjected to linearly varying stresses 1.3.2.3 Tension field models for panels in shear 1.3.2.4 Panels under combined shear and bending 1.3.3 Strength of web panels in girders with longitudinal stiffeners
+
+1.4
+
+LITERATURE REVIEW OF TRANSVERSE WEB STIFFENER DESIGN 1.4.1 Early linear theoretical studies 1.4.2 Early experimental studies 1.4.3 Elastic second order analyses 1.4.4 Ultimate strength theoretical requirements 1.4.5 Code of practice requirements AIM OF THESIS SCOPEOF THESIS
+
+17 17 18 19 20 23 25 26
+
+1.5 1.6
+
+IV
+
+Page 1.7 RENCES Figures CHAPTER 2 THE FINITE ELEMENT VALIDATION PROGRAM AND ITS 44 45 45 46 46 46 47 50 51 PARAMETRIC TO SHEAR STUDY OF PLATES SUBJECTED 55 56 56 56 57 58 58 59 60 60 60 63 66 67 67 69 70 71 27 37
+
+2.1 2.2 2.3
+
+RaRODUCIION DESCREMON OF TBE FINITE ELEMENT PACKAGE FINITE ELEMENT PACKAGE VALIDATION 2.3.1 Introduction 2.3.2 Analytical validation 2.3.3 Experimental validation RENCES Figures
+
+2.3
+
+CHAPTER 3
+
+3.1 3.2
+
+ElaRODUCnON PARAMETERSUNDER STUDY 3.2.1 Introduction 3.2.2 Boundary conditions and loading 3.2.3 Material Properties 3.2.4 Geometric Properties 3.2.5 Initial Imperfections RESULTSOF THE STUDY 3.3.1 Presentation 3.3.2 Effect of the boundary restraint 3.3.3 Effect of the initial out-of-plane displacement patterns 3.3.4 Effect of plate slenderness 3.3.5 Effect of aspect ratio 3.3.6 Effect of yield stress 3.3.7 Effect of the stiffener size parameter 3.3.8 Summary of the range of parameters DISCUSSIONS AND CONCLUSION
+
+3.3
+
+3.4
+
+V
+
+Page 3.5 RENCES Tables Figures CHAPTER 4 COMPARISON BETWEEN FINITE ELEMENT ANALYSIS AND RICHMOND AND ROCKEY APPROACHES 73 74 89
+
+127 128
+128 128 128 130 133
+
+4.1
+4.2
+
+E,;TRODUCrION
+RICHMOND APPROACH 4.2.1 Introduction 4.2.2 Background of the approach 4.2.3 Design approach for transverse stiffeners 4.2.4 Verification of the stiffener design approach
+
+4.3
+
+COMPARISON OF RICHMOND LATERAL LOAD WITH FINITE ELEMENT ANALYSIS BASIC THEORY FOR PREDICTING THE ULTIMATE SHEAR CAPACITY OF TRANSVERSELY STIFFENEDWEBS 4.4.1 Introduction 4.4.2 Shear capacity ROCKEY ULTIMATE APPROACHFOR THE DESIGN OF TRANSVERSE STU+-ENERS 4.5.1 Introduction 4.5.2 Loads imposed upon a transverse stiffener 4.5.3 Analysis and design of stiffener 4.5.4 Verification of Rockey design approach with experimental results COMPARISONS OF ROCKEY'S APPROACH VVITHFINITE ELEMENT ANALYSIS BS5400REQUIREMENTS FOR TIHEDESIGN OF TRANSVERSE STU+-ENERS CONCLUSIONS
+REFERENCES
+
+134
+
+4.4
+
+136 136 136
+
+4.5
+
+141 141 141 143 145
+
+4.6
+
+147
+
+4.7
+
+148 151
+152
+
+4.8
+4.9
+
+vi
+
+Page Tables Figures CHAPTER 5 STIFFENER DESIGN APPROACH FOR PLATES IN SHEAR 154 157
+
+196 197
+
+5.1 5.2
+
+U-MODUMON DISTRMUTION OF LATERAL LOADS AT THE STTFFENER POSMON REPRESENTATIONOF LATERAL FORCESACTING ON TBE STIFFENER
+
+197
+
+5.3
+
+199
+
+5.4
+
+DESIGN OPTIMUM RIGIDITY FOR TRANSVERSE STIFFENERS 201 5.4.1 Introduction 201 5.4.2 Design philosophy for the optimum rigidity 201 5.4.3 Effect of yield stress on the -optimum rigidity 202 DESIGN PROPOSALFOR TRANSVERSESTIFFENERSBASED ON A SIMPLE BEAM MODEL COMPARISON BETWEEN FINITE ELEMENT ANALYSIS AND SIMPLE BEAM MODEL DISCUSSIONAND CONCLUSION RENCES Figures
+
+5.5
+
+205
+
+5.6
+
+208 209 210 211
+
+5.7
+
+CHAPTER 6
+
+PROPOSAL FOR DIMENSIONING THE TRANSVERSE STIFFENERS IN STIFFENED PLATES SUBJECTED TO IN-PLANE STRESSES
+
+260 261
+
+6.1 6.2
+
+RMODUCIION STIFFENEDPLATES SUBJECTEDTO COMBINED SHEAR AND IN-PLANE COMEPRESSION 6.2.1 Introduction 6.2.2 Boundary conditions and loading 6.2.3 Effect of initial imperfections on the stiffener behaviour.
+
+261 261 262 263
+
+Vil
+
+Page 6.2.4 Stiffener design optimum rigidities for different plate geometries 6.2.5 Beam model design approach 6.2.6 Comparison between the design approach and the finite element analyses. 6.3 STH+TMD PLATES SUBJECTEDTO IN-PLANE BENDING STRESSES 6.3.1 Introduction 6.3.2 Boundary conditions and loading 6.3.3 Effect of initial imperfections on the stiffener behaviour. 6.3.4 Effect of stiffener rigidity parameter on the plate bending capacity. ultimate 6.3.5 Beam model design approach for transverse in plates subjected to in-plane bending stiffeners stresses 6.3.6 Comparison between the design approach and the F.E analysis. 6.3.7 Beam model design approach for stiffeners in stiffened plates loaded by a general combination of in-plane stresses DISCUSSIONAND CONCLUSION REF RENCES Tables Figures CHAPTER 7 DESIGN RECOMMENDATIONS CONCLUSION AND 323 324
+324 324 325 326
+
+265 266 268
+
+269 269 270 270 272
+
+272 275
+
+276 278 279 280 283
+
+6.4 6.5
+
+7.1
+7.2
+
+WIRODUC110N
+DESIGN RECOMMENDATIONS 7.2.1 Process of design 7.2.2 Design proposal 7.2.3 Effect of direct axial forces on transverse stiffener design
+
+7.3 7.4
+
+COMPARISONS WITH BS5400 REQUIREMENTS CONCLUSIONS
+
+327 329
+
+viii
+
+Page 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.5 7.6 The finite element package Stiffened plate subjected to shear Stiffened plates subjected to shear and compression Stiffened plates subjecetd to bending stresses Design of transverse stiffeners 329 329 331 331 332 333 334 335 341 345
+
+RECOMAENDATIONS FOR FUTUREWORK RENCES Figures APPENDIX A APPENDIX B
+
+ix
+
+NOTATION
+
+a b bf 0=
+
+width of web panel depth of web panel width of the flange alb panel aspect ratio 3 E tw flexural rigidity of web plate D 2) 12(1 _V depth of the stiffener outstand D, E modulus of Elasticity (N/mM2) F max. lateral force acting on the stiffener (N) Ieff moment of inertia of the effective stiffener section about its centroid K critical buckling shear stress bending moment in the web M M fw 0.25 cry bf tf2/(b2 tw cyy) relative flange to web bending rigidity MP plastic moment of the girder bending moment in the stiffener MS P stiffener axial direct load Euler buckling load PE thickness of the flange tf Ts thickness of the stiffener tw V" w Y yS zS thickness of the web ultimate capacity of the web intensity of the stiffener lateral load stiffener maximum lateral displacement distance between the centroid of the effective section and the stiffener outstand edge effective stiffener section modulus shear strain early stiffener rigidity parameter finite element optimum stiffener rigidity stiffener rigidity aD parameter
+
+70 Ys
+
+shear yield strain 7Y 'Y'Y= Y/YY non-dimensional shear strain 6 unaxial compressive strain EY compressive yield strain
+
+x
+25 plate slenderness ratio 35 tw Poisson ratio V in-plane plate bending stress Cyb in-plane plate compressive stress ac CFe maximum bending stress at the extreme fibre of the stiffener outstand Cru plate ultimate compressive stress CFY yield stress CFYW web yield stress CF'C Gc/ay non-dimensional compressive stress average shear stress acting on the stiffened plate (N/mM2) elastic critical shear stress (N/mm2) 'r cr plate ultimate shear capacity 'r U Ty = ay / V6 shear yield stress (NI MM2) compressive coefficient bending coefficient b
+
+CHAPTER 1 INTRODUCTION AND LITERATURE REVIEW.
+
+2
+1.1 INTRODUCTION
+
+In steel and composite bridges, plate and box girders are used the bending moments and shearing forces exceed the when the available rolled sections. An efficient design of capacity of these girders requires the use of deep webs to separate the flanges in order to optimize the bending moment capacity of the girder cross section. To reduce the self-weight of the girder, the thickness may be quite small, and often is such that required web the elastic critical buckling shear stress obtained from a first order theoretical analysis is considerably less than the shear yield stress; shear stress usually being the dominant stress component in a web panel. It has been accepted for many years that the web panel has a post-buckling strength in excess of the significant reserve of buckling stress and early 'allowable stress' codes of elastic critical practice acknowledged this by allowing a low safety factor for the design of the web compared with other components(1.107). Consideration of first order elastic buckling theory indicates that increases in critical significant stress can be achieved by employing transverse stiffeners to divide the web into a number of smaller panels. If this theory is used as a basis for the design is normally of web panels, a theoretical minimum rigidity specified; defined (non-dimensionally in terms of the parameter EI ) such that the elastic buckling capacity of the stiffened web 7= aD is approximately equal to that of an individual plate panel Early supported along the line of the transverse stiffeners. 1-1.2) indicated that this theoretical minimum experimental work(l. inadequate even at relatively low stress levels, and rigidity was hence stiffener design was generally based on empirical formulae(l. 3). This is primarily because first order theory takes no account of the influence of initial imperfections. The introduction of limit state methods to the design of steel bridges has highlighted the importance of post-buckling behaviour in slender webs subjected to shear. For this reason, the design of in the new design has been modified transverse stiffeners In the current British Standard BS5400 (Part 3)(1.4), the methods. design of transverse stiffeners is based on the concept of a strut The axial loading acting on the strut arises from the model. destabilizing effects of in-plane and shear stresses, in addition to forces due to tension field action from the post buckled web. It is accepted that the above requirements are safe but it is now
+
+3
+considered that the approach is potentially conservative due to an in the representation the destabilizing approximation of components leading to an incorrect formulation for the growth of strut deflections. Rockey et al(I. 5) proposed a plastic design procedure based on stresses and forces evaluated at the ultimate load of the web The stiffener sizes calculated using this method are panels. sufficient to support the ultimate loads acting on them. All the tests used for the basis of the model were, however, on slender webs. His proposal is complicated to apply in design because of the number of parameters involved. Horne and Grayson(1-5) proposed an empirical stiffener rigidity formula based on a parametric finite element study. Although their formula is simple, it cannot provide an appropriate rigidity for any level of shear and in-plane stresses acting on the stiffened plate. In some cases it may be advantageous to reduce stiffener sizes in areas of low stress, even if panel slenderness values are kept constant, although in normal design the size would be kept constant. Their recommendations also came directly from complex finite element analyses. The interpretation of the finite element results was rather subjective and not based on a clearly defined optimisation requirement for the stiffener selection. 1.2 REVIEW of OF STABILITY review PLATE ANALYSIS METHODS
+
+1.2.1 Basis
+
+This section aims to provide an essentially historical background to the development The of methods for plate analysis. presentation is not exhaustive, but emphasis is placed on the more important works and methods of analysis. 1.2.2 Small deflection
+
+theory
+
+The small deflection plate theory, generally attributed to Kirchoff and Love is based on the following assumptions.
+1 2) 3) The material of the plate is elastic, homogeneous and isotropic. The plate is initially flat. The thickness of the plate is small compared to its other dimensions.
+
+4
+4) 5) 6) 7) 8) 9) The deflections are small compared to the plate thickness. The slopes of the deflected middle surface are small compared to unity. Deformations due to transverse shear are neglected. The deflection of the plate is produced by displacement of to its initial plane. points of the middle surface normal The stresses normal to the middle surface are negligible. The strains in the middle surface produced by in-plane forces can usually be neglected in comparison with strains due to bending.
+
+The small deflection (linear) bending equation for plates was first formulated by Lagrange in 1811(l. 7) but not published until after his death when it was found without derivation in his notes. Bernoulli(I -9) attempted Navier(1-8) also derived it in 1820. term in the bending to include the twisting unsuccessfully The addition of in-plane force terms to the bending equation. later to form the classical small deflection equation was equation, introduced by St. Venant(I-10) in 1883. The bending equation was solved by Navier(1-8) by expressing the lateral load and deflections in double sine series expansions; his solution was only applicable to plates with simply supported edge It was also solved by Levy(I-11) by adding a particular conditions. Although to the solution of the homogeneous equation. solution Levy's method is considered more general than Navier's solution, the former can be applied only for plates with simply supported the loading function for all sections parallel to opposite edges and the direction of the other two edges must have the same shape. The addition of the in-plane force terms to the bending equation allowed the stability of plates to be examined. Many researchers tackled this problem by using several methods, details of which be found in texts(I. 12-1.18). The methods can be classified into can the following categories. Integration
+
+1.2.2.1 Direct
+
+The evaluation of the critical load by integrating the differential plate is compressed of a uniaxially equation of equilibrium by assuming a buckled shape of a sinusodial mode in the achieved direction multiplied by an unknown function in the compression Substitution of this shape in the differential equation gives other. for the unknown function in terms of four integration a solution down four be determined by writing constants which can the boundary along the conditions equations representing
+
+5
+The equations can be written in a matrix form unloaded edges. if the determinant of the have a non-trivial solution and will is zero giving the characteristic equation from square matrix buckling load is deduced. Further details can be found which the in reference (1.15). It is important to mention that with increasing complexity in the boundary conditions and loadings, the geometrical configuration, determination of the buckling load of the plate using mathematical this method becomes progressively more difficult. 1.2.2.2 Energy Methods These methods have been used extensively to obtain solutions. They rely on the use of a good approximation to the deflected form of the plate. There are several variants to the method. In 1891, Bryan(1.6) derived the expression for the strain energy in a plate and used it to analyse the buckling problem. If stored the principle of conservation of. energy is employed on a plate compression, by equating the work done by under uniaxial forces to the strain energy stored in the plate with a external deflected surface of Navier's expression, the exact answer to the load is obtained from the lowest buckling mode. However, critical for complex geometries, a more complicated displacement function the sum of a number of deflection curves is assumed representing in the Rayleigh -RitzO -17) method. Minimization of the potential as of the system leads to a set of homogenous algebraic energy be solved. Since the assumed deflected equations which must is generally not the exact mode, there will always be an shape by following the Galerkin can be minimised error which 18). It is important to mention that the above procedure(I. rely on the deflected shape satisfying each of the methods Problems can arise for which deflection boundary conditions. functions can be produced which will easily satisfy some of the boundary conditions but cannot be derived to satisfy all the For these cases, the Lagrangian multiplier method can conditions. be used. The latter is explained in detail in reference (1.19). 1.2.2.3 Finite Differences The finite difference method for the solution of differential the continuum by a system with a finite equations represents of nodes. It was first formulated by Boole and others in number The representation the nineteenth of consists century.
+
+6
+for the unknown substituting a series of algebraic expressions, in place of the differential functions and their derivatives, The small deflection plate equation is therefore written equations. in terms of a series of linear finite difference equations. Setting the determinant to zero, gives an approximate value of the critical load. This method is more general than the previous methods because various boundary conditions can be easily handled as well A detailed study by Salvadori and as skew plates(l. 20-1.21). Baran(1.22) discusses errors involved in the method and gives the first and second order finite difference for approximations rectangular and oblique coordinates. The small deflection equation for orthotropic plates derived Huber(1.23) has been solved by the finite difference method. 1.2.2.4 Finite by
+
+element method
+
+The finite element method has proved to be the most versatile tool for solving the static and dynamic behaviour of continua. The method has relied on the advancement of computer power in the last two decades for efficient implementation. It extends the displacement for the solution matrix method introduced of into the analysis of structural continua. Since its gridworks introduction in 1955, an increasingly large number of papers and texts have been written on the applications of and improvements to the method(I. 27-1.28). The structural idealization in the case of plates is obtained by the original subdividing continuum into a number of plate elements of various geometrical shapes by intersecting straight or These elements are connected only at their nodal curved lines. lines in such a way that a close similarity between the displacement of the original and substitute structures is obtained. An idealization of this nature assures that if the elements decrease in size the displacement components in the substitute structure will converge to the actual values at the representative points. Mathematically, the finite element representation resembles the Rayleigh-Ritz method in which the displacements have been approximated by the sum of the functions, each multiplied by an These unknowns are determined from the unknown constant. While using the Rayleigh-Ritz minimum potential theorem. method, the assumed series expression describes the total displacement field of the entire plate. In the finite element displacement patterns for each element are method individual
+
+7
+The total potential of the plate obtained from the sum assumed. individual elements, has a stationary value, of potentials of the This condition leads to in equilibrium. when the node points are minimization of the total potential of the structural system, which, to the in turn, yields the displacement field corresponding Consequently, the critical load for the plate equilibrium condition. can be evaluated. 1.2.3 Large deflection
+
+theory
+
+The large deflection (non-linear) equations were developed by 29) in 1910, following Von-Karman(I. original work on the deflections by Kirchoff(l. 30) in 1876. Marguerre(I. 31) modified the equations to take account of initial geometric imperfections in The derivation can be found in standard texts(l. 12-1.14). 1938. Soper(I. 32) derived the large deflection equation for stiffened YUSUff(I. 33) included initial imperfections in his plates and These fourth plate equations. order non-linear orthotropic to solve and few exact solutions are equations are difficult Solutions are only available for simple boundary possible. conditions. As stretching of the mid-plate surface is allowed for in large deflection have to be theory, in-plane boundary conditions specified in addition to the out-of-plane conditions used in small Three common boundary conditions deflection theory. are considered: i) Unrestrained: the transverse stress is zero at all points along The edge will the edge and the edge is free to pull in. therefore not remain straight. Constrained: The integral of the stress along the edge is zero (the edge force) and the edge is free to move but remains straight. Restrained: The edge is kept straight and a continuous stress distribution results.
+Way(I. lateral 34) solved the case of clamped rectangular plates loads using the Ritz method. The equations for a plate under lateral loading were solved by Levy for the 35) and the clamped case(I. 36) using Supported case(I. Fourier series. The method is not necessarily restricted to 37) Later it was used to solve the cases of plates(I. . under square simply double square simply
+
+8
+38) and clamped(I. 39) long plates under combined supported(l. Based on the Levy lateral loading compression. and uniaxial Coan(I. 40) examined the behaviour of an unrestrained method, initial He incorporated plate under uniaxial compression. 3 1) Marguerre's(I. imperfections into the analysis using formulation. Hu et alO. 41) used a very similar approach and imperfections is most important that the effect confirmed of Tamaki(1.42) around the critical stress level. used Galerkin's method to solve more generally the equations for imperfect plates boundary of simply with combinations supported and clamped conditions, Levy's and Coan's work being special case. Yamaki(1.43) confirmed the theoretical results with tests, good agreement being for a plate with found especially all four edges clamped. Galerkin's method was also used by Yoshiki et al(I. 44) in their for combined loadings. Supple(I. 45-1.46) used a Ritzanalysis Galerkin method of solution and investigated the changes in the buckling mode with respect to the prevailing boundary conditions, imperfections geometrical and applied lateral load.
+
+A Ritz method was used by Falconer and Chapman(I.47) to examine the buckling of stiffened plates. They took an infinitely long plate under uniaxial loading and found the critical buckling wavelengths in terms of the orthotropic rigidities. Mansour, using his own formulation large deflection equations(l. 48), of the orthotropic applied the methods of Levy, Coan and Yamaki and presented design charts(I. 49) for wide and square plates under various load combinations. A useful approximate method for solving the large deflection equations is the perturbation approach(I-50). It consists of using truncated power series in terms of a loading parameter for the deflections and stresses. Walker(1-51) used it to analyse simply supported flat square plates under compression with either constrained or unrestrained boundaries and his results compared well with those of Levy and Coan. Later Dawson and Walker(1.52) initial imperfections of the same shape as the buckling added mode and found that only two terms of the power series were Design coefficients were presented for uniaxially and needed. biaxially compressed plates by Williams and Walker(I. 52). Finite differences have been used by many investigators. The earliest use of this method appears to be due to Kaiser(1.54) who solved the case of a simply supported plate under lateral loading with zero stresses on the boundaries. Wang(1.55) also solved the case of laterally loaded plate and solved the finite difference He extended the analysis equations by successive approximations.
+
+9
+Scholes and lateral and in-plane loading(l. 56). to combined 57) used an energy method to solve the finite Bernstein(I. loading difference for plates under lateral and equations the results very well with experiments. Also, using an correlated energy solution method, Basu and Chapman(1.58) investigated the large deflection behaviour of laterally loaded stiffened plates Soper's formulation(I. 32). Aalami(I. 59) extended Basu and using Chapman's work to cover loading cases using Gaussian reduction to the bending and in-plane parts of the large solve iteratively deflection equations. Design curves were presented(I. 60-1.61). However, using this solution technique the post critical path cannot be followed due to numerical instability(I. 62). A technique The method which overcomes this problem is dynamic relaxation. was first proposed by Day(1.63) and further developed by Otter(I. 64). Its main advantage is in saving computer storage 65-1.66). space(I. The finite element method has been used to investigate the large deflection behaviour of plates and due to its flexibility is a very popular approach. This method forms the basis of the procedure The techniques of the method have been used in this thesis. improved over the years such that the build-up of errors found in is now eliminated(I. 67-1.68). Crisfield(I. 69) has earlier works reviewed the development of the finite element method with application to the analysis of plates and this will not be repeated here.
+
+1.3
+
+ULTIMATE
+
+CAPACITIES
+
+OF PLATES
+
+1.3.1 Introduction The ultimate capacities of plates subjected to in-plane only be studied using large deflection analysis taking the effect of initial imperfections and the reduction due to yielding(l. 71). Due to the complexities involved, in this area has only been conducted in the last work Before this many simplifying assumptions have had and the results were limited to special cases of boundary conditions. loading can into account of stiffness most of the two decades. to be made loading and
+
+In this section, methods for predicting the capacities of plates are in two categories according to the classification of beams reviewed in BS54000.4). The first corresponds to girders without longitudinal stiffeners in either web or flange and the second with The methods are mostly derived from ultimate such stiffeners.
+
+10
+
+state models or from results obtained either experimentally numerically (finite difference or finite element methods). 1.3.2 Strength of longitudinal in
+
+or
+
+web panels stiffeners.
+
+girders
+
+without
+
+1.3.2.1 Panels subjected to uniform longitudinal
+Von
+
+compression
+
+Karman(I. 72) examined the case of flat panels subjected to The stress distribution for such uniform longitudinal compression. a panel, transversely supported on four sides is shown in figure Only the parts of the plate close to the unloaded edges have I. I. Due to the reached the plastic state in the postcritical range. bowing effect in the central zone of the panel, the corresponding stresses are lower than those at the edges.
+
+design For Von Karman(I. 72) suggested purposes, the by a representation of the non-uniform stress distribution The reference uniform distribution over a reduced plate width. stress is chosen to be equal to the edge stress in the real distribution at collapse, that is the yield stress cyy as shown in figure 1.2. According to his hypothesis, the critical stress of the panel (Ocr)e with an effective width be should be equal to cyy and therefore
+
+ýý, Cyr
+Where ac,, is the critical stress of the panel with the actual width b. The strength of the panel is given by.
+be. ay tw * ............................ Stussi et al(1.73), by testing in compression aluminiurn alloy panels flat showed that good correlation were nearly which existed between the theoretical values given by equation (1.2) and the experimental results. If XP V reference slenderness parameter then acr
+
+. ............................................ 2, p
+
+11
+
+If the value of oc, is substituted in equation (1.3) it can be seen that be = 1-9 t, E ay which is independent of the plate width b.
+
+Hence, all but the stockiest of plates subjected to pure 74), it is important to are seldom compression economic al(I. mention that the latter is not true because slender panels under compression have a buckling reserve which increases their peak capacities. Since the original work by Von Karman was impractical because it was based on plates of flat nature, many researchers have introduced various modifications for equation (1.3) to account for the influence of initial imperfections, residual stresses and postSome of the more especially for slender panels. critical reserve important proposals are given below.
+
+Winter(I.
+
+- 1.76) 75
+
+be
+
+bpXp
+(1.77 - 1.78)
+
+0.22' 105
+
+for A, p>0.6
+
+7
+
+(1.4)
+
+Faulkner
+
+0.26
+
+bpp
+. 79)
+
+f or
+
+p
+
+0.55
+
+...
+
+(1.5)
+
+Gerard(l
+
+b, = b10.85
+
+0.82
+................................
+
+(1.6)
+
+1.3.2.2 Panels subjected to linearly
+
+varying stresses
+
+The effective width concept has also been used to predict the strength of panels subjected to combined compression and bending by generalising equation (1.3) proposed by Von Karman to have the following form. be bc I A, p
+
+where be is the width of the compression zone and be is the corresponding effective width. In comparison with uniform compression, two problems arise for this more general case(1.74)
+
+12
+
+The definition of the bc value. The compression zone width will generally vary during the loading. For practical reasons, bc may be measured from the neutral axis of the full section (calculated according to the classical strength of materials). 2) For pure The distribution the effective width bc. of is clearly 0.5bc along each compression, the distribution longitudinal edge. For the more general case, the effective width adjacent to the edge of maximum compression will be less than 0.5bc. As an approximation, ECCS proposed the following rules ft r this distribution(I. 74) We is the part of the effective width adjacent to the edge with maximum compressive stress. Ve is the part of the effective width adjacent to the edge with the minimum compression or to the neutral axis, then, 1 We =be0.5 1 K2) -(I 10 For 0<Q<1.............. b "e = b, 10.5 10 0.6 be for Q<0 (1.8)
+
+We = 0.4 be Ve
+
+Where Q is the panel stress ratio given by
+amin (a is taken negative amax for compression and positive for
+
+tension). The longitudinal Ve and Ve. over stresses are assumed to be linearly distributed
+
+To take into account the effect of imperfections which is generally accepted to be less severe for bending than for pure compression (ref. 1.80), equation (1.7) has been modified by using Winter's proposed equation (1.4) and is given by b, be A, pIApI 0.0 5 (3 + Q)
+
+13 This concept can be used for both unstiffened stiffened plates.
+It is
+
+and transversely
+
+important the strength of to mention that in BS54000.4), plates for this type of loading is based on an effective thickness This concept was first concept rather than an effective width. proposed by Cooper(1-81) for I beams with equal flanges. Based on from and theoretical sources, experimental various results Cooper's approach has been modified to cover the case of unequal flanges with the compression zone either larger or smaller than half the web depth(l. 82). The effective thickness concept adopted by BS5400 is given by.
+
+twe tw
+
+1.425 - 0.00625 =
+
+bcf tw
+
+-a-v V355
+
+(1.10)
+
+Where twe = effective thickness of the web. 1.3.2.3 Tension field models for panels in shear The behaviour of transversely stiffened plates in shear is different to that under longitudinal stresses. The response of an isolated panel can be separated into two distinctly different phases.
+1 Prior to buckling, the stress is essentially a combination of diagonal tensile and compressive components of equal magnitude. After buckling the critical of the panel is reached, the loading is resisted by the development diagonal of membrane tension fields.
+
+2)
+
+The high load carrying capacity of plate girders with slender webs due to tension field action in the post critical range has been discussed by Rode(1.83) as early as 1P16. His theory was never for the design of steel bridges because he adopted a tension used field width of 50tw as shown in figure 1.3 which had not been verified by tests.
+Basler(I. 84) presented the first ultimate load method for the failure load of transversely stiffened plate girders. predicting Figure 1.4 shows his proposed collapse mechanism which is based Basler's method assumes that the flanges tests. on experimental of most plate girders are too flexible to provide an anchorage for the tension field and hence neglected any contribution of the flange strength to the ultimate strength of the girder. In 1961,
+
+14
+
+In
+
+into Basler's 1968, Fujii(I-85) introduced new assumptions model by assuming that the tension band covers the whole panel a membrane stress varying across the depth of the web. with is assumed to occur when Moreover, a collapse mechanism internal flange hinges are developed at midlength of the panel as well as at the comers of the panel (see figure 1.5). However, Fujii did not take into consideration the influence of the flange rigidity upon the position of the internal hinges. 86) proposed another version of and model by assuming a collapse mechanism with no internal hinges. This collapse model is shown in figure 1.6. Chern Ostapenko(I. Fujii's flange
+
+Skaloud(I. 87-1.88) carried Rockey and out a comprehensive flexural study on the influence experimental of the flange the inclination, on width and position rigidities of the diagonal band in a web in shear. As a result, they proposed an plastic ultimate shear model which operates with a beam mechanism (see The tension field direction corresponds to the web figure 1.7). diagonal, whereas its width is controlled by the location of panel intermediate plastic hinges in the flanges.
+
+In the last two decades, the basic models proposed by Basler and Rockey and Skaloud have been modified by a number of from Europe and Japan. The analytical procedure and researchers the accuracy of these proposed mechanism approaches have been and summarized in reference 1.74. Of all the ultimate reviewed load methods of analysis presented to date, the most general and accurate model is that by Rockey, Evans and Porter(I. 89-1.90). It is a modified version of the Rockey and Skaloud proposal by changing the six hinge panel mechanism criterion to a four hinge one which is enough to produce a panel mechanism. This model produces excellent correlation between theory and test results and recommended by many researchers(I-91) and adopted as a was by ECCS committee 9.30.74). A modified version reference method of this method has been adopted by BS54000.4) for girders longitudinal This ultimate load model is stiffeners. without described in detail in chapter four. It is important to mention that the tension field mechanism model is appropriate for web panels commonly used in longitudinally unstiffened plate and box girders because of their stocky nature. This is due to the fact that these type of sections allow a large degree of shear deformation moderately any without adverse effect on flange stability. During the drafting of BS5400 it
+
+15
+felt that slender plate girders and longitudinally stiffened box was girders needed a limit on web shear straining so that the stability of the flange would not be seriously impaired, and hence, another The criteria was needed to predict the strength of such webs. method adopted is presented in section 1.3.3. 1.3.2.4 Panels under combined shear and bending Many researchers tried to extend the basic tension field theories to cover coexisting bending moments and shear for plate and box According to Basler(l. 92), for flexible flanges, the formula girders. for the plastic interaction between bending and shear for I also be assumed for the web moment, Mpw = Mp - Myf profiles can Mp and Mpw are the plastic moments for the girder and web . and Myf is defined as the bending moment that respectively ay in the flanges without any contribution from the web. produces Eurocode 30.93) adopted this proposal by replacing Mp by the moment of the full section to give the following conservative yield formula.
+M ý Myf :! + (My Myf) [1 _ (V/ VU)2 I ......... (1.11)
+
+Where vu is the ultimate capacity of the web evaluated from the tension field theory. The interaction between shear and bending in the web is more pronounced when the flexural strength of the flanges is included. After an extensive study, Evans et al(I-90) established that a from a web to a flange failure mode occurs when the value change of applied moment is approximately equal to the plastic moment of resistance provided by the flange plates only, neglecting any from the web. As a result, Evans(I. 94) proposed an contribution interaction diagram between Vult/Vyw and M/Mp (Vyw is the force to produce yielding of web). shear In BS54000.4), the relationship is given as a linear interaction between sets of values of shear force and bending moment. This interaction diagram is explained in detail in reference(i. 82). 1.3.3 Strength stiffeners in longitudinal
+
+of
+
+web panels
+
+girders
+
+with
+
+It was mentioned in sub-section 1.3.2.3 that tension field theories based on mechanism approaches are suitable for longitudinally These methods require a substantial unstiffened plate girders.
+
+16
+to fully mobilise the shear deformation BS5400(1.4) uses such an approach for the and plate girders; namely plate girders in the web and box girders stiffening stiffening in webs or flanges. mechanism strength. design of stocky box longitudinal without longitudinal without
+
+The design rules for longitudinally stiffened plate and box girders in BS5400 are based on the numerical studies carried out by Harding et al(1.95) and by Harding and Hobbs(1.96) on the ultimate load behaviour of plates subject to in-plane direct and shear stresses. A finite difference solution of the large deflection plate in combination with a multi-layer approach to equations was used Their studies were principally aimed at the design of plasticity. box girder web panels, and loading types appropriate to girder Unloaded panel edges were either were considered. webs reflecting the situation in a box girder where a weak unrestrained flange provides little transverse in-plane restraint, or restrained Initial the forces around an internal reflecting panel. imperfections and residual stresses were also included. The main of the study was interaction curves of ultimate stresses product derived from sets of panel stress-strain responses. Figure 1.8, for interaction for shows example, curves unrestrained and panels under combinations restrained of shear and either One interesting compressive or uniform tensile displacement. feature is that as soon as tensile loading becomes of importance, the curves all merge since buckling becomes irrelevant. In order to include the effect of in-plane bending, the study also considered combinations of triangular direct stress and shear and bending and shear. Figure 1.9 for instance, shows shear moment interaction results for panels loaded under combined bending and The moments are expressed in terms of Mu, the fully shear. moment and My, the moment produced by linear bending plastic distribution with peak stress equal to the yield stress ay. Using the results of the study, an interaction formula originally by Horne(I. 97) was adopted by Harding and Dowling(1.98) suggested to apply the results of the elasto-plastic numerical analysis in the following form.
+a, &ay( + Orb Sb Cry T+ 'r S. -r y I
+
+17
+
+ac is the value of the uniform
+(for in
+
+compressive stress acting on the
+
+CYb is the tension ac is taken as negative). panel panels maximum value of the bending component of the stress and r is the coexistent shear stress. Sc, Sb, Ss are numerical multipliers of the yield stress used to provide the best fit to the analytical interaction curves. Figure 1.10 shows values of these functions for possible design use.
+
+has been adopted by BS54000.4) This proposal and the Czechoslovak design code for steel bridges(I. 95) for predicting the strength of panels in longitudinally stiffened girders. 1.4 LITERATURE REVIEW OF TRANSVERSE WEB STIFFENER DESIGN linear theoretical studies
+
+1.4.1 Early The small developed found that panel (a x Tcr K
+
+deflection theory for the analysis of plate buckling was by Timoshenko(I. 96) and others many years ago. It was the elastic critical buckling stress, 'Tcr, of an unstiffened b) subjected to shear stress is given by.
+7c 2E _ V2)' tw (b 2 )
+
+12(l
+
+...............
+
+K is the critical buckling coefficient which depends on the panel dimensions and the type of edge support. For simply supported edges K is given as 5.34 + 4/
+02 for 0>I
+
+4.0 + 5.34/
+
+02
+
+for
+
+0 do
+
+where ý= a/b, the aspect ratio of the panel. The values of K given by equation (1.14) were an empirical fit to theoretical studies. The capacity of a given web panel is increased by reducing the Classical first aspect ratio and hence increasing the value of K. order analyses(I. 96) were used to determine the variation of K with change in the stiffener flexural rigidity y. It was found that if the stiffeners have a certain minimum flexural rigidity -f*, the
+
+18 is equal to that of individual elastic stress of the stiffened panel subpanels. The determination of K and y* was generally based on a numerical Cook and Rockey(1.97) provided energy minimisation procedure. to the shear buckling of clamped and simply supported solutions It was infinitely long plates reinforced by transverse stiffeners. found that the required value of y* was considerably reduced the longitudinal edges of the plate were clamped rather when than simply supported. 1.4.2 Early
+
+experimental
+
+studies
+
+Early experimental investigations were primarily concerned with the behaviour of web plates under load. Few researchers studied Based the influence of transverse stiffener size on web stability. tests on aluminium girders, Moore(1.3) produced the empirical on design formula given by equation (1.15) 14
+o3
+
+(1.15)
+
+This equation was applicable for webs with partially clamped and was based on the stiffener size required to limit web edges deflections. plate and stiffener Sparkes(I-1) conducted a series of tests on plate girders and found that the theoretical value, y*, failed to divide the web into separate panels. This supported the conclusions of Scott and Weber(I-98). The reason was the perfectly flat nature of the stiffened plate in the first order analyses which rarely occurs in assumed All plates have some form of initial out-of-plane practice. displacements imperfections, therefore, out-of-plane will and develop at stress levels below the critical buckling stress. between the Rockey(I-99) relationships established empirical critical shear coefficient K and the stiffener rigidity 7, for plates These stiffened by concentric or eccentric transverse stiffeners. based on the results of tests on 220 different relationships were The test girders were made of plate-stiffener combinations. aluminium and bolted construction was used to limit test plate initial imperfections. The girder flange provided a rigidly clamped boundary condition to the web panel edges. As a result, Rockey
+
+19
+proposed expressions for the limiting y* given by. 27.75 7.5 stiffener rigidity parameter
+
+Concentric stiffeners
+
+21.5
+2
+
+****,
+7.5 Eccentric stiffeners
+
+The second moment of area I for eccentric stiffeners was calculated from an effective stiffener section which included a plate width of a/2 on each side of the stiffener. All the tests were conducted in the elastic range of the web panel. 1.4.3 Elastic
+
+second
+
+order
+
+analyses.
+
+In order to account for the influence of initial out-of-plane Skaloud et al(1-109) used large deflection elastic imperfections, theory to investigate the behaviour of a square plate with a single transverse stiffener loaded in shear. They found that the value of by first order buckling analysis should be increased by a y* given factor m. The value of y* was based on equation magnification (1.15) and a value of m=3 was recommended for transverse stiffeners.
+* 2.7 (0 1511 02 802 803 )
+
+7=m 7* ................................. where y was the required transverse stiffener rigidity. After an extensive nonlinear elastic study on web panels, Richmond(I-100) proposed a design approach for transverse and longitudinal stiffeners on girder webs. His proposal was based on the idea that shear and compressive stresses are. effectively interchargeable to evaluate their destabilizing effects on the The initial imperfection buckling mode of a stiffened stiffeners. plate was taken as a saw-edge with transverse stiffeners placed at According to his approach, the every change of direction. transverse stiffener is designed as a pin-ended column subjected to an effective compressive force which is a function of the shear
+
+20 and direct in-plane stresses acting on the stiffened is presented in detail in chapter four. approach web. This
+
+Bijlaard(I-101) introduced an approach for the design of transverse longitudinal stiffeners for stiffened panels subjected only to and in-plane longitudinal stresses. Shear stresses were not included. The stiffened plate initial imperfection mode was assumed to be A deflection dependant to that of Richmond(I-100). similar transverse load arising from the loading within the plane of the plate related to the geometric imperfections of the transverse The lateral load acting on a simply stiffeners was established. beam represented the destabilizing effects of the insupported This was identical to the lateral load plane web stresses. developed by Richmond (see chapter four) after replacing the shear by compressive stresses. The stability of the transverse loaded in this way was presented by means of a fourthstiffener An equation with non-constant coefficients. order differential alternative and easier solution was also introduced by repeatedly describing the behaviour by a series of fourth-order differential equations with constant coefficients. 1.4.4 Ultimate theoretical
+
+strength
+
+requirements
+
+The emergence of tension field theories for describing the of web panels loaded in shear in the postcritical range response has led to the development of many stiffener design procedures. The assumed function of the transverse stiffener was to remain effective in limiting panel boundary out-of-plane displacements The ultimate strength until the panel capacity was reached. to tension field models, however, required these stiffeners withstand the vertical components of the diagonal stresses from the web at one end and transfer them to the other end. Section 1.3.2.3 indicated that the first ultimate strength model for plate girders was developed by Basler(I. 84). It was appropriate assumed that the girder flanges are unable to support the postbuckling tension field and consequently only a limited tension field could develop between the transverse web stiffeners. With this model, the transverse stiffeners had to satisfy two criteria. The first criterion 'was to ensure that they had sufficient rigidity The second to preserve the shape of the girder's cross-section. criterion was to ensure a minimum cross-sectional area to resist The axial the compressive components of the tension field. stiffener force Fs, was given by equation (1.19).
+
+21
+b tw ay 2
+
+Lc-r Ty"
+
+)1
+2
+
+(1
+-
+
++ 02
+
+It was found by partial differentiation of equation (1.19) that a 1.18 and force occurred for an aspect ratio maximum stiffener b/t. = 187. This force was given by panel slenderness Fs= 0.015 ayb2qeyw for the and was used to provide a minimum area requirement by equation (1.20). The axial stress transverse stiffeners as given as a strut was assumed to be a stiffener regarded capacity of to its yield stress, and its full plastic capacity could be equal These assumptions are likely to be compensated for developed. by recommending the maximum stiffener force to be applicable to all 0 and X values. Hence according to Basler, for any plate geometry, the stiffener given by: cross-section was A, ý: 0.0 150 b2
+07YW V/CYW ays
+
+Concentric stiffeners
+,**** (1.20)
+
+A., ; 0.0 362b2 ->
+Where yield
+
+6yw VIE yw arys
+
+Eccentric stiffeners
+the uniaxial panel
+
+oys was the stiffener yield stress eyw b the stiffener length. strain and
+
+As the eccentric stiffener was subjected to both an axial force and moment, the required area was greater than that for concentric The stiffener was also to be proportioned so that local stiffeners. buckling was avoided. The work by Basler and Thurlimann(I. 92-1.102) was extended by Cooper(l. 103) to include the influence of longitudinal web It was considered that the presence of such stiffeners stiffeners. subject the transverse stiffeners to concentrated forces at would An approximate method was used to determine their intersection. the magnitude of these forces for the case of a single longitudinal stiffener at b/5 below the compression flange. This resulted in a relationship between the elastic section moduli of the transverse (Zt and ZL respectively) stiffeners and longitudinal given by equation (1.21). Zt ý: ZL/O (1.21) ................ .............................
+
+22
+
+The maximum transverse force was calculated from equation (1.19) and the required stiffener size was determined from a classical Perry-type strut analysis. It is essential to mention that the appropriate were made regarding no recommendations (the width of associated web stiffener effective cross-section in either Basler's or Cooper's proposals. plate) Rockey et al(I-5) proposed an ultimate load transverse stiffener from developed design experimental an procedure 104-1.106). The method considered the stiffener as a programme(I. an effective cross-section which included a width of strut with web plate equal to 40 times the plate thickness. The axial force determined down distribution from the stiffener was consideration of the tension field forces which developed in the panels adjacent to the stiffener. The stiffener was also loaded web its ends by axial forces which resulted from the 'pull in' of the at tension field on the flanges. The axial forces were assumed to act the middle plane of the web and hence, in the at case of the applied a bending moment to the effective eccentric stiffener, An additional bending moment was also stiffener cross-section. induced by the presence of initial imperfections; the magnitude of by the Euler buckling load amplification which was enhanced factor. The destabilizing effect of the buckled web on the stiffener was considered by adopting a reduced effective stiffener second inertia for use in calculating the amplification factor. moment of This method is described and discussed in more detail in chapter four. Due to the complexity involved in evaluating the forces imposed by the tension field band on the transverse stiffener in the postbuckling stage, Horne and Grayson(I-6) conducted a fully nonlinear parametric finite element study on the behaviour of The effects of initial transverse stiffeners loaded in shear. imperfections Both and residual stresses were included. concentric and eccentric stiffeners were considered and the ultimate capacities of the stiffened webs were compared with those of corresponding fully supported panels. Their investigation led to an empirical formula based on rigidity requirements given by equation (1.22). 0.6 (2, - 60) 0>0.7 5 , Yso= ........ y,* = 0.8 (A , 50) 0.75 (1.22)
+
+23 E 1. Where y, = -, the stiffener rigidity, and I andoare the plate aD slenderness and aspect ratio respectively. The rigidities given by the above equatic basis that further increases of rigidity caus in the ultimate capacity of the panel. The Is of the stiffeners was calculated without The values of Is for concentric stiffeners midplane of the plate whereas those for were taken about an axis at the surface ol side as the stiffener. 1.4.5 Code i were derived on the only a slight increase second moment of area n effective plate width. were taken about the he concentric stiffeners the plate on the same
+
+of
+
+practice
+
+requirements
+
+For the engineer, the design of transverse web stiffeners is In this section, the governed by appropriate codes of practice. design procedures adopted by the American and some European codes, which are basically taken from the methods described in the previous sub-sections, are described briefly. BS153 The plate strength was based on allowable stress levels derived from large deflection buckling analyses in which the maximum applied shear stress was limited to that which caused surface yielding at the most highly stressed part of the 107). Transverse stiffener design was based on the panel(l. requirement proposed by Moore(1.3) and empirical rigidity Instead given by equation (1.15), but with minor modification. of the numerator of 14 in this equation, BS153 used a value of 16.4. b) Czecholslovak design specifications. The limit state design philosophy for bridge girders in the code is described by Djubek and Skaloud(I. 108). The stiffener design was based on a refined version of the method proposed by Skaloud et al(I-109), and which has previously been presented as equations (1.17-1.18). The value of m. in equation (1.18) was replaced by the expression for k given by
+
+24 b -1 ........ with 1 :5k :5 ks .. (1.23)
+
+k=I+
+
+(ks -
+
+1)1 t, tr
+
+The value of ks was taken as 3 for transverse stiffeners, while the value of r was dependent on the stress type. For shear by equation (1.24) stress, r was given
+
+F21 0 90 .......... v ayw
+
+.....
+
+...........
+
+.....
+
+(1.24)
+
+the value of k reflected the fact that pronounced post-critical behaviour was encountered only in the case of webs with high b/tw ratios, whereas for thicker webs the post-buckled less important or vanished completely. If the strength was to combined loading, the required stiffener web was subjected y, was given by a relationship shown in simplified rigidity, form by equation (1.25)
+V(; y= 07C n cc a yw + Mb CFb (Yyw 2 + (0.6 Yq 'r ayw Mq
+
+where yc, ym, 'fq were the stiffener the effect of individually applied shear respectively.
+
+rigidity values required for bending and compression,
+
+corresponding strength reduction coefficients M c, Mb, Mq in the code. given (Tc,Cyb,c applied stress in compression, bending and shear respectively. The effect of each group of terms in equation (1.25) was to scale the y values appropriate to each individual stress type by the ratio of the actual to allowable stress levels in that it would be perhaps too conservative to add recognition the y values required for each stress type. c) Proposed American specification. Wolchuk(I-110) described a proposed American specification for the design of steel box girder bridges(I-111). Transverse
+
+25 design was based on both a strength and a minimum stiffener rigidity criteria. The strength criterion was based on a Perry type strut formula in which the effective stiffener length was taken as The applied axial load included a 0.7 of the actual length. force due to tension field action given by equation (1.19), but to allow for stress levels below the full design proportioned An effective width of web plate was tension field capacity. This width varied with the to act with the stiffener. assumed level of applied stress; from 9tw if the full tension field force taken to 18tw when stress levels were less than the was Where longitudinal stiffeners elastic critical shear stress. present, the transverse stiffeners were designed to were lateral concentrated force equivalent to 2% carry an additional of the longitudinal stiffener capacity. Such a lateral force was at the location of each longitudinal stiffener. applied The rigidity criterion was similar to that adopted by the Czechoslovak code. the value of limiting stiffener rigidity y*, graphically within the proposed design rules. was specified The presence of longitudinal stiffeners was accounted for by Transverse stiffeners were the use of the increased y* value. only required to meet the requirements of shear loading; combined loading was not considered. d) BS5400 requirements.
+
+The design of transverse stiffeners is based on the concept of the strut model. The axial loading acting on the strut arises from the destablizing effects of in-plane shear and direct in addition to forces due to tension field action from stresses the post-buckled web. The design procedure is presented in a form in chapter four. comprehensive 1.5 AIM OF THESIS
+
+Due to doubts about the current design rules for stiffeners in transversely stiffened webs subjected to shear and in-plane direct An elastostresses, the work reported in this thesis was initiated. large deflection finite plastic element program is used to investigate the different parameters that affect the behaviour of stiffeners up to the ultimate capacity of the panels.
+
+26 The aim of this study is to use the results of the parametric study to produce a simple design model which is safe and economic and can represent accurately the physical behaviour of the stiffeners. Emphasis is given to formulating the design procedure in such a way that it can easily be incorporated in a design code of practice. 1.6 SCOPE OF THESIS
+
+Chapter 2 describes briefly the finite element package (LUSAS) used in this study which accounts for both the effects of large deflections and material non-linearity. Comparisons are made with existing numerical and experimental results to check its validity. Chapter 3 that effect The effect describing publication presents a detailed study on the various parameters the behaviour of stiffeners in webs subjected to shear. A paper of varying yield stress is also considered. the work of the chapter has been accepted for in part 2 of the Proc. Inst. of Civ. Engrs.
+
+Chapter 4 provides comparisons between the finite element the Richmond and Rockey approaches which form the results and basis of the design procedures adopted by BS5400. Chapter 5 introduces a stiffener design approach based on a beam model for stiffened plates subjected to shear. simple Comparisons are made between its results and those of the finite Another paper presenting the approach element analysis. introduced in this chapter has also been accepted for part 2 of the Proc. Inst. of Civ. Engrs. Chapter 6 represents the effects of the various parameters described in chapter 3 on transverse stiffeners for webs subjected to combined shear and direct in-plane. stresses. The design model introduced in chapter 5 is then generalized to take into account the effects of in-plane longitudinal stresses. Chapter 7 presents the design process to be followed in applying the design proposal. The effects of using the panel strength values given by BS5400 are demonstrated by comparisons made with the corresponding finite element values. It also contains the summary of the conclusions drawn from the parametric studies in addition to the suggestions for future work.
+
+27
+
+1.7
+
+REFERENCES Sparkes, S. R., 1947, "The Behaviour of the Webs of Plate Girders", Welding Research, Vol. 10, No. 6.
+
+1.2-
+
+for Scott, M, and Weber, R. L., 1943, "Requirements Stiffeners Attached to Panels under Combined Auxiliary Compression and Shear", N. A. C.A. T. N. 921. Moore, R.L., 1942, "An Investigation on the Effectiveness of Stiffeners on Shear Resistance Plate Girder Webs", N. A. C.A. T.N. 862. 1982, Code of Practice British Standards Institution, Design of Steel Bridges, BS5400: Part 3, London, BSI. for
+
+1.3-
+
+1.4-
+
+1.5-
+
+Rockey, K. C., Valtinat, G. and Tang, K. H., 1981, "The Design Transverse Stiffeners on Webs loaded in Shear an of Proceedings Institution Approach", Ultimate of Civil Engineers, Part 2, pp. 1069-1099. Horne, MR, and Grayson, W. R., 1983, "Parametric Finite Element Study of Transverse Stiffeners for Webs in Shear", Instability and Collapse of Steel Structures, (edited by Morris, LJ), Granada Publishing, London, pp. 329-341. Todhunter, 1. and Pearson, K., "History of Theory Elasticity and Strength of Materials", Vol. 1, p. 147. Navier, L., 1823, Bull. Soc. Phil-Math, Paris. Bernoulli, J., 1789, "Essia Theorique sur les Vibrations de Plaques Elastiques Rectangulaires et Libres", Nova Acta, V5, St Petersburg, pp. 197-219. Clebsch., 1883, "Theorie de L'elasticite de Crops Solides Avec des Notes Entendues de St. VenanC, Dunod, Paris, pp. 687-706. Levy, M., 1899, "Sur L'equlibre Elastique d'une Plaque Rectangulaire", C.R. Acad, Sci V129, pp. 535-539. Szilard, R., 1974, "Theory and Analysis of Plates-Classical and Numerical Methods", Prentice-Hall, Inc., New Jersey. of
+
+1.6-
+
+1.7-
+
+1.81.9-
+
+1.10-
+
+1.11-
+
+1.12-
+
+28 1.13Bulson, P.S., 1970, "The Stability of Flat Plates", Windus, London. Chatto and
+
+1.14-
+
+Timoshenko, S.P, and Woinowsky-Krieger, S., 1961, "Theory McGraw-Hill Book Company, New Plates and Shells", of York. Allen, H. G, and Bulson, P.S., 1980, "Background to Buckling", McGraw-Hill Book Company (UK) Limited.
+
+1.15-
+
+1.16 - Bryan, G.H., 1981, "On the Stability of a Plane Plate under Thrust in its Own Plane with Application to Buckling of the Side of a Ship", Proc. London Math. Soc., V22. 1.17Ritz, W., 1908, "Uber eine neue Methode zur Losung der Methematischen Probleme Variations Gewisser Physik", J. Fur. Reine U. Angew. Math., V135, pp. 1-61. Galerkin, B. G., 1915, "Series - Solutions of some Cases of Vestnik. Equilibrium of Elastic Beams and Plates", Inshenerov., V1, pp. 879-908. (In Russian) Budiansky, B. G, and Hu, P. C., 1946, "The Lagrangian Multiplier Method of Finding Upper and Lower Limits to Critical Stresses of Clamped Plates", NACA Report No. 848. Solution for Skew Plates Using' Roberts, J.D., 1966, "A Dynamic Relaxation", M. Sc Thesis, University of London. Savage, J.E., 1968, "Finite Difference Solutions Plates", M. Sc Thesis, University of London. of Skew
+
+1.18-
+
+1.19-
+
+1.20-
+
+1.21-
+
+1.22-
+
+M. G, and Baran, M. L., 1951, "Numerical Salvadori, Computation of Buckling Loads by Finite Differences", Trans. ASCE, V116, pp 590-624. Huber, M. T., 1923, "Die Theorie der Kreuzweise Bewehrten Eisenbetonplatten Anwendungen Mehrere nedst auf Wichtige Bauteghnisch Aufgaben Ueber Rechteckige Bauingenieur, V4, pp. 354-392. Platten", Argyis, J. H., 1954, "Energy Theorems and Structural Analysis", Aircraft Eng., Vol 26, pp. 347-356,383-387.
+
+1.23-
+
+1.24-
+
+29 1.25Argyis, J.H., 1955., "Energy Theorms and Structural Analysis", Aircraft Eng., vol 27, pp. 42-58,80-94,125-134, 145-158. Turner et al, 1956, "Stiffness and Deflection Analysis of Complex Structures", J. Aerospace Sci., vol. 23, pp-805-823. Zienkiewicz, O.C., 1977. "The Finite Element Method", Edition, McGraw-Hill. Holland, I., and Bell, K., Methods in Stress Analysis", Norway Press), Trondheim. Third
+
+1.26-
+
+1.27-
+
+1.28-
+
+(eds), 1969, "Finite Element Tapir (Technical University of
+
+1.29-
+
+its Probleme in T., 1910, "Festigke Von Karman, der Mathematischem Encyklopaedie Maschineubau", Wissensheften, VI, pp. 348-351. G. R., 1876, Worlesungen Kirchoff, Physik", VI, B. G. Teubner, Leipzig. uber Mathematische
+
+1.30-
+
+1.31-
+
+Margeurre, K., 1938, "Zur Theorie der Gekruemmter Platte Proc. 5th Int. Congr. for Appl. Grosser Formaenderung", Mech., Cambridge. Soper, W. G., 1958, "Large Deflection of Stiffened Plates", J. Appl. Mech., V25, pp. 444-448. Yusuff, S., 1952, "Large Deflection Theory for Orthotropic Rectangular Plates Subjected to Edge Compression", J. App. Mech., V19, p. 446-450. Loaded Clamped Rectangular Way, S., 1938, "Uniformly Plates with Large Deflections", Proc. of the Fifth Int. Congr. Appl. Mech., Cambridge, Mass., pp. 123-128. of levy, S., 1942, "Bending of Rectangular Plates with Large Deflections", NACA T. N. 846. Levy, S., 1942, "Square Plate with Clamped Edges under Normal Pressure Producing Large Deflections", NACA T. N 847. Levy, S., and Greenman, S., 1942, "Bending with Large Deflection of a Clamped Rectangular Plate with Length Width Ratio of 1.5 under Normal Pressure", NACA T. N. 853.
+
+1.32-
+
+1.33-
+
+1.34-
+
+1.35-
+
+1.36-
+
+1.37-
+
+30
+
+1.38-
+
+Levy, S., Goldenburg, D, and Zibritosky, G., 1944. "Simply Supported Long Rectangular Plates under Combined Axial Load and Normal Pressure", NACA T. N. 949. Woolley, R. M., Corrick, J.N, and Levy, S., 1946, "Clamped Long Rectangular Plate Under Combined Axial and Normal Pressure", NACA T.N. 1047. Coan, J.M., 1951, "Large Deflection Theory for Plates with Small Initial Curvature Loaded in Edge Compression", J. Appl. Mech., V18, No. 2, pp. 143-151.. Hu, P.C., Lundquist, E. E, and Batdrof, S.B., 1946, "Effect of Small Deviations from Flatness on Effective Width and Buckling of Plates in Compression", NACA T. N. 1124. Yamaki, N., 1959 - 1960, "Postbuckling Behaviour of Rectangular Plates with Small Initial Curvature Loaded in Edge Compression", J. Appl. -Mech., V26, No. 3, pp. 407-414. Continued in: V27, pp. 335-342. Yamaki, N., 1961, "Experiments on Post-Buckling Behaviour J. Appl. of Square Plates Loaded in Edge Compression", Mech., V28, pp. 238-244. Yoshiki, M., Yamamoto, Y, and Kondo, H., 1965, "Buckling of Plates Subjected to Edge Thrusts and Lateral Pressure", J.Soc. Nav. Arch., Japan, V118, BSRA Translation 3793. Supple, W. J., 1970, "Changes of Waveform of Plates in the Postbuckling Range", Int. J. Solids and Structures, V6, pp. 1243-1258. Supple, W. J., 1979, "Buckling of Plates under Axial Load and Lateral Pressure", Paper read at the Int. Conf. on Thinwalled Structures, 3rd-6th April, University of Strathclyde. Falconer, B. H., and Chapman, J. C., 1953, "Compressive Buckling of Stiffened Plates", The Engineer, V195, pp. 789791 and 822-825. Mansour, A. E., 1971, "On the Non-Linear Theory Orthotropic Plates", J.Ship Research, V15, pp. 266-277. of
+
+1.39-
+
+1.40-
+
+1.41-
+
+1.42-
+
+1.43-
+
+1.44-
+
+1.45-
+
+1.46-
+
+1.47-
+
+1.48-
+
+31 1.49Mansour, A. E., 1976, "Charts for Buckling and Post-Buckling Analyses of Stiffened Plates under Combined Loading", Panel HS-3 of Hull Structure Committee, Technical and Research Bulletin No. 2-22, Published by SNAME. Thompson, J.M. T. and Walker, A. C., 1968, "A Non-Linear Perturbation Analysis of Discrete Structural Systems", Int. J. Solids and Structures, V4, pp. 757-767. Walker, A. C., 1969, "The Post-Buckling Behaviour of Simply Supported Steel Plates", Aero. Quart., V20, pp. 203-222. Dawson, R. G. and Walker, A. C., 1972, "Post-Buckling of Geometrically Imperfect Plates", J.Struct. Div., ASCE, V98, STI, pp. 75-94. Williams, D. G. and Walker, A. C., 1975, "Explicit Solutions for Deformed Plates Subject to the design of Initially Compression", Proc. Instn. Civ. Engrs., Part 2, V59, pp.763787. R., 1936, "Rechnerische Kaiser, und Experimentelle der Durchbeigung Ermittlung Von und Spannungen Quadratishen Platten bei Freier Auflangerung an den Verteilter Last und Grossen Raendern, Gleichmaessig Ausbiegugun", Z. Fur A. M. M., Band 16, Heft 2. Wang, C.T., 1948, "Bending of Rectangular Plates with Large Deflections", NACA T. N. 1462. Wang, C. T., 1948, "Non-linear Large Deflection Boundary Value Problems of Rectangular Plates", NACA T. N. 1925. Scholes, A. and Bernstein, E.L., 1969, "Bending of Normally Loaded Simply Supported Rectangular Plates in Large J. Strain Analysis, V4, No. 3,1969, Deflection Range", pp. 190-198. Basu, A. K. and Chapman, J. C., 1966, "Large Deflection Behaviour of Transversely Loaded Rectangular Orthotropic Plates", Proc. Instn. Civ. Engrs., V35, pp.79-110. Aalami, B., 1967, "Non-linear Behaviour of Rectangular Orthotropic Plates under Transverse and In-plane Loads", Ph.D Thesis, University of London.
+
+1.50-
+
+1.51-
+
+1.52-
+
+1.53-
+
+1.54-
+
+1.55-
+
+1.56-
+
+1.57-
+
+1.58-
+
+1.59-
+
+32 1.60Aalami, B. and Chapman, J. C., 1969, "Large Deflection Orthotropic Plates Rectangular behaviour under of Proc. Instn, Civ. Engrs., Transverse and In-Plane Loads", V42, pp. 347-382. Aalami, B. and Chapman, J. C., 1972, "Large Deflection Behaviour of ship Plate Panels under Normal Pressure and In-Plane Loading", Trans RINA, V114, pp 155-181.
+D. G., 1971, "Some Examples Williams, of the Elastic Deformed Bridge Panels", Civ. Eng. Behaviour of Initially Public Works Review, pp 1107-1112. and
+
+1.61-
+
+1.62-
+
+1.63-
+
+Day, A. S., 1965, "An Introduction The Engineer, V219, pp. 218-221.
+
+to Dynamic Relaxation",
+
+1.64-
+
+Otter, J.R. H., 1965, "Computations for Prestressed Concrete Relaxation", Reactor Pressure Vessels Using Dynamic Amsterdam, VI, No. 1, Nuclear Structural Engineering, 61-75. pp. Otter, J.R.H., Cassell, A. C. and Hobbs, R.E., 1966, "Dynamic Relaxation", Proc. Instn. Civ. Engrs., V35, pp. 633-656. Aalami, B., 1972, "Large Deflection of Elastic Plates under Patch Loading", J.Struct. Div., ASCE, V98, ST11, pp. 25672586. Brebbia, C. and Conner, J., 1969, "Geometrically Non Linear Finite Element Analysis", J.Eng. Mech.Div., ASCE, V95, EM2, pp. 463-483. Murray, D. W. and Wilson, E. L., 1969, "Finite Element Large Deflection Analysis of Plates", J.Eng. Mech. Div., V95, EIm, pp. 143-165. M. A., 1973, "Large Deflection Crisfield, Elasto-plastic Buckling Analysis of Plates Using Finite Elements", TRRL Report LR593. Dier, A. F., 1981, "Collapse of Metal Plates", University of London. Ph.D. Thesis,
+
+1.65-
+
+1.66-
+
+1.67-
+
+1.68-
+
+1.69-
+
+1.70-
+
+1.71-
+
+Dowling, P.J., Chatterjee, S., Frieze, P.A. and Moolani, F. M., 1973, "The Experimental of and Predicted Behaviour
+
+33
+Rectangular Stiffened Steel Box Girders", Proc. Int. Conf. on Steel Box Girder Bridges. I. C. E., London, pp. 77-94.
+
+1.72-
+
+Von Karman, Th., Sechler, E. E. and Donnell, L. H., 1932, "The Strength of Thin Plates in Compression", Trans. ASME, Appl. Mech., APM-54-5,53-57. M., Stussi, F., Kollbrunner, C. F. and Walt, 1951, "Versuchsbericht uber das. Ausbeulen der Auf Einseitigen, Verteilten Gleichmassig Druck Ungleeichmassig und Beanspruchten Platten aus Avional M, Hart Vergutet", Mitt. Inst. Baustatik ETH, H. 25, Zurich. Dubas, P. and Gehri, E. (eds), 1986, "Behaviour and Design of Steel Plated Structures", ECCS - Technical Committee 8Structural Stability, Technical Working Group 8.3 - plated structures, No 44, Switzerland. Winter, G., 1946, "Strength of Thin Flanges", Proc. ASEC, pp. 199-226. Steel Compression
+
+1.73-
+
+1.74-
+
+1.75-
+
+1.76-
+
+Structures Winter, G., 1968, "Thin-walled Solutions and Test Results", Prelim. Publ., IABSE, New York, pp. 101-112.
+
+Theoretical 8th Congress
+
+1.77-
+
+Faulkner, D., 1965, "Discussion of Paper by J.B. Caldwell Ultimate Longitudinal Strength", Trans. Royal Instn. Naval Arch., pp. 425-426. D., 1977, "Compression Faulkner, Tests on Welded Stiffened Plate Panels", Eccentrically Steel Plated Structures, (Ed. P.J. Dowling, J.E. Harding and P.A. Frieze), Crosby Lockwood Staples, London, pp. 581-617. Gerard, G., 1957, "Compressive Strength of Flat Stiffened Panels", NACA, TN No. 3785. Watanabe, E., Usami, T. and and Design of Steel Stiffened of Japanese Contributions", Struct. and Struct. Elements, Tokoyo, pp-396-417. Hasegawa, A., 1981, "Strength Plates -A Literature Review In Elastic Instability of Steel U. S. - Japan Joint Seminar,
+
+1.78-
+
+1.79-
+
+1.80-
+
+1.81-
+
+Cooper, P.B., 1971, "The Ultimate Bending Moment of Plate Girders", IABSE Colloquium on Design of Plate and Box Girders for Ultimate Strength, London.
+
+34
+
+1.82-
+
+Chatterjee, S., 1981, "Design of Webs and Stiffeners in Plate Box Girders", The Design of Steel Bridges, (Ed. K. C. and Rockey and H. R.Evans), Granada, London, pp. 189-214. Theorie "Beitrag 1916, H. H, Rode, zur Knickerscheinungen", Der Eisenbau, pp. 210-218. der
+
+1.83-
+
+1.84-
+
+Basler, K., 1961, "Strength of Plate Girders in Shear", Journal of the Structural Division, Proc. ASCE, paper 2967, vol. 87, STA, pp. 151-180. Fujii, T., 1968, "On an Improved Theory for Dr Basler's Theory", Proc. 8th Congress, IABSE, N. Y., pp. 477-487. Chern, C. and Ostapenko, A., 1969, "Ultimate Strength of Plate Girders under Shear", Fritz Engineering Laboratory Report, Report No. 328.7. Rockey, K. C. and Skaloud, M., 1968, "Influence of Flange Stiffness upon the Load Carrying Capacity of Webs in Final Report, Proc. 8th Congress, IABSE, N. Y., Shear", pp. 429-439. Rockey, K. C., and Skaloud, M., 1972, "The Ultimate Behaviour of Plate Girders Loaded in Shear", Structural Engineer, Vol. 50, No. 1, pp. 29-48. Load The
+
+1.85-
+
+1.86-
+
+1.87-
+
+1.88-
+
+1.89-
+
+Porter, D. M., Rockey, K. C., and Evans, H. R., 1975, "The Collapse Behaviour of Plate Girders Loaded in Shear", The Structural Engineer, Vol. 53, No. 8, pp. 313-325. Evans, H. R., Porter, D. M. and Rockey, K. C., 1978, "The Collapse Behaviour of Plate Girders Subjected to Shear and Bending", IABSE, Proceeding p-18n8, pp. 1-20. Massonnet, C.H. and Maquoi, R., 1978, "Recent Progress in the Field of Structural Stability of Steel structures", IABSE, Surveys 5-5/78, pp. 1-40. Basler, K., 1961, "Strength of Plate Girders under Combined Bending and Shear", Proc. ASCE, Journal Struct. Div., ST 7, pp. 181-197.
+
+1.90-
+
+1.91-
+
+1.92-
+
+35 1.93"Common Unified Eurocode 3,1983, Commission Structures", Steel Communities Brussels, EUR 8849. Code of Practice for the European of
+
+1.94-
+
+Evans, H. R., 1983, "Longitudinally and Transversely Plated Structures - Stability and Reinforced Plate Girders", Strength (Ed. R. Narayanan), Applied Science Publ., London, pp. 1-37. Djubek, J. and Skaloud, M., "The Limit State of Flanges and Webs in Accordance with the New Edition of the Czechoslovak Design Code for Steel Bridges". Timoshenko, S.P. and Gere, J. M., 1961, "Theory of Elastic Stability", Second Edition, McGraw-Hill Book Co., New York. Cook, I. T. and Rockey, K. C., 1962, "Shear Clamped and Simply Supported Infinitely Stiffeners", by Transverse Reinforced Quarterly, Vol. 13, Royal Aeronautical Society, Buckling of Long Plates Aeronautical pp 41-70.
+
+1.95-
+
+1.96-
+
+1.97-
+
+1.98-
+
+Scott, M. and Weber, R. L., 1943, "Requirements for Stiffeners Attached to Panels under Combined Auxiliary Compression and Shear", N. A. C.A T. N 921. Rockey, K. C., 1956, "The Design of Intermediate Vertical Stiffeners on Web Plates Subjected to Shear", Aeronautical Quarterly, Vol-7, Royal Aeronautical Society, pp. 275-296.
+
+1.99-
+
+1.100- Richmond, B., 1972, "Report on Parametric Study on Web Report for Department of the Environment, Panels", Maunsell and Partners, Consulting Engineers, London. 1.101- Bijlaard, F. S.K., 1982, "The Design of Transverse and Longitudinal Stiffeners for Stiffened Plate Panels", IBBC TNO, Heron, vol. 27, NoA 1.102- Basler, K. and Thurlimann, B., 1961, "Strength of Plate Girders in Bending", Proc. J. Struct. Div., ASCE, ST6, pp. 153-181. 1.103- Cooper, P.B., 1967, "Strength of Longitudinally Stiffened Plate Girders", Proc. J. Struct. Div., ASCE, ST2, pp. 419-451.
+
+36
+1.104- Rockey, K. C. and Valtinat, G., 1977, "Vertical Stiffeners in Test Report DT/SC/l, Plate Girders with Slender Webs", University College, Cardiff. 1.105- Rockey, K. C., "The Behaviour of Single Sided Vertical Test Report Stiffeners on Webplates Loaded in Shear", DT/SC/4, University College, Cardiff. 1.106- Rockey, K-C and Valtinat, G., "Behaviour of Double Sided in Stiffeners Webplates Loaded Primarily Vertical on Shear", Test Report DT/SC/6, University College, Cardiff. 1.107- Kerensky, O.A., Flint, A. R. and Brown, W. C., 1956, "The Basis for Design of Beams and Plate Girders in the Revised British Standard 153", Proc. I. C.E., Part 3, Vol. 5. 1.108- Djubek, J. and Skaloud, M., 1977 "Post-buckled Behaviour Web Plates in the New Edition of Czechoslavek Design of Int. Conf. on Steel Plated Structures, Specifications", London (edited by Dowling, Harding and Frieze), Crosby Lockwood Staples. 1.109- Skaloud, M., Donea, J. and Massonnet, C. H, "Post-critical Behaviour of a Stiffened Square Plate Subjected to Uniform Shear", I. A. B. S.E. Publications, vol. 27, pp. 187-210. 1.110- Wolchuk, R., 1980, "Proposed Specifications for Steel Box Girder Bridges", Proc. J.Struct. Div., ASCE, ST12, vol. 106, pp. 2463-2477. 1.111- "Proposed Design Specifications for Steel Box Girders", Report No. FHWA-TS-80-205, Wolchuk and Mayrbaurl, Consulting Engineers for Federal Highway Administration, Washington, D. C.
+
+37
+
+CF
+
+max
+
+Cymi n
+
+.0
+
+Figure 1.1
+
+DISTRIBUTIONIN THE POSTCRITICAL STRESS RANGE.
+
+a
+
+y
+
+b
+
+Figure
+
+1.2
+
+EFFECTIVE PLATE WIDTH b
+
+e'
+
+38
+
+-0
+
+T
+
+Tb
+
+Figure 1.3
+
+RODE'SPARTIALTENSIONFIELD MODEL.
+
+Figure 1.4
+
+FIELD MODEL. BAKER'S TENSION
+
+39
+
+a/2
+
+1.4 a/2
+
+Figure 1.5
+
+FUJIVS TENSIONFIELD MODEL.
+
+Figure 1.6
+
+TENSION FIELD MODEL. AND OSTAPENKO OHERN
+
+40
+
+dd
+
+T
+
+ft
+a
+
+b
+
+1u1(
+
+a
+
+Figure
+
+1.7
+
+ROCKEY AND SKALOUD TENSION FIELD MODELWITH THE CORRESPONDING
+
+FAILUREMODEL.
+
+41
+
+top and bottom unrestrained 1.0
+
+edges 0.5
+
+Ay 0.5 .8 C/Cyield \YlYi ield .0 VIY 3u/Bx = const 'yy ý0 u- const v- const .42.0 .2 0-Yc0 Ou/ax = const
+
+2.0
+
+6., .
+
+- 1.0 .8 a-/(Yy tension
+
+.6A
+
+.2
+
+.2
+
+.4
+
+11.0 .6 .8 compression crIcr
+
+ield field
+
+au/8x = const Ov/Ox=const
+u- const ýv = const 9u /Ox= const
+8v/8x 2 const cr-L=O-T=0
+
+(7/ Cy tension y
+
+compression Cr/a
+
+xp A 0.54 1.09 2.18 3.27
+
+b/1 (gyý: 245 N/mm2) 30 60 120 iso 0.15 0.1 -0.6 0.3 -
+
+WO/t 0.3 -0.9 -1.2 3.6
+
+a
+
+Figure 1.8
+
+TYPICAL INTERACTION FORA PANELLOADED COMPRESSIVE, CURVES BY TENSILE ANDSHEAR DISPLACEMENTS.
+
+42
+T/ TY 1.0 0.8. 0.6-0.4-,-0.5 \tzj E/Eyield N, Y /)" yield 0 1.0ý
+
+2.0
+
+0.2 0 100M/Mu 1.0 M/My ON.
+
+0 0.2 0.4 0.6 iii1 0 0.4 0.8
+top y
+
+0.8 1.2
+
+and bottom edges unrestrained 0.5 /1.0 E/Eyield 12.0\ . \\r/Yyield %
+
+1.0 0.8 0.6-0.4-0.2-0Miii 0
+
+0.2-
+
+0.4
+
+0.6
+
+41 116ý-O-M/Mu 0.8 1.0
+
+0
+
+0.4
+
+M/My 0.8 1.2
+
+top and bottom edges restrained
+xp x 1.09 2.18 3.27 b/i (a =245 N/mm2) y 60 120 180 -0.6 -----0.3 0.9 --3.6 /t WO 0.3 -1.2
+
+Figure
+
+1.9
+
+INTERACTION CURVES FOR PLATES UNDER BENDING DISPLACEMENTS.
+
+AND SHEAR
+
+43
+SbýýSc
+
+I bt
+
+i. 0
+
+restrained 0.8-unrestrained all aspect ratios 0.6--
+
+0.4 1 restrained unrestrained -all
+-, I"-
+
+a
+14
+
+aspect ratios b t 200
+
+5-5
+
+0
+
+50
+
+100
+
+150
+
+ASS 1.0-0.8--
+
+Aý
+
+a< 0.5
+restrained ý-<0.5 0.6--
+
+0.4--
+
+unrestrained
+
+lb
+0.2-Lt 0 Figure 1.10 Ub 50 100 150 200 fy, w' 35 5
+
+VALUES OF Sc FOR PANELS IN COMPRESSION, FOR PANELS IN INSb PLANE BENDINGAND Ss FOR PANELS IN SHEAR.
+
+44
+
+CHAPTER 2 THE FINITE ELEMENT PROGRAM AND ITS VALIDATION.
+
+45 2.1 INTRODUCTION
+
+From the methods described in the previous chapter for plate analysis, the finite element technique has been chosen to solve the non-linear system of equations that govern the transversely stiffened plate behaviour under the various in-plane loading types. The effects of large out-of-plane deflections and material non-linearly have been included in the study. This chapter describes briefly the established non-linear finite in conducting the various package, LUSAS, element used Correlation studies have been undertaken parametric studies. with existing analytical solutions as well as available experimental results. 2.2 DESCRIPTION OF THE FINITE ELEMENT PACKAGE
+
+The LUSAS package(2.1) used in the analyses was developed by It is a general purpose engineering Finite Element Analysis Ltd. for linear and non-linear which incorporates facilities system The system is based on the finite element analysis. stress displacement method and contains a comprehensive range of elements and solution procedures for the analysis of most types of problems. The system contains a wide range of both engineering linear and non-linear material models which cover most The support node conditions may be engineering materials. unrestrained, restrained with a prescribed displacement, spring or free. In the analyses, the plate and stiffener geometries were modelled by rectangular isoparametric semiloof shell elements with the mesh configuration shown in figure 2.1. Each element has a total of eight nodes. The corner nodes have three degrees of freedom which correspond to the displacements in three perpendicular directions whereas the mid-side nodes have five degrees of freedom; the two additional degrees of freedom relate to the loof rotations about the edge of the element at the loof points which located at 1143 of the distance from the midside node to the are The corresponding two corner nodes as shown in figure 2.2. element can accommodate generally curved shell geometries with varying thicknesses and anisotropic materials may be specified. The formulation takes account of both membrane and flexural deformations by thin plate theory, and as required shear deformations are excluded. For more details see reference 2.2.
+
+46 The volume approach proposed by Crisfield(2.3) has been used to incorporate the non-linear effects of material plasticity into the finite element model. The stress state is monitored on a number of layers through the plate thickness. Plasticity of each layer is governed by the von Mises yield criterion and the associated Prandtl-Reuss flow rules. The non-linear solution strategies used in the package are based on various schemes of the Newton-Raphson technique. In order to stabilize these iterative techniques, line searches are added to the iteration strategies to modify the equations where the incremental displacements are updated. The convergence of the non-linear equations solution to an acceptable limit is specified by a nonlinear control section, the values of which are very much a matter of experience. For detailed explanation, it is advisable to refer to the LUSAS User ManUal(2.1). 2.3 FINITE ELEMENT PACKAGE
+
+VALIDATION
+
+2.3.1 Introduction Before any numerical analyses could be carried out, it was first necessary to establish the validity of the package and data control as well as to demonstrate that the chosen mesh configuration shown in figure 2.1 would converge to solutions of acceptable accuracy. The eight noded semiloof element was used in all the cases examined. 2.3.2 Analytical
+
+validation
+
+A simply supported unstiffened plate of aspect ratio ý=1.5 and b/t,, = 180 subjected to shear loading has been analysed by Crisfield(2.3) Harding(2.4) In all cases, a and Grayson(2.5). multilayer 'volume approach' was used with Crisfield and Grayson adopting a finite element formulation and Harding adopting a finite difference dynamic relaxation approach. This plate was also analysed with the LUSAS package with the mesh refinement equivalent to figure 2.1. The results with all the data relating to the analysis are given in figure 2.3. The results of Crisfield and Harding are scaled from diagrams in each reference. Two of the cases from the detailed general study provided by Harding et al(2.6), which later formed the basis of the panel rules
+
+47 within the bridge standard were also examined using the LUSAS formulation and are shown in figures (2.4-2.5). Figures (2.3-2.5) indicate that excellent correlation exists and that the average stress-strain responses from the different analyses are very similar. Another correlation study was carried out on a stiffened panel of and plate slenderness X= 240 presented by aspect ratio ý=0.5 The imperfection mode used corresponds to a Grayson(2.4). stiffener mode of an overall half sine curve combined with a panel two half sine waves in each unstiffened panel (denoted mode with by (P5)) and shown in figure 3.5(a). The results of the parametric presented in chapter 3 showed that this mode is critical for study lateral displacement for the aspect ratio considered in stiffener the example. The results of figure 2.6 again demonstrate excellent correlation. 2.3.3 Experimental
+
+validation
+
+Although the analytical validation presented in the previous subsection demonstrates the validity of the finite element it was felt that further validation with experimental package, results would indicate the appropriateness of boundary conditions and loading selection and provide full confidence in using the package for the current parametric studies. As far as plate girder webs are concerned, most recent work has been carried out at Cardiff(2.7-2.9). experimental However, these tests were generally on girders with very slender Rockey et al(2.7) tested eleven stiffened plate girders webs. designed to be identical except for the dimensions of the The aim of these experimental tests was to transverse stiffeners. check the ability of the stiffeners proportioned by their approach to sustain loads up to the failure of the girder. Figure 2.7 shows the layout of the plate girders tested with all the data relevant to Each girder was the two girders analysed (TGV4 and TGV7). loaded by a concentrated load at midspan thus producing a The panels were also constant shear force in all web panels. subjected to a varying coexistent bending moment. It will be seen later in chapter 3 that the stiffened panels considered in this study consisted of two panels with an intermediate stiffener to minimise the extensive computational time. For this reason, in modelling the plate girders, two panels
+
+48 with the eccentric stiffener were taken in order to represent the The semiloof element and the mesh stiffened web of the girder. configuration presented in section 2.2 were used for the for Three different boundary the modelling. conditions longitudinal edges were investigated; restrained, unrestrained and an actual flange boundary which corresponded to the flange dimensions taken from the test. There was no records presented of the web initial imperfections in the tests and therefore initial imperfection mode (P3) which was identified to be critical for this The applied plate geometry was adopted (see section 3.3.3). loading was a combination of prescribed shear and bending
+displacements with a strain proportion of Y/YY = FEIFY,
+
+As mentioned above, the web panels and flange geometries for both girders were the same, whereas the material yield stress and the size of the stiffener SA were larger in girder TGV4 compared It was found experimentally that the shear with girder TGV7. capacities of girders TGV4 and TGV7 were 101.5 KN and 94 KN Moreover, it was observed that stiffener SA stayed respectively. in girder TGV4 straight effectively whereas it deflected substantially in girder TGV7 around failure. The peak capacities evaluated from the finite element analyses for the girders with the various boundary conditions are given below. Girder TGV4 Vu = 93.6 KN Vu = 117.4 KN Vu = 99.3 KN
+
+Unrestrained Restrained Flange boundary
+
+Unrestrained Flange boundary
+
+Vu = Vu =
+
+84.1 KN 89.60 KN
+
+The values of the shear capacity deduced from the finite element analyses with the real flange boundaries therefore underestimate the experimental values by 2% for girder TGV4 and 4% for girder TGV7. These results must be considered very acceptable given the lack of data regarding the imperfections in the girders. The lateral displacements of stiffener SA from the analytical results The stiffener the experimental agreed with conclusions. deflections at peak load were 1.21mm for girder TGV4 and 4-74mm for girder TGV7.
+
+49 It is also interesting to compare the shear force values obtained from the unrestrained boundaries which the underestimate by 7% for girder TGV4 and 10% for girder experimental values It will be seen later that unrestrained boundaries were TGV7. for the main parametric studies. adopted The comparisons with the two girder tests show that the finite both when the stiffener deflection is element package works well minimal and the panel boundaries are effectively rigid and when There therefore is strong the stiffener itself deflects significantly. supporting evidence that analytical studies can be used with confidence to predict the optimum stiffener requirement which occurs at the boundary between the above two regimes. No further Cardiff girders were analysed because their high slenderness values placed them outside the scope of the study in this thesis. presented
+
+50
+
+2.4 2.1-
+
+REFERENCES Lusas User Manual, 1986, Finite Version 86.07, London. Element Analysis Ltd,
+
+2.2-
+
+Irons, B. M., 1976, "The Semiloof Shell Element", Finite Elements for Thin Shells and Curved Members, (Ed. by Ashwell and Gallagher), Pub. Wiley, London. Elasto-Plastic M. A., 1973, "Large -Deflection Crisfield, Analysis of Plates Using Finite Elements", Buckling Department of the Environment, TRRL Report LR593, Crowthorne, Berkshire. Harding, J.E., 1975, "Bolted Spliced Panels and Stress Redistribution in Box Girder Components up to Collapse", Ph.D. Thesis, University of London (Imperial College). Grayson, W. R., 1981, "Behaviour and Design of Stiffened Web Panels", Ph.D Thesis, University of Manchester. Harding, J.E., Hobbs, R.E., Neal, B. G., and Slatford, J., 1976, "Parametric Study on Plates Under Combined Direct and Shear In-plane Loading", Steel Box Girders, CESLIC Report BG44, Imperial College, London. Rockey, K. C., Valtinat, G. and Tang, K. H., 1981. "The Design Transverse Stiffeners on Webs Loaded in Shear - an of Ultimate Load Approach", Proceeding Institution of Civil Engineers, Part 2,71, pp. 1069-99. Evans, H. R. and Tang, K. H., 1981, "A Report on Five Tests Carried out on a Large Scale Transversely Stiffened Plate Report No DT/SC/8, University College, Girder TRVY, Cardiff. Evans, H. R. and Tang, K. H., 1982, "A Report on Four Tests Carried out on a Large Scale Transversely Stiffened Plate Girder TRV4", Report No DT/SC/9, University College, Cardiff.
+
+2.3-
+
+2.4-
+
+2-5-
+
+2.6-
+
+2.7-
+
+2.8-
+
+2.9-
+
+51
+
+Figure 2.1
+
+STIFFENED PLATEMESH.
+
+5 mi(Iside variables 3 cot-ner variables
+
+Figure 2.2
+
+FOR THE SEMILOOF SHELL DIAGRAM SHOWING THE NODEL VARIABLES ELEMENT.
+
+52
+
+T/T
+
+y I.
+
+1.
+
+,
+
+0.
+
+w
+
+a
+
+0.
+
+0.
+V. 0 Nondimensional I. u shear strain 1.4 y' 1.4 1.6 I. B 2.0 Y/yy
+
+Figure
+
+2.3
+
+COMPARATIVE ANALYTICAL RESULTS.
+
+-r/T
+
+-T
+y i.;
+
+wo/tw
+, iý
+
+. 0.9
+lr---771 I-
+
+1.00.80.6[ 0.4 0.2 [ 0.0
+U. U
+
+b-1.0 180 245 N/M2 ined boundaries g results package 0.4 0.8 1.2 1.6 2.0 2.4 2. B Y/Y
+
+Nondimensional shear strain
+
+Figure
+
+2.4
+
+COMPARATIVE ANALYTICAL RESULTS.
+
+53
+
+WO/tw . 0.9
+T/T
+
+6n
+
+1.2 1.0 0.8 A-1 - 180 0.6 0.4
+0.2
+
+lz
+
+245 N/mm2 nd bottom edges unrestrained ng results package
+
+0.0
+
+'t
+
+U.0 I. Ic I. b2.0 Nondimensional shear strain
+
+2.4
+
+2.8
+
+Y/Y
+
+y
+
+Figure 2.5
+
+COMPARATIVE ANALYTICAL RESULTS.
+
+-r/-ry
+0.8 0.7 aa
+
+i
+
+0.6
+
+bfi 0.5
+
+Ti
+
+LI
+0-0.5 )L - 240 oy - 355 N1mm2
+
+0.4
+
+Ys . 112 Initial imperfection mode (P5)
+
+0.3 *
+"o
+
+LUSAS package results Grayson program
+
+0
+
+0.2
+
+*
+
+0.1
+
+0.0
+
+0.0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1.0
+
+1.2
+
+1.4
+
+1.6
+
+1.8
+
+2.0
+
+2.2 ' y/y y
+
+Nondimensional shear strain
+
+Figure 2.6
+
+COMPARATIVE ANALYTICAL RESULTS.
+
+54
+
+Stiffener B
+
+12V
+
+StiffenerA A, r-*.
+
+b,
+
+a PanelB2
+
+a Panel 131
+
+aa Panel Al PanelA2
+lbf I t Section AA when singlesided stiffener fitted
+
+-T I
+Section AA when doublesided stif fener fitted
+
+ý= b/tw
+
+a/b
+
+1.0 =
+
+b=
+
+600 mm
+
+300 =
+
+bf = 200 mm tf= 10 mm 2 = 250 N/mm
+
+cy = 220 yw TGV4 girder
+
+N/mm2
+
+a
+
+yf
+
+TGV7 girder
+
+Ds = 40.30 Ts=5.0 0
+
+mm
+
+Ds=
+
+12.40
+
+mm mm
+
+mm
+
+Ts=5.75
+
+= 420 N/mM2 ys
+
+2 285 N/mm 0 = ys
+
+Figure 2.7
+
+DETAILSOF EXPERIMENTAL-GIRDERS.
+
+55
+
+CHAPTER 3 PARAMETRIC STUDY OF PLATES SUBJECTED TO SHEAR.
+
+56
+
+3.1
+
+INTRODUCTION
+
+Although extensive theoretical and experimental work has been carried out on transversely stiffened plates subjected to shear and in-plane loadings, the optimisation of transverse stiffener geometries has not received a great deal of attention. For this reason, a series of parametric studies has been performed on 150 stiffened plate geometries subjected to shear loading using the finite element The objective of these package, LUSAS, described in chapter 2. parametric studies was to provide information from which to develop a simple design approach for transverse stiffeners on either plate or box girder webs. In this chapter, the results will be described and in detail to be used later for the validation of the design assessed approach developed in chapter 5. Because of the large number of cases examined, showing all the results in detail would be tedious. A selection of the results is shown in this chapter to illustrate the effect of the different parameters This selection is based around stiffener involved. geometries determined from the design philosophy explained in chapter 5. At the end of this chapter, a table of results is presented of all the cases analysed which confirm the conclusions drawn in the preceding The ultimate sections. shear capacity and the corresponding maximum lateral displacement of the stiffener are given for all the cases examined to provide a data bank for use by other researchers. 3.2 PARAMETERS UNDERSTUDY
+
+3.2.1 Introduction An extensive study was undertaken on plates stiffened by a single transverse stiffener in order to minimise the use of computer time. In fact, for the case of stiffeners sustaining large deflections, this will not result in a lower bound to strength but was deemed adequate for stiffener deflections less than the order of the plate thickness. Likely interaction between adjacent stiffeners, basically still forming The geometric rigid panel boundaries, was considered minimal. boundary type of loading, variables, conditions and initial imperfection forms were varied such that they are typical of those In this section, the different used in bridge structural design. The comparisons and results parameters investigated are described. will be presented in section 3.3.
+
+57
+
+3.2.2 Boundary
+
+conditions
+
+and
+
+loading
+
+The plate loading has been achieved by means of prescribed boundary displacements rather than applied stress, because it was the true behaviour of considered that this more closely approximated Frieze (3.1)provided a detailed section of the web plate in a girder. a the boundary conditions suitable for plates subjected to study on and in some cases shear loading. compression The boundary conditions considered in this study are shown in figure 3.1. All plate edges were considered to be simply supported in the direction perpendicular to the plane of the web. This means that any provided by the flanges and the adjacent panels rotational restraint The conditions for the top and bottom edges reflect was neglected. These edges were the degree of transverse boundary restraint. as either restrained or unrestrained as shown in figure considered For the unrestrained edges, the unloaded boundaries were 3.1. to develop any transverse stresses, whereas for the unable cases, the edges were kept straight and hence transverse restrained forces could be developed. For both boundary conditions, the shear loading was applied as a tangential displacement (Y = Ss) along the boundaries, while normal u direction displacement along vertical both vertical boundaries was kept zero. The only difference between the restrained and unrestrained loading process is that, for the case, the top and bottom boundaries were specified in restrained terms of a linear variation of the applied shear displacement in order to maintain straight edges throughout the loading process, whereas in the of this displacement no specification was considered The u displacements along top and bottom case. unrestrained boundaries were also taken as zero to represent the axial stiffness of flange elements. The restrained condition, however, was found to the behaviour impose significant and constraint on the stiffener intermediate conditions were needed (actual flange modelling) in order to properly ascertain the effect of a realistically rigid girder flange.
+Harding (3.2) considered the behaviour of panels subjected to shear , in-plane that the boundary conditions stresses and concluded and for modelling in this study were the most appropriate adopted practical web panels.
+
+58 3.2.3 Material properties
+
+Steel with a yield stress of 275 N/MM2 and an E value of 205000 for most of the study but the effect of N/mM2 was considered The has been investigated and will be discussed. varying yield stress no strain taken to be elastic ideally with plastic was material hardening.
+
+3.2.4 Geometric
+
+properties
+
+In plate theory, plate panels are usually defined by their aspect ratio ý and panel slenderness X. The definition of these parameters differs In the present study, the definitions used by the between codes. British Standard BS5400(3.3) have been adopted Special consideration has been given to seliecting values of and X The values of that are typical of normal design practice. and X are 0.5,1.0,1.5 and 2.0 and 60,120,180 examined and 240 A plate slenderness of X= 60 is extreme for the design respectively. but it provides an interesting limit case because no of webs, is available for a plate under shear loading and postbuckling reserve the forces acting on the stiffener would be expected to differ from those for more slender panels. In addition to the two above parameters different sizes of stiffeners have been examined for every aspect ratio and plate slenderness to identify the stiffener size which satisfies the basic philosophy described later in chapter 5. Simple flat (rectangular) stiffeners have These been used in order to reduce the number of variables. have been proportioned with an outstand depth equal to stiffeners (3.3) in order to prevent their local ten times the outstand thickness buckling before the ultimate capacity of the stiffened plate has been reached. It is an accepted practice to express stiffener dimensions in terms of flexural This approach has been a non-dimensional y. rigidity in presenting the results in this thesis. If the inertia of the adopted is taken about an axis at the face of the web, the stiffener alone flexural rigidity is specified as y.. If an effective width of web is included in the stiffener section, the inertia is taken about an axis passing through the centroid of the effective stiffener area and the flexural rigidity is given the notation 'Yeff. The different parameters that define the geometry of the stiffened plate are shown clearly in figure 3.2.
+
+59
+
+3.2.5 Initial
+
+Imperfections
+
+The analyses were performed without including the effects of Harding et residual stresses on either the plate or the stiffener. al(3.4) found that the ultimate shear strength of panels under loading is relatively insensitive to the presence of residual combined It was felt that residual stresses are unlikely to have stresses. influence on stiffener design requirements to justify the sufficient complexities of their incorporation in the analysis. added Figures (3.3-3.5) show the different initial out-of-plane displacement Reference numbers are patterns considered for the plate panels. All these patterns were specified in to in later sections. referred Due to the presence of the stiffener, an terms of sine functions. additional half sine wave displacement over the whole stiffened panel has been superimposed on the plate panel imperfection to give the total imperfection for the stiffened plate. The imperfection magnitudes used in the study were based on the in BS5400 (3.3) and are given by equations (3.1) tolerances specified and (3.2).
+
+Plate Tolerance
+AP G 165 -ay -,, 355 initial displacement due to plate panels. (3.1)
+
+where Ap = maximum
+
+G=a G= 2b Stiffener
+As G 750
+
+a<b a> 2b tolerancc
+... (3.2)
+
+where As maximum initial displacement due to stiffener. G length of stiffener.
+
+60
+Harding (3.2) has shown that the It should be noted, however, that to shear loading is relatively insensitive capacity of plates subjected displacement. The the initial out-of-plane to the magnitude of lateral displacement at the the maximum that produced patterns has been chosen as the basis for the design study stiffener position relating to each 0 and X under consideration.
+
+3.3
+
+RESULTS OF THE STUDY
+
+3.3.1 Presentation A considerable amount of data has been obtained from the finite Graphs, tables comprising the parametric study. element analyses have been used wherever possible, not only to convey and contours the results concisely, but also to allow easier comparison. The behaviour of transverse stiffeners in transversely stiffened to shear loading is mainly dependant on the plates subjected * boundary restraints, the type of initial imperfection, aspect ratio, To demonstrate plate slenderness, yield stress and stiffener size. this, the effects of each of the above parameters is considered in separate sections. Comparisons and individually and presented discussion concentrate mainly on the ultimate shear capacity of the the maximum lateral displacement at the stiffener plates and position. 3.3.2 Effect of boundary restraint
+
+As mentioned in section 3.2.2, both restrained and unrestrained boundary conditions have been examined. While it is clear that the boundary is the weaker of the two conditions unrestrained in terms of sub-panel carrying capacity, there was a considered that the greater potential for the development of stiffener possibility tension field forces present in the restrained boundary case might While the in larger deflections and stresses for the latter. result initial thought was to use the more onerous of the two conditions for the design of the stiffener, it was also clearly important to see by how much the stiffener design would differ between the two boundary representations, to see how potentially conservative the resulting design formulation might be. The effects of these boundaries have been investigated on stiffened having plate slenderness of 180 and aspect ratios 0= 0.5,1.0, plates 1.5 and 2.0. This high panel slenderness X was chosen for this study
+
+61
+because the importance is most the boundary restraints of pronounced when lateral deflections are large. Figures 3.6 and 3.7 show clearly the influence of these boundary conditions on the behaviour of the stiffened plate in general and the transverse in particular. In these curves, the abscissa represents the stiffener maximum lateral displacement of the stiffener, whilst the ordinate is It can the average shear stress calculated at every load increment. be seen that for every combination of plate geometry, the stiffener and initial imperfection mode have been kept unchanged in both size restrained and unrestrained cases. For aspect ratio 0.5, mode (P5) has been considered, whereas for aspect ratios 0=1.0,1.5 and 2.0, mode (P3) has been chosen. The reason behind that will be described in detail in section 3.3.3, but it should be noted that these initial imperfection modes are critical as far as the design of the stiffener is Furthermore, concerned for the aspect ratios considered. the dimension of the stiffener yý that was selected to demonstrate this from the design effect corresponds to the value determined philosophy. There was a major concern that while the restrained boundary condition is a valid limit condition, the mathematical formulation actually serves to establish an axial strain control on the stiffener which both limits its ability to carry axial loading and also its ability It provides maximum opportunity to deflect laterally. for the reactions from the panel tension field to be distributed along the The true situation is in fact very complex and requires a girder. flange of finite rigidity in order to establish the true forces acting between girder flange and web elements. While it would be possible by some kind of spring system, this would to model the flexibility involve complexities in interpretation. It was therefore decided that a few analyses should be carried out incorporating actual plate girder flanges so that the effect of the flange presence on stiffener stresses and deflections could be examined. Three flange sizes were chosen from a very slender to a moderately stocky member and are expressed in terms of rigidity of magnitudes parameter Mfw 0.000362,0.0029 Figure 3.8 shows that and 0.0232 respectively. increasing flange rigidity actually reduces the central deflection of the stiffener for a given level of web shear and also causes a modest increase in shear strength. It must be noted that the average shear stress is evaluated from the web stress distribution adjacent to the While stiffener and does not include shear carried by the flanges. the interaction between flange and web stresses is complex and varies along the girder, the graph gives a reasonably accurate It can therefore representation of the web and stiffener behaviour. be concluded that any additional deflections resulting from axial forces on the stiffener due to tension field action are more than
+
+62 by a reduction in the transverse bending of the stiffener countered When interpreting the values of Mfw because of flange support. it should be remembered that in practical design there would shown be a level of flange direct stress that would reduce the normally from the flange both in terms of tension field effective restraint forces and transverse stiffener bending resistance. f While the presence o. the flanges is beneficial for stiffener deflection it is also important to examine the stress state of the stiffener to see tension field forces may lead to earlier collapse whether additional the results of figure 3.8 have already indicated this to be although unlikely. Figures (3.9-3.12) show the stress distribution at both the web interface and and also the outstand tip for the unrestrained It is for the three flanges examined. restrained conditions and interesting that with the stiff flange there is a net axial force clearly at the extremes of the stiffener but that the effect is relatively shown localised. The same effect is not evident in the other figures. Closer does reveal an increase, relative to the central outstand examination tension, in the compressive stresses at the centre of the stiffener In order to investigate this, Table 3.1 shows the web. span near span outstand and stiffener/web junction stresses at peak centre capacity for all the cases examined. shear It is apparent from Table 3 that the tension field reaction does .1 have a small effect in increasing the compressive stresses in the stiffener near the web and reducing the tensile stresses at the tip but that a major part of the latter effect is due to a stiffener in stiffener lateral deflection due to end restraint as noted reduction in the context of figure 3.8. The net outcome is a stiffener which lower stresses and deflections the flange rigidity as sustains increases. This leads to the conclusion that the unrestrained boundary condition is conservative for this condition and was taken for the majority of in this study. While this is clearly conservative in cases considered involve major instances, it would be very difficult and some complication to provide a stiffener design formulation that would allow in a suitable way for flange restraint. It is important to realise that the above conclusions may not apply if the sub-panel is significantly more slender. In this case the tension field effects would be expected to be more important and it is that the unrestrained condition would no longer provide a possible worst case for design.
+
+63 It will be seen in chapter 5 that the design proposal formulated uses the panel strengths incorporated in the bridge standard which would the panel to be unrestrained if bounded by a normally consider flange. The imperfection modes mentioned in figures (3.6-3.12) are again found to be critical for the particular cases presented. These those It be looked at in more detail in the next sub-section. modes will be noted that the stiffener sizes selected in fact should also to the design sizes derived from the design formulation correspond in chapter 5 which in simplistic terms correspond to the presented of stiffener to have a negligible effect on the sub-panel minimum size rigid to limit out-of-plane capacity Le that will be sufficiently boundary movements to levels that will not significantly affect panel response. It is interesting to note at this stage that the distribution of stresses along the stiffener with the unrestrained boundary condition is that of a bending form. There is no clear form for the case primarily This has interesting implications on the restrained boundary. of tension field forces which will be discussed later.
+
+3.3.3 Effect
+
+of
+
+initial
+
+out-of-plane
+
+displacement
+
+patterns
+
+The influence of the different initial imperfection modes presented in 3.2.5 are described and discussed in detail in this section. section The effect of the initial imperfection mode on plates with the same aspect ratio but with different will first be plate slenderness Figures (3.13-3.19) the lateral examined. show contours of displacement of a selection of stiffened plates at their ultimate The first three figures demonstrate the influence of capacity. imperfection mode (P5) on plates with 0=0.5 and X= 120,180 and 240. Figures (3.16-3.19) illustrate the effects of imperfection mode 240. From both (P3) on plates with 0 =1.5 and X= 60,120,180 and figures, it can be seen that the applied shear displacement sets of plate panel buckling in all cases. Buckles are essentially causes identical in form for plates having the same aspect ratio and initial imperfection mode, whereas their amplitudes increase with plate X. Thus the form of the primary influence of the initial slenderness imperfection mode can be reduced to the study of one plate slenderness for every aspect ratio.
+
+64 a) Aspect ratio 0=0.5
+
+For aspect ratio 0=0.5, the initial Out-of-plane displacement patterns that were considered are imperfection modes (P5) and (P6). The reason for concentrating on only these two modes is the high probability of their existence at this aspect ratio. This followed from a consideration of the effects of the initial imperfection modes on Grayson (3.5) performed a parametric study on 0=1.0. aspect ratio the effects of initial imperfection modes on stiffened plates subjected to shear and also found that the above modes are the most The effects of these modes will be demonstrated on appropriate. plate slenderness X =180. The stiffener size parameter ys = 193.80 is the size identified by the design philosophy presented in chapter 5 to be adequate for this stiffened plate geometry. Figure 3.20 shows the contour of the lateral displacements of the stiffened plate with imperfection mode (P6) at the plate ultimate shear capacity while figure 3.14 shows the contour of the same plate with imperfection mode (P5). The comparison between these two modes below concentrates on their effect on the transverse stiffener deformation. Firstly, for the stiffened plate with mode (P5), the buckles are the form of the imperfection. The two buckles on the consistent with leading diagonal are in sympathy and force the transverse stiffener to deflect in the direction of their displacements as shown in figure 3.14.
+For the plate with mode (P6) figure 3.20, an initial negative dimple in the top right corner and a positive one in the bottom left exists These develop further as the web panels buckle. The panel corner. buckles therefore try to displace the transverse stiffener in opposing directions displacement is much and the resulting of the stiffener smaller in this case as shown in figure 3.20.
+
+Figure 3.21 shows graphically the effects of modes (P5) and (P6) on The graphs represent the relation between the plate under study. lateral the shear stress r and the corresponding maximum displacement in the stiffener ýV and clearly show that the lateral displacement in the stiffener at any level of shear stress is much larger imperfection with mode (P5) compared with that of imperfection mode (P6). Reference to all the results clearly shows that the deformation of the is greatest for imperfection transverse stiffener mode (P5) for stiffened plates of aspect ratio 0=0.5 and X= 60,120,180 and 240.
+
+65 Aspect ratio ý= 1.0 Special consideration has been given to choosing the initial imperfection modes that might exist in practice for plates with aspect Grayson's parametric study (3-5) has shown that ý=1.0. ratio imperfection modes (PI), (P2)and (P3) are appropriate for this aspect The ratio and these are shown in figures 3.3(a), 3.3(b) and 3.4(a). effects of these initial imperfection modes will be illustrated for a 120 and stiffener size stiffened web of plate slenderness X= This particular stiffener was again chosen ys = 44.51. parameter because it is the size determined from the design approach presented in chapter 5. Figures (3.22-3.24) represent the contours of the lateral displacements of the stiffened web at the plate ultimate shear The only difference between the plates is the initial capacity. imperfection mode (PI), (P2) and (P3) respectively. If these contours are compared two main points can be noted: The amplitude of the web buckles is a maximum in figure 3.24 with initial imperfection mode (P3)2The lateral displacements of the stiffener are also largest for (P3)imperfection This mode therefore appears to be the critical imperfection mode for this aspect ratio. relevant
+
+The same conclusion can be drawn b r looking at figure 3.25 which shows the relationship between the average shear stress and the maximum lateral displacement in the stiffener for each imperfection form. At any level of shear stress, the lateral displacement V is largest in the stiffened plate having P3 as an initial imperfection mode. C) Aspect ratio 0=1.5 and 2.0.
+
+Figures (3.26-3.29) show the contours of the lateral displacements of stiffened plates having aspect ratio ý=2.0 and panel slenderness X= 60,120,180 The stiffener dimensions chosen for these and 240. in plates are those identified by the design philosophy presented To demonstrate the effects of the initial imperfection chapter 5. If these patterns, mode (P3) has been selected for these plates. contours are compared to the contours of the stiffened plates of aspect ratios 0=1.5 shown in figures (3.16-3.19), it can be seen that the form of the buckles in both aspect ratios is identical for any plate The effect of the imperfection mode on both aspect slenderness. ratios is therefore studied by reference to the 0=1.5 case.
+
+66 180 plate with initial The lateral displacement contour of the X= imperfection mode (Nat the plate ultimate shear capacity is shown in figure 3.30. Figure 3.31 compares the relationships between the average shear stress r and the maximum lateral displacement in the stiffener for the two different imperfection forms and confirms that (P3) is more critical for this aspect ratio as for 0=1.0.
+
+3.3.4 Effect
+
+of
+
+plate
+
+slenderness
+
+Knowledge of the effects of imperfection forms and boundary conditions considerably simplifies the understanding of the effects of both panel slenderness and aspect ratio. In this section, the influence of the plate slenderness on the behaviour of the transverse stiffeners is investigated. Figures (3.323.35) demonstrate this effect on aspect ratios 0.5,1.0,1.5 and 2.0. In all figures the average shear stress r has been plotted against the stiffener maximum lateral displacement. Figure 3.32 shows a comparison between different slenderness values for an aspect ratio ý=0.5 and stiffener dimensions %= 90. Omm and Tý = 9.Omm. The plate slenderness values considered X= 60,120,180 and 240. The critical initial imperfection mode are (P5) was taken for this aspect ratio. Figures (3.33-3.35) show the same comparison for stiffened plates with aspect ratios ý=1.0,1.5 and 2.0 respectively. The stiffener size examined was again Ds =90-Omm and Ts= 9.Omm. As mentioned in the previous section, the initial imperfection mode (P3) is critical for From the four these aspect ratios and was adopted in this study. graphs, two main conclusions can be drawn. For each aspect ratio, the maximum lateral displacement of the increases with increase in plate slenderness at all stiffener levels of shear stress. The ultimate shear capacity of the stiffened plates of a particular aspect ratio decreases with increase of plate slenderness. This is of course expected and results from the fact that the amplitude The of the web buckles increases with plate slenderness. deflecting panels apply forces to the stiffener which will obviously affect its deflection and hence the capacity of the stiffened plate.
+
+2-
+
+67
+
+3.3.5 Effect
+
+of
+
+aspect
+
+ratio
+
+Figures (3.36-3.39) show the effect of varying aspect ratio on the deflection for plate slenderness values 60,120,180 and stiffener For every plate slenderness the dimensions of the stiffener 240. kept constant, while the critical initial imperfection mode has were been taken in each case. Figure 3.36 shows the stiffener deflections for a panel slenderness of 2.0. The stiffener dimensions are D. = 60 with 0=0.5,1.0,1.5 and 90mm and Ts = 9.Omm. The graph shows a difference in behaviour for 0 values of 1.0,1.5 and 2.0 compared with that for 0=0.5. the For the assumed stiffener dimensions for the case of 0=0.5, is not acting as a rigid boundary for the two web panels as stiffener in figure 3.40. For this case, the stiffener is not having a shown effect on the buckling of the overall stiffened panel and controlling the initial panel buckling stiffness is much lower. Therefore, for 0= 0.5, the maximum lateral displacement in the stiffener is large because it represents the maximum lateral displacement of the It is interesting that in spite of this, the ultimate stiffened plate. this stiffened plate is still the highest, and the relatively capacity of flexible stiffener must still be contributing significantly to this. For the other plate slenderness X= 120,180 and 240, the graphs show a variation with aspect ratio as shown in figures (3.37more consistent For every plate slenderness, the lateral displacement of the 3.39). increases with increase of aspect ratio. stiffener It can generally be concluded that the ultimate shear capacity of the the range considered decreases with increase stiffened plates within for plates of equivalent panel slenderness. of aspect ratio
+
+3.3.6 Effect
+
+of yield
+
+stress
+
+(3.1)found that if the panel slenderness is defined by Frieze AbY tw FE Y ýýY the stresses expressed relative to yield stress, and
+
+the strains relative to yield strain, the behaviour of plates with the Since the new approach is uniquely defined. same aspect ratio for the design of transverse stiffeners, presented in chapter proposed five is based on an empirical formula which is a function of X, established from the results of the finite element study with a material yield stress of ay = 275N/MM29 it was essential to check its
+
+68
+for plates of the same ý and X but with different yield stress validity ay* A number of cases were re-run with yield stress values of ay = 355 N/mM2 and with b/t revised so 240 N/MM2 and cyy b[ a-, the form now used widely for that the expression ;L tw 355 design, remained unaltered.
+
+Figure 3.41 shows the relation between the non-dimensional stress 'C' the non-dimensional shear strain -y' for a plate of aspect ratio 0= and 180 for plates having yield stresses cyy = 1.0 and plate slenderness 240,275 and 355 N/mm 2X= The graphs show an excellent correlation demonstrating the previous conclusion that for a given value of -, -aa unique average stress - strain curve is produced for V-2 tW 355 different yield stresses. There was a need, however, to investigate the same would be true for a flexibly supported panel and whether in particular how the lateral loading applied to the stiffener and its deflection and resulting bending stress varies with consequently the panel yield stress. In order to obtain the lateral force system applied by the panels to the stiffener, a simplified analytical model has been adopted in which the stiffener has been replaced by a non-deflecting nodal line. Clearly stiffener flexibility may well affect the distribution of force the actual stiffener but this effect would not be expected to be on large if the stiffener rigidity is sufficient to restrict stiffener deflection, as will be seen later in chapter five. With this model the applied shear stress of the maximum lateral force (not variation with necessarily at the mid-span of the stiffener) has been examined for the three yield stress values mentioned above, and results for a plate and 2.0 are slenderness of 180 and aspect ratios of 0.5,1.0,1.5 in figures (3-42-3.45). In all the figures it can be seen that shown the magnitude of the force increases with increasing yield stress for a given value of panel shear stress (relative to shear yield), and it can be shown that non-dimensionalising the force relative to the square root of yield stress does not produce a unique result. Figures (3.46-3.47) show the effect of variation of yield stress on the lateral displacement of the stiffener V and the extreme maximum fibre tensile stress at the stiffener outstand cy, for the plate of aspect It can also be deduced that at any stress level, the ratio 0=1.0. stiffener maximum lateral displacement and outstand stress increase with yield stress for plates of the same 0 and X values. This follows b[
+
+69
+from the preceding paragraph due to the increase in the naturally stiffener loading. Clearly if the stiffener loading and resulting Stress and deflection the value of the yield stress then the optimum design size vary with be a function of the yield stress. While the differences are will also it is, however, important to identify the yield stress not major function that controls the stiffener behaviour and design and this is It will be seen that it is possible to discussed in chapter five. the non-dimensional parameter for this effect, as was evaluate done for panel buckling, so that an appropriate design previously can be formulated. equation 3.3.7 Effect
+
+of
+
+stiffener
+
+size parameter
+
+Intermediate transverse stiffeners in web plates loaded in shear have to fulfil two main functions. The first of these is to increase the buckling resistance of the unstiffened web plates. The second is to continue to remain effective until the ultimate capacity of the plate is reached. In order to have an economic and safe stiffened stiffener size, two main points should therefore be looked at. The variation of the maximum out-of-plane displacement of the with its size. stiffener 2The effects of the stiffener parameter y., on the ultimate shear capacity of the stiffened plates.
+
+Figures (3.48-3.51) show the effect of varying stiffener rigidity on the shear capacity of plates of slenderness 60,120,180 and 240 All analyses were performed using critical imperfection respectively. modes identified in section 3.3.3. The general pattern of behaviour was the same for all ý and X. Initially the shear capacity increased significantly with increase in ys. Above a certain value of 7, there was very little further increase in There was however, a difference in the degree to which capacity. this behaviour was evident. As can be seen for the stockier plate, the in strength with stiffener rigidity is really rather slight and variation this clearly reflects the low tendency of this panel to buckle and the small effect the stiffeners have on behaviour. For the more slender panels there is a much clearer definition of the size of stiffener that is needed to enable the limiting peak shear strength to be reached. It should be noted that the shear capacities, as the stiffener rigidity tends to zero, could not be expected to be correct because the single
+
+70 If the idealisation would break down toward this limit. stiffener deflects significantly, model involving more stiffener an analytical than one stiffener would be required. lateral Figures (3.52-3.59) the variation of the stiffener show displacement with ys at any level of shear stress for plates of aspect 1.5 and panel slenderness X= 60,120,180 ý=1.0 and 240. and ratios It can be seen that the maximum lateral displacement of the stiffener increases when the dimensions of the stiffener are reduced. This increase is also significant for slender webs but small for stocky panels. In order to illustrate the function of the transverse stiffeners, it is of interest to examine the lateral displacement contours and also the effect of the stiffener size on the resulting stiffener displacement. Figures (3.60-3.62) show the lateral displacement contours drawn at 1.0 and X= 60 the plate ultimate shear capacity for the case of and initial imperfection mode (P3). Stiffener size parameters ys 0.72,2.276 The value ys = 2.276 and 5.50 were considered. corresponds to the value determined from the design philosophy Figures (3.63-3.66) show the contours for discussed in chapter 5. plates of aspect ratio ý=1.0, panel slenderness X= 180 and initial imperfection mode P3. The stiffener size parameters selected had y. = 19.13,60.50,96.90,147.47 magnitudes and 258.31. The value y. 147.47 corresponds to the value of the rigidity determined from = Figures (3.67-3.69) the design approach presented in chapter 5. 180. The stiffener show the contours for plates of 0=1.5 and X 98.46 is the value of ys = 23.64,98.46 and 172.2. ys rigidities were the stiffener rigidity determined from the design approach for this particular plate geometry. It can be seen that for ys values less than the values determined from the design philosophy, the stiffener is not forming an approximately boundary. Moreover, it is not having a controlling influence on rigid the buckling mode of the overall stiffened plate. 3.3.8 Summary
+
+of
+
+the
+
+range
+
+of
+
+parameters
+
+It was felt to be useful to summarize in a concise tabular form the major findings of the parametric study. Tables (3.2-3.5) have been presented at the end of this chapter. Each table corresponds to a In particular aspect ratio of 0=0.5,1.0,1.5 and 2.0 respectively. every table a brief quantitative description of the varying plate In addition, the maximum shear capacity and geometries is given.
+
+71 the corresponding maximum lateral displacement of the transverse stiffener are tabulated for every case. These results confirm, the conclusions drawn in the previous sections. 3.4 DISCUSSION AND CONCLUSION
+
+The emphasis of this chapter is to observe the effect of the various geometrical parameters including the rigidity of the stiffeners on the behaviour and peak capacity of a transversely stiffened web loaded in shear. The parameters examined, in addition to stiffener rigidity, form, are the panel slenderness, panel aspect ratio, imperfection stress and the degree of boundary restraint. yield It has been concluded that the unrestrained boundary condition is critical as far as the behaviour of the stiffener is concerned and most that the important panel influence on the stiffener is lateral loading induced by panel buckling. For panels bounded by actual flange there is evidence of a significant tension field loading on members the stiffener but the effect of this, even for the more slender plates considered, is less than the beneficial effect resulting from lateral This indicates stiffener bending restraint provided by the flange. that bending rigidity rather that axial stiffness is the most important parameter for the design of the stiffener and this supports the
+emphasis placed on stiffener rigidity
+
+Confirmation of this is considered in greater depth in chapter 5 dealing more directly with stiffener design. The effect of panel slenderness is very much as would be expected, while the effect of aspect ratio shows the importance of selecting the It has been shown that a critical imperfection mode. appropriate different mode is appropriate for the ý=0.5 case compared with the The results also show that the shear other aspect ratios examined. capacity of stiffened plates decreases with increase in aspect ratio. One major conclusion of this parametric study is that the stiffener deflection increases with increasing yield stress and from this it can be inferred that the design requirement for the stiffener is a function of the yield stress of the material, but not that commonly accepted in panel design. As would be expected, the results show that the collapse strength of the stiffened plate is a function of the stiffener rigidity but the effect is very limited for stocky panels reflecting the restricted nature of their buckling prior to the attainment of panel peak load. The results
+
+in the study
+
+by Grayson
+
+(3.5)
+
+72 for the slender panels show a more marked variation and indicate that an optimum stiffener rigidity exists below which panel strength is sacrificed.
+
+73
+
+3.5 3.1-
+
+REFERENCES Frieze, P. A., 1975, "Ultimate Load Behaviour of Steel Box Girders and Their Components", Ph.D Thesis, University of London (Imperial College). Spliced Panels and Stress J.E., 1975, "Bolted Harding, Redistribution in Box Girder Components up to Collapse", Ph.D University of London (Imperial College). thesis,
+
+3.2-
+
+1982, Code of Practice for Design 3.3 - British Standards Institution Steel Bridges, BS5400: Part 3, London, BSI. of 3.4Harding, J.E., Hobbs, R.E. and Neal, B. G., 1977, "Ultimate Load Behaviour of Plates under Combined Direct and Shear In-plane loadings", International Conference on Steel Plated Structures, (Ed. Dowling, PJ, Harding, J.E. and Frieze, P.A. ), Crosby Lockwood Staples. Grayson, W. R., 1981, "Behaviour and Design of Stiffened Web Panels", Ph.D Thesis, University of Manchester.
+
+3.5-
+
+I
+
+74
+
+Table
+
+3.1
+
+Variation
+
+in
+
+Stiffener Rigidity
+
+Stresses Eith
+
+FlanLye
+
+MfW
+
+0
+
+.
+
+000362
+
+.
+
+00290
+
+.
+
+0232
+
+a outstand
+
+251
+
+233
+
+200
+
+145
+
+a stiffener/web 1
+
+junction
+
+-184 1--
+
+-224 I I
+
+-196 I
+
+-177
+
+All
+
+stresses N/mM2
+
+75
+
+tz . CL WD C14 C14 C) 0 0 C14 t'ý Vi Cý aý R Ci C) CD wl mt 't cq 00 (7ý Cý m Iq 09 NR IR kn en N cq
+
+co
+
+u
+
+rz
+-Z
+
+cc
+co
+cn
+
+In
+
+"t
+
+C) en 0 0 0
+vý -4
+
+en 't
+-4
+
+Q
+
+%C
+N
+-4
+
+'t
+-4
+
+r-: W) %n if) 14 tr; %6 t-: W) t--: 06 06 W) te) W) vi
+
+C-i rý Cý 6 6 en It 19t in V)
+-4 1-4 -4 -4 1-4
+
+en en 7-4
+
+00 r-
+
+tý
+
+1411 cq N
+00
+
+P., 1. cc Cc
+
+cl
+
+kn in.
+
+%0 g:L4
+
+wl in
+04 44
+
+wl wl wl
+04 04 In64 cl
+
+Et4 C, %n CD C-4 cr, = I'D !ý! 00 CD IT C5 %6 06 Cj C'i en W) 00 -4
+
+W zl-
+
+C)
+
+CDCDC CDCDCD 06 (D C) CDCD C; C; C5C5 CD 1- 00 c7N
+v" -4
+
+CD CD c)
+
+c)
+
+CD
+
+C)
+
+5 C;
+
+8 8 8 00 %D c; 06 0ý 0ý Q C) CDC> C56 C; 00 %6 00 Cý F
+Cý4
+
+C)
+
+C; ý
+
+C) C) 0
+1-4
+
+C:l NO
+
+C
+%0
+
+0
+%0
+
+0
+14D
+
+C)
+
+%0
+
+%0
+
+Cý
+
+0
+10
+
+ýo
+
+C>
+
+C)
+
+C,4
+
+CD
+
+C14
+
+0
+
+N
+
+0
+
+C,4
+
+0
+
+Ui c,
+
+Iq d
+
+In Iri CS CD (D
+
+C;
+
+76
+
+in
+CLI
+
+M
+
+00 Cý
+CD
+
+CD Itt q Ili
+C) CD
+
+C14 tR Ci en
+
+C14 Ili C14
+
+CIS = 04
+cc
+
+E 'Z
+;D
+
+CD 0 Ili -i
+III
+
+in rlý
+
+C) 00 Oý Cli
+tn
+
+cn cn C14 It
+
+0
+
+-. 4
+
+14,
+
+c7%
+
+M
+
+%n in
+
+en 06 C5 C14 (n IRt 't v"
+
+It
+
+cn
+
+CIS Cc 6
+
+m 04
+
+fi cii
+
+el oi
+
+00
+
+W) VI ttl
+
+in
+
+10
+
+tt) %0 wl tn
+
+in
+
+W) %-D Co 1--9
+
+a ;ý
+
+00 0 -: IR C14
+1-4
+
+%0
+
+cq C14
+
+cr? I cq
+cn
+
+-i C14
+00
+
+q
+
+C)
+
+C.
+
+. CD r-
+
+C) Q tfý 00 cl;
+C) 00 cn
+-4
+
+I
+
+00
+
+a,
+-
+
+C)N C14
+
+C)
+rA
+v"
+
+C)
+
+0
+
+Iq Wi . N cn
+
+C)
+
+8
+
+09 C%
+
+Cý CD
+
+q qN 6 C; t-: 00
+
+C)
+
+0
+
+CD
+
+C)
+
+ý (:
+
+ý6
+
+C4 cn
+Cý Co CD C: )
+
+06
+
+C5 C; C; g C; co
+cý 0 0 C) C>
+
+ON
+
+cs
+
+CD
+
+C)
+
+C14 (14
+
+CN
+
+C-4
+
+C*4
+
+00
+
+00
+
+00
+
+00
+
+00
+
+00
+
+00
+
+in Q
+
+te) tt) tq Q CD Q
+
+Wi CD
+
+wl v! wl wl CD C5 CD C5 6
+
+W) W) 6 C5
+
+77
+
+COD 0 91.
+
+E Q
+
+E
+
+r-
+
+CD \o
+
+t-
+
+d
+
+C-1 I
+
+CD No
+
+CD CD
+
+0% ý-
+
+wj -
+
+oý
+E
+
+E E clq
+kn 00
+
+-Z
+
+cu
+
+--
+
+aý C vi
+
+0% O\ vi
+
+r-
+
+c9
+
+CD
+
+CD
+
+00
+
+N
+
+cý
+
+00
+
+oo
+en
+04 4 .4
+
+-4
+
+0
+
+v-i en m en v-i %6 vi
+
+4*
+04
+
+eg
+
+E ---
+
+V M
+
+cu 9
+ß.
+
+4)
+PC vli vl
+
+ltý N er;
+P. 4
+tn
+
+2 2 2
+
+12. 12. P. 91. Z. g2. p.
+
+%n kn
+
+vl
+
+v-i
+
+0 ý,
+
+CIS E--,
+CD
+CD cý
+
+1X2
+
+m
+
+m
+
+%0
+
+00
+
+140 YD
+
+c:,
+
+10 r_ CD oý
+rA
+
+ce = JD
+
+CD cý
+CD
+
+CD vý
+\O
+
+CD leý
+rc>
+
+CD g
+CD
+
+oý
+
+0= iz -0
+
+%, 92
+
+E
+
+a 9
+
+a CD (Z) CD c; CD0 CDo
+d cý vý vi (> %0 t, -
+
+CD
+
+Q
+
+9 1 0 c> a't -4
+
+00
+
+-0 ZE
+r
+
+10
+
+CD
+
+CD
+
+(D
+
+CD
+
+CD
+
+CD
+
+0
+
+CD
+
+78
+&« E
+
+= 92. Gn
+
+-Z
+
+Z r. 0% ren CD CD t (1q CD O\ CY% Cq en (D %D 00 e4 le
+
+0 N.
+9.
+
+-;
+ß. (N 7E
+
+d
+
+cs c;
+
+in
+
+N v ci kn
+
+CD rei vi
+
+kn 00 ci vi
+
+(D V)
+
+(4 vi
+
+CD CD 0 vi in in
+
+CD rrrz kn vi
+
+ce :D cu ZD ZD ZD Z) ZD ZD ZD Z)
+
+1. CL) glj C%. '0
+
+oci 0
+
+en
+
+M
+
+M
+
+(n
+
+M
+
+M
+
+Z.
+
+-4
+
+12. 12. 12. 91, 924 04 im. 12. 42. lz
+
+-4
+
+0,
+
+Ki. ' E-
+
+vi
+
+0
+cý
+
+N t-
+
+Co eA
+
+In %0
+
+CD V)
+
+00 r-
+
+4
+
+\CD %D tIlt
+
+r, 1 C=
+
+(D c;
+
+1. -ý UD
+
+CD (D c;
+
+CD CD %d
+
+(D CD 6 C,
+
+(D CZ aý
+
+CD CD ci
+
+CD ý e:
+
+CD lý vi
+
+CD -: ýc
+
+CD -i r-
+
+CD n t--
+
+CD N oo
+
+C: ) N CD
+
+GA
+
+g c> CDCD0 cý cý cý 9 9 0
+C)
+
+00
+CD %0 CD \O
+
+CD 0%
+
+CD 9
+lý
+
+lý
+
+CD0 CDCD 9 n n n
+ý 1-4
+
+CD
+
+gt
+
+e
+
+vl
+
+--1
+
+ýo r-
+
+t-
+
+oo
+
+cli 2
+
+CD 10
+
+CD \o
+
+(D \O
+
+CD NO
+
+CD 1-0
+
+0 ýa
+
+CD MD
+
+-F-CD
+
+CD
+
+CD
+
+CD
+
+c
+
+CD
+
+CD
+
+1
+
+1
+
+1
+
+79
+
+0. W
+
+;
+
+u m
+
+C14
+1>0
+
+00 1
+
+Ci efi en
+
+C*4C14kc 0 W) C) cn W) rýo
+
+VC; cq in
+
+%C 00 C-1 Vi llý IIR
+cn cn
+
+Z C3 CA a ttri tn 'Rt 00 -. 4 r- ýo %0 kn C'i 4 4 vi ý6 en 00 'i 6 cf; C; .4 C) ý " eq cq (q cq N -4 '" en en
+
+CIO
+CL
+
+"a
+
+0
+
+0.4
+
+M 91.
+
+cn In.
+
+C'n Cl) en cf) cn 0. 0. A4 0., 124
+
+cn 04
+
+en eli
+gi. 0 . 0 .4 IZ 4
+
+rz
+
+M
+
+cq C?
+
+C) q
+
+tt"ý
+
+m C4
+
+C4
+
+in
+
+W) 00
+
+C-4
+cq
+
+00
+C-i
+
+tý
+
+00 0
+
+en C14
+
+C: VI 06 (:4 ) )ý C.
+
+wi
+
+-, i
+
+06
+
+rz
+
+M
+
+c. C) 0 (D cý V) = C) 0 (D CD0 CD ý
+CD
+
+ý6 06 (:
+
+C5
+
+tn
+
+c) In c,
+q
+
+o %, r-
+
+00
+
+E % 11 rA
+
+0
+
+ýj
+
+C) (D (= 0 C>8 (= C! R R R q q C, = 00 Cý 8 vi 0 Z 0 CD -ý4 M
+vý
+
+-
+
+0 CDCý CD R R 0 0 5 (:: o .0 rV-S o vi 00
+CD Clq 0 04 CD N 0 cq
+
+4D C14 C-4
+
+CD Co C14 C14
+
+CD C14
+
+C;
+
+C;
+
+Cý
+
+Cý
+
+C;
+
+C;
+
+Cý
+
+Cý
+
+80
+
+v
+
+CL 92 Q k.
+
+-; c Z.
+
+41 ri 41 -
+
+14--,
+
+%0
+
+(>
+
+cyý (i
+
+in
+
+cý CD
+
+en
+
+en
+
+cn
+
+'t
+-4
+
+-ý
+
+e
+
+vl
+
+e -
+
+": (D c4
+c;
+
+C>
+
+C,1
+
+VI
+
+0, %
+
+en 0,
+
+E ei ý: m
+
+E
+
+C) 00 "': \o ci t rlf ,t
+en
+
+c4
+
+rj
+
+-: 0%
+
+CD 0 %0
+CD ý
+
+'lý Z: ýo V.%
+-4
+
+CD CD Vi
+-4 -4
+
+eg -! I-: oo c> r--4 e
+
+CD CD -,
+CD
+
+m 6 %,
+CD
+
+1-1% ci
+
+en
+s. CU c2.
+
+CL)
+V
+
+po
+0
+
+C4
+-4
+914
+
+-4
+n. 4
+
+(4 914
+
+en 92.
+(
+
+M 914
+
+en 914
+
+en 04
+
+m CL4
+
+m 12.4
+
+(n p4
+
+en Z4
+
+-4 A4
+
+1-4 p4
+C13
+
+E-
+
+cl; cli
+(=) Z (D
+(: >
+
+Q cý
+-4
+
+L-Z 06
+Kt
+
+bf%
+
+C) cý
+(D
+
+(Z cý
+\C)
+
+CD
+
+CD
+
+CD CD
+
+C) V-1
+
+s
+
+VI
+
+CD
+
+aý
+
+CD
+
+d
+
+-i
+
+c; e
+
+vi
+
+EI ,
+
+a a 8
+9 9
+
+c=; C: )
+
+cs
+
+CE<C: CD: a 8 D8 D>
+9 %CD
+
+8 CD(D
+
+vi
+CD Glo C: ) 00 c> Co (D 00
+
+V'l
+CD
+
+CZ
+-911
+
+CD
+
+CD
+
+CD e4
+
+CD 00
+
+CD 00
+
+(D 00
+
+C> 00
+
+ch 00
+
+lý
+
+- 4
+
+lý
+
+-4
+
+1-4
+
+lý
+
+cý cý =i cý cý
+-4 lý lý
+
+81
+
+rz
+
+0 Cl.
+
+E
+w
+
+0
+
+MW
+Z cz
+
+tj Cc
+
+0 In = aý cli C-i eq
+V) C) cn
+
+0r q:
+
+M en CD 00
+
+Cý %D 00
+Cý
+
+C14 Cý N-6 Cfi C-4 cs cn 14, rz cli en
+
+8
+
+r-
+
+en
+
+00
+
+cl
+
+1.
+
+eq E
+
+cc
+
+E
+Z
+
+0 C, 0 0 00 v! I- OR tý: en fi cn
+4 C'4 N C14
+
+M
+
+0 q 8
+
+1"- `0 0 C*l 0 q "1 00 'IR Cý m o o C4 C) en 06 43ý Cý
+-4 -q -4 ý
+
+9 m PC r. -
+
+m 1. Cu
+
+---
+
+:: )
+
+ýD
+
+ý)
+
+ýD
+
+;: )
+
+ý:)
+
+ý:)
+
+ý:)
+
+;: )
+
+ý:)
+
+ý:)
+
+;: )
+
+ýD
+
+ýD
+
+1--, «0
+efý
+
+ei
+M V) en cn M (n M
+W Pý PC CIO
+
+E-
+
+t- 00 CD
+N cn tn r-
+
+C5 \C; Cj Cý
+en C14
+
+m C\ VI
+V., 'n C14
+
+4 C,
+
+r-
+
+r-
+
+Cý
+
+c) 00 \0 tn C) CD
+
+CD tf)
+
+0 Q
+
+Cl C)
+
+CD C: )
+
+Cý I
+
+CD In
+
+C) Oý
+
+w
+
+6 ý6 \.
+
+t-: 06
+
+6 C5 \.
+
+t-.: Cý C; '.4
+
+%C r-
+
+10
+
+rz w
+
+C) Vb Q CR00 %C q q In en
+
+C: 2 tri ) q q Cý (0
+
+.0
+= 00 C> 00 CD 00 a 00 C'4
+
+Sýg 6
+N C14 C*4 C'4
+
+Q Q
+
+C5ýý t-:
+04 C'4
+
+N
+
+82
+E E
+
+E I cw m
+cw *a cl F. &.
+e4
+
+Clq cli
+
+äE
+
+-Z
+
+tu a
+
+cc
+
+E E
+
+<R-
+
+Vi
+
+=Q
+
+Z U.
+
+-e-
+
+>,
+
+:
+
+E-
+
+00 Oý 00
+
+10 r_ Z
+00
+
+iz% m 10 Z
+
+JD ,00 u
+
+r-
+
+-cj
+
+jA
+
+9z
+
+00
+
+10
+
+10
+
+-ý
+
+83
+r
+
+.0 0
+
+Z
+=
+
+E
+
+M
+
+4.6
+
+E
+;
+
+s
+vi
+
+Q.
+1. L.
+
+1.
+
+V *a
+
+I
+
+If! r- C-4 ": c) cri ý
+
+C'4
+
+en
+
+kn
+
+4 cn C,
+C)
+
+C%
+eq s
+s
+
+06 ý6
+
+cu
+cc
+
+a C's
+
+1.
+
+Cf)
+
+4 C, I'- kn -: 00 WQl-. 6
+1" 4
+
+Oý
+
+0 wl
+
+en C)
+
+0ý ""' g ýog 000 t-: C5 C-q
+t't
+
+0
+
+C6)
+
+go 1. CL) Q M Cf) en
+
+en
+
+cn
+
+M
+
+M
+
+M
+
+M
+
+m
+CIS
+
+iz. P. p.
+C-4 cn
+
+iz-. 12.
+
+E-4
+.0 00
+
+v: tt C-4 tr)
+
+cn
+
+0ý M
+
+cq
+
+": Ch
+
+m Cr;
+
+C)
+
+C)
+
+C)
+
+CD C)
+
+06
+
+d
+
+CD
+ý6 06 cý
+
+W
+%0
+
+9 00 c, c, c,
+10 \0 \0
+
+C; g g C; C5 00
+C-4 C-4 4 C, C-4 C,4 " CZ4 C'4
+
+-0t --I
+
+in -
+
+tq
+ý
+
+_;
+
+ý4
+
+-4
+
+_;
+
+v-;
+
+-;
+
+tn
+-4 _4 -4
+
+tn
+.;
+
+kn in
+-4 -4
+-I
+
+84
+
+w
+
+m
+91) 4
+
+0
+
+1
+
+>0
+
+C', In in q
+C'4
+
+cn r": cý . eq C'i
+C)
+
+00
+
+C-4 00
+
+I
+
+C14 cr! C9
+C-4 C14
+
+cc
+
+=
+
+cc v
+
+-z
+
+00 C'i 6% V-, tn
+00 06 C'i
+
+Qý cc tý
+tei
+
+1ý
+
+06 06
+
+tn "D
+vi
+
+4 C. C, t- in C4 r.:
+00
+
+cc
+
+Cc
+W co
+
+CL
+
+V
+
+(D
+
+C', 4.4
+
+cn en m
+0-4 124 AM
+
+cn cn cn M
+914 04 44 04
+
+A4
+
+A4
+
+cn cn
+04 A.,
+
+Q P.m 4 cc
+
+1-4
+
+w
+
+ý ;ý en s "D 0 6
+M Nr 04
+
+C14
+
+cn
+
+;ý 06 C4 00 r-4
+
+C14
+
+0 06 C*% ON 0c;
+
+ýo ýo
+qT qT
+
+8 r- cn '"
+
+c, C-i tr;
+
+W
+
+E-
+
+06 Cý 6
+
+(D
+ý
+
+wl
+Vý
+
+kn
+
+1-4
+
+Cfi
+1ý
+
+C; 6
+ý-
+
+C5 ý6 C-Z
+
+E c,
+m C5 CD 9 r- 00
+
+0 C) C) %n c) C) - M
+00 00 CD (D 00 00
+
+C)
+
+8 8
+
+%0tý
+
+VI
+
+00
+
+00
+
+00
+
+00
+
+00
+
+00
+
+C14
+
+85
+
+06 m
+
+cw u
+
+V)
+
+M
+
+co
+
+cc
+
+cn In
+
+01%C14 Cý C4 Cý 6
+
+-
+
+Ct
+
+Q
+
+C ,Kt
+
+eq cc CD 0
+
+=
+0
+
+rA CO
+
+4.4
+
+ii -e-
+
+9-4
+6a
+
+m 924 rn -XX
+
+PC
+
+=
+
+V
+
+C
+
+124
+
+0.4 CL4 C14
+
+c1r) en
+
+C14
+
+t-t cn
+
+In
+
+Cli
+
+C-4 (7, 'I-
+
+C)
+M
+
+0
+
+e: -0 ' 4 C,
+.0= 0 0 -0 u r. =
+
+00 ON
+
+%
+
+a C, CD= wi C; CK 00
+
+C, q . 0
+CD C14
+
+:D Po 2ý
+4-4 rA
+
+4-
+
+10
+
+86
+
+92.
+
+w
+
+4
+
+%n 00
+
+ON
+
+%0
+
+C*4
+
+Co
+
+9.
+
+ci cc
+
+1>14
+
+Cý in C-i cli
+
+r-
+
+CD cli cn
+
+C>
+
+NO a, rC>
+
+<31%= Q C
+
+efi
+
+C-i C'i
+
+"
+z
+
+00
+
+(n
+
+1* 5ýý?a 9 -
+
+.
+
+q
+
+r-
+
+q
+
+00 cn in t-
+
+9 9 1- 9 9 9 9
+
+en "
+
+IC73)
+
+Cc
+
+1-1 cc
+
+tn eý
+0
+
+cn 124
+
+en en cn am C14 04
+
+en cf) 0.4 91,
+
+en M a4 12.4
+
+en en 0.4 A4
+
+en en M 04 A4 III
+
+.M ce [--I
+
+C)
+
+q Iq 1-: Oýt": CD CD
+
+%0 Itt
+
+"
+
+rý
+
+8 00 - 10 C5 c4 Cý q:
+
+00
+
+-
+
+CZ)
+
+ýq
+
+I O%no C'i C-i
+
+Q 0 CDCDC=) Cý q q q Cý
+CD t00 C7ý C, 4
+
+Cý Cý 06 ýo
+
+CD
+
+C)
+
+C5
+
+9z
+
+r. 00 cq
+0 %c CD 0 %. CD c ý. 0 CD CZ4 C-4
+
+9 00
+CD 4 C, CD C4
+
+CD
+
+CD C) Q C14 C14 C4
+
+Q C14
+
+C4 -
+
+eq
+
+cq
+
+C4 -
+
+C-4
+
+C
+
+0 4
+
+CD cl i
+
+CD cl i
+
+0 cl i
+
+C) cl i
+
+0 C-i
+
+C> C-i
+
+0 cli
+
+0 C-i
+
+87
+
+PC
+r. 0
+
+:z
+m
+
+s
+
+= w
+
+9
+I .00 ,
+
+C) t-
+
+en ON
+
+en -4
+
+5?
+
+C) r-
+
+N0
+
+0 0
+
+C) W)
+
+tý -4
+
+%C IZ
+
+q: t 00
+
+rA -
+
+U
+
+6 cn
+
+C14
+
+u
+
+cc
+
+00
+oo
+
+00 op 0%
+
+v! 09 00
+1-4
+
+gt
+
+C14 C14 00 Cý kn N6
+Cý cz, a,
+
+If)
+W
+
+(W
+
+"a
+
+0.
+
+V
+
+E
+
+0
+
+C
+
+cn
+
+M
+
+M
+
+M
+
+en
+
+Cf)
+
+M
+
+en
+
+E
+
+C14 0. 0. P. J:. 0., C14
+
+2
+
+m
+
+m
+
+en
+
+en
+
+gL,
+
+A4 a4 12.4 12 .4
+
+E-4
+
+C) Cf)A ý? oc C-4 q rl- cs 06 Cfi ý CY) . 00 t": c4i rlý zl- 0 ý Cf) NT t- 06 00 0 C14 r0 C) CD 0 C) 0
+0 0 CD CD
+
+C) 00 en 0 -: ý6 01% r- M c,
+cn tn
+
+C>
+
+C: ) 0
+
+CD
+
+E-
+
+r-: 06 Cý C5
+
+,
+
+C) 4n
+
+c;
+
+00
+
+C5
+
+c, 0 9 9 0 o 0 0 C) o C5
+00
+
+d 8
+
+C5
+
+00
+
+elý
+
+o 0 o c, 0 0 c) 0 00 00 00 00 00 00 00 00 00
+
+Cq
+
+-9-
+
+cq
+
+C -i
+
+C -i
+
+C -4
+
+i C-
+
+C-4
+
+C4 ,
+
+cq
+
+cq
+
+cq
+
+C-A e4
+
+C'i
+
+88
+
+CP
+
+c
+
+-a
+
+-Z:
+
+r .
+
+a
+
+C> C) C) C)
+
+0ý 00 CYN ON ON CD C: )
+
+tl-
+
+C)
+
+C)
+
+00
+
+<
+C4 I.
+
+ýD ý: =) =) )
+
+In
+= V 0
+
+0.
+
+91. ra.
+
+P..,
+
+Q P-« Im ei
+
+ý14
+
+M
+
+IC
+
+8
+
+C:)
+
+.
+
+>o
+
+E-
+
+. ID ,00 u = . -4
+ce W
+
+m
+
+Z$ u r_
+
+9z
+
+C-C!
+
+C-4
+
+C14 CN
+
+=
+
+-0
+
+=
+
+-0-
+
+C)
+
+C)
+
+CD
+
+' C'i C4 C4 C4 II
+
+I
+
