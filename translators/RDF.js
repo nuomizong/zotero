@@ -12,7 +12,7 @@
 	"configOptions": {
 		"dataMode": "rdf/xml"
 	},
-	"lastUpdated": "2017-06-04 14:50:00"
+	"lastUpdated": "2017-06-22 04:20:00"
 }
 
 /*
@@ -967,6 +967,16 @@ function importItem(newItem, node) {
 	
 	// type
 	var type = getFirstResults(node, [n.dc+"type", n.dc1_0+"type", n.dcterms+"type"], true);
+	
+	/**CUSTOM ITEM TYPE  -- Currently only Dataset **/
+	if (type && type.toLowerCase() == "dataset") {
+		if (newItem.extra) {
+			newItem.extra += "\ntype: dataset";
+		}
+		else newItem.extra = "type: dataset";
+	}
+
+
 	// these all mean the same thing
 	var typeProperties = ["reportType", "letterType", "manuscriptType",
 				"mapType", "thesisType", "websiteType",
@@ -975,6 +985,8 @@ function importItem(newItem, node) {
 		newItem[ typeProperties[i] ] = type;
 	}
 	
+	
+
 	//thesis type from eprints
 	if (newItem.itemType == "thesis"){
 		newItem.thesisType = getFirstResults(node, [n.eprints+"thesis_type"], true) || newItem.thesisType;
@@ -1055,6 +1067,7 @@ function importItem(newItem, node) {
 			}
 		}
 	}
+
 	
 	if(newItem.itemType == "note") {
 		// add note for standalone

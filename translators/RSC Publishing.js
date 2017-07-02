@@ -9,7 +9,7 @@
 	"priority": 100,
 	"inRepository": true,
 	"browserSupport": "gcsb",
-	"lastUpdated": "2017-06-06 04:05:00"
+	"lastUpdated": "2017-06-22 04:20:00"
 }
 
 /*
@@ -61,33 +61,29 @@ function detectWeb(doc, url) {
 	}
 }
 
-function scrape(doc, type) {
+function scrape(doc, url, type) {
 	var translator = Zotero.loadTranslator('web');
 	translator.setTranslator('951c027d-74ac-47d4-a107-9c3069ab7b48');
 	translator.setDocument(doc);
 	translator.setHandler('itemDone', function(obj, item) {
-		item.itemType = type;
+	//	item.itemType = type;
 
 
 		//keywords is frequently an empty string
 		if(item.tags.length == 1 && !item.tags[0]) {
 			item.tags = [];
 		}
-		
+
 		if (item.date) {
 			item.date = ZU.strToISO(item.date);
 		}
 
-		if (item.itemType == "bookSection") {
-			if (item.DOI){
-				if (item.extra) item.extra += "\nDOI: " + item.DOI;
-				else item.extra = "DOI: " + item.DOI;
-			}
-		}
-
 		item.complete();
 	});
-	translator.translate();
+	translator.getTranslatorObject(function(trans) {
+		trans.itemType = type;
+		trans.doWeb(doc, url);
+	});
 }
 
 function doWeb(doc, url) {
@@ -110,7 +106,7 @@ function doWeb(doc, url) {
 				ZU.processDocuments(urls,doWeb);
 			});
 	} else {
-		scrape(doc, type);
+		scrape(doc, url, type);
 	}
 }/** BEGIN TEST CASES **/
 var testCases = [

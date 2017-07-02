@@ -1,0 +1,705 @@
+Periodic Global Parameterization
+Nicolas Ray Wan Chiu Li Bruno Lévy
+INRIA - Alice
+
+Alla Sheffer
+University of British Columbia
+
+Pierre Alliez
+INRIA - Geometrica
+
+We present a new globally smooth parameterization method for triangulated surfaces of arbitrary topology. Given two orthogonal piecewise linear vector elds dened over the input mesh (typically the estimated principal curvature directions), our method computes two piecewise linear periodic functions, aligned with the input vector elds, by minimizing an objective function. The bivariate function they dene is a smooth parameterization almost everywhere on the surface, except in the vicinity of singular vertices, edges and triangles, where the derivatives of the parameterization vanish. We extract a quadrilateral chart layout from the parameterization function and propose an automatic procedure to detect the singularities, and x them by splitting and re-parameterizing the containing charts. Our method can construct both quasi-conformal (angle preserving) and quasi-isometric (angle and area preserving) parameterizations. The more restrictive class of quasi-isometric parameterizations is constructed at the expense of introducing more singularities. The constructed parameterizations can be used for a variety of geometry processing applications. Since we can align the parameterization with the principal curvature directions, our result is particularly suitable for surface tting and remeshing.
+Categories and Subject Descriptors: I.3.7 [Computer Graphics]: Three-Dimensional Graphics and Realism— Color, shading, shadowing, and texture; I.3.5 [Computer Graphics]: Computational Geometry and Object Modeling; G.1.6 [Numerical Analysis]: Optimization; J.6 [Computer Aided Engineering]:
+
+General Terms: Algorithms Additional Key Words and Phrases: mesh processing, parameterization, conformality.
+
+Author’s address: N. Ray, W.C. Li, B. Lévy, Project ALICE, INRIA, 545000 Vandoeuvre, France, e-mail: {ray | wcli | levy }@loria.fr Author’s address: A. Sheffer, University of British Columbia, Vancouver, BC, V6T 1Z4, Canada, e-mail: sheffa@cs.ubc.ca Author’s address: P. Alliez, Project GEOMETRICA, INRIA, 06902 Sophia-Antipolis, France, e-mail: pierre.alliez@sophia.inria.fr Permission to make digital/hard copy of all or part of this material without fee for personal or classroom use provided that the copies are not made or distributed for proﬁt or commercial advantage, the ACM copyright/server notice, the title of the publication, and its date appear, and notice is given that copying is by permission of the ACM, Inc. To copy otherwise, to republish, to post on servers, or to redistribute to lists requires prior speciﬁc permission and/or a fee. c 20YY ACM 0000-0000/20YY/0000-0001 $5.00
+ACM Journal Name, Vol. V, No. N, Month 20YY, Pages 1–0??.
+
+2
+
+·
+INTRODUCTION
+
+1.
+
+A parameterization deﬁnes a correspondence between a surface mesh embedded in 3D and a simple 2D domain, referred to as the parameter space. In the general case, a parameterization is expected to be bijective, i.e., one-to-one. Recent advances in geometry processing algorithms and computer graphics hardware have made possible the use of parameterized surface meshes as valid representations for resampling and remeshing, as well as for mapping complex signals such as texture, normal or light maps for efﬁcient rendering purposes. Common mesh parameterization methods are restricted to domains with simple topology, such as disks [Floater 1997], spheres [Gotsman et al. 2003] or torii [Gortler et al. 2004]. Constructing parameterizations for surfaces of arbitrary topology remains a challenging problem. One common solution is to introduce cuts into the initial surface mesh so as to convert it into one [Gu et al. 2002] or several topological disks [Lévy et al. 2002]. However, these cuts introduce discontinuities which may be visible as mapping artifacts during rendering, especially when mip-mapping is activated. These cuts also introduce artifacts for remeshing, such as artiﬁcial alignments of edges along the boundary, and unwanted variations of element sizes. Last but not least, ﬁnding appropriate cuts so as to minimize the artifacts listed above is notoriously difﬁcult. Globally smooth parameterization techniques aim at reducing such discontinuities [Khodakovsky et al. 2003]. As reviewed in the next section, these techniques are limited in their ability to control the parametric distortion and the number and placement of singularities introduced into the parameterization. Many of these also require an a priori segmentation of the mesh into charts, which remains an open problem. For many mesh processing applications it is advantageous to have a parameterization aligned with the principal curvature directions on the surface. In particular, as explained in [d’Azevedo 2000], for both surface ﬁtting and remeshing, alignment with curvature improves convergence. To the best of our knowledge, no existing parameterization method supports such alignment. In this paper, we propose a new globally smooth parameterization method which accepts as input a pair of orthogonal vector ﬁelds and computes a parameterization aligned with these ﬁelds. Given the principal curvature directions as input, our method provides parameterizations particularly suitable for approximation applications such as remeshing and surface ﬁtting. The proposed method does not require prior partition into charts nor any cutting. Instead, the chart layout (i.e., the topology of the base complex) and the parameterization emerge simultaneously from a global numerical optimization process. In contrast to previous approaches, the charts generated by our method are mostly well shaped quadrilaterals with regular, valence-four, connectivity. The rest of this section reviews the previous work and gives an overview of our approach. 1.1 Previous Work
+
+We focus our review on globally smooth parameterization methods, a review of the many other available mesh parameterization techniques being beyond the scope of this paper. The reader is referred to [Floater and Hormann 2004] for a complete survey. To construct a globally smooth parameterization, existing methods use two different strategies. One class of methods ﬁrst partitions the object into a set of charts, parameterizes each chart independently, and applies a post-relaxation procedure to blur the discontinuities
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+·
+
+3
+
+along chart boundaries. The other class of methods directly takes the topology of the surface into account and uses a global formulation to obtain the parameterization. Inter-chart relaxation:. In [Khodakovsky et al. 2003], transition functions are introduced to deﬁne a relaxation procedure that optimizes inter-chart continuity. This relaxation is applied simultaneously to all charts. A similar approach is used in polycube maps [Tarini et al. 2004]. First, a quadrilateral chart layout is manually constructed by the user. Then, the charts are parameterized using a globally smooth version of the MIPS method [Hormann and Greiner 2000]. The parameterization constructed by our method shares some similarities with a polycube map, with the major difference that in our case, the quadrilateral chart layout is constructed automatically. In [Kraevoy and Sheffer 2004; Schreiner et al. 2004] a parameterization between pairs of input models is computed. In both papers a triangular chart layout and a corresponding base-mesh are constructed automatically, and the parameterization is smoothed either onto the base-mesh [Kraevoy and Sheffer 2004] or onto the models themselves [Schreiner et al. 2004]. Note that a triangular chart layout is not suitable for quadrilateral remeshing and is far less suitable for spline ﬁtting. Global approaches:. In the context of texture synthesis, the lapped textures approach [Praun et al. 2000] covers an object with overlapping tiles. Wei and Levoy [2001] use two orthogonal vector ﬁelds to control a texture synthesis process. The jump maps technique [Zelinka and Garland 2003] also uses local parameterizations aligned to a vector ﬁeld. In the last two methods, texture coordinates are generated by a greedy procedure. For parameterization purposes, and in contrast to texture synthesis, we wish to avoid any overlap or gap in-between the charts. Our approach ensures continuity of the mappings by minimizing a global energy functional. Gu and Yau [2003] propose to construct the so-called conformal structure of a surface S. A set of mutually compatible local parameterizations is extracted from this structure. The continuity is achieved everywhere except at a number of singular points. Intuitively, and given a sphere with its common parameterization, those singular points correspond to its two poles. Gu and Yau [2004] ﬁnd the unique locations of the singular points that satisfy conformality. They also solve for the optimal conformal transformation that minimizes global stretch. Since the number of singular points remains constant, the resulting parameterizations often still exhibit signiﬁcant stretch. The theoretical background for seamless parameterizations is studied in [Gortler et al. 2004], based on the elegant formalism of one-forms. From the properties of these oneforms, the authors develop a discrete counterpart of the Hopf-Poincaré index theorem. This theorem generalizes the notion of singular points mentioned above and allows their splitting and merging. It states that for a surface of genus g, the indices of all singular points sum to 2 − 2g, where the index of a singular point corresponds to its multiplicity. Our method constructs a class of globally continuous overlapping local parameterizations along with continuity conditions. The main difference is that, motivated by geometry processing applications, we incorporate more geometric information into the problem setting. We optimize an energy functional that both minimizes the mapping distortion and optimizes the alignment of the iso-parametric curves with two orthogonal vector ﬁelds.
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+4
+
+·
+Algorithm Overview
+
+1.2
+
+The input to our algorithm is a triangle surface mesh, together with two orthogonal vector ﬁelds K and K ⊥ . The vector ﬁelds are typically the estimated principal directions of curvature, but any pair of user-deﬁned vector ﬁelds are also valid as long as they match the orthogonality constraint. Our goal is to construct a globally smooth parameterization aligned with the input vector ﬁelds. More formally, the gradients (iso-parametric curves) of the parameterization optimized by our algorithm will be as tangential as possible to the input vector ﬁelds. If the vector ﬁelds are the directions of principal curvature, the iso-parametric curves will then be automatically aligned to the signiﬁcant geometric features of the shape (ﬁllets, axes of symmetry, etc.). The principal curvature directions can be estimated by a variety of techniques, such as [Cohen-Steiner and Morvan 2003]. One of the main achievements of our algorithm is its ability to automatically extract a quadrilateral chart layout for the global parameterization. The size (side length) of the charts is determined by a user prescribed parameter ω. As demonstrated in Figure 1, the extracted charts are mostly well shaped and have uniform sizing. They also exhibit a highly regular connectivity, with mostly valence four vertices. Our method can construct a curvature-adapted globally smooth conformal parameterization or a quasi-isometric parameterization. In the latter case, the near zero distortion is obtained at the expense of introducing more singular points. This trade off is achieved by an additional processing step which controls the curl of the vector ﬁeld. The algorithm for computing our global parameterizations consists of four stages: —Vector ﬁeld smoothing (optional): This pre-processing step smoothes the input vector ﬁelds and extrapolates them into mesh areas where the associated directions are illdeﬁned. When using principal curvature directions as input those areas correspond to isotropic areas which exhibit an inﬁnite number of principal directions. (Figure 1-B and Section 4.2). Since this procedure is stand-alone it can be used as-is for other applications that utilize curvature vector ﬁelds on meshes, such as curvature aligned quaddominant remeshing (ref sig03 + marinov-kobbelt ?). —Curl-correction (optional): A global isometric parameterization is usually not possible without a large number of singular points. As explained in Section 4.1, in our setting most of these points correspond to areas where the input vector ﬁelds are not curl-free. Hence, to reduce the number of singular points we introduce an optional procedure which rescales the vector ﬁelds so as to reduce their curl. The rescaled vector ﬁelds are used as input to the subsequent parameterization step. Notice that if curl-correction is applied, the resulting parameterizations will remain conformal and exhibit much fewer singular points, but will usually exhibit larger stretch (Figure 6). Since both vector ﬁeld smoothing and curl correction are optional pre-processing stages, we prefer to describe them in the second part of the paper. —Parameterization using alternative variables: This is the main step of our algorithm. To explicitly account for translational and rotational degrees of freedom in the parameterization formulation, we develop an energy functional using alternative variables which are trigonometric functions of the actual parameterization. The derivation of the functional is described in detail in Section 2. The derived energy functional (Equation 15) is minimized using the numerical procedure described in Section 2.5.
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+·
+
+5
+
+Fig. 1. Algorithm overview. A: input mesh model; B: smoothed curvature directions; C: iso-kπ θ and φ curves. The singular vertices, edges and triangles are highlighted; D: chart layout (extracted from the iso-2kπ curves); E: ﬁnal result, obtained after ﬁxing the charts with singularities; F: the resulting base complex.
+
+—Extraction of chart layout and chart parameterization: The ﬁnal stage of the algorithm computes the actual surface parameterization given the solution in terms of alternative variables (Section 3): —First, the algorithm extracts the parameterizations for each individual mesh triangle. Figure 1-C depicts the iso-kπ curves of these parameterizations. —Second, the method detects the singularities present in the computed parameterizations. These are vertices, edges and triangles that do not satisfy the requirements of a valid 2D planar triangulation (highlighted in Figure 1-C,D). —Third, the per-triangle parameterizations are used to deﬁne a global chart layout.
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+6
+
+·
+
+Fig. 2. A global parameterization (or manifold) is a set of overlapping parameterizations (ϕ, ϕ , . . .) connected by transition functions (τϕ→ϕ . . .).
+
+—Finally the algorithm computes the per-chart parameterizations. If a chart does not contain any singularity, it reconstructs its parameterization by assembling the individual triangles in parameter space. Otherwise, the chart is split and re-parameterized moving the singularities to chart boundaries. The ﬁnal parameterization together with the corresponding base complex are shown in Figure 1-C and D respectively. The result of the procedure is a global conformal parameterization, continuous almost everywhere. The parameterization is aligned with the input vector ﬁelds. If no curlcorrection is performed, the parameterization is even shown to be quasi-isometric. Our parameterization technique can be used for a variety of mesh processing applications. In Section 5, we demonstrate its use for curvature-aligned quad-dominant remeshing. Given our globally smooth curvature-aligned parameterization, the mesh generation procedure is elegant and straightforward. Other applications of our method are smooth surface reconstruction and texture mapping. 2. 2.1 PERIODIC GLOBAL PARAMETERIZATION Deﬁnition
+
+We ﬁrst give the deﬁnition of a manifold (also called a global parameterization in our context). This notion allows us to deﬁne a globally smooth parameterization of a surface with arbitrary genus, by combining multiple parameterizations of charts extracted from the surface and linked by transition functions. To our knowledge, the notion of manifold was ﬁrst used for geometric modeling by Grimm and Hugues [Grimm and Hugues 1995]. More recently, a C∞ class of surfaces based on manifolds was proposed in [Ying and Zorin 2004]. Given a surface S, we consider a set of (possibly overlapping) topological disks {C} called charts, and a set of functions {ϕ} mapping each chart C to a 2D domain Ω (see Figure 2). The coordinates in 2D space will be denoted by θ , φ in what follows1 . The set of functions {ϕ} is called a global parameterization (or a manifold) if it satisﬁes the following condition:
+1 We
+
+use θ and φ rather than the accustomed u, v or s,t to indicate the periodic nature of these coordinates.
+
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+·
+
+7
+
+Given two charts C and C , if their intersection C ∩ C is a topological disk, then the images of the intersection C ∩ C in parameter space through ϕ and ϕ are linked by a simple geometric transform τϕ→ϕ : ∀p ∈ C ∩ C , ϕ (p) = τϕ→ϕ (ϕ(p))
+
+The τϕ→ϕ functions are called transition functions. (see [Khodakovsky et al. 2003]). Manifolds are called afﬁne if all the transition functions are translations. Complex manifolds admit a more general class of holomorphic transition functions, including similarities (i.e. rotation + translation + scaling), see [Weisstein ] for a deﬁnition of these classes of objects. Whereas previous work focus on afﬁne manifolds [Gu and Yau 2003; Gortler et al. 2004], our method constructs a sub-class of complex manifolds, allowing for both translational and rotational degrees of freedom in the transition functions. The extra degree of freedom allows for greater ﬂexibility when aligning the parameterization with the input vector ﬁelds, as shown below. Our goal is to construct a global parameterization such that the gradients ∇θ , ∇φ of the parameter-space coordinates θ , φ are aligned with two prescribed vector ﬁelds (for instance, the principal directions of curvature). We ﬁrst start with the simplest possible charts, i.e. the triangles. In our initial setting, the global parameterization is deﬁned by the coordinates θiT , φiT at the corners of the triangles, where the global index i denotes a vertex, and T denotes a triangle. Using the so-deﬁned manifold structure, it is possible to derive a parameterization of more general charts, by assembling the triangles in parameter space, as explained later in Section 3.3. We ﬁrst consider the case of an afﬁne manifold (i.e. the transition functions τϕ→ϕ are translations). We will then show how to introduce the rotational degree of freedom. Given two triangles T = (i, j, k) and T = (k, j, l) sharing the edge ( j, k), their parameter-space coordinates (θ , φ ) deﬁne an afﬁne manifold if:
+T θj T φj T θj T φj T θk T φk T θk T φk
+
+−
+
+=
+
+−
+
+(1)
+
+We now need to derive an energy functional F, depending on all the (θiT , φiT ) coordinates and characterizing the alignment of the gradients (∇θ , ∇φ ) to the principal directions of curvatures. In our formulation of the energy functional F, instead of expressing Equation 1 as a constraint, we replace the (θiT , φiT ) variables with alternative variables, associated to the vertices (rather than to the corners of the triangles), and naturally satisfying the constraints. We will then show how to retrieve the (θiT , φiT )’s from those alternative variables. We introduce an additional restriction on the transition functions τϕ→ϕ : the coordinates of the translation vectors connecting two charts should be integer multiples of 2π. With this additional constraint, we have:
+T cos θ j T sin θ j T cos(θ j + 2sπ) T sin(θ j + 2sπ) T cos θ j T sin θ j T cos φ j T sin φ j T cos φ j T sin φ j
+
+=
+
+=
+
+;
+
+=
+
+(2)
+
+(this condition is also satisﬁed at vertex k). As a consequence, and given a vertex i, for all the triangles T incident to i, the values of cos θiT and sin θiT (resp. φ ) coincide. We
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+8
+
+·
+
+introduce the variables Ui = (cos θiT , sin θiT ) and Vi = (cos φiT , sin φiT ), which no-longer depend on T and are attached to the vertices instead. We now consider the more general case of a sub-class of complex manifolds where transition functions τϕ→ϕ can be combinations of translation and rotation. The coordinates of the translations are constrained to be multiples of 2π as before, and the rotation angles are constrained to be multiples of π/2. We will refer to this conﬁguration as a periodic global parameterization. In this setting, the compatibility condition connecting two triangles (Equation 2) is replaced with: ∃r ∈ {0, 1, 2, 3} T cos θ j 0 −1 = T 1 0 sin θ j
+
+r
+
+T cos θ j T sin θ j
+
+;
+
+T cos φ j T sin φ j
+
+=
+
+0 −1 1 0
+
+r
+
+T cos φ j T sin φ j
+
+(3)
+
+As a consequence, given a vertex i, for all the triangles T incident to i, the values of cos θiT and sin θiT (resp. φ ) coincide up to a change of sign and a swapping of the sine and cosine. We now show how to express the alignment with the input vector ﬁelds in terms of the variables (Ui ,Vi ) (Sections 2.2,2.3,2.4) and explain how to retrieve the parameter-space coordinates (θiT , φiT ) from these variables (Section 3.1). We will then proceed to extract the chart layout (Section 3.3), and show how to retrieve a parameterization of the charts from the per-triangle coordinates (θiT , φiT ) (Section 3.4). 2.2 Parameterization Alignment As described in Section 1.2 the input to our algorithm consists of two orthogonal control vector ﬁelds K and K ⊥ deﬁned on a surface S, and a chart size parameter ω. The control vector ﬁelds are deﬁned at the vertices of the surface mesh and are linear across the triangles. The meaning of this parameter ω and the way to choose it are explained below. Our method aims at constructing a complex manifold {ϕ T } = {(θ T , φ T )} such that each function ϕ T associated to a triangle T satisﬁes: ∇θ T = ω K ; ∇φ T = ω K ⊥ (4)
+
+In addition, the complex manifold should be a periodic global parameterization, i.e. the transition functions τT →T should be solely composed of translations multiples of 2π and rotations multiples of π/2. The gradient of the parameterization should not depend on the magnitude of the input vector ﬁelds. When our goal is to construct a parameterization as isometric as possible, we normalize the control vector ﬁelds K = K ⊥ = 1. If we want to reduce the curl of the vector ﬁelds and hence minimize the number of singularities in the parameterization, the vector ﬁelds are ﬁrst normalized and then scaled as described in Section 4.1. This leads to a parameterization which is no longer isometric, but which remains conformal. Due to this normalization, the parameter ω controls the period of the θ and φ functions. As described in Section 3.3, we will use the 2π periods of the parameterization to deﬁne the chart layout. Hence, ω will determine the size of the charts. In all our examples, we set ω to ten times the average edge length in the input mesh. Note that if ω is too large, charts that are not homeomorphic to disks may be generated. This can be easily detected by computing the Euler-Poincaré characteristic of the charts, and ω can be automatically decreased if such a conﬁguration is detected.
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+·
+
+9
+
+Since curl(∇ρ) = 0 for any scalar ﬁeld ρ, a solution to Equation 4 exists only if curl(K) = curl(K ⊥ ) = 0 [Needham 1994]. In general, the input vector ﬁelds might have non-zero curl. Hence, we have to restate our goal in weaker terms by minimizing the following energy functional: F =
+S
+
+∇θ T − ω K
+
+2
+
++ ∇φ T − ω K ⊥
+
+2
+
+dS
+
+(5)
+
+Given this problem setting, the main difﬁculty is to express the alignment of the parameterization gradients with the control vector ﬁelds independently from the translational and rotational degrees of freedom. We ﬁrst introduce translation-invariance into the formulation in Section 2.3, and then reﬁne the formulation to introduce the rotational degree of freedom (Section 2.4). 2.3 Translation-invariant Energy Functional
+
+The main challenge in the formulation given by Equation 5 is to ﬁnd a way to solve for a periodic function. As explained in Section 2.1, to support translational invariance in parameter space, we propose to use the 2π periodicity of the sine and cosine functions. As shown below, it is possible to restate the alignment with the control vector ﬁelds in terms of the sines and cosines U = (cos θ , sin θ ) and V = (cos φ , sin φ ) of the parameters θ and φ . The U and V ’s will be the unknowns of our problem. Thus, we will obtain a periodic deﬁnition of the minimizer of the energy functional F. Following the proof in Appendix A we can minimize the following function F ∗ instead of F, as it admits the same minimizer: F∗ =
+
+∑
+T
+
+T
+
+∇θ T − ω KT
+
+2
+
+⊥ + ∇φ T − ω KT
+
+2
+
+ds
+
+(6)
+
+⊥ where KT and KT denote the average value of K (resp. K ⊥ ) across the triangle. Since T and ∇φ T are constant across each triangle, we have ∇θ
+
+F∗
+
+=
+
+∑
+T
+
+∇θ T − ω KT
+
+2
+
+⊥ + ∇φ T − ω KT
+
+2
+
+AT
+
+(7)
+
+where AT is the area of triangle T . We now consider a single entry in this sum: FT = ∇θ T − ω KT
+2 ⊥ + ∇φ T − ω KT 2
+
+AT
+
+(8)
+
+Since it is difﬁcult to introduce translational invariance directly into FT , we will ﬁrst θ study FT,i , the energy along the edges ei of T (Figure 3) with respect to θ . The energy FT,i with respect to φ is derived in a similar manner. We will then express FT as a linear
+θ combination of the FT,i ’s and FT,i ’s. Intuitively, when considering the difference along the edge ei , we need to consider the difference between the projection of K to the edge and the gradient ∇θ along the edge. The projection is K · ei / ei , and the gradient along the edge is (θi⊕2 − θi⊕1 )/ ei where i ∈ {1, 2, 3} denotes a local index in T (see Figure 3) and ⊕ denotes addition modulo 3. φ φ
+
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+10
+
+·
+P3 e2 K
+y x
+
+e1
+
+P1
+Fig. 3.
+
+e3
+Triangle notations.
+
+P2
+
+We deﬁne the energy along the edge as Feθ i =
+ei
+
+θi⊕2 − θi⊕1 − K · ei
+
+2
+
+/ ei 2 ds
+
+(9)
+
+With a derivation similar to the one given in Appendix A, since K and K ⊥ are linear along the edges, we can replace K with Ki = (Ki⊕2 + Ki⊕1 )/2 and scale the minimized function by ei without changing the minimizer. The new energy functional that we will minimize per edge is
+θ FT,i
+
+=
+
+(θi⊕2 − θi⊕1 ) − ω Ki · ei
+
+2
+
+(10)
+
+Using this energy formulation, it is now easy to introduce the translational invariance, replacing the difference by a difference modulo translation by 2π:
+θ FT,i
+
+=
+
+mins ((2sπ + θi⊕2 − θi⊕1 ) − ω Ki · ei )2
+
+(11)
+
+By approximating this difference by the norm of the difference of the sine and cosine vectors, corresponding to order 1 Taylor expansion, we obtain:
+θ FT,i
+
+Ui⊕2 −
+
+cos(ω Ki · ei ) − sin(ω Ki · ei ) Ui⊕1 sin(ω Ki · ei ) cos(ω Ki · ei )
+
+2
+
+where: Ui = (cos θi , sin θi )
+
+(12)
+
+Note that using this formulation, we no longer depend on the translational coefﬁcient s (Equation 11). φ θ Note that theoretically at this point, we can simply minimize ∑T,i∈1,2,3 (FT,i +FT,i ), which corresponds to a discrete, edge-based version of the energy. The resulting method works well for regularly sampled surfaces but is sensitive to anisotropic samplings. For this reason, we propose in Appendix B a variant of our objective functional which integrates the energy over the triangles. In our experiments this greatly improved the results without adding too much computation overheads.
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+·
+’ K3 K3 r 3= 2
+
+11
+
+K2
+1 K’ =K1 r 1= 0 2 K’
+
+r 2= 1
+
+Fig. 4.
+
+Locally re-orienting the control vector ﬁeld.
+
+Our current formulation for F ∗ supports translational invariance. We now proceed to introducing rotational invariance into the formulation. 2.4 Rotation-invariant Energy Functional
+
+In general, it is not possible to globally orient a vector ﬁeld in a consistent way (see the circled region). To alleviate this issue, we modify the formulation of the triangle energy (Equation 8) by locally reorienting the vector ﬁeld in the new formulation (Figure 4). The orientations of the vectors K1 , K2 and K3 at the respective vertices of the triangle (Figure 4) are now allowed to vary by multiples of π/2. Thus, K2 (resp. K3 ) is aligned with K1 by applying r2 rotations of π/2 (resp. r3 ). The rotation is applied simultaneously to the control vector ﬁelds (Ki , Ki⊥ ) and to the unknowns (θi φi ). Note that an odd difference of ri along an edge means swapping the unknowns (i.e., connecting θ ’s with φ ’s). To deﬁne the objective function FT on the triangles, we use the same approach as in previous Section. We ﬁrst express the deviation FT,i along an edge, then express FT as a linear combination of the FT,i ’s as deﬁned by Equation 24. Since the θ ’s and the φ ’s may be coupled, we can no longer separate them. Adding rotational invariance, Equation 11 becomes 0 −1 1 0
+ri⊕2
+
+FT,i = min
+s,t
+
+0 −1 θi⊕2 − φi⊕2 1 0
+
+ri⊕1
+
+δi θi⊕1 + 2sπ − ⊥ φi⊕1 + 2tπ δi
+
+2
+
+where: ri = argmax r ∈ {0, 1, 2, 3} K1 . 0 −1 1 0 ;
+r
+
+Ki
+
+; Ki =
+
+0 −1 1 0
+
+ri
+
+(13) Ki
+
+δi = ω/2 Ki⊕1 + Ki⊕2 · ei
+
+⊥ ⊥ δi⊥ = ω/2 Ki⊕1 + Ki⊕2 · ei
+
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+12
+
+·
+
+As in previous Section, to take the periodicity of the (θ , φ ) parameters into account, we solve for the sines and the cosines of these parameters. FT,i as a function of the sines and cosines (using the same order 1 approximation as in Equation 12) is then given by: FT,i  cos δi − sin δi 0 0  sin δi cos δi 0 0  ri⊕1  M ri⊕2 Xi⊕2 −  Xi⊕1 ⊥ − sin δ ⊥  M  0 0 cos δi i 0 0 sin δi⊥ cos δi⊥ 0 0 where: M =  1 0  0 0 0 1 −1 0 0 0 0 1  0 0  ;   cos θi  sin θi  Ui  Xi =   =  cos φi  Vi sin φi
+φ
+
+
+
+2
+
+(14)
+
+
+
+
+
+θ As in the previous section, we can simply minimize F ∗ = ∑T,i∈1,2,3 (FT,i + FT,i ), which corresponds to a discrete, edge-based version of the energy, or we can plug this expression into the triangle energy formulation (Appendix B, Equation 24). We now have θ F ∗ = ∑ FT = ∑ ∑ λiT (FT,i + FT,i ) φ T T i=1 φ 3
+
+(15)
+
+θ where λiT are given by Equation 24 and FT,i , FT,i are given by Equation 14. The minimizer ∗ is computed as described next. of F
+
+2.5
+
+Numerical Solution Mechanism
+
+To obtain the minimizer of F ∗ , we lock one of the vertices U1 = (1, 0),V1 = (1, 0) and minimize F ∗ with respect to all the other variables. Since F ∗ is a quadratic form, this means solving a sparse symmetric system. We use the conjugate gradient algorithm with Jacobi’s preconditioner. For models with more than 50K vertices, the norms of the Ui ,Vi ’s quickly decrease when we move far away from the locked vertex, resulting in both weighting biases and numerical instabilities. To stabilize the system, we add a (non-linear) penalty term, preventing the norms of the U,V ’s from decreasing: F ∗∗ = F ∗ + ε ∑ ( Ui
+i 2
+
+− 1)2 + ( Vi
+
+2
+
+− 1)2
+
+This augmented energy functional is minimized using Newton’s algorithm. In our tests, ε = 10−3 gives good results. Convergence, to ∇F ∗∗ < 10−6 , is reached after no more than 5 outer-loop iterations for all the models shown in this paper. The penalty term has an interesting property. The singular points correspond to vectors with zero norm. Since two singular points located in the same region drastically increase the penalty function in that region, the augmented energy functional attempts to avoid those conﬁgurations and evenly distributes the singular points over the surface. 3. PARAMETERIZATION EXTRACTION
+
+The output of the solution mechanism described in previous Section is a set of Ui ,Vi variables. These variables correspond to the sines and cosines of the unknown θi , φi coordinates
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+·
+
+13
+
+that deﬁne the global parameterization. To construct a global parameterization from those Ui ,Vi variables, we proceed as follows: (1) reconstruct a (θ , φ ) parameterization over the simplest possible charts, i.e. within each individual triangle (Section 3.1), (2) detect the singular vertices, edges and triangles (Section 3.2), (3) deﬁne the chart layout based on the 2π periods of the per-triangle parameterizations and compute the per-chart parameterizations for charts with no interior singularities (Section 3.3), (4) split and re-parameterize the charts that contain singularities (Section 3.4). 3.1 Per-triangle Parameterization
+
+Given the U,V variables at the vertices of a triangle T = (i, j, k), ﬁnding the θi , φi (resp. j, k) coordinates means determining the integer translational (si ,ti ) and rotational ri degrees of freedom. We explicitly determine the values of r, s,t that minimize the edge-energy term (Equation 13) within each triangle as follows. To deﬁne the global position and orientation of the triangle in parameter space, we set the degrees of freedom ri , si ,ti of the ﬁrst vertex i to (0, 0, 0). Thus, the θiT , φiT coordinates at vertex i are given by θiT = angle(Ui ) and φiT = angle(Vi ) where angle(Ui ) = sign(Ui,y )arccos(Ui,x / Ui ). We now assign the coordinates at the two other vertices j and k by determining the difT T ferences sT ,te , re of the translational and rotational degrees of freedom along the edge e T T e = (i, j) (resp. (i, k), ( j, k)), given by sT = (sT − sT ),te = (t T − tiT ) and re = (rT − riT ). e j j i j T , φ T ) at vertex i and the control We ﬁrst consider the edge (i, j). Given the coordinates (θi i vector ﬁeld values (Ki , Ki⊥ ) and (K j , K ⊥ ) at the vertices i, j, Algorithm 1 explicitly comj T T T T putes the differences sT ,te , re , then the values of θ j and φ j . The computation for the two e other edges is obtained by a circular permutation of indices (i, j, k). The algorithm ﬁrst determines whether or not the control vector ﬁelds undergo a rotation along the edge. In this case, we sometimes change the correspondence between θ , φ and U,V . For instance a rotation of π/2 corresponds to switching U and V . In this case, θ becomes a function of V and φ a function of −U. The algorithm then determines the T difference sT ,te of the translational degree of freedom by explicitly minimizing the edge e energy. 3.2 Characterization of Singular Vertices, Edges and Triangles
+
+Once we have reconstructed the parameterization separately in each triangle, we need to check if these triangles can be assembled in parameter-space in such a way that they form a valid planar triangulation. We already know that the solution of the continuous version of the equation presents singularities where the derivatives of the solution vanish. In our discrete setting, these singularities appear as vertices, edges and triangles that violate the conditions of a valid planar triangulation. These singular vertices, edges and triangles can be characterized as follows (see [Sheffer and de Sturler 2001]): —Singular vertices: a vertex v is singular if the angles at the corners of the triangles incident to v do not sum to 2π. In practice, a singular vertex v can also be characterized by the fact that applying Algorithm 1 to the one-ring neighborhood of v results in an open path.
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+14
+
+·
+
+Algorithm 1 reconstruction of θ , φ along an edge propagate from i to j along e = (i, j) : // determine and apply rotation re
+T re ←
+
+argmaxr r ∈ {0, 1, 2, 3} 0 −1 1 0
+T re
+
+Ki .
+
+0 −1 1 0
+
+r
+
+Kj
+T re
+
+Kj ←
+
+Kj
+
+;
+
+K⊥ ← j  
+
+0 −1 1 0
+
+K⊥ j
+T re
+
+T θ j ← angle(U jT )
+
+
+
+
+
+;
+T φ j ← angle(V jT )
+
+T 0 −1 θ j   ← 1 0 T φj
+
+T θ j    T φj
+
+// determine and apply translations s,t n ← e/ e
+T sT ← argmins θiT − (π/ω)n · (Ki + K j ) − θ j + 2sπ e T T te ← argmint φiT − (π/ω)n · (Ki⊥ + K ⊥ ) − φ j + 2tπ j T T T T T θ j ← θ j + 2sT π ; φ j ← φ j + 2te π e
+
+—Singular edges: an edge e = (i, j) is singular if its length in parameter-space mismatches with the one of e = ( j, i). —Singular triangles: a triangle T is singular if applying Algorithm 1 to its three edges results in an open path or if T has a negative area. We explicitly test for those conditions. Example of all three types of singularities can be seen in Figures 1 and 7. 3.3 Chart Layout
+
+Once we have computed the local parameterization in each triangle T , we construct the chart layout. In our setting, the chart boundaries are deﬁned to be the iso-2kπ lines of θ and φ . This deﬁnes a set of segments in each triangle. We show below that the set of all the iso-2kπ lines of θ and φ is invariant under our transition functions. As a consequence, the end-points of these independent segments match along the non-singular edges of the triangulation, and the segments form continuous polygonal lines. —invariance of the set of iso-lines under valid translations : if a triangle T is traversed by an iso-2kπ line of θ (resp. φ ), this triangle translated by 2sπ will be traversed at the same location by the iso-2(k + s)π line of θ (resp. φ ). —invariance of the set of iso-lines under valid rotations : if a triangle T is traversed by an iso-2kπ line of θ (resp. φ ), this triangle rotated by π/2 will be traversed at the same location by the iso-2(−k)π line of φ (resp. iso-2kπ line of θ ). The same argument applies to rotation by any multiple of π/2.
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+·
+
+15
+
+Note that given two adjacent mesh triangles T1 and T2 sharing a non-singular edge e = (i, j) the transition function τT1 →T2 between the per-triangle parameterizations can be computed as follows: τs = sT1 − sT2 i i τt = tiT1 − tiT2 T T τr = re 1 − re 2 τ(p) = Rτr p + (τs , τt )
+
+(16)
+
+where R is rotation by π/2. Hence the transition functions satisfy the invariance criteria above and therefore the end points of the iso-lines match. Algorithm 2 chart boundaries construction compute chart boundaries: for each triangle T if T is non-singular for k ∈ N such that 2kπ ∈ [minT (θ ), MaxT (θ )] Line l ← line of equation(θ = 2kπ) Segment S ← l ∩ T //in parameter space store S in T store the end-points of S in the corresponding edges of T end// f or for k ∈ N such that 2kπ ∈ [minT (φ ), MaxT (φ )] Line l ← line of equation(φ = 2kπ) Segment S ← l ∩ T //in parameter space store S in T store the end-points of S in the corresponding edges of T end// f or end//i f end// f or for each edge e merge the segment end-points stored in e that have the same geometric location in 3D end// f or for each triangle T compute the intersections between the edges stored in T end// f or recursively remove all dangling segments
+
+Algorithm 2 computes the chart boundaries. Each triangle stores a list of segments, and each edge stores a list of segment end-points. The algorithm computes the individual segments deﬁned by the intersections of the triangles with the (θ = 2kπ) and (φ = 2kπ) lines. Both 2D and 3D locations at the end-points of the segments are computed. The algorithm merges the segment end-points along the edges and intersects the segments inside the triangles adding the intersections as new end-points. All the dangling segments are removed
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+16
+
+·
+
+Fig. 5. Re-parameterizing charts with singularities. A,B: charts with four corners are re-parameterized using mean-value coordinates. C,D: N-sided charts are split into quadrilateral charts and those are re-parameterized.
+
+(each segment end-point of valence 1 is “nibbled” until an end-point of valence higher than 2 is encountered). The parameterization of the charts that do not contain any singularity can be retrieved by assembling the triangles in 2D space by a classic greedy algorithm (see e.g., [Sheffer and de Sturler 2001]). For the remaining charts with singularities, we split them and reparameterize them as shown next. If needed, the chart boundaries can be inserted in the triangulation (e.g., by using our embedded cellular complex data structure [Li et al. 2005]). 3.4 Re-parameterization of Charts with Singularities
+
+In the charts that contain singularities, an unfolding mechanism will not be able to construct a valid planar parameterization, from the per-triangle parameterizations. Note that in most cases it is possible to split the charts along the separatrices of the singularities and locally ﬁx the parameterization in the singular triangles. However, the corresponding algorithm is quite delicate to implement, and might fail under certain conﬁgurations of singularities. We opted for a simpler approach: —Four-sided charts are re-parameterized, using the mean value coordinates method [Floater 2003] (Figure 5 A and B). The parameterization of the boundary vertices is adjusted to preserve C0 continuity along the chart boundaries. —N-sided charts are split into quads, by inserting one vertex at the center of the chart and one vertex at the middle of each side of the chart (Figure 5 C and D). The new vertices are connected by geodesics, and the mesh is cut along these geodesics (our implementation uses [Li et al. 2005]). The resulting quadrilateral charts are parameterized as described above. The parameter domains on the created charts are adjusted to preserve C0 continuity along chart boundaries. —If desired, the cross-boundary continuity can be improved by applying local relaxation as described in [Khodakovsky et al. 2003; Schreiner et al. 2004]. In our experiments, only a small fraction (between 2 and 5 %) of the charts contain singularities and require this additional processing. By combining the Periodic Global Parameterization (Section 2) with the reconstruction algorithm presented in this Section, it is possible to compute a global parameterization of a surface. The next section presents the two optional pre-processing stages applicable to the input vector ﬁelds.
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+·
+
+17
+
+Fig. 6. Curl-correction applied to an object of revolution. A: the quasi-isometric parameterization contains singularities (shown as dots) which correspond to sources of the diverging vector ﬁeld; B: scaling factor - the magnitude of the curl-corrected vector ﬁelds; C: solution obtained with the curl-corrected vector ﬁelds.
+
+4.
+
+VECTOR FIELD PROCESSING
+
+This section presents two optional algorithms for processing the input vector ﬁelds before computing the periodic global parameterization. Section 4.1 shows how to rescale the control vector ﬁeld to minimize the number of singularities. Section 4.2 presents a method for consistent vector ﬁeld smoothing which is particularly useful when the input vector ﬁelds are the principal curvature directions. In this case the method extrapolates the vector ﬁelds in a consistent manner from the anisotropic zones of the mesh where the principal curvatures are well deﬁned into the isotropic regions, where the principal curvature directions are undeﬁned. 4.1 Curl Correction
+
+In the formulation presented in Section 2, the emphasis was on constructing a parameterization as isometric as possible. We therefore normalized the input vector ﬁelds to account for uniform spacing. This formulation is suitable for many applications, such as 3D paint systems, where parametric distortion is the dominant consideration. For other applications isometry is less important, while the number of singularities in the parameterization is a serious concern. For instance, in quad-dominant remeshing, each branching point results in an undesirable T-vertex in the mesh. We therefore introduce an optional pre-processing technique, that scales the vector ﬁelds prior to parameterization in order to minimize the number of T-vertices. As a result of the scaling the resulting parameterizations remain conformal (since the ﬁelds remain orthogonal and have the same norm) but are no longer isometric. Since no-zero curl in the vector ﬁeld leads to singularities in the parameterization, the goal of the proposed rescaling is to minimize the curl of the control vector ﬁelds K and K ⊥ . Since in our initial setting (Section 2.2) the control vector ﬁelds are normalized, curl can arise only from non-parallel vectors (directional curl). As a consequence, eliminating the curl means rescaling the vector ﬁelds in such a way that the modular curl, arising from variations of the norm K , cancels the directional curl. Note that our problem is different from computing a Hodge decomposition (see e.g., [Tong et al. 2003]), since we want to preserve the directions of the vector ﬁelds.
+
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+18
+
+·
+
+Given a unit vector ﬁeld K deﬁned over a surface S, we want to ﬁnd a scalar ﬁeld v such that curl(vK) = 0. The vectors will become shorter in converging regions (v < 1) and longer in diverging regions (v > 1). Note that since K and K ⊥ are coupled by relationship curl(K) = div(K ⊥ )˙N (where N denotes the normal to S), the same scaling v needs to be applied to both K and K ⊥ . In terms of complex analysis, this coupling can be explained also by the fact that the θ and φ functions determine a complex potential of K, which is necessarily a conformal function (see [Needham 1994]). To develop a simple linear formulation for computing v we use a different setting for deﬁning K (and K ⊥ ) than the one used in the main parameterization procedure (Section 2). Note that since the two procedures are stand-alone, this has no baring on the ﬁnal result. For curl-correction purposes we assume that the direction of K varies linearly over T . In other words, given a local orthonormal frame (x, y) of T , we can parameterize the vector K by the angle γ between K and the x axis: K = (cos(γ), sin(γ)), with γ = ax + by + c (γ varies linearly over T ). Replacing K with this expression we can express the zero-curl requirement per triangle as:
+∂ curl(vK) · N = − ∂ v + va cos(γ) + y ∂v ∂x
+
++ vb sin(γ) = 0 (17)
+
+where γ = ax + by + c We search for solutions of Equation 17 which are independent of rotations applied to the vector ﬁeld K, i.e., independent of the constant c. The solutions of the following system of PDEs meet this requirement:
+
+Fig. 7. Curl-correction applied to a model with sharp features. Note how all the singularities (triangles, edges, and vertices) on the tentacles (top) are removed by the curl correction (bottom).
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+·
+−∂ v/∂ y + va = 0 ∂ v/∂ x + vb = 0
+
+19
+
+(18)
+
+The solutions of Equation 18 have the form v = Ceay−bx , where C denotes a constant. To solve for the values vi of v at the vertices globally, we express the condition satisﬁed by the variations of v: log(v) = log(C) + ay − bx ∇ log(v) = ∇(ay − bx) = (−b a) (19)
+
+Since, a solution with zero-curl over the entire surface might not exit, we solve for the vi = log(vi )’s using a least squares formulation: ˜     v1 ˜ γ1 0 −1 ˜ JT v2  − JT γ2  1 0 v3 ˜ γ3
+2
+
+G(v) = ∑ AT ˜
+T
+
+where: JT = 1/2AT y2 − y3 y3 − y1 y1 − y2 x3 − x2 x1 − x3 x2 − x1
+
+(20)
+
+where (xi , yi ) are the coordinates of the vertices of T in the local frame. Since the solution is independent of a global scaling applied to all the vi ’s, we set v1 = 0 ˜ and solve for all the other vi ’s. Then, we compute the scaling coefﬁcients vi = exp(vi ), and ˜ ˜ normalize them by dividing them by max(vi ). The computed scaling coefﬁcients vi are introduced into Equation 5 F =
+S
+
+∇θ − ωvK
+
+2
+
++ ∇φ − ωvK ⊥
+
+2
+
+dS
+
+and the parameterization algorithm proceeds as described in Section 2. 4.2 Vector Field Smoothing
+
+In this section we describe a procedure that smoothes the input vector ﬁelds and extrapolates them into mesh areas where the associated directions are ill-deﬁned. In our description we focus on the case where the input vector ﬁelds are the principal directions of curvature. In this case the anisotropy value (|kmax/kmin| − 1) indicates (vanishes) when the vector ﬁeld directions are ill-deﬁned. The procedure can be used for smoothing other types of ﬁelds if a replacement indicator of vector ﬁeld ﬁdelity is provided. In all the examples in this paper we use an approximation of the principal directions of curvature as deﬁned in [Cohen-Steiner and Morvan 2003] to deﬁne a geometrically meaningful control vector ﬁeld. This choice provides parameterizations particularly suitable for approximation applications such as remeshing and surface ﬁtting. The use of principal curvatures enables us to align the parameterization with the main features of the surface S. However, in isotropic regions, the principal directions of curvature are undeﬁned. As a consequence, the estimation is meaningless in regions where the anisotropy (|kmax/kmin| − 1) vanishes.
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+20
+
+·
+
+To obtain vector ﬁelds which are well deﬁned everywhere, we introduce a method for extending the directions from the anisotropic regions of the surface onto the isotropic ones. This method can be applied as a pre-processing step of our parameterization algorithm or can be used by other applications which make use of curvature ﬁelds. The curvature smoothing method presented in [Hertzmann and Zorin 2000] shares some similarities with ours. An advantage of our formulation is that it allows the use of efﬁcient numerical solvers and exhibits faster convergence. Moreover, our method allows greater control of the singularities of the curvature ﬁeld, as it can handle direction equality modulo π/2, π or 2π. As shown in Figure 8, this creates 8 quarter poles, 4 half-poles or two poles respectively for a sphere model. To smooth the principal directions, we apply a regularized ﬁtting procedure to a set of variables αi , corresponding to the direction of Ki . αi is deﬁned as the angle between the vector Ki and a reference direction Hi in the tangent plane of the vertex i. To obtain a reference direction we select an edge e emanating from i and project it to the plane: − − Hi = normalize → − (→ · Ni )Ni e e where Ni is the normal at i. To smoothly ﬁt the curvature directions, we minimize an energy functional providing a balance between ﬁtting and smoothness. The ﬁtting term aims at keeping the new αi angles close to the original angles αi0 , computed form the initial values of the vector ﬁeld K at the vertices. As before, angle differences are approximated by the norm of the difference of the sine/cosine vectors, yielding the following formulation: R = (1−ρ) ∑ |kmaxi /kmini | (cos αi , sin αi ) − (cos αi0 , sin αi0 )
+i 2
+
++
+
+ρ ∑ RT
+T
+
+(21)
+
+ﬁtting term
+
+smoothing term
+
+where kmaxi (resp. kmini ) is the maximum (resp. minimum) curvature at vertex i. The user-deﬁned coefﬁcient ρ corresponds to the desired smoothing intensity (in all our examples, ρ = 0.8). The smoothing term RT on a triangle T minimizes the variations of α over T and is given by: RT = ∑ λiT RT,i where the variation RT,i of α along the edge ei is given by: cos αi⊕2 cos βi sin βi − sin αi⊕2 − sin βi cos βi cos βi = Hi⊕1 · Hi⊕2 ; cos αi⊕1 sin αi⊕1
+2
+
+RT,i = with:
+
+(22)
+
+sin βi = (Hi⊕1 × Hi⊕2 ).NT
+
+In this equation, βi denotes the angle between Hi⊕1 and Hi⊕2 , and the λiT ’s used to deﬁne triangle integrals are computed as described in Appendix B, Equation 24. We optimize Equation 21 for the unknowns (cos αi , sin αi ), using the same solution mechanism as in Section 2.5. We introduce a penalty term that prevents the norm of the unknowns from vanishing.
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+·
+
+21
+
+Fig. 8. Rattan objects and globally smooth parameterizations modulo 2π (A), π (B) and π/2 (C). A globally smooth parameterization modulo 2π/k has poles of index 1/k (red dots).
+
+Similar to the penalty function in Section 2.5, the penalty term evenly distributes the singularities over the surface, as shown in Figure 8. Given (cos αi , sin αi ) we recompute the vector ﬁeld Ki = cos αi Hi + sin αi Hi × Ni and Ki⊥ = Ni × Ki . Using the formulation given in Equations 21 and 22, equality between the αi ’s is considered modulo 2π. As a consequence, the created singular points are poles. Namely, they are points around which the vector ﬁeld winds once, which corresponds to a 2π rotation. To allow rotations of π (or π/2) (half-poles and quarter-poles), it is possible to enforce ˜ ˜ equality modulo π (or π/2) by solving for intermediary variables αi = 2αi (or αi = 4αi ). In practice, this simply means dividing all the αi0 ’s and the βi ’s by 2 (resp. 4), minimizing Equation 21, and multiplying the αi ’s by 2 (resp. 4). The result on a sphere is shown in Figure 8. Either two poles, four half-poles, or eight quarter-poles are obtained (the total number of poles weighted by their multiplicity sums to 2 − 2g as predicted by the HopfPoincaré theorem). As can be seen in Figure 8-C, this property is used by hat makers, who prefer using four quarter-poles rather than introducing “branching” singular points. In the case of modulo π/2 and modulo π equality, our method has some similarity with the vector ﬁeld preprocessing described in [Wei and Levoy 2001]. The main difference is that our formulation with periodic variables allows the use of efﬁcient numerical solvers. In addition, and thanks to our global formulation, the numerical solver evenly distributes the singular points over the surface. This is not observed with common local relaxation procedures. 5. RESULTS AND APPLICATION TO REMESHING
+
+The Periodic Global Parameterization method (PGP) was implemented as part of the Graphite [Graphite 2003] mesh processing package. Throughout the paper we demonstrate the parameterizations computed with PGP on different complex models.
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+22
+
+·
+
+Fig. 9.
+
+Our method applied to the “bufﬂe” data set.
+
+Fig. 10.
+
+Periodic global parameterizations with various genii (iso kπ lines).
+
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+·
+
+23
+
+Fig. 11.
+
+Quasi-isometric global parameterization of the 200K facets “David” data set (iso kπ lines). Model Horse ∆ 20K Algorithm Gu et al. PGP ccPGP Gu et al. PGP ccPGP Sander et al. PGP ccPGP Sander et al. PGP ccPGP PGP ccPGP PGP ccPGP Stretch 6.777 1.07 1.176 2.65 1.029 1.14 1.030 1.064 1.209 1.053 1.048 1.654 1.121 1.270 1.123 1.425 Shear 0.07 0.20 0.12 0.042 0.167 0.14 0.1558 0.1774 0.0885 0.227 0.1596 0.0711 0.2398 0.1310 0.1728 0.0826 time NA 45 s. 53 s. NA 58 s. 1 min. 12 s. 1 min. 11 s. 1 min. 26 s. 1 min. 35 s. 3 min. 51 s. 5 min. 46 s. 6 min. 51 s. 17 min. 35 s. 20 min. 43 s. 33 min. 42 s. 45 min. 18 s.
+
+Bunny
+
+25K
+
+Bull
+
+34.5K
+
+Camel
+
+78K
+
+David Lion
+
+200K 400K
+
+Table I. Statistics and timings of our method without and with curl-correction (PGP and ccPGP respectively). The numbers are compared, when data is available, to Gu et al.’s global parameterization and to Sander et al.’s method. The number of singularities for Sander et al. is the number of vertices on the cut.
+
+Figures 1, 9 show the ﬁnal parameterization and the extracted chart structure. Figure 11 shows the iso kπ lines obtained with the “David” dataset. Those Figures demonstrate that even on very complex models the number of singularities generated by our method remains very small (2 − 3% of the triangles). The number is particularly low when curl-correction is applied (zero in the example in Figure 6 and 27 for the octopus in Figure 7). When no curl-correction is applied, we obtain quasi-isometric parameterization and in this case the singularities are located where we intuitively expect them - in regions where the localfeature-size changes. Figures 10,11 demonstrate that our method can work on models of any genus, as well as models with boundaries.
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+24
+
+·
+
+Fig. 12. Left: explicit remeshing using placement of lines of curvature generates an uneven sampling density and gaps. Right: implicit remeshing using our method generates a more regular sampling.
+
+Table I provides distortion statistics and timings for our approach. The times were measured on a 1.7 GHz machine. For two models we compare the distortion caused by our method, with that caused by global conformal parameterization [Gu and Yau 2003]. Both with and without curl-correction the stretch introduced by our method is drastically lower compared to the other method, while the shear is slightly larger. We also compared our results to those generated using stretch-minimizing parameterization [Sander et al. 2002] after cutting the model using [Sheffer and Hart 2002]. The cuts were used to generate disk topology and reduce the stretch. The number of singularities for the models parameterized using this techniques is the number of boundary vertices, since these are the points of discontinuity in this context. Even though our parameterization technique is much more constrained due to the requirement of vector ﬁeld alignment the distortion introduced by the two methods is comparable. For the Camel model, PGP introduces less distortion than stretch-minimizing parameterization, both in terms of stretch and in terms of shear. For the Bull model, our method introduces slightly more distortion. Curvature aligned parameterizations are particularly suitable for surface approximation applications such as remeshing and surface ﬁtting. In the next section we explain how to use the parameterizations generated by PGP for curvature aligned quad-dominant remeshing. Implicit Remeshing As explained in [d’Azevedo 2000], approximation theory predicts that aligning the elements with the axes of curvature improves the convergence of remeshing methods. This idea was exploited in [Alliez et al. 2003], that places a set of streamlines which are everywhere tangential to the estimated principal curvature directions. Those streamlines are characterized by an ordinary differential equation which solution can be approximated by solving an explicit integration scheme such as Runge-Kutta. This integration is computed either in parameter space [Alliez et al. 2003], or directly onto the input mesh [Marinov and Kobbelt 2004]. The main difﬁculty with this approach is to evenly distribute the streamlines over the surface, so as to minimize the number of streamline terminations while matching a local ideal line density. In previous work, this was done by using variants of the local streamline seeding strategy described in [Jobard and Lefer 1997]. However, the greedy nature of this approach results in an uneven placement of the streamlines (see Figure 12 (Left)). The method described in [Dong et al. 2004] is an attempt at designing an implicit scheme, and shares some common points with our method. The method constructs a harACM Journal Name, Vol. V, No. N, Month 20YY.
+
+·
+
+25
+
+Fig. 13.
+
+Quad-dominant remeshings of the gargoyle data set with three different resolutions.
+
+Fig. 14. Quad-dominant remeshing. Left: remeshing the “lion” dataset with two different resolutions; Right: this dataset presents thin features, likely to be missed by explicit (Runge-Kutta) remeshing algorithms.
+
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+26
+
+·
+
+monic scalar function, and extracts a set of streamlines from a subset of iso-curves of this function. However, this method requires the user to manually deﬁne the singular points, does not align the streamlines to the features of the surface, and still requires an explicit integration for placing a set of streamlines along the orthogonal direction. Using a parameterization computed by our method the remeshing procedure is straightforward. We ﬁnd the sines and cosines of the parameter functions and compute the pertriangle parameterization (Sections 2,3.1). For remeshing purposes we can skip the subsequent chart-layout and singularities removal stages. We then directly extract the iso-θ and iso-φ lines of the parameterization as an initial polygonal mesh. The process is similar to the chart-boundary extraction (Section 3.3). The only difference is that instead of iso-2kπ curves we extract curves at a different density, speciﬁed by the user. Since the parameterization is quasi-conformal we obtain well shaped quadrilaterals everywhere, except in the immediate vicinity of the parameterization singularities. As done in [Alliez et al. 2003], the polygons which are not quadrilateral are split into a union of quads and triangles. T-vertices are handles by introducing additional triangles into the mesh. Figure 14 shows examples of models remeshed using our method. The quality of the meshes is very high with most elements being near-perfect squares, aligned with the curvature. The “lion” dataset is remeshed with two different resolutions. The same parameterization was used for both remeshes and the only difference was in the density parameter used for extracting iso-lines. The “hand” dataset has some extremely thin features such as the tubular bones on the palm. Our method generates near-perfect square elements in these regions. Previous explicit streamline integration techniques would likely fail to capture these features. Conclusions and Future Work In this paper, we proposed a new globally smooth parameterization method for triangle meshes. The main advantage of the method over previous techniques is its ability to align the parameterization with orthogonal input vector ﬁelds. The parameterization is obtained by optimization of two periodic scalar functions so that their gradients are as tangential as possible to the input vector ﬁelds. When using the principal curvature directions as input vector ﬁelds, a geometrically meaningful quad-dominant chart layout is obtained by extracting the iso-curves of the optimized functions. We demonstrate an application of our parameterization to quad-dominant remeshing, where most elements are well shaped, and evenly spaced. Other possible applications include surface ﬁtting, texture synthesis and geometry compression using geometry images. These will be described in future papers. Our method offers many opportunities for future work. In particular, we would like to investigate the possibility to add more interactivity into the design of the input vector ﬁelds by removing some degrees of freedom from the energy functional. Improving the efﬁciency and the interactivity of the method using e.g. hierarchical solvers [Aksoylu et al. 2004] is also of great interest.
+
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+·
+Acknowledgements
+
+27
+
+We thank the AIM@SHAPE European Network of Excellence, INRIA ARC GEOREP, and NSERC for their support, Pedro Sander and David Gu for providing us with some statistics on their methods, and Laurent Alonso for help with the proof in Appendix A. We also thank Stanford University, the ENST and SensAble for their 3D data sets.
+REFERENCES A KSOYLU , B., K HODAKOVSKY, A., AND S CHRODER , P. 2004. Multilevel solvers for unstructured surface meshes. Submitted to SIAM J. Sci. Comput.. A LLIEZ , P., S TEINER , D. C., D EVILLERS , O., L EVY, B., AND D ESBRUN , M. 2003. Anisotropic Polygonal Remeshing. ACM TOG (SIGGRAPH). C OHEN -S TEINER , D. AND M ORVAN , J.-M. 2003. Restricted delaunay triangulations and normal cycle. D ’A ZEVEDO , E.-F. 2000. Are bilinear quadrilaterals better than linear triangles? SIAM J. of Scientiﬁc Computing 22, 1, 198–217. D ONG , S., K IRCHER , S., AND G ARLAND , M. 2004. Harmonic functions for quadrilateral remeshing of arbitrary manifolds. Tech. rep. August. F LOATER , M. 1997. Parametrization and smooth approximation of surface triangulations. Computer Aided Geometric Design 14, 3 (April), 231–250. F LOATER , M. S. 2003. Mean value coordinates. CAGD 20, 19–27. F LOATER , M. S. AND H ORMANN , K. 2004. Surface parameterization: a tutorial and survey. In Advances on Multiresolution in Geometric Modelling, M. S. F. N. Dodgson and M. Sabin, Eds. Springer-Verlag, Heidelberg. G ORTLER , S., G OTSMAN , C., AND T HURSTON , D. 2004. One-forms on meshes and applications to 3d mesh parameterization. Tech. rep., Harvard University. G OTSMAN , C., G U , X., AND S HEFFER , A. 2003. Fundamentals of spherical parameterization for 3d meshes. ACM TOG (SIGGRAPH) 22, 358–363. G RAPHITE. 2003. http://www.loria.fr/ levy/Graphite/index.html. G RIMM , C. AND H UGUES , J. 1995. Modeling surfaces of arbitrary topology using manifolds. In SIGGRAPH conference proceedings. G U , X., G ORTLER , S. J., AND H OPPE , H. 2002. Geometry images. In SIGGRAPH conf. proc. ACM Press, 355–361. G U , X. AND YAU , S.-T. 2003. Global conformal surface parameterization. In Symposium on Geometry Processing. ACM. H ERTZMANN , A. AND Z ORIN , D. 2000. Illustrating smooth surfaces. In SIGGRAPH Conference Proceedings. ACM Press/Addison-Wesley Publishing Co., New York, NY, USA. H ORMANN , K. AND G REINER , G. 2000. MIPS: An efﬁcient global parametrization method. In Curve and Surface Design. J OBARD , B. AND L EFER , W. 1997. Creating evenly-spaced streamlines of arbitrary density. In Proc. of the Workshop on Vis. in Sci. Comp. Eurographics. K HODAKOVSKY, A., L ITKE , N., AND S CHRODER , P. 2003. Globally smooth parameterizations with low distortion. ACM TOG (SIGGRAPH). K RAEVOY, V. AND S HEFFER , A. 2004. Cross-parameterization and compatible remeshing of 3d models. ACM TOG (Proc. SIGGRAPH 2004). L ÉVY, B., P ETITJEAN , S., R AY, N., AND M AILLOT, J. 2002. Least Squares Conformal Maps for Automatic Texture Atlas Generation. ACM Transactions on Graphics (SIGGRAPH conf. proc.), 362–371. L I , W. C., L EVY, B., AND PAUL , J.-C. 2005. Mesh editing with an embedded network of curves. In Shape Modeling International conference proceedings. M ARINOV, M. AND KOBBELT, L. 2004. Direct anisotropic quad-dominant remeshing. In Proc. Paciﬁc Graphics. 207–216. N EEDHAM , T. 1994. Visual Complex Analysis. Oxford Press. P RAUN , E., F INKELSTEIN , A., AND H OPPE , H. 2000. Lapped textures. In SIGGRAPH 00 Conf. Proc. ACM Press, 465–470.
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+28
+
+·
+
+S ANDER , P., G ORTLER , S., S NYDER , J., AND H OPPE , H. 2002. Signal-specialized parametrization. In Eurographics Workshop on Rendering. S CHREINER , J., P RAKASH , A., P RAUN , E., AND H OPPE , H. 2004. Inter-surface mapping. ACM TOG (Proc. SIGGRAPH 2004). S HEFFER , A. AND DE S TURLER , E. 2001. Parameterization of faceted surfaces for meshing using angle based ﬂattening. Engineering with Computers 17, 326–337. S HEFFER , A. AND H ART, J. 2002. Seamster: Inconspicuous low-distortion texture seam layout. In IEEE Visualization. TARINI , M., H ORMANN , K., C IGNONI , P., AND M ONTANI , C. 2004. Polycube-maps. ACM TOG (SIGGRAPH). T ONG , Y., L OMBEYDA , S., H IRANI , A., AND D ESBRUN , M. 2003. Discrete multiscale vector ﬁeld decomposition. ACM TOG (SIGGRAPH). W EI , L.-Y. AND L EVOY, M. 2001. Texture synthesis over arbitrary manifold surfaces. In SIGGRAPH 2001, Computer Graphics Proceedings, E. Fiume, Ed. ACM Press / ACM SIGGRAPH, 355–360. W EISSTEIN , E. W. Manifold. Y ING , L. AND Z ORIN , D. 2004. A simple manifold-based construction of surfaces of arbitrary smoothness. ACM TOG (SIGGRAPH). Z ELINKA , S. AND G ARLAND , M. 2003. Interactive texture synthesis on surfaces using jump maps. In Symposium on Rendering. Eurographics.
+
+A.
+
+INTEGRAL OF A PIECEWISE LINEAR VECTOR FIELD
+
+Given a piecewise linear vector ﬁeld K and its average value KT on a triangle T , we prove that the two energy functionals FT = T (∇θ − ω K)2 ds and FT = T (∇θ − ω KT )2 ds have the same minimizer: FT = = = =
+T (∇θ
+
+− ω K)2 ds
+2
+
+T
+
+(∇θ − ω KT ) + (ω KT − ω K) − ω KT )2 + 2
+T (ω KT
+
+ds (23) − ω KT )ds + − ω K)ds +
+T (ω KT T (ω KT
+
+T (∇θ T (∇θ
+
+− ω K)t (∇θ
+
+− ω K)2 ds − ω K)2 ds
+
+− ω KT )2 + 2(∇θ − ω KT )t
+
+T (ω KT
+
+The ﬁrst term of this expression is FT , the second term vanishes (by deﬁnition of the average value KT ) and the third term does not depend on θ . As a consequence, we have FT = FT + constant. Therefore, FT and FT have the same minimizer. B. ENERGY INTEGRATED OVER THE TRIANGLES
+
+The energy FT integrated over the triangle T can be expressed as a linear combination of φ θ the FT,i and FT,i edge energies: FT = ( ∇θ − ω KT
+2+ ⊥ θ ∇φ − ω KT 2 )AT = ∑ λiT (FT,i + FT,i ) φ i=1 3
+
+T T T where (λ1 , λ2 , λ3 ) are the solutions of :
+
+
+
+(e1,x )2
+
+(e2,x )2
+
+  (e1,y )2 (e2,y )2  2e1,x e1,y 2e2,x e2,y
+
+  1  T   (e3,y )2  λ2  = 1     T 0 λ3 2e3,x e3,y (e3,x )2
+T λ1
+
+
+
+
+
+(24)
+
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+
+·
+
+29
+
+Fig. 15. A: a meshed torus with a strong mesh anisotropy; B: result of the edge-based PGP: the parameterization is inﬂuenced by the mesh anisotropy; C: result of the triangle-based PGP: the parameterization solely depends on the geometry.
+
+The linear system is obtained by expanding and equating both terms of Equation 24. Figure 15 compares the results obtained with the edge-based and the triangle-based energy on a mesh with a strong anisotropy.
+
+ACM Journal Name, Vol. V, No. N, Month 20YY.
+

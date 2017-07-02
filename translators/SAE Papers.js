@@ -1,15 +1,15 @@
 {
 	"translatorID": "2c98b8e6-6138-4b60-a999-15e3a7c8cb4b",
+	"translatorType": 4,
 	"label": "SAE Papers",
 	"creator": "Sebastian Karcher",
 	"target": "^https?://(www|papers)\\.sae\\.org/",
 	"minVersion": "3.0",
-	"maxVersion": "",
+	"maxVersion": null,
 	"priority": 100,
 	"inRepository": true,
-	"translatorType": 4,
 	"browserSupport": "gcsibv",
-	"lastUpdated": "2015-10-04 20:39:54"
+	"lastUpdated": "2017-06-26 13:10:00"
 }
 
 /*
@@ -79,6 +79,14 @@ function getSearchResults(doc, checkOnly) {
 }
 
 function scrape(doc, url) {
+	//the highwire meta tags are now part of the body and not head
+	//which we have to correct here before calling EM translator
+	var head = doc.getElementsByTagName('head');
+	var metasInBody = ZU.xpath(doc, '//body/meta');
+	for (var i=0; i<metasInBody.length; i++) {
+		head[0].append(metasInBody[i]);
+	}
+	
 	var abstract = ZU.xpathText(doc, '//div[@class="dt-scope" and div/div[contains(text(), "Abstract")]]//div[@class="dt-scope-c-content"]');
 	var translator = Zotero.loadTranslator('web');
 	// use the Embedded Metadata translator
@@ -86,8 +94,6 @@ function scrape(doc, url) {
 	translator.setDocument(doc);
 	translator.setHandler('itemDone', function(obj, item) {
 		if (item.itemType=="report"){
-			//map DOI to extra until we have DOI field for reports
-			if (item.DOI) item.extra = "DOI: " + item.DOI;
 			item.reportType = "SAE Technical Paper";
 			item.place = "Warrendale, PA";
 			item.publisher = "SAE International"
@@ -224,10 +230,6 @@ var testCases = [
 				"reportType": "SAE Technical Paper",
 				"url": "http://papers.sae.org/540090/",
 				"attachments": [
-					{
-						"title": "Full Text PDF",
-						"mimeType": "application/pdf"
-					},
 					{
 						"title": "Snapshot"
 					}

@@ -1,0 +1,434 @@
+Least Squares Conformal Maps for Automatic Texture Atlas Generation
+Bruno Lévy Sylvain Petitjean Nicolas Ray Jérome Maillot∗ ISA (Inria Lorraine and CNRS), France
+
+Abstract
+A Texture Atlas is an efﬁcient color representation for 3D Paint Systems. The model to be textured is decomposed into charts homeomorphic to discs, each chart is parameterized, and the unfolded charts are packed in texture space. Existing texture atlas methods for triangulated surfaces suffer from several limitations, requiring them to generate a large number of small charts with simple borders. The discontinuities between the charts cause artifacts, and make it difﬁcult to paint large areas with regular patterns. In this paper, our main contribution is a new quasi-conformal parameterization method, based on a least-squares approximation of the Cauchy-Riemann equations. The so-deﬁned objective function minimizes angle deformations, and we prove the following properties: the minimum is unique, independent of a similarity in texture space, independent of the resolution of the mesh and cannot generate triangle ﬂips. The function is numerically well behaved and can therefore be very efﬁciently minimized. Our approach is robust, and can parameterize large charts with complex borders. We also introduce segmentation methods to decompose the model into charts with natural shapes, and a new packing algorithm to gather them in texture space. We demonstrate our approach applied to paint both scanned and modeled data sets. CR Categories: I.3.3 [Computer Graphics] Picture/Image Generation; I.3.5 [Computer Graphics]: Three-Dimensional Graphics and Realism—Color, shading, shadowing and texture; I.4.3 [Image processing]: Enhancement—Geometric Correction, Texture Keywords: Texture Mapping, Paint Systems, Polygonal Modeling
+∗ Alias|Wavefront
+
+1
+
+INTRODUCTION
+
+A 3D paint system makes it possible to enhance the visual appearance of a 3D model by interactively adding details to it (colors, bump maps . . . ). If the discretization of the surface is ﬁne enough, it is possible to directly paint its vertices [1]. However, in most cases, the desired precision for the colors is ﬁner than the geometric details of the model. Assuming that the surface to be painted is provided with a parameterization, it is possible to use texture mapping to store colors in parameter space [9]. Parametric surfaces (such as NURBS) have a natural parameterization. For other representations, such as polygonal surfaces, ﬁnding a parameterization is non-trivial. To decorate polygonal models with regular patterns, the lapped textures approach [26] can be applied: local overlapping parameterizations are used to repeatedly map a small texture swatch onto a model. A texture atlas is a more general representation (see, e.g., [13, 20, 23]). The model to be textured is partitioned into a set of parts homeomorphic to discs, referred to as charts, and each of them is provided with a parameterization. A texture atlas can be easily represented by standard ﬁle formats and displayed using standard texture mapping hardware. When used in a 3D paint system, a texture atlas should meet the following requirements: • the chart boundaries should be chosen to minimize texture artifacts, • the sampling of texture space should be as uniform as possible, • the atlas should make an optimal use of texture space. The generation of a texture atlas can be decomposed into the following steps: 1. Segmentation: The model is partitioned into a set of charts. 2. Parameterization: Each chart is ‘unfolded’, i.e. put in correspondence with a subset of R2 . 3. Packing: The charts are gathered in texture space. The remainder of this section presents the existing methods for these three steps, and their limitations with respect to the requirements mentioned above. We then introduce a new texture atlas generation method, meeting these requirements by creating charts with natural shapes, thus reducing texture artifacts.
+
+1.1
+
+Previous Work
+
+Segmentation into charts. In [14] and [23], the model is interactively partitioned by the user. To perform automatic segmentation, Maillot et al. [20] group the facets by their normals. Several multiresolution methods [7, 16] decompose the model into charts corresponding to the simplices of the base complex. In [27], Sander et al. use a region-growing approach to segmentation, merging charts according to both planarity and compactness criteria. All these approaches are designed to produce charts that can be treated by existing parameterization methods, which are limited to charts with convex borders. For this reason, a large number of charts is generated, which introduces many discontinuities when constructing a texture atlas. Chart parameterization. Discrete Harmonic Map, described by Eck et al. [4], are the most widely used. They are approximations of Continuous Harmonic Maps [5], minimizing a metric dispersion criterion. Pinkal and Polthier [24] have shown the link between this criterion and another one named conformality, and have expressed both in terms of Dirichlet energy. Haker et al. [8] describe a similar method in the speciﬁc case of a surface triangulation homeomorphic to a sphere. The theory on graph embedding has been studied by Tutte [30], where Barycentric Maps are introduced. The bijectivity of the sodeﬁned parameterization is mathematically guaranteed. Floater [6] proposes speciﬁc weights improving the quality of the mapping, in terms of area deformations and conformality. In [18], a method is proposed to take additional constraints into account. In all the methods mentioned above, since conformality is expressed as an indirect coupling between the parameters, boundary conditions are required, i.e. boundary nodes need to be ﬁxed on a convex border in parameter space. Other expressions of conformality, such as the non-linear MIPS method [10], make it possible to overcome this problem, and let the boundary nodes be free to move. However, this latter method requires a time-consuming non-linear optimization, and may get stuck in a local minima of the non-linear function. In [12], Hurdal et al. propose a method based on circle packings, which are certain conﬁgurations of circles with speciﬁed pattern of tangencies known to provide a way to approximate a conformal mapping. Building circle packings is however quite expensive. The approach proposed in [28] consists in solving for the angles in parameter space. It results in a highly constrained optimization problem. Other methods [17, 25, 31] can also extrapolate the border, but do not guarantee the absence of triangle ﬂips and require interaction with the user. We introduce here a conformal mapping method, offering more guarantees, efﬁciency and robustness than those approaches. In the case of texture mapping, not only the bijectivity of the parameterization should be ensured, but also its ability to make an optimum use of texture memory, and to accurately represent a signal stored in texture space. Sander et. al. [27] describe an approach to minimize both a texture stretch criterion, and texture deviation between level of details. Since their approach is independent from the initial parameterization method, it can be applied to optimize the sampling of the parameterizations constructed by our method. Charts packing in texture space. Finding the optimal packing of the charts in texture space is known as the bin packing problem. It has been studied by several authors, such as Milenkovic (see, e.g., [21]), but the resulting algorithms take a huge amount of time since the problem is NP-complete. To speed up these computations, several heuristics have been proposed in the computer graphics community. In the case of individual triangles, such a method is described by several authors (see, e.g., [3]). In the general case of charts, Sander et al. [27] propose an approach to pack the minimal
+
+area bounding rectangles of the charts. In our case, since the charts can have arbitrarily shaped borders, the bounding rectangle can be far away from the boundary of the charts. Therefore, a lot of texture space can be wasted. For this reason, we propose a more accurate packing algorithm that can handle the complex charts created by our segmentation and parameterization methods.
+
+1.2
+
+Overview
+
+The paper is organized as follows. Since it is our main contribution, we will start by introducing Least Squares Conformal Maps (LSCMs), a new optimization-based parameterization method with the following properties (see Section 2 and Figure 1): • Our criterion minimizes angle deformations and non-uniform scalings. It can be efﬁciently minimized by classical NA methods, and does not require a complex algorithm such as the ones used in [12] and in [28]. • We prove the existence and uniqueness of the minimum of this criterion. Therefore, the solver cannot get stuck in a local minimum, in contrast with non-linear methods [10, 25, 27, 31] where this property is not guaranteed. • The borders of the charts do not need to be ﬁxed, as with most of the existing methods [4, 6, 18]. Therefore, large charts with arbitrarily shaped borders can be parameterized. • We prove that the orientation of the triangles is preserved, which means that no triangle ﬂip can occur. However, as in [28], overlaps may appear, when the boundary of the surface self-intersects in texture space. Such conﬁgurations are automatically detected, and the concerned charts are subdivided. This problem was seldom encountered in our experiments (note that as with classical methods [4, 6], if all the border nodes are ﬁxed on a convex polygon, no overlap can occur). • We prove that the result is independent of the resolution of the mesh. This type of property may be usefull to reduce texture deviation when parameterizing different level of details of the same object. In Section 3, we present a new segmentation method to decompose the model into charts. Thanks to the additional ﬂexibility offered by LSCMs, it is possible to create large charts corresponding to meaningful geometric entities, such as biological features of characters and animals. The required number of charts is dramatically reduced, together with the artifacts caused by the discontinuities between the charts. Moreover, these large charts facilitate the use of regular patterns in a 3D paint system. Section 4 presents our method to pack the charts in texture space. Since our segmentation method can create charts with complex borders, we pack the charts more accurately than with bounding rectangles, as in previous approaches. Our method is inspired by the strategy used by a ‘Tetris’ player. The paper concludes with some results, on both scanned and modeled meshes.
+
+2
+
+LEAST SQUARES CONFORMAL MAPS
+
+In this section, we focus on the problem of parameterizing a chart homeomorphic to a disc. It will then be shown how to decompose the model into a set of charts, and how to pack these charts in texture space.
+
+2.1
+• • • • •
+
+Notations
+
+scalars are denoted by normal characters x, y, u, v, vectors are denoted by bold characters x = (x, y), complex numbers are denoted by capitals U = (u + iv), vectors of complex numbers are denoted by bold capitals U, maps and matrices are denoted by cursive fonts U, X .
+
+Figure 1:
+
+The body of the scanned horse is a test case for the robustness of the method; it is a single very large chart of 72,438 triangles, with a complex border. A: Resulting iso-parameter curves; B: The corresponding unfolded surface, where the border has been automatically extrapolated; C: These cuts make the surface equivalent to a disc; D: The parameterization is robust, and not affected by the large triangles in the circled area (caused by shadow zones appearing during the scanning process).
+
+2.2
+
+Conformal Maps
+
+In this section, we quickly introduce the notion of conformal map. We will present further a new way to approximate the conformality criterion and the mathematical properties of this approximation.
+conformal
+iso−u N
+
+(u,v) X(u,v)
+v
+
+iso−v
+
+u
+
+Figure 2: In a conformal map, the tangent vectors to the iso-u and to the iso-v curves
+are orthogonal and have the same length.
+
+As shown in Figure 2, an application X mapping a (u, v) domain to a surface is said to be conformal if for each (u, v), the tangent vectors to the iso-u and iso-v curves passing through X (u, v) are orthogonal and have the same norm, which can be written as: N (u, v) × ∂X (u, v) ∂u = ∂X (u, v), ∂v (1)
+
+fact that a similarity can be represented by the product of complex numbers, we show how to turn the conformality problem into an unconstrained quadratic minimization problem. The u and v parameters are linked by a single global equation. This direct coupling of the u and v parameters makes it possible to efﬁciently parameterize large charts with complex borders, as shown in Figure 1. In this example, the cuts have been done manually (Figure 1-C), to create a large test case for the robustness of the method. (It will be shown in Section 3 how to automatically cut a model into charts homeomorphic to discs.) Riemann’s theorem states that for any surface S homeomorphic to a disc, it is possible to ﬁnd a parameterization of the surface satisfying Equation 1. However, since we want to use the resulting parameterization for texture mapping, we add the constraint that the edges of the triangulation should be mapped to straight lines, and the mapping should vary linearly in each triangle. With this additional constraint, it is not always possible to satisfy the conformality condition. For this reason, we will minimize the violation of Riemann’s condition in the least squares sense.
+
+2.3
+
+Conformality in a Triangulation
+
+where N (u, v) denotes the unit normal to the surface. In other words, a conformal map is locally isotropic, i.e. maps an elementary circle of the (u, v) domain to an elementary circle of the surface. It is possible to rewrite Equation 1 using differential operators, such as Laplace-Beltrami, as done in [24] and in [8], which results in the well known cotangent weighting coefﬁcients (see e.g. [4]). The (u, v) parameters are then found to be the solution of two separate linear systems, one for u and one for v. The relation between u and v is indirectly taken into account by the right hand sides of the two systems. For this reason, this type of method requires the border to be ﬁxed on a convex polygon. The MIPS method [10] does not have this restriction, and expresses conformality as a relation linking the coefﬁcients of the metric tensor. However, the resulting equations are non-linear. Another approach has been described in [28], based on the remark that the criterion deﬁning a conformal mapping should be independent of a translation, rotation and scaling in parameter space (i.e. a similarity). The unknowns are the angles at the corners of the triangles. This requires a timeconsuming constrained optimization method. Rather than discretizing the Laplace operator at the vertices of the triangulation, we instead take the dual path of considering the conformality condition on the triangles of the surface. Using the
+
+Consider now a triangulation G = {[1 . . . n], T , (pj )1 j n }, where [1 . . . n], n 3, corresponds to the vertices, where T is a set of n triangles represented by triples of vertices, and where pj ∈ R3 denotes the geometric location at the vertex j. We suppose that each triangle is provided with a local orthonormal basis, where (x1 , y1 ), (x2 , y2 ), (x3 , y3 ) are the coordinates of its vertices in this basis (i.e., the normal is along the z-axis). The local bases of two triangles sharing an edge are consistently oriented. We now consider the restriction of X to a triangle T and apply the conformality criterion to the inverse map U : (x, y) → (u, v) (i.e. the coordinates of the points are given and we want their parameterization). In the local frame of the triangle, Equation 1 becomes ∂X ∂X −i = 0, ∂u ∂v where X has been written using complex numbers, i.e. X = x+iy. By the theorem on the derivatives of inverse functions, this implies that ∂U ∂U +i = 0, (2) ∂x ∂y where U = u + iv. (This is a concise formulation of the CauchyRiemann equations.)
+
+Since this equation cannot in general be strictly enforced, we minimize the violation of the conformality condition in the least squares sense, which deﬁnes the criterion C: C(T ) =
+T
+
+∂U ∂U +i ∂x ∂y
+
+2
+
+dA =
+
+∂U ∂U +i ∂x ∂y
+
+2
+
+AT ,
+
+where AT is the area of the triangle and the notation |z| stands for the modulus of the complex number z. Summing over the whole triangulation, the criterion to minimize is then C(T ) = C(T ).
+T ∈T
+
+Figure 3:
+
+2.4
+
+Gradient in a Triangle
+
+Our LSCM parameterization is insensitive to the resolution of the mesh. The iso-parameter curves obtained on a coarse mesh (Figure A) and on a ﬁne one (Figure B) are identical, and remain stable when the resolution varies within a mesh (circled zone in Figures C and D).
+
+Our goal is now to associate with each vertex j a complex number Uj such that the Cauchy-Riemann equation is satisﬁed (in the least squares sense) in each triangle. To this aim, let us rewrite the criterion C(T ), assuming the mapping U varies linearly in T . We consider a triangle {(x1 , y1 ), (x2 , y2 ), (x3 , y3 )} of R2 , with scalars u1 , u2 , u3 associated with its vertices. We have: ∂u/∂x ∂u/∂y = 1 dT y 2 − y3 x3 − x2 y3 − y1 x1 − x3 y1 − y 2 x2 − x1 u1 u2 u3 ,
+
+For the optimization problem to have a non-trivial solution, some of the Ui ’s must be set to a priori values. Let us decompose the vector U as (Uf , Up ) , where Uf is the vector of free coordinates of U (the variables of the optimization problem) and Up is the vector of pinned coordinates of U, of length p (p n). Along the same lines, M can be decomposed in block matrices as M = (Mf Mp ) , where Mf is a n × (n − p) matrix and Mp is a n × p matrix. Now, Equation 3 can be rewritten as C(U) = U∗ M∗ MU = MU
+2 2
+
+where dT = (x1 y2 − y1 x2 ) + (x2 y3 − y2 x3 ) + (x3 y1 − y3 x1 ) is twice the area of the triangle. The two components of the gradient can be gathered in a complex number: ∂u ∂u i +i = (W1 ∂x ∂y dT where W1 W2 W3 = = = W2 W3 ) (u1 u2 u3 ) ,
+
+= Mf Uf + Mp Up
+
+2
+
+,
+
+(x3 − x2 ) + i(y3 − y2 ), (x1 − x3 ) + i(y1 − y3 ), (x2 − x1 ) + i(y2 − y1 ).
+
+where the notation v stands for the inner product < v, v > (v stands for the conjugate of v). Rewriting the objective function with only real matrices and vectors yields C(x) = Ax − b 2 , (4) with A= M1 f M2 f −M2 f M1 f , b=− M1 p M2 p −M2 p M1 p U1 p , U2 p
+
+The Cauchy-Riemann equation (Equation 2) can be rewritten as follows: ∂U ∂U i +i = (W1 ∂x ∂y dT W2 W3 ) (U1 U2 U3 ) = 0,
+
+where Uj = uj + ivj . The objective function thus reduces to C(U = (U1 , . . . , Un ) ) =
+T ∈T
+
+C(T ),
+
+with
+2
+
+C(T ) =
+
+1 (Wj1 ,T Wj2 ,T Wj3 ,T ) (Uj1 Uj2 Uj3 ) dT
+
+where the superscripts 1 and 2 stand respectively for the real and imaginary part, v stands this time for the traditional L2 -norm of a vector with real coordinates and x = (U1 , U2 ) is the vector f f of unknowns. Note that A is a 2n × 2(n − p) matrix, b is a vector of R2n and x is a vector of R2(n−p) (the ui and vi coordinates of the vertices in parameter space that are allowed to move freely).
+
+,
+
+2.6
+
+Properties
+
+where triangle T has vertices indexed by j1 , j2 , j3 . (We have multiplied C(T ) by a factor of 2 to simplify the expression.)
+
+2.5
+
+Least Squares Conformal Maps
+
+C(U) is quadratic in the complex numbers U1 , . . . , Un , so can be written down as C(U) = U∗ CU, (3) where C is a Hermitian symmetric n × n matrix and the notation U∗ stands for the Hermitian (complex) conjugate of U. C is an instance of a Hermitian Gram matrix, i.e. it can be written as C = M∗ M, where M = (mij ) is the sparse n × n matrix (rows are indexed by triangles, columns are indexed by vertices) whose coefﬁcient is
+Wj,Ti
+
+mij =
+
+√
+
+0
+
+d Ti
+
+if vertex j belongs to triangle Ti , otherwise.
+
+The above minimization problem has several fundamental properties which are proved in the appendix: • The matrix A has full rank when the number of pinned vertices, i.e. p, is larger than or equal to 2. • As a consequence, the minimization problem has a unique solution when p 2, given by x = (A A)−1 A b. The best value for p is 2, since in this case the mapping U can be fully conformal if the surface is developable (i.e. the minimum of the objective function is zero). In our experiments, we have pinned the two vertices maximizing the length of the shorted path between them (i.e. the graph diameter). • The solution to the minimization problem is invariant by a similarity in texture space. • The solution to the minimization problem is independent of the resolution of the mesh. This property is illustrated in Figure 3. • In texture space, all the triangles are consistently oriented if the pinned vertices are chosen on the boundary of T . In other words, triangle ﬂips cannot occur.
+
+Figure 4:
+
+A: Result of the features detection algorithm; B: The distance_to_seed function is not an optimal choice for driving our chart growing process; C: The distance_to_f eatures function shows iso-contours with more natural shapes; D: Result of our segmentation algorithm, driven by the distance_to_f eatures function.
+
+3
+
+SEGMENTATION
+
+The segmentation algorithm decomposes the model into a set of charts. The design of the algorithm aims at meeting the following two requirements: 1. charts boundaries should be positioned in such a way that most of the discontinuities between the charts will be located in zones where they will not cause texture artifacts, 2. charts must be homeomorphic to discs, and it must be possible to parameterize them without introducing too much deformation. For the ﬁrst point, since the shading models depend on the normal, zones of high curvatures cause sharp variations of lighting. In these zones, a texture artifact will not be noticeable, since it will be negligible compared to the shading variation. Thus, to minimize artifacts, we will design the segmentation algorithm in such a way as to avoid chart boundaries in ﬂat zones. In other words, it is suitable to generate large charts with most of their boundaries in high curvature zones. For the second point, we will present an automatic approach, mimicking the way a user manually segments a model. Basically, the user attempts to decompose the model into parts resembling cylinders. To detect such cylinders, we will use an approach inspired by Morse theory, characterizing a function deﬁned over the surface (see, e.g., [29]). The next two sections present a feature detection algorithm, which ﬁnds curves corresponding to high curvature zones of the model, and a chart growing algorithm making them meet at these feature curves. Then, it will be shown how to validate the result, and subdivide the charts if needed. In the remainder of this section, we suppose that the surface is represented by a halfedge based data structure (see, e.g., [19]).
+
+expand_feature_curve(halfedge start) vector<halfedge> detected_f eature for halfedge h ∈ { start, opposite(start) } halfedge h ← h do use depth-ﬁrst search to ﬁnd the string S of halfedges starting with h and such that: • two consecutive halfedges of S share a vertex • the length of S is than max_string_length • sharpness(S) ← e∈S sharpness(e) is maximum • no halfedge of S goes backward (relative to h ) • no halfedge of S is tagged as a feature neighbor h ← second item of S append h to detected_f eature while(sharpness(S) > max_string_length × τ ) end // for if (length(detected_f eature) > min_f eature_length) then tag the elements of detected_f eature as features tag the halfedges in the neighborhood of detected_f eature as feature neighbors end // if end // expand_feature_curve
+
+Algorithm 1: Features growing
+
+as follows: max_string_length = 5, which controls the size of the discontinuities to be ﬁlled, and min_f eature_length = 15.
+
+3.2
+
+Expand Charts
+
+3.1
+
+Detect Features
+
+The features detection phase can be outlined as follows: 1. Compute a sharpness criterion on the edges. We use here the second order differences (SOD), i.e. the angle between the normals, as in [11]. It is also possible to use more elaborate criteria. 2. Choose a threshold τ so that a certain proportion of the edges is ﬁltered out. In our examples, we kept 5 percent of the detected edges. 3. For each of the remaining edges, grow a feature curve by applying Algorithm 1. Algorithm 1 attempts to anticipate the best paths, and ﬁlters out the small features caused by noise. Tagging the neighborhoods of the detected features avoids generating a large number of features in zones of high curvature. In our examples, the parameters are set
+
+Once the sharp features have been detected, the charts can be created. Our method is a greedy algorithm, expanding all the charts simultaneously from a set of seeds. It is similar to the s-source Dijkstra algorithm used in [4] and to the region-growing paradigm used in computer vision. Since we want chart boundaries to meet at the level of features, the s-source algorithm is modiﬁed as follows: • To select the set of seeds, the intuitive idea is to ‘reverse engineer’ the expected result. More precisely, we use the following method: a front is propagated from the borders and the feature curves detected by the previous algorithm, to compute a distance_to_f eatures function at each facet. Then, the seeds are found to be the local maxima of this distance_to_f eatures function. • For closed surfaces without any detected feature, propagation is initialized from the two extremities of a diameter of the facets graph, as done in [15]. • Our s-source propagation uses −distance_to_f eatures as the priority function, rather than distance_to_seeds. The advantage of this approach is shown in Figure 4.
+
+Figure 6:
+
+A: The dinosaur’s head made of a single chart; B: Despite the absence of triangle ﬂips, overlaps may occur, caused by self-intersections of the border; C: They can be removed by subdividing the chart.
+
+Figure 5:
+
+A: Our segmentation algorithm detects cylindrical shapes; B: An additional cut is added to ‘sock-shaped’ extremal cylinders. expand_charts priority_queue<halfedge> Heap sorted by dist(f acet(half edge)) set<edge> chart_boundaries initialized with all the edges of the surface // Initialize Heap foreach facet F where dist(F ) is a local maximum create a new chart with seed F add the halfedges of F to Heap end // foreach // Charts-growing phase while(Heap is not empty) halfedge h ← e ∈ Heap such that dist(e) is maximum remove h from Heap facet F ← facet(h) facet Fopp ← the opposite facet of F relative to h if ( chart(Fopp ) is undeﬁned ) then add Fopp to chart(F ) remove E from chart_boundaries remove non-extremal edges from chart_boundaries, // (i.e. edges that do not link two other chart boundary edges) add the halfedges of Fopp belonging to chart_boundaries to Heap elseif ( chart(Fopp ) = chart(F ) and max_dist(chart(F )) - dist(F ) < ε and max_dist(chart(Fopp )) - dist(F ) < ε ) then merge chart(F ) and chart(Fopp ) end // if end // while end // expand_charts
+
+puting the area/perimeter ratio. In this case, to facilitate the parameterization phase, a cut is added by starting from the seed and cutting the edges along the steepest-descent path. • The cylinder is non-extremal, and therefore non-capped. Algorithm 2 generates suitable boundaries, without requiring any special treatment (the resulting chart is ‘rolled’ around the cylinder).
+
+3.3
+
+Validate Charts
+
+Algorithm 2: Charts growing.
+
+• Charts are merged if they meet at a small distance d < ε from their seed. In our experiments, ε = maxdist/4, where maxdist denotes the global maximum of distance_to_f eatures. Our charts growing algorithm (Algorithm 2) uses the following data: • distance_to_f eature is stored in each facet F , and denoted dist(F ); • for each chart C, the scalar max_dist(C) denotes the maximum distance to features for all the facets of C; • The set of edges chart_boundaries represents the borders of all charts. It makes it possible for a patch to be its own neighbor while remaining a topological disc. As shown in Figure 5, our algorithm can detect cylindrical shapes, as the approach proposed in [15]. In our case, two conﬁgurations can be distinguished: • The cylinder corresponds to an extremity, such as the ‘ﬁngers’ of the dinosaur’s wings (Figure 5-B). The corresponding charts have the shape of a sock. This conﬁguration is detected by com-
+
+The so-constructed charts are then parameterized using the method presented in Section 2. After that, the following two criteria are tested: • As mentioned in Section 2, no triangle ﬂip can occur, and the border can be extrapolated. However, since the border can be non-convex, a new class of overlaps can be encountered. They are caused by a self-intersection of the border, as in [28]. Such conﬁgurations can be efﬁciently detected by the hardware, by drawing the parameter space in stencil mode. The stencil pixels drawn more than once correspond to overlaps. If such overlaps are detected, the corresponding chart is subdivided, by cutting it along the edges on the border of the overlapped zone, as shown in Figure 6. Note that our segmentation algorithm would not generate a single chart for the dinosaur’s head (see Figure 5). In practice, the overlap problem has seldom appeared in our experiments, and was caused by tiny loops formed by the border. • Our criterion respects angles very well, as shown in the results section. As far as areas are concerned, large charts with zones of high curvature may result in large area variations. To detect these problems, the minimum and maximum model area/texture area ratio is measured over the facets. If the max/min ratio is greater than a certain threshold, the concerned chart is split, by growing two charts from the facets corresponding to the minimum and the maximum. In the examples shown here, the threshold has been set to 2.
+
+4
+
+PACKING
+
+Once the model is decomposed into a set of parameterized charts, it is possible to create a texture atlas by merging all the (u, v) domains of the charts. Usually, only a limited amount of texture memory is available. It is then suitable to minimize the unused space. In other words, given a set of possibly non-convex polygons, we want to ﬁnd a non-overlapping placement of the polygons in such a way that the enclosing rectangle is of minimum area. The so-obtained texture coordinates are then re-scaled to ﬁt the size of the texture. The packing problem is known to be NP-complete (see, e.g., [21] and [22]). Approaches based on computational geometry show good performances in terms of minimization of lost area, but are not efﬁcient enough for large and complex data sets. For this reason, several heuristics have been proposed in computer graphics. For instance, in the method proposed by Sander et al. [27], the bounding rectangles of the charts are packed. In our case, since
+
+stretch (before optim.) stretch (after optim.) Table 1:
+
+Harmonic Maps 3.2 1.65
+
+LSCM 3.5 1.52
+
+Stretch optimization of the ’cow head’ data set
+
+A
+
+B
+
+Figure 7: A: Our packing algorithm inserts the charts one by one, and maintains the
+‘horizon’ (in blue) during the process. Each chart (in green) is inserted at the position minimizing the ’wasted space’ (in black) between its bottom horizon (in pink) and the current horizon. The top horizon (in red) of the current chart is then used to update the horizon. B: Result on the dinosaur data set.
+
+the border may have an arbitrary shape, the bounding rectangle is not an accurate approximation. For this reason, we propose a different algorithm, that packs the charts directly rather than their bounding rectangles. As in [2], our algorithm is inspired by how a ‘Tetris’ player would operate, but without approximating the charts by their bounding boxes: 1. Each chart is rescaled to make its area in (u, v) space equal to its area in (x, y, z) space. 2. The maximum diameter of the charts are oriented vertically and sorted in decreasing order. 3. As shown in Figure 7, for each chart C, the top horizon hC (in red) and bottom horizon h⊥ (in pink) is computed. Rather than C being represented by their bounding rectangles, the charts are approximated by the area between the two curves hC and h⊥ . C As in classical approaches, in order to avoid unwanted blends caused by mip-mapping, an additional margin is added to the horizons. 4. The charts are inserted one by one, using the method described below. As shown in Figure 7-A, the piecewise linear function h(u) representing the ‘horizon’ is maintained by the algorithm. For each chart C, the uC coordinate at the lower left corner of C is chosen in such a way that the lost space (in black) between the bottom horizon h⊥ of C (in pink) and the current horizon h (in blue) is C minimized (see Figure 7-A). Then, the horizon h is updated using the top horizon hC of the current chart (in red). Since the parameter space is discretized into texels, it seems natural to represent the horizons by arrays of discretized values, with texture resolution. This makes the algorithm much simpler than using piecewise linear functions. For a chart C, all discrete values for uC are tested. The algorithm performs well, and takes less than one second to process all the data sets we have tested.
+
+5
+
+RESULTS
+
+Figure 8:
+
+Data sets and associated texture space constructed by our method.
+
+We have applied our method to different data sets, comprising meshes created with a 3D modeler (using subdivision surfaces) and scanned meshes. The results are equivalent to those obtained with MIPS [10], but with mathematical guarantees, and can be more efﬁciently computed. As shown in Table 1, the stretch (see [27]) measured on the result is of the same order as when using standard methods (e.g. [4, 6]). To optimize the mapping, it is easy to post-process the result of our method by the algorithm proposed in [27]. Since the border nodes are naturally positionned (rather than arbitrarily ﬁxed on a convex polygon), the result can be better (see Table 1). Figure 8 shows some texture atlases. Note the presence of small charts, most of them corresponding to geometric details of the models (teeth, hoofs . . . ). This is not a problem for most paint systems,
+
+vertices facets charts segmentation time (s) parameterization time (s) packing ratio (rectangles) packing ratio (our algo.) stretch (before optim.) stretch (after optim.) Table 2:
+
+dinosaur 14,669 14,384 43 8 10 0.48 0.55 2.9 1.26
+
+skull 16,949 15,124 40 17 23 0.51 0.55 2.5 1.55
+
+bunny 34,834 69,451 23 30 95 0.43 0.6 1.16 1.14
+
+horse 48,485 96,968 44 43 190 0.37 0.58 1.14 1.12
+
+Statistics and timings.
+
+Figure 10:
+
+Hand-painted 3D models. Our LSCM method facilitates the use of procedural textures and complex patterns.
+
+3000
+
+angle deformations
+
+600
+
+area deformations
+
+CONCLUSION
+In this paper, we have presented a new automatic texture atlas generation method for polygonal models. Overall, we have proposed a complete and mathematically valid solution to the parameterization of complex models which proved to be more efﬁcient and robust than existing methods and available tools in real production environments. Our segmentation algorithm, driven by detected features and inspired by Morse theory, decomposes the model into charts with natural shapes, corresponding to meaningful geometric entities. These two algorithms may have applications in other domains, such as re-meshing and data compression. We have successfully applied our technique to both scanned and synthetic data sets, making it possible to use existing 3D paint systems with them (DeepPaint3D, Painter). In future works, to parameterize huge models, we will consider out-of-core algorithm, and analyze different numerical methods to minimize the LSCM criterion, including multigrid approaches and pre-conditioned CG. Including the stretch criterion directly into the LSCM criterion is also another possible future direction of research.
+
+2500
+
+500
+
+2000
+
+400
+
+1500
+
+300
+
+1000
+
+200
+
+500
+
+100
+
+0 80 85 90 95 100
+
+0 0 0.5 1 1.5 2 2.5 3
+
+Figure 9:
+
+Angle and area deformations histograms (‘Horse’ data set).
+
+that can treat them properly. Some examples of textured models are shown in Figure 10. Table 2 shows the sizes of the data sets, the number of created charts, and the following statistics, obtained on a 1.3 GHz Pentium III (note that the timings for the packing algorithm are not included, since they are negligible): • time to segment the model into charts; • time to parameterize the charts. Our LSCM criterion (Equation 4) is minimized using the CG (Conjugate Gradient) algorithm. The independence to resolution suggests that a multi-grid approach would be even more efﬁcient; • packing ratio obtained using an enclosing rectangle packing approach [27] and our algorithm. • stretch measured before and after applying Sander et. al.’s optimization method as a post-processing (see [27]). The left histogram in Figure 9 shows the distribution of the angles in degrees between u and v gradient vectors. The mapping is nearly conformal in each triangle (the differences of lengthes between the u and v gradients we have measured are very near to zero). The right histogram shows the area deformations obtained with the ‘Horse’ data set, before stretch optimization. This histogram, showing texture area/model area ratios has been normalized, i.e. scaled in such a way that the mean value is mapped to 1. Note that since the mapping is nearly isotropic in each triangle, the L2 and L∞ stretch histogram (not shown here) have exactly the same appearance as the area histogram. As can be seen, even though our LSCM criterion is not designed to punish area deformations, few facets are distorted, and can easily be ﬁxed by postprocessing using Sander et. al.’s method. The resulting texture atlases combine the advantages of LSCM (few chart discontinuities) and stretch-optimized parameterization (uniform sampling).
+
+ACKNOWLEDGMENTS
+We want to thank the Graphite development team (http://www.loria.fr/ ˜ levy/graphite), especially Ben Li and Bijendra Vishal. Thanks also to the reviewers for their comments and help in improving this paper.
+
+A
+
+PROPERTIES OF LSCMS
+
+The minimization problem of Section 2 has several interesting properties when the number p of pinned vertices in parameter space is sufﬁcient. In what follows, T is assumed to be homeomorphic to a disc.
+
+A.1
+
+Full Rank
+
+We ﬁrst show that the matrices Mf and A have full rank when p 2 (p denotes the number of pinned vertices). For this, recall that a triangulation that is topologically a disc can be incrementally constructed with only two operations (cf. Figure 11): the glue operation creates one new vertex and one new face, and the join operation creates one new face. Thus, incremental construction creates at most as much vertices as faces. Since the simplest triangulation (one triangle) has one face and three vertices, we have that n n − 2 (where n denotes the number of vertices, and n the number of triangles, as in the rest of the paper).
+
+A A is a square 2(n − p) × 2(n − p) matrix, it is thus invertible and the minimization problem has a unique solution (when p 2) x = (A A)−1 A b. The minimum of C(U) is zero when Ax = b, i.e. when A is invertible. Since it has full rank, this happens exactly when A is square, i.e. when n = n − p. Using the fact that n n − 2, this implies that p = 2. We conclude that the mapping U is fully conformal (barring self-intersections) exactly when p = 2 and the triangulation T is built only with glue operations.
+
+Figure 11:
+
+Incremental construction of a triangulation that is topologically a disc. Left: glue two triangles along an edge. Right: join two existing vertices, creating a new triangle.
+
+We ﬁrst show that the rank of Mf is n − p when p 2. First note that since n n − 2, min (n , n − p) = n − p if p 2 and the rank of Mf is at most n − p. We assume that T is incrementally constructed with glue and join operations and prove the result by induction on the size of Mf . We also assume, without loss of generality, that the p pinned vertices are concentrated in the initial triangulation. Let ni , ni − p be the dimensions of the (i) matrix Mf at step i. Observe that since T is a non-degenerate triangulation, none of the coefﬁcients Wj,Ti is zero. At step 0, the triangulation has n0 − p = 1 vertices and n0 (0) 1 triangles. Mf has a single column and, since T is a proper triangulation, some of its coefﬁcients are non-zero and it has rank 1 = n0 − p. Assume that the property holds after step i. If step i + 1 is a join, (i) then the number of rows of Mf grows by 1 while the number of columns is unchanged, so the rank is ni+1 − p = ni − p. If step i + 1 is a glue, a new vertex vi+1 and a new triangle T are added. (i+1) Let v1 and v2 be the other vertices of T . The new matrix Mf is as follows:   0 . (i)   . Mf .    . 0    W1,T W2,T Wi+1,T  √ √ 0 ··· 0 √
+dT dT dT
+
+A.3
+
+Invariance by Similarity
+
+We now prove that if U is a solution to the minimization problem, then zU + T is also a solution, for all z ∈ C and T = (z , . . . , z ), z ∈ C. In other words, the problem is invariant by a similarity transformation. First note that the vector H = (1, . . . , 1) is trivially in the kernel of M, since W1 + W2 + W3 = 0 in each triangle. Assume U is a solution of the problem. We get: C(zU + T) = zz C(U) + 2zT∗ CU, = zz C(U) + 2z(MT)∗ MU = zz C(U), because T = z H is in the kernel of M. If C(U) = 0, then C(zU + T) = 0.
+
+A.4
+
+Independence to Resolution
+
+We now show that if a given mesh is ‘densiﬁed’, then the solution to the augmented optimization problem restricted to the vertices of the initial mesh is the same. We prove this result when a single triangle T is split into three triangles, but the proof generalizes easily to a more general setting. So let v be the new vertex introduced in triangle T , i.e. as a linear combination of vertices v1 , v2 , v3 :
+3 3
+
+It is now easy to see that its columns are linearly independent. Indeed, assume there are complex numbers λj such that
+ni+1
+
+v=
+i=1
+
+αi vi ,
+i=1
+
+αi = 1,
+
+αi > 0.
+
+λj mj
+j=1 (i+1) mj
+
+(i+1)
+
+= 0,
+(i+1)
+
+(5)
+
+where the are the column vectors of Mf . If we look at the ﬁrst ni coordinates of the column vectors, then Equa(i) tion 5 reduces to ni λj mj = 0, which implies that λj = j=1 0, j = 1, . . . , ni , since Mf
+(i)
+
+has full rank.
+
+Now the equa(i+1)
+
+tion linking the last coordinate of the vectors mj reduces to √ λni+1 Wi+1,T / dT = 0, implying that λni+1 = 0. Thus the (i+1) columns of Mf are linearly independent and the matrix has full rank. The result is proved. Since Mf has rank n − p, both M1 and M2 have rank n − p f f when p 2. In turn, this implies that A has rank 2(n − p) when p 2.
+
+Assume also for the sake of simplicity that none of v, v1 , v2 , v3 is pinned. Call Ti (i = 1, . . . , 3) the triangle created that does not have vi as vertex. Then it is easy to see that dTi = αi dT . Mf is an n × (n − p) matrix. After insertion of v, the new matrix M+ is (n + 2) × (n + 1 − p). Indeed, one vertex is added, f augmenting the number of columns by one, and three new triangles replace an old one, augmenting the number of rows by two. The structure of these matrices is as follows:   0   .   . Nf .   Nf   + 0 . Mf =   , Mf =      F 0 ··· 0 L P 0 where Nf is an (n −1)×(n−p) matrix, F is 1×3, L is 3×3 and P √ is 3 × 1. If the coefﬁcients of F are denoted by fj = Wj,T / dT , then it is easy to observe that the coefﬁcients of L = (lij ) and P = (pi ) satisfy 1 lij = √ αi fj − αj fi , αi 1 pi = √ fi . αi (6)
+
+A.2
+
+Single Minimum
+2, C(U) has a unique minimum.
+
+We now show that, when p First, notice that
+
+∂C = 2(A Ax − A b). ∂x Now, since the rank of the Gram matrix of A (i.e. A A) is the same as the rank of A, A A has rank 2(n − p) when p 2. Since
+
+The (n − p) × 1 solution to the initial problem is: Uf = (M∗ Mf )(−1) M∗ Mp Up . f f
+
+Consider the (n + 1 − p) × 1 solution to the augmented problem: U+ = (M+ M+ )(−1) M+ M+ U+ . p p f f f f
+∗ ∗
+
+References
+[1] M. Agrawala, A. Beers, and M. Levoy. 3D painting on scanned surfaces. In Proc. 1995 Symposium on Interactive 3D Graphics, 1995. [2] Y. Azar and L. Epstein. On 2d packing. J. of Algorithms, (25):290–310, 1997. [3] P. Cigogni, C. Montani, C. Rocchini, and R. Scopino. A general method for recovering attributes values on simpliﬁed meshes. In Proc. of IEEE Visualization Conf., pages 59–66. ACM Press, 1998. [4] M. Eck, T. DeRose, T. Duchamp, H. Hoppe, M. Lounsbery, and W. Stuetzle. Multiresolution analysis of arbitrary meshes. In SIGGRAPH 95 Conf. Proc., pages 173–182. Addison Wesley, 1995. [5] J. Eells and L. Lemaire. Another report on harmonic maps. Bull. London Math. Soc., 20:385–524, 1988. [6] M. Floater. Parametrization and smooth approximation of surface triangulations. Computer Aided Geometric Design, 14(3):231–250, April 1997. [7] I. Guskov, K. Vidimce, W. Sweldens, and P. Schröder. Normal meshes. In SIGGRAPH 00 Conf. Proc., pages 95–102. ACM Press, 2000. [8] S. Haker, S. Angenent, A. Tannenbaum, R. Kikinis, G. Sapiro, and M. Halle. Conformal surface parameterization for texture mapping. IEEE Transactions on Visualization and Computer Graphics, 6(2):181–189, 2000. [9] P. Hanrahan and P. Haeberli. Direct WYSIWYG painting and texturing on 3D shapes. In SIGGRAPH 90 Conf. Proc., pages 215–223. Addison Wesley, 1990.
+
+(7)
+
+Using the relations of Equation 6 and the fact that f1 +f2 +f3 = 0, it sufﬁces then to observe that U+ = (Uf , Uv ) is the (unique) f solution to 7, where Uv = α1 U1 + α2 U2 + α3 U3 . In other words, the least squares conformal parameterization is unchanged at the old vertices and is the barycenter of the parameterizations of v1 , v2 and v3 at the new vertex v.
+
+A.5
+
+Preserving Orientations
+
+We now sketch the proof that least squares conformal maps preserve orientations, i.e. there are no triangle ﬂips.
+V2 U2
+
+LSCM
+
+T
+V3 V1
+
+T’
+
+v
+
+U3
+
+V
+
+V’
+
+U
+
+[10] K. Hormann and G. Greiner. MIPS: An efﬁcient global parametrization method. In P.-J. Laurent, P. Sablonnière, and L. Schumaker, editors, Curve and Surface Design: Saint-Malo 1999, pages 153–162. Vanderbilt University Press, 2000. [11] A. Hubeli and M. Gross. Multiresolution features extraction from unstructured meshes. In Proc. of IEEE Visualization Conf., 2001. [12] M. Hurdal, P. Bowers, K. Stephenson, D. Sumners, K. Rehms, K. Schaper, and D. Rottenberg. Quasi-conformally ﬂat mapping the human cerebellum. In Proc. of MICCAI’99, volume 1679 of Lecture Notes in Computer Science, pages 279– 286. Springer-Verlag, 1999. [13] T. Igarashi and D. Cosgrove. Adaptive unwrapping for interactive texture painting. In Symp. on Interactive 3D Graphics, pages 209–216. ACM, 2001. [14] V. Krishnamurthy and M. Levoy. Fitting smooth surfaces to dense polygon meshes. In SIGGRAPH 96 Conf. Proc., pages 313–324. Addison Wesley, 1996. [15] F. Lazarus and A. Verroust. Level set diagrams of polyhedral objects. In Proc. of Solid Modeling and Applications, pages 130–140. ACM Press, 1999. [16] A. Lee, W. Sweldens, P. Schröder, L. Cowsar, and D. Dobkin. MAPS: Multiresolution adaptive parameterization of surfaces. In SIGGRAPH 98 Conf. Proc., pages 95–104. Addison Wesley, 1998. [17] B. Lévy. Constrained texture mapping for polygonal meshes. In SIGGRAPH 01 Conf. Proc., pages 417–424. ACM Press, 2001. [18] B. Lévy and J.-L. Mallet. Non-distorted texture mapping for sheared triangulated meshes. In SIGGRAPH 98 Conf. Proc., pages 343–352. Addison Wesley, 1998. [19] P. Lienhardt. Extension of the notion of map and subdivisions of a 3D space. In Proc. of 5th Symp. on Theo. Aspects in Comp. Sci., pages 301–311, 1988. [20] J. Maillot, H. Yahia, and A. Verroust. Interactive texture mapping. In SIGGRAPH 93 Conf. Proc., pages 27–34. Addison Wesley, 1993. [21] V. Milenkovic. Rotational polygon containment and minimum enclosure using only robust 2D constructions. Computational Geometry, 13(1):3–19, 1999. [22] H. Murata, K. Fujiyoshi, S. Nakatake, and Y. Kajitani. Rectangle-packing-based module placement. In Proc. of ICCAD, pages 472–479. IEEE, 1995. [23] H. Pedersen. Decorating implicit surfaces. In SIGGRAPH 95 Conf. Proc., pages 291–300. Addison Wesley, 1995. [24] U. Pinkall and K. Polthier. Computing discrete minimal surfaces and their conjugates. Experimental Math., 2(15), 1993. [25] D. Piponi and G. Borshukov. Seamless texture mapping of subdivision surfaces by model pelting and texture blending. In SIGGRAPH 00 Conf. Proc., pages 471–478. ACM Press, 2000. [26] E. Praun, A. Finkelstein, and H. Hoppe. Lapped textures. In SIGGRAPH 00 Conf. Proc., pages 465–470. ACM Press, 2000. [27] P. Sander, J. Snyder, S. Gortler, and H. Hoppe. Texture mapping progressive meshes. In SIGGRAPH 01 Conf. Proc., pages 409–416. ACM Press, 2001. [28] A. Sheffer and E. de Sturler. Param. of faceted surfaces for meshing using anglebased ﬂattening. Engineering with Computers, 17(3):326–337, 2001. [29] Y. Shinagawa, T. Kunii, and Y.-L. Kergosien. Surface coding based on Morse theory. IEEE Computer Graphics and Applications, 11(5):66–78, 1991. [30] W. Tutte. Convex representation of graphs. In Proc. London Math. Soc., volume 10, 1960. [31] G. Zigelman, R. Kimmel, and N. Kiryati. Texture mapping using surface ﬂattening via multi-dimensional scaling. IEEE Transactions on Vis. and C.G., 2001.
+
+V
+
+u
+
+U1
+
+Figure 12:
+
+LSCMs preserve orientations.
+
+As a preliminary, note ﬁrst that if complex numbers Wi are associated to vertices of a triangle as in Section 2.4, with vertices ordered counterclockwise, then ζT = i W2 W1 − W1 W2 (8)
+
+is positive (and equal to 2dT ). We again assume that the triangulation T is incrementally constructed with the glue and join operations. Denote the current triangulation by Ti . For the join operation, the result is trivial. We now prove the result when the current step is a glue. We use the notations of Figure 12. Let V and V be the images of T and T in parameter space. Let also Wj (resp. Wj ) be complex numbers attached to T (resp. T ) and Xj (resp. Xj ) be complex numbers attached to V (resp. V ). Since the local bases of two triangles of T sharing an edge are consistently oriented, both ζT – as deﬁned in Equation 8 – and ζT = i W1 W2 − W2 W1 are positive. If we assume that the unfolding of Ti has no triangle ﬂips, then we also have that ζV > 0, where ζV is deﬁned as in Equation 8, replacing Wj by Xj . Now, writing down the equations deﬁning U+ = (Uf , Uv ) as f in the previous section, we ﬁnd that W1 U1 + W2 U2 + Wv Uv = 0, (9)
+
+where U1 , U2 , Uv are the parameterizations of vertices v1 , v2 , v (U1 , U2 being unchanged by addition of v). Using the fact that W1 + W2 + W3 = 0, X1 = U2 − Uv and X2 = Uv − U1 , Equation 9 rewrites as W2 X1 − W1 X2 = 0. Using Equation 10 and the deﬁnition in Equation 8, we have: ζV = i X1 X2 − X2 X1 , = X1 X1 X X i W1 W2 − W2 W1 = 1 1 ζT > 0. W1 W1 W1 W1 (10)
+
+Thus, V is consistently oriented and the glue operation does not produce a triangle ﬂip, proving the result.
+

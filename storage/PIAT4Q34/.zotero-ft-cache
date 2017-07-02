@@ -1,0 +1,334 @@
+Additive Manufacturing 12 (2016) 60–70
+
+Contents lists available at ScienceDirect
+
+Additive Manufacturing
+journal homepage: www.elsevier.com/locate/addma
+
+Topology optimization of 3D self-supporting structures for additive manufacturing
+Matthijs Langelaar
+Delft University of Technology, Mekelweg 2, 2628CD Delft, The Netherlands
+
+a r t i c l e
+
+i n f o
+
+a b s t r a c t
+The potential of topology optimization to amplify the beneﬁts of additive manufacturing (AM), by fully exploiting the vast design space that AM allows, is widely recognized. However, existing topology optimization approaches do not consider AM-speciﬁc limitations during the design process, resulting in designs that are not self-supporting. This leads to additional effort and costs in post-processing and use of sacriﬁcial support structures. To overcome this difﬁculty, this paper presents a topology optimization formulation that includes a simpliﬁed AM fabrication model implemented as a layerwise ﬁltering procedure. Unprintable geometries are effectively excluded from the design space, resulting in fully self-supporting optimized designs. The procedure is demonstrated on numerical examples involving compliance minimization, eigenfrequency maximization and compliant mechanism design. Despite the applied restrictions, in suitable orientations fully printable AM-restrained designs matched the performance of reference designs obtained by conventional topology optimization. © 2016 Elsevier B.V. All rights reserved.
+
+Article history: Received 17 February 2016 Received in revised form 12 May 2016 Accepted 7 June 2016 Available online 9 June 2016 Keywords: Topology optimization Additive manufacturing Overhang angle Self-supporting designs Manufacturing restrictions
+
+1. Introduction The ﬁeld of additive manufacturing (AM) technology is advancing rapidly, with processes becoming more versatile, stable, accurate and economical at a steady pace [1–3]. Key advantages of AM compared to traditional manufacturing techniques are the enormous geometrical freedom it offers to designers, combined with the fact that costs are nearly insensitive to geometrical complexity [4]. This offers opportunities to create highly optimized components where form follows functionality, without the restrictions imposed by conventional manufacturing processes. Capable design optimization tools therefore play an important role in realizing the beneﬁts offered by the AM design freedom [5]. In this context, topology optimization (TO) has been universally recognized as a crucial design technology for AM. TO techniques can generate distributions of material that optimize certain performance criteria deﬁned by the designer, even when an initial design concept is lacking. After its conception in the late 1980s [6], TO has developed at a rapid pace and continues to form an area of active research. In various branches of industry, TO is an established part of the design process [7,8]. For an overview of the ﬁeld, the reader is referred to recent reviews by Sigmund and Maute [9] and Deaton and Grandhi [10].
+
+E-mail address: m.langelaar@tudelft.nl http://dx.doi.org/10.1016/j.addma.2016.06.010 2214-8604/© 2016 Elsevier B.V. All rights reserved.
+
+While linking TO and AM has the potential to bring signiﬁcant synergy beneﬁts, an important aspect is currently still missing. Present TO approaches are not tailored to the particular characteristics of AM processes [11]. A limitation encountered in many industrially relevant processes, e.g. SLM or EBM, is that the inclination of a downward facing surface (overhang) should remain above a critical value with respect to the baseplate. If this criterion is met everywhere for a given part orientation, the part is said to be self-supporting in that orientation. This common AM limitation has been extensively characterized for various processes [12–14], and the critical angle is typically found to be in the order of 45◦ . If a part in its intended build direction contains regions with overhang angles below this critical value, it is not self-supporting and not printable as-is. Consequently, either its geometry must be adjusted, or sacriﬁcial support structures must be included during the build process, and removed afterwards by conventional machining. Both options have clear disadvantages: modifying an optimized geometry inevitably will reduce its performance and may even render it infeasible, while printing and subsequent removal of support structures increases material, printing and post-processing costs. Efforts have been made to automate and/or optimize the addition of these support structures [15–17], or to ﬁnd the most economical sacriﬁcial lattice structures, e.g. [18]. Still, instead of minimizing the symptoms caused by an unprintable design, a more desirable option is to address the actual cause. Because present TO approaches do not account for overhang angle limitations, optimized designs are generally not
+
+M. Langelaar / Additive Manufacturing 12 (2016) 60–70
+
+61
+
+self-supporting and therefore not printable without applying the outlined, undesirable, measures. Other authors have also recognized this deﬁciency, and have proposed various potential solutions. Brackett et al. have introduced a method to identify the angle of overhanging sections in 2D designs generated by TO [19], and suggest that this information can be included in the optimization process as an additional constraint. However, no follow-up work has been presented where this has been realized. As an alternative approach, Leary et al. proposed to augment the original optimized design with additional structures [20], such that the ﬁnal geometry is fully self-supporting. An iterative procedure was developed to limit the amount of added material. In this case, the additional structures are not considered sacriﬁcial parts that must be removed after printing, instead they are part of the ﬁnal structure. While this approach is successful in generating (2D) self-supporting designs, the ﬁnal part in general deviates from the original optimized geometry. Recently, Gaynor and Guest have proposed a wedge-shaped spatial ﬁlter to control the boundary orientation of the design during TO [21]. However, the way the ﬁlter has been deﬁned does not take into account the layerwise support conditions that must be considered in AM processes, which allows the optimization process to exploit conﬁgurations that are not properly self-supporting. When the density average in the wedge exceeded a set threshold, the part above was considered to be properly supported. The published 2D results show that generated designs are indeed self-supporting to a degree, but by only introducing support requirements in an average sense, intermediate density material can readily be used by the optimizer to support fully dense structures, which is undesirable. In summary, none of the reported approaches successfully achieved optimization of fully self-supporting structures, and in addition the existing work has focused on 2D problems only. This paper presents a TO approach, compatible with the dominant density-based formulation, that overcomes the problem of unprintable designs and the associated inefﬁciencies. By including a simpliﬁed AM process model in the problem formulation, the overhang angle restriction that applies to the targeted AM processes is rigorously enforced at every step of the optimization process. This is achieved by means of a layerwise applied spatial ﬁlter, simulating the printing of the part. The optimization is guided by the performance of the resulting as-printed geometry, which leads to self-supporting, fully printable designs. In a preceding study, a 2D version of this AM ﬁlter was introduced and investigated [22]. This paper extends its formulation to the 3D case, and demonstrates its performance on a variety of commonly used 3D TO problems, for various build directions. The set of problems considered involves compliance minimization, eigenfrequency maximization and compliant mechanism design. The paper is organized as follows: Section 2 introduces the concept behind the proposed AM ﬁlter approach, and provides its mathematical formulation. Sensitivity analysis is also discussed. Next, Section 3 deﬁnes the various test problems for which the effectiveness of the AM ﬁlter has been studied. Section 4 discusses the numerical results and actual designs obtained for all test problems, followed by discussion and concluding remarks, in Sections 5 and 6, respectively.
+
+Fig. 1. Deﬁnition of 3D AM ﬁlter. The blue region S(i,j,k) denotes the supporting region of an element at position (i, j, k) in a mesh. When insufﬁcient printed material is present in this region, the green element (i, j, k) cannot be printed.
+
+simulation. This AM ﬁlter is deﬁned on a uniform regular mesh, as is typically used in topology optimization in an early design stage. As a consequence, the resolution of the AM process simulation matches that of the topology optimization design description. The actual AM resolution is usually higher, but regarding the overhang restriction, the design resolution is the limiting factor. For simplicity we consider a cuboid design domain discretized by nx × ny × nz cube-shaped ﬁnite elements, where the z-direction is the printing direction. To specify a material distribution representing the design, every element in the mesh is associated with a blueprint density variable b(i,j,k) . The indices indicate the position of each element, with the ﬁrst layer on the baseplate having z-index k = 1. Our aim is to express the printed densities p(i,j,k) in terms of the blueprint densities. Only elements sufﬁciently supported by printed elements in the underlying layer can be printed. By deﬁnition, all elements supported by the baseplate (k = 1) can be printed. In subsequent layers, each element is associated with a supporting region S(i,j,k) , consisting of the element directly below the considered element, and the 4 direct neighbors thereof, see Fig. 1. This choice is motivated by the fact that the critical self-supporting overhang angle for the considered processes typically amounts to 45◦ [12–14]. In this simpliﬁed AM process model, we deﬁne that each printed density p(i,j,k) cannot be higher than the maximum printed density in its supporting ˆ region, pS : ˆ ˆ p(i,j,k) = min(b(i,j,k) , pS ) with pS = max(p ∈ S(i,j,k) ). (1)
+
+At domain boundaries, supporting regions contain fewer than 5 elements, but this is disregarded in the discussion for clarity. By sweeping through the domain from layer 1 to nz , the printed density ﬁeld can be constructed. The operation deﬁned in Eq. (1) is not continuously differentiable due to the nonsmooth min and max operators. As the availability of gradient information is essential for efﬁcient topology optimization, a differentiable version of Eq. (1) is proposed that employs the following smooth approximations: ˆ ˆ min(b, pS ) ≈ smin(b, pS ) = √ 1/2 1 2 ˆ ˆ (b + pS − ((b − pS ) + ε) + ε), 2 (2)
+
+2. Formulation 2.1. AM ﬁlter concept and formulation To take overhang limitations of AM processes into account during topology optimization, a layerwise ﬁlter operation is proposed that transforms a certain blueprint design layout into the printable geometry. In this way, the ﬁlter acts as a simpliﬁed process ˜ max(p ∈ S) ≈ smax(p ∈ S) = pS = (
+e∈S
+
+pP ) e
+
+1/Q
+
+.
+
+(3)
+
+Note that other smooth approximation choices are possible, yet these were found to yield the desired behavior [22] and have been used in this paper in all numerical examples. The parameters ε, P and Q control the smoothness and accuracy of these
+
+62
+
+M. Langelaar / Additive Manufacturing 12 (2016) 60–70
+
+approximations. Smaller ε and larger P and Q values reduce approximation errors, but increase nonlinearity. In this paper the following default values are applied: ε = 10−4 , P = 40, Q = P + log(5)/ log(p0 ), p0 = 0.5. (4)
+
+The parameter p0 indicates the density value for which the smooth max operator gives exact results for layers of uniform printed density, as can be veriﬁed by substitution in Eq. (3). For p0 → 0, Q → P and the conventional P-norm is retrieved, while choosing 0 < p0 ≤ 1 introduces a slight penalization of the P-norm approximation. This prevents overestimation of the support capacity of densities below p0 , which effectively suppresses the formation of ‘porous’ support structures. Numerical tests indicate that using p0 = 0.5 gives superior topology optimization results compared to the unaltered P-norm. For a more detailed study and discussion of the effect these parameters, we refer to [22]. 2.2. Sensitivity analysis After applying the AM ﬁlter, the printed density ﬁeld p is obtained. The performance of this printed design is evaluated using e.g. ﬁnite element analysis. For gradient-based optimization, sensitivities of each response f with respect the blueprint variables b are required. Given sensitivities ∂f/∂p obtained by (adjoint) sensitivity analysis, the transformed sensitivities ∂f/∂b are given by:
+
+Fig. 2. Beam problem used in numerical compliance minimization tests.
+
+∂f = ∂bk
+T k
+
+T k
+
+∂smin , ∂bk ∂smin T k+1 ∂ pk
+for1 < k < nz ,
+T nz
+
+(5)
+
+=
+
+∂f + ∂ pk
+
+=
+
+∂f . ∂pnz
+
+(6)
+
+Here subscripts are layer indices, and k denote layerwise multiplier ﬁelds introduced for the purpose of adjoint sensitivity analysis. The full derivation of these expressions is given in the Appendix. Given the mutual dependencies as described by Eq. (6), the multipliers can be evaluated by sweeping through the domain in reverse printing direction, from the top layer to the base layer. Sensitivities ∂f/∂b subsequently follow from Eq. (5) [22]. The base layer (k = 1) is treated separately: since by deﬁnition p1 = b1 , we ﬁnd ∂f/∂b1 = ∂f/∂p1 . The derivative ∂smin/∂p in Eq. (6) follows from differentiation of Eqs. (1)–(3): ˜ ˜ ∂smin ∂smin(b, pS ) ∂pS = , with ˜ ∂p ∂pS ∂p ˜ ∂smin(b, pS ) 1 ˜ ˜ 2 = 1 + (b − pS ) (b − pS ) + 2 ˜ ∂pS ˜ ∂pS P = pP−1 i Q ∂pi
+1/Q −1
+
+the AM ﬁlter performance, rather than the particular numerical outcome of these speciﬁc test cases. Nevertheless, complete problem descriptions are provided for completeness. In all cases, linear elastic isotropic material is used with a Young’s modulus of 211 GPa, Poisson ratio of 0.33, material density 7850 kg/m3 . Furthermore, the conventional density-based topology optimization approach using SIMP material interpolation [23] is applied, with a penalization exponent of 3.0. To control minimum feature size and prevent checker boarding, consistent density ﬁltering [24] is used to generate the blueprint design ﬁeld b from base design variables associated to each element, with the applied radius indicated at each case. The main sensitivity expressions are given for completeness, derivations can be found in literature for these conventional problems, e.g. [25]. Classical isoparametric, cubic 8node ﬁnite elements with trilinear shape functions are used. Unless speciﬁed otherwise, the optimization process is initialized with a uniform distribution of the available material.
+
+3.1. Compliance minimization Minimization of compliance is an important and frequently considered topology optimization problem. In the present AM ﬁlter setting it is formulated as: min
+b
+
+C = fT U(p) V (p)/Vmax − 1 ≤ 0, K(p)u(p) = f, 0 ≤ b ≤ 1. (8)
+
+s.t.
+
+−1/2
+
+,
+
+and
+
+(7)
+
+pP e
+e∈S
+
+.
+
+In the last expression, only printed densities pi that are located in the support region of the considered element give a contribution. Both sensitivity analysis and application of the AM ﬁlter itself do not involve intensive computations: in the 3D problems considered in this study, the total computational cost related to the AM ﬁlter formed less than 1% of the cost of the entire optimization. 3. Test problems The next subsections describe the test problems used to investigate and illustrate the performance of the proposed AM ﬁlter. They involve three standard problem types, typically encountered in practical applications of topology optimization. The results of these tests are presented in Section 4. Our interest is in aspects related to
+
+Here K, u and f denote the ﬁnite element system stiffness matrix, displacement vector and load vector, respectively, and V and Vmax are the actual and allowed volume of the printed part. Note that compliance C and volume V are evaluated on the printed density ﬁeld p, while the optimization process controls the blueprint ﬁeld b. The transformation of these ﬁelds and the associated design sensitivity information is governed by the procedures formulated in Section 2. The sensitivity of the objective with respect to the printed density ﬁeld p is given by:
+
+∂C ∂K = −uT u. ∂pi ∂pi
+
+(9)
+
+The considered test problem consists of a cuboid domain meshed with 150 × 50 × 50 elements shown in Fig. 2, with a 100 N total load distributed over the lower front edge. All displacements at the back face of the domain (x = 0 plane) are suppressed. Vmax is chosen as 30% of the domain volume, and the ﬁlter radius is set to 1.5 times the element edge length.
+
+M. Langelaar / Additive Manufacturing 12 (2016) 60–70
+
+63
+
+Fig. 3. Design domain used in the eigenfrequency maximization of a motion platform. The dark gray region consists of solid non-design elements.
+
+3.2. Eigenfrequency maximization When the dynamic performance of a component is of interest, an eigenfrequency maximization can be performed. As a test problem we consider a simpliﬁed motion platform, used e.g. in high-speed positioning tasks in mechatronic systems. The design domain, meshed by 120 × 160 × 40 elements, is depicted in Fig. 3. The top layer of the domain is a solid non-design region. The remaining volume can be occupied up to 25% by the rest of the design. As an additional constraint, the second eigenfrequency should be kept a certain factor above the ﬁrst. This problem can be stated as: min
+b 2 1/ω1 (p)
+
+Fig. 4. Design domain and input/output regions used in the optimization of a compliant gripper. The dark gray region represents a void non-design region. Due to symmetry, only a quarter of the domain is considered in the optimization, indicated by dashed lines.
+
+s.t.
+
+V (p)/Vmax − 1 ≤ 0,
+2 2 1.1 − ω2 (p)/ω1 (p) ≤ 0, 2 K(p) − ωi (p)M(p) vi (p) = 0,
+
+(10) i = 1, 2
+
+Three loadcases are considered in this problem: the ﬁrst concerns the operation of the gripper, with load f1 = 1 kN applied to the input region and jaws unblocked. The other cases serve to control the overall stiffness of the mechanism. In the second loadcase, no input force is applied and the displacement of the input regions is suppressed. Simultaneously, a distributed load f2 with resultant (0, 1500, 500) N is applied to the jaw. In the third case, the jaw motion is blocked while applying the input load f3 = f1 to the input region. The optimization problem for this compliant gripper is deﬁned as: min
+b
+
+0 ≤ b ≤ 1. Here M denotes the mass matrix, vi and ωi are the ith eigenvector and angular eigenfrequency. The lowest two structural free vibration modes are considered, rigid body modes are removed 2 using deﬂation. The sensitivity of a squared eigenfrequency ωi with respect to p is given by:
+
+f = lT u1 (p) out V (p)/Vmax − 1 ≤ 0, Ki (p)ui (p) = fi fT ui (p)/Ci i 0 ≤ b ≤ 1. with i = 1, 2, 3, (12)
+
+s.t.
+
+− 1 ≤ 0 with i = 2, 3,
+
+∂ωi2 ∂pj
+
+= vT i
+
+∂K 2 ∂M − ωi ∂pj ∂pj
+
+vi / vT Mvi . i
+
+(11)
+
+For this problem, the initial design is a fully solid design domain. In our experience, this initial conﬁguration often leads to better results in eigenfrequency problems, compared to starting with the allowed volume fraction. Furthermore, to suppress irrelevant low-frequency modes in void regions, in addition to stiffness penalization also mass penalization with exponent 5.0 is applied for elements with density values below 0.1. The ﬁlter radius was set to 2.0 times the element edge length. 3.3. Compliant mechanism The third problem type is a compliant gripper, as depicted in Fig. 4. The domain consists of 160 × 60 × 140 elements, and the ﬁlter radius is 3.0 times the element edge length. Distributed input loads are applied to the green boxes, and the gripper output to be maximized is deﬁned by the closing motion in z-direction of the blue jaws. Between the jaws, a void non-design region is deﬁned. To all nodes of the jaws, a workpiece stiffness is applied using springs acting in z-direction with a of stiffness 5 kN/m. We impose symmetry with respect to the domain midplanes in y- and zdirection and analyze only the upper left quarter of the domain. In terms of element units, the various boxes span the following ranges in this 160 × 30 × 70 quarter of the domain: input region [1–40, 24–30, 54–56], jaw region [136–160, 25–30, 11–12], and void region [136–160, 1–30, 1–10].
+
+Here lout is a sparse vector containing unity values at z-degrees of freedom in the jaw region, such that the inner product lT u1 out results in a measure of the desired motion. Maximum compliances C2 , C3 in loadcase 2 and 3 are chosen as 20 N mm and 100 N mm, respectively. The maximum volume Vmax is set to 20% of the design domain. The sensitivity of the objective with respect to the part design ﬁeld p is given by:
+
+∂f ∂K = −aT u with Ka = lout . ∂pi ∂pi
+Compliance sensitivities are analogous to Eq. (9). 4. Results
+
+(13)
+
+The following subsections present the results of various numerical test problems. In all optimizations, the gradient-based optimization algorithm Method of Moving Asymptotes [26] was used, and sufﬁcient iterations were performed to at least converge to a relative change in objective values between subsequent iterations below 0.1%. Subsequently, the designs described by 3D density ﬁelds have been post-processed for visualization by isosurface extraction at a density value of 0.3, resulting in a triangulated surface mesh. To quantify the printability of the obtained designs in various orientations, two criteria are considered: 1. Printable volume fraction. By applying the AM ﬁlter to the ﬁnal design in a particular printing orientation, followed by isosurface extraction and volume computation, the printable volume
+
+64
+
+M. Langelaar / Additive Manufacturing 12 (2016) 60–70
+
+Fig. 7. Reference and AM-optimized beam designs printed from the zmin baseplate.
+
+4.1. Compliance minimization Fig. 5 shows the beam design obtained when no AM ﬁlter is applied. This serves as the reference design to compare relative performance. When evaluating, for example, the printability of this design using the plane z = zmin as the baseplate (in short: zmin baseplate), it can be seen in Fig. 6 that a signiﬁcant fraction of the overhanging surfaces exceeds the critical angle. For this case, 12.2% of the total surface has an infeasible orientation, and this percentage excludes the surface contacting the baseplate. If this design were to be printed, without the use of additional support material, the resulting part is shown in Fig. 7(a). In this case, only 83% of the full part volume is printable, and important loadbearing sections are removed or weakened. When using topology optimization with the proposed AM-ﬁlter, for this printing orientation a modiﬁed design is generated, depicted in Fig. 7(b). This design is fully printable without additional supports, i.e. its printable volume fraction is 100%. It can be seen that signiﬁcant changes have occurred in the geometry, where two top beams with V-shaped cross sections replace the I-beam proﬁle present in the reference design. The facet angles with respect to the baseplate of this AMoptimized design are shown in Fig. 8, together with the angle histogram. It can be seen that the optimization process has avoided any surfaces with angles shallower than 45◦ , in accordance with the speciﬁed critical overhang angle. The 45◦ orientation shows a bigger peak than most other orientations, indicating that it is advantageous for certain surfaces to be close to the limit. The peaks at 90◦ and 180◦ are due to the ﬂat side and top surfaces of the domain. Beam designs for six baseplate orientations are depicted in Fig. 9. In all cases the default AM ﬁlter parameters have been used, except for the case where the baseplate corresponds to the xmin plane, where p0 = 0.1 was used. With the default p0 = 0.5 value, the connection between support and load was lost in the ﬁrst
+
+Fig. 5. Beam design obtained for the reference case, without AM ﬁlter applied. The cut-away view reveals its internal structure.
+
+fraction with respect to a reference design is computed. NetFabb software was used to evaluate the volume of the extracted STL geometry. 2. Infeasible overhanging surface fraction. This is determined by computing the overhang angle of every individual triangular facet of the extracted isosurface, using its normal and the considered printing orientation. In this paper, we deﬁne the overhang angle as the angle between baseplate and part surface, and consider 45◦ as the critical angle, with shallower angles being infeasible. Infeasible overhanging facets can be identiﬁed, and their fraction weighted by total facet surface area is reported.
+
+The ﬁrst quantity indicates which fraction of a design is selfsupporting, the second gives a (rough) indication of the amount of additional support material that a design would require. Adequately depicting three-dimensional results in a 2D medium poses a challenge. The discussion of the various cases highlights several particular aspects, but for a complete impression of the designs, the full 3D geometries are provided in U3D format as digital supplements to this article, as well as embedded in the digital document.
+
+Fig. 6. Local facet angles with respect to the zmin baseplate of the reference beam design, and their area-weighted histogram. The surfaces in contact with the baseplate (shown in gray) are excluded.
+
+M. Langelaar / Additive Manufacturing 12 (2016) 60–70
+
+65
+
+Fig. 8. Local facet angles with respect to the zmin baseplate of the zmin AM-optimized beam design, and their area-weighted histogram. The surfaces in contact with the baseplate (shown in gray) are excluded.
+
+iterations, which prevented the optimizer from ﬁnding a suitable design. It is clear that the optimized designs are affected by the selected printing orientation, and that the optimization process ﬁnds different, orientation-speciﬁc solutions to circumvent the AM manufacturing constraints imposed by the AM ﬁlter. To assess the printability of these designs, the printable volume of each individual design in all six orientations is reported in Table 1. It shows that each design is fully printable without additional supports
+
+Table 1 Printable volume fractions in different printing orientations given by baseplate plane, of beam designs (vertical) obtained for different orientations used in the optimization process. Reference designs are those designed for and printed in corresponding orientations. Design case Printing orientation (baseplate) xmin Free xmin xmax ymin ymax zmin zmax 99% 100% 100% 98% 98% 80% 99% xmax 93% 97% 100% 94% 94% 95% 97% ymin 78% 74% 61% 100% 9% 55% 48% ymax 78% 74% 60% 9% 100% 55% 48% zmin 83% 82% 95% 91% 91% 100% 93% zmax 72% 69% 83% 81% 82% 80% 100%
+
+(100% printable volume) in the orientation for which it has been optimized. Also the infeasible overhanging surface fractions listed in Table 2 show minima at orientations corresponding to those used in the optimization. Fractions range from 0.02% to 0.92%, with the highest value seen in the ymin orientation. Note also that the reference design is almost printable in the xmin orientation, with an infeasible surface fraction of only 1.79% and a printable volume fraction of 99%. In addition, Table 2 lists the relative compliance achieved by the AM-restricted designs, compared to the reference design. This shows that in most orientations, designs reach compliance values near or even slightly superior to (i.e. lower than) the reference performance. In all cases, the volume constraint was active. From this, we can conclude that the obtained reference design is a local optimum, as alternative designs (e.g. zmin , zmax ) show better performance. Convergence to local optima is practically a certainty in 3D topology optimization, which concerns large-scale non-convex optimization problems [27]. In these z-orientation cases, the AM ﬁlter has triggered the optimization process to take a different
+Table 2 Relative compliance values (lower is better) and infeasible overhanging surface fractions in different printing orientations given by baseplate plane, of beam designs obtained for different orientations used in the optimization process. Bold numbers indicate a printing orientation matching the one used during optimization. Design case Free xmin xmax ymin ymax zmin zmax Compliance (normalized) 100% 101% 100% 107% 107% 99% 98% Printing orientation (baseplate) xmin 1.79% 0.21% 0.72% 4.46% 3.79% 1.82% 1.13% xmax 1.60% 1.84% 0.02% 4.42% 3.39% 1.86% 0.55% ymin 14.7% 15.9% 22.6% 0.92% 17.6% 24.0% 26.2% ymax 14.7% 16.0% 22.0% 17.3% 0.79% 23.8% 26.2% zmin 12.2% 12.4% 6.25% 11.1% 11.2% 0.04% 8.09% zmax 16.2% 15.9% 12.1% 14.4% 14.9% 12.0% 0.02%
+
+Fig. 9. AM-optimized beam designs for various orientations.
+
+66
+
+M. Langelaar / Additive Manufacturing 12 (2016) 60–70
+
+Fig. 10. Local facet angles with respect to the ymin baseplate of the ymin AM-optimized beam design. The surfaces in contact with the baseplate (shown in gray) are excluded.
+
+path through the design space, to arrive at superior local optima compared to the reference case. Only in the ymin and ymax orientations, a noticeable 7% compliance deterioration is observed. The reason for this becomes clear when inspecting the design, e.g. Fig. 9(c): strut-like structures have formed, which serve as support structures for the midsection of the beam. These structures have no direct role in improving the compliance of the beam itself, but enable the fabrication of the midsection, which contributes to the objective. So in case it is advantageous for the overall performance, the proposed optimization process is able to generate support structures where necessary. The higher infeasible overhanging surface fractions observed for ymin and ymax designs are also related to these support structures. This is seen in Fig. 10, which depicts the facet angle distribution for the ymin baseplate case. Red facets indicate shallower angles than the critical 45◦ overhang angle. These infeasible facets occur predominantly between the connecting points of supporting structures with the midsection of the beam, where transitions from +45◦ to −45◦ surfaces take place. By a combination of the isosurface extraction process, the ﬁnite mesh resolution, and the density ﬁltering used to impose a length-scale on the problem, such sharp transitions cannot be resolved. This results in more gradual transitions in the extracted 3D geometry, where facets at the cusps exhibit infeasible orientations. This design could be adapted by sharpening these cusps to proper +45◦ /−45◦ transitions. Moreover, experiments show that small overhanging sections are in fact still printable [17,14]. Since the infeasible facets in this design are localized, the part might even be printable without adaptation. 4.2. Platform eigenfrequency maximization Also for the motion platform a reference design is optimized, as well as a design where the AM ﬁlter is applied. We choose to consider only the zmax baseplate case, as this forms the most natural part orientation given the non-design solid plate on top of the domain. Fig. 11 depicts the obtained designs, and Table 3 and 4 list the printable volume fraction, infeasible angle surface fraction, and relative performance, respectively. The design with AM restrictions has quite a different geometry and is 15% lighter
+Table 3 Printable volume fractions in different printing orientations given by baseplate plane, of platform designs (vertical) obtained for different orientations used in the optimization process. Reference designs are those designed for and printed in corresponding orientations. Design case Printing orientation (baseplate) xmin Free zmax 71% 94% xmax 71% 94% ymin 87% 84% ymax 87% 84% zmin 58% 39% zmax 82% 100%
+
+Fig. 11. Reference and AM-restricted motion platform design optimized for maximum ﬁrst eigenfrequency. The solid top plate has been made transparent to reveal the internal structures.
+
+compared to the reference case, but both designs achieve the same ﬁrst eigenfrequency. The printability indicators in Tables 3 and 4 again conﬁrm that the design optimized with AM-ﬁlter is fully printable in the orientation optimized for, similar to the preceding beam cases. The reference design, instead, requires additional support material (which may not be easily removable). Comparing the designs shown in Fig. 11, both feature an additional hollow box attached to the given rectangular plate. This additional structure stiffens the plate and thereby increases its eigenfrequency. However, the reference design features a much larger box than the AM-optimized design, with a large, unsupported closing plate parallel to the
+Table 4 Relative ﬁrst eigenfrequency values (higher is better) and infeasible overhanging surface fractions in different printing orientations given by baseplate plane, of platform designs obtained for a particular orientation used in the optimization process. Bold numbers indicate a printing orientation matching the one used during optimization. Design case Free zmax Objective (normalized) 100.0% 100.1% Printing orientation (baseplate) xmin 8.73% 2.42% xmax 8.72% 2.40% ymin 5.10% 7.37% ymax 5.10% 7.37% zmin 21.0% 30.7% zmax 9.20% 0.30%
+
+M. Langelaar / Additive Manufacturing 12 (2016) 60–70
+
+67
+
+Fig. 12. Reference and AM-restricted compliant gripper designs.
+
+rectangular non-design plate. The AM-optimized design shows a central strut supporting a much smaller closing plate of the box when printing from the zmax baseplate. The strut extends from the given rectangular plate and ends in a dome-like structure with +45◦ /−45◦ surfaces, that shows some similarity to structures seen in the midsection of the beam design optimized for y-oriented printing directions, see Fig. 10(c, d). A difference in this eigenfrequency case is that central strut is likely to contribute to the overall performance, while those in Fig. 10 have no mechanical function but only serve to enable printing of the midsection of the beam. 4.3. Compliant gripper design To limit computational costs of the compliant gripper optimization, only a quarter of the full domain was used, implying twofold symmetry. Because of this choice, only the printing directions aligned with the x-axis are relevant. The resulting mechanisms without and with AM restrictions are depicted in Fig. 12. All three designs have similar topologies, but differ in jaw and hinge shapes. Table 5 reports relative performance (jaw motion) and printability indicators. It is seen that the xmin design only reaches 61% of the reference jaw motion, but the xmax design (Fig. 12(c)) exceeds the reference performance by 7%. In terms of printability both designs optimized with the AM-ﬁlter show 100% printable volume, but regarding the infeasible facet angle, the well-performing xmax design shows a relatively high 2.3% surface fraction. Upon inspection, it turns out that mainly the slanted surfaces near the jaw area
+
+Table 5 Relative jaw motion values (higher is better), infeasible overhanging surface fractions and printable volume fractions in relevant printing orientations given by baseplate plane, of gripper designs obtained for different orientations used in the optimization process. Bold numbers indicate a printing orientation matching the one used during optimization. Design case Jaw motion (normalized) Infeasible surface fraction xmin Free xmin xmax 100% 61% 107% 5.70% 0.01% 4.70% xmax 6.05% 4.81% 2.30% Printable volume fraction xmin 95% 100% 95% xmax 91% 97% 100%
+
+are recognized as infeasible, as shown in Fig. 13. These facets have an inclination slightly below 45◦ , there are no large deviations from the critical overhang angle as is also seen in the angle histogram in Fig. 13. When relaxing the critical angle to 44.9◦ , the area fraction of infeasible facets reduces to only 0.21%. The slight deviation from 45◦ may have been caused by the isosurface extraction post-processing step, but for all practical purposes this does not negatively affect the utility of the obtained gripper design. 4.4. Inﬂuence of AM ﬁlter on printable designs In some design cases, topology optimization without AM restrictions produces printable designs. In this section we investigate if the same designs are obtained when the AM ﬁlter is applied. To
+
+Fig. 13. Feasible (green) and infeasible facet angles (red) of the gripper design of the xmin baseplate case, and a histogram of the facet angle distribution. Surfaces in contact with the baseplate are excluded.
+
+68
+
+M. Langelaar / Additive Manufacturing 12 (2016) 60–70
+
+Fig. 14. Short beam problems that yield self-supporting designs without AM ﬁlter. Case (a) is deﬁned on a 30 × 50 × 50 element mesh, case (b) involves a mesh of 30 × 30 × 30 elements. In both cases, a 30% volume constraint is used.
+
+This is likely to be the main reason behind the different outcomes. Fig. 15, which shows the density distributions early in the optimization process for the free and AM-restricted optimization of the ﬁrst short cantilever case, clearly illustrates the difference. In the free case (Fig. 15(a)), high-density elements (depicted in blue) can form without being supported by other high-density structures. In contrast, the AM ﬁlter prevents this, and forces the optimization process to create properly supported features, as seen in Fig. 15(b). If the considered optimization problem was convex and its global optimum printable, still both cases should converge to the same result. However, as topology optimization problems are high-dimensional non-convex optimization problems, many local optima exist. Whether the free or the AM-restricted case ends up with the best-performing design is not predictable, this strongly depends on starting point, optimizer settings, and the particular case considered. However, our numerical experiments indicate that performances typically are very close, and the examples in this paper demonstrate that the AM ﬁlter certainly does not restrict the gradient-driven optimization process from converging to a wellperforming solution.
+
+this end, compliance minimization of two short beam problems shown in Fig. 14 is considered. The load is distributed over a square centered region, with an area of 4% of the front face. The design domain in Fig. 14(a) is clamped over its entire back face, while the domain in Fig. 14(b) is only clamped in the corners, by square patches each occupying 4% of the back face area. All other settings are the same as in Section 3.1. The ‘free’ designs (i.e. obtained without using the AM ﬁlter), shown in the center column of Fig. 14, are fully printable for a baseplate in xmax position. When repeating the optimization with AM ﬁlter in the corresponding orientation, designs are obtained that are topologically similar, as shown in the right column of Fig. 14. However, the exact geometries of the AMrestricted designs are different from their free counterparts: the middle section in case (a) is thicker, and the separation between the arms in case (b) is larger. Also in terms of performance, slight differences were observed: in case (a), the AM-restricted design showed 0.8% better compliance, while in case (b), the AM-restricted design performed 1.0% worse than the free result. At ﬁrst sight, it may seem strange that fully printable designs are not exactly reproduced by the AM-restricted optimization. But while the ﬁnal result of the free optimization is printable, this does not hold for all intermediate designs in each iteration of the optimization process. As the AM ﬁlter extracts the printable part of a design in every iteration, the AM-restricted optimization follows a different path through the design space than the unrestricted case.
+
+5. Discussion The preceding numerical examples demonstrate that, by including the proposed AM ﬁlter in conventional density-based topology optimization procedures, designs can be generated that are fully printable, in the sense that they fulﬁll geometrical requirements regarding self-supporting overhang angles. However, this does not necessarily mean that no support material is needed. Even when parts have no surfaces violating the critical overhang angle, there might be other reasons related to the AM process to add support structures: to increase local heat conduction to prevent overheating, to limit part distortions, or to provide sufﬁcient support for follow-up machining operations. These aspects have not been taken into account in the present AM ﬁlter, which purely targets the overhang angle criterion. Still, even when for other reasons certain additional supports are necessary, saving costs by eliminating the overhang-related support structures still offers a beneﬁt. The examples also illustrate, that while for certain orientations performance of designs may reduce by the imposed AM restrictions, most cases performed comparable to reference designs optimized without AM ﬁlter. In several cases, the designs obtained with AM restrictions even outperformed the reference design. In general, adding more restrictions to an optimization problem cannot improve its global optimum. However, in the high-dimensional
+
+Fig. 15. Intermediate design state at an early stage of the optimization process (10th iteration), for the free (left) and AM-restricted case of the short beam problem deﬁned in Fig. 14(a). In this view, the bottom face represents the baseplate. Blue elements have densities of 95% and higher, while the semi-transparent elements have at least 50% density.
+
+M. Langelaar / Additive Manufacturing 12 (2016) 60–70
+
+69
+
+nonconvex optimization problems solved in topology optimization using gradient-based methods, ﬁnding the global optimum is unlikely in practice. In all three example problems considered in Section 4, it was established that the reference designs were local optima, and superior alternative optima were found for designs obtained in certain printing directions. It cannot be inferred that use of the AM ﬁlter will result in superior designs, but clearly it is not a priori certain that adding AM restrictions will signiﬁcantly reduce performance. While the examples show how the proposed AM ﬁlter can be applied successfully, its limitations should also be noted. Firstly, the ﬁlter is deﬁned on a regular grid, and only build orientations in principal directions can be considered. Through a mapping procedure it can presumably be extended to unstructured meshes and arbitrary orientations, but this is yet to be developed. Secondly, on a mesh with cube-shaped elements, the critical overhang angle is ﬁxed to 45◦ . Although this is a commonly used angle, when needed it is easily modiﬁed by changing the aspect ratio of the elements. Thirdly, while it was not observed in the examples, enclosed holes may appear in the optimized designs, where powder would be trapped during the printing process. The AM ﬁlter does not prevent the formation of such holes. Possibly the approach recently proposed by Liu et al. [28] can be combined with this ﬁlter to solve this problem. Finally, a general limitation of the presented approach is that only a single build direction is considered, which cannot be altered during the optimization process. This places the responsibility on the designer to choose the most suitable orientation. While in practice there can be various reasons to prefer a certain orientation (tolerances, surface ﬁnish, build height, etc.), it would be of interest to also optimize the build direction simultaneously with the part geometry.
+
+process-speciﬁc reﬁnement of the applied AM process model is expected, to include other criteria besides overhang angles, e.g. part distortion, residual stresses and overheating. Acknowledgement The author would like to thank Krister Svanberg for providing the Fortran implementation of his Method of Moving Asymptotes, which was used in this work. Appendix A. Sensitivity analysis Here a condensed description of the adjoint sensitivity analysis of a response f with respect to blueprint density ﬁeld b is given. Responses are computed on the basis of the printed density ﬁeld p, where each layer pk depends on blueprint layer bk and underlying printed layer pk−1 . With Eq. (1), this relation is denoted by: pk = smin(bk , pk−1 ), k = 2, . . ., nz .
+
+Sensitivities ∂f/∂p are computed via adjoint sensitivity analysis as ˜ discussed in Section 3. Next, we deﬁne the augumented response f as:
+nz
+
+˜ f = f (p(b)) +
+k=2
+
+T k
+
+smin(bk , pk−1 ) − pk ,
+k.
+
+(14)
+
+with multiplier vectors gives: ˜ ∂f = ∂ bm
+nz
+
+∂f/∂b1 = ∂f/∂p1 . For subsequent layers, differentiation of Eq. (14)
+
+For the ﬁrst layer, since p1 ≡ b1 , we ﬁnd
+
+6. Concluding remarks This paper presents a method to generate fully self-supporting, optimized part geometries in three dimensions. It combines established density-based topology optimization with a simpliﬁed AM process model, implemented as a layerwise nonlinear spatial ﬁlter deﬁned on a uniform structured mesh. This formulation is able to rigorously exclude geometries from the design space that violate the overhang angle criteria typically encountered in AM processes. As a result, optimized designs do not require additional sacriﬁcial structures to support overhangs, which simpliﬁes post-processing and reduces cost. The method has been applied to typical 3D topology optimization test problems, and proved able to generate designs that suitably respected the speciﬁed critical overhang angle, for a speciﬁed build direction. The computational cost of the additional AM ﬁlter operations proved negligible compared to the part analysis performed in each iteration. Also, it was observed that the use of the proposed AM restriction does not necessarily result in reduced performance. On the contrary, in all cases part orientations could be identiﬁed, for which the AM-restrained design outperformed the design found through conventional unrestricted topology optimization. This new method is expected to contribute to simpliﬁcation of the use of TO for AM, by removing complications related to overhang-based geometrical restrictions. The numerical examples have shown, that the chosen build orientation can have a signiﬁcant impact on the achievable performance, depending on the particular case. Presently this is still an aspect that must be chosen a priori separately from the optimization process, and based on the results of the test cases it is recommended to always explore different orientations. A next challenge is to also include build orientation in the optimization problem. As a further future direction more
+
+k=2
+
+∂ f ∂ pk + ∂pk ∂bm
+
+T k
+
+∂smin ∂smin ∂pk−1 ∂pk ıkm + − ∂bm ∂pk−1 ∂bm ∂bm
+(15)
+
+where ıkm denotes the Kronecker delta, and 1 < m ≤ nz . Since printed densities only depend on blueprint densities in underlying layers, terms in the summations with k < m vanish. This allows Eq. (15) to be rewritten as: ˜ ∂f ∂ f ∂ pm = + ∂ bm ∂pm ∂bm
+nz
+
+k=m+1
+
+∂f − ∂pk
+
+T k
+
+∂pk + ∂bm
+
+T k
+
+∂smin ∂pk−1 ∂pk−1 ∂bm
+
+where ∂pm /∂bm = ∂smin/∂bm was used. From here, by rearranging the terms in the summation and reindexing, it can be found that: ˜ ∂f = ∂ bm +
+k=m+1
+
+∂f + ∂ pm
+nz −1
+
+∂smin T m+1 ∂pm ∂f − ∂ pk
+T k
+
+∂smin + ∂bm ∂smin T k+1 ∂ pk
+
+∂f − ∂pnz ∂pk . ∂bm
+
+T nz
+
+∂pnz ∂bm
+
++
+
+This equation holds for 1 < m ≤ nz . Computing ∂pk /∂bm -terms can be avoided when choosing the multipliers as:
+T k
+
+=
+
+∂f + ∂ pk
+T
+
+∂smin T k+1 ∂pk
+
+for1 < k < nz ,
+
+and nz = ∂f/∂pnz . With this, computing consistent sensitivities ∂f/∂b reduces to the procedure described in Section 2.2. Appendix B. Supplementary data Supplementary data associated with this article can be found, in the online version, at http://dx.doi.org/10.1016/j.addma.2016.06. 010.
+
+70
+
+M. Langelaar / Additive Manufacturing 12 (2016) 60–70 [15] G. Strano, L. Hao, R. Everson, K. Evans, A new approach to the design and optimisation of support structures in additive manufacturing, Int. J. Adv. Manuf. Technol. 66 (9–12) (2013) 1247–1254. [16] J. Vanek, J. Galicia, B. Benes, Clever support: efﬁcient support structure generation for digital fabrication, in: Computer Graphics Forum, vol. 33, Wiley Online Library, 2014, pp. 117–125. [17] F. Calignano, Design optimization of supports for overhanging structures in aluminum and titanium alloys by selective laser melting, Mater. Design 64 (2014) 203–213. [18] A. Hussein, L. Hao, C. Yan, R. Everson, P. Young, Advanced lattice support structures for metal additive manufacturing, J. Mater. Process. Technol. 213 (7) (2013) 1019–1026. [19] D. Brackett, I. Ashcroft, R. Hague, Topology optimization for additive manufacturing, in: Proceedings of the Solid Freeform Fabrication Symposium, Austin, TX, 2011, pp. 348–362. [20] M. Leary, L. Merli, F. Torti, M. Mazur, M. Brandt, Optimal topology for additive manufacture: a method for enabling additive manufacture of support-free optimal structures, Mater. Design 63 (2014) 678–690. [21] A. Gaynor, J. Guest, Topology optimization for additive manufacturing: considering maximum overhang constraint, in: in: 15th AIAA/ISSMO multidisciplinary analysis and optimization conference, 2014, pp. 16–20. [22] M. Langelaar, An additive manufacturing ﬁlter for topology optimization of print-ready designs, Struct. Multidiscip. Optim. (2016), http://dx.doi.org/10. 1007/s00158-016-1522-2 (in press). [23] M. Bendsøe, Optimal shape design as a material distribution problem, Struct. Optim. 1 (4) (1989) 193–202. [24] T. Bruns, D. Tortorelli, Topology optimization of non-linear elastic structures and compliant mechanisms, Comput. Methods Appl. Mech. Eng. 190 (26) (2001) 3443–3459. [25] M. Bendsøe, O. Sigmund, Topology Optimization – Theory, Methods and Applications, Springer-Verlag, Berlin, 2003. [26] K. Svanberg, The method of moving asymptotes – a new method for structural optimization, Int. J. Numer. Methods Eng. 24 (2) (1987) 359–373. [27] G. Rozvany, A critical review of established methods of structural topology optimization, Struct. Multidiscip. Optim. 37 (3) (2009) 217–237. [28] S. Liu, Q. Li, W. Chen, L. Tong, G. Cheng, An identiﬁcation method for enclosed voids restriction in manufacturability design for additive manufacturing structures, Front. Mech. Eng. 10 (2) (2015) 126–137.
+
+References
+[1] I. Gibson, D. Rosen, B. Stucker, Additive Manufacturing Technologies, Springer, 2015. [2] D. Espalin, D. Muse, E. MacDonald, R. Wicker, 3D printing multifunctionality: structures with electronics, Int. J. Adv. Manuf. Technol. 72 (5-8) (2014) 963–978. [3] W. Gao, Y. Zhang, D. Ramanujan, K. Ramani, Y. Chen, C. Williams, C. Wang, Y. Shin, S. Zhang, P. Zavattieri, The status, challenges, and future of additive manufacturing in engineering, Comput.-Aided Design 69 (2015) 65–89. [4] E. Atzeni, A. Salmi, Economics of additive manufacturing for end-usable metal parts, Int. J. Adv. Manuf. Technol. 62 (9-12) (2012) 1147–1155. [5] C. Emmelmann, J. Kranz, D. Herzog, E. Wycisk, Laser Additive Manufacturing of Metals, in: Laser Technology in Biomimetics, Springer, 2013, pp. 143–162. [6] M. Bendsøe, N. Kikuchi, Generating optimal topologies in structural design using a homogenization method, Comput. Methods Appl. Mech. Eng. 71 (2) (1988) 197–224. [7] M. Cavazzuti, A. Baldini, E. Bertocchi, D. Costi, E. Torricelli, P. Moruzzi, High performance automotive chassis design: a topology optimization based approach, Struct. Multidiscip. Optim. 44 (1) (2011) 45–56. [8] J.-H. Zhu, W.-H. Zhang, L. Xia, Topology optimization in aircraft and aerospace structures design, Arch. Comput. Methods Eng. (2015) 1–28. [9] O. Sigmund, K. Maute, Topology optimization approaches, Struct. Multidiscip. Optim. 48 (6) (2013) 1031–1055. [10] J. Deaton, R. Grandhi, A survey of structural and multidisciplinary continuum topology optimization: post 2000, Struct. Multidiscip. Optim. 49 (1) (2014) 1–38. [11] D. Rosen, Design for additive manufacturing: past, present, and future directions, J. Mech. Design 136 (9) (2014) 090301. [12] D. Wang, Y. Yang, Z. Yi, X. Su, Research on the fabricating quality optimization of the overhanging surface in SLM process, Int. J. Adv. Manuf. Technol. 65 (9–12) (2013) 1471–1484. [13] R. Mertens, S. Clijsters, K. Kempen, J.-P. Kruth, Optimization of scan strategies in selective laser melting of aluminum parts with downfacing areas, J. Manuf. Sci. Eng. 136 (6) (2014) 061012. [14] J. Kranz, D. Herzog, C. Emmelmann, Design guidelines for laser additive manufacturing of lightweight structures in TiAl6V4, J. Laser Appl. 27 (S1) (2015) S14001.
+

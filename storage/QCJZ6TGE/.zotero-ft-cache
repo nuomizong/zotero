@@ -1,0 +1,446 @@
+Struct Multidisc Optim (2016) 53:175–192 DOI 10.1007/s00158-015-1274-4
+
+EDUCATIONAL ARTICLE
+
+Bridging topology optimization and additive manufacturing
+Tom´ s Zegard1 · Glaucio H. Paulino1,2 a
+
+Received: 3 March 2015 / Revised: 11 May 2015 / Accepted: 28 May 2015 / Published online: 5 August 2015 © Springer-Verlag Berlin Heidelberg 2015
+
+Abstract Topology optimization is a technique that allows for increasingly efficient designs with minimal a priori decisions. Because of the complexity and intricacy of the solutions obtained, topology optimization was often constrained to research and theoretical studies. Additive manufacturing, a rapidly evolving field, fills the gap between topology optimization and application. Additive manufacturing has minimal limitations on the shape and complexity of the design, and is currently evolving towards new materials, higher precision and larger build sizes. Two topology optimization methods are addressed: the ground structure method and density-based topology optimization. The results obtained from these topology optimization methods require some degree of post-processing before they can be manufactured. A simple procedure is described by which output suitable for additive manufacturing can be generated. In this process, some inherent issues of the optimization technique may be magnified resulting in an unfeasible or bad product. In addition, this work aims to address some of these issues and propose methodologies by which they may be alleviated. The proposed framework has applications in a number
+Electronic supplementary material The online version of this article (doi:10.1007/s00158-015-1274-4) contains supplementary material, which is available to authorized users. Glaucio H. Paulino paulino@uiuc.edu
+1
+
+of fields, with specific examples given from the fields of health, architecture and engineering. In addition, the generated output allows for simple communication, editing, and combination of the results into more complex designs. For the specific case of three-dimensional density-based topology optimization, a tool suitable for result inspection and generation of additive manufacturing output is also provided. Keywords Additive manufacturing · Ground structure method · Density-based topology optimization · Three-dimensional optimal structures · Structural manufacturing
+
+1 Introduction
+The field of structural optimization has developed for over a century (Topping 1983; Rozvany 2009; Deaton and Grandhi 2013). However, the ability to manufacture these structures lags behind our ability to design and optimize them. Recently, additive manufacturing (colloquially known as 3D printing), positions itself as the missing link towards a fully integrated optimal structural design. Additive manufacturing opens the possibility to overcome limits currently imposed by conventional manufacturing techniques. There is a large variety of additive manufacturing technologies. However, the steep cost and size of these machines indirectly restricted them to large industry and research installations. Recently, there has been a push to bring these technologies to the consumer and small industry (Jones et al. 2011). Five of the most common additive manufacturing technologies are: 1. Fused Deposition Modeling (FDM); 2. Stereolithography (SLA);
+
+Department of Civil and Environmental Engineering, University of Illinois at Urbana–Champaign, 205 N. Mathews Avenue, Urbana, IL 61801, USA School of Civil and Environmental Engineering, Georgia Institute of Technology, 790 Atlantic Drive, Atlanta, GA 30332, USA
+
+2
+
+176
+
+T. Zegard, G. H. Paulino
+
+3. PolyJet; 4. Selective Laser Sintering (SLS); 5. Selective Laser Melting (SLM). In FDM (Crump 1992), layers are built by extruding material, joining it to previously built layers in the process. In SLA (also referred to as LS), consecutive layers of photopolymer liquid are cured by a UV laser or similar (Hull 1986). PolyJet technology is similar to SLA, except that the photopolymer is jetted in thin layers onto the model and rapidly cured by a UV light. SLS and SLM fuse material powder in layers, with each consecutive layer commencing by depositing a new layer of powder (Meiners et al. 1998; Deckard 1989). The main difference between SLS and SLM is whether the material gets fully melted by the laser or not. The cost reduction and improved reliability of Fused Deposition Modeling (FDM) have generated increased awareness and widespread use of 3D printing (Crump 1992; Jones et al. 2011; Wittbrodt et al. 2013). This work proposes a simple and effective procedure for the last step in the design of optimal structures: the manufacture. Structures obtained using three types of topology optimization techniques are addressed: – – – Two-dimensional ground structure optimization Three-dimensional ground structure optimization Density-based topology optimization
+
+manufacturing and their specific use in the field of topology optimization. Sections 3 and 4 introduce the ground structure and density-based topology optimization methods respectively, both methods which are addressed in the present work. Examples and applications for both methods are discussed and shown in Section 5. Finally, the work is summarized and conclusions are given in Section 6.
+
+2 Additive manufacturing file formats
+Regardless of the additive manufacturing technology, a vast majority of additive manufacturing machines accept STL or stereolithography files (*.stl) as input (France 2013; Lipson and Kurman 2013). The specification for stereolithography files is relatively old and outdated. In addition, the STL format is quite rigid: it can only describe solids by tessellating (discretizing) its surface into triangles. The X3D format (*.x3d), itself a successor of the VRML format, is a modern royalty-free ISO standard to specify three-dimensional computer data (Brutzman and Daly 2010). The X3D specification has support for implicit definitions of basic geometric primitives like the box, cone, cylinder and sphere, in addition to tessellated surfaces. The number of facets or details on these implicit primitives is left to the specific renderer or interpreter. X3D has support for label definitions which can be reutilized to reduce the output size, while still being human-readable. In addition, X3D output poses additional benefits that extend beyond manufacturing: ease of communication, editing and third-party visualization. Translation from X3D to STL is straightforward and simple. In the process however, the implicit geometrical entities must be discretized. Translating from STL to X3D is also possible; however, a discretized sphere surface will not become an implicit sphere (defined by center and radius) in X3D; thus, there is a (potential) loss of information when converting from X3D to STL (if implicit geometries are being used). An X3D file can combine implicit primitives with tessellated surfaces in a single file, and is thus the preferred output format in the present work. Nonetheless, both X3D and STL output capabilities were developed for all three types of optimal structures in this work. The output possibilities, as well as their intended purpose are summarized in Fig. 1. The main purpose of the STL output is additive manufacturing, while X3D output is primarily intended for communication and editing (and later additive manufacturing). A sphere can be completely defined by the three coordinates of its centroid and the radius: 4 floating point numbers (Fig. 2a). If this sphere is tessellated into 320 triangles, and considering it is required to store three threedimensional nodes per triangle: the storage requirement is
+
+The goal in all three cases is the same—to generate three-dimensional data in a format that can be used for additive manufacturing. The workflow and techniques presented here apply to most (if not all) of the additive manufacturing technologies. Work combining topology optimization techniques (density-based methods mostly) and additive manufacturing do exist (Brackett et al. 2011; Dewhurst and Srithongchai 2005; Dewhurst and Taggart 2009; Meisel et al. 2013; Reinhart and Teufelhart 2011; Rezaie et al. 2013; Sundararajan 2011; Villanueva and Maute 2014; Gaynor et al. 2014). However, at the time of this writing, the use of these technologies is still novel and further developments are required to streamline the process. A tool to inspect and post-process three-dimensional density-based topology optimization results is discussed and provided to the reader (see the Electronic Supplementary Material accompanying this publication). This tool, named TOPslicer and developed in MATLAB, takes a threedimensional matrix (or array) containing density values in the range of 0 and 1 (void and solid), and generates output suitable for additive manufacturing, or for further manipulation in standard 3D modeling software. Additional notes on the input data for this tool are provided in the Appendix. The manuscript is organized as follows: Section 2 briefly reviews the file formats commonly used in additive
+
+Bridging topology optimization and additive manufacturing
+
+177
+
+100101 01101
+
+Optimization Application
+
+X3D
+
+STL
+
+and one based on the refinement of an icosphere, with the latter having a more uniform quality throughout its surface. Similarly, the cylinder and box must also be tessellated into triangles for the case of STL output as shown in Figs. 3 and 4. Recently, a new file format named AMF or Additive Manufacturing File (*.amf) was created to overcome the limitations of the STL format (ASTM ISO 2013). This new specification implements many of the modern features available in modern formats such as X3D as well as features specific to additive manufacturing. However, at the time of this writing, the standard is not widespread nor compatible with the machines in the market, and its support is minimal or non-existent in 3D editing software. Thus, it (currently) poses no real advantage over X3D in the scope of this work.
+
+3 Ground structure method
+
+Third party communication
+
+Additive Manufacturing
+
+3.1 Overview of the ground structure method The ground structure method (Dorn et al. 1964) numerically approximates the optimal truss-like (Michell) structure (Michell 1904; Hemp 1973) using a reduced finite number of truss members. The method “removes” unnecessary members from a highly interconnected truss (ground structure) while keeping the nodal locations fixed: the method avoids the optimization of sizing and geometry by instead doing a sizing-only optimization for a highly redundant truss. For a single load case, Hegemier and Prager (1969) showed that a truss with maximum stiffness is also fully stressed: i.e. volume minimization for a single load case with equal stress limits in tension and compression is equivalent to compliance minimization with a prescribed volume (Bendsøe and Sigmund 2003). The ground structure method owes its popularity to the development and discovery of new analytical (closedform) solutions for optimal structures (Rozvany and Gollub
+
+Fig. 1 Diagram illustrating the possible file outputs (X3D and STL) and their intended purpose
+
+(320) (3) (3) = 2880 floating point numbers. This situation worsens for the specific case of the STL specification: the numbering convention is not strict and therefore the normal vector for each triangle is also required (additional 3 floating point numbers per triangle). On the other hand, X3D has support for a node list, with the triangle (element) connectivity given in a separate list: this results in a more modern, readable and efficient storage format. The quality of the representation depends on the degree of refinement of the tessellation and on the method used to generate the tessellation: Fig. 2b and c exhibit two examples of a sphere tessellation, one based on spherical coordinates
+
+Fig. 2 Spherical representations: (a) Sphere defined implicitly; (b) Sphere discretized using spherical coordinates using 320 triangles; (c) Icosphere tessellated into 324 triangles
+
+178
+
+T. Zegard, G. H. Paulino
+
+κ = σT /σC and the single load-case formulation of the method becomes: V = lT s+ + κs− min σT s+ ,s− (1) s.t. BT s+ − s− = f + − s i , si ≥ 0 , where V is the truss’ volume, s+ and s− are slack variables associated with member under tension and compression respectively, BT is the nodal equilibrium matrix built from the directional cosines of the truss’ members and f is the vector of nodal forces. The optimal volume is typically calculated for σT = 1, and the optimal solution to (1) should be scaled by 1/σT for values other than unity. This is the plastic layout optimization version of the ground structure method (Gilbert and Tyas 2003; Achtziger 2007; Sok´ ł o 2011; Zegard and Paulino 2014a; Zegard 2014), and is the method of choice in the present work. However, it should be noted that the manufacturing approach proposed here is also applicable to the elastic layout optimization version of the method (Christensen and Klarbring 2009; Ramos and Paulino 2014). This brief overview of the method is presented for the purpose of completeness. The purpose of this is to introduce the method, and the reader can refer to Ohsaki (2010) for more details and explanations. 3.2 Export procedure for ground structures The output for three-dimensional ground structures is generated using a cylinder of appropriate radius for each member, and a sphere at the nodes with radius equal to the largest member connecting to it. An example of output for a three-dimensional ground structure is shown in Fig. 5a. The output for two-dimensional ground structures is an extrusion of the two-dimensional representation. Given an
+
+Fig. 3 Cylinder representations: (a) Cylinder defined implicitly; (b) Cylinder discretized using cylindrical coordinates using 48 triangles
+
+1990; Lewi` ski et al. 1994a, b; Rozvany et al. 1997; Rozn vany1998; Lewi` ski 2004; Graczykowski and Lewi` ski n n 2005, a, b, c, 2007; Lewi` ski and Rozvany citeyearLewinn ski2007, 2008a, b; Lewi` ski et al. 2013), and there is n ongoing work to extend the library of known analytical solutions for complicated domains. In this regard, the method is of particular interest to researchers and academics in the field. The ground structure method has been refined, simplified and optimized, resulting in an easy-to-use implementation for truss topology optimization in structured orthogonal domains (Sok´ ł 2011). Using an approach taken o from computational geometry and the field of video-games, the method was extended to concave unstructured domains with the possibility of holes (Zegard and Paulino 2014a; 2014b). The optimal (least-weight) truss for a single load case, under elastic and linear conditions, subjected to stress constraints can be formulated as a linear programming problem (Ohsaki 2010; Hemp 1973), which can be efficiently solved using the interior-point algorithm (Karmarkar 1984; Wright 2004). Defining the stress limits in tension and compression as σT and σC respectively, the stress limit ratio is
+
+Fig. 4 Box representations: (a) Box defined implicitly; (b) Box discretized into 12 triangles
+
+Fig. 5 Sample output for ground structures: (a) Three-dimensional ground structure composed of 6 members; (b) Two-dimensional ground structure composed of 3 members
+
+Bridging topology optimization and additive manufacturing
+
+179
+
+extrusion height he , a member with cross-sectional area ai is represented by a slender box of width wi = ai / he . The nodes are represented by cylinders of height he (as opposed to spheres in the three-dimensional case), with radius in accordance to the largest member connecting to them. An example of output for a two-dimensional ground structure is shown in Fig. 5b. The X3D format has support for implicit boxes, cylinders and spheres, thus making the output highly efficient. On the other hand, in order to output to an STL file, these shapes must be first tessellated into triangles (discretized surface). The box’s surface can be tessellated into 12 triangles with no loss of quality. The cylinder and sphere, however, will undergo a loss of information compared to their implicit representations because of the discretization. The ground structure output procedure can be further refined to include fillets in the joints and thus provide a better connection between the members. Chen (2006) reviews some of the available solutions, and proposes an approach to achieve simplified tessellations with the possibility of fillets.
+
+4 Density-based topology optimization
+4.1 Overview of density-based topology optimization Density-based topology optimization is a method that tries to answer “What is the best distribution of material within a prescribed domain?”. It does so by discretizing the design domain and optimizing density variables associated to each element within the discretization. It is a gradient-based iterative method that in its most popular variation, the so-called nested formulation (Bendsøe and Sigmund 2003; Christensen and Klarbring 2009), alternating steps of design update and analysis are performed at each iteration (i.e. the structural equilibrium is implicitly satisfied). The method owes its popularity to the fact that it is an Eulerian approach: the domain does not need to be remeshed to account for the new boundary between material and void, or between two (or more) materials. The relationship between elastic modulus Ei of the i-th element and its density ρi is typically defined using the Solid Isotropic Material with Penalization (SIMP), or power-law, as proposed by Bendsøe (1989) and Zhou and Rozvany (1991): Ei (ρi ) = ρi E0
+p
+
+To overcome this problem, a lower limit on the design variable is typically used. More recently, the modified SIMP uses an Ersatz material (very weak material) instead to represent the void, thus turning this into a two-material optimization problem (Sigmund 2007). The topology optimization problem is not well-posed: the objective can always be decreased by increasingly more and smaller details (Sigmund and Petersson 1998). For the discretized problem, this means that a refinement in the discretization will result in a more detailed and (usually) different topology; i.e. the solution is mesh-dependent. For the problem to be well-posed and reduce the mesh-dependency, the problem needs to be relaxed (Bendsøe and Kikuchi 1988) or restricted (the latter being more popular in current approaches). There are a variety of restriction methods for SIMP problems: perimeter control (Ambrosio and Buttazzo 1993; Haber et al. 1996), sensitivity filter (Sigmund 1997), density filter (Bruns and Tortorelli 2001; Bourdin 2001), projection filter (Guest et al. 2004; Sigmund 2007; Xu et al. 2010; Wang et al. 2011). This work uses the density filter, for it is a relatively simple approach while still providing reasonable result quality. The density filter defines the elements’ physical densities ρ as the weighted average of the design variables ρ. The weighting function is local in nature and operates over the variables in a neighborhood of radius rmin . The SIMP with density filtering is a class of the so called two-field SIMP, because it makes use of a design variable ρ and a density variable ρ field (Sigmund and Maute 2013). This filter can also be viewed as a convolution operation over the design variables, and implicitly controls the minimum length-scale of the resulting topology. However, it should be noted that the manufacturing approach proposed here is also applicable to other restriction methods. Defining the elastic modulus for the solid material and Ersatz materials as E0 and Emin respectively, the densitybased topology optimization formulation using the modified SIMP law is: min J (ρ, u (ρ))
+ρ
+
+with
+
+p ≥1,
+
+(2)
+
+ρ i vi − (f ) (V0 ) ≤ 0 i = 1 . . . Nc gi (ρ, u (ρ)) ≤ 0 p Ek ρ k = Emin + ρ k (E0 − Emin ) ρ = Hρ j = 1 . . . Ne 0 ≤ ρj ≤ 1 with K (ρ) u = f , s.t.
+
+Ne i
+
+k = 1 . . . Ne
+
+where p is a penalization factor: high values of p make it uneconomical to use intermediate values between solid and void; ρ = 1 and ρ = 0 respectively. The structural equilibrium will encounter computational difficulties due to void regions because the associated variables have zero-stiffness.
+
+(3) where J (·) is the objective function, ρ are the design variables, ρ are the physical densities, vi is the volume of the i-th element, f is the domain’s volume fraction allocated for the solid phase, V0 = Ne vi is the volume of the design i
+
+180
+
+T. Zegard, G. H. Paulino
+
+domain, gi (·) are additional constraints (optional), Ek is the elastic modulus of the k-th element, H is the filter matrix with weight coefficients, Ne is the number of elements in the discretization, and Nc are the number of additional constraints. In addition, the nested formulation solves for structural equilibrium after each design phase; with u being the nodal displacements, K the stiffness matrix, and f the nodal forces. The filter matrix H contains the weights coefficients relating each design variable with the neighboring density variables: with Hij = h (i, j ) vj
+Ne k
+
+desirable to specify a volume fraction f for the design domain only (i.e. the active region). This volume fraction f is related to the total volume fraction f by: f = f f
+Na j Na j
+
+vj +
+Nps k Nps k
+
+Nps k
+
+vk
+Npv l
+
+vj +
+Na j
+
+vk + vk
+
+vl (5)
+
+=
+
+vj + V0
+
+h (i, k) vk (4)
+
+h (i, j ) = max 0 , [rmin − dist (i, j )]q
+
+This brief overview of the method was presented for the purpose of completeness. Given the many (recent) developments related to this method, it is impossible to provide a complete summary in the present manuscript. Thus, the reader can refer to Bendsøe and Sigmund (2003) for more details and explanations. 4.2 Export procedure for density-based topology optimization The continuous nature of the density variable ρ in SIMP is not physical: a solid–void (or 0–1) solution is desired
+
+The operator dist (i, j ) is defined as the distance between density variable ρ i and design variable ρj , and rmin is the user-defined filter radius. The order of the filter is defined by the exponent q, where q = 1 results in the linear filter (convolution with a cone for two-dimensional problems). Figure 6 graphically illustrates the distance filter in a regular two-dimensional mesh using linear (q = 1), quadratic (q = 2) and cubic (q = 3) weighting functions. The method for p = 1 (refer to (2)) corresponds to the variable thickness sheet problem, that for compliance minimization (i.e. J (ρ, u (ρ)) = uT f) is known to be convex and with a unique solution (Petersson 1999). The usage of values p > 1 is justified by the desire to obtain “clean” solid–void solutions with a smaller amount of intermediate variables. Thus, a relatively common value for the penalization variable is p = 3 (Sigmund 2001). However, the problem becomes non-convex for values of p > 1 (i.e. the problem has multiple local minima), and thus the solution obtained is likely not the global optimum. The initial guess for the design variables is typically equal to the volume fraction f throughout the domain, and the solution is allowed to evolve in relatively small steps towards a converged design. The density filter has the downside of encouraging a smooth transition region between solid and void, which is also true for other types of filtering. There are a number of approaches to reduce the amount of intermediate densities in the transition region, mainly projection and continuation (Allaire and Kohn 1993; Allaire and Francfort 1993; Sigmund and Petersson 1998). The domain may also include passive elements: these elements (and their associated design variables) can be prescribed to be void or solid, and are referred to as passivevoid and passive-solid respectively. The (unknown) density variables to be optimized are called active. The number of active, passive-void and passive-solid variables are Na , Npv and Nps respectively, with Ne = Na +Npv +Nps . It is often
+
+Fig. 6 Convolution (weighting) functions for a regular twodimensional mesh patch. The elements have a unit size and the shaded elements have weights different than zero. a Linear filter. b Quadratic filter. c Cubic filter
+
+Bridging topology optimization and additive manufacturing
+
+181
+
+instead. Thus, the solution requires to be interpreted. The solid boundary can be defined by a cutoff (or threshold) value: densities ρ > cutoff ≈ 0.5 are considered to be solid. The interpreted solution is no longer optimal and the volume constraint may be violated. More sophisticated approaches can ensure that these variations are not significant (Sigmund 2007; Xu et al. 2010). Nonetheless, taking cutoff ≈ 0.5 does yield reasonably good results, especially if the results have a relatively small amount of intermediate densities. The isosurface is the three-dimensional analogous to the two-dimensional contour line. The isosurface is calculated by interpolating four-dimensional data: each point t in the domain is associated with 3 coordinates and a single density value {xt , yt , zt , ρt }. To ensure the closure of the isosurface, a layer of void elements (ρ = 0) is added next to the boundary of the domain. The surface is tessellated (discretized) into triangles that can be directly outputted to an STL file for manufacturing. This also applies if the desired output is X3D, or a number of other popular file formats such as OBJ, 3DS, FBX and others. The visualization of three-dimensional density-based topologies is difficult due to the four-dimensional nature of the data. To visualize and inspect the solution, the results can be sliced at some plane and the resulting threedimensional data can then be plotted. A simple graphical tool named TOPslicer was developed for slicing threedimensional density-based topology optimization data, and therefore facilitate the inspection of results prior to manufacturing. In addition, different cutoff values and their resulting solid can be visualized and compared on the fly. For problems where symmetry was exploited in the analysis, TOPslicer can mirror the results in one or more coordinate axis to restore the complete model. Once the result has been inspected and approved, the final isosurface can be exported to X3D and/or STL for manufacturing. Figure 7 shows TOPslicer working with sample data for an edgeloaded cantilever beam. TOPslicer is distributed as part of the Electronic Supplementary Material accompanying this publication, and guidelines for the input are given in the Appendix. 4.3 Issues with density-based topology optimization 4.3.1 Filters in three-dimensional topology optimization Linear filters are often used in two-dimensional densitybased topology optimization (Sigmund 2001; Bendsøe and Sigmund 2003; Andreassen et al. 2011; Liu and Tovar 2014). However, it has been pointed out that linear filters do not clearly define the solid–void boundary, as they create a smooth transition region between solid and void. The filter is necessary to make the problem well-posed
+
+Fig. 7 Screenshot of the TOPslicer tool: the edge-loaded cantilever problem is loaded and its symmetry is restored. The solution is sliced to inspect the quality of the solution prior to exporting the cutoff isosurface for manufacturing (STL) or for communication and editing (X3D). The slice plot clearly shows the density values in the cutting plane and the isosurface for the chosen cutoff value
+
+and prevent checkerboard patches in the solution (D´az ı and Sigmund 1995; Sigmund and Petersson 1998). The checkerboard problem is a numerical artifact common in meshes with traditional elements (e.g. triangles, quadrilaterals, hexahedra, wedges to name a few), where the resulting topology is artificially stiff when exhibiting a checkerboard solid–void pattern. In practice, the filter implicitly introduces a minimum length scale of the details in the topology. Higher-order filters q > 1 are efficient at reducing the amount of intermediate material at the boundary due to their rapid decay (Almeida et al. 2009). The effect of filters in three-dimensional density-based topology optimization has not received the attention two-dimensional filters have had. A number of factors contribute to this: the increased complexity of three-dimensional analysis, limited computational power, and the complexity of three-dimensional plotting. Given a filter with specific rmin and exponent q, the effect of the filter in two and three-dimensional space is different: the blurring (or smearing) effect is increased in three-dimensions. Consider a two-dimensional regular and orthogonal mesh with square elements of unit size, and a single design and density variable per element located at the center. Taking rmin = 1.3 and q = 1 in (4), the resulting convolution kernel in two-dimensions is shown in Fig. 8a. Using these parameters for an equivalent three-dimensional mesh of hexahedral elements, the convolution kernel involves 6 neighboring elements instead of 4, as shown in Fig. 8b. The weight for the design variable at the center decreases
+
+182
+
+T. Zegard, G. H. Paulino
+
+a
+0.0000 0.1200 0.0000
+
+a
+Hii ]
+
+1 0.9 0.8 0.7 0.6
+2D 3D q=1 q=2 q=3 q=4
+
+r min =1.3
+0.1200
+
+0.1200
+
+0.5200
+
+1
+
+0.5 0.4 0.3
+
+0.0000
+
+0.1200
+
+0.0000
+
+0.2 0.1 0 1 1.5 2 2.5 3 3.5 4 4.5 5
+
+b
+
+Filter radius [rmin]
+
+b
+Required 3D exponent [q (3D) ]
+
+6 5.5 5 4.5 4 3.5 3 2.5 2 1.5 1 1 1.5 2 2.5 3 3.5 4 4.5 5 5.5 6
+
+q
+
+(2D
+
+) =3.0
+) =2.5
+
+q
+q
+q
+
+(2D
+
+(2D) =2.0
+
+(2D) =1.5
+
+q
+
+(2D) =1.0
+
+Fig. 8 Topology optimization filters in two and three dimensions. The meshes are regular and orthogonal with elements of unit dimension. The filter is linear of size rmin = 1.3. a Two-dimensional filter patch: (2D) the filter weight associated with the center element is Hii = 0.5200, plus 4 adjacent elements. b Three-dimensional filter patch: the filter weight associated with the center element is H(3D) = 0.4194, plus 6 ii adjacent elements
+
+Filter Radius [rmin]
+Fig. 9 Comparison of two and three-dimensional radial filters of various orders: (a) weight coefficient for the central element Hii for different filter radii; (b) Required three-dimensional filter exponent q (3D) that results in the same filter weight for the center element Hii as in two-dimensions
+
+from Hii = 0.5200 to Hii = 0.4194. The difference in Hii increases with the filter radii: the elements inside a two-dimensional filter scales with r 2 , compared r 3 in three-dimensions. The variation of the weight Hii with the filter radius for regular and orthogonal meshes is shown in Fig. 9a. Considering a regular and orthogonal mesh with a given filter radius rmin and filter exponent q (2D) in 2D; a threedimensional exponent q (3D) can be found such that H(2D) = ii (3D) Hii . In order to maintain the weight Hii equivalent, the weight coefficients of the neighboring design variables must decrease. This results in a decrease of the material being
+
+(2D)
+
+(3D)
+
+leaked to the neighboring elements, while maintaining the filter radius unchanged (control over the minimum lengthscale). Figure 9b plots the required q (3D) that results in same value for Hii : the filter exponent in three-dimensional filters q (3D) should be higher compared to two-dimensional filters. Maintaining the same filter radius will cause the implicit control over minimum length-scale to be similar, but not equal. These conclusions are not restricted to density filters, but extend to sensitivity filters and projection schemes (three-field SIMP) as well. The effect of high order filters can be further examined with an example. The three-dimensional cantilever in
+
+Bridging topology optimization and additive manufacturing
+
+183
+
+Lx
+
+Lz Ly
+
+p
+Fig. 10 Rectangular cantilever clamped at the left side and loaded at the right by a distributed force applied at the lower edge
+
+is not particular of additive manufacturing, and is likely to affect other manufacturing processes such as casting or milling. The isosurface obtained from a cubic filter (q = 3) does not suffer from this thinning problem (Fig. 11a). Due to its rapid decay, the cubic filter does not spread the material in the vicinity of the joint when compared to the linear filter. Figure 11b slices the resulting topologies along the particular member to highlight the intermediate densities in the vicinity of the joints. 4.3.2 Continuation of the penalization variable Knowing that the compliance minimization problem is convex for p = 1 (Petersson 1999), but better approximates solid–void solutions with values p >> 1, motivates the use of a continuation approach on the penalization parameter (Allaire and Kohn 1993; Allaire and Francfort 1993; Sigmund and Petersson 1998). This consists in initially optimizing for p = 1 (unique solution), and gradually increasing the penalization value during the optimization process to reduce the amount of intermediate density values, thus driving the solution closer towards a 0–1 design (solid–void). While this technique often converges to better designs, this cannot be guaranteed nor proven mathematically due to the multiple local minima for p > 1. The penalization parameter can be safely increased to values of p > 4, that with constant penalization would likely converge to a worse design. Alternatively, a continuation scheme could be used on the filter radius instead, i.e. gradually decrease the filter radius during the optimization process (Sigmund and Maute 2013). This approach may result in checkerboarded regions or small length-scale topologies if introduced too early in the optimization process, and is thus considered less robust.
+
+Fig. 10 is clamped at one end, and loaded at the bottom edge of the opposite tip. The objective function is the minimization of structural compliance (maximization of stiffness); that is J = uT Ku = uT f. The problem is symmetric, and thus only a half-domain is modeled. The domain is discretized using Lx × Ly × Lz = 216 × 72 × 72 regular hexahedra (8-node) elements, resulting in 216 × 36 × 72 for the half-domain being modeled. The material’s Poisson’s ratio is ν = 0.3 and Emin = 10−9 E0 . The filter radius is rmin = 6, the penalization is p = 3 and the volume fraction is f = 0.1 (10 % of the domain’s volume). The cutoff (or threshold) used is cutoff = 0.5, i.e. the solid is defined by the domain region with density ρ ≥ 0.5. The resulting isosurface for the case of a linear filter (q = 1) exhibits an unnatural thinning at the ends of one of its members (Fig. 11a). This is caused by the filter, for it generates intermediate densities in the vicinity of the joints, providing additional stiffness in those regions (even when penalized). Consequently, the structure requires a smaller cross-sectional area to carry the loads, i.e. the member is thinned when aided by these intermediate variables. It should be noted that this issue
+
+Fig. 11 Topology optimization results for the edge-loaded cantilever problem using density-based topology optimization with linear and cubic filtering (q = 1 and q = 3 respectively). Plots show the ρ = 0.5 isosurface (density cutoff): (a) Zoom of a detail displaying the unnatural thinning at the ends of a member; (b) Slice of the resulting topology highlighting the intermediate densities in the vicinity of the joints caused by the filter
+
+a
+
+b
+
+184
+
+T. Zegard, G. H. Paulino
+
+a
+
+hs
+
+Lz
+
+Ls Ly Lx
+
+b
+
+c
+
+example. The three-dimensional bridge domain in Fig. 12a is discretized using Lx × Ly × Lz = 440 × 88 × 88 regular hexahedral (8-node) elements of unit size. The domain is fixed on the bottom plane at strips of length Ls = 17 at each end (18 rows of nodes). The domain has a passivesolid slab on the top surface of height hs = 2, on top of which a vertical distributed load is applied. The objective function is the minimization of structural compliance (maximization of stiffness); that is J = uT Ku = uT f. The problem is double-symmetric and thus only a quarterdomain is modeled: the model in the optimization consists of 220 × 44 × 88 elements. The material’s Poisson’s ratio is ν = 0.3 and Emin = 10−9 E0 . The filter radius is rmin = 5.28, the continuation on the penalization is p = {1.0 , 2.0 , 3.0 , 3.5 , 4.0 , 4.25} and the volume fraction is f = 0.1 (10 % of the design domain’s volume). The distributed force on the bridge slab causes the members to spread too thin in an effort to support the load everywhere. By doing so, the members’ density drops below the solid cutoff value, resulting in the members ending abruptly just before the slab as shown in Fig. 12b. This issue can be alleviated by reducing the cutoff density. This however, will result in an undesirable (artificial) increase of the volume fraction. By increasing the penalization in the last iterations, i.e. p > 4, the solution is forced to further define the members. This prevents the attempt of the solution to support the loaded slab everywhere, but clearly define the support points as shown in Fig. 12c instead.
+
+5 Examples & applications
+The optimal structures analyzed and discussed in the present work were manufactured using FDM and SLS technologies. Nonetheless, the work is not restricted to these additive manufacturing processes. Additional examples and pictures can be found in Zegard (2014).
+Fig. 12 Density-based optimization of the bridge problem. Domain is loaded on the top surface and supported by thin strips at opposite edges on the bottom face. a Domain, loads and supports: The model size is Lx × Ly × Lz = 440 × 88 × 88, the bridge slab is represented by a passive-solid region of height hs = 2, and the support strips have width equal to Ls = 17 at both ends. Results are displayed for the ρ = 0.5 isosurface. b Symmetric quarter-domain result for constant penalization p = 3, with detail of the interrupted members. c Symmetric quarter-domain result using the continuation approach for the penalization p = {1.0 , 2.0 , 3.0 , 3.5 , 4.0 , 4.25}. Members are continuous from the support strips to the loaded slab
+
+5.1 Examples of manufactured results Figures 13 and 14 are examples of manufactured optimal ground structures in three-dimensions. The manufactured torsion ball problem (Michell 1904) is particulary useful in educational settings to gain a better understanding of the underlying geometry behind the optimal solution (problem was numerically addressed in Zegard and Paulino 2014b; Zegard 2014). The Lotte tower models can aid in the exploration of new geometries and structural system patterns as well as better communicate ideas and concepts. Figure 15 is an example of a manufactured two-dimensional ground structure (problem was numerically addressed in Zegard and Paulino 2014a; Zegard 2014).
+
+The effect of continuation at improving the resulting topologies can be further examined with a suitable
+
+Bridging topology optimization and additive manufacturing
+
+185
+
+a
+
+b
+
+c
+
+Fig. 13 Torsion ball problem: (a) Optimal structure to balance a moment pair with no geometrical restrictions in the domain derived by Michell (1904); (b) Ground structure method solution for the torsion ball problem (approximation of the optimal solution) based on the
+
+work by Zegard and Paulino (2014b); (c) Manufactured model based on the ground structure method solution using an SLS process [scale in inches]
+
+Figure 16 display manufactured optimal density-based structures. The edge-loaded cantilever problem in Fig. 16a was manufactured from a result using a linear filter, and thus exhibits the unnatural thinning of members addressed in Section 4.3.1. Figure 16b shows an equivalent bridge problem to the one shown in Section 4.3.2, with a domain discretized using Lx × Ly × Lz = 500 × 50 × 100 regular hexahedra (8-node) elements, f = 0.1, rmin = 6 and Ls = 20 at each end (21 rows of nodes). The X3D output can be easily visualized in a modern web browser with no additional download. This facilitates the communication and exploration of the designs by all involved parties. Figure 17a shows a topology optimized
+
+pedestrian bridge optimized with Lx × Ly × Lz = 440 × 88 × 88 regular hexahedra (8-node) elements, f = 0.1, rmin = 5.28 and Ls = 17 at each end (18 rows of nodes), visualized within a web browser. The design can then be manufactured to be used as an architectural model by incorporating additional elements into the design as shown Fig. 17b. The tools developed for additive manufacturing, specifically TOPslicer, were successfully deployed and tested in a class environment as part of a homework in the Structural Design Optimization class at the University of Illinois at Urbana-Champaign, during the fall semester of 2014. Students, working in pairs, used an in-house modified version
+
+a
+
+b
+2r
+
+c
+2r
+
+d
+
+H
+
+H
+
+2a
+
+2a
+
+Fig. 14 Lotte tower problem: (a) Lotte tower competition design in Seoul, South Korea [Image courtesy of Skidmore, Owings & Merrill LLP]; (b) Ground structure method solution for a laterally loaded design domain based on the Lotte tower; (c) Ground structure method
+
+solution for a torsionally loaded design domain based on the Lotte tower; (d) Manufactured models based on the ground structure method solutions using an FDM process [scale in inches]
+
+186
+
+T. Zegard, G. H. Paulino
+
+a
+
+P
+R=1
+
+b
+
+c
+
+P
+2r=0.5
+
+P
+
+P P
+Fig. 15 Flower problem: (a) Donut-shaped domain supported at the inner ring and loaded at 5 points in the outer ring; (b) Ground structure method solution for the flower problem (approximation of the optimal solution) based on the work by Zegard and Paulino (2014a); (c) Manufactured model based on the ground structure method solution using an FDM process [scale in inches]
+
+of TOP3D (Liu and Tovar 2014) in conjunction with TOPslicer, to optimize a problem of their choice and generate STL output suitable for additive manufacturing. Students were constrained to a 2.5 × 2.5 × 4 in build volume, but
+
+were otherwise free to define their problem and optimization parameters. Figure 18 shows all 24 models built as part of this activity.
+
+Fig. 16 Examples of manufactured three-dimensional density-based topology optimization results: (a) Edge-loaded cantilever beam model used to further examine the unnatural member thinning problem from Section 4.3.1 [scale in inches]; (b) Slab-loaded bridge problem discretized with Lx × Ly × Lz = 500 × 50 × 100 regular hexahedra (8-node) elements [scale in inches]
+
+Fig. 17 Application and usage of the X3D output for the optimization of a pedestrian bridge: (a) Pedestrian bridge problem with terrain being displayed in a web browser (no download required). The viewer can fly through, zoom and rotate the model on-the-fly; (b) Architectural model of the pedestrian bridge manufactured from the X3D output used for communication, and using an FDM process [scale in inches]
+
+Bridging topology optimization and additive manufacturing Fig. 18 Topology optimized structural models created by students as part of a homework in the Structural Design Optimization class at the University of Illinois at Urbana-Champaign, during the fall semester of 2014 [scale in inches]. Models were manufactured using an FDM process
+
+187
+
+5.2 Application in a class environment 5.3 Application in the medical field Our current capability of of restoring the visual appearance and functionality of the human body after severe trauma is often partial. Patients who suffer from traumatic bone loss, cancer, malformation or other illnesses often require bone structure replacement, which is a long process that struggles to recreate the appearance and functionality of the original structure. Topology optimization and additive manufacturing technologies offer a path to potentially change the current medical reconstructive procedures: Given structural, biological, manufacturing and surgical requirements, typically dictated by the medical doctor, an appropriate optimization problem can be formulated and solved (Sutradhar et al. 2010). The result will be a patient-specific replacement topology that is structurally optimal and functional. The solution obtained can then be manufactured, and used in the reconstructive process. Using density-based optimization with SIMP, the process begins by defining the optimization problem: domain, loading, boundary conditions, active/passive-void zones and optimization parameters. For the specific problem in Fig. 19a, the domain is discretized in 108 × 63 × 81 regular hexahedra (8-node) elements with dimension 0.0333 in (problem dimensions are 3.6 × 2.1 × 2.7 in). This results in a total of 551,124 design variables and 1,716,096 degreesof-freedom. It should be noted that the problem is generated
+
+procedurally, and thus the domain, loading, boundary conditions and passive-void zones can be modified on a patientspecific basis. The objective function is the minimization of structural compliance (maximization of stiffness); that is J = uT Ku = uT f. The material’s Poisson’s ratio is ν = 0.3 and Emin = 10−9 E0 . The filter used has a radius of rmin = 6 units = 0.2 in and order q = 3. The SIMP penalization exponent p is increased by continuation from p = 1.0 up to p = 4.25. The resulting topology is shown in Fig. 19b. This result is embedded and rendered in its intended position in a skull in Fig. 19c. The manufactured model (FDM process) is shown in Fig. 19d, with a cast of an upper jaw made from the main author’s teeth. In addition, the manufactured model is displayed alongside a human skull replica in Fig. 19e for reference purposes. Nonetheless, the technique requires the use of bio-compatible metals or human cell printing— technologies that are currently available and are rapidly evolving towards its usage in patients (Salmi et al. 2012; Salmi 2013; EOS GmbH 2014; Sutradhar et al. 2014). 5.4 Achieving larger length scales There is ongoing work on achieving large length scales in additive manufacturing. However the precision and the application scope of the current approaches is less than desirable. One possible path towards large length scales relies on the partition of the model: the X3D format is particularly useful for the 3D editing required to partition and splice the model. This would ultimately lead to
+
+188 Fig. 19 Craniofacial reconstruction problem: (a) Domain, loads, supports and passive-void zones. These are procedurally generated to meet patient-specific needs; (b) Topology optimized result for the domain previously shown; (c) Rendering of the resulting optimized topology embedded in a human skull; (d) Manufactured model based on the topology optimized result (using an FDM process) with a cast of the main author’s teeth for reference [scale in inches]; (e) Manufactured model (using an FDM process) with a human skull replica as reference [scale in inches]
+
+T. Zegard, G. H. Paulino
+
+a
+
+Eye cavity
+
+Nose bridge or Glabella load
+
+Support
+
+Nasal cavity
+
+Oral cavity
+
+Upper jaw load
+
+b
+
+c
+
+d
+
+e
+
+a large model being built from multiple smaller pieces. Figure 20 shows a 3 f t bridge based on the model shown in Fig. 16b built from 3 separate pieces and joined together after manufacturing.
+
+6 Summary & conclusions
+Additive manufacturing presents itself as the final and missing link in a complete structural optimization framework: given a problem with requirements and limitations, the problem can be optimized with the method of choice, and the resulting structure can be (now) manufactured with ease.
+
+In addition, the three-dimensional computer model can be used to rapidly communicate design concepts and changes, thus aiding in the rapid development of new (optimal) structures. Two optimization methods were explored, and based on these, designs were obtained and manufactured: the ground structure method and the density-based method using SIMP. Each of these methods has strengths and weaknesses, but together provide valuable information of the optimal structural mechanism, while providing the user a wider range of design options (Fig. 21). The solutions obtained from these methods do not directly translate into manufacturable models, and thus some post-processing and interpretation is
+
+Bridging topology optimization and additive manufacturing
+
+189
+
+an example with a medical application was shown. In addition, manufactured models have been successfully used in educational (Section 5.2) and research settings (Fig. 13), where they actively help to gain a deeper understanding of the method and its outcomes. The rapid evolution of the additive manufacturing field is eliminating a large number of limitations that previously plagued the manufacturing of optimal structures. Additive manufacturing machines are becoming faster, more precise and able to accommodate larger scale models. However, until the technology develops towards very large length scales, the splitting of a model and its manufacture in pieces opens up the possibility of large structures and components (Fig. 20).
+Fig. 20 Three foot long bridge obtained with density-based topology optimization using SIMP (scaled version of the result in Fig. 16b). The bridge was split into 3 pieces, 1 foot long each, manufactured using an FDM process and assembled afterwards Acknowledgments The authors appreciate constructive comments and insightful suggestions from the anonymous reviewers. We are thankful to the support from the US National Science Foundation under grant CMMI #1335160. We also acknowledge the support from SOM (Skidmore, Owings and Merrill LLP) and from the Donald B. and Elizabeth M. Willett endowment at the University of Illinois at Urbana–Champaign. Any opinion, finding, conclusions or recommendations expressed here are those of the authors and do not necessarily reflect the views of the sponsors.
+
+required. This work also outlines some issues that may arise in the process and makes suggestions on how to alleviate them. The framework and techniques developed here are not restricted to buildings and bridges and their implementation in other fields looks particularly promising. In that regard,
+Lx Design domain, loading and supports
+
+Appendix: input for TOPslicer
+TOPslicer has support for various three-dimensional data array formats. The data in a three-dimensional array (or 3D matrix) can be organized in a several ways depending on how the indices span the data. MATLAB was strongly influenced by Fortran, and both were targeted at numerical analysis involving matrices. As a consequence, both MATLAB and Fortran use column-major ordering: the data’s first index spans the rows of the matrix (vertical direction), and the second index spans the columns (horizontal direction). If this idea is extended to three-dimensional positions, it implies that some data is traversed by its indices first in the y axis, and then in the x axis (e.g the entry A7,1 is 7 spaces away from the origin on the y axis). Other programming/scripting languages (typically not based on matrices) use row-major ordering, where the more natural x–y–z data arrangement is used. Take for example the three-dimensional array shown in Fig. 22a. Using MATLAB’s column-major ordering, the size of this array is 3 × 4 × 2, with the indices for some key entries are shown in Fig. 22b. However, using row-major ordering, the size of the array is 4 × 3 × 2, with the same indices shown in Fig. 22c. The user menu in TOPslicer allows the user to specify what ordering was used in the input data: columnmajor(MATLAB’s default), row-major (arguably the most
+
+P
+
+Lz Ly
+
+Ground structure method
+
+Density-based method with SIMP
+
+Manufacturing
+
+Manufacturing
+
+Fig. 21 Given an optimization problem, the framework described in the present manuscript allows two distinct (but related) optimal solutions to be obtained and manufactured: a ground structure (truss-like) solution and a density-based (continuum) solution
+
+190
+
+T. Zegard, G. H. Paulino Allaire G, Francfort G (1993) A numerical algorithm for topology and shape optimization. In: Bendsøe MP, Mota Soares CA (eds) Topology design of structures. Springer Netherlands, Sesimbra, pp 239–248 Allaire G, Kohn R (1993) Topology optimization and optimal shape design using homogenization. In: Bendsøe MP, Mota Soares CA (eds) Topology design of structures. Springer Netherlands, Sesimbra, pp 207–218 Almeida SRM, Paulino GH, Silva ECN (2009) A simple and effective inverse projection scheme for void distribution control in topology optimization. Struct Multidiscip Optim 39(4): 359–371 Ambrosio L, Buttazzo G (1993) An optimal design problem with perimeter penalization. Calc Var Partial Diff Equ 1(1): 55–69 Andreassen E, Clausen A, Schevenels M, Lazarov BS, Sigmund O (2011) Efficient topology optimization in MATLAB using 88 lines of code. Struct Multidiscip Optimi 43(1):1–16 ASTM ISO (2013) ASTM52915-13, Standard specification for additive manufacturing file format (AMF) Version 1.1. ASTM International, West Conshohocken, PA Bendsøe MP (1989) Optimal shape design as a material distribution problem. Struct Optim 1(4):193–202 Bendsøe MP, Kikuchi N (1988) Generating optimal topologies in structural design using a homogenization method. Comput Methods Appl Mech Eng 71(2):197–224 Bendsøe MP, Sigmund O (2003) Topology optimization: theory, methods and applications. Engineering Online Library, 2nd edn. Springer, Berlin Bourdin B (2001) Filters in topology optimization. Int J Numer Methods Eng 50(9):2143–2158 Brackett D, Ashcroft I, Hague R (2011) Topology optimization for additive manufacturing. In: 22nd annual solid freeform fabrication symposium, pp 348–362 Bruns TE, Tortorelli DA (2001) Topology optimization of non-linear elastic structures and compliant mechanisms. Comput Methods Appl Mech Eng 190(26-27):3443–3459 Brutzman D, Daly L (2010) X3D: extensible 3D graphics for Web authors, 1st edn. Morgan Kaufmann, San Francisco Chen Y (2006) A mesh-based geometric modeling method for general structures. In: ASME 2006 international design engineering technical conferences and computers and information in engineering conference. Philadelphia Christensen P, Klarbring A (2009) An introduction to structural optimization, 1st edn. Springer, Berlin Crump S (1992) Apparatus and method for creating three-dimensional objects. US Patent 5,121,329 Deaton JD, Grandhi RV (2013) A survey of structural and multidisciplinary continuum topology optimization: post 2000. Struct Multidiscip Optim 49(1):1–38 Deckard C (1989) Method and apparatus for producing parts by selective sintering. US Patent 4,863,538 Dewhurst P, Srithongchai S (2005) An investigaton of minimumweight dual-material symmetrically loaded wheels and torsion arms. J Appl Mech 72(2):196–202 Dewhurst P, Taggart D (2009) Three-dimensional cylindrical truss structures: a case study for topological optimization. In: Hern´ ndez S, Brebbia CA (eds) Computer aided optimum design a in engineering XI. WIT Press, pp 83–94 D´az A, Sigmund O (1995) Checkerboard patterns in layout optimizaı tion. Struct Optim 10(1):40–45 Dorn WS, Gomory RE, Greenberg HJ (1964) Automatic design of optimal structures. J Mecanique 3(1):25–52 EOS GmbH (2014) Electro optical systems: orthopaedic technology. http://www.eos.info/industries markets/medical/orthopaedic technology
+
+a
+
+z y x
+b
+ρ(3,4,2)
+
+z y x
+c
+ρ(1,1,1) ρ(1,4,1) ρ(4,3,2)
+
+z y x
+ρ(1,1,1) ρ(4,1,1)
+
+Fig. 22 Data ordering in a three-dimensional array ρ: (a) Threedimensional array of size Nx = 4, Ny = 3 and Nz = 2, where each cell represents a stored value. (b) Example for column-major ordering, with the indices for some key entries shown: the array ρ has size 3 × 4 × 2. (c) Example for row-major ordering, with the indices for some key entries shown: the array ρ has size 4 × 3 × 2.
+
+intuitive), and additionally, TOPslicer also has support for the (rather unconventional) format used in TOP3D (Liu and Tovar 2014). That said, failure to select the correct ordering will only result in the data being displayed either rotated along some axis, or mirrored along some plane(s).
+
+References
+Achtziger W (2007) On simultaneous optimization of truss geometry and topology. Struct Multidiscip Optim 33(4-5):285–304
+
+Bridging topology optimization and additive manufacturing France AK (2013) Make: 3D printing - the essential guide to 3D printers. Maker Media, Sebastopol Gaynor AT, Meisel Na, Williams CB, Guest JK (2014) Multiplematerial topology optimization of compliant mechanisms created via PolyJet three-dimensional printing. J Manuf Sci Engi 136(6):061015 Gilbert M, Tyas A (2003) Layout optimization of large-scale pinjointed frames. Eng Comput 20(8):1044–1064 Graczykowski C, Lewi´ ski T (2005) The lightest plane structures of a n bounded stress level transmitting a point load to a circular support. Control Cybern 34(1):227–253 Graczykowski C, Lewi´ ski T (2006a) Michell cantilevers constructed n within trapezoidal domains—Part I: geometry of Hencky nets. Struct Multidiscip Optim 32(5):347–368 Graczykowski C, Lewi´ ski T (2006b) Michell cantilevers constructed n within trapezoidal domains—Part II: virtual displacement fields. Struct Multidiscip Optim 32(6):463–471 Graczykowski C, Lewi´ ski T (2006c) Michell cantilevers constructed n within trapezoidal domains—Part III: force fields. Struct Multidiscip Optim 33(1):1–19 Graczykowski C, Lewi´ ski T (2007) Michell cantilevers constructed n within trapezoidal domains—Part IV: complete exact solutions of selected optimal designs and their approximations by trusses of finite number of joints. Struct Multidiscip Optim 33(2): 113–129 Guest JK, Pr´ vost JH, Belytschko T (2004) Achieving minimum e length scale in topology optimization using nodal design variables and projection functions. Int J Numer Methods Eng 61(2): 238–254 Haber RB, Jog CS, Bendsøe MP (1996) A new approach to variabletopology shape design using a constraint on perimeter. Struct Opt 11(1-2):1–12 Hegemier G, Prager W (1969) On Michell trusses. Int J Mech Sci 11(2):209–215 Hemp WS (1973) Optimum structures, 1st edn. Oxford University Press, Oxford Hull C (1986) Apparatus for production of three-dimensional objects by stereolithography. US Patent 4,575,330 Jones R, Haufe P, Sells E, Iravani P, Olliver V, Palmer C, Bowyer A (2011) RepRap — the replicating rapid prototyper. Robotica 29(1):177–191 Karmarkar N (1984) A new polynomial-time algorithm for linear programming. Combinatorica 4(4):373–395 Lewi´ ski T (2004) Michell structures formed on surfaces of revolution. n Struct Multidiscip Optim 28(1):20–30 Lewi´ ski T, Rozvany GIN (2007) Exact analytical solutions for some n popular benchmark problems in topology optimization—Part II: three-sided polygonal supports. Struct Multidiscip Optim 33(45):337–349 Lewi´ ski T, Rozvany GIN (2008a) Analytical benchmarks for topon logical optimization—Part IV: square-shaped line support. Struct Multidiscip Optim 36(2):143–158 Lewi´ ski T, Rozvany GIN (2008b) Exact analytical solutions for some n popular benchmark problems in topology optimization—Part III: L-shaped domains. Struct Multidiscip Optim 35(2):165–174 Lewi´ ski T, Rozvany GIN, Sok´ ł T, Bołbotowski K (2013) Exact n o analytical solutions for some popular benchmark problems in topology optimization III: L-shaped domains revisited. Struct Multidiscip Optim 47(6):937–942 Lewi´ ski T, Zhou M, Rozvany GIN (1994a) Extended exact leastn weight truss layouts?–Part II: unsymmetric cantilevers. Int J Mech Sci 36(5):399–419 Lewi´ ski T, Zhou M, Rozvany GIN (1994b) Extended exact solutions n for least-weight truss layouts?–Part I: cantilever with a horizontal axis of symmetry. Int J Mech Sci 36(5):375–398
+
+191 Lipson H, Kurman M (2013) Fabricated: the new world of 3D printing, 1st edn. Wiley, Indianapolis Liu K, Tovar A (2014) An efficient 3D topology optimization code written in Matlab. Struct Multidiscip Optim. doi:10.1007/s00158-014-1107-x Meiners W, Wissenbach K, Gasser A (1998) Shaped body especially prototype or replacement part production. DE Patent 19,649,865 Meisel NA, Gaynor A, Williams CB, Guest JK (2013) Multiplematerial topology optimization of compliant mechanisms created via polyjet 3d printing. In: 24rd annual international solid freeform fabrication symposium, pp. 980–997 Michell AGM (1904) The limits of economy of material in framestructures. 6 8(47):589–597 Ohsaki M (2010) Optimization of finite dimensional structures, 1st edn. CRC Press, Boca Petersson J (1999) A finite element analysis of optimal variable thickness sheets. SIAM J Numer Anal 36(6):1759–1778 Ramos AS, Paulino GH (2014) Convex topology optimization for hyperelastic trusses based on the ground-structure approach. Struct Multidiscip Optim Reinhart G, Teufelhart S (2011) Load-adapted design of generative manufactured lattice structures. Phys Procedia 12(Part A):385– 392 Rezaie R, Badrossamay M, Ghaie a, Moosavi H (2013) Topology optimization for fused deposition modeling process. Procedia CIRP 6:521–526 Rozvany G, Gollub W (1990) Michell layouts for various combinations of line supports—I. Int J Mech Sci 32(12):1021– 1043 Rozvany G, Gollub W, Zhou M (1997) Exact Michell layouts for various combinations of line supports—Part II. Struct Optim 14(2-3):138–149 Rozvany GIN (1998) Exact analytical solutions for some popular benchmark problems in topology optimization. Struct Optim 15(1):42–48 Rozvany GIN (2009) A critical review of established methods of structural topology optimization. Struct Multidiscip Optim 37(3):217– 237 Salmi M (2013) Medical applications of additive manufacturing in surgery and dental care. Phd thesis, Aalto University, Helsinki, Finland Salmi M, Tuomi J, Paloheimo K-S, Bj¨ rkstrand R, Paloheimo M, Salo o J, Kontio R, Mesim¨ ki K, M¨ kitie AA (2012) Patient-specific a a reconstruction with 3D modeling and DMLS additive manufacturing. Rapid Prototyp J 18(3):209–214 Sigmund O (1997) On the design of compliant mechanisms using topology optimization. Mech Struct Mach 25(4):493–524 Sigmund O (2001) A 99 line topology optimization code written in Matlab. Struct Multidiscip Optim 21(2):120–127 Sigmund O (2007) Morphology-based black and white filters for topology optimization. Struct Multidiscip Optim 33(4-5):401–424 Sigmund O, Maute K (2013) Topology optimization approaches. Struct Multidiscip Optim 48(6):1031–1055 Sigmund O, Petersson J (1998) Numerical instabilities in topology optimization: a survey on procedures dealing with checkerboards, mesh-dependencies and local minima. Struct Optim 16(1): 68–75 Sok´ ł T (2011) A 99 line code for discretized Michell truss optimizao tion written in mathematica. Struct Multidiscip Optim 43(2):181– 190 Sundararajan V (2011) Topology optimization for additive manufacturing of customized meso-structures using homogenization and parametric smoothing functions. Msc thesis, University of Texas at Austin
+
+192 Sutradhar A, Park J, Carrau D, Miller MJ (2014) Experimental validation of 3D printed patient-specific implants using digital image correlation and finite element analysis. Comput Biol Med 52:8–17 Sutradhar A, Paulino GH, Miller MJ, Nguyen TH (2010) Topological optimization for designing patient-specific large craniofacial segmental bone replacements. Proc Nat Acad Sci USA 107(30):13222–13227 Topping BHV (1983) Shape optimization of skeletal structures: A review. J Struct Eng 109(8):1933–1951 Villanueva CH, Maute K (2014) Density and level set-XFEM schemes for topology optimization of 3-D structures. Comput Mech 54(1):133–150 Wang F, Lazarov BS, Sigmund O (2011) On projection methods, convergence and robust formulations in topology optimization. Struct Multidiscip Optim 43(6):767–784 Wittbrodt B, Glover aG, Laureto J, Anzalone G, Oppliger D, Irwin J, Pearce J (2013) Life-cycle economic analysis of distributed manufacturing with open-source 3-D printers. Mechatronics 23(6):713–726
+
+T. Zegard, G. H. Paulino Wright MH (2004) The interior-point revolution in optimization: history, recent developments, and lasting consequences. Bull Amer Math Soc 42(1):39–56 Xu S, Cai Y, Cheng G (2010) Volume preserving nonlinear density filter based on heaviside functions. Struct Multidiscip Optim 41(4):495–505 Zegard T. (2014) Structural optimization: from continuum and ground structures to additive manufacturing. Phd thesis, University of Illinois at Urbana–Champaign, Urbana, IL Zegard T, Paulino GH (2014a) GRAND – Ground structure based topology optimization on arbitrary 2D domains using MATLAB. Struct Multidiscip Optim 50(5):861–882 Zegard T, Paulino GH (2014b) GRAND3 – Ground structure based topology optimization on arbitrary 3D domains using MATLAB. Struct Multidiscip Optim. doi:10.1007/s00158-015- 1284-2 Zhou M, Rozvany GIN (1991) The COC algorithm, Part II: topological, geometrical and generalized shape optimization. Comput Methods Appl Mech Eng 89(1-3):309–336
+

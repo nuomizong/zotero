@@ -1,0 +1,910 @@
+Computer Methods in Applied Mechanics and Engineering 199 (2010) 2110–2122
+
+Contents lists available at ScienceDirect
+
+Computer Methods in Applied Mechanics and Engineering
+j o u r n a l h o m e p a g e : w w w. e l s ev i e r. c o m / l o c a t e / c m a
+
+Stress constraints sensitivity analysis in structural topology optimization
+J. París, F. Navarrina, I. Colominas ⁎, M. Casteleiro
+Group of Numerical Methods in Engineering, Dept. of Applied Mathematics, Universidade da Coruña, Campus de Elviña, 15071 A Coruña, Spain
+
+a r t i c l e
+
+i n f o
+
+a b s t r a c t
+Sensitivity Analysis is an essential issue in the structural optimization ﬁeld. The calculation of the derivatives of the most relevant quantities (displacements, stresses, strains) in optimum design of structures allows to estimate the structural response when changes in the design variables are introduced. This essential information is used by the most frequent conventional optimization algorithms (SLP, MMA, Feasible directions) in order to reach the optimal solution. According to this idea, the Sensitivity Analysis of the stress constraints in Topology Optimization problems is a crucial aspect to obtain the optimal solution when stress constraints are considered. Maximum stiffness approaches usually involve one linear constraint and one non-linear objective function. Thus, the computation of the required sensitivity analysis does not mean a crucial limitation. However, in the topology optimization problem with stress constraints, efﬁcient and accurate computation of the derivatives is needed in order to reach appropriate optimal solutions. In this paper, a complete analytic and efﬁcient procedure to obtain the Sensitivity Analysis of the stress constraints in topology optimization of continuum structures is analyzed. First order derivatives and second order directional derivatives of the stress constraints are analyzed and included in the optimization procedure. In addition, topology optimization problems usually involve thousands of design variables and constraints. Thus, an efﬁcient implementation of the algorithms used in the computation of the Sensitivity Analysis is developed in order to reduce the computational cost required. Finally, the sensitivity analysis techniques presented in this paper are tested by solving some application examples. © 2010 Elsevier B.V. All rights reserved.
+
+Article history: Received 2 December 2009 Received in revised form 25 February 2010 Accepted 7 March 2010 Available online 16 March 2010 Keywords: Topology optimization Minimum weight approach Stress constraints Sensitivity analysis Finite element method
+
+1. Introduction Since topology optimization of continuum structures problems was studied by Bendsøe and Kikuchi in 1988 [1,2], important tasks have been extensively analyzed (e.g. the Sensitivity Analysis and the Optimization Algorithms used to obtain the optimal solution). Although there are optimization algorithms that do not require the Sensitivity Analysis (e.g. GA, Optimality criteria [28,34]), most of the conventional optimization algorithms require speciﬁc information about the derivatives of the objective function and the constraints [8,10,18,21,22,31]. In fact, when the problem involves a large number of design variables and constraints, high order derivatives are more appropriate to reach the optimal solution [16–18]. Structural Topology Optimization problems with stress constraints usually introduce a large number of design variables (usually one design variable per element of the mesh of ﬁnite elements: the relative density [1–3,8,19,22,26,33]) and a large number of non-linear constraints (usually one stress constraint in the central node of each element [4,8,9,11,21,22,26,33]). In addition, if several load cases are considered, the number of stress constraints increases considerably.
+
+⁎ Corresponding author. E-mail address: icolominas@udc.es (I. Colominas). 0045-7825/$ – see front matter © 2010 Elsevier B.V. All rights reserved. doi:10.1016/j.cma.2010.03.010
+
+In this paper, three different formulations of the stress constraints have been analyzed: the local approach [4,8,22,26,33], the global approach [14,22,24,25,27] and the block aggregation approach of the stress constraints [24,25]. According to that, the resulting optimization problems require efﬁcient and speciﬁc optimization algorithms [16,22,30,31]. These algorithms usually require ﬁrst order derivatives of the objective function and the constraints. In some cases, higher order derivatives need to be considered in the optimization process in order to avoid unexpected effects (e.g. zig-zag)[16]. In this paper we have used a Sequential Linear Programming with Quadratic Line Search optimization algorithm. This procedure requires ﬁrst order derivatives of the stress constraints and the objective function, and ﬁrst and second order directional derivatives of the stress constraints and the objective function [16,21]. The computation of these derivatives can be carried out by using different numerical algorithms (ﬁnite differences, analytical derivation). When it is possible and suitable, the most usual technique to obtain the sensitivity analysis is the theoretical analysis. Thus, the derivation algorithm consists in the implementation of the theoretical functions previously obtained by applying analytical differentiation techniques [17]. The analytical computation of the derivatives requires an important and rigorous mathematical study in order to obtain the expressions to
+
+J. París et al. / Computer Methods in Applied Mechanics and Engineering 199 (2010) 2110–2122
+
+2111
+
+be implemented in the optimization source code. In this paper we develop the whole derivation process of the stress constraints in topology optimization of structures. This theoretical analysis allows to obtain exact mathematical expressions of the derivatives of the stress constraints and good numerical approximations. This paper is divided into 10 sections where this introduction is the ﬁrst one. The second section is dedicated to present and brieﬂy explain the optimization procedure used to solve the topology optimization problem. Section 3 is devoted to state the structural analysis methodology by means of a FEM model. Section 4 corresponds to the study of the sensitivity analysis of constraints that depend on the structural displacements and the design variables. Section 5 presents the sensitivity analysis of constraints that depend on a reference stress and on the design variables by using the algorithms proposed in Section 4. Sections 6, 7 and 8 are devoted to obtain the sensitivity analysis of three different formulations of stress constraints studied by the authors: the local approach, the global approach and the block aggregation of stress constraints. Section 9 presents some numerical examples of the topology optimization problem by using the techniques proposed in the previous sections. Finally, some conclusions are stated in Section 10. 2. Topology optimization methodology The optimization methodology developed to solve the minimum weight structural topology optimization problem with stress constraints is based on an iterative process. The sensitivity analysis is an essential issue in this methodology to obtain adequate results. The entire methodology is represented schematically in Fig. 1. Each iteration of the method is developed in a number of stages that need to be analyzed individually. The ﬁrst stage is the structural analysis, by means of the FEM, incorporating the effect of the relative density. The second stage is the computation of the objective function, which is based on the weight of the structure. This objective function may optionally include a perimeter penalization. Then, stress constraints are computed and checked to verify the active constraints. Three different formulations can be used to deal with stress constraints. These formulations have been previously studied by the authors in [21,22]. The next stage is the computation of the ﬁrst order derivatives of the active constraints. This stage is extensively analyzed in this paper in Sections 4.2.1, 6.1, 7.1 and 8.1. The sensitivity analysis obtained is used in the next stage of the method to obtain the search direction. This direction is obtained with three different algorithms (see Fig. 1) depending on the number of active constraints (steepest descent method or SLP) and the existence of violated constraints (back to the feasible region algorithm). Thus, ﬁrst and second order sensitivity analysis can be obtained by using directional derivatives of the objective function and the constraints in the search direction previously obtained. Note that, the search direction has been already obtained by using one of the algorithms presented before. The analysis and computation of these directional derivatives is extensively studied in this paper in Sections 4.2.2, 6.2, 7.2 and 8.2. These directional derivatives are included in the second order Taylor expansions of the objective function and the constraints to obtain the most adequate advance step in the search direction. Finally, the design variables are modiﬁed according to the search direction and the advance step, and convergence is checked. If convergence is achieved, the optimal solution has been obtained. Otherwise, the process begins again in the ﬁrst stage with the modiﬁed values of the design variables. 3. Structural analysis of the topology optimization problem
+Fig. 1. Scheme of the topology optimization methodology.
+
+The structural analysis of the minimum weight topology optimization problem proposed in this paper is developed by using a
+
+2112
+
+J. París et al. / Computer Methods in Applied Mechanics and Engineering 199 (2010) 2110–2122
+
+conventional ﬁnite element formulation with slight modiﬁcations in order to deal with the design variables: the relative densities. The proposed ﬁnite element model is developed by assuming two hypotheses: small displacements and small gradients of displacements. The discretization is stated according to a Galerkin model. Thus, the nodal displacements of the structure can be obtained by solving a system of linear equations. If the trial and test functions used to represent the displacement ﬁeld and the geometry satisfy the essential boundary conditions (prescribed displacements), the system of linear equations can be stated as KðρÞα ðρÞ = f ðρÞ: ð1Þ
+
+derivatives of the displacements requires to apply theoretical derivation techniques to a system of linear equations. Next, we introduce some notation aspects that will appear in the derivation algorithms. 4.1. Notation We deﬁne the vector of design variables as ρ = {ρ1ρ2⋯ρn}T. We also deﬁne a generic functional P(ρ):Rn → R. The derivatives of this functional P over the design variables can be deﬁned as dP = dρ & ∂P ∂ρ1 ∂P ∂ρ2 ⋯ ' ∂P : ∂ρn ð6Þ
+
+The matrix K is the stiffness matrix of the structure, α is the vector of nodal displacements and f is the vector of applied loads. Each one of the terms Kji of the stiffness matrix K can be obtained by assembling the elemental contributions as Kji = ΣNe 1Ke , j, i = 1,...,N, being Ne the e= ji number of elements and N the number of nodes of the FEM mesh used. e Each one of the terms Kji can be obtained as  T e Kji = ∫∫∫Ωe LΦj DðLΦi ÞdΩ; ð2Þ
+
+The Hessian matrix can be obtained as HP ðρÞ =   d dP T ; dρ dρ ð7Þ
+
+On the other hand, we also deﬁne a functional Q(ρ):Rn → Rm. The ﬁrst order derivatives can be stated as dQ = dρ & dQ1 dρ dQ2 dρ ⋯ dQm dρ 'T : ð8Þ
+
+where the matrices Φj and Φi contain the values of the shape functions corresponding to the nodal displacements j and i in a predeﬁned point (ro) of the discretization mesh used. This shape functions can be stated as Φi(ro) = ϕi(ro)Id, where ϕi is the value of the shape function associated to node i and d is the dimension of the problem. L is the differential operator that, applied to the displacement ﬁeld, gives the strains and D is the elasticity tensor of the material. The vector of applied forces fj can be obtained as
+Ne    T À T T pÁ f j = ∫∫Γο Φj tdΓ + ∑ ∫∫∫Ωe Φj b− LΦj D Lu dΩ; σ e=1
+
+and the second order derivatives as HQj ðρÞ =  T d dQ j ; dρ dρ j = 1; :::; m: ð9Þ
+
+If we consider that the vector ρ is obtained iteratively, we can deﬁne an improved value of this vector as: ρ
+k + 1
+
+ð3Þ
+
+=ρ +θ s
+
+k
+
+k k
+
+ð10Þ
+
+where b is the vector of forces per unit of volume, t is the vector of forces per unit of area and up is the vector of prescribed displacements. This FEM approach may be modiﬁed according to [19,21,22] in order to consider the design variables of the topology optimization e problem (the relative densities). Thus, the contributions Kji can be obtained by considering the relative density (ρe) of element e as:  T e Kji = ∫∫∫Ωe LΦj DðLΦi Þρe dΩ; and the vector of applied forces fj as: f j = ∫∫Γo Φj tdΓ + ∑ σ
+T Ne
+
+where sk = {s1s2⋯sn}T is the search direction in the k-th iteration. Thus, the ﬁrst order directional derivatives can be written as: Ds P = dP s; dρ ð11Þ
+
+and the second order directional derivatives as: Dss P =
+2
+
+ð4Þ
+
+  d dP T dρ T s = s HP s: dρ dρ dθ
+
+ð12Þ
+
+e=1
+
+∫∫∫Ω
+
+ T À   T pÁ Φj b− LΦj D Lu ρe dΩ;
+e
+
+Finally, following with the same idea, the ﬁrst and the second order directional derivatives of Q(ρ) can be stated as: ð5Þ Ds Q = fðDs Q1 Þ and Dss Q =
+2
+
+ðDs Q2 Þ⋯ðDs Qm Þg =
+
+T
+
+dQ s; dρ
+
+ð13Þ
+
+As it can be observed in Eq. (1), reactions are not involved in this formulation since the trial functions are forced to satisfy the essential boundary conditions [19,22]. 4. Sensitivity analysis of constraints that depend on displacements and design variables The computation of the Sensitivity Analysis of constraints depending on design variables can be easily developed by applying theoretical derivation techniques (chain rule). However, when the constraints of the problem depend on the displacements of the structure, the computation of the sensitivities is much more complicated since it is necessary to obtain a priori the derivatives of the displacements. These derivatives cannot be computed in a direct way since the displacements are obtained by means of a system of linear equations (FEM). Consequently, the computation of the
+
+n  2 Dss Q1
+
+   oT 2 2 Dss Q2 ⋯ Dss Q m ;
+
+ð14Þ
+
+where D2 Qj = sTHQ j s, j = 1,...,m. ss 4.2. Sensitivity analysis of constraints that depend on displacements The sensitivity analysis of constraints that depend on displacements can be theoretically analyzed by taking into account the previous deﬁnitions. Thus, we deﬁne ḡj(q(α)), (j = 1,...,m), as a set of functions depending on q, where m is the number of constraints and q may be, for example, a vector of stresses or displacements in predeﬁned points of the structure. This vector q generally depends on the nodal displacements (α). In addition, these nodal displacements
+
+J. París et al. / Computer Methods in Applied Mechanics and Engineering 199 (2010) 2110–2122
+
+2113
+
+depend on the design variables (ρ). In order to simplify the notation, we are going to use q(α) and α(ρ) instead of the complete expressions q ≡ q (α) and α ≡ α(ρ). Thus, we may deﬁne gj ðρÞ = g j ðqÞ
+
+that can be determined by solving the system of linear equations:  T
+
+j
+
+qðα Þ α ðρÞ
+
+;
+
+ð15Þ
+
+K λj =
+
+T
+
+dq dα
+
+j
+
+∂g j ∂q
+
+!T
+
+α ðρÞ
+
+j
+
+qðα Þ ⋅ α ðρÞ
+
+ð20Þ
+
+where q(α) = {qk(α)}, k = 1, ..., m, being m the dimension of the vector q(α) (usually related to the number of constraints). 4.2.1. First order sensitivity analysis of stress constraints According to Eq. (15) the derivatives of gj(ρ) can be obtained as dgj ∂g j = dρ ∂q
+
+Consequently, the derivatives of the stress constraints can be obtained, by using the “Adjoint variable” λj, as:   dgj dK T df − α : = λj dρ dρ dρ
+
+ð21Þ
+
+j
+
+qðα Þ α ðρÞ
+
+dq dα
+
+j
+
+α ðρÞ
+
+dα ; dρ
+
+ð16Þ In the case that we are analyzing in this paper, the matrix of the system of linear equations proposed in Eq. (20) is the stiffness matrix due to the symmetry. This fact means an important advantage since it is possible to apply a factorization algorithm (e.g. Cholesky) in order to solve the structural problem. Thus, the factorized matrix can be used to solve as many additional systems of linear equations as required, like the ones proposed in Eq. (20), in order to obtain the sensitivities. This technique reduces drastically the computing time since only forward and backward substitutions are required to calculate the “Adjoint Variable” and, consequently, the sensitivity analysis of each constraint. In addition, with the “Adjoint Variable” technique, intermediate derivatives are not computed neither stored. This is a very important advantage since the number of systems of linear equations to be solved is smaller, for a reduced number of load cases (e.g. 2 or 3), than the number of systems required by using the “Direct Differentiation” technique (Eqs. (16) and (17)). Furthermore, the “Adjoint Variable” differentiation methodology is very appropriate to compute the derivatives of a set of constraints that can be previously deﬁned (e.g. a set of active constraints). Thus, it is not necessary to compute the whole set of constraints derivatives. This fact also means an important reduction in computing time. Following with the same idea, the derivatives of each constraint can be computed individually. The computation of the derivatives of one stress constraint does not involve any interference with the computation of the derivatives of the rest of the constraints. An additional advantage of computing ﬁrst order derivatives of each stress constraint separately is that they can be easily computed in parallel [7]. The techniques proposed were speciﬁcally developed to reduce as much as possible the computing effort without losing precision. Otherwise the computation of the sensitivity analysis will become unaffordable in practical applications that involve thousands of constraints.
+
+where the ﬁrst order derivatives of the vector of displacements (α) over the design variables (ρ) can be obtained by differentiating Eq. (1) as: K dα df dK = − α: dρ dρ dρ ð17Þ
+
+The terms on the right side of Eq. (17) can be directly obtained from the FEM formulation. Note that the external forces per unit of area applied in this problem do not depend on the design variables and, consequently, their derivatives are null. So, these external forces will not be considered in the analysis. Furthermore, the derivatives of the stiffness matrix (Kji) over the design variable ρe can be directly obtained by assembling the original stiffness matrix of the element e with ρe = 1. The derivatives of the elemental stiffness matrix of the rest of the elements over the design variable ρe are obviously null. These derivatives of the stiffness matrix and the nodal forces are required to obtain the derivatives of the nodal displacements according to Eq. (17). Two different procedures can be developed to obtain the derivatives of the nodal displacements: the so called “Direct Differentiation” algorithms and “Adjoint variable” algorithms. Both procedures are exact from an analytic point of view. The differences rely on the sequence of operations involved. The “Direct Differentiation” technique proposed performs the computation of the nodal displacement derivatives (17). Then, these derivatives are used to calculate the sensitivities of the stress constraints (16). Thus, withthis formulation it is necessary to save the whole set of nodal displacement derivatives. In fact, it is not strictly necessary to store the whole set of nodal displacement derivatives but it is advisable in order to reduce the computing time. In addition, a large number of systems of linear equations, like the ones proposed in Eq. (17), need to be solved. In practice, the number of systems of linear equations to be solved is equal to the number of design variables of the optimization problem. The “Adjoint Variable” algorithm introduces some modiﬁcations in dα the calculation of the stress constraints derivatives. The term in
+dρ
+
+Eq. (16) can be substituted according to Eq. (17) inorder to avoid the computation of the nodal displacements derivatives. Thus, dgj ∂g j = dρ ∂q
+
+j
+
+qðα Þ α ðρÞ
+
+dq dα
+
+j
+
+K
+
+−1
+
+
+
+α ðρÞ
+
+ df dK − α ⋅ dρ dρ
+
+ð18Þ
+
+Now, it is possible to deﬁne an “Adjoint Variable” λj as: λj =
+T
+
+∂g j ∂q
+
+j
+
+qðα Þ α ðρÞ
+
+dq dα
+
+j
+
+K
+
+−1
+
+α ðρÞ
+
+;
+
+ð19Þ
+
+4.2.2. First and second order directional derivatives of stress constraints that depend on nodal displacements First order derivatives of the stress constraints and the objective function are usually required by the most frequent conventional optimization algorithms used in topology optimization. The optimization algorithm proposed in this paper is based on Sequential Linear Programming techniques. This algorithm requires ﬁrst order derivatives of the constraints and ﬁrst order derivatives of the objective function in order to obtain an adequate search direction. Then, a line search in the direction obtained can be performed to deﬁne the most appropriate advance factor. This “line search” may be obtained by using directional Taylor expansions of the constraints and the objective function. In this paper, we propose to use a second order directional reconstruction of the constraints and the objective function to obtain the advance factor (Quadratic Line Search). These second order directional reconstructions allow to avoid “zig-zag” phenomena around the optimal solution [17,18].
+
+2114
+
+J. París et al. / Computer Methods in Applied Mechanics and Engineering 199 (2010) 2110–2122
+
+Thus, the directional derivatives of the constraints along the direction s can be obtained, according to Eq. (11), as: dgj s; Ds gj = dρ and by substituting ( Ds gj = ∂g j ∂q
+dgj ) dρ
+
+where Ds q = dq dα
+
+ð22Þ according to Eq. (16): ð23Þ
+
+j
+
+α ðρÞ
+
+Ds α;
+
+ð28Þ
+
+j
+
+qðα Þ α ðρÞ
+
+dq dα
+
+j
+
+α ðρÞ
+
+Ds α;
+
+and Dsα is obtained by means of the system of linear equations proposed in Eq. (24). The second order directional derivatives of the nodal displacements (D2 α) can be obtained by differentiating Eq. (24) ss as:       2 2 2 K Dss α = Dss f − Dss K α−2ðDs KÞðDs α Þ: ð29Þ
+
+where Dsα can be obtained as: KðDs α Þ = ðDs f Þ−ðDs KÞα: ð24Þ Note that the matrix of the system of linear equations matches up with the stiffness matrix of the structural problem. Thus, the second order directional derivative of the constraint (D2 gj) can be obtained ss by solving the system of linear equations proposed in Eq. (29) and by replacing D2 α in Eq. (27). ss 5. Sensitivity analysis of stress constraints that depend on a reference stress and on the design variables In the previous section we have analyzed the general case with constraints that depend on the nodal displacements. Now we focus our attention in the sensitivity analysis of stress constraints that depend on the nodal displacements and the design variables. Thus, we deﬁne a stress constraint ˜j(q(α),ρ) that depends on the design g variables and on a vector q. In this case, vector q corresponds to a material failure criterion like, for example, the Von Mises reference stress: gj ðρÞ = g j ðqðα Þ; ρÞj α ðρÞ ; ˜ ð30Þ
+
+It is important to remark that, as it was proposed in Eq. (17), the matrix of the resulting system of linear equations is the stiffness matrix of the structural problem. If we take into account that this matrix has been previously factorized by means of a Cholesky algorithm, the solution of Eq. (24) only requires to update the vector of the right-hand side and to perform the suitable forward and backward substitutions. The calculation of the directional derivatives of the stress constraints is stated by means of a “Direct Differentiation” algorithm. This technique is computationally more efﬁcient than the “Adjoint variable” algorithm to compute high order derivatives. The “Adjoint variable” method requires to compute and store the full set of “adjoint variables” (λj, j = 1, ..., m) in order to obtain ﬁrst and second order directional derivatives of the stress constraints. Note that, according to Section 4.2.1, the full set of stress constraints derivatives is not computed since only active constraints are involved in the computation of the search direction. Consequently, the “adjoint variables” obtained correspond to the set of active constraints. Thus, the directional derivatives of the whole set of constraints cannot be obtained with this technique. On the other hand, the “Direct Differentiation” method does not require to compute any adjoint variable and allows to compute the directional derivatives of the whole set of stress constraints. According to this idea, the computation of the ﬁrst order directional derivatives of the stress constraints requires to solve the system of linear Eq. (24) and include these derivatives in Eq. (23). Once again, the algorithms proposed have been speciﬁcally developed to reduce as much as possible the computing effort required (both memory and CPU time). Second order directional derivatives of the stress constraints can be obtained by using the “Direct Differentiation” technique proposed. Thus, these derivatives can be obtained by differentiating Eq. (23) as: Dss gj =
+2
+
+where q(α) = {qk(α)} k = 1, ..., m; being m the number of functions that depend on the nodal displacements. In this case, m is the number of points of the structure where values of the reference stress are checked. In topology optimization problems with stress constraints, the value of the reference stress is usually veriﬁed in the central node of each element of the FEM mesh. Thus, ˆ qe ðα Þ = σ e ðσe Þj σe ðα Þ e = 1; :::; Ne ð31Þ
+
+where σe is the stress tensor and σ̂e is the Von Mises reference stress in the central point of element e. Consequently, ˆ dqe dσ e = dα dσe
+
+ d  Dg dρ s j
+
+j
+
+j
+
+σ e ðα Þ
+
+dσe : dα
+
+ð32Þ
+
+qðα Þ s; α ðρÞ
+
+ð25Þ
+
+In addition, we can state that Ds q = ∑
+Ne
+
+and, by applying the “chain rule”, as: Dss gj =
+2
+
+d ∂g j dρ ∂q
+
+j
+
+qðα Þ α ðρÞ
+
+dq dα
+
+j
+
+α ðρÞ
+
+dα s dρ
+
+!T s⋅ ð26Þ
+
+e=1
+
+dˆ e σ dσe
+
+j
+
+σ e ðα Þ α ðρÞ
+
+dσe dα
+
+j
+
+α ðρÞ
+
+Ds α :
+
+ð33Þ
+
+The second order derivatives can be obtained as: (     ) d dqe T d dqe T = dα dα dαij dα where ð34Þ
+
+Finally, if the previous expression is expanded by developing all the derivatives, the second order directional derivatives of the stress constraints can be obtained as: ∂g j 2 T ∂ Dss gj = ðDs qÞ ∂q ∂q !T
+
+i = 1;:::;N;j = 1;:::;d
+
+Þ ∂q qððα Þ α ðρÞ α ρ   m ∂g j d dqk T T Ds α; + ∑ qðα Þ ðDs α Þ dα dα k = 1 ∂qk α ðρÞ α ðρÞ
+
+j
+
+j
+
+qðα Þ Ds q α ðρÞ
+
++
+
+∂g j
+
+j
+
+dq dα
+
+j
+
+Dss α
+
+2
+
+ð27Þ
+
+j
+
+  dσe T  T   d ˆ d dqe dσ e T dα = dαij dα dαij dσe
+
+j
+
+σe ðα Þ
+
+  dˆ e T σ  T d dσe dσe + dα dσe
+
+j
+
+σ e ðα Þ
+
+dσe : dαij ð35Þ
+
+J. París et al. / Computer Methods in Applied Mechanics and Engineering 199 (2010) 2110–2122
+
+2115
+
+If we take into account the previous considerations (being qe a reference stress) all the derivatives of the stress constraints can be easily obtained by using the techniques proposed in Section 4.2. The previous algorithms and procedures allow to obtain analytically the derivatives of the stress constraints. However, a ﬁnal step in the sensitivity analysis process is required in order to complete the whole sensitivity analysis procedure: it is necessary to compute the derivatives of the reference stress and the derivatives of the stress tensor. 5.1. Sensitivity analysis of the Von Mises failure criterion The most usual reference stress used in topology optimization is the Von Mises stress since most of the structural problems involved are made of metal (steel, aluminium). The Von Mises failure criterion deﬁnes a reference stress by assuming an equal response of the material under tension and compression conﬁgurations. This reference stress is deﬁned, in 2D problems under plane stress hypothesis, by: ˆ σ VM = qﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ 2 2 σx + σy −σx σy + 3τ2 : xy ð36Þ
+
+where N is the number of nodes of the structure. Thus, α = {αi}, i = 1, ..., N and αi = {αi1⋯αid}T, where d is the number of dimensions of the problem (in this case d = 2). Consequently,   À oÁ 1 dσ = DLΦi r ; 0 dαi1   À oÁ 0 dσ = DLΦi r ; i = 1; :::; N 1 dαi2 ð41Þ
+
+where the differential operator L is applied over the matrix Φi(ro). This matrix contains the values of the shape function corresponding to node i in the point ro. According to [19] the matrix Φi(ro) is deﬁned by Φi(ro) = ϕi(ro)I2, where ϕi contains the value of the shape function associated to node i in the point ro. The matrix D and the matrix obtained by applying L over Φi do not depend on the design variables according to the FEM formulation proposed in [19,21,22]. Thus,   d dσ = 0; dαjk dαiℓ ∀ i; j = 1; :::; N; ∀ ℓ; k = 1; 2
+
+where σ = {σxσyτxy}T are the components of the stress tensor σ in a predeﬁned point stated in a Cartesian coordinate system (x, y, z). The sensitivity analysis of the Von Mises reference stress Eq. (36) can be obtained as: dˆ VM σ = dσ ˆ ∂ σ VM ∂σx ∂ˆ VM σ ∂σy ! ˆ ∂ σ VM ⋅ ∂τxy ð37Þ
+
+Note that, the full procedure to obtain stress constraints derivatives in topology optimization problems has been developed by stating the derivatives of the stress tensor and the derivatives of the reference stress proposed. Thus, speciﬁc sensitivities of the stress constraints approaches proposed in [21,22] can be developed by applying the previous algorithms. 6. Sensitivity analysis of local stress constraints According to [8,9,19,21,22,26], the local stress constraints approach imposes one local constraint in the central point of each element of the ﬁnite element mesh. This local stress constraint is deﬁned, according to [19,21,22], as   ge ðρÞ = g e σ VM;e ; ρe ˜ ˆ
+
+Second order derivatives can be obtained by differentiating Eq. (37) as: ! !3   ˆ ˆ ˆ ∂ ∂ σ VM ∂ ∂ σ VM ∂ ∂ σ VM 6 7 6 ∂σx ∂σx ∂σx ∂σy ∂σx ∂τxy 7 6 7 6 ! !7   6 ∂ ∂ σ  ˆ VM ˆ ˆ d dˆ VM T σ ∂ ∂ σ VM ∂ ∂ σ VM 7 6 7 =6 7: ð38Þ 6 ∂σy ∂σx dσ dσ ∂σy ∂σy ∂σy ∂τxy 7 6 7 6 ! !7 6 ∂ ∂ σ  ˆ ˆ VM ∂ ∂ σ VM ∂ ∂ˆ VM 7 σ 4 5 ∂τxy ∂σx ∂τxy ∂σy ∂τxy ∂τxy 2
+
+j
+
+≤0⋅ ˆ σ VM;e ðσe Þ σe ðα Þ α ðρÞ
+
+ð42Þ
+
+being  !   ε q ˆ σ ρe : g e σ VM;e ; ρe = σ VM;e −ˆ max 1−ε + ˜ ˆ ρe
+
+ð43Þ
+
+5.2. Sensitivity analysis of the stress tensor The sensitivity analysis of the stress tensor is essential to obtain the derivatives of the stress constraints proposed. Thus, once we have obtained the sensitivity analysis of the reference stress, it is necessary to describe the procedure to obtain the required derivatives of the stress tensor (σ(α)) in a predeﬁned point of the structure (ro). If we assume the hypotheses: linear elasticity, small displacements and small gradients of displacements, and the discretization corresponds to a Galerkin approach, the computed stress tensor in FEM is given by À oÁ À oÁ σ r = DLu r ð39Þ
+
+The parameter q allows to deal with real stresses (q = 0) or to deal with effective stresses (q = 1) and ε is the so called “relaxation factor” and usually takes the values ε ∈ (0.001, 0.1) [5,6,8,22,32]. 6.1. First order derivatives of the local stress constraints First order derivatives of the local stress constraints can be obtained by applying the “Adjoint Variable” method and by taking into account Sections 5.1 and 5.2 as: dge ∂ge ˜ = dρi ˆ ∂ σ VM;e
+
+j
+
+ˆ σ VM;e ðσe Þ σe ðα Þ α ðρÞ
+
+ˆ d σ VM;e dσe
+
+j
+
+σe ðα Þ α ðρÞ
+
+dσe dα
+
+j
+
+α ðρÞ
+
+dα ∂g ˜ + δie e dρi ∂ρi
+
+j
+
+ˆ σ VM;e ðσe Þ ; σ e ðα Þ α ðρÞ
+
+where u(ro) is the vector of computed displacements at point (ro). In fact, expression (39) is applied over the vector of theoretical displacements but, in practice, we are only able to obtain computed values of the displacements. According to the discretization developed in the ﬁnite element formulation [19], the stress tensor in point ro can be obtained by considering the nodal displacements (α) as: À oÁ À oÁ σ r = ∑ DLΦi r α i ;
+N i=1
+
+where
+
+dge dρ
+
+& =
+
+' dge , i = 1, ..., Ne.
+dρi
+
+ð44Þ  
+
+Thus, the derivatives of the nodal displacements replaced in Eq. (44) according to Eq. (21) as:   dge dK ∂g ˜ T df = λe − α + δie e dρi dρi dρi ∂ρi
+
+dα dρi
+
+can be
+
+ð40Þ
+
+j
+
+ˆ σ VM;e ðσe Þ σe ðα Þ α ðρÞ
+
+ð45Þ
+
+2116
+
+J. París et al. / Computer Methods in Applied Mechanics and Engineering 199 (2010) 2110–2122
+
+where δie is the Kronecker delta function and λe is the “Adjoint Variable”, which is deﬁned as: ∂ge ˜ T λe = ˆ ∂ σ VM;e
+
+7. Sensitivity analysis of the global stress constraint The local approach of stress constraints is the most usual formulation in topology optimization of structures. However, other different approaches that consider stress constraints can be analyzed in order to reduce the computing effort required. The most usual alternative formulation is the so called “Global Approach of stress constraints” [21,22]. In this kind of formulations, one global constraint that aggregates the effect of all the local stress constraints is imposed. The global approach assembles the contribution of all the local constraints in only one function. This approach does not guarantee the feasibility of all the local constraints. However, the use of the global approach of the stress constraints means a great reduction in computational cost since only one constraint is involved in the optimization process. Furthermore, this formulation is usually based on the aggregation of the local stress constraints contributions. Thus, the Sensitivity Analysis required can be obtained by applying the techniques proposed in the previous sections with some slight modiﬁcations. 7.1. First order derivatives of the global stress constraint First order sensitivity analysis can be obtained by applying the techniques and the algorithms proposed in Eqs. (20) and (21). In order to establish these algorithms more speciﬁcally, it is necessary to deﬁne σ̂VM = {σ̂VM,e}, e = 1, ..., Ne. Now, if we take into account the previous consideration, the global stress constraint function proposed in [21,22] can be written, according to [14,27], as ˜ ˆ GKS ðρÞ = GKS ðσVM ; ρÞ
+
+j
+
+ˆ σ VM;e ðσe Þ σ e ðα Þ α ðρÞ
+
+ˆ d σ VM;e dσe
+
+j
+
+σe ðα Þ α ðρÞ
+
+dσe dα
+
+j
+
+K
+
+−1
+
+α ðρÞ
+
+⋅
+
+ð46Þ
+
+All the terms in the previous equation can be directly obtained by differentiating or by applying Eqs. (37) and (41). Thus, the partial derivatives of each local stress constraint over the relative densities is null except when the relative density coincides with the element where the stress constraint is imposed. In addition, the “Adjoint Variable” can be obtained by solving the system of linear equations proposed in Eq. (46) according to Eq. (20). 6.2. First and second order directional derivatives of the local stress constraints According to the general optimization procedure proposed in [19,21,22], ﬁrst order derivatives of the stress constraints and the objective function are required to obtain the search direction. This search direction is used now to obtain ﬁrst and second order directional derivatives of the stress constraints and the objective function since they are required to develop the Quadratic Line Search. First and second order directional derivatives of the stress constraints can be obtained by following the ideas previously proposed in Section 4.2 as ∂g e ˜ ˆ ∂ σ VM;e
+
+Ds ge =
+
+j
+
+ˆ σ VM;e ðσe Þ σ e ðα Þ α ðρÞ
+
+dˆ VM;e σ dσe
+
+j
+
+σe ðα Þ α ðρÞ
+
+dσe dα
+
+j
+
+α ðρÞ
+
+Ds α +
+
+∂g e ˜ ∂ρe
+
+j
+
+ˆ σ VM;e ðσe Þ se ; σe ðα Þ α ðρÞ
+
+j
+
+ð47Þ being where the term Dsα can be previously obtained by applying Eq. (24). As it can be observed, the rest of the terms match up with the ones previously studied for the ﬁrst order analysis in Eq. (44). Second order directional derivatives of the stress constraints can be obtained according to Eq. (27). In addition, the term D2 α must ss be obtained by solving the system of linear equations proposed in Eq. (29). Thus,
+ 2  ∂g e ˜ ∂ 6 ∂σ VM;e ˆ 6 ! 6 ˆ ˆ Ds σ VM;e T 6 ∂ σ VM;e 2 6   Dss ge = 6 se ∂ ge ˜ 6 6 ∂ ∂ρe 4 ˆ ∂ σ VM;e + ∂g e ˜ ˆ ∂σ VM;e  ∂
+∂ ge ˜ ˆ ∂ σ VM;e
+
+ˆ σ VM;e ðσe Þ ≤0 σ e ðα Þ α ðρÞ
+
+ð50Þ
+
+ # " Ne ˆe μ σ * −1 1 1 ˜ ˆ − lnðNe Þ; GKS ðσVM ; ρÞ = ln ∑ exp μ μ e=1
+
+ð51Þ
+
+3 7 7 7 7 7 7 7 7 5
+
+∂ρe   ∂ ge ˜ ∂
+∂ρe
+
+∂ρe
+
+j
+
+where μ is the so called “aggregation parameter” and usually takes the values μ ∈ [20, 40] in practical applications [21,22]. This global stress constraint replaces and substitutes all the local constraints but, consequently, local stress constraints may not be strictly satisﬁed. The ⁎ normalized stress (σ̂e ) deﬁned in the central point of element e is obtained as ˆ σ VM;e * ˆ σe = : ˆ σ max φe ð52Þ
+
+ˆ Ds σ VM;e se
+ˆ σ VM;e ðσe Þ σe ðα Þ α ðρÞ
+
+!
+
+j
+
+ˆ σ VM;e ðσe Þ σe ðα Þ α ðρÞ
+
+ˆ d σ VM;e dσe
+
+j
+
+σe ðα Þ α ðρÞ
+
+dσe dα
+
+j
+
+α ðρÞ
+
+!   2 T Dss α + ðDs α Þ H σ VM;e Ds; α ; ˆ
+
+First order derivatives of the global stress constraint can be obtained, by using the “Adjoint Variable” technique proposed in Section 5, as:   ˜ dGKS dK ∂GKS T df − α + =λ dρ dρ dρ ∂ρ
+
+ð48Þ where:   dσe T = dα
+
+j
+
+ˆ σ VM;e ðσe Þ σe ð α Þ α ð ρÞ
+
+H σ VM;e ˆ
+
+j
+
+ T ˆ d d σ VM;e dσe α ðρÞ dσe
+
+j
+
+being
+σ e ðα Þ α ðρÞ
+
+dσe dα
+
+j
+
+α ðρÞ
+
+⋅
+
+ð49Þ
+
+˜ ∂GKS K λ= ∑ ˆ ∂ σ VM;e e=1
+T Ne
+
+j
+
+ˆ σ VM;e ðσe Þ σe ðα Þ α ðρÞ
+
+ˆ d σ VM;e dσe
+
+j
+
+σ e ðα Þ α ðρÞ
+
+dσe dα
+
+j
+
+!T ⋅ ð54Þ
+
+α ðρÞ
+
+All the additional terms required to obtain the second order directional derivatives can be easily obtained by considering the statements deﬁned in Sections 4 and 5. Further details about all the derivatives required can be found in [21].
+
+All the additional derivatives required can be easily obtained by considering the statements proposed in Sections 4 and 5, and the ﬁrst order derivatives previously obtained.
+
+J. París et al. / Computer Methods in Applied Mechanics and Engineering 199 (2010) 2110–2122
+
+2117
+
+7.2. First and second order directional derivatives of the global stress constraint First order derivatives of the global stress constraint have been already calculated in the previous section. Thus, ﬁrst and second order directional derivatives of the global stress constraint can be obtained by applying the “Direct Differentiation” procedure proposed in Section 5. First order directional derivatives can be obtained, according to Eq. (24), as: Ds GKS = ˜ ∂GKS ˆ e = 1 ∂ σ VM;e ∑
+Ne
+
+being σ̂ b = {σ̂VM,e} with e ∈ Bb, VM " À Ã Á#   1 1  b ˆ μ σ −1 ˜b ˆ b GKS σVM ; ρ = ln ∑ exp e − ln Ne ; μ μ e∈Bb
+
+ð60Þ
+
+j
+
+ˆ σ VM;e ðσe Þ σe ðα Þ α ðρÞ
+
+dˆ VM;e σ dσe
+
+j
+
+σe ðα Þ α ðρÞ
+
+dσe dα
+
+j
+
+α ðρÞ
+
+ðDs α Þ
+
+˜ ∂GKS + ∂ρ
+
+j
+
+ð55Þ
+
+ˆ σ VM;e ðσe Þ s σe ðα Þ α ðρÞ
+
+and Bb and Nb the set of elements and the number of elements e ⁎ contained in block b. The normalized stress σ̂e computed in the central point of element e is stated according to Eq. (52). The constraints obtained in Eq. (60) are essentially identical to the ones proposed for the global constraint approach but they only aggregate the contribution of the local constraints related to the elements contained in each block. Thus, ﬁrst order derivatives and ﬁrst and second order directional derivatives of the block aggregated constraints can be stated according to the algorithms proposed in Section 7 by taking into account the set of elements contained in each block. 8.1. First order derivatives of the block aggregated constraints First order Sensitivity Analysis of the stress constraint associated to block b can be obtained as:
+
+where Dsα is obtained by applying Eq. (24). Second order directional derivatives are obtained by applying the general procedure proposed in Eqs. (27) and (41) as
+2  T ˜ ∂GKS 6 ∂ ∂σ ˆ VM 6 6 Â ÃT 6 ∂σVM ˆ 2 Dss GKS = Dsσ VM s 6  ˆ T 6 ˜ 6 ∂GKS 6∂ 4 ∂ρ ∂σVM ˆ + ∑
+Ne
+
+ T 3 ˜ ∂ GKS ∂ 7 ∂σVM ˆ 7 7 7 ∂ρ  T 7 7 ˜ 7 ∂ GKS 7 ∂ 5 ∂ρ ∂ρ
+
+e=1
+
+˜ δGKS 2 Dss α δα
+
+!
+
+j
+
+ˆ DsσVM s
+σ VM; eðσe Þ ˆ σe ðα Þ α ðρÞ
+
+!
+
+  ˜b dGb dK ∂GKS T df KS − α + = λb dρ dρ dρ ∂ρ
+
+j
+
+ˆ σ VM;e ðσe Þ : σe ð α Þ α ð ρÞ
+
+ð61Þ
+
+j
+
+α ðρÞ
+
++ ∑
+
+Ne
+
+˜ ∂GKS
+
+ˆ e = 1 ∂ σ VM;e
+
+j
+
+ˆ σ VM;e ðσe Þ ðDs α Þ σe ðα Þ α ðρÞ
+
+T
+
+H σ VM;e ðDs α Þ; ˆ
+
+where the adjoint variable λb can be obtained as: 0 ˜b B ∂GKS T K λb = B ∑ @ e∈B ∂ σ ˆ VM;e b 1T C C : A ð62Þ
+
+ð56Þ where ˜ ˜ δGKS ∂GKS = δα ˆ ∂ σ VM;e
+
+j
+
+ˆ σ VM;e ðσe Þ σe ðα Þ α ðρÞ
+
+dˆ VM;e σ dσe
+
+j
+
+σe ðα Þ α ðρÞ
+
+dσe dα
+
+j
+
+j
+
+ˆ σ VM;e ðσe Þ σe ðα Þ α ðρÞ
+
+ˆ d σ VM;e dσe
+
+j
+
+σ e ðα Þ α ðρÞ
+
+dσe dα
+
+j
+
+α ðρÞ
+
+α ðρÞ
+
+ð57Þ ˜ KS The partial derivatives of the block aggregated constraint (G b ) over (σ̂VM,e) and ρe are obviously null when e ∉ Bb.
+
+and  H σ VM;e = ˆ dσe dα T
+
+j
+
+ T ˆ d dσ VM;e dσe α ðρÞ dσe
+
+j
+
+σe ð α Þ α ðρÞ
+
+dσe dα
+
+j
+
+α ðρ Þ
+
+⋅
+
+ð58Þ
+
+8.2. First and second order directional derivatives of the block aggregated constraints First and second order directional derivatives of the block aggregated constraints can be obtained by using the methodology proposed for the global constraint in Section 7.2 by taking into account that only the contributions of the set of elements Bb contained in block b must be considered. Thus, 0 Ds Gb KS B ˜ KS B ∂Gb = ∑ B B ˆ e∈Bb @∂ σ VM;e ˜b ∂GKS + ∂ρ 1
+
+The rest of the terms in Eqs. (56), (57) and (58) can be directly obtained from the general procedures proposed in Section 5. Further details about all the derivatives required can be found in[21]. 8. Sensitivity analysis of the block aggregated approach of the stress constraints In the previous sections we have studied the sensitivity analysis procedures for the local and the global approach of stress constraints. These formulations of the stress constraints have been previously studied in [19,22]. More recently, the authors have also published a different formulation of the stress constraints that deﬁnes groups of elements and states one global constraint per group by aggregating the contributions of the elements of each group. This formulation is called “Block aggregation of stress constraints” and it was implemented successfully in topology optimization problems in [20,21,23,25]. Thus, each constraint is deﬁned for each block as:   b ˜b ˆb GKS ðρÞ = GKS σVM ; ρ
+
+j
+
+j
+
+ˆ σ VM;e ðσe Þ σ e ðα Þ α ðρÞ
+
+dˆ VM;e σ dσe
+
+j
+
+σ e ðα Þ α ðρÞ
+
+dσe dα
+
+j
+
+C C CD α C s α ðρÞ A
+
+ð63Þ
+
+ˆ σ VM;e ðσe Þ s σe ðα Þ α ðρÞ
+
+j
+
+ˆ σ VM;e ðσe Þ ≤0; σe ðα Þ α ðρÞ
+
+ð59Þ
+
+where Dsα can be obtained according to Eq. (24) and the rest of the involved terms have been previously analyzed in Section 7.1. Second order directional derivatives of the block aggregated constraints can be obtained by applying the techniques used to obtain the second order directional derivatives of the global stress
+
+2118
+
+J. París et al. / Computer Methods in Applied Mechanics and Engineering 199 (2010) 2110–2122
+
+constraint. Thus, these derivatives can be obtained by considering the elements contained in each block as: 2 " 6∂ 7 ∂ 6 ∂σ b ˆVM ∂σVM 7 ˆb 6 7 7 #T 6 " # b b 7 ∂ρ ˆb DsσVM 6 ∂σ VM ˆ DsσVM ˆ 2 b 6 7 Dss GKS = 6 !T !T 7 6 7 s s ˜b ˜b 6 7 ∂GKS ∂GKS 6∂ 7 ∂ 6 7 σ ðσ Þ ∂ρ ∂ρ ˆ VM;e e 4 5 σe ð α Þ ∂ρ ∂σVM ˆb α ð ρÞ ! ˜b ˜b δGKS ∂GKS 2 T + ∑ Dss α + ∑ ˆ ˆ σ VM;e ðσe Þ ðDs α Þ Hσ VM;e ðDs α Þ; δα σ e∈Bb e∈Bb ∂ˆ VM;e ˜ ∂GKS
+b
+
+!T
+
+˜ ∂GKS
+b
+
+!T 3
+
+j
+
+j
+
+Fig. 3. Theoretical solution of the Michell beam (Michell [15]).
+
+σ e ðα Þ α ðρÞ
+
+ð64Þ where ˜ ˜ δGKS ∂GKS = δα ∂ˆ VM;e σ
+b b
+
+9.1. Michell beam The ﬁrst example performs the analysis of the topology optimization problem associated to the well-known Michell beam [15]. This example corresponds to a cantilever beam supported on the border of a circle (see Fig. 2). This example was previously analyzed in 1904 by Michell [15], who obtained the optimal solution theoretically. According to the theoretical solution proposed by Michell in [15] (shown in Fig. 3),the optimal volume of material can be obtained as:    a 1 1 V = F a ln + r0 P Q ð67Þ
+
+j
+
+ˆ σ VM;e ðσe Þ σe ðα Þ α ðρÞ
+
+∂ˆ VM;e σ dσe
+
+j
+
+σe ðα Þ α ðρÞ
+
+dσe dα
+
+j
+
+α ðρÞ
+
+ð65Þ
+
+and Hσ VM;e = ˆ   dσe T dα
+
+j
+
+ T σ d dˆ VM;e dσe α ðρÞ dσe
+
+j
+
+σe ðα Þ α ðρÞ
+
+dσe dα
+
+j
+
+α ðρÞ
+
+:
+
+ð66Þ
+
+The derivatives required in 64, 65 and 66 can be directly obtained. Thus, ﬁrst order partial derivatives of the block aggregated constraint ˜KS Gb over the design variables are null when e ∉ Bb. In addition, the ˜b ˜b ˜b ∂2GKS ∂2GKS ∂2GKS , , and second order partial derivatives ˆ ˆ ∂ρi ∂ρj ∂ρi ∂ σ VM; j ∂ σ VM;i ∂ρj ˜b ∂2GKS with i, j = 1, ..., Ne are obviously null except when i, j ∈ Bb. ˆ ˆ ∂ σ VM;i ∂ σ VM; j The rest of the derivatives required to obtain the directional derivatives of the block aggregated approach of the stress constraints have been analyzed in the previous sections. Further details about all the derivatives required can be found in [21]. 9. Numerical examples In this section we present some examples solved by using the previous methodology in order to show its feasibility. These examples have been proposed since theoretical solutions exist (see [12,13,15,29] for more details). The ﬁrst example is the problem of the Michell beam. The second example analyses the topology optimization of a cantilever beam. The examples solved are 2D structures in plane stress.
+
+where F is the vertical force applied, a is the distance between the vertical force and the center of the circle, r0 is the radius of the circle and P and Q are the tension and compression elastic limits of the material being used. Fig. 2 (left) shows the dimensions of the domain of the structure proposed in this example. This domain is discretized with a structured mesh of 6000 quadrilateral 8-node elements that states a structural analysis with 37680 degrees of freedom (Fig. 2 (right)). The structure is 0.01 m thick. The external force (6 kN) has been distributed on the surface of two contiguous elements in order to avoid stress accumulation. The material being used is steel with density γmat = 7650 kg/m3, Poisson ratio ν = 0.3, Young Modulus E = 2.1105 MPa and elastic limit σ̂max = 230 MPa. Fig. 3 shows the theoretical solution of this problem proposed by Michell [15]. Fig. 4 (left) shows the optimal solution obtained by using the local approach of the stress constraints and the sensitivity analysis techniques proposed in Section 6. Fig. 4 (right) shows the ﬁnal stress
+
+Fig. 2. Michell beam dimensions (units in centimeters) (left) and FEM mesh used (right).
+
+J. París et al. / Computer Methods in Applied Mechanics and Engineering 199 (2010) 2110–2122
+
+2119
+
+Fig. 4. Optimal solution (left) and normalized stress state (right) of the Michell beam solution obtained by using the local approach.
+
+conﬁguration (according to Eq. (52)) of the optimal solution presented in Fig. 4 (left). Fig. 5 (left) shows the optimal solution obtained by using the global approach of the stress constraints and the sensitivity analysis techniques proposed in Section 7. Fig. 5 (right) shows the normalized stress conﬁguration (according to Eq. (52)) of the optimal solution presented in Fig. 5 (left). Fig. 6 (left) shows the optimal solution obtained by using the block aggregated approach of the stress constraints and the sensitivity analysis techniques proposed in Section 8. Fig. 6 (right) shows the normalized stress conﬁguration (according to Eq. (52)) of the optimal solution presented in Fig. 6 (left). The number of blocks used is 100. Table 1 shows the most signiﬁcant parameters of the solutions proposed (local, global and block aggregated). It also compares the amount of material obtained in these solutions (local, global and block aggregated) with the optimal theoretical values proposed by Michell. As it can be observed, the optimal volume obtained with the three formulations is slightly smaller than the theoretical one. This fact can be easily understood by considering that the proposed topology
+
+optimization formulation uses continuum design variables to approach the discrete design variables of the original problem. In addition, stress constraints are imposed in some predeﬁned points of the structure, but there may be other different points of the domain where the stress constraint is not veriﬁed. Table 2 shows the computational requirements of the sensitivity analysis proposed in this paper versus the Direct Differentiation technique for the Michell beam problem. The computational requirements have been obtained in an iteration with 2088 active local constraints (of a total of 6000) and with 34 active block aggregated constraints (of a total of 100). As it can be observed, the computational cost required by the direct differentiation algorithm is larger than the cost required by the sensitivity analysis procedure proposed in this paper. In addition, the reduction obtained depends essentially on the number of constraints involved in each formulation. Thus, the reduction is more remarkable when the global or the block aggregated approach is used, since the number of constraints is much smaller than the number of active local constraints.
+
+Fig. 5. Optimal solution (left) and normalized stress state (right) of the Michell beam solution obtained by using the global approach.
+
+Fig. 6. Optimal solution (left) and normalized stress state (right) of the Michell beam solution obtained by using the block aggregated approach.
+
+2120 Table 1 Summary of the Michell beam solutions. q Local appr. (Fig. 4) Global appr. (Fig. 5) Block aggr. appr. (Fig. 6) 1 – – ɛ 0.03 0.03 0.03
+
+J. París et al. / Computer Methods in Applied Mechanics and Engineering 199 (2010) 2110–2122
+
+p 4 4 4
+
+μ – 40 40
+
+Volume (m3) 5.23 × 10− 6 5.00 × 10− 6 5.27 × 10− 6
+
+Theor. vol. (m3) 5.61 × 10− 6 5.61 × 10− 6 5.61 × 10− 6
+
+Table 2 Computational cost of the sensitivity analysis for the Michell beam problem. CPU time (s) Direct diff. Local appr. (Fig. 4) Global appr. (Fig. 5) Block aggr. appr. (Fig. 6) 1346 1346 1346 Adjoint var. 286 0.5 5.4 Memory (Mb) Direct diff. 1909 1809 1814 Adjoint var. 101 0.4 2
+
+Fig. 7. Scheme of the cantilever beam problem (units in m).
+
+This example has been solved in a computer with two 4-core processors running at 2.83 GHz (FSB 1333 Mhz) and 32 Gb of DDRII RAM. 9.2. Cantilever beam The second example is the optimal design of a cantilever beam with null displacements in the left border and with a vertical force
+
+applied in the middle of the right border. Fig. 7 shows the dimensions of the domain and the position of the vertical forces applied. In this example, self-weight of the structure has also been included as a structural load. The domain of the structure has been discretized by using a homogeneous mesh with 120 × 60 = 7200 8-node quadrilateral elements that states a structural analysis with 43922 degrees of freedom. The thickness of the structure is 0.2 m. The external force applied (2103 kN) has been distributed on four contiguous elements in order to avoid stress accumulation phenomena. The material being used in this problem is steel with density γmat = 7650 kg/m3, Young Modulus E = 2.1105 MPa, Poisson ratio ν = 0.3 and elastic limit σ̂max = 230 MPa. Fig. 8 shows the optimal solution (left) and the normalized stress state according to Eq. (52) (right) for the cantilever beam problem obtained by using the local approach of stress constraints. Fig. 9 shows the optimal solution (left) and the normalized stress state according to Eq. (52) (right) for the cantilever beam problem obtained by using the global approach of stress constraints. Fig. 10 shows the optimal solution (left) and the normalized stress state according to Eq. (52) (right) for the cantilever beam problem obtained by using the block aggregated approach of stress constraints. The number of blocks used is 120. The solution obtained must be symmetric since the material being used presents an equal behaviour in tension and compression. However, we have analyzed the entire domain and do not consider this fact in order to verify the methodology proposed. Note that the optimal material distribution obtained is symmetric although this issue has not been forced. This symmetric distribution remarks the validity of the techniques proposed. In addition, the relaxation parameter also introduces a small effect on the stress constraints for intermediate values of the relative densities. This small decrease of the stress constraints due to the relaxation allows a larger weight reduction than the expected one without any relaxation. Table 3 shows the most important parameters of this problem in order to ﬁx their value and better understand them.
+
+Fig. 8. Optimal solution (left) and normalized stress state (right) of the cantilever beam problem by using the local approach of stress constraints.
+
+Fig. 9. Optimal solution (left) and normalized stress state (right) of the cantilever beam problem by using the global approach of stress constraints.
+
+J. París et al. / Computer Methods in Applied Mechanics and Engineering 199 (2010) 2110–2122
+
+2121
+
+Fig. 10. Optimal solution (left) and normalized stress state (right) of the cantilever beam problem by using the block aggregated approach of stress constraints.
+
+Table 4 shows the computational requirements of the sensitivity analysis proposed in this paper versus the Direct Differentiation technique for the cantilever beam problem. The computational requirements have been obtained in an iteration with 4256 active local constraints (of a total of 7200) and with 88 active block aggregated constraints (of a total of 100). As it can be observed, the computational cost required by the direct differentiation algorithm is larger than the cost required by the sensitivity analysis procedure proposed in this paper. In addition, the reduction obtained depends essentially on the number of constraints involved in each formulation. Consequently, the reduction of computational cost is more remarkable when the global or the block aggregated approach is used, since the number of constraints is much smaller than the number of constraints involved in the local approach. This example has been solved in a computer with two 4-core processors running at 2.83 GHz (FSB 1333 Mhz) and 32 Gb of DDRII RAM. 10. Conclusions In this paper we propose a complete analytical procedure to obtain high order sensitivity analysis of stress constraints in topology optimization of structures. The Sensitivity Analysis of the objective function and the stress constraints is essential to obtain adequate solutions since the resulting optimization problem is very complicated due to the large number of design variables and constraints involved. Consequently, it is necessary to use suitable optimization algorithms that involve, at least, ﬁrst order derivatives of the objective function and, specially, the stress constraints. In this paper we have developed ﬁrst order derivatives and second order directional derivatives of the stress constraints. This information is required by the Sequential Linear Programming with Quadratic Line Search algorithm that we have used. All the derivatives are developed analytically in order to reduce the computing time required by numerical approximations (ﬁnite
+Table 3 Summary of the cantilever beam solutions. q Local approach (Fig. 8) Global approach (Fig. 9) Block aggr. approach (Fig. 10) 1 – – ɛ 0.01 0.01 0.01 p 4 4 4 μ – 40 40 Final weight (%) 18.27% 16.22% 16.61%
+
+Table 4 Computational cost of the sensitivity analysis for the cantilever beam problem. CPU time (s) Direct diff. Local appr. (Fig. 8) Global appr. (Fig. 9) Block aggr. appr. (Fig. 10) 2163 2159 2160 Adjoint var. 702 2 16 Memory (Mb) Direct diff. 2775 2530 2535 Adjoint var. 245.5 0.4 5.4
+
+differences) and in order to obtain reliable approximations. The minimum weight approach with stress constraints involves a very large number of constraints (contrary to the most usual maximum stiffness formulations) and consequently requires very large computing time. Full set of ﬁrst order derivatives of the stress constraints can be obtained via an “Adjoint Variable” procedure in order to reduce the computing requirements. When the number of load cases is small, which is the most frequent situation, this technique considerably reduces the computing effort required in comparison with “Direct Differentiation” algorithms. Furthermore, this technique allows to compute the ﬁrst order derivatives of a set of active constraints. Thus, it is possible to avoid the computation of the stress constraints derivatives in case they are not necessary. In addition, these calculations can be easily performed in parallel since the operations required to obtain each one of these derivatives are independent from a computational point of view. Thus, ﬁrst order derivatives of the stress constraints can be easily computed in parallel [7]. On the other hand, full set of ﬁrst and second order directional derivatives of the stress constraints can be easily obtained with small computing resources by applying a “Direct Differentiation” procedure. This technique allows to compute the full set of ﬁrst and second order directional derivatives of the stress constraints although full set of ﬁrst order derivatives were not previously obtained. This fact allows to include the full set of constraints of the problem in the Quadratic Line Search algorithm although the full set of ﬁrst order derivatives were not obtained neither used in the SLP algorithm. The computation of these sensitivities requires to solve a large number of systems of linear equations, especially in the computation of the full set of ﬁrst order derivatives of the stress constraints. However, the matrix of these systems of linear equations is the stiffness matrix of the structural problem. Thus, a Cholesky factorization procedure is the right choice in order to reduce the computing effort devoted to solve additional systems of linear equations. The whole sensitivity analysis procedure proposed in this paper has demonstrated to work properly even in large structural optimization problems with thousands of design variables and thousands of non-linear constraints. The algorithms proposed and implemented in a topology optimization code are exact from an analytical point of view. In addition, computational aspects have been addressed in order to improve and speed up the sensitivity analysis methodology. All the techniques proposed are devoted to reduce as much as possible the required computation effort without losing precision. Otherwise the computation of the sensitivity analysis will become unaffordable in practical applications due to the large number of stress constraints involved. Acknowledgements This work has been partially supported by the Ministerio de Educación y Ciencia of the Spanish Government (#DPI2007-61214
+
+2122
+
+J. París et al. / Computer Methods in Applied Mechanics and Engineering 199 (2010) 2110–2122 [18] F. Navarrina, R. Tarrech, I. Colominas, G. Mosqueira, J. Gómez-Calviño, M. Casteleiro, An efﬁcient MP algorithm for structural shape optimization problems. Computer Aided Optimum Design of Structures VII, in: S. Hernández, C.A. Brebbia (Eds.), WIT Press, Southampton, 2001, pp. 247–256. [19] F. Navarrina, I. Muíños, I. Colominas, M. Casteleiro, Topology optimization of structures: a minimum weight approach with stress constraints, Advances in Engineering Software 36 (2004) 599–606. [20] J. París, F. Navarrina, I. Colominas, M. Casteleiro, Block Aggregation of Stress Constraints in Topology Optimization of Structures. Computer Aided Optimum Design of Structures X, WIT Press, Southampton, UK, ISBN: 978-1-84564-070-5, 2008, pp. 25–34. [21] París J. (2008) Restricciones en tensión y minimización del peso: una metodología general para la optimización topológica de estructuras continuas. PhD Thesis (in Spanish). (http://www.tdr.cesca.es/). University of A Coruña, Spain. [22] J. París, F. Navarrina, I. Colominas, M. Casteleiro, Topoloy optimization of continuum structures with local and global stress constraints, Structural and Multidisciplinary Optimization 39 (4) (2009) 419–437. [23] J. París, F. Navarrina, I. Colominas, M. Casteleiro, Advances in the statement of stress constraints in structural topology optimization, Proceedings of the 4th International Conference on Advanced Computational Methods in Engineering ACOMEN 2008, 2009 Liège, Belgium. [24] J. París, F. Navarrina, I. Colominas, M. Casteleiro, Improvements in the treatment of stress constraints in structural topology optimization problems, Journal of Computational and Applied Mathematics (2009), doi:10.1016/j.cam.2009.08.080. [25] J. París, F. Navarrina, I. Colominas, M. Casteleiro, Block aggregation of stress constraints in topology optimization of structures, Advances in Engineering Software 41 (2010) 433–441. [26] J.T. Pereira, E. Fancello, C.S. Barcellos, Topology optimization of continuum structures with material failure constraints, Structural and Multidisciplinary Optimization 26 (1–2) (2004) 50–66. [27] N.M.K. Poon, J.R.R.A. Martins, An adaptive approach to constraint aggregation using adjoint sensitivity analysis, Structural and Multidisciplinary Optimization 34 (2007) 61–73. [28] G.I.N. Rozvany, M. Zhou, Applications of the COC algorithm in layout optimization, in: H. Eschenauer, C. Matteck, N. Olhoff (Eds.), Engineering Optimization in Design Processes, Proceedings of International Conference held in Karlsruhe, Germany, Sept. 1990, Springer-Verlag, Berlin, 1991, pp. 59–70. [29] G.I.N. Rozvany, Exact analytical solutions for some popular benchmark problems in topology optimization, Structural and Multidisciplinary Optimization 15 (1) (1997) 42–48. [30] G.I.N. Rozvany, A critical review of established methods of structural topology optimization, Structural and Multidisciplinary Optimization 37 (2009) 217–237. [31] K. Svanberg, The method of moving asymptotes — a new method for structural optimization, International Journal for Numerical Methods in Engineering 24 (1987) 359–373. [32] M. Stolpe, K. Svanberg, On the trajectories of the epsilon-relaxation approach for stress-constrained truss topology optimization, Structural and Multidisciplinary Optimization 21 (2) (2001) 140–151. [33] R.J. Yang, C.J. Chen, Stress-based topology optimization, Structural Optimization 12 (1996) 98–105. [34] M. Zhou, G.I.N. Rozvany, The COC algorithm, Part II: topological, geometrical and generalized shape optimization, Computer Methods in Applied Mechanics and Engineering 89 (1991) 309–336.
+
+and #DPI2009-14546-C02-01) coﬁnanced with FEDER funds, by the Autonomous Government of the Xunta de Galicia (Grants #PGDIT09MDS00718PR and #PGDIT09REM005118PR), by the Universidade da Coruña and by the Fundación de la Ingeniería Civil de Galicia. References
+[1] M.P. Bendsøe, N. Kikuchi, Generating optimal topologies in structural design using a homogenization method, Computer Methods in Applied Mechanics and Engineering 71 (1988) 197–224. [2] M.P. Bendsøe, Optimal shape design as a material distribution problem, Structural Optimization 1 (1989) 193–202. [3] M.P. Bendsøe, Optimization of structural topology, shape, and material, SpringerVerlag, Heidelberg, 1995. [4] M. Burger, R. Stainko, Phase-ﬁeld relaxation of topology optimization with local stress constraints, SIAM Journal on Control and Optimization 45 (4) (2006) 1447–1466. [5] G. Cheng, Z. Jiang, Study on topology optimization with stress constraints, Engineering Optimization 20 (1992) 129–148. [6] G.D. Cheng, X. Guo, ε-relaxed approach in structural topology optimization, Structural Optimization 13 (1997) 258–266. [7] I. Colominas, J. París, F. Navarrina, M. Casteleiro, High performance parallel computing in structural topology optimization. Proceedings of the 12th International Conference on Civil, Structural and Environmental Engineering Computing, in: B.H.V. Topping, L.F. Costa Neves, R.C. Barros (Eds.), Civil-Comp Press, Stirlingshire, United Kingdom, 2009, doi:10.4203/ccp.91.234, paper 234. [8] P. Duysinx, M.P. Bendsøe, Topology optimization of continuum structures with local stress constraints, International Journal for Numerical Methods in Engineering 43 (1998) 1453–1478. [9] P. Duysinx, Topology optimization with different stress limits in tension and compression. International report: Robotics and Automation, Institute of Mechanics, University of Liege, Liege, Belgium, 1998. [10] R. Fletcher, Practical Methods of Optimization, Wiley, Scotland, UK, 1987. [11] Q.Q. Liang, Y.M. Xie, G.P. Steven, Optimal selection of topologies for the minimumweight design of continuum structures with stress constraints. Journal of Mechanical Engineering Science, Proceedings of The Institution of Mechanical Engineers, Part C 213 (8) (1999) 755–762 UK. [12] T. Lewińsky, G.I.N. Rozvany, Exact analytical solutions for some popular benchmark problems in topology optimization III: L-Shaped domains, Structural and Multidisciplinary Optimization 35 (2008) 165–174. [13] T. Lewinski, G.I.N. Rozvany, Analytical benchmarks for topological optimization IV: square-shaped line support, Structural and Multidisciplinary Optimization 36 (2008) 143–158. [14] J.R.R.A. Martins, N.M.K. Poon, On Structural Optimization Using Constraint Aggregation, (WCSMO6) Proceedings of the VI World Congress on Structural and Multidisciplinary Optimization, , 2005 Rio de Janeiro, Brazil. [15] A.G.M. Michell, The limit of economy of material in frame structures, Philosophical Magazine 8 (6) (1904) 589–597. [16] F. Navarrina, M. Casteleiro, A general methodologycal analysis for optimum design, International Journal for Numerical Methods in Engineering 31 (1991) 85–111. [17] F. Navarrina, S. Lóopez, I. Colominas, E. Bendito, M. Casteleiro, High order shape design sensitivity: A uniﬁed approach, Computer Methods in Applied Mechanics and Engineering 188 (2000) 681–696.
+

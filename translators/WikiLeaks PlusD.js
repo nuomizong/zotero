@@ -1,15 +1,15 @@
 {
 	"translatorID": "8b73dd9c-b873-4d13-b36a-45922b9f04a1",
+	"translatorType": 4,
 	"label": "WikiLeaks PlusD",
 	"creator": "Sebastian Karcher",
 	"target": "^https?://(search\\.|www\\.)?wikileaks\\.org/plusd/",
 	"minVersion": "2.1.9",
-	"maxVersion": "",
+	"maxVersion": null,
 	"priority": 100,
 	"inRepository": true,
-	"translatorType": 4,
 	"browserSupport": "gcsibv",
-	"lastUpdated": "2016-02-25 02:40:23"
+	"lastUpdated": "2017-06-25 21:25:00"
 }
 
 /*
@@ -125,7 +125,11 @@ var testCases = [
 				"reportNumber": "10SHANGHAI60_a",
 				"reportType": "Wikileaks Public Library of US Diplomacy",
 				"url": "https://search.wikileaks.org/plusd/cables/10SHANGHAI60_a.html",
-				"attachments": [],
+				"attachments": [
+					{
+						"title": "WikiLeaks PLUSD Snapshot"
+					}
+				],
 				"tags": [
 					"AE - United Arab Emirates",
 					"CH - China (Mainland)",
@@ -153,7 +157,11 @@ var testCases = [
 				"reportNumber": "1975DACCA00292_b",
 				"reportType": "Wikileaks Public Library of US Diplomacy",
 				"url": "https://search.wikileaks.org/plusd/cables/1975DACCA00292_b.html",
-				"attachments": [],
+				"attachments": [
+					{
+						"title": "WikiLeaks PLUSD Snapshot"
+					}
+				],
 				"tags": [
 					"AFSP - Administration--Post Administration",
 					"BG - Bangladesh"

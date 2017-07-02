@@ -1,15 +1,15 @@
 {
 	"translatorID": "6c61897b-ca44-4ce6-87c1-2da68b44e6f7",
+	"translatorType": 4,
 	"label": "Summon 2",
 	"creator": "Caistarrin Mystical and Aurimas Vinckevicius",
 	"target": "^https?://([^/]+\\.)?summon\\.serialssolutions\\.com/",
 	"minVersion": "4.0",
-	"maxVersion": "",
+	"maxVersion": null,
 	"priority": 150,
 	"inRepository": true,
-	"translatorType": 4,
 	"browserSupport": "gcsib",
-	"lastUpdated": "2015-10-17 04:48:41"
+	"lastUpdated": "2017-06-26 13:10:00"
 }
 
 /*
@@ -99,7 +99,7 @@ function getSearchResults(doc, checkOnly) {
 }
 
 function doWeb(doc, url) {
-	var dbName = ZU.xpath(doc, '//div[contains(@class, "header")]//div[contains(@class, "Logo")]//img/@alt')[0];
+	var dbName = ZU.xpath(doc, '//div[contains(@class, "header")]//img[contains(@class, "logo")]/@alt')[0];
 	if (dbName) dbName = dbName.value;
 	
 	if (detectWeb(doc, url) == 'multiple') {
@@ -428,7 +428,7 @@ function getRefType(ref) {
 var testCases = [
 	{
 		"type": "web",
-		"url": "http://dartmouth.summon.serialssolutions.com/?#!/search/document?ho=t&q=buddha&l=en&id=FETCHMERGED-dartmouth_catalog_b412227382",
+		"url": "http://dartmouth.summon.serialssolutions.com/?#!/search/document?ho=t&l=en&q=buddha&id=FETCHMERGED-dartmouth_catalog_b412227382",
 		"defer": true,
 		"items": [
 			{
@@ -442,7 +442,7 @@ var testCases = [
 					}
 				],
 				"date": "2003",
-				"ISBN": "1932234446",
+				"ISBN": "9781932234442",
 				"language": "English",
 				"libraryCatalog": "Dartmouth College Library, Summon 2.0",
 				"numPages": "8 v.",

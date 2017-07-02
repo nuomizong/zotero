@@ -1,0 +1,394 @@
+Level-of-Detail Quad Meshing
+Hans-Christian Ebke1∗ Marcel Campen1∗ 1 RWTH Aachen University David Bommes1 2∗ Leif Kobbelt1∗ 2 INRIA Sophia Antipolis
+
+(a)
+
+(b)
+
+(c)
+
+(d)
+
+Figure 1: (a) Triangular surface mesh of a font acquired with a laser scanner. The mesh exhibits numerous small scale artifacts and handles and is of (the incorrect) genus 8. (b) Parametrization based quad meshing at a coarse target edge length results in a heavily distorted parametrization with undesired degeneracies and too many singularities too close to one another, even though a state of the art technique for detail suppression [Ray et al. 2009] has been used. (c) Using our method, a parametrization reproducing only features suitable for the target edge length is computed. (d) The resulting quad mesh has the correct genus 0.
+
+Abstract
+The most effective and popular tools for obtaining feature aligned quad meshes from triangular input meshes are based on cross ﬁeld guided parametrization. These methods are incarnations of a conceptual three-step pipeline: (1) cross ﬁeld computation, (2) ﬁeldguided surface parametrization, (3) quad mesh extraction. While in most meshing scenarios the user prescribes a desired target quad size or edge length, this information is typically taken into account from step 2 onwards only, but not in the cross ﬁeld computation step. This turns into a problem in the presence of small scale geometric or topological features or noise in the input mesh: closely placed singularities are induced in the cross ﬁeld, which are not properly reproducible by vertices in a quad mesh with the prescribed edge length, causing severe distortions or even failure of the meshing algorithm. We reformulate the construction of cross ﬁelds as well as ﬁeld-guided parametrizations in a scale-aware manner which effectively suppresses densely spaced features and noise of geometric as well as topological kind. Dominant large-scale features are adequately preserved in the output by relying on the unaltered input mesh as the computational domain. CR Categories: I.3.5 [Computer Graphics]: Computational Geometry and Object Modeling
+∗ e-mail:{ebke,campen,bommes,kobbelt}@cs.rwth-aachen.de
+
+Keywords: guiding ﬁelds, quad meshing Links: DL PDF
+
+1
+
+Introduction
+
+Automatic quad remeshing remains a topic of great interest and importance. This is especially true as the proliferation of geometry acquisition equipment progresses. For the resulting wealth of raw data, powerful geometric processing methods are required to reﬁne it into quad meshes suitable for further use and manipulation. Especially ﬁeld-guided parametrization-based quad meshing methods such as Mixed-Integer Quadrangulation [Bommes et al. 2009], QuadCover [K¨ lberer et al. 2007], and Periodic Global a Parametrization [Ray et al. 2006] have proven to be powerful and versatile. This family of methods typically follows a three-stage approach as illustrated in Figure 2 (a): First a cross ﬁeld is constructed on the input surface which deﬁnes guiding information for the quad element orientation as well as singularity placement. Next, the surface is parametrized into an integer grid map (as deﬁned in [Bommes et al. 2013a]) so that the canonical integer grid in the parameter domain induces a quad mesh on the input geometry. Here, the singularities in the guiding ﬁeld translate into irregular vertices. An actual quad mesh is extracted from the parametrization in the ﬁnal step [Ebke et al. 2013]. Through the guiding ﬁeld, these methods allow for a great amount of user control and since both, the computation of the guiding ﬁeld and of the parametrization, can be formulated as well behaved optimization problems [Ray et al. 2008; Bommes et al. 2009], good quality solutions can be obtained efﬁciently. Thanks to these properties, these methods not only enjoy popularity amongst researchers but are also recently ﬁnding adoption in modeling and CAD software products. The state of the art methods all assume well behaved input geometry, in the sense that it is noise-free, piecewise smooth, as well as not too detailed nor too feature-rich. Small scale detail, whether intentional (“features”) or artiﬁcial (“noise”), whether of geomet-
+
+ACM Reference Format Ebke, H., Campen, M., Bommes, D., Kobbelt, L. 2014. Level-of-Detail Quad Meshing. ACM Trans. Graph. 33, 6, Article 184 (November 2014), 11 pages. DOI = 10.1145/2661229.2661240 http://doi.acm.org/10.1145/2661229.2661240. Copyright Notice Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for proﬁt or commercial advantage and that copies bear this notice and the full citation on the ﬁrst page. Copyrights for components of this work owned by others than the author(s) must be honored. Abstracting with credit is permitted. To copy otherwise, or republish, to post on servers or to redistribute to lists, requires prior speciﬁc permission and/or a fee. Request permissions from permissions@acm.org. 2014 Copyright held by the Owner/Author. Publication rights licensed to ACM. 0730-0301/14/11-ART184 $15.00. DOI: http://dx.doi.org/10.1145/2661229.2661240
+
+ACM Transactions on Graphics, Vol. 33, No. 6, Article 184, Publication Date: November 2014
+
+184:2
+
+•
+
+H.-C. Ebke et al.
+Triangle Mesh Smooth Input Triangle Mesh Compute Filtered Tangents Diffuse Gauss Curvature Compute Guiding Field Compute Parametrization Extract Quad Mesh Quad Mesh
+
+ric or topological (small handles) kind, causes severe problems. In the best case, such suboptimal input results in distortions (i.e. badly shaped quads, badly aligned edges, too many and/or densely spaced irregular vertices), in the worst case the algorithms fail entirely or produce incomplete output meshes. This is illustrated here on a sphere model, where the input mesh on the top is well-behaved, the one on the bottom contains noise. In practice this turns out to be a signiﬁcant problem as input geometry is commonly not perfectly well-behaved. This is especially true for real world geometry acquired through laser scanning and related techniques. There are two different, competing paradigms that can be followed in order to address this problem: 1. pre-process the input geometry in order to make it conform to the requirements of the quad meshing algorithms, or 2. make the meshing algorithms capable of adequately dealing with ill-behaved geometry. One approach following Paradigm 1 is manual pre-processing, i.e. editing of the input mesh in order to make it well-behaved. For the lack of viable alternatives in many scenarios, this (often tedious) workﬂow is not uncommon. Where automation is desired or required one could simply treat all types of geometric detail as noise and apply a smoothing algorithm to the input geometry, with the goal of removing or attenuating it. Such approaches can lead to acceptable results—if a suitable choice from the plethora of smoothing methods (ranging from simple Laplacian smoothing [Taubin 1995; Desbrun et al. 1999] to such advanced approaches as the recently introduced conformal Wilmore ﬂow based methods [Crane et al. 2013]) is made. Unfortunately, there is no generally accepted “best” method. Which method to pick depends on which properties are most important for a speciﬁc scenario: volume preservation, feature preservation/restoration, few additional parameters, suppression of only high frequencies or of all frequencies alike, etc. Additionally, since unwanted handles (“topological noise”) remain persistent under geometric smoothing, all of the mentioned methods may have to be accompanied by topological mesh repair algorithms (e.g. [Guskov and Wood 2001; El-Sana and Varshney 1997; Zhou et al. 2007; Bischoff et al. 2005]) which make such an approach even more challenging to implement and to tune, impact the run time and potentially introduce new artifacts as outlined in [Attene et al. 2013]. This variation of the generic quad meshing pipeline is illustrated in Figure 2 (b). In the light of these complications implied by Paradigm 1 we follow Paradigm 2 and introduce a general solution to make parametrization based quad meshing algorithms perform well on ill-behaved input geometry. Our approach requires no additional parameters, which would need model or application dependent tuning. Further, it is non-destructive in the sense that it uses the original, unaltered input mesh as its computational domain which allows for high geometric ﬁdelity of the output mesh. Finally, our approach is simpler to implement and more efﬁcient than the advanced additional methods required by Paradigm 1. Figure 2 (d) illustrates the conceptual pipeline behind our approach.
+
+(b)
+Repair Topology Compute Guiding Field Compute Parametrization Extract Quad Mesh Quad Mesh
+
+(c)
+
+(a)
+
+(d)
+
+Figure 2: Omitting the colored boxes, the left side (a) illustrates the generic parametrization based quad meshing pipeline. The red additions (b) reﬂect Paradigm 1 to deal with ill-behaved input meshes. The blue addition (c) reﬂects the method from [Ray et al. 2009] which may or may not be combined with (b). The right side (d) illustrates our approach which is in line with Paradigm 2.
+
+1.1.1
+
+Quad Remeshing
+
+An overview of different quad remeshing methodologies can be found in the survey [Bommes et al. 2013b]. Our solution applies to the class of ﬁeld-guided parametrization-based methods, ﬁrst proposed in [Ray et al. 2006], subsequently improved in [K¨ lberer a et al. 2007] and [Bommes et al. 2009], and extended in [Kovacs et al. 2011; Panozzo et al. 2014]. In such methods, the overall quad remeshing problem is split into three sub-steps, namely cross-ﬁeld computation, integer-grid parametrization and quad mesh extraction out of the parametrization. For the last step, recently a robust method has been proposed in [Ebke et al. 2013] whose speciﬁc properties we exploit in Section 6. Furthermore, techniques to increase robustness in this context were introduced [Bommes et al. 2013a; Lipman 2012; Myles et al. 2014]. Since the ﬁeld-guided pipeline proved to be powerful, generalizations to different input data like point clouds [Li et al. 2011] or range scans [Pietroni et al. 2011] were developed as well. Our approach can similarly be understood as a generalization of the above methods to the case of input geometry that contains detail smaller than the desired resolution of the output quad mesh.
+1.1.2 Cross Fields
+
+1.1
+
+Related Work
+
+Apart from complete quad remeshing pipelines there are several works that solely focus on the task of cross ﬁeld generation [Hertzmann and Zorin 2000]. Some rely on prescribed singularities [Palacios and Zhang 2007; Ray et al. 2008; Crane et al. 2010; Lai et al. 2010], others determine a suitable singularity conﬁguration automatically [Bommes et al. 2009; Panozzo et al. 2012; Kn¨ ppel o et al. 2013; Diamanti et al. 2014]. All these methods search for the smoothest cross ﬁeld (in terms of some discrete ﬁeld curvature notion) potentially subject to certain constraints. In addition, there are methods which only compute a singularity conﬁguration but no cross ﬁeld [Ben-Chen et al. 2008; Springborn et al. 2008; Myles and Zorin 2012]. Since none of these methods incorporate an explicit concept of scale, noise and small scale detail in the geometry, they necessitate numerous singularities within the smoothest available cross ﬁeld.
+
+Our work builds on previous research in the areas of quad remeshing and the construction and processing of cross ﬁelds on surfaces.
+
+ACM Transactions on Graphics, Vol. 33, No. 6, Article 184, Publication Date: November 2014
+
+Level-of-Detail Quad Meshing
+
+•
+
+184:3
+
+Our Approach
+
+[Ray et al. 2009]
+
+σ = 0.02
+
+σ = 0.04
+
+σ = 0.16
+
+σtop = 50, σbottom = 1.5
+
+Figure 3: The two rows of pictures show an orthographic view of different cross ﬁelds for the same section (red frame) of the cuboid with geometric noise depicted on the left. As we increase the standard deviation σ of the Gaussian kernel used for the Gaussian curvature smoothing (top row, [Ray et al. 2009]) or for the normal smoothing (bottom row, our approach) the cross ﬁelds become smoother. While using our approach (bottom) a perfectly smooth, straight cross ﬁeld is obtained for increasing σ, it remains imperfect for any σ when using the approach of [Ray et al. 2009] (top) due to the speciﬁc cross orthonormality concept. Our crosses, however, are deﬁned in ﬁltered tangent planes (which here converge to the viewing plane). The pictures at the far right demonstrate the behavior for another mesh with periodic detail structures rather than noise. Again, a straight cross ﬁeld is constructed by our method (bottom), while the cross ﬁeld computed using [Ray et al. 2009] (top) exhibits severe repetitive distortions.
+
+The only manner in which some of these methods take some form of scale into account is through the adjustable radius of the employed principal curvature direction estimators that provide initial directions. The further processing, modiﬁcation, smoothing, interpolation, etc., is then, however, again performed directly at the scale of the input mesh resolution. The cross ﬁeld related technique presented in [Ray et al. 2009] can be seen as a ﬁrst approach into the direction of Paradigm 2 introduced above. In that work, the cross ﬁeld structure is controlled by ﬁrst smoothing the scalar ﬁeld representing the Gaussian curvature of the input mesh, and then constructing a matching tangential transport with respect to which the smoothness of a cross ﬁeld can be measured. The amount of Gaussian curvature smoothing inﬂuences the structure of the resulting cross ﬁeld and, as demonstrated by the authors, this allows to effectively reduce the number of singularities which are usually caused by small scale details in the input surface. However, this method only addresses the cross ﬁeld construction step, where tangential transport sufﬁces to measure smoothness. For the quad meshing scenario also the parametrization step needs to be considered. Furthermore, this method uses crosses which are orthonormal with respect to the original surface while the ﬁeld smoothness is measured with respect to the tangential transport of the intrinsically smoothed surface. This discrepancy can lead to distortions (cf. Figure 3) which carry over to the ﬁeld-guided parametrization. Finally, note that only geometric ill-behavedness is addressed: the Gaussian curvature induced by small handles in the input geometry cannot be cancelled out locally through smoothing. As a result, the corresponding singularities do not vanish but are only slightly dispersed. This problem is illustrated in Figure 4.
+
+straints) are then expressed and evaluated with respect to this setup based on alternative normals and tangent planes. This way we are able to effectively prevent small scale geometric detail from being carried over into the guiding ﬁeld or the parametrization, and thus into the resulting quad mesh. When constructing the alternative normal ﬁeld we go so far to even make use of local inversions, where areas in the parameter domain become negative. This happens in such a manner that ultimately small scale folds, protrusions, and even topological handles are “ironed over” and ﬂattened (thus appropriately cancelled) rather than unfolded into the parametric domain. This prevents distortions and problematic singularities that would otherwise occur. Figure 5 illustrates this idea. Due to this novel robustness to ill-behaved input, the need for expensive pre-processing is eliminated.
+
+2
+
+Concept
+
+The idea behind our approach may be pictured using the following conceptual image: State-of-the-art approaches construct cross ﬁelds and parametrizations which are smooth with respect to the standard metric on the (ill-behaved) input surface. Our approach can be thought of as
+
+1.2
+
+Contribution
+(a) (b) (c) Figure 4: (a) A small scale handle and the cross ﬁeld singularities surrounding it (b) remain persistent under smoothing. (c) Using the method from [Ray et al. 2009] the singularities are dispersed slightly but persist. The small spike in the background is effectively suppressed using either method. As shown in Figure 12 this conﬁguration is properly handled by our method.
+
+To overcome the problems of the existing methods we propose a solution which equips the input mesh with an alternative (nonorthogonal) normal ﬁeld that respects the desired target mesh resolution and suppresses detail too small to be adequately reproduced. Varying target resolution (a so-called sizing ﬁeld) can be taken into account as well. All relevant aspects (like ﬁeld smoothness, ﬁeld orthogonality, ﬁeld normality, parametrization fairness, and con-
+
+ACM Transactions on Graphics, Vol. 33, No. 6, Article 184, Publication Date: November 2014
+
+184:4
+
+•
+
+H.-C. Ebke et al.
+
+(a)
+
+(b)
+
+(c) a b c d e
+
+Figure 5: Geometry with small scale features (a) is parametrized (b) in order to extract a mesh from the parametrization (c). The upper row illustrates the process with a small target edge length where the feature (red) is reproduced in the output mesh (c top). In the bottom row a large target edge length is chosen. Our method deliberately creates a partially ﬂipped parametrization (b bottom). Flipped and regular elements in the parametrization cancel out one another so that the small scale feature is not reproduced and does not introduce length distortion in the output (c bottom).
+
+Figure 6: Illustration of the well-behaved shell (grey) with its smooth normal ﬁeld (red). Measured with respect to this ﬁeld, segment a is much shorter than segment b, although they are of the same length in the metric of the original surface (blue). Segment c even has a negative length, basically cancelling out the fold. The same holds for segments d and e, effectively cancelling out the small handle.
+
+instead measuring smoothness (and orthogonality, normality, etc.) within a well-behaved shell surrounding the surface. This is illustrated using a 2D example in Figure 6. In this shell, lengths (and in 3D also angles) are not measured in a standard, Euclidean manner but, conceptually, within a subspace orthogonal to a vector ﬁeld (red) – which we construct as a discrete ﬁltered version of the input’s normal ﬁeld (cf. Section 3). To achieve this, we basically express all measurements with respect to local projections of the original geometry into the ﬁltered tangent planes deﬁned by the ﬁltered normals. This projection can even affect the orientation. In Figure 6 the intriguing properties of this concept are illustrated. Most importantly, we also deﬁne crosses to live (and be orthonormal) on the ﬁltered tangent planes, rather than on the surface itself. All formulations are such that they are equivalent to traditional formulations for the case that the ﬁltered normal ﬁeld is orthogonal to the given surface. It is worth noting that the projections of the mesh’s individual faces into their respective ﬁltered tangent planes do not necessarily constitute a globally consistent smooth surface. In our approach we can, however, conveniently restrict ourselves to local considerations only – of individual triangles (for the parametrization), pairs of triangles (for cross ﬁeld smoothness), or 1-rings (for curvature evaluation). Therefore, neither the conceptual shell nor a complete hypothetical surface orthogonal to the ﬁltered normal ﬁeld actually need to be constructed in our method. Note that in certain cases (when there are no folds and no handles), smoothing of the input mesh as discussed in Section 1 can be considered as constructing a surface which is (more or less) close to orthogonal to the ﬁltered normal ﬁeld – but whose normal ﬁeld is typically less smooth as it inherently obeys the integrability condition. From a theoretical perspective this global consistency of the surface is appealing. However, it is unclear whether this would lead to any practical advantage. We only identiﬁed and observed disadvantages (in addition to the restricted applicability) as discussed in Sections 1 and 7.
+
+2012; Bommes et al. 2013a; Ray et al. 2009; Campen and Kobbelt 2014b; Li et al. 2011; Pietroni et al. 2011]. In particular, we make use of the uniﬁed mixed-integer formulation introduced in [Bommes et al. 2009]1 . We thus use the following generic quad remeshing pipeline for demonstration: 1. estimation (and ﬁltering) of principal curvature directions, or manual speciﬁcation of constraint directions, 2. construction of a smooth cross ﬁeld based on these directions, 3. parametrization of the input mesh guided by the cross ﬁeld, 4. extraction of the quad mesh deﬁned by the canonical integer grid in the parameter domain. All four steps are affected by our approach, most importantly of course step 2 and 3. In the following we detail the construction of the ﬁltered normal ﬁeld (Section 3) and then explain how to reformulate the individual steps of the pipeline accordingly.
+
+3
+
+Smooth Normals
+
+For a meshed surface M = (V, E, F ) with vertices V , edges E, ˆ faces F , we compute an alternative, ﬁltered normal ﬁeld N = ˆ {ˆ 1 , . . . , n|F | } (which is detached from the actual surface, i.e. not n necessarily orthogonal). The key idea behind this is that geometric features are reﬂected by high variance in the original normal ﬁeld N . In order to prevent sets of features which are too densely spaced to be representable by the desired target element size from carrying over into the cross-ﬁeld, we apply a generalized Weierstrass transform to this normal ﬁeld. I.e. we convolve it with a suitably sized ˆ Gaussian kernel Gσ , to obtain a new normal ﬁeld N where densely spaced features are merged (cf. Figure 7): ˆ Nσ (p) = (N ∗ Gσ )(p) =
+M
+
+2.1
+
+Setup
+
+N (q)Gσ (dist(p − q))dq
+
+Our approach is quite generic and could be used in conjunction with various ﬁeld generation methods and various parametrization strategies. We demonstrate it here using the period-jump based cross ﬁeld representation proposed in [Li et al. 2006] and the ﬁeldguided parametrization functional proposed in [Ray et al. 2006; Bommes et al. 2009], as these are quite prototypical: they have been used in numerous follow-up works like [Ray et al. 2008; K¨ lberer a et al. 2007; Bommes et al. 2009; Crane et al. 2010; Panozzo et al.
+
+with Gσ (x) =
+
+1 −x2 /(2σ2 ) e 2πσ 2
+
+1 A variation of the globally optimal cross ﬁeld construction approach of [Kn¨ ppel et al. 2013] could also be used, but does not immediately allow for, o e.g. direct control over singularity positions, indices, or sparse alignment constraints – which is often of interest in the quad remeshing context.
+
+ACM Transactions on Graphics, Vol. 33, No. 6, Article 184, Publication Date: November 2014
+
+Level-of-Detail Quad Meshing
+
+•
+
+184:5
+
+s
+
+∗
+
+=
+
+s
+
+∗ Gσ (x)
+
+= (f ∗ Gσ )(x)
+
+f (x)
+
+in the quad meshing pipeline is unwanted. In agreement with the theoretical justiﬁcation, our experiments conﬁrm that this choice of σ generally yields very good results. ni ni ˆ We refer to the tangent planes deﬁned by the ﬁlˆ tered normals ni = Nσ (fi ) as ﬁltered tangent ˆ planes in the following. The ﬁltered tangent planes can be computed at almost no computational overhead as the neighborhood determination has to be done for the curvature estimation (shape operator, etc.) anyway. It is worth noting that averaging of vertex normals from 1-ring face normals (which can be interpreted as a simplistic variant and special case of our normal ﬁltering) was reported to already show beneﬁcial effects on the cross ﬁeld structure [Myles et al. 2010].
+Sizing Field
+
+Figure 7: Top: features in the normal ﬁeld (modeled as Dirac impulses) closer to one another than the target edge length s get merged into one maximum when convolved with a Gaussian kernel with σ ≥ s/2. Bottom: features with wider spacing are reproduced as two distinct maxima in the convolved ﬁeld.
+
+where dist(p − q) signiﬁes the geodesic distance between p and ˆ q on M. Note that Nσ is not a unit vector ﬁeld in general. Thus, we renormalize it prior to any further use. In practice, we truncate the Gaussian kernel by integrating over Br (p) ⊂ M, which is the neighborhood of p up to some geodesic distance r. A choice of r = 2σ proved sufﬁcient. For the purpose of discretization we assume a constant normal per face f , evaluated at its barycenter c(f ), and get ˆ Nσ (f ) =
+f ∈B2σ (f )
+
+Instead of targeting a uniform quad element size s, we may also take a varying element sizing ﬁeld S : F → R>0 into account if desired. In this case σ varies per face, i.e. we have σ(f ) (e.g. σ(f ) = S(f )/2) and generalize to ˆ NS (f ) = N (f )Gσ(f ) (dist(c(f ) − c(f )))Af .
+
+f ∈B2σ(f ) (f )
+
+4
+
+Normal Based Cross Fields
+
+N (f )
+f
+
+Gσ (dist(c(f ) − q))dq.
+
+To draw beneﬁt from our ﬁltered tangent planes in the construction of the guiding ﬁeld for the subsequent parametrization, we derive a formulation for the cross ﬁeld formalism [Li et al. 2006] based entirely on the ﬁltered normal vectors. Given a piecewise linear surface M = (V, E, F ) equipped with ˆ ˆ ﬁltered face normals N = {ˆ 1 , . . . , n|F | } we deﬁne a (discrete) n ﬁltered cross ﬁeld on that surface to consist of four vectors per ˆ face, i.e. wk : F → R3 , k = 0, 1, 2, 3, such that wk (fi ) ⊥ ni , and for orthonormality require wk (fi ) = 1 and wk (fi ) = k ˆ ˆ Rotni w0 (fi ), where Rotn is a 90-degree rotation around the 90 90 ˆ axis n. We use (wk )i as a shorthand for wk (fi ). We employ the angle based deﬁnition introduced in [Li et al. 2006]: given arbitrary reference di- di ˆ rections D = {d1 , . . . , d|F | }, di ⊥ ni per triangle, a cross ﬁeld is uniquely deﬁned by angles Θ = {θ1 , . . . , θ|F | } where θi describes the angle between di and w0 (fi ) in the ﬁltered tangent plane.
+(w1)i (w0)i θi
+
+We further approximate the integral using a sample in the barycenter c(f ) of the faces f and obtain ˆ Nσ (f ) ≈ N (f )Gσ (dist(c(f ) − c(f )))Af
+
+f ∈B2σ (f )
+
+where Af = A(f ∩B2σ (f )) is the area of the portion of f which lies inside the truncated kernel. Note that, instead of explicitly evaluating the above sum per face, one can also employ diffusion ﬂow to implicitly convolve the normals [Desbrun et al. 1999]. The standard deviation σ controls the breadth of the ﬁlter kernel Gσ . We choose σ dependent on the prescribed target edge length s so that features in the normal ﬁeld closer to one another than s get merged when convolved with Gσ . In order to derive a suitable σ we imagine two inﬁnitely sharp features with distance s on an otherwise ﬂat curve. We model these features as a function f : R → R with two Dirac impulses at ±s/2. As illustrated in Figure 7, if we convolve f with Gσ choosing σ too small, two distinct local maxima persist, and we have a local minimum, i.e. positive curvature, at x = 0. Choosing σ sufﬁciently large we yield negative curvature at x = 0 and thus a single maximum: d d2 x2 ⇔
+2 ∞
+
+This, so far, deﬁnes an individual cross per face. Using so-called period jumps pij ∈ Z per edge one speciﬁes which of the four directions in a face corresponds to which of a neighboring face. This ﬂexible association enables the representation of singularities with fractional index [Li et al. 2006].
+
+4.1
+
+Measuring Smoothness
+
+f (q)Gσ (x − q)dq
+−∞ x=0
+
+≤0 ≤0
+x=0
+
+d2 s s Gσ (x − ) + Gσ (x + ) d2 x2 2 2 s ⇔ σ(s) ≥ . 2
+
+In order to measure the smoothness of the cross ﬁeld we need a way to measure the deviation γij between the two directions θi , θj of a pair of neighboring faces (i, j). Since each direction is deﬁned through an angle θ with respect to its respective reference direction d, by computing a signed transition angle κij between di and dj we can compute the deviation as γij = θi + κij + π pij − θj . 2
+
+While the choice of σ may be left to the user as a degree of freedom in a setting where more interactivity is desired, we advertise the choice of σ = s/2 in all settings where an additional parameter
+
+κij can be computed as the signed angle between di and dj after rotating them into a common plane using a hinge map [Li et al. 2006]. While the hinge axis usually is the common edge eij of the
+
+ACM Transactions on Graphics, Vol. 33, No. 6, Article 184, Publication Date: November 2014
+
+184:6
+
+•
+
+H.-C. Ebke et al.
+
+pair of faces, this does not ﬁt our ﬁltered setup as eij does not lie in the ﬁltered tangent planes in general. Instead we compute the ˆ appropriate hinge axis eij from the ﬁltered normals: ˆ ˆ ˆ eij = ni × nj and can then evaluate κij = ˆ (di , eij ) + (ˆij , dj ). e
+
+4.3
+
+Alignment Constraints
+
+Note that when using the original normals, this deﬁnition is equivaˆ lent to the usual formulation. If ni and nj are identical, i.e. eij has zero length, the reference directions already lie in the same plane and κij = (di , dj ) is used instead. With these deﬁnitions the discrete ﬁeld curvature of the ﬁltered cross ﬁeld can be expressed as [Ray et al. 2008; Bommes et al. 2009]: 2 Esmooth = wij γij . (1)
+eij ∈E
+
+The minimizer of Esmooth in Equation 1 gives us a cross ﬁeld which is smooth but which is not yet aligned along the principal curvature directions (or user deﬁned directions) where desired. To achieve this, we can constrain some of the θi to prescribed angles, eliminating these variables from the optimization problem. The directions of (minimal or maximal) principal curvature are typically computed using the Shape Operator [Cohen-Steiner and Morvan 2003] and take the form of a unit vector mi ∈ R3 for a face fi . Instead of projecting mi onto the face as usual, we project it into the ﬁltered tangent plane to compute the prescribed angle θi : θi := (di , pni (mi )). ˆ
+
+4.4
+
+Period Jumps
+
+Note that the weights wij are simply chosen to be 1 in most related methods, e.g. [Ray et al. 2008; Bommes et al. 2009; Li et al. 2006]. Experiments show that the beneﬁt of using proper weighting (depending on the face geometry) often is minuscule. In fact, for all results presented in this work, uniform weights were used. For completeness we can, however, also adapt the proper dual cotangent weights introduced for this setting in [Crane et al. 2010] to our setup, as we show below.
+
+In order to evaluate Esmooth in Equation 1 what is still missing are the period jumps pij . Period jumps can either be prescribed [Li et al. 2006] (which is equivalent to prescribing singularity positions and indices) or they can be left as a degree of freedom in a mixed integer problem [Bommes et al. 2009] which is the approach we took in our experiments.
+
+4.5
+
+Gaussian Curvature
+
+Once we have computed a minimizer for Esmooth we need to evaluate the cross ﬁeld index I(vi ) for every vertex vi in order to determine the position and degree of the singularities [Li et al. 2006]: I(vk ) = 1 K(vk ) + 2π e κij + 1 4 pij
+eij ∈Ek
+
+4.2
+
+Weights
+
+The wij in Equation (1) account for size and shape differences between faces. [Crane et al. 2010] advocate the use of wij = (cot(φij ) + cot(φji ))−1 , where φij and φji are the angles of the two sectors opposite to eij . In our setting it is appropriate to compute these weights based on the projections of these sectors into the ﬁltered tangent planes. We thus compute the projected dual cotangent weights wij = (cot(φij ) + cot(φji ))−1 with φij = (aij , bij ) where aij = pni (aij ) and bij = pni (bij ). ˆ ˆ Here aij and bij represent the edge vectors of the bij sector corresponding to φij on the original input φij mesh as illustrated on the right. pn is the projecˆ tion into the ﬁltered tangent plane along the ﬁltered aij ˆ normal n: pni (v) = (Id −ˆ i ni )v. n ˆ ˆ
+
+ij ∈Ek
+
+where Ek speciﬁes the set of edges incident to vk , and K(vk ) is the Gaussian curvature at vertex vk . In order to rely exclusively on the ﬁltered normals, we compute the Gaussian curvature from the signed area of the spherical polygon spanned by the ﬁltered normal ˆ vectors ni of the faces incident to vk [Meek and Walton 2000].
+
+5
+
+Parametrization
+
+The second stage in the three stage pipeline is the computation of a parametrization g : M → R2 guided by the cross ﬁeld from the ﬁrst stage. If g is an Integer Grid Map [Bommes et al. 2013a] the canonical grid of integer iso-lines in R2 induces a quad mesh on M through g. φji eij The parametrization g is deﬁned on the mesh – the cross ﬁeld which is supposed to guide the parametriztion, however, lives in the ﬁltered tangent planes. We thus project the crosses from their ﬁltered tangent planes onto the faces along the ﬁltered normals: ¯ ˆ (wk )i = (wk )i − ni ni (wk )i . ˆ ni ni
+
+Thus, φij and φji are the angles of the corners opposite to eij in the projected images of fi and fj . Note that since each face is projected along its individual ﬁltered normals, in general images of adjacent faces do not match up (e.g. in Figure 1, the average length mismatch of the common edge is 0.18%, the maximum 4.4%). Thus the projected dual cotangent weights do not exacly correspond to an actual surface. Notwithstanding this, they do behave in a plausible way according to all our experiments. Furthermore, they converge to the original dual cotangent weights when the Gaussian kernel size approaches 0 (σ → 0), i.e. when the ﬁltered normals are identical to the original normals they are equivalent, and they converge to weights of an actual surface when pairs of adjacent ﬁltered normals converge, e.g. when σ → ∞.
+
+¯ Here the wk are the projections of the cross ﬁeld vectors wk which live in the ﬁltered tangent planes. Note that this results in non-orthonormal crosses whenever ni = ˆ ni . The parametrization functional used in [Bommes et al. 2009] is only suitable for orthonormal crosses. We modify it and compute the parametrization as the minimizer of Eorient =
+f ∈F
+
+ˆ Ef A(f )
+
+ACM Transactions on Graphics, Vol. 33, No. 6, Article 184, Publication Date: November 2014
+
+Level-of-Detail Quad Meshing
+
+•
+
+184:7
+
+(a)
+
+(b)
+
+Figure 8: (a) Example of an overlapping small scale detail. As the orientation of the arrows indicates, the parametrization ﬂips locally. (b) After extraction of the quad mesh, ﬂipped and nonﬂipped areas have cancelled out one another and the geometric inﬂuence of the feature is minimal.
+
+with Ef = ¯ ¯ g · w0 w1 − S(f ) Id
+
+2
+
+with respect to the constraints laid out in [Bommes et al. 2009]. In¯ ¯ tuitively, the (tangent) cross vectors w0 and w1 are mapped from the faces to the parametrization domain R2 via the map’s differential (the Jacobian g). There they should ideally coincide with the coordinate axes and have length S(f ), as then the integer grid mapped back to the face is aligned with the cross and has the desired spacing S(f ). Note that for proper weighting the area of the ˆ projected faces f is used in Eorient . The variational formulation readily allows for easy modiﬁcation and extension to include various types of useful hard or soft constraints, e.g. for feature alignment [Bommes et al. 2009] or connectivity [Myles et al. 2010].
+
+Figure 9: Two parametrizations and the resulting quad meshes of the same input mesh. In the orthographic view (center row) it becomes apparent that the additional area introduced by the accordion causes a length distortion using the method of [Ray et al. 2009] (left column) wheras using our method the accordion has little effect on the parametrization (right column).
+
+6
+
+Quad Mesh Extraction
+fer a way to introduce a sense of scale into the parametrization process which can lead to distortions in the output quad mesh. Figure 9 demonstrates this effect. Here, [Ray et al. 2009] successfully manages to suppress singularities at the small scale features but the length distortion caused by the accordion structure is so severe that two quad loops at half the width of the target edge length appear. The parametrization generated by our method remains unaffected by the accordion. Figure 12 demonstrates how our method is able to extract quad meshes that are unaffected by small scale handles on the input geometry and exempliﬁes the fact that smoothing approaches as well as the method of [Ray et al. 2009] always reproduce such handles with densely spaced singularities. In Figure 10 we demonstrate the shortcomings of Laplacian surface smoothing in combination with the stock Mixed-Integer Quadrangulation approach on a real world laser scanned mesh with a number of topological and geometrical artifacts. In Figure 11 we show a number of real-world input meshes quad meshed using our approach. The images of the plain input triangle meshes show the singularities that are generated when computing a non scale-aware crossﬁeld [Ray et al. 2008] which, in all of these examples are so densely spaced that they are only reproducible by excessively ﬁne quad meshes. With our method we were able to extract sensible, watertight quad meshes at a wide range of target edge lengths for all input meshes. Only the B UDDHA mesh represents a special case as explained in Section 8. The B OLT D ISK mesh demonstrates the ability of our method to incorporate feature alignment constraints (amongst all other common parametrization constraints).
+
+An important consequence of the non-orthonormal nature of the projected cross-ﬁeld is that crosses can be ﬂipped. This common case arises when small scale features form overlaps as is illustrated in Figure 5 which, after normal ﬁltering lead to ﬂipped normals. Flipped crosses in Eorient promote ﬂipped triangles in the parametrization which lead to so-called fold-over conﬁgurations. In principle, fold-overs violate the Integer Grid Map condition and lead to non-quad meshes. If, however, we interpret ﬂipped triangles as having a negative area that cancels out an overlapping positive area, they neutralize the geometric inﬂuence of the affected small scale features which is a most welcome effect. Through our choice of the Gaussian kernel breadth σ = s/2 we only provoke such fold-overs on a scale well below the target edge length s. Such fold-overs are handled in the desired way, cancelling out overlapping regions, by the recently introduced quad extractor QEx [Ebke et al. 2013] which we employ in our approach (cf. Figure 8). This way we are able to reliably and robustly extract quad meshes from the generated parametrizations. It should be noted that apart from the fold-overs deliberately introduced through ﬂipped crosses, the least-squares parametrization may produce fold-overs in certain situations as detailled in [Bommes et al. 2013a; Ebke et al. 2013]. Such fold-overs can be prevented using a stiffening approach [Bommes et al. 2009] or constraints [Bommes et al. 2013a; Lipman 2012]. Alternatively, they can be admitted and gracefully dealt with using QEx. We went with the latter option in all of our experiments.
+
+7
+
+Results and Comparison
+
+In Section 1.1.2 we made the point that the method in [Ray et al. 2009] merely considers the cross ﬁeld generation and does not of-
+
+ACM Transactions on Graphics, Vol. 33, No. 6, Article 184, Publication Date: November 2014
+
+184:8
+
+•
+
+H.-C. Ebke et al.
+
+(a)
+
+(b)
+
+(c)
+
+Figure 10: The F ONT mesh (c.f. Figure 1) with (a) 0, (b) 30 and (c) 100 iterations of Laplacian smoothing applied to it. Computing a cross ﬁeld using the traditional Mixed-Integer Quadrangulation approach yields 1238, 147 and 85 singularities, respectively. The excess of singularities in the unsmoothed version (a) and thus the excessive number of integer variables in the resulting parametrization optimization problem prevents ﬁnding a parametrization within reasonable time. The parametrizations of the smoothed versions (b) and (c) suffer from the remaining badly placed singularities as well as from the topological noise. This can be witnessed in the magniﬁcations of a spike (top) and a small handle (bottom). While the spike is manifold, it suffers from severe self-intersections and is thus not completely eliminated even after a considerable amount of smoothing iterations (c). The handles and their accompanying singularities persist after any number of iterations and thus will always ruin the parametrization. Even though the parametrization in (c) roughly looks like a quad mesh on a macroscopic level, a quad mesh cannot be extracted out of it due to the microscopic artifacts around the singularity clusters.
+
+8
+
+Limitations and Future Work
+
+We showed that our method is robust against geometrical and topological artifacts in the input geometry. The input quality in terms of triangle shape is not important either as demonstrated in the images on the right where two planar meshes, one with a mostly isotropic triangulation, the other one with a highly anisotropic triangulation are parametrized using our method and yield almost equivalent results. Also, the S TATUETTE input mesh in Figure 11 exhibits highly anisotropic triangles with aspect ratios of up to 502 and inner angles ranging from .2 up to 179.5 degrees. However, the robustness against holes in the input mesh is limited: while the normal smoothing, cross ﬁeld computation and parametrization steps do not have particular problems with holes, they may interrupt an integer iso-line in the parametrization, potentially leading to missing elements in the output. This event becomes more likely as the size of a hole increases relative to the target edge length. I.e. our method does not go so far as to perform implicit hole ﬁlling. While our approach suppresses small handles, small tunnels (which are less likely to appear as an unintended artifact) persist. This is owed to the fact that under normal smoothing the normals of a small handle locally converge towards a ﬂat conﬁguration whereas the normals of a small tunnel do not. This is demonstrated on the right where a small tunnel connecting the two sides of a disk gets reproduced (i.e. the input and the output mesh both have genus 1) even though the target edge length exceeds the diameter of the tunnel by several orders of magnitude. An assumption of our method is that wanted handles and unwanted handles in the input mesh are well separated in terms of scale. This is because handles with a circumference close to the target edge length may lead to iso-lines which are parallel in the parameter domain tunneling one another on the surface as illustrated on the right. In such a case the extracted mesh may locally be non-manifold. The B UDDHA depicted in Figure 11 is a particularly interesting mesh in this regard since its 100 handles come in almost every size from “microscopic” to “huge”. As a result, some tuning of the target edge length was necessary to yield a manifold result.
+
+Our approach disregards small scale features and artifacts by attenuating high-frequencies in the normal ﬁeld. Note that there is, however, not a direct correspondence between high-frequencies and small scale details: also sharp creases and corners carry high frequencies in the normal ﬁeld – which are attenuated even if these features are isolated enough to be properly reproduced. While distinct maxima remain at such features (cf. Figure 7) – inducing the desired singularities – they are less pronounced after the ﬁltering. But as we only perform the ﬁltering in the normal ﬁeld and preserve the input geometry, these features can still be reproduced geometrically correct. Also singularities often still arise on sharp corners instead of somewhere in their vicinity, but there is no general guarantee. For further improvement in this regard it would be desirable to be able to better distinguish between features that are just too small to be reproducible and those that can be captured by the ﬁnal quad mesh. The use of another, e.g. bilateral or Perona-Malik type of ﬁlter could be a ﬁrst step in this direction. A true distinction is, however, hardly possible already in the guiding ﬁeld construction stage – it depends too much on the global structure and alignment of the parametrization – so that it seems unlikely that signiﬁcant improvements in this regard are possible within the common threestage strategy for ﬁeld guided parametrization quad remeshing. Finally, it is worth noting that our approach is not restricted to parametrization based quad meshing methods alone. It promises improved results in any method relying on guiding ﬁelds such as the quad domain construction method in [Tarini et al. 2011], the quad layout approach in [Campen et al. 2012; Campen and Kobbelt 2014a] or various non-photo realistic rendering techniques [Hertzmann and Zorin 2000; Umenhoffer et al. 2011]. Also, the extension to anisotropic and non-orthogonal cross ﬁelds [Panozzo et al. 2014] should be possible.
+
+9
+
+Conclusion
+
+We presented a method to generate cross ﬁelds and in a subsequent step integer grid parametrizations which are unaffected by small scale features and artifacts such as noise, or small handles in the input mesh. The key idea was to express and measure all involved quantities based on a ﬁltered normal ﬁeld. This resulted in robustness to ill-behaved input, thus eliminating the need for expensive pre-processing. We showed how quad meshing in particular can beneﬁt from our method and there are further applications relying on guiding ﬁelds which may very well draw proﬁt from it, too.
+
+ACM Transactions on Graphics, Vol. 33, No. 6, Article 184, Publication Date: November 2014
+
+Level-of-Detail Quad Meshing
+
+•
+
+184:9
+
+B UDDHA 20 D RAGON 201 L ION 113
+
+s = 40 s = .25 s=4 S TATUETTE 396 s=2 B OLT D ISK s=5 24 s=9 s=5 s=2 s=5 s=8
+
+Figure 11: The input B UDDHA mesh has genus 100, the quad mesh obtained with our method has genus 9. All other approaches tested for this paper yield too many singularities to compute a proper parametrization. The D RAGON is meshed at three different target edge lengths and corresponding σ. As the target edge length increases, fewer small features are reproduced. The L ION mesh yields a cross ﬁeld with 1113 singularities when applying [Bommes et al. 2009]. Using our approach we reduce this to 60 singularities and can extract a quad mesh that is not distorted by the bumpy back. The largest bounding box edge lengths and the target edge lengths s used are as indicated. All results were computed using σ = s/2 in accordance with Section 3.
+
+ACM Transactions on Graphics, Vol. 33, No. 6, Article 184, Publication Date: November 2014
+
+184:10
+
+•
+
+H.-C. Ebke et al.
+
+least, we would like to thank Jan M¨ bius for creating and maino taining the geometry processing framework OpenFlipper as well as the reviewers for their insightful comments.
+
+References
+ATTENE , M., C AMPEN , M., AND KOBBELT, L. 2013. Polygon mesh repairing: An application perspective. ACM Comput. Surv. 45, 2 (Mar.), 15:1–15:33. B EN -C HEN , M., G OTSMAN , C., AND B UNIN , G. 2008. Conformal ﬂattening by curvature prescription and metric scaling. Computer Graphics Forum 27, 2, 449–458. (a) (b) B ISCHOFF , S., PAVIC , D., AND KOBBELT, L. 2005. Automatic restoration of polygon models. ACM Trans. Graph. 24, 4 (Oct.), 1332–1352. B OMMES , D., Z IMMER , H., AND KOBBELT, L. 2009. Mixedinteger quadrangulation. In Proc. SIGGRAPH 2009, ACM, New York, NY, USA, 77:1–77:10. (c) (d) B OMMES , D., C AMPEN , M., E BKE , H.-C., A LLIEZ , P., AND KOBBELT, L. 2013. Integer-grid maps for reliable quad meshing. In Proc. SIGGRAPH 2013, ACM, New York, NY, USA, 98:1–98:12. ´ B OMMES , D., L E VY, B., P IETRONI , N., P UPPO , E., S ILVA , C., TARINI , M., AND Z ORIN , D. 2013. Quad-Mesh Generation and Processing: A Survey. Computer Graphics Forum 32, 6, 51–76. C AMPEN , M., AND KOBBELT, L. 2014. Dual strip weaving: Interactive design of quad layouts using elastica strips. In Proc. SIGGRAPH Asia 2014, ACM, New York, NY, USA. C AMPEN , M., AND KOBBELT, L. 2014. Quad layout embedding via aligned parameterization. Computer Graphics Forum. C AMPEN , M., B OMMES , D., AND KOBBELT, L. 2012. Dual loops meshing: quality quad layouts on manifolds. ACM Trans. Graph. 31, 4 (July), 110:1–110:11. C OHEN -S TEINER , D., AND M ORVAN , J.-M. 2003. Restricted delaunay triangulations and normal cycle. In Proceedings of the nineteenth annual symposium on Computational geometry, ACM, New York, NY, USA, SCG ’03, 312–321. ¨ C RANE , K., D ESBRUN , M., AND S CHR ODER , P. 2010. Trivial connections on discrete surfaces. Computer Graphics Forum (SGP) 29, 5, 1525–1533. ¨ C RANE , K., P INKALL , U., AND S CHR ODER , P. 2013. Robust fairing via conformal curvature ﬂow. ACM Trans. Graph. 32, 4 (July), 61:1–61:10. ¨ D ESBRUN , M., M EYER , M., S CHR ODER , P., AND BARR , A. H. 1999. Implicit fairing of irregular meshes using diffusion and curvature ﬂow. In Proc. SIGGRAPH ’99, 317–324. D IAMANTI , O., VAXMAN , A., PANOZZO , D., AND S ORKINE H ORNUNG , O. 2014. Designing N -PolyVector ﬁelds with complex polynomials. Computer Graphics Forum 33, 5, 1–11. E BKE , H.-C., B OMMES , D., C AMPEN , M., AND KOBBELT, L. 2013. QEx: Robust quad mesh extraction. In Proc. SIGGRAPH Asia 2013, ACM, New York, NY, USA, 168:1–168:10. E L -S ANA , J., AND VARSHNEY, A. 1997. Controlled simpliﬁcation of genus for polygonal models. In Visualization ’97., Proceedings, 403–410.
+
+(e)
+
+(f)
+
+Figure 12: (a) For a mesh with a small handle and a spike (the same as depicted in Figure 4) a cross ﬁeld and a parametrization are computed using the method from [Bommes et al. 2009], (b) without additional processing (c) after smoothing the mesh, (d) in conjunction with the method from [Ray et al. 2009] and (e) in conjunction with our approach. Using smoothing, a few pairs of singularities cancel out one another, using [Ray et al. 2009], even more pairs of singularities are cancelled out and the remaining singularities are dispersed. Only when using our approach the mesh is parametrized as if the handle was not existent, allowing the extraction of a coarse quad mesh (f).
+
+10
+
+Acknowledgments
+
+This project was funded by the European Research Council (ERC Advanced Grant “ACROSS”, grant agreement 340884 and ERC Starting Grant “Robust Geometry Processing”, grant agreement 257474), the DFG Cluster of Excellence on Ultra High-Speed Mobile Information and Communication (UMIC), German Research Foundation grant DFG EXC 89 and the Aachen Institute for Advanced Study in Computational Engineering Science (AICES). The meshes used in Figures 1, 10 and 11 are courtesy of Lincoln 3D Scans and the Standford 3D Scanning Repository. Last but not
+
+ACM Transactions on Graphics, Vol. 33, No. 6, Article 184, Publication Date: November 2014
+
+Level-of-Detail Quad Meshing
+
+•
+
+184:11
+
+G USKOV, I., AND W OOD , Z. 2001. Topological noise removal. 2001 Graphics Interface Proceedings: Ottawa, Canada (June), 19–26. H ERTZMANN , A., AND Z ORIN , D. 2000. Illustrating smooth surfaces. In Proc. SIGGRAPH ’00, 517–526. ¨ ¨ K N OPPEL , F., C RANE , K., P INKALL , U., AND S CHR ODER , P. 2013. Globally optimal direction ﬁelds. ACM Trans. Graph. 32, 4 (July), 59:1–59:10. KOVACS , D., M YLES , A., AND Z ORIN , D. 2011. Anisotropic quadrangulation. Computer Aided Geometric Design 28, 8 (Nov.). ¨ K ALBERER , F., N IESER , M., AND P OLTHIER , K. 2007. Quadcover - surface parameterization using branched coverings. Computer Graphics Forum 26, 3, 375–384. L AI , Y.-K., J IN , M., X IE , X., H E , Y., PALACIOS , J., Z HANG , E., H U , S.-M., AND G U , X. 2010. Metric-driven RoSy ﬁeld design and remeshing. IEEE Trans. Vis. Comput. Graph., 95–108. ´ L I , W.-C., VALLET, B., R AY, N., AND L E VY, B. 2006. Representing higher-order singularities in vector ﬁelds on piecewise linear surfaces. Visualization and Computer Graphics, IEEE Transactions on 12, 5 (sept.-oct.), 1315 –1322. ´ L I , E., L E VY, B., Z HANG , X., C HE , W., D ONG , W., AND PAUL , J.-C. 2011. Meshless quadrangulation by global parameterization. Computers & Graphics 35, 5, 992–1000. L IPMAN , Y. 2012. Bounded distortion mapping spaces for triangular meshes. ACM Trans. Graph. 31, 4 (July), 108:1–108:13. M EEK , D., AND WALTON , D. 2000. On surface normal and gaussian curvature approximations given data sampled from a smooth surface. Computer Aided Geometric Design 17, 6, 521 – 543. M YLES , A., AND Z ORIN , D. 2012. Global parametrization by incremental ﬂattening. In Proc. SIGGRAPH 2012, ACM, New York, NY, USA, 109:1–109:11. M YLES , A., P IETRONI , N., KOVACS , D., AND Z ORIN , D. 2010. Feature-aligned T-meshes. In Proc. SIGGRAPH 2010, ACM, New York, NY, USA, 117:1–117:11. M YLES , A., P IETRONI , N., AND Z ORIN , D. 2014. Robust ﬁeld-aligned global parametrization. In Proc. SIGGRAPH 2014, ACM, New York, NY, USA, 135:1–135:14. PALACIOS , J., AND Z HANG , E. 2007. Rotational symmetry ﬁeld design on surfaces. ACM Trans. Graph. 26, 3, 55. PANOZZO , D., L IPMAN , Y., P UPPO , E., AND Z ORIN , D. 2012. Fields on symmetric surfaces. ACM Trans. Graph. 31, 4 (July), 111:1–111:12. PANOZZO , D., P UPPO , E., TARINI , M., AND S ORKINE H ORNUNG , O. 2014. Frame ﬁelds: Anisotropic and nonorthogonal cross ﬁelds. In Proc. SIGGRAPH 2014, ACM, New York, NY, USA, 134:1–134:11. P IETRONI , N., TARINI , M., S ORKINE , O., AND Z ORIN , D. 2011. Global parametrization of range image sets. ACM Transactions on Graphics, Proceedings of SIGGRAPH Asia 2011 30, 6. ´ R AY, N., L I , W. C., L E VY, B., S HEFFER , A., AND A LLIEZ , P. 2006. Periodic global parameterization. ACM Trans. Graph. 25, 4 (Oct.), 1460–1485. ´ R AY, N., VALLET, B., L I , W. C., AND L E VY, B. 2008. Nsymmetry direction ﬁeld design. ACM Trans. Graph. 27, 2 (May), 10:1–10:13.
+
+R AY, N., VALLET, B., A LONSO , L., AND L EVY, B. 2009. Geometry-aware direction ﬁeld processing. ACM Trans. Graph. 29, 1 (Dec.), 1:1–1:11. ¨ S PRINGBORN , B., S CHR ODER , P., AND P INKALL , U. 2008. Conformal equivalence of triangle meshes. ACM Trans. Graph. 27 (August), 77:1–77:11. TARINI , M., P UPPO , E., PANOZZO , D., P IETRONI , N., AND C IGNONI , P. 2011. Simple quad domains for ﬁeld aligned mesh parametrization. In Proc. SIGGRAPH Asia 2011, ACM, New York, NY, USA, 142:1–142:12. TAUBIN , G. 1995. A signal processing approach to fair surface design. In In Proc. SIGGRAPH ’95, ACM, New York, NY, USA, 351–358. ´ U MENHOFFER , T., S Z E CSI , L., AND S ZIRMAY-K ALOS , L. 2011. Hatching for motion picture production. Computer Graphics Forum 30, 2, 533–542. Z HOU , Q.-Y., J U , T., AND H U , S.-M. 2007. Topology repair of solid models using skeletons. Visualization and Computer Graphics, IEEE Transactions on 13, 4 (July), 675–685.
+
+ACM Transactions on Graphics, Vol. 33, No. 6, Article 184, Publication Date: November 2014
+

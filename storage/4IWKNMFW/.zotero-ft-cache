@@ -1,0 +1,718 @@
+Interactively Controlled Quad Remeshing of High Resolution 3D Models
+Hans-Christian Ebke1 Patrick Schmidt1 1 RWTH Aachen University Marcel Campen2 Leif Kobbelt1 2 New York University
+
+~10s
+
+~1s
+
+~1s
+
+~1s
+
+Figure 1: Steps of a workﬂow based on our method. Starting from a high resolution input mesh (2M faces), a hierarchichal representation and an unconstrained integer grid parametrization are computed in a one-off initialization step (taking 10s). Subsequently, the user can iteratively add or change constraints to adjust the edge-ﬂow and other mesh properties, while being provided with near-instant feedback at interactive rates (each update taking around 1s). Eventually, a quad mesh can be extracted from the parametrization. Without our framework, just using the underlying method [Bommes et al. 2009; Ebke et al. 2014] in its original form, every single update step takes 5 minutes.
+
+Abstract
+Parametrization based methods have recently become very popular for the generation of high quality quad meshes. In contrast to previous approaches, they allow for intuitive user control in order to accommodate all kinds of application driven constraints and design intentions. A major obstacle in practice, however, are the relatively long computations that lead to response times of several minutes already for input models of moderate complexity. In this paper we introduce a novel strategy to handle highly complex input meshes with up to several millions of triangles such that quad meshes can still be created and edited within an interactive workﬂow. Our method is based on representing the input model on different levels of resolution with a mechanism to propagate parametrizations from coarser to ﬁner levels. The major challenge is to guarantee consistent parametrizations even in the presence of charts, transition functions, and singularities. Moreover, the remaining degrees of freedom on coarser levels of resolution have to be chosen carefully in order to still achieve low distortion parametrizations. We demonstrate a prototypic system where the user can interactively edit quad meshes with powerful high-level operations such as guiding constraints, singularity repositioning, and singularity connections. Keywords: integer grid maps, quad meshing, interactive Concepts: •Computing methodologies → Mesh models; Mesh geometry models;
+Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for proﬁt or commercial advantage and that copies bear this notice and the full citation on the ﬁrst page. Copyrights for components of this work owned by others than the author(s) must be honored. Abstracting with credit is permitted. To copy otherwise, or republish, to post on servers or to redistribute to lists, requires prior speciﬁc permission and/or a fee. Request permissions from permissions@acm.org. © 2016 Copyright held by the owner/author(s). Publication rights licensed to ACM. SA ’16 Technical Papers, December 05–08, 2016, Macao ISBN: 978-1-4503-4514-9/16/12 DOI: http://dx.doi.org/10.1145/2980179.2982413
+ACM Reference Format Ebke, H., Schmidt, P., Campen, M., Kobbelt, L. 2016. Interactively Controlled Quad Remeshing of High Resolution 3D Models. ACM Trans. Graph. 35, 6, Article 218 (November 2016), 13 pages. DOI = 10.1145/2980179.2982413 http://doi.acm.org/10.1145/2980179.2982413.
+
+1
+
+Introduction
+
+The problem of generating a quad mesh for a given surface has a long history and has been tackled by many different computational approaches over the decades. In recent years, a ﬁeld-guided parametrization-based strategy, suggested, e.g., by Knupp [1995] and later elaborated in detail [Ray et al. 2006; K¨ lberer et al. 2007; a Bommes et al. 2009], has gained popularity. It is based on generating a parametrization of the input surface that maps the grid of integer iso-lines in R2 onto the surface in such a way that it induces a quad mesh. Bommes et al. [2013] coined the term integer grid map (IGM) for such parametrizations. This approach’s popularity is due to its high result quality paired with the fact that the result can be inﬂuenced by several types of constraints that are intuitive even for novice users. Thus, at least in theory, IGM based quad meshing allows for a workﬂow where the design space is explored by iteratively adding, modifying, or deleting constraints (cf. Figure 1). In practice this kind of workﬂow quickly breaks down due to the run time complexity of the underlying vector ﬁeld generation and surface parametrization methods. Inacceptable delays well over 10 seconds can already occur on simple input models triangulated with as few as some ten-thousand triangles. The generic framework we present here addresses this common shortcoming, lifting the family of ﬁeld-guided quad meshing methods into the realm of interactive methods. At its core, our framework exploits the fact that the run time of the process of IGM computation depends ﬁrst and foremost on the complexity of the input model’s triangulation. A straightforward way to speed up the process to interactive rates thus is to heavily decimate the input and simply operate on this simpler version. This naive approach, however, has two crucial shortcomings: • Obviously, the IGM computed on the decimated mesh will differ, and it might differ greatly. In particular, the IGM does not change gracefully, in a manner continuous in the geometric change induced by the decimation; the IGM has discrete and combinatorial properties (the singularities and the integer transitions, deﬁning the global mesh structure), and these change abruptly and globally under mesh decimation. This
+ACM Trans. Graph., Vol. 35, No. 6, Article 218, Publication Date: November 2016
+
+218:2
+
+•
+
+H.-C. Ebke et al.
+
+is particularly true for common decimation objectives such as Hausdorff distance minimization, as lower Hausdorff distance does not imply more similar IGM optimization results. • The resulting IGM is deﬁned not on the original mesh, but on a decimated version. Depending on the application context, an IGM on the original mesh may be required by subsequent processing steps. In the case of mere quad mesh extraction one could work with the coarse IGM, but the resulting quad mesh will have lower approximation quality (cf. Figure 2), alignment to features may be lacking, and user constraints may not be met correctly. One might consider transferring the IGM to the original mesh, but standard upsampling or prolongation operators are not applicable due to the speciﬁc discrete structure (cuts, transitions, and singularities in the IGM).
+
+1.1
+
+Contribution
+
+Figure 2: Left: a quad mesh extracted directly from an IGM on a decimated mesh. Right: after mapping the same IGM to the original input mesh using our coarse-to-ﬁne mapping technique, a quad mesh without the coarse discretization artifacts can be extracted.
+
+We present a framework to enable the computation of IGMs on highly complex meshes at a run time quick enough to enable a truly interactive work ﬂow. In order to avoid the problems of the above naive approach, we make the following, threefold contribution: • A new decimation objective, aiming for Gaussian curvature preservation, that we use for the incremental decimation of the input mesh. As we show, this approach is highly beneﬁcial in our scenario, keeping the IGM (in particular its guiding ﬁeld) computed on the decimated mesh close to the ground truth. • A novel coarse-to-ﬁne mapping approach that allows us to map a global, chart-based parametrization (in particular an IGM) computed on a decimated mesh onto the original mesh in linear time. It is aware of charts, transitions, and singularities, and maintains their consistency throughout. This allows us to hide the coarse mesh as a proxy in the background, completely transparent to the user and downstream applications. • A framework building on the above techniques to interactively explore the integer grid map design space. It is based on a speciﬁc three-tier hierarchy of the input model, custom-tailored for the IGM use case in order to be able to offer all of the usual design tools to the user. Thanks to the efﬁciency and low complexity of our coarse-to-ﬁne mapping method, interactive rates are achieved even on meshes with millions of triangles. Typical round-trip times (i.e. delays between adding a user constraint and completing the re-generation of the IGM and its visualization on the input mesh) achieved in our experiments (using [Ebke et al. 2014; Bommes et al. 2009] as underlying IGM computation method) were below 1 second on complex meshes of up to about 350k triangles and below 5 seconds on highly complex meshes of about 4 million triangles. The same IGM method used without our framework takes over 1 minute and over 20 minutes, respectively, for a single update using identical parameters and constraints. Note that we do not present a new parametrization objective or rounding strategy for IGM computation, nor do we propose concrete UI metaphors to let the user specify the constraints suitable for our case. Our method can rather be understood as a framework, built around and oblivious to the concrete parametrization optimization method and the user interface (cf. Figure 3).
+
+parametrization process. There is a sizeable amount of methods to choose from for the generation and modiﬁcation of such ﬁelds [Vaxman et al. 2016]. They can loosely be categorized into those that generate 4-symmetric cross ﬁelds [Palacios and Zhang 2007; Ray et al. 2008; Kn¨ ppel et al. 2013; Liu et al. 2016] and methods o that exploit more degrees of freedom by generating non-orthogonal ﬁelds [Panozzo et al. 2014; Diamanti et al. 2014; Jiang et al. 2015]. Using a Poisson formulation, parametrizations whose isolines strive to follow those ﬁelds’ directions can be computed, as has been demonstrated in various contexts [Ray et al. 2006; Bommes et al. 2009; Pietroni et al. 2011; Nieser et al. 2012; Bommes et al. 2013; Marcias et al. 2013; Ebke et al. 2014; Campen and Kobbelt 2014; Li et al. 2015]. Using additional rounding techniques [Campen et al. 2015; Bommes et al. 2013; Bommes et al. 2009] these parametrizations can be turned into IGMs. The framework we present in this paper can be used to speed up any combination of guiding ﬁeld and IGM computation method. In fact, as it does not rely on the map’s integer properties, it also works for general so-called seamless parametrizations, e.g. [Ray et al. 2010; Myles and Zorin 2012; Myles and Zorin 2013], which broadens the range of application scenarios beyond quad meshing.
+Multi-Resolution
+
+A common strategy to speed up computations on densely tessellated surfaces is the use of multi-resolution hierarchies or multigrid approaches. Multi-level mesh hierarchies can be obtained through incremental decimation [Hoppe 1996]. Several approaches exploiting these for the purpose of parametrization have been proposed, mainly in the context of texture mapping [Sander et al. 2001; Sander et al. 2002; Cohen et al. 1998; Hoppe 1999; Lee et al. 1998; Hormann et al. 1999]. However, they either map the parametrization in ﬁne-tocoarse direction only or they are tailored to disk-topology parametrization. The only line of works we are aware of which consider (in some sense) transferring chart transition functions in coarse-to-ﬁne direction [Khodakovsky et al. 2003; Pietroni et al. 2010] relies on a dual setting (cuts are across rather than along edges) such that it is not applicable to IGMs, with their speciﬁc chart transitions and their singularities. Daniels et al. [2011] mention the related possibility of mapping triangles of a coarse level to corresponding “approximate geodesic triangles” on a ﬁne level, without elaborating on the robust automatic determination of these, though. Bommes et al. [2013] use a two-level hierarchy for IGM computation. Only the parametrization is computed on the coarse level; the
+
+2
+
+Related Work
+
+Field-guided Parametrization
+
+The aforementioned quad remeshing methods derive a great part of their user control from the orientation ﬁelds that guide their
+ACM Trans. Graph., Vol. 35, No. 6, Article 218, Publication Date: November 2016
+
+218:3
+User Interface user Input Mesh target edge length + feature constraints (roundtrip e.g.: 11.3s) Redundancy Free + guiding constraints + index constraints (roundtrip e.g.: 1.3s) Minimally Sampled + layout constraints + cycle constraints (roundtrip e.g.: 1.0s) Input Mesh IGM
+
+•
+
+Interactively Controlled Quad Remeshing of High Resolution 3D Models
+
+coarser meshes of very different nature: the intermediate redundancy free mesh, and the coarse minimally sampled mesh. The reason for this three-tier hierarchy is as follows.
+Three-Tier Hierarchy
+Decimation Log
+
+Coarse IGM
+
+IGM Computation
+
+The cost of the IGM computation on the coarse mesh can be made almost arbitrarily small (by an appropriate choice of coarseness). The cost of coarse-to-ﬁne mapping with our efﬁcient strategy is also low. The entire process thus is dominated by the decimation step (in Figure 1 it takes about 9s, whereas IGM computation and coarse-to-ﬁne mapping combined take less than 1s). If this decimation only needs to be done once in the beginning, this certainly is not an issue. However, as this initial decimation is unaware of the constraints (cf. Section 4) the user might be adding, the coarse mesh can become ill-suited at a certain point during interaction, lacking degrees of freedom (i.e. vertices) in regions where the user wants to exert ﬁne-grained control. A (relatively) costly re-decimation, which preserves the required degrees of freedom, is then necessary. To mitigate this cost, we introduce an intermediate level into the hierarchy: it is a uniformly sampled mesh with a resolution tailored to and sufﬁcient for the two most important forms of user interaction (guiding the quad orientation, i.e. the edge ﬂow, and controlling irregular vertices). Upon change of the pertinent constraints through the user, re-decimation can then be performed starting from the intermediate level, often reducing the delay by an order of magnitude or more. The minimally sampled decimation level is a very coarse, nonuniform subsampling that takes Gaussian curvature, guiding and index constraints into account. Figure 5 displays the hierarchy of an example model. In Section 4 the constraint classes are described in detail, and in Section 5 the decimation process is treated.
+
+Figure 3: An overview of the presented framework. A three-tier mesh hierarchy (green) is generated. Decimation records are kept in a log. IGM computation is performed on the coarsest level, and the coarse IGM (blue) is transformed into a ﬁne IGM (blue) on the original mesh using the decimation log. This IGM serves as feedback based upon which the user adds, removes, or changes some constraints by means of a suitable UI (top). The different types of constraints are fed into the pipeline at different decimation stages (left), thus the next update iteration might be able to start at a low level of the hierarchy, signiﬁcantly saving re-decimation time. This is exempliﬁed with roundtrip timings of the scenario in Figure 1. cross ﬁeld must be computed on the complex input mesh, because the special kind of decimation applied relies on a priori knowledge of the ﬁeld’s singularities. This in particular is a drawback because the cross ﬁeld optimization problem is a large mixed integer problem, with the number of integer variables linear in the input size. Update rates are thus typically not interactive. Furthermore, the ﬁnal IGM is deﬁned on the extremely coarse mesh only; a pointwise map to the input mesh is available which, however, does not deﬁne a per-face-linear IGM on the input mesh. Jakob et al. [2015] demonstrated the use of a multi-level strategy in a highly interactive quad(-dominant) meshing scenario. The approach is tailored to local parametrization operations, akin to [Ray et al. 2006], and the coarse-to-ﬁne mapping relies on the absence of global parametrization consistency conditions. It does thus not directly extend to the computation of global seamless parametrizations such as IGMs (the consequent differences to our approach are demonstrated in Figures 9 and 11). In particular, this local approach implies that non-local constraints such as layout or cycle constraints (cf. Section 4) cannot be taken into account. General (unstructured) multigrid approaches [Aksoylu et al. 2005; Ray and L´ vy 2003] are likewise not readily applicable. First of all, e it is far from obvious how an IGM, with its discrete transitions and singularities, can properly be mapped between levels using standard prolongation and restriction operators. A further general issue is the fact that IGM computation inherently is a mixed integer problem with discrete degrees of freedom. This makes the problem not well-suited for these approaches, because the solutions behave discontinuously across the levels; in particular, thus all the usual convergence results [Wesseling 2004] do not apply in this case.
+
+Parametrization
+
+The IGM computation is performed entirely on the minimally sampled mesh, using any IGM computation method. From the perspective of our framework, the parametrization method can be considered a black box. It is merely required that a seamless parametrization is provided for the subsequent steps.
+
+Coarse-to-Fine Mapping Once a parametrization is available on the minimally sampled mesh it is propagated to the high resolution input mesh using the information recorded in the decimation log while maintaining consistency of the transition functions, singularities, and the layout of the induced quad mesh. Iterative Modiﬁcation
+
+The parametrized input mesh reﬂecting the set of provided constraints serves as feedback for the user who can then add, remove, or modify constraints and reiterate the process. Additional run time is saved by not starting over from scratch but, depending on the types of changed constraints, starting redecimation at the level where they take effect.
+
+4
+
+Design Constraints
+
+3
+
+Method Overview
+
+Figure 3 provides a bird’s-eye view over our framework. The initial starting point is the high resolution input mesh. Using the decimation technique, and keeping record of every decimation operation in the decimation log, we compute two additional, increasingly
+
+We start by examining the ﬁve common classes of design constraints offered by state-of-the-art IGM computation methods, and determine what kind of requirements they impose on the decimation strategy to be introduced in Section 5.
+Hard Feature Constraints are deﬁned via a set of edges on the input mesh that represent sharp feature curves which should be
+ACM Trans. Graph., Vol. 35, No. 6, Article 218, Publication Date: November 2016
+
+218:4
+
+•
+
+H.-C. Ebke et al.
+
+faithfully reproduced through edges in the ﬁnal quad mesh. Such edges can be user-deﬁned, detected by thresholding dihedral angles or by considering larger neighborhoods [Hubeli and Gross 2001]. IGM computation methods enforce this constraint by requiring these edges to lie on integer iso-lines in the parameter domain [Bommes et al. 2009]. In our setting we need to ensure that the coarse mesh still contains these edges (possibly in a sub-sampled form) in order to be able to adequately express these constraints when computing the IGM on the coarse mesh. are deﬁned as connected regions on the surface with an associated smooth direction ﬁeld. The IGM’s iso-lines (and thus the edge ﬂow of the resulting quad mesh) within such a region should be aligned along the given direction ﬁeld. Such constraint regions can be determined from brush-stroke user interface metaphors, or they can be derived from soft-feature detection methods [Nieser et al. 2012; Gelfand and Guibas 2004; Campen et al. 2016].
+Soft Guiding Constraints
+
+Cycle Constraints require isolines to form closed, cyclic curves in speciﬁed regions (similar to the above layout constraints without prescribing concrete curves), preventing the local occurrence of undesirable helices [Bommes et al. 2011]. Such constraints affect the guiding ﬁeld computation in form of holonomy constraints [Ray et al. 2008] and the parametrization in form of cyclic layout constraints (not necessarily involving a singularity) [Campen et al. 2016].
+
+Being of topological nature, layout constraints and cycle constraints do not restrict the space of acceptable decimations. Nevertheless, they are expressed in terms of mesh entities (dual edge paths) and thus must be translated to the coarse level.
+
+5
+
+Decimation Method
+
+Our decimation strategy has to ensure that every such region has a proper counterpart in the coarse mesh and the support of its inﬂuence on the parametrization of the entire surface is maintained.
+Index Constraints
+
+To obtain coarse versions of the input mesh, we make use of the generic incremental decimation framework [Kobbelt et al. 1998]: 1: Input: triangle mesh M 0 = M ﬁne 2: i ← 0 3: while target complexity not reached do 4: vrem ← arg minv E i (v) 5: M i+1 ← D ECIMATE(M i , vrem ) 6: i←i+1 By checking the link conditions [Dey et al. 1998] before choosing a vertex for removal, we can ensure that the surface of the decimated mesh is topologically equivalent to the original. As the atomic operation D ECIMATE we choose the common vertex removal operation [Lee et al. 1998] that retriangulates the 1ring (determined as the Delaunay triangulation within the discrete geodesic polar parametrization of the 1-ring [Welch and Witkin 1994]), as illustrated in Figure 4. However, we express this operation as a half edge collapse followed by a sequence of edge ﬂip operations instead of vertex removal and retriangulation. This is crucial for our purpose, because it enables us to consistently keep track of transitions when performing the coarse-to-ﬁne-mapping after the IGM computation on the coarse mesh, cf. Section 6. Regarding the vertex order taken by the incremental decimation approach (dictated by the cost function E chosen in line 4), our goal is to produce a mesh with a very low number of vertices in order to heavily reduce the run time of the IGM computation, while at the same time ensuring that the IGM computed on the coarse mesh is reasonably close to what it would look like if it was computed on the ﬁne input mesh. We will see in the following that common cost function choices, e.g. the well-known error quadric metric or objectives promoting uniform edge lengths, are not well-suited for our speciﬁc purpose. In particular, note that geometric shape approximation in terms of Hausdorff distance is not a direct goal of decimation in our context. In Section 5.1 we introduce two cost functions E, in Section 5.2 we detail how the user-speciﬁed design constraints are taken into account during decimation, and in Section 5.3 we introduce two techniques to further accelerate interactive updates to the IGM.
+
+are prescribed indices [Ray et al. 2008] of singularities in the cross ﬁeld which drives the parametrization process. These indices directly translate into valences of irregular vertices (or the local absence of irregular vertices) in the quad mesh implied by the resulting IGM. They are given as a discrete scalar value on vertices [Bommes et al. 2009]. The most common application scenario for index constraints is in the implementation of a drag-and-drop UI metaphor to edit the irregular vertex conﬁguration through move, merge, and split operations. This type of constraint can only be enforced by the IGM computation if the vertices with prescribed index have a counterpart in the coarse mesh, i.e. if they did not get removed during decimation.
+Layout Constraints
+
+affect the topological structure of the IGM or, in terms of a quad mesh, its connectivity. For instance, the user can specify that a pair of singularities is connected by an isoline of the IGM (a sequence of edges of the implied quad mesh) [Myles et al. 2010], without prescribing the concrete path of the isoline (which, if desired, can be done using feature constraints instead).
+vrem
+
+(a)
+
+(f) v3 β v1 α v2
+
+ωi (b) (c)
+
+ωi+1 (d)
+
+γ
+
+(e)
+
+Figure 4: Illustration of the atomic sub-operations performed in a decimation step. The local 1-ring (a) is parametrized (b) and a half edge collapse is performed (c). Next, edge ﬂips are performed to establish a local Delaunay triangulation (d). For coarse-to-ﬁne mapping purposes, barycentric coordinates of the removed vertex in the local domain are determined and stored (e). This is similar in spirit to the MAPS approach [Lee et al. 1998], though more information needs to be stored and the coarse-to-ﬁne mapping is more complex due to handling of singularities and transition functions.
+ACM Trans. Graph., Vol. 35, No. 6, Article 218, Publication Date: November 2016
+
+5.1
+
+Decimation Objective
+
+Modern IGM parametrization algorithms rely on cross or frame ﬁeld generation methods (cf. Section 2) for the geometry aware determination of singularities. Their placement is, in virtually all automatic methods, fundamentally inﬂuenced by the surface’s Gaussian curvature distribution. We thus propose cost functions to be used in the decimation order determination that penalize changes in local Gaussian curvature:
+
+218:5
+i EG (v)
+
+•
+
+Interactively Controlled Quad Remeshing of High Resolution 3D Models
+
+= |K (v)| +
+
+i
+
+v ∈N1 (v)
+
+|K
+
+i+1
+
+(v ) − K (v )|
+
+i
+
+i EG,mem (v) = |K 0 (v)| +
+
+v ∈N1 (v)
+
+|K i+1 (v ) − K 0 (v )|
+
+decimation step via the planar 1-ring parametrizations (cf. Figure 4): a coarse triangle in the decimated 1-ring adopts the direction of the ﬁne triangle containing its barycenter. More complex interpolation strategies with higher ﬁdelity are imaginable, but this simple approach proved sufﬁcient.
+
+where K i (v) is the Gaussian curvature at vertex v in mesh M i and N1 (v) ⊆ V is the 1-ring neighborhood of v. K i+1 is the tentative Gaussian curvature if M i+1 is obtained from M i by removal of the vertex v as the next step. Note that the tentative Gaussian curvature at the location of v itself is zero, hence the simpler ﬁrst term. The difference between EG and EG,mem is that the latter has a memory: the Gaussian curvature of the original mesh M 0 = M ﬁne is always taken as reference, rather than the current state M i . In Section 9, using the measures introduced in Section 8, we compare the performance of these Gaussian curvature based cost functions. We also compare to other common decimation cost functions: the quadric error metric EQEM [Garland and Heckbert 1997] (adapted to our setting which requires the coarse mesh to be a subsampling of the ﬁne mesh, i.e. rating and performing half edge collapses instead of edge-collapses) and a uniform edge length objective Euni (cf. Section 5.3).
+
+5.3
+
+Acceleration of Re-Decimation
+
+Intermediate Level
+
+In an interactive workﬂow, users typically iteratively modify the set of guiding, index, layout and cycle constraints to explore the IGM design space and adjust the resulting mesh. Layout and cycle constraints can be applied directly at the minimally sampled decimation level and thus an updated IGM can be computed with a minimum delay. For index and guiding constraints, however, the coarsest decimation level may not provide enough degrees of freedom. Consequently, a constraint aware re-decimation (cf. Section 5.2) is necessary. On the other hand, index and guiding constraints do not need a granularity signiﬁcantly ﬁner than the quad mesh density (speciﬁed by the target edge length s). We exploit this observation by introducing the redundancy free intermediate level into the decimation hierarchy as outlined in Section 3. In order to distribute the vertices uniformly across the surface, we perform a uniform decimation from the ﬁne to the intermediate level using the cost function Euni (v) =
+v ∈N1 (v)
+
+5.2
+
+Constraint Awareness
+
+In order to, during decimation, preserve sufﬁcient degrees of freedom (i.e. vertices) to properly enforce the user-speciﬁed constraints we handle them specially during the decimation.
+Index Constraints
+
+min
+
+x(v) − x(v )
+
+As indicated in Section 4, vertices that are constrained to a certain (non-zero) cross ﬁeld index have to remain part of the decimated mesh. We thus simply exclude them from being selected for removal during decmation.
+
+with the embedding of the mesh x : V → R3 . We terminate the decimation as soon as Euni (v ∗ ) > s/2 for the minimizer v ∗ of Euni . This way we yield a sufﬁciently uniform tessellation with edge lengths just above s/2. This intermediate level is then further decimated using EG or EG,mem to obtain the minimally sampled coarse mesh. Decimating to a constant complexity of 1000 vertices proved to be a suitable speed/quality trade-off for all of our experiments. Figure 5 displays an example of the decimation results. Figure 3 shows starting from which level re-decimation needs to be performed if a certain type of constraint is modiﬁed or added. We thus have three tiers of constraints: layout and cycle constraints allow for the fastest feedback times, guiding and index constraints incur a small penalty for re-decimation starting from the intermediate level, and changes to feature constraints require a full redecimation. Note that the set of sharp surface features the quad mesh edges should be strictly aligned to is often clear and known in advance, rather than to be discovered interactively, such that the impact of this circumstance is not even of relevance in practice according to our experience.
+Cost Function Cache
+
+Feature Constraints
+
+Feature vertices (i.e. vertices incident to one or more than two edges marked as feature edges) are likewise preserved. Vertices within feature edges (i.e. vertices incident to two feature edges) are only allowed to collapse along one of their incident feature edges; but we completely disallow their removal if the feature edge meets any of the discontinuity curve criteria formulated in [Hoppe 1996]. Further, when restoring the local Delaunay criterion through edge ﬂips we disallow ﬂipping feature edges and thus establish a constrained local Delaunay triangulation.
+
+Guiding Constraints
+
+Direction ﬁelds deﬁned in certain mesh regions (e.g. speciﬁed by strokes) are used to guide the edge ﬂow. In terms of decimation decisions, we treat edges separating these regions from one another and from the rest of the mesh like described above for feature edges.
+
+In addition, in order to avoid guiding regions converging into a single point, we do not collapse a corner of a guiding region boundary (a vertex where the inner angle of the guiding region is less than 3 π), unless this collapses two corners closer 4 than the IGM target edge length s (to not preserve small scale noise on the region boundaries). The guiding direction ﬁeld in the regions is easily transferred to the coarsened mesh during each
+
+Energy EG is not trivial to compute: in order to compute the Gaussian curvature after a tentative decimation operation, the operation actually has to be performed. This involves computing the local planar parametrization and establishing the local Delaunay state as laid out in Section 5. In interactive settings, where constraints are added iteratively, the second decimation stage is performed repeatedly. While everytime it is performed with different constraints it converges towards a different result (cf. Section 5.2) the vast majority of evaluations of EG are performed on 1-ring neighborhoods that occurred in previous iterations already. We exploit this observation and gain a speed-up
+ACM Trans. Graph., Vol. 35, No. 6, Article 218, Publication Date: November 2016
+
+218:6
+
+•
+
+H.-C. Ebke et al.
+
+Figure 5: The three decimation levels of a mesh. The input mesh (left) has 346k faces, the redundancy free mesh (center) has 29k faces and the minimally sampled mesh (right) has 1000 vertices. Note how the guiding regions deﬁned in the redundancy free mesh are preserved in the minimally sampled mesh.
+
+multiple charts and be non-continuous at the chart boundaries. For instance, a parametrization of v h1 the triangles depicted on the right is discontinuh2 ous across edge eh2 if f (h1 ) = f (h2 ) or f (h3 ) = f (h∗ ), i.e. if there are two images of eh2 in the th 2 2 parameter domain. We associate an afﬁne tranh3 2 2 sition function th : R → R with every half edge h, th = t−1 , that maps between the two images of the edge h∗ eh . Consequently, in the example above th2 (f (h2 )) = f (h1 ) and th2 (f (h3 )) = f (h∗ ). For the sake of legibility we occasionally 2 use the notation ti for thi and ti∗ for th∗ when it does not introi duce ambiguities. Whenever we make an assignment to a transition function th it is implied that we assign the inverse function to the opposite transition function th∗ := (th )−1 . The conditions on the transitions that restrict the space of general chart-based parametrizations to that of integer grid maps are detailed by Bommes et al. [2013].
+
+(up to a factor of 4 in our experiments) by caching values of EG in a hash table. The hash key needs to be a unique description of the 1-ring (e.g. the index of the center vertex followed by a clockwise enumeration of its neighbors starting with the smallest index). In the case that EG,mem is used, caching is less attractive: only if center vertex v, 1-ring, and 2-ring vertices occur in the same conﬁguration in two decimation sequences, EG,mem (v) is the same in both cases. The likelihood of cache misses is thus signiﬁcantly higher.
+
+6.2
+
+Setting
+
+As indicated in Section 5 we obtain the coarse mesh Mcoarse from the input mesh Mﬁne through a series of decimation steps. Each decimation operation removes one vertex and re-triangulates the resulting hole. As illustrated in Figure 4 this operation can be broken up into several atomic sub-operations: a half-edge collapse followed by zero or more edge ﬂips. Thus, in effect our incremental decimation approach creates a series of meshes
+1 2 n Mﬁne = M 0 −→ M 1 −→ . . . −→ M n = Mcoarse
+
+6
+
+Coarse-to-Fine Mapping
+
+ω
+
+ω
+
+ω
+
+Given the (ﬁne) input mesh Mﬁne and the (coarse) mesh Mcoarse generated by our decimation method, we need to faithfully map any global parametrization of Mcoarse onto Mﬁne in a way that preserves the consistency of singularities, transition functions and charts. Before we explain how our coarse-to-ﬁne mapping approach reaches this goal we need to introduce some notation.
+
+through ﬁne-to-coarse operations ωi that are either half-edge collapses or edge ﬂips. We then compute a parametrization fcoarse on Mcoarse and, through coarse-to-ﬁne operations ωi , create a series ¯ of derived parametrizations f i that represent the initial parametrization on increasingly ﬁner meshes M i :
+n 1 fcoarse = f n −→ f n−1 −→ . . . −→ f 0 = fﬁne .
+
+ω ¯
+
+ωn−1 ¯
+
+ω ¯
+
+6.1
+
+Notation
+
+to from Meshes We work with a half-edge based trianvh∗ = vh gle mesh representation M = (V, H, E, F ), a tuple containing the set of vertices V , directed half h∗ edges H, edges E and triangles F . We specify individual vertices, half edges and edges using lower h to case italics. Given a half edge h ∈ H, vh and from vh ∈ V denote the vertex h is pointing to and v to = v from h h∗ originating from, respectively. h∗ ∈ H denotes to from the half edge opposite to h (i.e. vh = vh∗ ), and eh = eh∗ ∈ E denote the non-directed edge represented by h and h∗ . As usual, in an oriented 2-manifold mesh, each half edge can be associated with one of its two incident faces (by convention: the one in which it is oriented in a counter-clockwise manner).
+
+The two decimation operations can naturally be deﬁned to logically only discard existing but never introduce new half-edges (cf. Figure 6 and 7) so that dom(fcoarse ) = Hcoarse ⊆ Hﬁne = dom(fﬁne ) and, in general, dom(f i ) ⊆ dom(f i−1 ). Note that these ﬁne-to-coarse and coarse-to-ﬁne operators are deﬁned in an asymmetric fashion: while the ﬁne-to-coarse operators ω transform a ﬁne mesh into a coarse one, the coarse-to-ﬁne operators ω transform a coarse parametrization into a ﬁne one. The rea¯ son for this asymmetry is that in order to yield minimal round trip times (and thus maximum interactivity) it is favorable to transform the parametrization fcoarse of Mcoarse into fﬁne of Mﬁne without explicitly reconstructing intermediate decimation levels M i of the mesh —only Mcoarse and Mﬁne need to be available.
+Transition Functions Note that, since the f i imply transition functions ti , there is no need to explicitly map the transition funch tions from fcoarse to fﬁne . However, since explicit transition functions are a by-product of most IGM computation methods while extracting them from a parametrization suffering from numerical inaccuracies is not trivial (cf. [Ebke et al. 2013]) we explain how to implement an ω operation that maps both, f and t in the following. ¯
+
+Parametrizations The integer grid maps we are going to map across meshes take the form of piecewise linear parametrizations of the triangle mesh with transitions across cuts. They can be deﬁned through a map which assigns a point in the parameter domain (UV coordinates) to each triangle corner. As every triangle corner can be identiﬁed with the unique half edge pointing to it, this can be expressed as a map f : H → R2 of the half edges h ∈ H into the to to parameter domain. Consequently, the same vertex v = vh1 = vh2 can, in general, have different parametrizations in different faces, i.e. f (h1 ) = f (h2 ). This allows the parametrization to consist of
+ACM Trans. Graph., Vol. 35, No. 6, Article 218, Publication Date: November 2016
+
+6.3
+
+Coarse-to-Fine Operators
+
+The effect of the ﬂip operator (which transforms a “ﬁner” mesh M i into a “coarser” mesh M i+1 ) is illustrated in Figure 6. The un-ﬂip
+
+218:7
+hb hﬂip ti−1 ﬂip A ti−1 a ha hb ﬂip A ti ﬂip un-ﬂip hﬂip ti B a ha h∗ ﬂip
+
+•
+
+Interactively Controlled Quad Remeshing of High Resolution 3D Models
+collapse hk−2
+
+ti−1 b B h∗ ﬂip
+
+ti b
+
+h. h2
+
+ti −2)∗ (k c 1 h k− ti−1 k 1 −
+
+h k−
+
+..
+
+h.
+ti ∗ ...
+
+2
+
+..
+
+ti−1 1
+
+h1
+
+h0
+ti−1 a 0 un-collapse
+
+h2 ti ∗ 2
+
+Figure 6: The edge ﬂip operator reconnects the diagonal half edges hﬂip and h∗ , turning them counter-clockwise. Given a ﬂip parametrization of the decimated mesh, the incident triangles are in (potentially different) charts A and B with transition function tﬂip mapping between them. In order to yield a consistent parametrization, we deﬁne that the inverse operator makes the charts turn counter-clockwise and adjust the affected transition functions ta , tb , and tﬂip , as well as the parametrization of the affected half edges ha , hb , and hﬂip accordingly. operator (which transforms a parametrization f i of a coarser mesh M i into a parametrization f i−1 of a ﬁner mesh M i−1 ) permutes the parametrization (or UV coordinates) of the involved half edges and adjusts the transition functions accordingly. Figure 7 illustrates the effect of the half edge collapse operator ωi ωi ¯ (M i−1 −→ M i ). The un-collapse operator (f i −→ f i−1 ) interpolates the parametrization for the removed center vertex using the stored barycentric coordinates, generates parametrizations for the two collapsed triangles and computes consistent transition functions for the three collapsed edges. Details on the implementation of the un-ﬂip and un-collapse operators for IGMs are given in Appendix A.
+
+b
+
+Figure 7: The half edge collapse operator removes a vertex and three pairs of incident half edges while reconnecting the remaining incident half edges to one of its adjacent vertices. Consequently, the inverse collapse operator updates the parametrization of the half edges pointing to the removed vertex and of those half edges that were removed. In addition, consistent transition functions for the three removed edges are computed.
+
+be rearranged and combined using the disk growing approach laid out in [Bommes et al. 2009].
+
+7
+
+Complexity Considerations
+
+Using our decimation and coarse-to-ﬁne mapping framework, we can achieve linear run time and memory complexity. The only data generated by our algorithm is the decimation log and (optionally) the hash table used to cache results of expensive energy computations. The size of both of these is linear in the number of decimated vertices. Since we decimate to a constant number of vertices, the memory complexity of any IGM computation method is constant.
+Memory Complexity
+
+6.4
+
+Decimation Log
+
+The information on what sequence of un-ﬂip and un-collapse operations need to be performed is contained in the decimation log recorded during decimation. It is a list of n records corresponding to the operations ωi . There are two types of records corresponding to the two operations: a ﬂip record and a collapse record. A ﬂip record stores pointers to the corresponding half edges hﬂip , ha , hb , the collapse record stores pointers a, b, c, h0 , h1 , . . . , hk−1 , as well as the interpolation information: local vertex indices iα , iβ , iγ , and barycentric coordinates α, β, and (implicitly) γ = 1 − α − β (cf. Figure 14). Note that this representation is related to the split records of progressive meshes [Hoppe 1996] but differs in being half edge instead of vertex based. This is crucial in order to properly handle the mapping of chart-based parametrizations with transitions. The interpolation vertices and weights are determined during decimation by intersecting the removed vertex with the new triangulation of its 1-ring in its local parameter domain and computing its barycentric coordinates within the intersecting triangle (cf. Figure 4 (e)). A detailed description of an efﬁcient storage format for the decimation log is given in Appendix B.
+
+The run time complexity of the IGM computation is constant for the same reason. Our incremental decimation scheme performs less than |V | decimation operations each of which consists of one half edge collapse and an amortized constant number of edge ﬂips. Both of these operators have (amortized) constant run time and so do their inverse counterparts. If the selection of the next vertex to remove is implemented using a priority queue, it has O(log |V |) complexity. We can, however, resort to a constant-time stochastic implementation (draw c random vertices and pick the one with the lowest energy) until |V | goes below a ﬁxed threshold (e.g. 106 ) without a signiﬁcant loss in result quality, thus achieving an overall linear run time.
+Run Time Complexity
+
+6.5
+
+Atlas Simplicity
+
+Note that the beneﬁt of the linear run time complexity is merely of a theoretical nature. The constant factor in the necessary |V | evaluations of the decimation energies E1 , E2 , albeit small on an absolute scale, is much larger than the one in the priority queue updates. As a result, on all meshes used in our experiments (none of which had more than 10M vertices) the relative savings of the stochastic implementation are minuscule (on small meshes even negative) and thus the O(|V | log |V |) approach with a priority queue was used.
+
+While the parameter domain generated by state-of-the-art IGM based quad meshing methods is relatively simple (usually one connected, relatively compact (self-overlapping) chart), during the coarse-to-ﬁne mapping the chart atlas can become arbitrarily fragmented with multiple charts and many superﬂuous non-identity transitions. In the context of quad meshing the complexity of the atlas is entirely irrelevant, as the implied integer grid is oblivious. If, however, a downstream application beneﬁts from a simple domain, (e.g. in the context of texture mapping) the charts can easily
+
+8
+
+Evaluating IGM Similarity
+
+Our method is intended as an acceleration add-on to existing IGM computation methods. Consequently, more importantly than being generically of an overall high quality, an IGM produced using our approach should speciﬁcally be close to the IGM produced without our approach subject to identical design constraints. Unfortunately, there are no generally accepted, universally meaningful measures for the similarity of two IGMs. In particular, note that evaluating
+ACM Trans. Graph., Vol. 35, No. 6, Article 218, Publication Date: November 2016
+
+218:8
+
+•
+
+H.-C. Ebke et al.
+
+some kind of parametrization difference (e.g. based on the eigenvalues or eigenvectors of the Jacobian) in a triangle by triangle manner is not adequate: for instance, introducing an additional pair of close-by singularities with opposite (arbitrarily extreme) indices may have an arbitrarily small effect on the parametrization (if they are close enough); however, such superﬂuous singularities, singularities with extreme indices, as well as singularities very close to each other are all very unfavorable and even problematic in the context of mesh generation. We propose to consider the following measures instead, which capture properties of an IGM that are deemed important for artist guided quad meshing: • number, type, and location of singularities (irregular vertices), • distortion of the parametrization (the shape of the quads). correspond to metric cones [Myles and Zorin 2012] in the IGM which in turn correspond to singularities [Ray et al. 2008] in the guiding cross ﬁeld. The difference between two IGMs on a common surface in terms of irregular vertex conﬁguration can thus be quantiﬁed as the distance between the Gaussian curvature distributions in the corresponding cone metrics, or equivalently (up to a factor 2π) as the distance between the index distributions in the underlying cross ﬁelds. Being distributions (with constant integral, determined by the genus), the 1st Wasserstein (earth mover’s) distance (EMD) is an appropriate choice. Intuitively, it quantiﬁes how much effort is needed to transform one conﬁguration into another one by means of moving singularities over the surface (including splits and merges where necessary), according to the optimal transport plan. As the distributions under consideration are collections of scaled Dirac impulses, we are effectively facing a discrete setting in which the distance is easily computed [Rubner et al. 1998].
+Irregular Vertices
+
+Figure 8: Our pipeline used with (from left to right) [Ebke et al. 2014], [Bommes et al. 2009], [K¨ lberer et al. 2007] and a seama less parametrization (without integer rounding of translations and singularity parameters), each computed with the same set of alignment constraints. The magniﬁcation shows the fragmentation of the chart atlas (which can be defragmented if desired, cf. Section 6.5).
+
+• shear as the arc-sine of the scaled Jacobian of g (i.e. the (smaller) angle at which isolines cross locally). In the following we will use these measures to evaluate the performance of different decimation strategies for our purpose.
+
+9
+
+Results
+
+In our context of quad mesh generation, however, this measure has a shortcoming: only moving is associated with a cost, not the splitting or merging of singularities that might happen implicitly. A low EMD is thus a required but not a sufﬁcient indicator for irregular vertex conﬁgurations being similar. For instance, as mentioned above, the appearance of an additional pair of nearby singularities i i with indices + 4 and − 4 has an arbitrarily small effect on the EMD (depending on their distance on the surface). Even clusters of hundreds of additional singularities (of arbitrarily extreme indices), certainly leading to unacceptable or even invalid quad meshes, potentially remain undetected by the EMD alone. One could associate additional costs with splits and merges, but there is no obvious natural choice of cost relative to moving. We thus abstain from consolidating both aspects into a single value and instead consider the singularity index histogram (or the irregular vertex valence histogram) in addition to the distribution distance, allowing to judge both aspects separately.
+Sizing, Anisotropy, and Shearing In order to judge the similarity of two IGMs with respect to sizing, anisotropy, and shearing, we measure these quantities in both IGMs per face, recalling that IGMs are piecewise linear. We then study the differences between the distributions based on histograms to judge the similarity.
+
+Setup To test our framework we implemented it in a singlethreaded fashion and combined it with the parametrization method described in [Ebke et al. 2014] and a rudimentary UI to interactively specify constraints. This setup was used for our experiments, but as we show in Figure 8, our framework can likewise be combined with other IGM and seamless parametrization computation methods. To judge the performance we determined two timings: the one-off initialization delay and the iterative delay incurred when updating the parametrization after constraints were added. The initial delay includes (1) the computation of the full decimation hierarchy, (2) the computation of an initial parametrization and (3) the coarse-to-ﬁne mapping procedure of the parametrization onto the original mesh. The iterative delay contains (1) a repeated decimation from the redundancy free (intermediate) decimation level incorporating a new constraint set, (2) the computation of a new IGM and (3) the coarseto-ﬁne mapping procedure. The timings of steps (2) and (3) are almost identical between the steps. The delay for step (1) is much lower for the iterative updates because the ﬁrst decimation stage is skipped and because the decimation priority cache is already ﬁlled. Workﬂow The title picture (Figure 1, N EFERTITI model) is quite instructive as it shows several stages of a typical workﬂow where the user explores the space of possible quadrangulations by iteratively adding constraints and evaluating the instant visual feedback. Timings
+
+Given a linear map g mapping a face from the parameter domain onto the surface, we measure • sizing as det( g)/s2 , the ratio of the determinant of the Jacobian of g and the squared target edge length s, • anisotropy as σ1 /σ2 , the larger singular value of by the smaller one, and g divided
+
+In Table 1 we present a list of timings acquired in our experiments on an Intel Core i7-4770 processor. Note that the timings for the iterative update vary slightly, typically by less than 10%, due to the varying number of cache misses depending on how the constraint set is updated in each iteration. The timings provided in Table 1 are average timings. The reference timings obtained with [Ebke et al. 2014] without our framework are given as well. In Figure 9 we present timings for the same input mesh when using different target edge lengths. While the target complexity of the minimally sampled (coarse) decimation level is constant, the complexity of the redundancy free (intermediate) decimation level depends on the chosen target edge length: if the target edge length
+
+ACM Trans. Graph., Vol. 35, No. 6, Article 218, Publication Date: November 2016
+
+218:9
+Model |F | tbase td Initialization t p tm Σ EG,mem td Σ EG td Σ 0.2 0.1 0.3 0.3 0.2 0.8 1.1 0.7 1.0 1.3 1.5 9.3
+
+•
+
+Interactively Controlled Quad Remeshing of High Resolution 3D Models
+
+A RMADILLO 346k 1.2M C HARLEMAGNE 5 C HARLEMAGNE 2.5 1.2M 2M N EFERTITI 846k D RAGON 1 7.2M D RAGON 2
+
+58 2.2 0.8 0.1 3.1 0.6 1.5 182 5.8 0.2 0.4 6.4 0.4 1.0 269 6.6 0.3 0.4 7.3 1.0 1.7 318 10.3 0.3 0.7 11.3 1.1 2.1 161 4.4 1.0 0.3 5.7 0.9 2.2 >1h 40.0 6.0 2.5 48.5 3.0 11.5
+
+Table 1: Timings (in seconds) taken on meshes of different complexity. tbase are baseline timings obtained with [Ebke et al. 2014] running without our framework. The other timings (decimation td , parametrization tp and coarse-to-ﬁne mapping tm ) were obtained using our framework on top of the same parametrization method, once with EG,mem and once with EG exploiting a cache. The one-off initialization costs are unaffected by the cache and thus identical for both energies. The columns printed in bold show the most important times: the total time for an update when the user changes guiding or index constraints (with same tp and tm (thus not repeated in the table), but shorter td due to the intermediate level of the hierarchy, cf. Section 5.3).
+
+gets shorter, the redundancy free level is more complex and thus more vertices are decimated in the second, more expensive decimation phase. As a consequence, the run time of our method is (to some extent) target edge length sensitive.
+Decimation Strategies In Figures 10 and 13 we show how our Gaussian curvature based decimation order EG performs in comparison to EQEM (cf. Section 5.1). Figure 10 uses the A RMADILLO mesh to demonstrate that using EQEM , the local Gaussian curvature gets concentrated on single vertices. This causes the guiding ﬁeld algorithm to place singularities of very high indices (translating into quad mesh vertices of very high or very low valence) onto the mesh. Even indices corresponding to vertex valences of zero or below zero can be caused, which render the generation of a valid IGM or quad mesh impossible. With EG,(mem) by contrast, we get the common valence 3 and 5 vertices, just like on the ﬁne mesh. Their number is sometimes increased, but no extreme valences are caused. It can be noticed that, on average (but not even consistently), EG,mem behaves marginally better than EG , whereas the use of EG (due to its efﬁcient cacheability) decreases update delays by around 20%-40% in our experiements.
+
+Figure 9: C HARLEMAGNE (1.2M faces) remeshed with a target edge length of 5 (left) and 2.5 (right). Initialization took 6.4s and iterative reparametrization 0.7s with the larger target edge length. As expected, halving the target edge length affects both timings slightly (7.3s and 1.0s, respectively). The effect of layout constraints is demonstrated on the foot (see magniﬁcation).
+
+of decimation thresholds that directly take into consideration the quality of the guiding ﬁeld on the decimated mesh is thus certainly of interest. As demonstrated in the various ﬁgures above, especially Figure 12, the parametrizations resulting from our framework are only slightly more distorted than the ones computed without it. Yet, there is some additional distortion and it is mainly incurred due to the geometric distortion caused by the decimation. We think the possibility of (approximately) quantifying and accumulating this, and adjusting the underlying IGM computation method to compensate for it, is an interesting aspect for future work. Furthermore, one can picture a hybrid application scenario when very high quality parametrizations are required: ﬁrst, the design space is interactively explored using our framework. Once a good set of constraints is found, an IGM can be computed in a noninteractive post-process directly on the original mesh, using the same set of constraints. While we presented a framework that enables an interactive work ﬂow, we are not aware of any studies that systematically explore and evaluate UI metaphors speciﬁcally tailored to specifying the types of constraints commonly found in quad meshing methods. As these methods now become faster and faster and the interest in incorporating them into interactive applications grows, we think that it would be worthwhile exploring this avenue of research.
+
+In Figures 9 and 12 we made use of different types of constraints to demonstrate the creation of IGMs with a speciﬁc desired layout just as an artist would. By contrast, in Figures 10 and 13 we refrained from using any index or layout constraints in order to judge the quality of the naturally arising singularity conﬁgurations of the different decimation methods.
+Comparison
+
+The recent work by Jakob et al. [2015] (cf. Section 2) is related in that it allows for interactive generation of quaddominant meshes. By performing one step of subdivision, pure quad meshes can be obtained from them. In Figure 11 we demonstrate the characteristic differences of the quad meshes obtained in this way.
+
+10
+
+Limitations and Future Work
+
+11
+
+Conclusion
+
+While our strategy of decimating the minimally sampled mesh to a ﬁxed number of vertices provides us with a linear run time in theory and, in practice, made us very successful in reaching round trip times that were fast enough for interactive quad meshing even on millions of triangles, we realize that a constant complexity threshold might not be ideal in all application scenarios. The investigation
+
+We presented a framework that drastically speeds up parametrization based quad meshing approaches. It is targeted at an interactive application scenario where the user relies on instant feedback when adding high level constraints to guide the edge ﬂow and the layout of the quad mesh. The presented method operates by representing the complex input geometry in a hierarchical manner and propagatACM Trans. Graph., Vol. 35, No. 6, Article 218, Publication Date: November 2016
+
+218:10
+
+•
+
+H.-C. Ebke et al.
+Irreg. Vert.
+
+1
+
+2
+
+3 4 5 6 EMD: 236%
+
+7
+
+1
+
+2
+
+3 4 5 6 EMD: 100%
+
+7
+
+Sizing
+0.2 0.6 1 1.8 4.2 >
+
+0.2 0.6 1 1.8 4.2 >
+
+Anisotropy
+
+1 1.3
+
+2.1
+
+3.4
+
+5.5 > 1 1.3
+
+2.1
+
+3.4
+
+5.5 >
+
+Shear
+<
+
+32
+
+46
+
+60
+
+74 88 <
+
+32
+
+46
+
+60
+
+74 88
+
+IGM computed on non-decimated mesh
+
+decimation w/ [Garland and Heckbert 1997]
+
+decimation with EG,mem
+
+IGM properties using EQEM
+
+IGM properties using EG,mem
+
+IGM computed on mesh decimated with EG,mem
+
+Figure 10: The same mesh reduced to 1000 vertices with quadric error metric decimation and using our Gaussian curvature aware method. Note how features like the ﬁngers and toes are approximated with single spikes with error quadric decimation. Since the entire Gaussian curvature of the ﬁnger tips gets concentrated on the spike, singularites of very low valence are created here. In particular, the irregular vertex valence histogram shows that singularities of valences 1, 2, 6, and 7 appear, which are not present in the reference IGM. With our EG,mem only irregular valences 3 and 5 are present. The similarity suggested by the histograms (the red shadows represent the reference solution created without decimation) can also be witnessed when comparing the reference IGM (far left) to the one created with our method (far right). The EMD is given in normalized form, relative to that of the EG,mem approach (100%), because the absolute value is of no relevance.
+
+The fact that our method is oblivious to the underlying parametrization based quad meshing method as well as to the user interface used to generate the user provided constraints makes this framework useful for a broad range of quad meshing scenarios.
+
+Acknowledgements
+The research leading to these results has received funding from the European Research Council under the European Union’s Seventh Framework Programme (FP7/2007-2013)/ERC grant agreement n° [340884], and the German Research Foundation (DFG, Gottfried-Wilhelm-Leibniz Programm). The software prototype used for evaluation was implemented on top of the OpenFlipper geometry processing framework [M¨ bius and Kobbelt 2012]. The o authors would like to thank Hannes Hergeth for implementing early experiments that shaped this research, as well as the reviewers for their insightful comments.
+
+(a)
+
+(b)
+
+(c)
+
+(d)
+
+Figure 11: For comparison to [Jakob et al. 2015]: results of the multi-threaded implementation provided by the authors, following a comparable set of constraints and to the same target complexities shown in Figure 9. The direct output (a, c) as well as a faired version (b, d; Laplacian smoothing with reprojection) is shown. As suggested by the authors, one step of subdivision was used to obtain a pure quad mesh instead of a quad-dominant mesh. The interaction delay when adding guiding constraints was 2.7s on this model (0.7s or 1.0s with our method). The quad meshes have 111 and 274 irregular vertices (38 and 60 with our method, cf. Figure 9), including some of uncommon valences 2, 6, and 7.
+
+References
+¨ A KSOYLU , B., K HODAKOVSKY, A., AND S CHR ODER , P. 2005. Multilevel solvers for unstructured surface meshes. SIAM Journal on Scientiﬁc Computing 26, 4, 1146–1165. B OMMES , D., Z IMMER , H., AND KOBBELT, L. 2009. Mixedinteger quadrangulation. ACM Transactions on Graphics 28, 3, 77:1–77:10. B OMMES , D., L EMPFER , T., AND KOBBELT, L. 2011. Global structure optimization of quadrilateral meshes. Computer Graphics Forum 30, 2, 375–384.
+
+ing parametrizations from the coarse to the ﬁne level. The resulting parametrization is deﬁned on the original input mesh, enabling downstream applications to operate on the full resolution surface. We showed how the remaining degrees of freedom in the coarse representation can be chosen so that the underlying parametrization method can achieve low distortion parametrizations that satisfy the provided constraints and how to tackle the challenge of maintaining consistency of the parametrization across hierarchy levels in the presence of charts, transition functions, and singularities.
+ACM Trans. Graph., Vol. 35, No. 6, Article 218, Publication Date: November 2016
+
+B OMMES , D., C AMPEN , M., E BKE , H.-C., A LLIEZ , P., AND KOBBELT, L. 2013. Integer-grid maps for reliable quad meshing. ACM Transactions on Graphics 32, 4, 98:1–98:12. C AMPEN , M., AND KOBBELT, L. 2014. Quad layout embedding via aligned parameterization. Computer Graphics Forum 33, 8, 69–81. C AMPEN , M., B OMMES , D., AND KOBBELT, L. 2015. Quantized global parametrization. ACM Transactions on Graphics 34, 6, 192:1–192:12.
+
+218:11
+
+•
+
+Interactively Controlled Quad Remeshing of High Resolution 3D Models
+
+plex polynomials. Computer Graphics Forum 33, 5, 1–11. E BKE , H.-C., B OMMES , D., C AMPEN , M., AND KOBBELT, L. 2013. QEx: Robust quad mesh extraction. ACM Transactions on Graphics 32, 6, 168:1–168:10. E BKE , H.-C., C AMPEN , M., B OMMES , D., AND KOBBELT, L. 2014. Level-of-detail quad meshing. ACM Transactions on Graphics 33, 6, 184:1–184:11. G ARLAND , M., AND H ECKBERT, P. S. 1997. Surface simpliﬁcation using quadric error metrics. In Proc. SIGGRAPH ’97, 209–216. G ELFAND , N., AND G UIBAS , L. J. 2004. Shape segmentation using local slippage analysis. In Proc. Symp. Geometry Processing, SGP ’04, 214–223. H OPPE , H. 1996. Progressive meshes. In Proc. SIGGRAPH ’96, 99–108. H OPPE , H. 1999. New quadric metric for simplifying meshes with appearance attributes. In Proc. VIS ’99, 59–66. H ORMANN , K., G REINER , G., AND C AMPAGNA , S. 1999. Hierarchical parametrization of triangulated surfaces. In Proc. Vision, Modeling, and Visualization 1999, 219–226. H UBELI , A., AND G ROSS , M. 2001. Multiresolution feature extraction for unstructured meshes. In Proc. VIS ’01, 287–294. JAKOB , W., TARINI , M., PANOZZO , D., AND S ORKINE H ORNUNG , O. 2015. Instant ﬁeld-aligned meshes. ACM Transactions on Graphics 34, 6, 189:1–189:15. J IANG , T., FANG , X., H UANG , J., BAO , H., T ONG , Y., AND D ES BRUN , M. 2015. Frame ﬁeld generation through metric customization. ACM Transactions on Graphics 34, 4, 40:1–40:11. ¨ K ALBERER , F., N IESER , M., AND P OLTHIER , K. 2007. QuadCover - surface parameterization using branched coverings. Computer Graphics Forum 26, 3, 375–384. ¨ K HODAKOVSKY, A., L ITKE , N., AND S CHR ODER , P. 2003. Globally smooth parameterizations with low distortion. ACM Transactions on Graphics 22, 3, 350–357. ¨ ¨ K N OPPEL , F., C RANE , K., P INKALL , U., AND S CHR ODER , P. 2013. Globally optimal direction ﬁelds. ACM Transactions on Graphics 32, 4, 59:1–59:10. K NUPP, P. 1995. Mesh generation using vector ﬁelds. J. Comput. Phys. 119, 1, 142–148. KOBBELT, L., C AMPAGNA , S., AND PETER S EIDEL , H. 1998. A general framework for mesh decimation. In Proc. Graphics Interface, 43–50. ¨ L EE , A. W. F., S WELDENS , W., S CHR ODER , P., C OWSAR , L., AND D OBKIN , D. 1998. Maps: Multiresolution adaptive parameterization of surfaces. In Proc., SIGGRAPH ’98, 95–104. L I , Y., L IU , Y., AND WANG , W. 2015. Planar hexagonal meshing for architecture. IEEE Transactions on Visualization and Computer Graphics 21, 1. L IU , B., T ONG , Y., G OES , F. D., AND D ESBRUN , M. 2016. Discrete connection and covariant derivative for vector ﬁeld analysis and design. ACM Transactions on Graphics 35, 3, 23:1–23:17. M ARCIAS , G., P IETRONI , N., PANOZZO , D., P UPPO , E., AND S ORKINE -H ORNUNG , O. 2013. Animation-aware quadrangulation. ACM Transactions on Graphics 32, 5.
+ACM Trans. Graph., Vol. 35, No. 6, Article 218, Publication Date: November 2016
+
+[Ebke et al. 2014] used standalone (>60 minutes)
+
+[Ebke et al. 2014] with our framework (iterative remeshing: 9s)
+
+Figure 12: D RAGON 2 (7.2 million faces) remeshed without our framework (top) and with our framework (bottom). Observe how the singularities are similar in number and position on both meshes. Also observe how the larger number of degrees of freedom available to the parametrization algorithm when used without our framework allows for a slightly more uniform parametrization. However, the degradation in performance is severe: using our method the initialization cost is 49s, iterative remeshing takes 9s. Without our framework, every remeshing iteration takes more than 60 minutes.
+
+C AMPEN , M., I BING , M., E BKE , H.-C., Z ORIN , D., AND KOBBELT, L. 2016. Scale-invariant directional alignment of surface parametrizations. Computer Graphics Forum 35, 5. C OHEN , J., O LANO , M., AND M ANOCHA , D. 1998. Appearancepreserving simpliﬁcation. In Proc., SIGGRAPH ’98, 115–122. DANIELS II, J., L IZIER , M., S IQUEIRA , M., S ILVA , C., AND N ONATO , L. 2011. Template-based quadrilateral meshing. Computers & Graphics 35, 3, 471 – 482. D EY, T. K., E DELSBRUNNER , H., G UHA , S., AND N EKHAYEV, D. V. 1998. Topology preserving edge contraction. Publ. Inst. Math. (Beograd) 66, 23–45. D IAMANTI , O., VAXMAN , A., PANOZZO , D., AND S ORKINE H ORNUNG , O. 2014. Designing N -PolyVector ﬁelds with com-
+
+218:12
+
+•
+
+H.-C. Ebke et al.
+
+Baseline
+
+EG,mem
+
+EG
+
+EQEM
+
+EUni
+
+1 2 3 4 5 6 7
+
+1 2 3 4 5 6 7
+
+1 2 3 4 5 6 7
+
+1 2 3 4 5 6 7
+
+EMD: 100%
+
+EMD: 110%
+
+EMD: 100%
+
+EMD: 133%
+
+1 2 3 4 5 6 7
+
+1 2 3 4 5 6 7
+
+1 2 3 4 5 6 7
+
+1 2 3 4 5 6 7
+
+EMD: 100%
+
+EMD: 92%
+
+EMD: 89%
+
+EMD: 106%
+
+1 2 3 4 5 6 7
+
+1 2 3 4 5 6 7
+
+1 2 3 4 5 6 7
+
+1 2 3 4 5 6 7
+
+EMD: 100%
+
+EMD: 115%
+
+EMD: 106%
+
+EMD: 106%
+
+1 2 3 4 5 6 7
+
+1 2 3 4 5 6 7
+
+1 2 3 4 5 6 7
+
+1 2 3 4 5 6 7
+
+EMD: 100%
+
+EMD: 107%
+
+EMD: 90%
+
+EMD: 100%
+
+Figure 13: Evaluation of IGMs created with our method using different decimation cost functions on (from top to bottom): N EFERTITI, A RMADILLO, C HARLEMAGNE, and D RAGON 1. The baseline solution (IGMs created without decimation at several orders of magnitude slower run times) is represented as red “shadows” in the histograms in order to judge how faithful its characteristics are captured using our method. The singularity histogram is most important here, since it reveals whether irregular vertices of extreme valences are created. The EMD, i.e. the cost to transform the reference singularity conﬁguration into the ones generated using our framework show the performance of the decimation orders relative to EG,mem . The corresponding distortion histograms can be found in the supplemental material.
+
+M YLES , A., AND Z ORIN , D. 2012. Global parametrization by incremental ﬂattening. ACM Transactions on Graphics 31, 4, 109:1–109:11. M YLES , A., AND Z ORIN , D. 2013. Controlled-distortion constrained global parametrization. ACM Transactions on Graphics 32, 4, 105:1–105:14. M YLES , A., P IETRONI , N., KOVACS , D., AND Z ORIN , D. 2010. Feature-aligned T-meshes. ACM Transactions on Graphics 29, 4, 117:1–117:11. ¨ M OBIUS , J., AND KOBBELT, L. 2012. Openﬂipper: An open source geometry processing and rendering framework. In Curves and Surfaces, vol. 6920 of Lecture Notes in Computer Science. Springer Berlin / Heidelberg, 488–500. N IESER , M., PALACIOS , J., P OLTHIER , K., AND Z HANG , E. 2012. Hexagonal global parameterization of arbitrary surfaces. IEEE Transactions on Visualization and Computer Graphics 18, 6. PALACIOS , J., AND Z HANG , E. 2007. Rotational symmetry ﬁeld design on surfaces. ACM Transactions on Graphics 26, 3. PANOZZO , D., P UPPO , E., TARINI , M., AND S ORKINE H ORNUNG , O. 2014. Frame ﬁelds: Anisotropic and nonorthogonal cross ﬁelds. ACM Transactions on Graphics 33, 4, 134:1–134:11. P IETRONI , N., TARINI , M., AND C IGNONI , P. 2010. Almost isometric mesh parameterization through abstract domains. IEEE Transactions on Visualization and Computer Graphics 16, 4, 621–635.
+ACM Trans. Graph., Vol. 35, No. 6, Article 218, Publication Date: November 2016
+
+P IETRONI , N., TARINI , M., S ORKINE , O., AND Z ORIN , D. 2011. Global parametrization of range image sets. ACM Transactions on Graphics 30, 6. ´ R AY, N., AND L E VY, B. 2003. Hierarchical least squares conformal map. In Proc. Paciﬁc Conference on Computer Graphics and Applications, 2003, 263–270. ´ R AY, N., L I , W. C., L E VY, B., S HEFFER , A., AND A LLIEZ , P. 2006. Periodic global parameterization. ACM Transactions on Graphics 25, 4, 1460–1485. ´ R AY, N., VALLET, B., L I , W. C., AND L E VY, B. 2008. Nsymmetry direction ﬁeld design. ACM Transactions on Graphics 27, 2, 10:1–10:13. ´ R AY, N., N IVOLIERS , V., L EFEBVRE , S., AND L E VY, B. 2010. Invisible seams. In Proc. EGSR’10, 1489–1496. RUBNER , Y., T OMASI , C., AND G UIBAS , L. J. 1998. A metric for distributions with applications to image databases. In Proc. ICCV ’98, 59–66. S ANDER , P. V., S NYDER , J., G ORTLER , S. J., AND H OPPE , H. 2001. Texture mapping progressive meshes. In Proc. SIGGRAPH ’01, 409–416. S ANDER , P. V., G ORTLER , S. J., S NYDER , J., AND H OPPE , H. 2002. Signal-Specialized Parametrization. In Proc. EGRW ’02, 87–98. VAXMAN , A., C AMPEN , M., D IAMANTI , O., PANOZZO , D., B OMMES , D., H ILDEBRANDT, K., AND B EN -C HEN , M. 2016.
+
+218:13
+
+•
+
+Interactively Controlled Quad Remeshing of High Resolution 3D Models
+iγ = . . . hb hﬂip h∗ ﬂip ha 2 b iβ = k − 2
+
+Directional ﬁeld synthesis, design, and processing. Computer Graphics Forum 35, 2. W ELCH , W., AND W ITKIN , A. 1994. Free-form shape design using triangulated surfaces. In Proc., SIGGRAPH ’94, 247–256. W ESSELING , P. 2004. An Introduction to Multigrid Methods. R.T. Edwards.
+
+h ..
+
+h2
+
+hk
+
+−
+
+v
+
+2
+
+.
+
+k−1 hk−1 c
+
+h1
+
+h0
+a
+
+A
+
+Coarse-to-Fine Operator Details
+
+1
+
+iα = 0
+
+Below we give some implementation details about and insights into the un-ﬂip and un-collapse operator brieﬂy mentioned in Section 6.3. Refer to Figures 6 and 7 for illustrations of the symbols used in the following.
+Un-Flip Operator
+
+Figure 14: An illustration of all the pointers and quantities stored in an example of a ﬂip record (left) and a collapse records (right) in the decimation log. Note that both illustrations represent the state prior to the decimation operation. Figures 6 and 7 provide a before and after view.
+
+Given a ﬂip operator ωi , the corresponding un-ﬂip operator ωi com¯ putes f i−1 and ti−1 as f
+i−1
+
+barycentric coordinates used to interpolate the UV coordinates of the vertex removed during the half edge collapse (c.f. Figure 4 (e)). Note how the inverse collapse operator extends the domain of the parametrization: dom(f i−1 ) = dom(f i ) ∪ {h0 , h1 , hk−1 , h∗ , h∗ , h∗ }. 0 1 k−1
+
+(hﬂip ) := f (hb ) (ha ) := ti−1 ﬂip ti−1 b := := ti (f i (ha )) ﬂip (ti )−1 ﬂip ti b ◦ ti ﬂip
+
+i
+
+f
+
+i−1
+
+(h∗ ) ﬂip ti−1 a
+
+:= f (ha ) := ti a ◦ (ti )−1 ﬂip
+
+i
+
+f
+
+i−1
+
+f
+
+i−1
+
+(hb ) := (ti )−1 (f i (hb )) ﬂip
+
+B
+and ti−1 := ti h h
+
+Decimation Log Storage Format
+
+and as well as f i−1 (h) := f i (h)
+
+The following piece of EBNF notation describes the decimation log. Refer to Figure 14 for an illustration of all the half edges and quantities referred to. decimation log record ﬂip record collapse record = { record } = ﬂip record | collapse record = 0, hﬂip , ha , hb = k, a, b, c, iα , iβ , iγ , α, β, h0 , h1 , . . . , hk−1
+
+for all remaining half edges h not speciﬁed above. Figure 6 illustrates the different half edges h and transition transition functions t referred to above. Observe how dom(f i−1 ) = dom(f i ) for the un-ﬂip operator.
+Un-Collapse Operator
+
+Given a half edge collapse operator ωi , the corresponding uncollapse operator ωi computes the transition functions ti−1 as ¯ ti−1 0 ti−1 1 := ti 2...k−2 for all 2 ≤ j < k − 1
+
+:= ti−1 := Id k−1
+
+ti−1 := ti j j
+
+The ﬂip record starts with 0 to distinguish it from a collapse record that always starts with a positive integer. hﬂip represents a pointer to one of the half edges of the ﬂipped edge. ha and hb point to the preceding half edges of hﬂip and h∗ prior to the ﬂip operation, ﬂip respectively (cf. Figure 14). The collapse record starts with k = |v|, the valence of the vertex that is collapsed along h∗ . Consequently, h0 , . . . , hk−1 represent 0 the half edges pointing to v in clockwise order. a, b and c represent the preceding half edges of h0 , h1 and hk−1 , respectively. Three of the half edges pointing away from v identiﬁed by their local 1ring indices iα , iβ , iγ ∈ {0, . . . , k − 1} (i.e. h∗α , h∗β , h∗γ ) serve a i i i special role: They are used to interpolate v in the parameter domain using the weights α, β and γ = 1 − α − β when the un-collapse operation is performed as described in Section 6.3. The interpolation vertices and weights are determined by intersecting the removed vertex with the new triangulation of its 1-ring in its local paramter domain and computing its barycentric coordinates within the intersecting triangle (cf. Figure 4 (e)). Assuming that we store all global half edge indices as 32 bit integers, the local 1-ring indices iα , iβ , and iγ , as well as k as 8 bit integers, and the barycentric coordinates α and β as 64 bit double precision ﬂoating point numbers, this format incurs 13 bytes of storage cost for a ﬂip record and 32 + 4k bytes of storage cost for a collapse record (i.e. 56 bytes on average). This very compact representation is crucial when implementing the decimation log so that performance is not limited by the memory bandwidth.
+ACM Trans. Graph., Vol. 35, No. 6, Article 218, Publication Date: November 2016
+
+with the accumulated transition functions ti := j...l
+i ti∗ ◦ ti l (l−1)∗ ◦ . . . ◦ tj ∗ Id
+
+j≤l otherwise
+
+and the parametrization f i−1 is computed as f i−1 (h∗ ) := ti−1 (f i (a)) 0 0 f i−1 (h∗ ) := f i (b) 1 f i−1 (h∗ ) := f i (c) k−1 f i−1 (hk−1 ) := α(ti−1 α −1 )−1 (f i−1 (h∗α ))+ i 0...i β(ti−1 β −1 )−1 (f i−1 (h∗β ))+ i 0...i γ(ti−1 γ −1 )−1 (f i−1 (h∗γ )) i 0...i f i−1 (hj ) := ti−1 (f i−1 (hk−1 )) 0...j for all 0 ≤ j < k − 1.
+
+Figure 7 provides an overview of the half edges h, a, b, c and transition functions t referred to above. The factors α, β and γ are the
+

@@ -1,0 +1,462 @@
+Design and Fabrication of Materials with Desired Deformation Behavior
+Bernd Bickel1 Moritz B¨ cher2 a Miguel A. Otaduy3 Hyunho Richard Lee2 2 1,4 Hanspeter Pﬁster Markus Gross Wojciech Matusik1 1 2 3 4 Disney Research Zurich Harvard University URJC Madrid ETH Zurich
+
+Figure 1: Two examples of real and replicated objects. Thanks to our data-driven process, we are able to measure, simulate, and obtain material combinations of non-linear base materials that match a desired deformation behavior. We can then print those objects with multimaterial 3D printers using two materials (blue and black) with varying internal microstructure.
+
+Abstract
+This paper introduces a data-driven process for designing and fabricating materials with desired deformation behavior. Our process starts with measuring deformation properties of base materials. For each base material we acquire a set of example deformations, and we represent the material as a non-linear stress-strain relationship in a ﬁnite-element model. We have validated our material measurement process by comparing simulations of arbitrary stacks of base materials with measured deformations of fabricated material stacks. After material measurement, our process continues with designing stacked layers of base materials. We introduce an optimization process that ﬁnds the best combination of stacked layers that meets a user’s criteria speciﬁed by example deformations. Our algorithm employs a number of strategies to prune poor solutions from the combinatorial search space. We demonstrate the complete process by designing and fabricating objects with complex heterogeneous materials using modern multi-material 3D printers. Keywords: fabrication, deformable objects, goal-based material design
+
+problem of determining material descriptions and parameters such that the objects behave in a desired way. Deformation effects can be modeled at very diverse scales, ranging from molecular interactions to globally-supported response functions, and through continuum elasticity laws or lumped-parameter models [Zohdi and Wriggers 2004]. As recently demonstrated by work in numerical coarsening and homogenization, the behavior of materials with microscale inhomogeneities can be approximated by mesoscale homogeneous materials [Kharevych et al. 2009]. We are interested in a process that can be regarded as the inverse of homogenization, i.e., we want to achieve a desired large-scale behavior through appropriate combination of materials at a smaller scale. Our approach ﬁts in the category of goal-based design of deformable models, and it addresses the challenges of anisotropic, inhomogeneous, and non-linear behavior. Furthermore, it goes a step beyond computer animation and enables the physical fabrication of deformable materials with a desired behavior. Our work is motivated by the recent development of multi-material 3D printers such as the OBJET Connex series [OBJET ]. These printers are capable of manufacturing a variety of soft and hard materials with complex internal structures, making it suddenly possible to fabricate complex 3D objects with aggregate materials quickly, inexpensively, and accurately. This development offers new opportunities and challenges for physics-based animation research. Computer graphics has already contributed systems for designing and fabricating clothes [Okabe et al. 1992], plush objects [Mori and Igarashi 2007], paper craft objects [Mitani and Suzuki 2004], or surface microgeometry [Weyrich et al. 2009]. But there is a lack of tools and algorithms for designing, editing, and fabricating user-speciﬁed deformable objects. In this paper we make three main contributions: (i) An algorithm and representation for coarsening deformable models with microscale inhomogeneous behavior. Our solution uses a datadriven approach and is capable of capturing non-linear behavior while maintaining runtime efﬁciency. Conceptually, this can be seen as an extension of the linear numerical coarsening approach by [Kharevych et al. 2009] to non-linear material behavior. (ii) A goal-based material design approach that approximates a desired mesoscale deformation behavior by microscale materials through
+ACM Transactions on Graphics, Vol. 29, No. 4, Article 63, Publication date: July 2010.
+
+1
+
+Introduction
+
+Elastic deformations are present in many objects in our everyday life, such as garments and shoes, furniture, plants, or even our own tissue. When we want to design elastic deformable objects, either in computer animation or in the real world, we are faced with the
+
+ACM Reference Format Bickel, B., Bächer, M., Otaduy, M., Lee, H., Pﬁster, H., Gross, M., Matusik, W. 2010. Design and Fabrication of Materials with Desired Deformation Behavior. ACM Trans. Graph. 29, 4, Article 63 (July 2010), 10 pages. DOI = 10.1145/1778765.1778800 http://doi.acm.org/10.1145/1778765.1778800. Copyright Notice Permission to make digital or hard copies of part or all of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for proﬁt or direct commercial advantage and that copies show this notice on the ﬁrst page or initial screen of a display along with the full citation. Copyrights for components of this work owned by others than ACM must be honored. Abstracting with credit is permitted. To copy otherwise, to republish, to post on servers, to redistribute to lists, or to use any component of this work in other works requires prior speciﬁc permission and/or a fee. Permissions may be requested from Publications Dept., ACM, Inc., 2 Penn Plaza, Suite 701, New York, NY 10121-0701, fax +1 (212) 869-0481, or permissions@acm.org. © 2010 ACM 0730-0301/2010/07-ART63 $10.00 DOI 10.1145/1778765.1778800 http://doi.acm.org/10.1145/1778765.1778800
+
+63:2 • B. Bickel et al. COMPUTATIONAL MATERIALS
+
+Input
+
+Goal-driven Design
+
+Fabrication
+
+Measuring & Fitting
+
+Base materials
+
+Material Library
+
+Search & Volumetric Model Simulation
+
+Output
+
+Target object
+
+Target material
+
+Validation
+Figure 2: Designing deformable materials. combinatorial optimization. This is an inverse modeling approach, inverting the concept of homogenization. (iii) A complete reproduction process for deformable materials, including acquisition, ﬁtting, efﬁcient simulation, goal-based design, and fabrication. The result of our design process serves as input to a 3D multi-material printer for the actual physical fabrication of deformable objects. Our approach to measure, design, and fabricate materials with desired deformation behavior has a number of distinct steps, summarized in Fig. 2. We have collected a database of base materials, fabricated using a Connex 500 multi-material 3D printer, but also a variety of standard foams, gels, and rubbers purchased from the McMaster-Carr catalogue. These materials span a wide gamut of different deformations: from very soft to very hard and rigid (Section 7). We automatically measure deformations of these base materials subject to different forces using a robotic system (Section 6). Next, we apply our coarsening algorithm to model the base materials using a data-driven non-linear stress-strain relationship in a Finite Element Method (FEM) (Section 3 and 4). This compact representation allows us to predict deformations of thicker or thinner versions of the base material samples. More importantly, we show that we can accurately predict deformations of arbitrary combinations of stacked base materials. As the last step, we design composite materials that best match a desired deformation behavior using our combinatorial optimization algorithm (Section 5). In order to simplify the material design process, we introduce a goal-based optimization approach. The user speciﬁes a material by providing example deformations and their corresponding forces, and our algorithm automatically computes the best-matching composite material. Because the conﬁguration space is combinatorial and exponentially large, we use an efﬁcient search strategy that prunes away states that yield poor matches to the desired material speciﬁcations. We validate the simulation and material model by fabricating a number of different composite materials, measuring their deformations subject to a variety of different forces and comparing these measurements to the results of the simulation. The results are described in Section 7.
+
+The most popular approach nowadays for accurately modeling deformable materials in computer graphics is probably to use continuum elasticity laws together with ﬁnite element modeling. This approach is capable of modeling a large range of materials, including those with nonlinear and heterogeneous deformation behavior, such as the base materials used in our work. Typically, one must select a constitutive material model [Ogden 1997] that is capable of covering the range of behaviors of the material, and then, given a certain object and constitutive model, the material parameters are tuned in order to ﬁt empirical data. This approach was introduced to bio-mechanical modeling in computer graphics by Terzopoulos et al. [1987], and it has been later applied to body parts such as the face [Koch et al. 1996; Magnenat-Thalmann et al. 2002; Terzopoulus and Waters 1993; Sifakis et al. 2005], the hand [Sueda et al. 2008], the neck [Lee and Terzopoulos 2006], the torso [Zordan et al. 2004; Teran et al. 2005; DiLorenzo et al. 2008] or the complete upper body [Lee et al. 2009]; to the simulation of fracture effects [O’Brien and Hodgins 1999]; or even interactive simulation after a model reduction step [Barbiˇ and James 2005]. In order to c achieve high realism, continuum elasticity approaches rely on complex processes involving accurate modeling of the geometry and ﬁne tuning of parameters. Several researchers have designed methods to automatically identify the parameters of constitutive models from measurements of real objects. These measurement-based modeling approaches cover the estimation of parameters such as Young modulus [Schnur and Zabaras 1992], both Young modulus and Poisson ratio together [Becker and Teschner 2007], non-linearly interpolated Young modulus and Poisson ratio [Bickel et al. 2009], plasticity parameters [Kajberg and Lindkvist 2004], or non-linear viscoelasticity parameters [Kauer et al. 2002]. In this line of work, our data-driven technique for modeling base materials builds on the approach of Bickel et al., but with some notable differences. First, by restricting the types of materials to homogeneous ones, our model requires far fewer degrees of freedom. Homogeneity of the base materials is not a limitation in our case, since we achieve inhomogeneity in the ﬁnal output materials by combining various homogeneous materials. Second, we increase the robustness of the ﬁtting process by ﬁtting one single non-linear model to all input examples simultaneously. Other measurement-based modeling approaches ﬁt directly globally-supported functions as material description instead of estimating local parameters. Pai et al. [2001] introduced a system for capturing in a uniﬁed framework an object’s shape, its elasticity, and roughness features. They used a Green’s functions matrix representation [James and Pai 1999] in order to describe the deformation model. Later, others have extended the work of Pai et al. to increase robustness and handle viscoelastic effects [Lang et al. 2002; Schoner et al. 2004]. Recent work in computer graphics aims at modeling highresolution heterogeneities even when the resolution of the discretization is considerably coarser [Kharevych et al. 2009; Nesme et al. 2009]. This process, known as homogenization, tries to ﬁnd parameter values of a constitutive model sampled at low resolution such that the behavior of the object best matches the heterogeneous material. The ﬁrst step of our design and fabrication process can be considered as a variant of homogenization, where the ﬁne-scale inhomogeneous material is an actual physical one. In the second step, however, we take the opposite approach to homogenization, generating a heterogeneous object that ﬁts coarse force-deformation data from small-scale materials with known behavior. A general introduction to optimizing spatial material distributions can be found in [Bendsoe and Sigmund 2003]. Digital materials, composed of a set of discrete voxels, can exhibit widely varying
+
+2
+
+Related Work
+
+In the context of computer graphics, our work is closest to the simulation of soft tissue using ﬁnite element models, and to data-driven modeling of deformable materials. For a recent survey of deformation models in computer graphics, please refer to [Nealen et al. 2006].
+ACM Transactions on Graphics, Vol. 29, No. 4, Article 63, Publication date: July 2010.
+
+Printing
+
+Design and Fabrication of Materials with Desired Deformation Behavior
+
+•
+
+63:3
+
+material properties [Hiller and Lipson 2009]. As the design space increases exponentionally with the number of possible combinations, evolutionary algorithms are a popular non-linear optimization strategy [Kicinger et al. 2005]. In contrast, we apply a branch-andbound search strategy in combination with clustering.
+
+3
+
+Non-Linear Material Model
+
+Given a base material, we describe its non-linear stress-strain relationship through a small set of P parameter vectors, {pi }, corresponding to different strain values, {εi }. Then, using the (parameter, strain) pairs as centers of Radial Basis Functions (RBF), we deﬁne the complete material behavior through RBF interpolation [Bickel et al. 2009]:
+Non-Linear Interpolation of Material Properties
+P
+
+All our base materials exhibit a non-linear hyper-elastic stressstrain behaviour, as demonstrated by the measured forcedisplacement curves in Fig. 5. Most of the base materials consist of complex structures on a microscale level which inﬂuences the deformation behavior signiﬁcantly (see Fig. 6). We use a data-driven approach and capture such non-linear behavior by a non-linear interpolation of locally linear material properties obtained from example deformations of the base material at a mesoscale. Conceptually, this can be seen as a data-driven coarsening approach, representing the deformation behavior induced by microstructures on a mesoscale level. To achieve this, we employ the concept of sampling the stress-strain function of the material at a small set of strain values, and represent each stress-strain point by a linear co-rotational model [Bickel et al. 2009]. In the deformed state, at a given point in the object and with an arbitrary strain value, we represent the material locally by a nonlinear interpolation of the sampled linear models. Our linear FEM relies on Cauchy’s linear strain tensor. Given a displacement ﬁeld u, it is deﬁned as ε(u) = 1 ( u + ( u)T ). 2 We obtain invariance of the strain under rotations by extracting the rotational part of the deformation gradient through polar decomposition, and then warping the stiffness matrix [M¨ ller and Gross u 2004]. Due to the symmetry of the strain and stress tensors, we can represent both as 6-vectors. Given the strain tensor, we construct its equivalent 6-vector as ε = (εxx εyy εzz εxy εxz εyz )T , and similarly for the stress. Then, a linear material can be represented by a 6 × 6 matrix E that relates the stress and strain vectors, σ(u) = Eε(u). The key for achieving the non-linear behavior of the base materials is to deﬁne the stress-strain relationship, E, as a function of the local strain ε(u). The matrix E can be typically parameterized by a smaller set of parameters p. We deﬁne such parameters as a non-linear function of strain, therefore, the matrix E can be represented as a non-linear function E(p(u)). Although this approach holds for general anisotropic behaviour, we describe subsequently the parameters p for two types of materials that are most relevant in practice: isotropic and transversely isotropic ones. The transversely isotropic material will be further discussed in Section 6. For homogeneous linear isotropic materials, the matrix E can be represented by the two Lam´ parameters λ e and µ. In other words, the parameter vector is p = (λ, µ). Using Lam´ ’s parameters, the stress and strain tensors are related as e
+Isotropic Materials
+
+p(ε) =
+i=1
+
+wi · ϕ( ε − εi ) .
+
+(2)
+
+Since our base materials are homogeneous, a single set of parameter vectors is sufﬁcient to describe the behavior of an arbitrary object consisting of a single base material. This reduces the number of parameters of a base material to |p| · P , where |p| is the cardinality of the parameter vector (2 for isotropic materials, and 5 for transversely isotropic ones). In our examples, the number of RBF centers is typically between P = 6 for the isotropic foams and P = 12 for printed materials with complex internal microstructure. Computing the RBF interpolation based on the local strain in a spatially varying manner allows us to simulate different non-linear behavior in different regions of an object. In order to simulate the behavior of composite objects made of base materials, we follow the quasi-static FEM approach of Bickel et al. [2009]. Given a simulation state, we compute the strain of all elements and perform a per-element computation of the parameter vector according to Eq. (2). We then recompute the per-element stiffness matrices, and perform a new step of the FEM simulation.
+
+4
+
+Fitting Base Materials
+
+We ﬁt the properties of base materials such that simulated deformations match best a set of input examples. In the ﬁtting process, we need to compute the RBF centers {εi } (i.e., strain values used as data points), and their corresponding weights wi (See Eq. (2)). Let us ﬁrst assume that the P RBF centers are known. Given a set of example deformations with measured displacements {¯i } and x ¯ corresponding forces Fi , we compute the RBF weights w by minimizing the error in the displacements, as:
+n
+
+w = arg min ˆ
+w i=1
+
+¯ ||xi (p, Fi )) − xi ||2 ¯
+
+.
+
+(3)
+
+In order to deﬁne the RBF centers, we ﬁrst ﬁt a homogeneous linear material to obtain a constant set of material parameters. Using these parameters, we run FEM simulations for all measurements, and record strain values. We select the RBF centers by sampling the strain space with P points that cover the range of measured values. Using these RBF centers we can ﬁt the material parameters, but we run several iterations to obtain a better coverage of the strain space. There are two main differences between our material ﬁtting strategy and the one proposed by Bickel et al. [2009]. First, since the base materials are homogeneous, the RBF weights are not spatiallyvarying, and the size of the problem reduces to |p| · P . Second, the objective function is deﬁned by grouping the measured displacements of all example deformations at once. These two differences lead to improved robustness and ﬁtting accuracy. We use Levenberg-Marquardt optimization and compute the Jacobians as deﬁned by [Bickel et al. 2009]. An unconstrained optimization problem may lead to material parameters that are not physically correct. In the case of isotropic materials, it is easy to bound Lam´ ’s parameters by computing the Young modulus and Poisson e
+ACM Transactions on Graphics, Vol. 29, No. 4, Article 63, Publication date: July 2010.
+
+σ(u) = 2µε(u) + λtr(ε(u))I, from which the matrix E can be derived [Bathe 1995].
+
+(1)
+
+In homogeneous linear isotropic materials, the strain can be well captured by the three invariants of the symmetric strain tensor I1 (ε), I2 (ε), I3 (ε). These invariants do not change under rotation of the coordinate system. Using the invariants to represent the strain, our non-linear material model can be considered as a 2valued function in a 3-dimensional domain, p(I1 , I2 , I3 ) : IR3 → IR2 .
+
+63:4
+
+•
+
+B. Bickel et al.
+
+ratio and projecting these to physically valid values. In the case of transversely isotropic materials, we make sure that the stiffness matrix is positive deﬁnite using the technique of [Rebonato and J¨ ckel a 1999]. Otherwise, the FEM simulation could become instable. ¯ The measured forces F are normal to the surface. However, the contact area below the force probe also undergoes small tangential forces during the measurement process, and we found that these missing forces produce small ﬁtting errors. We increase the ﬁtting quality by computing the missing tangential forces that would produce a perfect match at the probed surface points, and then reintroduce the tangential forces as known forces in the optimization problem. Section 7 evaluates the quality of the ﬁt and reports error values by comparing the simulation of ﬁtted base materials to measured example deformations.
+A A
+
+A
+
+B
+
+Clustering A B B A B B
+
+A A A
+
+A A B
+
+A B A
+
+A B B
+
+Culled
+
+5
+
+Goal-Based Material Design
+
+Our main contribution is a goal-based material design approach that approximates a desired mesoscale deformation behavior by microscale materials through combinatorial optimization. We now describe the optimization algorithm to obtain composite structures made of a set of base materials. Our algorithm receives as input a description of the object surface, examples of desired forcedisplacement pairs, and a set of base materials with known deformation properties expressed in our non-linear material model.
+
+Figure 3: Branch-and-bound with clustering. The root of the tree shows the two materials A and B for the ﬁrst out of three cells. Each level of the tree spans the possible options for the subsequent cells. Sub-optimal branches of the tree can be culled, and similar deformations can be clustered.
+
+each child represents one of the material choices for the ﬁrst cell, while the other N − 1 remain undecided. Fig. 3 shows the decision tree for an object with three cells and two possible material choices. Entire branches of the decision tree can be culled away using a branch-and-bound algorithm [Land and Doig 1960]. During tree traversal, we store the minimum error dmin for the designs tested so far. When a new node of the tree is visited, i.e., a new cell is reﬁned, we use this minimum error to cull (if possible) the complete subtree rooted at the node. Given the breadth of the tree, branch culling still leads to an intractable number of possible designs to be tested. However, often several designs produce similar deformation results. We cluster these nodes together to limit the breadth of the decision tree at every level, thus limiting the number of to-be-tested designs.
+Bound Estimation Let us deﬁne as {m}a = (m1 , m2 , . . . ml , x . . . x) the designs rooted at a node a and located at level l. The ﬁrst l cells are already determined along this branch, while the rest are still undecided (denoted by x). We estimate a bound on the deformations produced by {m}a by considering the cases where the undecided cells are uniform. In other words, to estimate bounds we ﬁll the undecided cells with each one of the base materials mj , compute the resulting ¯ deformation for all input examples xj , and then bound the result of the M cases as [xj ]. We use axis-aligned bounding boxes in high dimensions as bounds, i.e., maximum and minimum values for each dimension of the resulting displacement vectors. We cull the branch rooted at node a if dist(¯, [xi ]) < dmin . When new x designs are tested we update dmin appropriately.
+
+5.1
+
+Formulation of the Problem
+
+We formulate the design process as an optimization problem where we need to choose the distribution of M possible base materials inside the fabricated object such that it matches the input forcedisplacement examples. We discretize the problem by dividing the desired object shape in a set of N regular cells, each made of a uniform base material. The desired inhomogeneity and possible anisotropy of the ﬁnal object are achieved by the appropriate distribution of base materials. For each cell, one may choose a single material from M possible base materials. We call a certain choice of base materials and their distribution a design. We denote each design as a vector m = (m1 , m2 , . . . mN ), where mi is an integer value that indicates the type of base material in the ith cell out of the {mj , 1 ≤ j ≤ M } possible base materials. ¯ In order to test each design, we assign its particular material choices to the cells of the object, simulate the object with the quasi-static FEM approach from Section 3 using the user-speciﬁed force proﬁles, and measure the error in surface displacements. The surface displacements of all input examples are grouped in one large vector x. Given the goal displacements x, the displacement error of a ¯ design is simply x − x . Finding the optimal design with mini¯ mal displacement error is an exponential problem, with M N to-betested designs.
+
+5.2
+
+Branch-and-Bound with Clustering
+
+The major problem when solving such a design optimization problem is the non-convexity of the design space and therefore the risk of ending up with a locally optimal solution if only the local neighborhood is observed [Lund and Stegmann 2005]. To solve this discrete optimization problem we therefore use a decision tree, such that at each level of the tree we span the options for one cell in the design. The root of the tree has M children, where
+ACM Transactions on Graphics, Vol. 29, No. 4, Article 63, Publication date: July 2010.
+
+The bound estimation approach is not conservative, due to material non-linearity and the existence of several non-monotonic functions along the simulation process. Recently, efﬁcient methods for bounding displacements in linear FEM settings [Neumaier and Pownuk 2007] were presented, but practical bounds for non-linear settings are still an open research problem. However, the uniform blocks can be regarded as extreme behaviors (from very soft to very hard), therefore we expect that combinations of these materials will produce in-between deformations, in which case our bound estimation will not cull optimal designs.
+
+Design and Fabrication of Materials with Desired Deformation Behavior
+
+•
+
+63:5
+
+We traverse the decision tree in a breadthﬁrst manner, and hence a parent level with n nodes produces another level with n · M nodes. Evaluating bounds on this new level requires the computation of n · M 2 designs. In order to limit the breadth of the tree, and thereby the total number of designs to be tested, we cluster nodes at every level before the splitting operation.
+Clustering Strategy
+
+We cluster the n nodes at a level into K clusters using K-means clustering, using as distance dist(a, b) between two nodes the sum of squared example displacement differences evaluated for the pairwise uniform descendants. Formally, the distance metric is:
+M
+
+dist(a, b) =
+j
+
+x(m1a , . . . mla , mj , . . . , mj )− ¯ ¯ x(m1b , . . . mlb , mj , . . . , mj ) 2 . ¯ ¯
+
+(4)
+
+The cluster representative is the node that is closest to the centroid of the cluster. Every time we split a level we need to test only KM 2 designs. Since the height of the tree is equal to the number of cells N , our clustering strategy limits the total number of design evaluations to roughly O(KM 2 N ). Note that the actual number of tested designs is actually smaller due to bound-based culling. In our implementation, we usually use K = 20 clusters. This clustering approach comes at the cost of missing the global optimal solution.
+
+6
+
+Measurement and Base Materials
+
+Measurement System To acquire surface deformations of objects with a wide range of material properties we built an automatic measurement system that is able to acquire many different materials with varying geometry and surface properties. We use our system to probe base material samples, combinations of base materials for model validation, complex objects that we would like to reproduce, and their printed counterparts for validation purposes.
+
+Figure 4: The automated system for measurement of material deformations consists of cameras (blue), a robot arm (green), and a force sensor attached to a stick (red). A sample material block is shown in pink and the inset shows a screen shot of our processing software.
+
+Fig. 5 shows a plot of surface displacement as a function of applied force for a subset of measured materials. In order to model and fabricate materials with even larger deformation gamut (in particular, materials that are much softer) we introduce internal empty spaces into the printed objects. Unfortunately, the current printer only allows printing empty spaces that span the entire object along the z-axis. We use tubes of four different sizes and distributions (see example on the right). These objects are isotropic in the horizontal plane, perpendicular to the tube direction. The material can be regarded as transversely isotropic.
+Transversely Isotropic Base Materials
+
+Our measurement setup (Fig. 4) consists of a four DOF robot arm (from MicroProto Systems), a six-axis force-torque sensor (Nano 25 from ATI), and a vision subsystem to track surface displacements. The resolution of the robot arm is 0.003 mm and its repeatability is 0.01 mm. The maximum range of the force sensor is 125 N with a resolution of 1/24 N. The vision subsystem consists of seven high-resolution Basler Pilot cameras running at a resolution of 1600 x 1200 pixels. We set up the calibrated ([Svoboda et al. 2005]) cameras on a half-circle above the robot arm to minimize occlusions and added diffuse lighting. We paint marker dots on the surfaces of our objects in a regular grid with 3 mm spacing. The marker positions are extracted using a scale and afﬁne invariant blob detector ([Mikolajczyk and Schmid 2004]) and tracked in all the frames. For each acquisition we use 30 to 200 deformation steps depending on the stiffness of the material. The maximal forces are in the range of 35 to 50 N. The tracked markers and corresponding forces are ﬁnally registered to a surface mesh. To print 3D deformable objects and a set of base materials we use the OBJET Connex 500 multimaterial printer. In each run, the printer can use up to two different materials, e.g., Vero White (rigid) and Tango Black Plus (soft). The printer can also mix these two materials in predeﬁned proportions producing isotropic materials of intermediate stiffness. We mainly use Tango Black Plus (TBP) and a mixed material called digital material with shore 50 (DM50). In addition to these two isotropic base materials we measured eight isotropic materials from the McMaster-Carr online catalog, including rubbers and foams.
+Isotropic Base Materials
+
+For such materials, the matrix E can be represented as:     E=   E11 E12 E13 0 0 0 E12 E11 E13 0 0 0 E13 E13 E33 0 0 0 0 0 0 E44 0 0 0 0 0 0 E44 0 0 0 0 0 0
+(E11−E12) , 2
+
+    .  
+
+(5) with ﬁve degrees-of-freedom, {E11, E12, E13, E33, E44}. Our non-linear material model can then be considered as a ﬁve-valued function in a six-dimensional strain domain, p(ε) : IR6 → IR5 .
+ACM Transactions on Graphics, Vol. 29, No. 4, Article 63, Publication date: July 2010.
+
+63:6
+
+•
+
+B. Bickel et al.
+
+p
+
+30
+
+Force in N
+
+20
+
+10
+
+0
+
+1
+
+5
+
+9 13 Displacement in mm
+
+17
+
+Figure 5: Force-displacement curves for a subset of the measured materials showing their nonlinear behavior.
+
+All base materials were printed as 4 cm (width) × 5 cm (length) × 2.5 cm (height) blocks. The deformations (side view) of some of these materials under 15 Newtons force are shown in Fig. 6. We will make the full set of base materials including all measurements and speciﬁcations public and plan to measure more materials in the future.
+
+50 2 TB P D 3 M TB 50 1 Sl P 1 ip pe r
+21
+
+TB P
+
+Fl ip
+
+flo
+
+5
+
+D M
+
+7
+
+Validation and Results
+
+Figure 6: Pictures of base materials under 15 Newton force.
+
+Our material model represents elastic behavior of the base materials at the mesoscopic level very well. In Fig. 7 we compare images from our measurement system, the reconstructed deformed surface, and the corresponding simulation based on the FEM. We also show an error plot between the measured surface and the simulation. Note that the error is only evaluated at the surface marker positions and then interpolated for visualization purposes. Furthermore, the error evaluation is dependent on the accuracy of the measurement system which is in the range of < 1 mm. Very small pitching effects at the microscale of the material cannot be tracked by our system and are therefore missing in the error visualization. Refer to the video for more results. For isotropic base materials we use six and for the transversal isotropic base materials 12 RBF centers, resulting in 12 and 60 parameters for each base material, respectively. The ﬁt to the material model takes two hours on average but has to be performed only once. We also report the average, standard deviation, and maximum errors for the materials under varying applied loads in Table 1.
+Validation of the Fitting
+
+Next, we show that we can accurately predict the behavior of composite materials made from arbitrary combinations of base materials. We ran a number of simulations for different composites and also fabricated those using the Connex 500 printer. Next, we measured the behavior of these composite materials using our system and compared them to their corresponding simulations. We report this validation for a few example deformations and materials in Fig. 8 and in the companion video. In the composite example shown in Fig. 8, we obtain average errors of 1.98 mm and 2.16 mm under loads of 10 N and 20 N.
+Validation of the Stacking
+
+5 mm
+
+0 mm
+
+Next, we validate our goal-based design process. As the ﬁrst step we tested it on materials that we know we can reproduce. We picked a given combination of layers and their thicknesses. Then we simulated this composite material and used its deformations as the input to the
+Validation of the Goal-based Design
+ACM Transactions on Graphics, Vol. 29, No. 4, Article 63, Publication date: July 2010.
+
+Figure 7: Side-by-side comparison of real and simulated materials. Deformation of an isotropic (left column) and transversely isotropic material (right column), comparing acquisition (top row) with the simulation (middle row) and the displacement error (bottom row).
+
+Design and Fabrication of Materials with Desired Deformation Behavior
+
+•
+
+63:7
+
+Material Foam (very soft) Foam (medium) Foam (stiff) Printed TBP1 (soft) Printed DM502 (medium) Printed TBP5 (stiff)
+
+Force (N) 1N 3N 5N 5N 15N 25N 10N 20N 30N 5N 10N 20N 5N 15N 25N 10N 20N 30N
+
+Displacement error (mm) avg. std.dev max 0.84 0.45 2.55 1.72 1.00 6.74 2.04 0.88 5.70 1.40 0.57 3.44 1.06 0.36 2.46 1.33 0.90 5.19 0.73 0.43 2.70 0.94 0.40 2.71 1.20 0.38 2.22 2.14 0.68 4.47 2.40 0.77 4.67 3.60 1.22 6.55 0.69 0.26 1.44 0.85 0.41 2.09 1.31 0.51 3.00 0.68 0.22 1.15 0.99 0.27 1.70 1.30 0.311 2.61
+
+RMS in mm
+
+0.2 0.1 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 Random Design Instance ID
+
+40 Force in N
+
+20
+
+0
+
+1
+
+5 9 Displacement in mm
+
+Table 1: Error evaluation of the model. We ﬁtted parameters for various isotropic (soft/medium/hard foams) and transversely isotropic (printed materials with cylinder hole structures) materials and evaluated the surface displacement error under small, medium, and high force loads by comparing to measured deformations of material blocks (size isotropic 5x5x2.5cm, printed 5x4x2.5cm).
+
+Figure 9: Validation of goal-based design algorithm. We randomly generate a set of material designs. We then simulate these designs and use their simulated deformations as the input to the goal-based design search algorithm. We then compare the obtained designs of the search algorithm with the known ground truth. The upper bar plot shows the RMS error. We also fabricated one of those randomly generated designs and its corresponding search output and compared their force-displacement curves.
+
+search algorithm. We report the result of this validation in Fig. 9. We tested this strategy on 20 different randomly chosen material designs (5 layers, each with 9 different material choices and 5 forcedisplacement pairs). Although our search is not guaranteed to ﬁnd the global optimum, it always found a very close solution (average RMS error of 0.067 mm). The optimization time is usually below one hour. To carry this validation even further, we have fabricated these composites and remeasured their properties. We show these results in Fig. 9. We also tried to approximate one of the foams with a combination of materials printed using the Connex 500. The obtained spatial combination and the error evaluation are shown in Fig. 10. For the most complex results, we try to showcase the whole process by replicating objects with complex deformation behavior. In particular, we reproduced a beach ﬂipﬂop, a felt slipper, and a heterogeneous leather stool. We used a Cyberware scanner to scan the 3D geometry of each of the objects. Then, we acquired the deformation behavior of each object using our measurement system and ﬁtted material parameters. For the leather stool, we segmented the volume into two areas, and approximated each of them as a homogeneous material. Next, we used the goal-based design process to ﬁnd the best approximation of the material deformation properties using our base materials. For all results, we used between 5 and 10 force-displacement pairs. Finally, we printed replicas of these objects using the multi-material printer. As can be seen in Fig. 11 and 12 and the accompanying video the replicas show very similar behavior to the original objects. To further validate this approach we show force-displacement curves in Fig. 11 and 12 for the corresponding points on the replicas and the original objects.
+Replicating objects
+
+5 mm
+
+0 mm
+
+Figure 8: Validation of composite materials. We assigned the material properties obtained from two independent ﬁts of base materials (DM501 and DM502) to a composite material consisting of two layers. We then printed the composite and compared the deformations of the real object (upper row) to the simulation (middle) under a load of 8 and 21 Newton. Lower row: Error visualization.
+
+8
+
+Discussion
+
+We have presented a complete approach for measuring, designing, and fabricating materials with desired deformation behavior. Our model is able to represent and simulate the non-linear elastic deformation behavior of objects with complex internal microstructure. In
+ACM Transactions on Graphics, Vol. 29, No. 4, Article 63, Publication date: July 2010.
+
+Re p O rod rig uc in tio al n
+13
+
+63:8
+
+•
+
+B. Bickel et al.
+
+15
+
+Force in N
+
+10
+
+5
+
+For current printers, the mechanical range of isotropic base materials without any holes or tube structure is limited. The OBJET Connex 500 printer can mix two different materials, and the material properties are restriced to the range between the two base materials. To signiﬁcantly expand this range, we deliberately decided to create tube-structured materials. Due to current physical printer limitations, these void tube structures can only be printed along the z-axis of the printer, otherwise they would get ﬁlled with structure material, which is difﬁcult to remove. Printing blocks or objects with isotropic hole structures (similar to Swiss cheese) is currently not possible. This comes at the cost of requiring a transversely isotropic material model. Looking into the future, we predict that the next generation of 3D multi-material printers will be able to use many more base materials with a wider range of material properties and more complex internal structures. As the cost of these printers decreases and their capabilities increase, we believe that the goal of personalized design, modeling, simulation, and fabrication will become reality.
+
+0
+
+1
+
+6
+
+11 Displacement in mm
+
+16
+
+Figure 10: Fabricated example of goal based design. As an input to our goal-based material design algorithm, we speciﬁed 5 example deformations of a foam (upper left). The desired deformation behavior is approximated by ﬁner scale materials obtained through combinatorial optimization and then fabricated using a 3D printer (upper right). The lower curve shows the force-displacement relationship of used base materials, foam, and fabricated approximation. order to ensure a good match between deformations of real materials and their simulated behavior, we use a data-driven measurement process to estimate non-linear stress-strain models for each material. Furthermore, we show that a goal-based material design approach can approximate a desired global deformation behavior by ﬁner scale materials through combinatorial optimization. By closing the loop between measurements, simulation, goal-based material design, and printing, we validate the complete pipeline and show that close matches between simulated and real fabricated objects can be achieved. Our goal-based design is a signiﬁcant step towards 3D hardcopying. Limitations and Future Work. We believe that our system has many potential avenues for improvements and future work. We predict that this process will be a template for many future systems that expand the range of simulated and fabricated material properties (such as dynamic deformation properties or plasticity). More speciﬁcally, we plan to extend our model to dynamic and plastic deformation behavior and improve our measurement system such that it can acquire a wider range of deformation properties (e.g., material stretching and dynamic deformation measurements) or can guarantee and incorporate prior physical knowledge, such as volume preservation. Additionally, we plan to investigate strategies for optimally choosing the number of degrees of freedom (RBF centers) of our material model, striking a balance between accuracy and overﬁtting. Furthermore, we would like to examine material homogenization strategies to improve the speed of the forward (simulation) step for non-linear materials. This improvement along with more advanced search strategies could, in turn, speed up the inverse step such that we could design and fabricate extremely complex heterogeneous materials. Spatial combinations. Currently, we only print layers of different materials. However, we believe our algorithm could be extended in a straight forward manner to arbitrary spatial combinations (e.g., voxels) of base materials. The decision tree could be directly applied to 2D or 3D problems, by having a one-to-one mapping of layers in 1D to voxels in 3D. Also, our pruning strategy (clustering and bounds) can be directly translated to the 3D case. Our search algorithm linearly scales with the number of layers or volume elements.
+ACM Transactions on Graphics, Vol. 29, No. 4, Article 63, Publication date: July 2010.
+
+1 Re Fo pr a od D m1 uc M tio 50 n 1 TB P 1
+21
+
+50 2 D M
+
+Fo am
+
+Acknowledgements
+We would like to thank the anonymous reviewers for their helpful comments, Peter Kaufmann and Sebastian Martin for insightfull discussions, and Todd Zickler for his valuable advice in building our data acquisition system. We also wish to thank Prof. Robert Wood, Prof. Radhika Nagpal, the Harvard Wyss Institute for Biologically Inspired Engineering, Katie Basset, and Walt Disney Imagineering for their generosity and patience in letting us use their Objet printer. Moritz B¨ cher was supported with a fellowship from a the School of Engineering and Applied Sciences at Harvard and Miguel A. Otaduy was supported in part by the Spanish Dept. of Science and Innovation (project TIN-2009-07942).
+
+References
+ˇ BARBI C , J., AND JAMES , D. 2005. Real-time subspace integration for St. Venant-Kirchhoff deformable models. ACM Trans. Graph. 24, 3 (Aug.), 982–990. 2 BATHE , K. J. 1995. Finite Element Procedures. Prentice Hall. 3 B ECKER , M., AND T ESCHNER , M. 2007. Robust and efﬁcient estimation of elasticity parameters using the linear ﬁnite element method. In SimVis, 15–28. 2 B ENDSOE , M. P., AND S IGMUND , O. 2003. Topology Optimization. Springer Berlin. 2 ¨ B ICKEL , B., B ACHER , M., OTADUY, M. A., M ATUSIK , W., P FISTER , H., AND G ROSS , M. 2009. Capture and modeling of non-linear heterogeneous soft tissue. ACM Trans. Graph. 28, 3 (July), 89:1–89:9. 2, 3, 3, 3, 4 D I L ORENZO , P. C., Z ORDAN , V. B., AND S ANDERS , B. L. 2008. Laughing out loud: Control for modeling anatomically inspired laughter using audio. ACM Trans. Graph. 27, 5 (Dec.), 125:1– 125:8. 2 H ILLER , J., AND L IPSON , H. 2009. Design and analysis of digital materials for physical 3d voxel printing. Rapid Prototyping Journal 15, 137–149. 2 JAMES , D. L., AND PAI , D. K. 1999. Artdefo - accurate real time deformable objects. In Proc. of SIGGRAPH 99, Computer Graphics Proc., 65–72. 2
+
+Design and Fabrication of Materials with Desired Deformation Behavior
+
+•
+
+63:9
+
+TB
+
+30 Force in N
+
+20
+
+10
+
+0
+
+1
+
+5
+
+9 13 Displacement in mm
+
+30 Force in N
+
+20
+
+10
+
+0
+
+1
+
+6
+
+11 16 Displacement in mm
+
+Figure 11: Replicating a ﬂip ﬂop (upper row) and slipper (lower row). The left column shows the original images, the middle column the replicated ﬂop ﬂop and slipper with the spatial combination of base materials obtained by our goal-based optimization approach. Our replication matches the deformation behaviour of the original quite well, as shown in the force displacement plots (right column) for a corresponding point on the original and replica. The dotted curves characterize the base materials.
+
+D
+
+TE
+
+IN
+
+35 Force in N
+
+20 10 0
+
+PR
+
+1
+
+8
+
+16 24 Displacement in mm
+
+32
+
+PR
+
+IN
+
+TE
+40
+
+Figure 12: Replicating a leather stool. The left column shows the original object, the middle column a cross section of the replicated object and the spatial combination of base materials. We segmented the stool into two regions, a stiff region below the button (indicated in green) and the remaining softer region (indicated in orange). We validated the deformation behaviour by comparing the force displacement plots (right column) in the button region (orange) as well as in the softer region (green).
+
+ACM Transactions on Graphics, Vol. 29, No. 4, Article 63, Publication date: July 2010.
+
+D
+
+50
+
+50 2 Pr in D te M d TB 50 Sl i Sl P 1 1 ppe ip r pe r
+21
+
+D
+
+M
+
+D
+17
+
+M
+
+50 2
+
+40
+
+P 5 Fl ip Pr flo in p te d Fl
+
+ip flo p
+
+63:10
+
+•
+
+B. Bickel et al.
+
+K AJBERG , J., AND L INDKVIST, G. 2004. Characterisation of materials subjected to large strains by inverse modelling based on in-plane displacement ﬁelds. IJSS 41, 13, 3439–3459. 2 K AUER , M., V USKOVIC , V., D UAL , J., S ZEKELY, G., AND BA JKA , M. 2002. Inverse ﬁnite element characterization of soft tissues. Medical Image Analysis 6, 3, 257–287. 2 K HAREVYCH , L., M ULLEN , P., OWHADI , H., AND D ESBRUN , M. 2009. Numerical coarsening of inhomogeneous elastic materials. ACM Trans. Graph. 28, 3 (July), 51:1–51:8. 1, 2 K ICINGER , R., A RCISZEWSKI , T., AND J ONG , K. D. 2005. Evolutionary computation and structural design: A survey of the state-of-the-art. Comput. Struct. 83, 23-24, 1943–1978. 2 ¨ KOCH , R. M., G ROSS , M. H., C ARLS , F. R., VON B UREN , D. F., FANKHAUSER , G., AND PARISH , Y. 1996. Simulating facial surgery using ﬁnite element methods. In Proc. of SIGGRAPH 96, Computer Graphics Proc., 421–428. 2 L AND , A. H., AND D OIG , A. G. 1960. An automatic method of solving discrete programming problems. Econometrica 28, 3, 497–520. 5.2 L ANG , J., PAI , D. K., AND W OODHAM , R. J. 2002. Acquisition of elastic models for interactive simulation. IJRR 21, 8, 713–733. 2 L EE , S.-H., AND T ERZOPOULOS , D. 2006. Heads up!: biomechanical modeling and neuromuscular control of the neck. ACM Trans. Graph 25, 3 (July), 1188–1198. 2 L EE , S.-H., S IFAKIS , E., AND T ERZOPOULOS , D. 2009. Comprehensive biomechanical modeling and simulation of the upper body. ACM Trans. Graph. 28, 4 (Aug.), 99:1–99:17. 2 L UND , E., AND S TEGMANN , J. 2005. On structural optimization of composite shell structures using a discrete constitutive parameterization. Wind Energy 8, 109–124. 5.2 ´ ˆ M AGNENAT-T HALMANN , N., K ALRA , P., L E V E QUE , J. L., BAZIN , R., BATISSE , D., AND Q UELEUX , B. 2002. A computational skin model: fold and wrinkle formation. IEEE Trans. on Information Technology in Biomedicine 6, 4, 317–323. 2 M IKOLAJCZYK , K., AND S CHMID , C. 2004. Scale & afﬁne invariant interest point detectors. IJCV 60, 1, 63–86. 6 M ITANI , J., AND S UZUKI , H. 2004. Making papercraft toys from meshes using strip-based approximate unfolding. ACM Trans. Graph. 23, 3 (Aug.), 259–263. 1 M ORI , Y., AND I GARASHI , T. 2007. Plushie: An interactive design system for plush toys. ACM Trans. Graph. 26, 3 (July), 45:1– 45:8. 1 ¨ M ULLER , M., AND G ROSS , M. H. 2004. Interactive virtual materials. In Graphics Interface 2004, 239–246. 3 N EALEN , A., M LLER , M., K EISER , R., B OXERMAN , E., AND C ARLSON , M. 2006. Physically based deformable models in computer graphics. Computer Graphics Forum 25, 4 (Dec.), 809–836. 2 ˇ´ ´ N ESME , M., K RY, P. G., J E R ABKOV A , L., AND FAURE , F. 2009. Preserving topology and elasticity for embedded deformable models. ACM Trans. Graph. 28, 3 (July), 52:1–52:9. 2 N EUMAIER , A., AND P OWNUK , A. 2007. Linear systems with large uncertainties with applications to truss structures. Reliable Computing 13, 149–172. 5.2
+ACM Transactions on Graphics, Vol. 29, No. 4, Article 63, Publication date: July 2010.
+
+OBJET. Connex500 Multi-Material 3D Printing System. http: //www.objet.com/3D-Printer/Connex500/. 1 O’B RIEN , J. F., AND H ODGINS , J. K. 1999. Graphical modeling and animation of brittle fracture. In Proc. of SIGGRAPH 99, Computer Graphics Proc., 137–146. 2 O GDEN , R. W. 1997. Non-Linear Elastic Deformations. Courier Dover Publications. 2 O KABE , H., I MAOKA , H., T OMIHA , T., AND N IWAYA , H. 1992. Three dimensional apparel cad system. In Computer Graphics (Proc. of SIGGRAPH 92), 105–110. 1 PAI , D. K., VAN DEN D OEL , K., JAMES , D. L., L ANG , J., L LOYD , J. E., R ICHMOND , J. L., AND YAU , S. H. 2001. Scanning physical interaction behavior of 3d objects. In Proc. of ACM SIGGRAPH 2001, Computer Graphics Proc., 87–96. 2 ¨ R EBONATO , R., AND J ACKEL , P. 1999. The most general methodology to create a valid correlation matrix for risk management and option pricing purposes. Tech. rep., Quantitative Research Centre, NatWest Group. 4 S CHNUR , D. S., AND Z ABARAS , N. 1992. An inverse method for determining elastic material properties and a material interface. International Journal for Numerical Methods in Engineering 33, 10, 2039–2057. 2 S CHONER , J. L., L ANG , J., AND S EIDEL , H.-P. 2004. Measurement-based interactive simulation of viscoelastic solids. Computer Graphics Forum 23, 3 (Sept.), 547–556. 2 S IFAKIS , E., N EVEROV, I., AND F EDKIW, R. 2005. Automatic determination of facial muscle activations from sparse motion capture marker data. ACM Trans. Graph 24, 3 (Aug.), 417–425. 2 S UEDA , S., K AUFMAN , A., AND PAI , D. K. 2008. Musculotendon simulation for hand animation. ACM Trans. Graph. 27, 3 (Aug.), 83:1–83:8. 2 S VOBODA , T., M ARTINEC , D., AND PAJDLA , T. 2005. A convenient multi-camera self-calibration for virtual environments. PRESENCE: Teleoperators and Virtual Environments 14, 4 (August), 407–422. 6 T ERAN , J., S IFAKIS , E., B LEMKER , S. S., N G -T HOW-H ING , V., L AU , C., AND F EDKIW, R. 2005. Creating and simulating skeletal muscle from the visible human data set. IEEE TVCG 11, 3 (May/June), 317–328. 2 T ERZOPOULOS , D., P LATT, J., BARR , A., AND F LEISCHER , K. 1987. Elastically deformable models. In Computer Graphics (Proc. of SIGGRAPH 87), 205–214. 2 T ERZOPOULUS , D., AND WATERS , K. 1993. Analysis and synthesis of facial image sequences using physical and anatomical models. IEEE Trans. on PAMI 14, 569–579. 2 W EYRICH , T., P EERS , P., M ATUSIK , W., AND RUSINKIEWICZ , S. 2009. Fabricating microgeometry for custom surface reﬂectance. ACM Trans. Graph. 28, 3 (Aug.). 1 Z OHDI , T. I., AND W RIGGERS , P. 2004. Introduction to Computational Micromechanics. Springer-Verlag New York, Inc. 1 Z ORDAN , V. B., C ELLY, B., C HIU , B., AND D I L ORENZO , P. C. 2004. Breathe easy: model and control of simulated respiration for animation. In 2004 ACM SIGGRAPH / Eurographics SCA, 29–37. 2
+

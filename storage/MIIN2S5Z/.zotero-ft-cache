@@ -1,0 +1,817 @@
+See	discussions,	stats,	and	author	profiles	for	this	publication	at:	https://www.researchgate.net/publication/237654899
+
+A	Smoothed	Finite	Element	Method	(SFEM)	for Linear	and	Geometrically	Nonlinear	Analysis	of Plates	and	Shells
+Article		in		Computer	Modeling	in	Engineering	and	Sciences	·	May	2008
+DOI:	10.3970/cmes.2008.028.109
+
+CITATIONS
+
+READS
+
+65
+6	authors,	including: Xiang-Yang	Cui Hunan	University
+73	PUBLICATIONS			591	CITATIONS			
+SEE	PROFILE
+
+249
+
+G.R.	Liu University	of	Cincinnati
+638	PUBLICATIONS			23,951	CITATIONS			
+SEE	PROFILE
+
+X.	Zhao The	Chinese	University	of	Hong	Kong
+134	PUBLICATIONS			5,073	CITATIONS			
+SEE	PROFILE
+
+Guangyong	Sun Hunan	University
+121	PUBLICATIONS			1,892	CITATIONS			
+SEE	PROFILE
+
+Some	of	the	authors	of	this	publication	are	also	working	on	these	related	projects:
+
+research	enhances	FEM	of	NUS	View	project
+
+plate	and	shell	elements	View	project
+
+All	content	following	this	page	was	uploaded	by	T.	Nguyen-Thoi	on	13	June	2017.
+
+The	user	has	requested	enhancement	of	the	downloaded	file.	All	in-text	references	underlined	in	blue	are	added	to	the	original	document and	are	linked	to	publications	on	ResearchGate,	letting	you	access	and	read	them	immediately.
+
+Copyright c 2008 Tech Science Press
+
+CMES, vol.28, no.2, pp.109-125, 2008
+
+A Smoothed Finite Element Method (SFEM) for Linear and Geometrically Nonlinear Analysis of Plates and Shells
+X.Y. Cui1,2 , G. R. Liu2,3 , G. Y. Li1 , X. Zhao2 , T.T. Nguyen2 and G.Y. Sun1
+
+Abstract: A smoothed ﬁnite element method (SFEM) is presented to analyze linear and geometrically nonlinear problems of plates and shells using bilinear quadrilateral elements. The formulation is based on the ﬁrst order shear deformation theory. In the present SFEM, the elements are further divided into smoothing cells to perform strain smoothing operation, and the strain energy in each smoothing cell is expressed as an explicit form of the smoothed strain. The effect of the number of divisions of smoothing cells in elements is investigated in detail. It is found that using three smoothing cells for bending strain energy integration and one smoothing cell for shear strain energy integration achieve most accurate results and hence these numbers recommended for plates and shells in this study. In the geometrically nonlinear analysis, the total Lagrangian approach is adopted. The arc-length technique in conjunction with the modiﬁed Newton-Raphson method is utilized to solve the nonlinear equations. The numerical examples demonstrate that the present SFEM provides very stable and most accurate results with the similar computational effort compared to the existing FEM techniques tested in this work. Keyword: smoothed ﬁnite element method, plate and shell, mid-rectangle rule, nonlinear, smoothed weak form.
+
+1 Introduction In the past decades, the ﬁnite element method (FEM) has been playing a very important role in solving various problems in engineering and science, including mechanics problems of plates and shells [Zienkiewicz and Taylor (2000); Liu and Quek (2003)]. A number of plate and shell elements have been developed for linear and nonlinear analysis. Batoz and Tahar (1982) proposed a discrete Kirchhoff quadrilateral element (DKQ), which can give efﬁcient results for bending problems for thin plates, but not for thick plates. Bathe and Dvorkin (1985) presented a 4-node plate element based on Mindlin-Reissner theory using mixed interpolated tensorial components (MITC). Belytschko and Leviathan (1994) developed a one point quadrature quadrilateral shell element with physical hourglass control. In recent years, meshfree methods have been developed and achieved remarkable progress for solving plate and shell problems, and many works are summarized in the book by Liu (2002), Atluri (2005). Chen and Liu (2001) had used the element free Galerkin (EFG) method for solving static and dynamic problem of thin plate of complicated shape. Composite laminated plates had also been studied for vibration problems, buckling problems [Chen et al. (2002, 2003)]. Shells had also been analyzed using EFG [Liu et al. (2002)]. Wang and Chen (2004) presented a Mindlin-Reissner plate formulation using a stabilized conforming nodal integration to mitigate the shear locking. A radial point interpolation method [Liu et al. (2008)] was formulated for plate problems using the smoothed nodal integration. Meshless Local Petrov-Galerkin (MLPG) Method [Atluri and Shen (2002); Atluri (2004)] was also employed for plates and shells analysis by many researchers [Gu and Liu (2001); Long
+
+1 State
+
+Key Laboratory of Advanced Design and Manufacturing for Vehicle Body, Hunan University, Changsha, 410082, PR China. 2 Centre for Advanced Computations in Engineering Science (ACES), Department of Mechanical Engineering, National University of Singapore, 9 Engineering Drive 1, 117576 Singapore. 3 Singapore-MIT Alliance (SMA), E4-04-10, 4 Engineering Drive 3, 117576, Singapore
+
+110
+
+Copyright c 2008 Tech Science Press
+
+CMES, vol.28, no.2, pp.109-125, 2008
+
+and Atluri (2002); Soric et al. (2004); Li et al. (2005); Sladek et al. (2006); Jarak et al. (2007)], and Atluri et al. (2004) proposed a meshless ﬁnite volume method through the MLPG “mixed” approach. For nonlinear analysis of plates and shells, Horrigmoe and Bergan (1978) presented a general formulation for geometrically nonlinear analysis of shells using ﬂat ﬁnite elements. Hughes and Liu (1981) presented a general nonlinear ﬁnite element formulation using uniform reduced integration for shell analysis. Recently, Lee et al. (2002) introduced a geometrically nonlinear assumed strain formulation of a nine-node solid shell element. Wen and Hon (2007) formulated a Reissner-Mindlin plate element for geometrically nonlinear analysis by using a meshless collocation method. The other works of plates and shells analysis include those given by Basar and Kintzell (2003), Qian et al. (2003), Suetake (2006). Although a signiﬁcant mount of works have been done using FEM, some inherent problems related to element distortion still remain unsolved. Liu et al. (2007a) proposed a smoothed ﬁnite element method (SFEM) by combining the standard FEM with the strain smoothing technique used in meshfree methods [Chen et al. (2005)]. The SFEM further divides the elements into smoothing cells and computes the integrals along the edges of the smoothing cells based on the Green’s divergence theorem. The n-sided polygonal element can be easily carried out using the SFEM [Dai et al. (2007)]. Liu et al. (2007b) gave detailed theoretical aspects including stability, bound property and convergence about the SFEM and revealed a number of attractive features resulted from the “softening” effects of the strain smoothing technique. Other problems solved using SFEM including free and forced vibration analysis [Dai and Liu (2007)], piezoelectric element analysis of two-dimensional smart structures [Nguyen-Van et al. (2008)]. A plate element [Nguyen-Xuan et al. (2008)] has been formulated using the SFEM. In Nguyen-Xuan’s work, only linear plate problem is considered and the formulation is the combination of SFEM and MITC, in which only the bending term is formulated by using SFEM, and shear
+
+term is same as MITC element. In the present paper, the smoothed ﬁnite element method (SFEM) is further extended to linear and geometrically nonlinear analysis of plates and shells. In the present work, all terms of the element are formulated by using the SFEM, and we overcome the shear locking by using fewer smoothing cells in shear term than those in membrane and bending terms. The smoothed strains are computed directly only using shape functions, and the shape functions of arbitrary point in the quadrilateral element are created in a trivial, simple and explicit manner. Through an intensive numerical study, it is found that three smoothing cells for bending strain energy integration, and one cell for shear strain energy integration in an element produces the most accurate solutions that are much more accurate compared with the existing FEM techniques. 2 Basic formulation 2.1 Kinematics of shells In this section, the basic equations of shell theory are briefed. Based on the ﬁrst order shear deformation theory, the displacements u = [u, v, w] at a local coordinate system (x, y, z) are expressed as follows: u(x, y, z) = u0 (x, y) − zθx(x, y) v(x, y, z) = v0 (x, y) − zθy (x, y) w(x, y, z) = w0 (x, y) (1)
+
+where u0 , v0 and w0 are the displacements of the mid-plane of the shell in the x, y and z directions, θx and θy denote the rotations about the y and x axes, respectively, as shown in Fig. 1. The strain vector ε can be written in terms of the mid-plane deformations using Eq. (1), which gives: ⎧ ⎫ ⎪εxx⎪ ⎪ ⎪ ⎪ ⎪ ⎪εyy⎪ ⎨ ⎬ zε b 0 ε + ε = εxy = m + (2) 0 0 εs ⎪ ⎪ ⎪ εxz ⎪ ⎪ ⎪ ⎪ ⎪ ⎩ ⎭ εyz where ε m is the membrane strain, ε b is the bending strain, and ε s is the shear strain. Bending and
+
+SFEM for Linear and Geometrically Nonlinear Analysis of Plates and Shells
+
+111
+
+z(w0)
+
+where ⎡ ⎤ ˆ N ⎣M⎦ , ˆ σ= ˆ ˆ Q
+x
+
+⎡ ⎤ Dm 0 0 ˆ D = ⎣ 0 Db 0 ⎦ 0 0 Ds
+
+(9)
+
+y
+
+x(u0)
+
+y(v0)
+
+Figure 1: Local coordinate system with the x-y plane siting on the shell mid-plane
+
+T ˆ is the memin which N = Nx Ny Nxy ˆ brane force vector in the mid-plane, M = T Mx My Mxy is the bending moment vector, T ˆ Q = Qx Qy is the transverse shear force vector, Dm is the membrane stiffness constitutive coefﬁcients, Db is the bending stiffness constitutive coefﬁcients, and Ds is the transverse shear stiffness constitutive coefﬁcients:
+
+Dm = shear strains can be written as: ⎧ ∂θ ⎫ x ⎪ ⎪ x ⎨ ⎬ ∂ θy εb = − , εs = y ⎪ ∂θ ⎩ x ∂ θy ⎪ ⎭ y + x Db = (3) Ds =
+
+t 2 t −2 t 2 t −2 t 2 t −2
+
+D0 dz = tD0 z2 D0 dz = kG t3 D0 12
+
+(10)
+
+∂ w0 x ∂ w0 y
+
+− θx − θy
+
+(11) (12)
+
+1 0 1 0 dz = κ tG 0 1 0 1
+
+For nonlinear analysis, the membrane strain is given by: ⎧ ⎫ ⎪ ∂ u0 + 1 ∂ w 2 ⎪ ⎪ x ⎪ ⎪ ⎪ 2 x ⎨ ⎬ 2 ∂ v0 1 ∂w εm = (4) = ε 0 + ε nl m m ⎪ y +2 y ⎪ ⎪ ⎪ ⎪ ∂ u 0 ∂ v0 ∂ w ∂ w ⎪ ⎩ ⎭ y + x + x y in which ⎧ ⎪ ⎨
+y
+
+where t is the thickness of the plate or shell, G is shear modulus, κ = 5/6 is the shear correction factor, and D0 is the constitutive coefﬁcients matrix given as: ⎤ ⎡ 0 1 ν E ⎣ ⎦ (13) ν 1 0 D0 = 1 − ν2 0 0 (1 − ν )/2 where E is Young’s modulus and ν is Poisson’s ratio.
+
+ε0 = m
+
+⎪ ∂ u 0 ∂ v0 ⎪ ⎩ + ⎭
+x
+
+∂ u0 x ∂ v0 y
+
+⎫ ⎪ ⎬
+
+,
+
+ε nl = m
+
+⎧ ⎪1 ⎪2 ⎪ ⎨
+1
+
+∂w x ∂w
+
+2 2
+
+⎫ ⎪ ⎪ ⎪ ⎬ (5)
+
+⎪2 y ⎪ ⎪ ⎪ ∂w ∂w ⎪ ⎪ ⎩ ⎭
+x y
+
+From Eq. (1), the generalized mid-plane displaceˆ ments vector u is deﬁned as: ˆ u = u0 v0 w0 θx θy
+T
+
+and for linear analysis,
+
+(14)
+
+εm =ε0 m
+
+(6)
+
+ˆ Using Eq. (2), the generalized strain vector ε can be written as: ⎧ ⎫ ⎨ε m ⎬ ˆ = εb ε (7) ⎩ ⎭ εs The constitutive relationship can be expressed as: ˆε ˆ σ = Dˆ (8)
+
+The displacements at any point in an element are interpolated using the nodal displacements at the nodes using the element shape functions created by the element nodes. Both displacements and rotations use the same shape functions. The bilinear quadrilateral elements are used here, and the genˆ eralized mid-plane displacement vector u can be then expressed as: ˆ u (x) =
+
+I=1
+
+∑ NI (x) dI
+
+4
+
+(15)
+
+112
+
+Copyright c 2008 Tech Science Press
+
+CMES, vol.28, no.2, pp.109-125, 2008
+
+where dI = {uI , vI , wI , θxI , θyI }T is the nodal displacement at node I, and the diagonal matrix of shape functions NI (x) = ⎤ ⎡ 0 0 0 0 NI (x) ⎢ 0 0 0 0 ⎥ NI (x) ⎥ ⎢ ⎢ 0 0 0 ⎥ (16) 0 NI (x) ⎥ ⎢ ⎣ 0 0 ⎦ 0 0 NI (x) 0 0 0 0 NI (x) in which NI (x) is the shape function associated to node I. 2.2 Smoothing cells in SFEM As shown in Fig. 2, the problem domain Ω is divided into Ne quadrilateral elements, as in the standard FEM. The quadrilateral element Ωk is further divided into SC smoothing cells, Ωk1, Ωk2 , . . ., ΩkSC, such that Ωk = Ωk1 ∪ Ωk2 ∪ . . . ∪ ΩkSC and Ωki ∩ Ωk j = 0, (i = j, i = 1, . . ., SC, j = / 1, . . ., SC). In the present SFEM, we use the strain smoothing operation for each of the cells:
+
+where n is is the outward normal matrix containing the components of the outward normal vector ˆ to boundary Γki , and B0 is the smoothed linear mi membrane strain matrix given by: ⎤ ⎡ biIx 0 0 0 0 ˆ mi (19) B0 I = ⎣ 0 biIy 0 0 0⎦ biIy biIx 0 0 0 in which biIx = = biIy = = 1 Aki 1 Ak 1 Aki 1 Ak
+Γki Nl
+
+nx · NI (x)dΓ (20a)
+
+j=1
+
+∑ nx j · NI (xng j ) · l j
+Γki Nl
+
+ny · NI (x)dΓ (20b)
+
+j=1
+
+∑ ny j · NI (xng j) · l j
+
+ε0 = mi ε bi =
+
+1 Aki
+
+Ωki
+
+ε 0 (x)dΩ m
+
+(17a) (17b) (17c) (17d)
+
+1 Aki 1 ε si = Aki 1 ε nl = mi Aki
+
+Ωki
+
+ε b (x)dΩ ε s (x)dΩ ε nl (x)dΩ m
+
+In Eq. (20), Nl is the total number of the segments of Γki , nx j and ny j are the components of the outward unit normal to the jth boundary segment, xng j is the coordinate value of Gauss point of the jth boundary segment. The shape function of local point in the element is shown in Fig.3. Similarly, the smoothed bending strain over the domain Ωki can be rewritten as ˆ ε bi = ∑ Bbi I dI
+I=1 4
+
+Ωki
+
+(21)
+
+Ωki
+
+ε bi , ε si and ε nl are the averwhere mi aged/smoothed strains, and Aki is the area of the ith cell Ωki of the kth element.
+2.3 Integration scheme with strain smoothing operation Consider an element of the problem domain, substituting Eqs. (5) and (16) into Eq. (17a), the smoothed strains ε 0 can also be written in mami trix form of:
+
+ε0 , mi
+
+ˆ where Bbi is the smoothed bending strain matrix of the domain Ωki given by ⎡ ⎤ 0 0 0 −biIx 0 ˆ 0 −biIy ⎦ (22) Bbi I = ⎣0 0 0 0 0 0 −biIy −biIx The smoothed shear strain over the domain Ωki can be expressed as
+
+ε si =
+
+ε0 = mi
+=
+
+1 Aki
+
+Γki
+
+nu (x)dΓ = ˆ
+
+I=1
+
+∑ nNI (x)dI
+(18)
+
+4
+
+I=1
+
+∑
+
+4
+
+ˆ Bsi I dI
+
+(23)
+
+in which ˆ Bsi
+I
+
+I=1
+
+∑
+
+4
+
+ˆ mi B0 I dI
+
+=
+
+0 0 biIx −shI 0 0 −shI 0 0 biIy
+
+(24)
+
+SFEM for Linear and Geometrically Nonlinear Analysis of Plates and Shells
+
+113
+
+...
+
+...
+
+Ω Ne
+...
+
+... ... nj n j+1 lj ngj
+ki
+
+kSC
+
+nj
+
+...
+
+k
+
+...
+
+...
+
+...
+
+...
+1 2
+
+...
+
+k1 k2
+
+The problem domain Nodes of the elements Virtual point
+
+The kth element domain of the problem domain Gauss points
+
+k
+
+Figure 2: The problem domain Ω is divided into Ne quadrilateral elements, the kth element of domain Ωk is further divided into SC smoothing cells.
+
+Figure 3: The shape function of local point in the element. k1 = l1 /l is a proportion, and k2 has the same meaning.
+
+114
+
+Copyright c 2008 Tech Science Press
+
+CMES, vol.28, no.2, pp.109-125, 2008
+
+In Eq. (24), shI can be deﬁned by shI = 1 Nn
+
+∑ NI (x j )
+j=1
+
+Nn
+
+ˆ using u satisfy the following smoothed Galerkin weak form: (25)
+Ω T ˆ ˆε δ ε Dˆ dΩ − Ω
+
+ˆ fdΩ δ uT ˜ = 0
+
+(32)
+
+where Nn is the total number of the nodes of the smoothing cell Ωki , and NI (x j ) is the shape function value of the jth node of the cell Ωki . Using Eqs. (5), (15) and (17d), we obtain the smoothed nonlinear strain over the domain Ωki as follows
+
+where ˜ represents the external load applied over f the problem domain Ω. The properties of the smoothed Galerkin weak form are examined and proven by Liu (2008). Substituting Eq. (15) into Eq. (32) and using the strain-displacement relation, a set of discretized algebraic system equations can be obtained in the following matrix form: Kd − f = 0 (33)
+
+ε nl = mi
+
+I=1
+
+∑
+
+4
+
+1 ˆ nl B 2 mi
+
+dI
+I
+
+(26)
+
+ˆ mi Bnl is the smoothing nonlinear strain matrix in the smoothing cell given by ˆ mi Bnl
+I
+
+where K is the smoothed stiffness matrix, and f is the force vector deﬁned as: f=
+Ω
+
+= A (Gi )I
+
+(27)
+
+N (x) ˜ fdΩ
+
+(34)
+
+in which (Gi )I = A= 0 0 biIx 0 0 0 0 biIy 0 0 biIx wI 0 0 biIxwI biIx wI biIx wI
+T
+
+(28)
+
+I=1
+
+∑
+
+4
+
+(29)
+
+In obtaining the smoothed stiffness K, the integrations over the problem domain Ω need to be performed based on each element. In each element, the smoothed strains introduced in last section are used and the smoothed stiffness is given by: KIJ = ∑
+SC
+
+where wI is the deﬂection at the node I of the element. Using Eqs. (6), (18), (21), (23) and (26), the ˆ smoothing generalized strain ε in each cell can be written as: ˆ εi =
+
+i=1 Ωi
+
+ˆ Bi
+
+T ˆ D I
+
+ˆi 1 ˆi B0 + Bnl 2
+
+dΩ
+J
+
+(35)
+
+I=1
+
+∑
+
+4
+
+1 ˆ nl ˆi B B0 I + 2 i
+
+I
+
+dI
+
+(30)
+
+ˆ where Bi is strain matrix, it is given as: ⎡ 0 ⎤ ⎡ nl ⎤ ˆ ˆ Bmi Bmi ˆi ˆi ˆ ˆ i = B0 + Bnl = ⎣ Bbi ⎦ + ⎣ 0 ⎦ B ˆ 0 Bsi
+
+(36)
+
+ˆ where B0 is the smoothing linear strain matrix, i ˆ nl is the smoothing nonlinear strain matrix and Bi given by: ⎡ 0 ⎤ ⎡ nl ⎤ ˆ ˆ Bmi Bmi ˆ ˆi ˆ 0 = ⎣ Bbi ⎦ , Bnl = ⎣ 0 ⎦ (31) Bi ˆ 0 Bsi 3 Discrete equations 3.1 Smoothed Galerkin weak form ˆ In the present SFEM, the displacement solution u ˆ ε obtained and the corresponding smoothed strain
+
+Substituting Eq. (36) into Eq. (35), the stiffness matrix can be written as: KIJ = KIJ + KIJ For linear analysis KIJ = KIJ The matrices KIJ and KIJ are given as:
+0 ˆi KIJ = ∑ B0 i=1 m = KIJ SC T ˆ D I 0 nl 0 0 nl
+
+(37)
+
+(38)
+
+ˆi B0
+
+J
+
+Ai
+
+(39)
+
+b s + KIJ + KIJ
+
+SFEM for Linear and Geometrically Nonlinear Analysis of Plates and Shells
+
+115
+
+KIJ =
+b KIJ
+
+m
+
+SC1
+i=1
+
+∑ ∑ ∑
+
+ˆ mi B0 ˆ Bbi
+
+T D I m
+
+ˆ mi B0 ˆ Bbi
+
+A J i
+
+(40)
+
+the equation can be attained via a truncated Taylor series expansion, g(d + Δd, λ + Δλ ) = g(d, λ ) + K Δd − Δλ F0 = 0 (47) where Δd and Δλ are the displacement increment t and load increment factors, respectively. K is the smoothed tangent stiffness matrix which is given by: KIJ =
+t t
+
+=
+
+SC2
+i=1
+
+T Db I
+
+J
+
+Ai
+
+(41)
+
+KIJ =
+
+s
+
+SC3
+i=1 SC4
+
+ˆ Bsi
+1 2
+
+T D I s
+
+ˆ Bsi
+
+J
+
+Ai ⎞ ⎟ ⎠Ai
+J
+
+(42)
+
+ˆ Tˆ ˆ B0 I D Bnl J i i nl ⎜ ˆ Tˆ ˆ KIJ = ∑ ⎝ + Bnl I D B0 J i i i=1 ˆ Tˆ ˆ + 1 Bnl D Bnl
+2 i I i
+
+⎛
+
+(43)
+SC SC
+
+where Ai is the area of the ith smoothing cell, and SC1, SC2, SC3 and SC4 are the smoothing cell numbers and which can be given different values. Note: For present method, we ﬁrst use the same set of bilinear shape functions as standard FEM; therefore, the assumed displacement u and the force vector f in present method are the same to ˆ standard FEM. Only the smoothed strains ε in ˆ present method and the resultant strains ε in standard FEM are different, and so are the solutions of the nodal displacementsd. 3.2 Formulation for nonlinear problems The Modify Newton-Raphson method is empolyed here to solve the assembled nonlinear equilibrium equations. An incremental form of Eq. (33), required by the Newton-Raphson method, should be provided. It is can be rearranged as: g(d) = Kd − F = 0 (44)
+
+i=1
+
+∑
+
+ˆ Bi
+
+T ˆ D I
+
+ˆ Bi
+
+ˇ A + ∑ (Gi )T N (Gi )J Ai (48) I J i
+i=1
+
+ˆ where Bi is given in Eq. (36), Gi is given in Eq. ˇ is the membrane stress matrix given as: (28), N Nxy N ˇ N = xx Nxy Nyy (49)
+
+where Nxx, Nxy , Nyy are the components of memˆ brane force N given in Eq. (9). In the incremental-iterative method, each load step includes the application of external load and subsequent iterations to restore equilibrium. In subsequent iterations, the displacement increment is written as:
+j+1 Δdn =
+
+K K
+
+t n t
+
+−1 −1
+
+j Δλnj+1 F0 − gn
+
+=
+
+(50)
+j K dn dn − λnj F0
+
+n j+1 Δ λn F 0 −
+
+The external load F is assumed to be proportional to the ﬁxed load F0 as: F = λ F0 (45)
+
+where λ is the load level parameter. The nonlinear equilibrium equation (44) can be rewritten as: g(d, λ ) = Kd − λ F0 (46)
+
+where the subscript n is used to denote the load step number and the subscript j is used to represent the subsequent iteration cycle. The Arclength method presented by Crisﬁeld (1997) is used to overcome the ‘snap-throughs’ and the ‘snap-backs’. The convergence is checked using following criterion: g (d, λ ) <δ F (d, λ ) (51)
+
+In order to arrive at a new equilibrium state, displacement and load level parameter are updated by increments. The following incremental form of
+
+where δ is the tolerance for convergence constant which is set to 0.0001 in this study.
+
+116
+
+Copyright c 2008 Tech Science Press
+
+CMES, vol.28, no.2, pp.109-125, 2008
+
+4 Numerical examples 4.1 Analysis of a square plate In order to test the efﬁciency of the present SFEM, a square plate of the length L and the thickness t subjected to different boundary conditions is considered in this section. The material properties are taken as Young’s modulus Eand Poisson ratio υ . Owing to the symmetry of the problem, only a quarter of the plate is modeled, as shown in Fig.4. 4.1.1 Effect of the number of smoothing cells A plate with L=10m and t=0.1m simply supported at all sides subjected to a transverse uniform load is investigated to study the effect of the number of smoothing cells used in the elements. The material properties are taken as Young’s modulus E = 3.0e7N/m2, Poisson ratio υ =0.3. This problem is analyzed using different number of elements and smoothing cells as shown in Fig.5. In order to mitigate the shear locking effect, only one smoothing cell is used on the shear strain term, and six different divisions, SC=1, 2, 3, 4, 8 and 16, are used on the other terms. This technique to suppress the shear locking is the same as the reduced and selective integration techniques in FEM. For a comparison, the FEM quadrilateral element with reduced integration (Q4-R) proposed by Malkus and Hughes (1978) is also used in the analysis. The analytic solutions are given by Reismann (1988). Table 1 shows the numerical results of central deﬂection and Fig. 6 shows the relative error between numerical results and analytical solutions of the problem using SFEM with different divisions of smoothing cells. From the result, it is seen that when the number of smoothing cells is one or two, numerical results are bigger than analytical solutions, and when the number of smoothing cells is three or more, the numerical results are smaller than analytical solutions. The more the smoothing cells, the smaller results obtained. Regardless of the numbers of the smoothing cells used, the SFEM is more accurate than the FEM quadrilateral element with reduced integration (Q4-R) for this problem. These ﬁndings conﬁrm the properties of SFEM introduced Figure 4: A quarter of a square plate is meshed with quadrilateral elements.
+
+Figure 5: Division of an element into smoothing cells.
+
+2 Error in central deflection,% 1 0 -1 -2 -3 2 3 4 5 Mesh density 6 SFEM(SC=1&1) SFEM(SC=2&1) SFEM(SC=3&1) SFEM(SC=4&1) SFEM(SC=8&1) SFEM(SC=16&1) FEM Q4-R 7 8
+
+Figure 6: Comparison of central deﬂection computed using FEM and SFEM with different divisions of smoothing cells
+
+SFEM for Linear and Geometrically Nonlinear Analysis of Plates and Shells
+
+117
+
+] Table 1: The central deﬂection w for a simply supported square plate with a uniform load computed using ˆ FEM and SFEM with different divisions of smoothing cells (w = wc D/qL4 ). ˆ Mesh SC=1&1 2 × 2 0.0041256 3 × 3 0.0040915 4 × 4 0.0040793 5 × 5 0.0040738 6 × 6 0.0040709 8 × 8 0.0040681 Analytic solution SC=2&1 0.0040660 0.0040669 0.0040658 0.0040653 0.0040651 0.0040648 SC=3&1 0.0040371 0.0040547 0.0040591 0.0040611 0.0040621 0.0040632 SC=4&1 SC=8&1 0.0040086 0.0039946 0.0040426 0.0040366 0.0040524 0.0040491 0.0040568 0.0040547 0.0040592 0.0040577 0.0040615 0.0040607 0.004064 SC=16&1 0.0039806 0.0040306 0.0040458 0.0040526 0.0040563 0.0040599 Q4-R 0.0039714 0.0040266 0.0040436 0.0040512 0.0040553 0.0040593
+
+by Liu et al. (2007b). There should be an optimal certain number of cells that can produce the most accurate result, and it is should be between 2∼4 for bilinear quadrilateral elements. Form the results of this problem, we ﬁnd that SFEM with SC=3&1, meaning that three cells for bending and membrane terms and one for shearing term, gives the best results. Therefore, SFEM (SC=3&1) is used in plates and shells problems in the following section. 4.1.2 Shear locking Shear locking results from the spurious appearance of transverse shear, which is generated due to the inability of the formulation based on the ﬁrst order deformation theory in reproducing pure bending mode. In this work, we use only one smoothing cell in computing shear strain matrix for avoiding shear locking which is similar to one point quadrature used in the FEM. To study the effectiveness of the present SFEM, a simply supported uniformly loaded square plate is used in the examination. For comparison, several existing FEM elements are also used in solving the same problem, including the mixed interpolated tensorial components element MITC4 [Bathe and Dvorkin (1985)], the reduced integration quadrilateral element Q4-R [Malkus and Hughes (1978)] and the discrete Kirchhoff quadrilateral element DKQ [Batoz and Tahar (1982)]. The results obtained using different methods are presented in Table 2 and Fig. 7 in terms of data and curves, respectively. It is clearly shown that
+
+the SFEM can give the most accurate solution for the full range of length/thickness ratio of the plate. It works for both thick and thin plates without shear lockings, even for extremely thin plate of length/thickness ratio L/t = 107 .The DKQ was designed particularly for solving shear locking problems, and it indeed works well for thin plates. However, it gives wrong results for thick plates. MITC4 and Q4-R work well for thick plates, but the solution accuracy for the thin plates are much lower than SFEM (SC=3&1).
+x 10
+-3
+
+4 Normalized central deflection (qL/D)
+
+5.5 5 4.5 4 3.5
+
+FEM (DKQ) FEM (MITC4) FEM (Q4-R) SFEM(SC=3&1) Analytic solution Thin plate solution(0.004062)
+
+10
+
+0
+
+10
+
+2
+
+10 Length/Thickness (L/t)
+
+4
+
+10
+
+6
+
+Figure 7: Shear locking test for a simply supported square plate.
+
+4.1.3 Convergence and accuracy In order to exam the convergence and accuracy of coarse meshes in thin and thick plate, the simply supported uniformly loaded square plate with various length ratios, a thin plate with L/t=100 and a thick plate with L/t=5 are investigated in this subsection. A set of ﬁve meshes are used for studying
+
+118
+
+Copyright c 2008 Tech Science Press
+
+CMES, vol.28, no.2, pp.109-125, 2008
+
+Table 2: The central deﬂection w of a simply supported square plate subjected to a uniform load with ˆ different length/thickness ratios (mesh size:6×6, w = wc D/qL4 ). ˆ L/t FEM (DKQ) FEM (MITC4) FEM (Q4-R) SFEM(SC=3&1) Analytic solution 4 0.004061 0.005376 0.005384 0.005390 0.005179 5 0.004061 0.004900 0.004905 0.004911 0.004907 20 0.004061 0.004106 0.004106 0.004113 0.004108 102 0.004061 0.004055 0.004055 0.004062 0.004064 105 0.004061 0.004053 0.004053 0.004060 0.004062 107 0.004061 0.003535 0.004101 0.004059 0.004062
+
+Table 3: Numerical results of normalized central deﬂection w for a simply supported square plate subjected ˆ to uniform load (L/t = 100, w = wc D/qL4 ). ˆ Mesh 2×2 4×4 6×6 8×8 10 × 10 Analytic solution FEM (Q4-R) 0.003971 0.004044 0.004055 0.004059 0.004061 FEM (DKQ) 0.004046 0.004060 0.004061 0.004062 0.004062 FEM (MITC4) 0.003971 0.004044 0.004055 0.004059 0.004061 0.004064 SFEM (SC=3&1) 0.004037 0.004059 0.004062 0.004063 0.004064
+
+Table 4: Numerical results of normalized central deﬂection w for a simply supported square plate subjected ˆ 4 to uniform load (L/t = 5, w = wc D/qL ). ˆ Mesh 2×2 4×4 6×6 8×8 10 × 10 Analytic solution FEM (Q4-R) 0.004921 0.004906 0.004905 0.004904 0.004904 FEM (DKQ) 0.004046 0.004060 0.004061 0.004062 0.004062 FEM (MITC4) 0.004855 0.004894 0.004900 0.004902 0.004903 0.004907 SFEM (SC=3&1) 0.004987 0.004921 0.004911 0.004908 0.004907
+
+Error in central deflection,%
+
+here. Aforementioned existing quadrilateral plate elements which are introduced in last subsection are employed as comparison with present method. Table 3 and Table 4 report the normalized central deﬂections of the thin plate and the thick plate. It is seen that the present SFEM has high accuracy at coarse meshes and fast convergence regardless of the thickness of the plate. DKQ works well for thin plates nevertheless it gives wrong results for thick plates. Both Q4-R and MITC4 have a slightly lower accuracy than SFEM (SC=3&1). 4.1.4 Bending analysis with different boundary conditions A thin square plate with transverse uniform load subjected to different boundary conditions is analyzed in this subsection, length/thickness ratios
+
+1 0 -1 -2 -3 -4 1 2 3 4 5 6 7 Mesh density 8
+
+FEM(Q4-R) SFEM( SC=3&1)
+
+9
+
+10
+
+11
+
+Figure 8: Relative error of the central deﬂection of the thin square plate with all sides clamped.
+
+L/t=100 is studied. All edges simply supported thin square plate has been investigated in last section, two boundary conditions are tested here: (a)
+
+SFEM for Linear and Geometrically Nonlinear Analysis of Plates and Shells
+
+119
+
+Table 5: The central deﬂection w for a square plate subjected to uniform load. (a) All sides clamped. (b) ˆ Two sides clamped and two sides simply supported (L/t = 100, w = wc D/qL4 ). ˆ Mesh 2×2 4×4 6×6 8×8 10 × 10 Analytic solution
+4 Error in central deflection,% 2 0 -2 -4 -6 -8 -10 2 4 6 Mesh density 8 10
+
+a FEM (Q4-R) SFEM(SC=3&1) 0.001214 0.001252 0.001253 0.001262 0.001261 0.001265 0.001264 0.001266 0.001266 0.001267 0.001265
+
+b FEM (Q4-R) SFEM(SC=3&1) 0.001737 0.001788 0.001879 0.001892 0.001902 0.001908 0.001910 0.001913 0.001914 0.001916 0.00192
+
+FEM (Q4-R) SFEM(SC=3&1)
+
+lyzed for geometrically nonlinear behavior using SFEM (SC=3&1). The side length and thickness of the square plate are L=100mm and t=1mm. The material properties for this plate are E=2.1e06N/mm2 and υ =0.316. The analytic solutions of central deﬂection are given by Chia (1980). qL4 w11 w11 3 = 0.0001333 + 0.2522 t t Dt w0 = 2.5223w11
+
+(52)
+
+Figure 9: Relative error of the central deﬂection of the thin square plate with two sides clamped and two sides simply supported.
+
+where w0 is the central deﬂection and D is the bending stiffness given as D = Et 3 /12 1 − ν 2 . A quarter of the plate is modeled due to the symmetry. The numerical solutions are obtained using four meshes of 2×2, 4×4, 6×6, 8×8. The nondimensional central deﬂection w0 /t is computed using the presented SFEM and listed in Table 6. Fig. 10 shows the load-displacement curves of numerical results computed from present method with different mesh density and analytic solutions calculated using Eq. (52). It is observed that the results converge very quickly to the analytic solution. When the mesh density is 8×8, the numerical results curve is very closed to analytic solutions curve. 4.2 Analysis of circular plate Linear and nonlinear analysis of a clamped circular plate subjected to uniform load is further studied in this section. The conﬁguration and mesh are shown in Fig. 11; the radius of the plate is R=5m and the thickness is t=0.1m. Poisson’s ratio of the material is taken to be 0.3, Young’s modulus of the material is 3e7N/m2 .
+
+all edges clamped; (b) two edges clamped and two simply supported. Table 5 shows a comparison of the present results with the numerical results obtained from FEM Quadrilateral element with reduced integration (Q4-R). The analytic solutions are given by Reismann (1988). The relative errors of the central deﬂection between numerical results and analytical solutions are shown in Fig. 8 and Fig. 9. It can be seen that for both boundary conditions, the solution of the present SFEM is more accurate than that of the FEM Q4-R element. The SFEM model is less stiff than that of FEM of Q4-R element, which conﬁrms the properties of SFEM discussed in subsection 4.1.1. 4.1.5 Nonlinear analysis In this subsection, a clamped square plate under uniformly distributed load q is ana-
+
+120
+
+Copyright c 2008 Tech Science Press
+
+CMES, vol.28, no.2, pp.109-125, 2008
+
+Table 6: Nondimensional central deﬂection w0 /t of a clamped square plate subjected to a uniformly distributed load q. q 0.1 0.2 0.3 0.5 0.8 1.3 2.1 3.4 5.5
+2
+
+2×2 0.064352 0.128357 0.191685 0.315178 0.489526 0.746123 1.077707 1.479089 1.939395
+
+4×4 0.064820 0.128924 0.191669 0.311175 0.472092 0.693022 0.958577 1.263356 1.601500
+
+w0 /t 6×6 0.064958 0.129126 0.191800 0.310655 0.469447 0.685407 0.943137 1.238257 1.566364
+
+8×8 0.065007 0.129197 0.191846 0.310470 0.468527 0.682812 0.937963 1.229945 1.554802
+
+Analytical 0.068374 0.135593 0.200683 0.322050 0.479763 0.688258 0.933327 1.214635 1.531733
+
+Central deflection, w /t 0
+
+1.5
+
+1 Mesh 2×2 Mesh 4×4 Mesh 6×6 Mesh 8×8 Analytical 2500 3000
+
+0.5
+
+0 0
+
+500
+
+1000
+
+1500 qL4/Dt
+
+2000
+
+Figure 10: Nonlinear center deﬂection versus load for a clamped square plate subjected to a uniformly distributed load.
+
+Figure 11: Conﬁguration and mesh of a quadrant of a circular plate.
+
+w*64*D/qR4
+
+For linear analysis, the clamped circular plate subjected to uniform load q. The analytical solutions for deﬂections are given by Timoshenko and Woinowsky-Krieger (1940): w= q (R2 − r2 )2 64D (53)
+
+1 0.8 0.6 0.4 0.2 0 0 0.2 0.4 0.6
+
+SFEM(SC=3&1);R/t=50 Analytic;R/t=50
+
+where r is the radial distance from the plate center, and D = Et 3 / 12 1 − ν 2 is the bending stiffness. Figure 12 shows the deﬂections along the radial line obtained from present method and the analytic solution computed by Eq. (53). It indicates that the present SFEM gives very accurate results. For nonlinear analysis, the clamped circular plate with uniform loading q0 is considered. The ana-
+
+r/R
+
+0.8
+
+1
+
+Figure 12: Deﬂection for the clamped circular plate subjected to uniform load along the radial line.
+
+SFEM for Linear and Geometrically Nonlinear Analysis of Plates and Shells
+
+121
+
+lytic central deﬂection is given by chia (1980): 16 qR4 = 4 Et 3 (1 − ν 2 ) w0 1 w0 + (1 + ν )(173 − 73ν ) t 360 t where w0 is the central deﬂection. Figure 13 shows the load-deﬂection curves of the computed results by present method and analytic solutions calculated using Eq. (54). It can be observed that the present results agree well with analytic solutions.
+2
+
+3
+
+(54)
+
+Figure 14: A quarter of a shell panel is meshed with quadrilateral elements.
+
+1.5
+
+1
+
+0.5 SFEM(SC=3&1) Analytical 20
+
+0 0
+
+5
+
+10 qR4/Et4
+
+15
+
+Figure 13: Nonlinear center deﬂection versus load for a clamped circular plate subjected to a uniformly distributed load.
+
+4.3 Scordelis-Lo roof problem The Scordelis-Lo roof shown in Fig. 14 is a famous benchmark problem for shell analysis to test a numerical method. The length of the shell is L=25ft, the radius is R=25ft, the thickness is t=0.25ft and the span angle is θ0 =40◦ . The material properties are: Poisson’s ratio υ =0.3, and Young’s modulus E=4.32e8N/ft2 . The boundary conditions at each end are supported by a rigid diaphragm. The loading is uniform vertical gravity load of q0 =90N/ft2. Owing to the symmetry, only a quarter of the roof is modeled. Several existing shell elements are used here to compare with the present method. They are 4Node SRI (A standard 4-node Mindlin element with selective reduced integration) proposed by Hughes and Liu (1981), YASE (A 4-node shell
+
+element using one integration point and physical hourglass control) advanced by Engelmann and Whirley (1990), MITC4 (A 4-node fully integrated shell element using Mixed Interpolated Tensorial Components) proposed by Dvorkin and Bathe (1984), QPH (One point quadrature quadrilateral shell element with physical hourglass control) proposed by Belytschko and Leviathan (1994). The theoretical value 0.3024 of the vertical deﬂection at the centre of the free edge and the results of existing elements are obtained from Belytschko and Leviathan (1994). Table 7 shows the comparisons of the present result with solutions obtained by existing shell elements. It is observed that the present SFEM (SC=3&1) works very well. 4.4 Nonlinear analysis of shells A cylindrical shell panel clamped along all four boundaries shown in Fig. 14 is now investigated for nonlinear analysis. The shell panel is subjected to uniform inward radial loading q0 . This example has been studied extensively by a number of researchers using the ﬁnite element methods. The geometry parameters of the panel are: L=254mm, R=2540mm, t=3.175mm and θ0 =0.1rad. The material properties are: υ =0.3 and E=3.10275kN/mm2. Due to double symmetry of geometry and deformations, only onequarter of the panel was discretized using a mesh of 8×8. The present results of the center deﬂection, to-
+
+w0/t
+
+122
+
+Copyright c 2008 Tech Science Press
+
+CMES, vol.28, no.2, pp.109-125, 2008
+
+Table 7: Scordelis-Lo roof (the value used for normalization is 0.3024) Mesh 4×4 8×8 16×16
+4 3.5 3 pressure q0 2.5 2 1.5 1 0.5 0 0 2 4 6 Central deflection, w0 Dhatt Horrigmoe & Bergan Sabir & Lock SFEM(SC=3&1) linear solution 8 10 12
+
+SFEM (SC=3&1) 1.04 0.99 1.01
+
+4-node SRI 0.96 0.98 1.00
+
+YASE 1.05 1.01 1.02
+
+MITC4 0.94 0.97 1.00
+
+QPH 0.94 0.98 1.01
+
+Figure 15: Nonlinear response of a clamped cylindrical shell panel to a uniformly distributed load.
+
+Figure 16: Model of a Reinforcing Plate of Automobile’s Front Longeron.
+
+gether with solutions given by Horrigmoe and Bergan (1978), Dhatt (1970) and Sabir and Lock (1973), are shown in Fig. 15. It is seen that the solutions agree well. The result using present SFEM (SC=3&1) is slightly bigger than others. It is conﬁrmed that the stiffness of the SFEM model is softer than that of the FEM. 4.5 Reinforcing Plate of Automobile’s Front Longeron Finally, an actual structure component of a Reinforcing Plate of Automobile’s Front Longeron with two ﬁxed ends shown in Fig.16 is studied here using the present SFEM.The length isL=271mm, the length of the ﬂanging is h=15mm, the width D=55.48mm, the radius of hole is R=15mm and the thickness is t=1mm. Poisson’s ratio of the material is taken to be 0.3; Young’s modulus of the material is E=2.1e5N/mm2 . The loading is uniform pressures on the surface which is q0 =0.01N/mm2 . Due to the symmetry, only half of the model is investigated with symmetry conditions applied on the nodes on the plane of symmetry. We study this problem using the present SFEM
+
+(SC=3&1), and the FEM of quadrilateral element with reduced integration (Q4-R). The results of deﬂections along the line OA are plotted in Fig.17. The reference solutions are obtained using software Altair OptiStruct with large number of (22017) nodes. Fig.17 shows that the results using present method with 205 nodes is more close to the reference solutions.
+
+0 -0.02 -0.04 -0.06 -0.08 -0.1 0
+
+SFEM(SC=3&1);205 nodes FEM(Q4-R);205 nodes Reference solution(OptiStruct);22017 nodes
+
+deflection
+
+20
+
+40
+
+60
+
+x
+
+80
+
+100
+
+120
+
+140
+
+Figure 17: Deﬂection along the line OA (see Fig.16).
+
+SFEM for Linear and Geometrically Nonlinear Analysis of Plates and Shells
+
+123
+
+5 Conclusions A novel Smoothed Finite Element Method (SFEM) using quadrilateral elements is presented in this paper to analyze linear and geometrically nonlinear problems of plates and shells. The effect of the number of smoothing cells in an element is investigated in detail. It is found that three smoothing cells for bending strain energy integration, and one cell for shear strain energy integration is the most preferred for analysis of plates and shells. The numerical examples reveal the following features of the present method: (1) It uses strain smoothing technique that reduces the over-stiff phenomenon in the fully compatible displacement-based ﬁnite element. (2) Area integration over each smoothing cells is recast into line integration along its edges, and hence no mapping is needed. This allows the use of extremely distorted elements. (3) Shear locking phenomenon can be easily avoided by using only one smoothing cell for shear strain energy integration, and hence it works very well for both thick and thin plates and shells. (4) Numerical results obtained from the SFEM are more accurate and the convergence is faster compare with the existing FEM elements. (5) It works well for both linear and nonlinear problems. Acknowledgement: The support of National Outstanding Youth Foundation (50625519), Key Project of National Science Foundation of China (60635020), Program for Changjiang Scholar and Innovative Research Team in University and the China-funded Postgraduates’ Studying Aboard Program for Building Top University are gratefully acknowledged. The authors also give sincerely thanks to the support of Centre for ACES, Singapore-MIT Alliance (SMA), and National University of Singapore.
+
+References Atluri, S.N. (2004): The Meshless Method(MLPG) for Domain & BIE Discretizations, 680 pages, Tech Science Press. Atluri, S.N. (2005): Methods of Computer Modeling in Engineering & Sciences-I, 625 pages, Tech Science Press. Atluri, S.N; Han, Z.D.; Rajendran, A.M. (2004): A new implementation of the meshless ﬁnite volume method, through the MLPG "Mixed" approach, CMES:Computer Modeling in Engineering & Sciences, vol. 6, pp. 491-513. Atluri, S.N.; Shen, S. (2002): The Meshless Local Petrov-Galerkin (MLPG) Method. 440 pages, Tech Science Press. Basar, Y.; Kintzel1, O. (2003): Finite Rotations and large Strains in Finite Element Shell Analysis. CMES: Computer Modeling in Engineering & Science, vol.4, pp.217-230. Bathe, K.J.; Dvorkin, E.H. (1985): A four-node plate bending element based on Mindlin–Reissner plate theory and mixed interpolation. International Journal for Numerical Methods in Engineering, vol. 21, pp. 367–383. Batoz, J.L.; Tahar, M.B. (1982): Evaluation of a new quadrilateral thin plate bending element. International Journal for Numerical Methods in Engineering, vol. 18, pp. 1655–1677. Belytschko, T.; Leviathan, I. (1994): Physical stabilization of the 4-node shell element with one point quadrature. Computer Methods in Applied Mechanics and Engineering, vol. 113, pp. 321350. Chen, J.S.; Wu, C.T.; Yoon, S.; You, Y. (2001): A stabilized conforming nodal integration for Galerkin meshfree methods. International Journal for Numerical Methods in Engineering, vol. 50, pp. 435-466. Chen, X.L.; Liu, G.R.; Lim, S. P. (2003): An element free Galerkin method for the free vibration analysis of composite laminates of complicated shape, Composite Structures, vol. 59, pp. 279-289. Chia, C.Y. (1980): Nonlinear Analysis of Plate. McGraw-Hill, New York.
+
+124
+
+Copyright c 2008 Tech Science Press
+
+CMES, vol.28, no.2, pp.109-125, 2008
+
+Crisﬁeld, M.A. (1997): Non-Linear Finite Element Analysis of Solids and Structures. Vol.1. Wiley: Chichester. Dai, K.Y; Liu, G.R. (2007): Free and forced vibration analysis using the smoothed ﬁnite element method (SFEM). Journal of Sound and Vibration, vol. 301, pp. 803-820. Dai, K.Y.; Liu, G.R.; Nguyen, T.T. (2007): An n-sided polygonal smoothed ﬁnite element method (nSFEM) for solid mechanics. Finite Elements in Analysis and Design, vol. 43, pp. 847860. Dhatt, G.S. (1970): Instability of thin shells by the ﬁnite element method, IASS Symposium for Folded Plates and Prismatic Structures, Vienna. Dvorkin, E.N.; Bathe, K.J. (1984): A continuum mechanics based four-node shell element for general nonlinear analysis, Engineering Computations, vol. 1, pp. 77-88. Engelmann, B.E.; Whirley, R.G. (1990): A new elasto-plastic shell element formulation for DYNA3D, Lawrence Livermore National Laboratory, Report UCRL-JC-104826. Gu, Y.T.; Liu, G.R. (2001): A meshless local Petrov–Galerkin (MLPG) formulation for static and free vibration analyses of thin plates. CMES: Computer Modeling in Engineering & Science, vol. 2, pp. 463-476. Horrigmoe, G.; Bergan, P.G. (1978): Nonlinear analysis of free-form shells by ﬂat ﬁnite elements. Computer Methods in Applied Mechanics and Engineering, vol. 16, pp. 11-35. Hughes, T.J.R.; Liu, W.K. (1981): Nonlinear ﬁnite element analysis shells: Part I, Threedimensional shells. Computer Methods in Applied Mechanics and Engineering, vol. 26, pp. 331362. Jarak, T.; Sori? J.; Hoster, J. (2007): Analysis of shell deformation responses by the meshless local Petrov-Galerkin (MLPG) approach. CMES: Computer Modeling in Engineering & Science, vol.18, pp.235-246. Lee, K.; Cho, C.; Lee S.W. (2002): A Geometrically Nonlinear Nine-Node Solid Shell Element Formulation with Reduced Sensitivity to
+
+Mesh Distortion. CMES: Computer Modeling in Engineering & Science, vol.3, pp.339-349. Li, Q.; Soric, J.; Jarak, T.; Atluri, S.N. (2005): A locking-free meshless local Petrov-Galerkin formulation for thick and thin plates, Journal of Computational Physics, vol. 208, pp. 116-133. Liu L.; Liu G.R.; Tan V.B.C. (2002): Element Free Method For Static And Free Vibration Analysis Of Spatial Thin Shell Structures. Computer Methods In Applied Mechanics and Engineering, vol. 191, pp. 5923-5942. Liu, G. R. (2002): Meshfree methods: Moving Beyond the Finite Element Method, CRC Press: Boca Raton, USA. Liu, G. R. (2008): A smoothed bilinear form for an alternative Galerkin formulation of solid mechanics problems. International Journal of Computational Methods (In press). Liu, G.R.; Chen, X.L. (2001): A mesh free method for static and free vibration analyses of thin plates of complicated shape. Journal of Sound and Vibration, vol. 241, pp.839-855. Liu, G.R.; Chen, X.L. (2002): Bucking Of Symmetrically Laminated Composite Plates Using the Element-Free Galerkin Method. International Journal of Structural Stability and Dynamics, vol. 2, pp. 281 – 294. Liu, G.R.; Dai, K.Y.; Nguyen, T.T. (2007a): A smoothed ﬁnite element method for mechanics problems, Computational Mechanics, vol. 39, pp. 859-877. Liu, G.R.; Quek, S.S. (2003): The ﬁnite element method: a practical course. Butterworth Heinemann, Oxford. Liu, G.R.; Nguyen, T.T.; Dai, K.Y.; Lam, K. Y. (2007b): Theoretical aspects of the smoothed ﬁnite element method (SFEM). International Journal for Numerical Methods in Engineering, vol. 71, pp. 902-930. Liu, G.R.; Zhao, X.; Dai, K.Y.; Zhong, Z.H.; Li, G.Y.; Han, X. (2008): Static and free vibration analysis of laminated composite plates using the conforming radial point interpolation method. Composites Science and Technology, vol. 68, pp. 354-366.
+
+SFEM for Linear and Geometrically Nonlinear Analysis of Plates and Shells
+
+125
+
+Long, S.R.; Atluri, S. N. (2002): A Meshless Local Petrov-Galerkin Method for Solving the Bending Problem of a Thin Plate. CMES: Computer Modeling in Engineering & Science, vol.3, pp.5363. Malkus, D.S.; Hughes, T.J.R. (1978): Mixed ﬁnite element methods - reduced and selective integration techniques: A uniﬁcation of concepts. Computer Methods in Applied Mechanics and Engineering, vol. 15, pp. 63–81. Nguyen-Van, H.; Mai-Duy, N.; Tran-Cong, T. (2008): A smoothed four-node piezoelectric element analysis of two- dimensional smart structures. CMES: Computer Modeling in Engineering & Science, vol.23, pp.209-222. Nguyen-Xuan, H.; Rabczuk, T.; Bordas, S.; Debongnie, J.F. (2008): A smoothed ﬁnite element method for plate analysis. Computer Methods in Applied Mechanics and Engineering, vol. 197, pp. 1184-1203. Qian, L.F.; Batra, R.C.; Chen, L.M.(2003): Elastostatic Deformations of a Thick Plate by using a Higher-Order Shear and Normal Deformable Plate Theory and two Meshless Local Petrov-Galerkin (MLPG) Methods. CMES: Computer Modeling in Engineering & Science, vol.4, pp.161-175. Reismann, H. (1988): Elastic Plates: Theory and Applications. Wiley, New York. Sabir, A.B.; Lock, A.C. (1973): The application of ﬁnite elements to the large deﬂection geometrically nonlinear behaviour of cylindrical shells. International Conference on Variational Methods in Engineering, Southampton, England; United Kingdom. Sladek, J.; Sladek, V.; Wen, P.H.; Aliabadi, M.H. (2006): Meshless Local Petrov-Galerkin (MLPG) Method for Shear Deformable Shells Analysis. CMES: Computer Modeling in Engineering & Sciences, vol. 6, pp. 103-117. Sori?J.; Li, Q.; Jarak, T.; Atluri, S.N. (2004): Meshless Local Petrov-Galerkin (MLPG) formulation for analysis of thick plates. CMES: Computer Modeling in Engineering & Sciences, vol. 6, pp. 349-357. Suetake, Y. (2006): Plate Bending Analysis by
+
+using a Modiﬁed Plate Theory. CMES: Computer Modeling in Engineering & Sciences, vol. 11, pp. 103-110. Timoshenko, S.; Woinowsky-Krieger, S. (1940): Theory of Plates and Shells. McGrawHill, New York. Wang, D.D.; Chen, J.S. (2004): Locking-free stabilized conforming nodal integration for meshfree Mindlin-Reissner plate formulation. Computer Methods in Applied Mechanics and Engineering, vol. 193, pp. 1065-1083. Wen, P.H.; Hon, Y.C. (2007): Geometrically Nonlinear Analysis of Reissner-Mindlin Plate by Meshless Computation. CMES: Computer Modeling in Engineering & Sciences, vol. 21, pp. 177191. Zienkiewicz, O.C.; Taylor, R.L. (2000): The Finite Element Method: The ﬁfth edition, Vol 1: The Basis, Vol 2: Solid Mechanics, ButterworthHeinemann.
+
+View publication stats
+
