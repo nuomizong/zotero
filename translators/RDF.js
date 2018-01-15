@@ -10,9 +10,10 @@
 	"inRepository": true,
 	"browserSupport": "gcsibv",
 	"configOptions": {
+		"async": true,
 		"dataMode": "rdf/xml"
 	},
-	"lastUpdated": "2017-06-22 04:20:00"
+	"lastUpdated": "2017-11-29 20:35:00"
 }
 
 /*
@@ -724,6 +725,10 @@ function detectType(newItem, node, ret) {
 function importItem(newItem, node) {
 	var ret = new Object();
 	var itemType = detectType(newItem, node, ret);
+	var isZoteroRDF = false;
+	if (getFirstResults(node, [n.z+"itemType", n.z+"type"], true)) {
+		isZoteroRDF = true;
+	}
 	newItem.itemType = exports.itemType || itemType;
 	var container = ret.container;
 	var isPartOf = ret.isPartOf;
@@ -1043,7 +1048,12 @@ function importItem(newItem, node) {
 	// description/attachment note
 	if(newItem.itemType == "attachment") {
 		newItem.note = getFirstResults(node, [n.dc+"description", n.dc1_0+"description", n.dcterms+"description"], true);
-	} else if (!newItem.abstractNote) {
+	}
+	// extra for Zotero RDF
+	else if (isZoteroRDF) {
+		newItem.extra = getFirstResults(node, [n.dc+"description"], true);
+	}
+	else if (!newItem.abstractNote) {
 		newItem.abstractNote = getFirstResults(node, [n.dc+"description", n.dcterms+"description"], true);
 	}
 	
@@ -1055,7 +1065,7 @@ function importItem(newItem, node) {
 		var type = Zotero.RDF.getTargets(referentNode, rdf+"type");
 		if(type && Zotero.RDF.getResourceURI(type[0]) == n.bib+"Memo") {
 			// if this is a memo
-			var note = new Array();
+			var note = {};
 			note.note = getFirstResults(referentNode, [rdf+"value", n.dc+"description", n.dc1_0+"description", n.dcterms+"description"], true);
 			if(note.note != undefined) {
 				// handle see also
@@ -1170,54 +1180,92 @@ function getNodes(skipCollections) {
 }
 
 function doImport() {
-	Zotero.setProgress(null);
-	var nodes = getNodes();
-	if(!nodes.length) {
-		return false;
-	}
-	
-	// keep track of collections while we're looping through
-	var collections = new Array();
-	
-	for (var i=0; i<nodes.length; i++) {
-		var node = nodes[i];
-		// type
-		var type = Zotero.RDF.getTargets(node, rdf+"type");
-		if(type) {
-			type = Zotero.RDF.getResourceURI(type[0]);
-
-			// skip if this is not an independent attachment,
-			if((type == n.z+"Attachment" || type == n.bib+"Memo") && isPart(node)) {
-				continue;
+	if (typeof Promise == 'undefined') {
+		startImport(
+			function () {},
+			function (e) {
+				throw e;
 			}
+		);
+	}
+	else {
+		return new Promise(function (resolve, reject) {
+			startImport(resolve, reject);
+		});
+	}
+}
 
-			// skip collections until all the items are done
-			if(type == n.bib+"Collection" || type == n.z+"Collection") {
-				collections.push(node);
-				continue;
+function startImport(resolve, reject) {
+	try {
+		Zotero.setProgress(null);
+		var nodes = getNodes();
+		if (!nodes.length) {
+			resolve();
+			return;
+		}
+		
+		// keep track of collections while we're looping through
+		var collections = [];
+		importNext(nodes, 0, collections, resolve, reject);
+	}
+	catch (e) {
+		reject(e);
+	}
+}
+
+function importNext(nodes, index, collections, resolve, reject) {
+	try {
+		for (var i = index; i < nodes.length; i++) {
+			var node = nodes[i];
+			
+			// type
+			var type = Zotero.RDF.getTargets(node, rdf+"type");
+			if (type) {
+				type = Zotero.RDF.getResourceURI(type[0]);
+				
+				// skip if this is not an independent attachment,
+				if((type == n.z+"Attachment" || type == n.bib+"Memo") && isPart(node)) {
+					continue;
+				}
+				
+				// skip collections until all the items are done
+				if(type == n.bib+"Collection" || type == n.z+"Collection") {
+					collections.push(node);
+					continue;
+				}
+			}
+			
+			var newItem = new Zotero.Item();
+			newItem.itemID = Zotero.RDF.getResourceURI(node);
+			
+			if (importItem(newItem, node)) {
+				var maybePromise = newItem.complete();
+				if (maybePromise) {
+					maybePromise.then(function () {
+						importNext(nodes, i + 1, collections, resolve, reject);
+					});
+					return;
+				}
+			}
+			
+			Zotero.setProgress((i + 1) / nodes.length * 100);
+		}
+		
+		// Collections
+		for (var i=0; i<collections.length; i++) {
+			var collection = collections[i];
+			if(!Zotero.RDF.getArcsIn(collection)) {
+				var newCollection = new Zotero.Collection();
+				processCollection(collection, newCollection);
+				newCollection.complete();
 			}
 		}
-
-		var newItem = new Zotero.Item();
-		newItem.itemID = Zotero.RDF.getResourceURI(node);
-
-		if(importItem(newItem, node)) {
-			newItem.complete();
-		}
-
-		Zotero.setProgress((i+1)/nodes.length*100);
+	}
+	catch (e) {
+		reject(e);
 	}
 	
-	/* COLLECTIONS */
-	
-	for (var i=0; i<collections.length; i++) {
-		var collection = collections[i];
-		if(!Zotero.RDF.getArcsIn(collection)) {
-			var newCollection = new Zotero.Collection();
-			processCollection(collection, newCollection);
-			newCollection.complete();
-		}
-	}
+	resolve();
 }
 
 /**

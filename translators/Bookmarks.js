@@ -9,7 +9,7 @@
 	"priority": 100,
 	"inRepository": true,
 	"browserSupport": "gcsibv",
-	"lastUpdated": "2017-06-04 14:50:00"
+	"lastUpdated": "2017-12-15 20:50:00"
 }
 
 /*
@@ -126,7 +126,7 @@ function doImport() {
 					}
 					
 					openItem = new Zotero.Item("webpage");
-					openItem.title = title;
+					openItem.title = ZU.unescapeHTML(title);
 					openItem.itemID = openItem.id = itemID++;
 					if(collection) collection.children.push(openItem);
 					

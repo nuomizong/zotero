@@ -1,15 +1,15 @@
 {
 	"translatorID": "e46830a2-1b19-4b6b-9f1a-e5e9760a0f80",
+	"translatorType": 4,
 	"label": "DigiZeitschriften",
 	"creator": "Philipp Zumstein",
 	"target": "^https?://www\\.digizeitschriften\\.de/((en/)?dms/|index\\.php\\?id=27[24])",
 	"minVersion": "3.0",
-	"maxVersion": "",
+	"maxVersion": null,
 	"priority": 100,
 	"inRepository": true,
-	"translatorType": 4,
 	"browserSupport": "gcsv",
-	"lastUpdated": "2016-09-12 20:57:07"
+	"lastUpdated": "2018-01-07 15:10:00"
 }
 
 /*
@@ -139,9 +139,10 @@ var testCases = [
 					}
 				],
 				"date": "1997",
+				"ISSN": "0001-9054",
+				"language": "de",
 				"libraryCatalog": "DigiZeitschriften",
 				"pages": "117-143",
-				"ISSN": "0001-9054",
 				"publicationTitle": "Aequationes Mathematicae",
 				"url": "http://www.digizeitschriften.de/dms/img/?PPN=PPN356261603_0054&DMDID=dmdlog15",
 				"volume": "54",
@@ -171,9 +172,10 @@ var testCases = [
 					}
 				],
 				"date": "1997",
+				"ISSN": "0001-9054",
+				"language": "de",
 				"libraryCatalog": "DigiZeitschriften",
 				"pages": "117-143",
-				"ISSN": "0001-9054",
 				"publicationTitle": "Aequationes Mathematicae",
 				"url": "http://www.digizeitschriften.de/en/dms/img/?PPN=GDZPPN002612097",
 				"volume": "54",
@@ -207,9 +209,10 @@ var testCases = [
 						"creatorType": "author"
 					}
 				],
+				"ISSN": "0003-9268",
+				"language": "de",
 				"libraryCatalog": "DigiZeitschriften",
 				"pages": "68-77",
-				"ISSN": "0003-9268",
 				"publicationTitle": "Archiv für mathematische Logik und Grundlagenforschung",
 				"url": "http://www.digizeitschriften.de/dms/img/?PPN=PPN379931524_0002&DMDID=dmdlog10",
 				"volume": "2",
@@ -239,9 +242,10 @@ var testCases = [
 					}
 				],
 				"date": "1997",
+				"ISSN": "0001-9054",
+				"language": "de",
 				"libraryCatalog": "DigiZeitschriften",
 				"pages": "117-143",
-				"ISSN": "0001-9054",
 				"publicationTitle": "Aequationes Mathematicae",
 				"url": "http://www.digizeitschriften.de/dms/img/?PPN=GDZPPN002612097",
 				"volume": "54",

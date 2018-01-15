@@ -1,15 +1,15 @@
 {
 	"translatorID": "6d087de8-f858-4ac5-9fbd-2bf2b35ee41a",
+	"translatorType": 4,
 	"label": "Brill Journals",
 	"creator": "Sebastian Karcher",
 	"target": "^https?://(www\\.)?booksandjournals\\.brillonline\\.com",
 	"minVersion": "3.0",
-	"maxVersion": "",
+	"maxVersion": null,
 	"priority": 150,
 	"inRepository": true,
-	"translatorType": 4,
 	"browserSupport": "gcsibv",
-	"lastUpdated": "2014-08-26 03:35:40"
+	"lastUpdated": "2017-07-27 11:50:00"
 }
 
 /*
@@ -74,7 +74,7 @@ function doWeb(doc,url)
 		});
 	} else {
 		// We call the Embedded Metadata translator to do the actual work
-		var translator = Zotero.loadTranslator("import");
+		var translator = Zotero.loadTranslator("web");
 		translator.setTranslator("951c027d-74ac-47d4-a107-9c3069ab7b48");
 		translator.setHandler("itemDone", function(obj, item) {
 			item.DOI = ZU.xpathText(doc, '//span[@class="meta-value doi"]')

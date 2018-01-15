@@ -1,15 +1,15 @@
 {
 	"translatorID": "d93c14fb-d327-4540-b60a-327309ea512b",
+	"translatorType": 4,
 	"label": "Journal of Electronic Publishing",
 	"creator": "Sebastian Karcher",
 	"target": "^https?://quod\\.lib\\.umich\\.edu/.*c=jep",
 	"minVersion": "2.1.9",
-	"maxVersion": "",
+	"maxVersion": null,
 	"priority": 100,
 	"inRepository": true,
-	"translatorType": 4,
 	"browserSupport": "gcsibv",
-	"lastUpdated": "2017-01-01 16:54:45"
+	"lastUpdated": "2017-07-27 11:50:00"
 }
 
 /*
@@ -71,7 +71,7 @@ function doWeb(doc,url)
 		var issue = ZU.xpathText(doc, '//meta[@name="DC.citation.issue"]/@content')
 		var volume = ZU.xpathText(doc, '//meta[@name="DC.citation.volume"]/@content')
 		
-		var translator = Zotero.loadTranslator("import");
+		var translator = Zotero.loadTranslator("web");
 		translator.setTranslator("951c027d-74ac-47d4-a107-9c3069ab7b48");
 		translator.setHandler("itemDone", function(obj, item) {
 				item.itemType = "journalArticle";

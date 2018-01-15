@@ -1,15 +1,15 @@
 {
 	"translatorID": "a6ee60df-1ddc-4aae-bb25-45e0537be973",
+	"translatorType": 1,
 	"label": "MARC",
 	"creator": "Simon Kornblith, Sylvain Machefert",
 	"target": "marc",
 	"minVersion": "2.1.9",
-	"maxVersion": "",
+	"maxVersion": null,
 	"priority": 100,
 	"inRepository": true,
-	"translatorType": 1,
 	"browserSupport": "gcsv",
-	"lastUpdated": "2016-05-26 11:34:16"
+	"lastUpdated": "2017-09-18 02:35:00"
 }
 
 function detectImport() {
@@ -409,8 +409,8 @@ record.prototype.translate = function(item) {
 						.replace(	//chop off any translations, since they may have repeated $e fields
 							new RegExp('\\' + subfieldDelimiter + 'd.+'), '');
 		title = this.extractSubfields(title, '200');
-		item.title = glueTogether(title.a, title.e, ': ');
-		item.title = clean(item.title);
+		item.title = glueTogether(clean(title.a), clean(title.e), ': ');
+		item.title = item.title;
 
 		// Extract edition
 		this._associateDBField(item, "205", "a", "edition");
@@ -574,11 +574,11 @@ record.prototype.translate = function(item) {
 		//  p = Name of part/section of a work
 		var titlesubfields = this.getFieldSubfields("245")[0];
 		item.title = glueTogether(
-			glueTogether(titlesubfields["a"], titlesubfields["b"], ": "),
-			glueTogether(titlesubfields["n"], titlesubfields["p"], ": "),
+			glueTogether(clean(titlesubfields["a"]), clean(titlesubfields["b"]), ": "),
+			glueTogether(clean(titlesubfields["n"]), clean(titlesubfields["p"]), ": "),
 			". "
 		);
-		item.title = clean(item.title);
+		item.title = item.title;
 		
 		// Extract edition
 		this._associateDBField(item, "250", "a", "edition");

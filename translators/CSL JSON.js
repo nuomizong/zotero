@@ -9,7 +9,10 @@
 	"priority": 100,
 	"inRepository": true,
 	"browserSupport": "gcsibv",
-	"lastUpdated": "2017-06-04 14:50:00"
+	"configOptions": {
+		"async": true
+	},
+	"lastUpdated": "2017-07-08 08:20:00"
 }
 
 function parseInput() {
@@ -54,15 +57,53 @@ function detectImport() {
 }
 
 function doImport() {
-	var parsedData = parseInput();
-	if(!parsedData) return;
-	if(!Array.isArray(parsedData)) parsedData = [parsedData];
-	
-	for(var i=0; i<parsedData.length; i++) {
-		var item = new Z.Item();
-		ZU.itemFromCSLJSON(item, parsedData[i]);
-		item.complete();
+	if (typeof Promise == 'undefined') {
+		startImport(
+			function () {},
+			function (e) {
+				throw e;
+			}
+		);
 	}
+	else {
+		return new Promise(function (resolve, reject) {
+			startImport(resolve, reject);
+		});
+	}
+}
+
+function startImport(resolve, reject) {
+	try {
+		var parsedData = parseInput();
+		if (!parsedData) resolve();
+		if (!Array.isArray(parsedData)) parsedData = [parsedData];
+		importNext(parsedData, resolve, reject);
+	}
+	catch (e) {
+		reject (e);
+	}
+}
+
+function importNext(data, resolve, reject) {
+	try {
+		var d;
+		while (d = data.shift()) {
+			var item = new Z.Item();
+			ZU.itemFromCSLJSON(item, d);
+			var maybePromise = item.complete();
+			if (maybePromise) {
+				maybePromise.then(function () {
+					importNext(data, resolve, reject);
+				});
+				return;
+			}
+		}
+	}
+	catch (e) {
+		reject(e);
+	}
+	
+	resolve();
 }
 
 function doExport() {

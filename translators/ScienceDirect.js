@@ -3,38 +3,45 @@
 	"translatorType": 4,
 	"label": "ScienceDirect",
 	"creator": "Michael Berkowitz and Aurimas Vinckevicius",
-	"target": "^https?://[^/]*science-?direct\\.com[^/]*/science(/article/|\\?.*\\b_ob=ArticleListURL|/(journal|bookseries|book|handbooks|referenceworks)/\\d)",
+	"target": "^https?://[^/]*science-?direct\\.com[^/]*/(science(/article/|/(journal|bookseries|book|handbooks|referenceworks)/\\d)|search\\?|journal/[^/]+/vol)",
 	"minVersion": "3.0",
 	"maxVersion": null,
 	"priority": 100,
 	"inRepository": true,
 	"browserSupport": "gcsibv",
-	"lastUpdated": "2017-06-24 20:15:00"
+	"lastUpdated": "2018-01-07 22:30:00"
 }
+
+// attr()/text() v2
+function attr(docOrElem,selector,attr,index){var elem=index?docOrElem.querySelectorAll(selector).item(index):docOrElem.querySelector(selector);return elem?elem.getAttribute(attr):null;}function text(docOrElem,selector,index){var elem=index?docOrElem.querySelectorAll(selector).item(index):docOrElem.querySelector(selector);return elem?elem.textContent:null;}
 
 function detectWeb(doc, url) {
 	if (!doc.body.textContent.trim()) return;
 
-	if ((url.indexOf("_ob=DownloadURL") !== -1) ||
+	if ((url.includes("_ob=DownloadURL")) ||
 		doc.title == "ScienceDirect Login" ||
 		doc.title == "ScienceDirect - Dummy" ||
-		(url.indexOf("/science/advertisement/") !== -1)) {
+		(url.includes("/science/advertisement/"))) {
 		return false;
 	}
 
-	if ((url.indexOf("pdf") !== -1 &&
-			url.indexOf("_ob=ArticleURL") === -1 &&
-			url.indexOf("/article/") === -1) ||
-		url.search(/\/(?:journal|bookseries|book|handbooks|referenceworks)\//) !== -1 ||
-		url.indexOf("_ob=ArticleListURL") !== -1) {
+	if ((url.includes("pdf") &&
+			!url.includes("_ob=ArticleURL") &&
+			!url.includes("/article/")) ||
+		url.search(/\/(?:journal|bookseries|book|handbooks|referenceworks)\//) !== -1) {
 		if (getArticleList(doc).length > 0) {
 			return "multiple";
 		} else {
 			return false;
 		}
-	} else if (url.indexOf("pdf") === -1) {
+	}
+
+	if (url.includes('/search?') && getArticleList(doc).length > 0) {
+		return "multiple";
+	}
+	if (!url.includes("pdf")) {
 		// Book sections have the ISBN in the URL
-		if (url.indexOf("/B978") !== -1) {
+		if (url.includes("/B978")) {
 			return "bookSection";
 		} else if (getISBN(doc)) {
 			if (getArticleList(doc).length) {
@@ -48,27 +55,94 @@ function detectWeb(doc, url) {
 	}
 }
 
-function getPDFLink(doc) {
-	var pdfLink = ZU.xpathText(doc, '//div[@id="articleToolbar"]//a[@id="pdfLink" and not(@title="Purchase PDF")]/@href');
-	if (!pdfLink) {
-		pdfLink = ZU.xpathText(doc, '//div[@class="extendedPdfBox"]//a[@id="pdfLink" and not(@title="Purchase PDF")]/@href');
+function getPDFLink(doc, onDone) {
+	// No PDF access ("Get Full Text Elsewhere" or "Check for this article elsewhere")
+	if (doc.querySelector('.accessContent') || doc.querySelector('.access-options-link-text')) {
+		Zotero.debug("PDF is not available");
+		onDone();
+		return;
 	}
-	if (!pdfLink) {
-		pdfLink = ZU.xpathText(doc, '//div[@class="PdfEmbed"]/object/@data');
+	
+	// Some pages still have the PDF link available
+	var pdfURL = attr(doc, '#pdfLink', 'href');
+	if (pdfURL && pdfURL != '#') {
+		parseIntermediatePDFPage(pdfURL, onDone);
+		return;
 	}
-	if (!pdfLink) {
-		var mainPdf = ZU.xpath(doc, '//div[@id="articleToolbar" or @class="Toolbar"]//a[contains(@href, "main.pdf")]');
-		//we only look at the first match
-		if (mainPdf.length>0) {
-			var classes = mainPdf[0].class || '';
-			//Z.debug(classes);
-			if (mainPdf[0].title!="Purchase PDF" && classes.indexOf('excerptLink')==-1 && classes.indexOf('purchaseSprite')==-1 && classes.indexOf('ref-article-pdf')==-1 && classes.indexOf('cLink')==-1) {
-				pdfLink = mainPdf[0].href;
-			}
+	
+	// If intermediate page URL is available, use that directly
+	var intermediateURL = attr(doc, '.PdfEmbed > object', 'data');
+	if (intermediateURL) {
+		//Zotero.debug("Embedded intermediate PDF URL: " + intermediateURL);
+		parseIntermediatePDFPage(intermediateURL, onDone);
+		return;
+	}
+	
+	// Simulate a click on the "Download PDF" button to open the menu containing the link with the URL
+	// for the intermediate page, which doesn't seem to be available in the DOM after the page load.
+	// This is an awful hack, and we should look out for a better way to get the URL, but it beats
+	// refetching the original source as we do below.
+	var pdfLink = doc.querySelector('#pdfLink');
+	if (pdfLink) {
+		// Just in case
+		try {
+			pdfLink.click();
+			intermediateURL = attr(doc, '.PdfDropDownMenu li a', 'href');
+			var clickEvent = doc.createEvent('MouseEvents');
+			clickEvent.initEvent('mousedown', true, true);
+			doc.dispatchEvent(clickEvent);
+		}
+		catch (e) {
+			Zotero.debug(e, 2);
+		}
+		if (intermediateURL) {
+			//Zotero.debug("Intermediate PDF URL from drop-down: " + intermediateURL);
+			parseIntermediatePDFPage(intermediateURL, onDone);
+			return;
 		}
 	}
-	return pdfLink;
+	
+	// If none of that worked for some reason, get the URL from the initial HTML, where it is present,
+	// by fetching the page source again. Hopefully this is never actually used.
+	var url = doc.location.href;
+	Zotero.debug("Refetching HTML for PDF link");
+	ZU.doGet(url, function (html) {
+		// TODO: Switch to HTTP.request() and get a Document from the XHR
+		var dp = new DOMParser();
+		var doc = dp.parseFromString(html, 'text/html');
+		var intermediateURL = attr(doc, '.pdf-download-btn-link', 'href');
+		//Zotero.debug("Intermediate PDF URL: " + intermediateURL);
+		if (intermediateURL) {
+			parseIntermediatePDFPage(intermediateURL, onDone);
+			return;
+		}
+		onDone();
+	});
 }
+
+
+function parseIntermediatePDFPage(url, onDone) {
+	// Get the PDF URL from the meta refresh on the intermediate page
+	ZU.doGet(url, function (html) {
+		var dp = new DOMParser();
+		var doc = dp.parseFromString(html, 'text/html');
+		var pdfURL = attr(doc, 'meta[HTTP-EQUIV="Refresh"]', 'CONTENT');
+		//Zotero.debug("Meta refresh URL: " + pdfURL);
+		if (pdfURL) {
+			// Strip '0;URL='
+			var matches = pdfURL.match(/\d+;URL=(.+)/);
+			pdfURL = matches ? matches[1] : null;
+		} else {
+			//Sometimes we are already on the PDF page here and therefore
+			//can simply use the original url as pdfURL.
+			if (url.includes('.pdf')) {
+				pdfURL = url;
+			}
+		}
+		onDone(pdfURL);
+	});
+}
+
 
 function getISBN(doc) {
 	var isbn = ZU.xpathText(doc, '//td[@class="tablePubHead-Info"]\
@@ -222,7 +296,7 @@ function processRIS(doc, text) {
 	// e.g. http://www.sciencedirect.com/science/article/pii/S0065260108602506
 	text = text.replace(/^((?:A[U\d]|ED)\s+-\s+)(?:Editor-in-Chief:\s+)?(.+)/mg,
 		function(m, pre, name) {
-			if (name.indexOf(',') == -1) {
+			if (!name.includes(',')) {
 				name = name.trim().replace(/^(.+?)\s+(\S+)$/, '$2, $1');
 			}
 
@@ -243,10 +317,14 @@ function processRIS(doc, text) {
 
 		if (item.volume) item.volume = item.volume.replace(/^\s*volume\s*/i, '');
 
-		//add spaces after initials
 		for (var i = 0, n = item.creators.length; i < n; i++) {
+			//add spaces after initials
 			if (item.creators[i].firstName) {
 				item.creators[i].firstName = item.creators[i].firstName.replace(/\.\s*(?=\S)/g, '. ');
+			}
+			//fix all uppercase lastnames
+			if (item.creators && item.creators[i].lastName.toUpperCase() == item.creators[i].lastName) {
+				item.creators[i].lastName = item.creators[i].lastName.charAt(0) + item.creators[i].lastName.slice(1).toLowerCase();
 			}
 		}
 
@@ -260,13 +338,6 @@ function processRIS(doc, text) {
 		item.attachments.push({
 			title: "ScienceDirect Snapshot",
 			document: doc
-		});
-
-		var pdfLink = getPDFLink(doc);
-		if (pdfLink) item.attachments.push({
-			title: 'ScienceDirect Full Text PDF',
-			url: pdfLink,
-			mimeType: 'application/pdf'
 		});
 
 		//attach supplementary data
@@ -297,7 +368,16 @@ function processRIS(doc, text) {
 			item.url = "https:" + item.url;
 		}
 
-		item.complete();
+		getPDFLink(doc, function (pdfURL) {
+			if (pdfURL) {
+				item.attachments.push({
+					title: 'ScienceDirect Full Text PDF',
+					url: pdfURL,
+					mimeType: 'application/pdf'
+				});
+			}
+			item.complete();
+		});
 	});
 	translator.translate();
 }
@@ -318,6 +398,8 @@ function getArticleList(doc) {
 			|//table[@class="resultRow"]/tbody/tr/td[2]/h3/a\
 			|//td[@class="nonSerialResultsList"]/h3/a\
 			|//div[@id="bodyMainResults"]//li[contains(@class,"title")]//a\
+			|//h2/a[contains(@class, "result-list-title-link")]\
+			|//ol[@class="article-list"]//a[contains(@class, "article-content-title")]\
 		)\[not(contains(text(),"PDF (") or contains(text(), "Related Articles"))]');
 }
 
@@ -705,6 +787,10 @@ var testCases = [
 				"attachments": [
 					{
 						"title": "ScienceDirect Snapshot"
+					},
+					{
+						"title": "ScienceDirect Full Text PDF",
+						"mimeType": "application/pdf"
 					}
 				],
 				"tags": [],
@@ -767,10 +853,10 @@ var testCases = [
 						"creatorType": "author"
 					}
 				],
-				"date": "January 24, 2014",
+				"date": "January 18, 2014",
 				"DOI": "10.1016/S0140-6736(13)62228-X",
 				"ISSN": "0140-6736",
-				"abstractNote": "Summary\nResearch publication can both communicate and miscommunicate. Unless research is adequately reported, the time and resources invested in the conduct of research is wasted. Reporting guidelines such as CONSORT, STARD, PRISMA, and ARRIVE aim to improve the quality of research reports, but all are much less adopted and adhered to than they should be. Adequate reports of research should clearly describe which questions were addressed and why, what was done, what was shown, and what the findings mean. However, substantial failures occur in each of these elements. For example, studies of published trial reports showed that the poor description of interventions meant that 40–89% were non-replicable; comparisons of protocols with publications showed that most studies had at least one primary outcome changed, introduced, or omitted; and investigators of new trials rarely set their findings in the context of a systematic review, and cited a very small and biased selection of previous relevant trials. Although best documented in reports of controlled trials, inadequate reporting occurs in all types of studies—animal and other preclinical studies, diagnostic studies, epidemiological studies, clinical prediction research, surveys, and qualitative studies. In this report, and in the Series more generally, we point to a waste at all stages in medical research. Although a more nuanced understanding of the complex systems involved in the conduct, writing, and publication of research is desirable, some immediate action can be taken to improve the reporting of research. Evidence for some recommendations is clear: change the current system of research rewards and regulations to encourage better and more complete reporting, and fund the development and maintenance of infrastructure to support better reporting, linkage, and archiving of all elements of research. However, the high amount of waste also warrants future investment in the monitoring of and research into reporting of research, and active implementation of the findings to ensure that research reports better address the needs of the range of research users.",
+				"abstractNote": "Research publication can both communicate and miscommunicate. Unless research is adequately reported, the time and resources invested in the conduct of research is wasted. Reporting guidelines such as CONSORT, STARD, PRISMA, and ARRIVE aim to improve the quality of research reports, but all are much less adopted and adhered to than they should be. Adequate reports of research should clearly describe which questions were addressed and why, what was done, what was shown, and what the findings mean. However, substantial failures occur in each of these elements. For example, studies of published trial reports showed that the poor description of interventions meant that 40–89% were non-replicable; comparisons of protocols with publications showed that most studies had at least one primary outcome changed, introduced, or omitted; and investigators of new trials rarely set their findings in the context of a systematic review, and cited a very small and biased selection of previous relevant trials. Although best documented in reports of controlled trials, inadequate reporting occurs in all types of studies—animal and other preclinical studies, diagnostic studies, epidemiological studies, clinical prediction research, surveys, and qualitative studies. In this report, and in the Series more generally, we point to a waste at all stages in medical research. Although a more nuanced understanding of the complex systems involved in the conduct, writing, and publication of research is desirable, some immediate action can be taken to improve the reporting of research. Evidence for some recommendations is clear: change the current system of research rewards and regulations to encourage better and more complete reporting, and fund the development and maintenance of infrastructure to support better reporting, linkage, and archiving of all elements of research. However, the high amount of waste also warrants future investment in the monitoring of and research into reporting of research, and active implementation of the findings to ensure that research reports better address the needs of the range of research users.",
 				"issue": "9913",
 				"journalAbbreviation": "The Lancet",
 				"libraryCatalog": "ScienceDirect",
@@ -792,12 +878,6 @@ var testCases = [
 				"seeAlso": []
 			}
 		]
-	},
-	{
-		"type": "web",
-		"url": "http://www.sciencedirect.com/science/journal/22126716",
-		"defer": true,
-		"items": "multiple"
 	},
 	{
 		"type": "web",
@@ -910,6 +990,67 @@ var testCases = [
 				"seeAlso": []
 			}
 		]
+	},
+	{
+		"type": "web",
+		"url": "http://www.sciencedirect.com/science/article/pii/S2095311916614284",
+		"items": [
+			{
+				"itemType": "journalArticle",
+				"title": "Increased sink capacity enhances C and N assimilation under drought and elevated CO2 conditions in maize",
+				"creators": [
+					{
+						"lastName": "Zong",
+						"firstName": "Yu-zheng",
+						"creatorType": "author"
+					},
+					{
+						"lastName": "Shangguan",
+						"firstName": "Zhou-ping",
+						"creatorType": "author"
+					}
+				],
+				"date": "December 1, 2016",
+				"DOI": "10.1016/S2095-3119(16)61428-4",
+				"ISSN": "2095-3119",
+				"abstractNote": "The maintenance of rapid growth under conditions of CO2 enrichment is directly related to the capacity of new leaves to use or store the additional assimilated carbon (C) and nitrogen (N). Under drought conditions, however, less is known about C and N transport in C4 plants and the contributions of these processes to new foliar growth. We measured the patterns of C and N accumulation in maize (Zea mays L.) seedlings using 13C and 15N as tracers in CO2 climate chambers (380 or 750 μmol mol−1) under a mild drought stress induced with 10% PEG-6000. The drought stress under ambient conditions decreased the biomass production of the maize plants; however, this effect was reduced under elevated CO2. Compared with the water-stressed maize plants under atmospheric CO2, the treatment that combined elevated CO2 with water stress increased the accumulation of biomass, partitioned more C and N to new leaves as well as enhanced the carbon resource in ageing leaves and the carbon pool in new leaves. However, the C counterflow capability of the roots decreased. The elevated CO2 increased the time needed for newly acquired N to be present in the roots and increased the proportion of new N in the leaves. The maize plants supported the development of new leaves at elevated CO2 by altering the transport and remobilization of C and N. Under drought conditions, the increased activity of new leaves in relation to the storage of C and N sustained the enhanced growth of these plants under elevated CO2.",
+				"issue": "12",
+				"journalAbbreviation": "Journal of Integrative Agriculture",
+				"libraryCatalog": "ScienceDirect",
+				"pages": "2775-2785",
+				"publicationTitle": "Journal of Integrative Agriculture",
+				"url": "http://www.sciencedirect.com/science/article/pii/S2095311916614284",
+				"volume": "15",
+				"attachments": [
+					{
+						"title": "ScienceDirect Snapshot"
+					},
+					{
+						"title": "ScienceDirect Full Text PDF",
+						"mimeType": "application/pdf"
+					}
+				],
+				"tags": [
+					"allocation",
+					"carbon",
+					"drought",
+					"elevated CO",
+					"nitrogen"
+				],
+				"notes": [],
+				"seeAlso": []
+			}
+		]
+	},
+	{
+		"type": "web",
+		"url": "http://www.sciencedirect.com/search?qs=zotero&show=25&sortBy=relevance",
+		"items": "multiple"
+	},
+	{
+		"type": "web",
+		"url": "https://www.sciencedirect.com/journal/le-pharmacien-hospitalier-et-clinicien/vol/52/issue/4",
+		"items": "multiple"
 	}
 ]
 /** END TEST CASES **/
