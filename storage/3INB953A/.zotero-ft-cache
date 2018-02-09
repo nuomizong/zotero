@@ -123,7 +123,7 @@ m2 4 n2 ½T1  ¼ Àmn
 
 m n
 
-8 0 9 8 9 > εx > > vu=vx > > 0 > > > > > > ε > > > > > > y > < vv=vy = < =    0 gxy ¼ vu vy þ vv vx À 2w Rxy > > 0 > > > > a þ vw=vx > >g > > > > xz > > > > ; > : 0 > : ; b þ vw=vy gyz
+8 0 9 8 9 > εx > > vu=vx > > 0 > > > > > > ε > > > > > > y > < vv=vy = < = ⬚ ⬚ ⬚ 0 gxy ¼ vu vy þ vv vx À 2w Rxy > > 0 > > > > a þ vw=vx > >g > > > > xz > > > > ; > : 0 > : ; b þ vw=vy gyz
 and
 
 (6)
@@ -418,13 +418,13 @@ A22 bsy
 
 1 Q þ Q66 bsy 6 44 D0 bsy 12 0
 
-
+⬚
 
 B0 bsy 22
 
 3 7 7 7 7 7 7 7 5 (20)
 
-
+⬚
 
 bsy S22
 
@@ -544,7 +544,7 @@ kÀ1
 
 The free vibration analysis involves determination of natural frequencies from the condition.
 
-    ½K À u2 ½M ¼ 0
+⬚ ⬚ ⬚ ⬚ ⬚½K À u2 ½M⬚ ¼ 0
 
 (28)
 
@@ -572,7 +572,7 @@ i¼1
 
 0
 
- . r bsx $d3 þ b3 $dsx 12 sx sx
+⬚ ⬚. r bsx $d3 þ b3 $dsx 12 sx sx
 
 0 0 0
 
@@ -586,7 +586,7 @@ r$bsy dsy 0 3 6 X6 6 ½P ¼ 0 6 i¼1 4 0
 
 0 0 . r$bsy d2 12 sy 0
 
-0 0  . r bsy $d3 þ b3 $dsy 12 sy sy 0
+0 0 ⬚ ⬚. r bsy $d3 þ b3 $dsy 12 sy sy 0
 
 3 7 7 7 for y À stiffener 7 5
 

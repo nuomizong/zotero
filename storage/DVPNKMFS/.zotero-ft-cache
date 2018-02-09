@@ -14,14 +14,14 @@ Keywords: Finite element; Large de#ection; Static analysis; Shell; Sti!ener
 
 A. Samanta, M. Mukhopadhyay / Finite Elements in Analysis and Design 33 (1999) 187}208
 
-Nomenclature A A  [B] [B ] * [B ]  [B ]  [D] [D ]  E [E ]  [G ]  I  J  [K] K  K  K  ¸ ¸  N G N ,N ,N V W VW N ,M ,¹    [N ]  [N ]  [P] R +R, [S] [S ] * S  S  [¹] [¹ ]  a, b d h [k ] 1 area of the plate/shell element cross-sectional area of the sti!ener, corrugated sheet matrix of order 6;24 to relate the generalized strain to the nodal displacement nonlinear strain matrix matrix relating strain to nodal displacement of the sti!ener element linear strain matrix, same as [B] rigidity matrix of the plate/shell element rigidity matrix of the sti!ener element elastic modulus for the shell material elastic modulus for the sti!ener material modulus of rigidity second moment of sti!ener cross-sectional area about the reference axis polar moment of sti!ener cross-sectional area overall elastic sti!ness matrix overall secant sti!ness matrix (unsymmetric form) overall tangent sti!ness matrix linear elastic sti!ness matrix length of the plate length of the sti!ener quadratic shape function in area coordinate generalized stress components (force) force, moment and torsion of the sti!ener A matrix linearly dependent upon + , to form tangential sti!ness matrix A matrix quadratically dependent upon + , to form tangential sti!ness matrix global nodal force vector radius of the shell load vector initial stress matrix nonlinear part of initial stress matrix "rst moment of sti!ener cross-sectional area linear part of initial stress matrix transformation matrix of order 24;18 for combined membrane and bending matrix correlating the generalized strain of the sti!ener to the shell plate dimensions increment of any parameter thickness of the shell elemental secant sti!ness matrix
+Nomenclature A A ⬚ [B] [B ] * [B ] ⬚ [B ] ⬚ [D] [D ] ⬚ E [E ] ⬚ [G ] ⬚ I ⬚ J ⬚ [K] K ⬚ K ⬚ K ⬚ ¸ ¸ ⬚ N G N ,N ,N V W VW N ,M ,¹ ⬚⬚ ⬚⬚ ⬚⬚ [N ] ⬚ [N ] ⬚ [P] R +R, [S] [S ] * S ⬚ S ⬚ [¹] [¹ ] ⬚ a, b d h [k ] 1 area of the plate/shell element cross-sectional area of the sti!ener, corrugated sheet matrix of order 6;24 to relate the generalized strain to the nodal displacement nonlinear strain matrix matrix relating strain to nodal displacement of the sti!ener element linear strain matrix, same as [B] rigidity matrix of the plate/shell element rigidity matrix of the sti!ener element elastic modulus for the shell material elastic modulus for the sti!ener material modulus of rigidity second moment of sti!ener cross-sectional area about the reference axis polar moment of sti!ener cross-sectional area overall elastic sti!ness matrix overall secant sti!ness matrix (unsymmetric form) overall tangent sti!ness matrix linear elastic sti!ness matrix length of the plate length of the sti!ener quadratic shape function in area coordinate generalized stress components (force) force, moment and torsion of the sti!ener A matrix linearly dependent upon + , to form tangential sti!ness matrix A matrix quadratically dependent upon + , to form tangential sti!ness matrix global nodal force vector radius of the shell load vector initial stress matrix nonlinear part of initial stress matrix "rst moment of sti!ener cross-sectional area linear part of initial stress matrix transformation matrix of order 24;18 for combined membrane and bending matrix correlating the generalized strain of the sti!ener to the shell plate dimensions increment of any parameter thickness of the shell elemental secant sti!ness matrix
 
 A. Samanta, M. Mukhopadhyay / Finite Elements in Analysis and Design 33 (1999) 187}208
 
 189
 
-[k ] 17 [k ] 2 [k] 1 [k]  u, v u,v G G u w x, y Greek letters + , +, + ,  + ,  + , * + N, * + ,  + ,  + ,  
- , V W , VG WG X , K E + ,  , + , [*] * * , *x *y Abbreviation DKT NISA
+[k ] 17 [k ] 2 [k] 1 [k] ⬚ u, v u,v G G u⬚ w x, y Greek letters + , +, + , ⬚ + ⬚, ⬚ + , * + N, * + , ⬚ + ⬚, ⬚ + , ⬚ 
+ , V W , VG WG X , K E +⬚ , ⬚ , + , [*] * * , *x *y Abbreviation DKT NISA
 
 elemental secant sti!ness matrix in symmetric form elemental tangential sti!ness matrix element elastic sti!ness matrix for the sti!ener elemental elastic sti!ness matrix for the plate/shell tangential displacement components inplane degrees of freedom at ith node local axial displacement of the sti!ener normal displacement local axis system of the shell element
 
@@ -35,9 +35,9 @@ A. Samanta, M. Mukhopadhyay / Finite Elements in Analysis and Design 33 (1999) 1
 
 Geometric nonlinear static analysis of isotropic and composite sti!ened shells has been done by Liao and Reddy [1] using a continuum-based sti!ened composite shell element. The element is developed from a three-dimensional continuum element based on an incremental, total Lagrangian formulation. Liao and Reddy [2] have also developed a degenerated shell element with a degenerated curved beam element as a sti!ener for geometric nonlinear static analysis of isotropic and composite sti!ened shells. The limitation of the formulation is that the sti!ener must pass through the mesh line of the shell or lie along an element boundary. The mesh division is greatly constrained by the sti!ener position which may create computational di$culties as well. Goswami [3] has analysed geometric nonlinear static analysis of sti!ened shell using nine noded isoparametric sti!ened shell element. The analysis is restricted to shallow shell only. The present study has been undertaken to develop a sti!ened shell element for the geometric nonlinear static analysis of shallow and deep shells. The basic #at shell element has been formulated by combining discrete Kirchho! triangle (DKT) plate bending element [4] and Allman's plane stress triangle [5]. Though combining membrane and bending elements to formulate a #at facetted shell element has been already reported, [6,7] but the marriage of the DKT element and Allman's triangle is done by the authors for the "rst time [8]. The above-mentioned bending and membrane elements have been chosen for the combination purpose as both the elements are triangular in shape and the order of primary displacement functions used to formulate the respective elements are the same (i.e. quadratic for and in bending and u and v for V W membrane). The combined shell element contains six principal degrees of freedom per node, which are u, v, w, , and at three corner points of the element. V W X The main emphasis of the present paper lies in the formulation of the sti!ener element. The arbitrary orientation of the sti!ener has been taken into account to generate the sti!ness matrix of the sti!ener element in the linear and nonlinear range. According to the formulation the sti!ener may lie within the shell element and the mesh line need not pass through the sti!ener. The versatility of this sti!ened shell element has been tested for various shell structures in geometric nonlinear range of static analysis. Several basic shell elements exist for the analysis of shell structures in the linear and nonlinear range. The present shell element has been chosen mainly for the following reasons: (a) The element being facetted, any type of shell surface (shell may be shallow or deep) can be generated easily. (b) The curved shell boundary can conveniently be taken care of as the element is triangular. (c) As the degrees of freedom per node are less (only u, v, w, , and ), the solution is cost e!ective. V W X 2. Mathematical formulation The mathematical formulation is based on the virtual work equation for a continuum within a total Lagrangian coordinate system with the assumption of small strains. The present nonlinear static analysis is carried out using von Karman's large de#ection plate theory. For a continuum, undergoing small or large displacements, the equation of equilibrium of the external and the internal forces is expressed by the following virtual work equations [9,10]: + ,"
 
-
+⬚
 
-
+⬚
 
 [B]2+ , dA!+P,"+0,,
 
@@ -47,9 +47,9 @@ A. Samanta, M. Mukhopadhyay / Finite Elements in Analysis and Design 33 (1999) 1
 
 191
 
-where + , is the sum of the internal and the external generalized forces, [B] is the strain}displacement matrix combined for the linear and nonlinear analysis and +P, is the generalized nodal force vector. This is the general equation for nonlinear static analysis. Now, expressing + , in terms of the rigidity matrix [D], the strain}displacement matrix [B] and nodal displacement vector + ,, the governing Eq. (1) can be written in the standard form as [K ]+ ,"+P,, (2) 1 where [K ] is the secant sti!ness matrix which is dependent on nodal displacements, + , and +P, 1 are the nodal displacement and the force vector. An incremental equation is required to solve this nonlinear equation and can be written as [K ]+d ,"+dP,, (3) 2 where [K ] is the tangent sti!ness matrix, +d , and +dP, are the increment of displacement and 2 force vector. The determination of linear sti!ness matrix [K ], secant sti!ness matrix [K ] and the tangent  1 sti!ness matrix [K ] for both the shell and the sti!ener are given below. 2 2.1. Shell element formulation 2.1.1. Linear stiwness matrix of the basic shell element The basic #at shell element is a combination of the DKT plate bending element and Allman's plane stress triangular element. Fig. 1a shows the basic element for discrete Kirchho!'s triangle (DKT). Starting point in the bending element is a 6-noded triangle (Fig. 2a) having 12 degrees of freedom which are reduced to nine degrees of freedom using constraint conditions. Fig. 1b shows the basic element for Allman's plane stress triangular element. Starting point in the formulation of the membrane element is also a 6-noded triangle (Fig. 2b) having 12 degrees of freedom which are reduced to nine degrees of freedom by using constraint conditions. The degrees of freedom "nally are u, v, w, , and at three corners points of the element. The derivation of V W X the sti!ness matrix of the shell element is given brie#y, as given in detail by Samanta and Mukhopadhyay [8]. The quadratic variation of displacements for bending can be written as   " N , " N . G K W G WG G G The displacement function for the membrane element can be written as V (4)
+where + , is the sum of the internal and the external generalized forces, [B] is the strain}displacement matrix combined for the linear and nonlinear analysis and +P, is the generalized nodal force vector. This is the general equation for nonlinear static analysis. Now, expressing + , in terms of the rigidity matrix [D], the strain}displacement matrix [B] and nodal displacement vector + ,, the governing Eq. (1) can be written in the standard form as [K ]+ ,"+P,, (2) 1 where [K ] is the secant sti!ness matrix which is dependent on nodal displacements, + , and +P, 1 are the nodal displacement and the force vector. An incremental equation is required to solve this nonlinear equation and can be written as [K ]+d ,"+dP,, (3) 2 where [K ] is the tangent sti!ness matrix, +d , and +dP, are the increment of displacement and 2 force vector. The determination of linear sti!ness matrix [K ], secant sti!ness matrix [K ] and the tangent ⬚ 1 sti!ness matrix [K ] for both the shell and the sti!ener are given below. 2 2.1. Shell element formulation 2.1.1. Linear stiwness matrix of the basic shell element The basic #at shell element is a combination of the DKT plate bending element and Allman's plane stress triangular element. Fig. 1a shows the basic element for discrete Kirchho!'s triangle (DKT). Starting point in the bending element is a 6-noded triangle (Fig. 2a) having 12 degrees of freedom which are reduced to nine degrees of freedom using constraint conditions. Fig. 1b shows the basic element for Allman's plane stress triangular element. Starting point in the formulation of the membrane element is also a 6-noded triangle (Fig. 2b) having 12 degrees of freedom which are reduced to nine degrees of freedom by using constraint conditions. The degrees of freedom "nally are u, v, w, , and at three corners points of the element. The derivation of V W X the sti!ness matrix of the shell element is given brie#y, as given in detail by Samanta and Mukhopadhyay [8]. The quadratic variation of displacements for bending can be written as ⬚ ⬚ " N , " N . G K W G WG G⬚⬚ G⬚⬚ The displacement function for the membrane element can be written as V (4)
 
-  u" N u , v" Nv, (5) G G G G G G where N 's are the quadratic shape functions in area coordinates G Using these shape functions and applying some constraints the 24 degrees of freedom element can be transformed to a 18 degrees of freedom element.
+⬚ ⬚ u" N u , v" Nv, (5) G G G G G⬚⬚ G⬚⬚ where N 's are the quadratic shape functions in area coordinates G Using these shape functions and applying some constraints the 24 degrees of freedom element can be transformed to a 18 degrees of freedom element.
 
 192
 
@@ -61,75 +61,75 @@ Fig. 2. The basic elements for: (a) bending, and (b) membrane to formulate DKT p
 
 The generalized strain vector for the shell element can be written as + ,2" *u *v *u *v * * * * V# W # ! V! W! *x *y *y *x *y *x *y *x . (6)
 
-Using the principle of virtual work, the element sti!ness matrix of the shell for the generalized strain can be written as [¹]2[B]2[D][B][¹] dx dy (7)  where A is the area of the element, [¹] is the transformation matrix used to correlate the midside nodal degrees of freedom to the corner nodal degrees of freedom, [B] relates the strains to the nodal displacements and [D] is the rigidity matrix of a shell element. [k] " 
+Using the principle of virtual work, the element sti!ness matrix of the shell for the generalized strain can be written as [¹]2[B]2[D][B][¹] dx dy (7) ⬚ where A is the area of the element, [¹] is the transformation matrix used to correlate the midside nodal degrees of freedom to the corner nodal degrees of freedom, [B] relates the strains to the nodal displacements and [D] is the rigidity matrix of a shell element. [k] " ⬚
 
-
+⬚⬚
 
 A. Samanta, M. Mukhopadhyay / Finite Elements in Analysis and Design 33 (1999) 187}208
 
 193
 
-Integration is performed by using three-point Gauss quadrature rule in area coordinates. A transformation of element sti!ness matrix is required to change the local coordinate system into the global coordinates [9]. 2.1.2. Nonlinear stiwness matrix formulation for shell element The geometric nonlinear sti!ness matrix formulation for the shell element has been done in this section. The strain}displacement relationship is considered as nonlinear. The nonlinear strain of the shell can be written as *u *x *v *y 1 *w  2 *x 1 *w  2 *y *w *w *x *y 0 0 0
+Integration is performed by using three-point Gauss quadrature rule in area coordinates. A transformation of element sti!ness matrix is required to change the local coordinate system into the global coordinates [9]. 2.1.2. Nonlinear stiwness matrix formulation for shell element The geometric nonlinear sti!ness matrix formulation for the shell element has been done in this section. The strain}displacement relationship is considered as nonlinear. The nonlinear strain of the shell can be written as *u *x *v *y 1 *w ⬚ 2 *x 1 *w ⬚ 2 *y *w *w *x *y 0 0 0
 
-*u *v # *y *x # + ," *w ! *x *w ! *y *w 2 *x*y
+*u *v # *y *x # + ," *⬚w ! *x⬚ *⬚w ! *y *⬚w 2 *x*y
 
 "
 
-+ , + ,  # * + @, +0, 
++ ⬚, + ⬚, ⬚ # * + @, +0, ⬚
 
 (8)
 
-+ ,"+ ,#+ ,. (9)  * The subscript, 0 and L are used to indicate the linear and nonlinear part, respectively. The linear strain vector + , can be expressed as  + ,"[B ]+ ,, (10)   where [B ] is the linear strain matrix which is dependent of + ,.  The nonlinear strain vector + , can be represented of + ,. * *w 0 *x *w 0 *y *w *w *w 1 1 *y *x *x " [A]+ ,. (11) + ," * *w 2 2 0 0 *y 0 0 0 0
++ ,"+ ,#+ ,. (9) ⬚ * The subscript, 0 and L are used to indicate the linear and nonlinear part, respectively. The linear strain vector + , can be expressed as ⬚ + ,"[B ]+ ,, (10) ⬚ ⬚ where [B ] is the linear strain matrix which is dependent of + ,. ⬚ The nonlinear strain vector + , can be represented of + ,. * *w 0 *x *w 0 *y *w *w *w 1 1 *y *x *x " [A]+ ,. (11) + ," * *w 2 2 0 0 *y 0 0 0 0
 
 194
 
 A. Samanta, M. Mukhopadhyay / Finite Elements in Analysis and Design 33 (1999) 187}208
 
-The above matrix [A] and + , are de"ned as [A]2" and + ," where [G]" 0 0 N 0 0 0 G 0 N , i"1, 2,2, 6. (14) G The variation of this generalized strain vector given by (9) with respect to +d , can be written as +d ,"+d ,#+d ,, (15)  * where the variation or increment of any parameter is indicated by d of the parameter. It can be written as the standard form as +d ,"([B ]#[B ])+d ,"[B]+d ,.  * (16) V "[G]+ ,, W (13) V 0 0 W W V 0 0 0 0 0 0 (12)
+The above matrix [A] and + , are de"ned as [A]2" and + ," where [G]" 0 0 N 0 0 0 G 0 N , i"1, 2,2, 6. (14) G The variation of this generalized strain vector given by (9) with respect to +d , can be written as +d ,"+d ,#+d ,, (15) ⬚ * where the variation or increment of any parameter is indicated by d of the parameter. It can be written as the standard form as +d ,"([B ]#[B ])+d ,"[B]+d ,. ⬚ * (16) V "[G]+ ,, W (13) V 0 0 W W V 0 0 0 0 0 0 (12)
 
 2.1.3. Tangent stiwness matrix of the shell element In a solution technique like Newton}Raphson method, the derivative of the nonlinear equation is needed which is obtained by taking the variation of the equilibrium equation in this situation. The equilibrium equation is already de"ned by Eq. (1). The variation of the above equation can be written as +d ,"
 
-  The incremental equation can be expressed as
+⬚ ⬚ The incremental equation can be expressed as
 
-
+⬚
 
 [dB]2+ , dA#
 
-
+⬚
 
 [B]2+d ,dA!+dP,.
 
 (17)
 
-+d ,"[K ]+d ,!+dP,, 2 where [K ] is the tangential sti!ness matrix of the shell element and is given by 2 [K ]"[K ]#[N ]#[N ], 2    where [K ] is the linear sti!ness matrix.  [N ]" 
++d ,"[K ]+d ,!+dP,, 2 where [K ] is the tangential sti!ness matrix of the shell element and is given by 2 [K ]"[K ]#[N ]#[N ], 2 ⬚ ⬚ ⬚ where [K ] is the linear sti!ness matrix. ⬚ [N ]" ⬚
 
 (18)
 
 (19)
 
- 
+⬚ ⬚
 
-
+⬚
 
-[¹]2[B ]2[D][B ][¹] dA#  *
+[¹]2[B ]2[D][B ][¹] dA# ⬚ *
 
-# and [N ]"  
+# and [N ]" ⬚ ⬚
 
-
+⬚
 
- 
+⬚ ⬚
 
-
+⬚
 
-[¹]2[B ]2[D][B ][¹] dA *  (20)
+[¹]2[B ]2[D][B ][¹] dA * ⬚ (20)
 
-
+⬚
 
-[¹]2[G]2[S ][G][¹] dA 
+[¹]2[G]2[S ][G][¹] dA ⬚
 
 [¹]2[B ]2[D][B ][¹] dA# * *
 
-
+⬚
 
 [¹]2[G]2[S ][¹] dA. *
 
@@ -141,12 +141,12 @@ A. Samanta, M. Mukhopadhyay / Finite Elements in Analysis and Design 33 (1999) 1
 
 Fig. 3. Local axis system of the sti!ener, placed within the shell element.
 
-In the above Eq. (19), [K ] is independent of displacement , [N ] is linearly dependent upon   and [N ] quadrically upon .  2.1.4. Secant stiwness matrix of the shell element This secant sti!ness matrix is given as [11] (22) [K ]"[K ]#[N ]#[N ],   1    where [K ] is the linear sti!ness matrix and [N ] and [N ] are de"ned by Eqs. (20) and (21).    2.2. Stiwener element formulation 2.2.1. Linear stiwness matrix of the stiwener element The formulation of the sti!ener has been made in such a way that the sti!ener can be placed anywhere within the shell element (Fig. 3). The following assumptions have been made for the formulation of the sti!ener: (i) The sti!eners are considered as straight axis ribs in a 3-D space. (ii) The sti!eners will have the same displacements as that of the plating. (iii) The common normal to the plate and sti!ener system before bending remains straight and normal to the de#ected shape after bending. (iv) The middle plane of the shell is taken as reference plane in the analysis of the sti!ener, as shown in Fig. 4. The common shape function is used for both the sti!ener and the shell element. If the arbitrarily oriented sti!ener makes an angle 
+In the above Eq. (19), [K ] is independent of displacement , [N ] is linearly dependent upon ⬚ ⬚ and [N ] quadrically upon . ⬚ 2.1.4. Secant stiwness matrix of the shell element This secant sti!ness matrix is given as [11] (22) [K ]"[K ]#⬚[N ]#⬚[N ], ⬚ ⬚ 1 ⬚ ⬚ ⬚ where [K ] is the linear sti!ness matrix and [N ] and [N ] are de"ned by Eqs. (20) and (21). ⬚ ⬚ ⬚ 2.2. Stiwener element formulation 2.2.1. Linear stiwness matrix of the stiwener element The formulation of the sti!ener has been made in such a way that the sti!ener can be placed anywhere within the shell element (Fig. 3). The following assumptions have been made for the formulation of the sti!ener: (i) The sti!eners are considered as straight axis ribs in a 3-D space. (ii) The sti!eners will have the same displacements as that of the plating. (iii) The common normal to the plate and sti!ener system before bending remains straight and normal to the de#ected shape after bending. (iv) The middle plane of the shell is taken as reference plane in the analysis of the sti!ener, as shown in Fig. 4. The common shape function is used for both the sti!ener and the shell element. If the arbitrarily oriented sti!ener makes an angle 
  with the shell elemental local coordinate x (Fig. 3), then the relationship between , coordinate (sti!ener local coordinate) and x, y coordinate can be expressed as "(x!x ) cos 
 #(y!y ) sin 
-,   "!(x!x ) sin 
+, ⬚ ⬚ "!(x!x ) sin 
 #(y!y ) cos 
-.  
+. ⬚ ⬚
 
 (23)
 
@@ -156,55 +156,55 @@ A. Samanta, M. Mukhopadhyay / Finite Elements in Analysis and Design 33 (1999) 1
 
 Fig. 4. A sti!ened plate showing the reference axis of the sti!ener.
 
-The relationship between the sti!ener local displacement and shell elemental local displacement can also be expressed in a similar manner as u"u cos 
+The relationship between the sti!ener local displacement and shell elemental local displacement can also be expressed in a similar manner as u⬚"u cos 
 #v sin 
 , cos 
 # sin 
 , V W "! sin 
 # cos 
-, (24) E V W where u, and are the de#ection and rotations in the sti!ener local coordinate system as shown K E in Fig. 3. The generalized strain vector + , in the sti!ener local coordinate ( , ) is given by  * *u * + ,2" ! K! E . (25)  * * * K " As the strain vector is expressed in terms of displacements in the shell middle plane, the shape function used is the same as that of the shell element which yields the sti!ness matrix of the sti!ener in terms of the nodal parameters of the shell element. Thus the compatibility of the shell and the sti!ener is ensured and also it avoids the incorporation of additional degrees of freedom for the sti!ener element which is the most elegant feature of this modelling. The generalized strain in the sti!ener local coordinate ( , ) has been transformed into the shell elemental local coordinate (x, y) by using the following transformation: + ,"[¹ ]+  ,, (26)    where [¹ ] is the transformation matrix for the sti!ener to correlate the strain in the sti!ener  local coordinate to the shell elemental local coordinate. +  , is nothing but the expression of + , of 
+, (24) E V W where u⬚, and are the de#ection and rotations in the sti!ener local coordinate system as shown K E in Fig. 3. The generalized strain vector + , in the sti!ener local coordinate ( , ) is given by ⬚ * *u⬚ * + ,2" ! K! E . (25) ⬚ * * * K " As the strain vector is expressed in terms of displacements in the shell middle plane, the shape function used is the same as that of the shell element which yields the sti!ness matrix of the sti!ener in terms of the nodal parameters of the shell element. Thus the compatibility of the shell and the sti!ener is ensured and also it avoids the incorporation of additional degrees of freedom for the sti!ener element which is the most elegant feature of this modelling. The generalized strain in the sti!ener local coordinate ( , ) has been transformed into the shell elemental local coordinate (x, y) by using the following transformation: + ,"[¹ ]+ ⬚ ,, (26) ⬚ ⬚ ⬚ where [¹ ] is the transformation matrix for the sti!ener to correlate the strain in the sti!ener ⬚ local coordinate to the shell elemental local coordinate. + ⬚ , is nothing but the expression of + , of ⬚
 
 A. Samanta, M. Mukhopadhyay / Finite Elements in Analysis and Design 33 (1999) 187}208
 
 197
 
-Eq. (6), only the last term has been written explicitly. So, *u *v *u *v * * * * # ! V! W! V! W . +  ,2"  *x *y *y *x *x *y *y *x (27)
+Eq. (6), only the last term has been written explicitly. So, *u *v *u *v * * * * # ! V! W! V! W . + ⬚ ,2" ⬚ *x *y *y *x *x *y *y *x (27)
 
-Applying the chain rule of the partial di!erentiation on Eq. (24) and with the help of Eq. (23), [¹ ]  matrix can be written as cos 
- sin 
- sin 2
- 0 0 0 0  (28) 0 0 0 cos 
- sin 
- sin 2
- sin 2
- . [¹ ]"    0 0 0 !sin 2
- sin 2
- !sin 
- cos 
-   The strain +  , in the elemental local coordinate system can be expressed from strain}displacement  relationship as +  ,"[B ][¹]+ ,, (29)   where [B ] is nothing but the matrix [B] of Eq. (7), only the last row has been divided into two  parts due to the explicit expression of +  ,. So the order of [B ] matrix is 7;24 whereas, the order   of [B] matrix is 6;24. The matrix [¹] and vector + , have been de"ned previously. The stress-strain relationship of the sti!ener in the local axis system can be expressed as +  ,"[D ]+ ,    where +  ,"+N M ¹ ,2     and EA   [D ]" E S    0 ES   EI   0 0 0 (32) (30)
+Applying the chain rule of the partial di!erentiation on Eq. (24) and with the help of Eq. (23), [¹ ] ⬚ matrix can be written as cos⬚ 
+ sin⬚ 
+ ⬚sin 2
+ 0 0 0 0 ⬚ (28) 0 0 0 cos⬚ 
+ sin⬚ 
+ ⬚sin 2
+ ⬚sin 2
+ . [¹ ]" ⬚ ⬚ ⬚ 0 0 0 !⬚sin 2
+ ⬚sin 2
+ !sin⬚ 
+ cos⬚ 
+ ⬚ ⬚ The strain + ⬚ , in the elemental local coordinate system can be expressed from strain}displacement ⬚ relationship as + ⬚ ,"[B ][¹]+ ,, (29) ⬚ ⬚ where [B ] is nothing but the matrix [B] of Eq. (7), only the last row has been divided into two ⬚ parts due to the explicit expression of + ⬚ ,. So the order of [B ] matrix is 7;24 whereas, the order ⬚ ⬚ of [B] matrix is 6;24. The matrix [¹] and vector + , have been de"ned previously. The stress-strain relationship of the sti!ener in the local axis system can be expressed as + ⬚ ,"[D ]+ , ⬚ ⬚ ⬚ where + ⬚ ,"+N M ¹ ,2 ⬚ ⬚⬚ ⬚⬚ ⬚⬚ and EA ⬚ ⬚ [D ]" E S ⬚ ⬚ ⬚ 0 ES ⬚ ⬚ EI ⬚ ⬚ 0 0 0 (32) (30)
 
 (31)
 
-GJ   where N , M , ¹ are the axial force, bending moment and torsion in the sti!ener. E is the     modulus of elasticity of the sti!ener material, A is the cross-sectional area of the sti!ener, S is the   "rst moment of the sti!ener cross-sectional area about the reference axis (i.e. the plate middle surface) as shown in Fig. 4, I is the second moment of the sti!ener cross-sectional area about  reference axis, G is the modulus of rigidity and J is the polar moment of inertia of the sti!ener   cross-sectional area. The details of J is given by Mukhopadhyay and Satsangi [12].  Using the principle of virtual work, the element sti!ness matrix of the sti!ener is given by [¹]2[B ]2[¹ ]2[D ][¹ ][B ][¹] d , (33)      * where all the matrices are de"ned previously. Eq. (33) has been integrated by two point Gaussian quadrature rule along the length of the sti!ener ¸ , where ¸ is shown in Fig. 3. After the element   sti!ness matrix of the sti!ener has been formulated, it has been added with the element sti!ness of the shell with which it is attached to get the total sti!ness matrix [K] in global form. [k] " 
+GJ ⬚ ⬚ where N , M , ¹ are the axial force, bending moment and torsion in the sti!ener. E is the ⬚⬚ ⬚⬚ ⬚⬚ ⬚ modulus of elasticity of the sti!ener material, A is the cross-sectional area of the sti!ener, S is the ⬚ ⬚ "rst moment of the sti!ener cross-sectional area about the reference axis (i.e. the plate middle surface) as shown in Fig. 4, I is the second moment of the sti!ener cross-sectional area about ⬚ reference axis, G is the modulus of rigidity and J is the polar moment of inertia of the sti!ener ⬚ ⬚ cross-sectional area. The details of J is given by Mukhopadhyay and Satsangi [12]. ⬚ Using the principle of virtual work, the element sti!ness matrix of the sti!ener is given by [¹]2[B ]2[¹ ]2[D ][¹ ][B ][¹] d , (33) ⬚ ⬚ ⬚ ⬚ ⬚ *⬚ where all the matrices are de"ned previously. Eq. (33) has been integrated by two point Gaussian quadrature rule along the length of the sti!ener ¸ , where ¸ is shown in Fig. 3. After the element ⬚ ⬚ sti!ness matrix of the sti!ener has been formulated, it has been added with the element sti!ness of the shell with which it is attached to get the total sti!ness matrix [K] in global form. [k] " ⬚
 
-
+⬚
 
 198
 
 A. Samanta, M. Mukhopadhyay / Finite Elements in Analysis and Design 33 (1999) 187}208
 
-2.2.2. Nonlinear stiwness matrix formulation for the stiwener element Incorporating the additional strain produced by the large de#ection e!ect, the total strain of an arbitrarily oriented sti!ener is expressed as *u * * + ," ! K #  * * ! E * 1 *w  2 * 0 0 "+ ,#+ ,.  * (34)
+2.2.2. Nonlinear stiwness matrix formulation for the stiwener element Incorporating the additional strain produced by the large de#ection e!ect, the total strain of an arbitrarily oriented sti!ener is expressed as *u⬚ * * + ," ! K # ⬚ * * ! E * 1 *w ⬚ 2 * 0 0 "+ ,#+ ,. ⬚ * (34)
 
-The sti!ener formulations in this section are not subscripted with s in order to avoid clumsy representation of the parameters. The linear strain vector + , can be expressed as  + ,"[¹ ][B ][¹]+ ,, (35)    where [B ] is the linear strain matrix as de"ned in Eq. (29).  The nonlinear strain can be represented as *w 1 * + ," * 2 0 0 *w 1 " [A ]+ ,. * 2 
+The sti!ener formulations in this section are not subscripted with s in order to avoid clumsy representation of the parameters. The linear strain vector + , can be expressed as ⬚ + ,"[¹ ][B ][¹]+ ,, (35) ⬚ ⬚ ⬚ where [B ] is the linear strain matrix as de"ned in Eq. (29). ⬚ The nonlinear strain can be represented as *w 1 * + ," * 2 0 0 *w 1 " [A ]+ ,. * 2 ⬚
 
 (36)
 
-The above matrix [A ] and + , can be de"ned as  cos 
+The above matrix [A ] and + , can be de"ned as ⬚ cos 
 # sin 
- V W [A ]" , 0  0 where 
- is the angle between the local axis of the sti!ener and the shell element and + ,"[G ]+ ,,  where [G ]"[0 0 N cos 
+ V W [A ]" , 0 ⬚ 0 where 
+ is the angle between the local axis of the sti!ener and the shell element and + ,"[G ]+ ,, ⬚ where [G ]"[0 0 N cos 
  N sin 
-], i"1, 2,2, 6.  G G Thus, the nonlinear strain is expressed in its "nal form as
+], i"1, 2,2, 6. ⬚ G G Thus, the nonlinear strain is expressed in its "nal form as
 
 (37)
 
@@ -212,13 +212,13 @@ The above matrix [A ] and + , can be de"ned as  cos
 
 (39)
 
-+ ,"[A ][G ]+ ,"[B ]+ ,. (40) *     * The membrane action of the sti!ener is produced by the axial force [N ] only. Thus the initial stress  matrix can simply be written as [S]"[N ].  (41)
++ ,"⬚[A ][G ]+ ,"⬚[B ]+ ,. (40) * ⬚ ⬚ ⬚ ⬚ * The membrane action of the sti!ener is produced by the axial force [N ] only. Thus the initial stress ⬚ matrix can simply be written as [S]"[N ]. ⬚ (41)
 
 A. Samanta, M. Mukhopadhyay / Finite Elements in Analysis and Design 33 (1999) 187}208
 
 199
 
-Once the matrices [B ], [B ], [G] and [S] are obtained, the secant sti!ness of the sti!ener can be  * derived in the same way as done for the shell element.
+Once the matrices [B ], [B ], [G] and [S] are obtained, the secant sti!ness of the sti!ener can be ⬚ * derived in the same way as done for the shell element.
 
 3. Load vector calculation The element load vector has been calculated on the basis of lumped model. To obtain the total load within an element, the area of the element has been multiplied by the intensity of the loading. It is then divided equally in the w direction of the three corner nodes. The global load vector has been formulated by assembly the elemental load, as has been done in the case of sti!ness matrix.
 
@@ -242,7 +242,7 @@ Fig. 7. De#ection at plate centre (A) of a clamped rectangular sti!ened plate.
 
 Fig. 8. De#ection at panel centre (B) of a clamped rectangular sti!ened plate.
 
-present solutions may be due to the fact that Sheikh [16] did not develop the compression component as much as it was necessary. 5.2. Square plate with diagonal stiweners A simply supported square plate sti!ened by two sti!eners along the diagonals of the plate and subjected to an uniformly distributed basic load of intensity 6897.22 N/m has been analysed for both concentric and eccentric types of sti!eners. Inplane displacements (u and v) are restricted along the edges. The material properties are same for both the plate and the sti!eners. The material
+present solutions may be due to the fact that Sheikh [16] did not develop the compression component as much as it was necessary. 5.2. Square plate with diagonal stiweners A simply supported square plate sti!ened by two sti!eners along the diagonals of the plate and subjected to an uniformly distributed basic load of intensity 6897.22 N/m⬚ has been analysed for both concentric and eccentric types of sti!eners. Inplane displacements (u and v) are restricted along the edges. The material properties are same for both the plate and the sti!eners. The material
 
 202
 
@@ -260,7 +260,7 @@ A. Samanta, M. Mukhopadhyay / Finite Elements in Analysis and Design 33 (1999) 1
 
 Fig. 11. Simply, supported plate with diagonal sti!eners, (b) cross-sectional dimension of the sti!ener, (c) sti!ener through a regular mesh division of a quarter plate, and (d) sti!ener through an irregular mesh division of a quarter plate.
 
-Table 1 Linear central de#ection of a diagonally sti!ened square plate (m;10) for load factor 200, mesh is indicated in a quarter plate Source Mesh Unsti!ened plate Sti!ened plate Eccentric NISA Present Regular 8;8 8;8 16;16 8;8 13.260 13.260 13.258 13.264 1.615 1.536 1.542 1.561 Concentric 5.092 5.078 5.086 5.088
+Table 1 Linear central de#ection of a diagonally sti!ened square plate (m;10⬚) for load factor 200, mesh is indicated in a quarter plate Source Mesh Unsti!ened plate Sti!ened plate Eccentric NISA Present Regular 8;8 8;8 16;16 8;8 13.260 13.260 13.258 13.264 1.615 1.536 1.542 1.561 Concentric 5.092 5.078 5.086 5.088
 
 Irregular
 
@@ -268,7 +268,7 @@ Irregular
 
 A. Samanta, M. Mukhopadhyay / Finite Elements in Analysis and Design 33 (1999) 187}208
 
-Table 2 Nonlinear central de#ection of a diagonally sti!ened square plate (m;10) for load factor 200, mesh is indicated in a quarter plate Source Mesh Unsti!ened plate Sti!ened plate Eccentric NISA 8;8 2;2 4;4 8;8 12;12 16;16 8;8 0.771 0.821 0.798 0.780 0.774 0.772 0.783 0.614 0.612 0.617 0.613 0.612 0.611 0.617 Concentric 0.737 0.769 0.757 0.744 0.740 0.7386 0.7478
+Table 2 Nonlinear central de#ection of a diagonally sti!ened square plate (m;10⬚) for load factor 200, mesh is indicated in a quarter plate Source Mesh Unsti!ened plate Sti!ened plate Eccentric NISA 8;8 2;2 4;4 8;8 12;12 16;16 8;8 0.771 0.821 0.798 0.780 0.774 0.772 0.783 0.614 0.612 0.617 0.613 0.612 0.611 0.617 Concentric 0.737 0.769 0.757 0.744 0.740 0.7386 0.7478
 
 Present
 
@@ -276,7 +276,7 @@ Regular
 
 Irregular
 
-6 degrees of freedom per node (u, v, w, , and ) and a 2-D beam element (NKTP 39) have been V W X used for this purpose to model the plate and the sti!ener respectively. The comparison between the present result with NISA as presented in Tables 1 and 2 is good, though the di!erence is more for the case of eccentric sti!ened plate. 5.3. Simply supported spherical shell with symmetric stiweners The geometric nonlinear response of a simply supported sti!ened spherical shell has been investigated by the proposed approach using a 8;8 mesh division in quarter shell (Fig. 13). The material and geometric properties are given by the elastic modulus E"68.97;10 N/m, Poisson's ratio, "0.3, shell thickness, h"0.09945 m, shell radius, R"2.54 m and a"0.7849 m. This problem was previously solved by Liao and Reddy [2]. The unsti!ened shell response has also been solved by Bathe and Ho [6]. The nondimensional de#ection (w/h) at the centre of the shell subjected to a centre point load has been shown in Fig. 14. Both sti!ened and unsti!ened shell have been investigated and the results by the present method have been shown along with the existing results. The sti!ened shell buckled under a centre point load. The e!ect of sti!eners on the response of the shell can be seen from Fig. 14. A good agreement has been found for both the sti!ened and the unsti!ened shells with existing results. This is a typical example of snap-through phenomenon. The arc-length procedure has been adopted to solve the problem as it is not possible to draw the complete nonlinear path by using conventional Newton}Raphson method. 5.4. Pinched stiwened cylinder with rigid diaphragm To test the nonlinear analysis of deep shell, a pinched sti!ened cylindrical shell with rigid diaphragm has been considered. The geometric and material properties and boundary conditions are shown in Fig. 15.
+6 degrees of freedom per node (u, v, w, , and ) and a 2-D beam element (NKTP 39) have been V W X used for this purpose to model the plate and the sti!ener respectively. The comparison between the present result with NISA as presented in Tables 1 and 2 is good, though the di!erence is more for the case of eccentric sti!ened plate. 5.3. Simply supported spherical shell with symmetric stiweners The geometric nonlinear response of a simply supported sti!ened spherical shell has been investigated by the proposed approach using a 8;8 mesh division in quarter shell (Fig. 13). The material and geometric properties are given by the elastic modulus E"68.97;10⬚ N/m⬚, Poisson's ratio, "0.3, shell thickness, h"0.09945 m, shell radius, R"2.54 m and a"0.7849 m. This problem was previously solved by Liao and Reddy [2]. The unsti!ened shell response has also been solved by Bathe and Ho [6]. The nondimensional de#ection (w/h) at the centre of the shell subjected to a centre point load has been shown in Fig. 14. Both sti!ened and unsti!ened shell have been investigated and the results by the present method have been shown along with the existing results. The sti!ened shell buckled under a centre point load. The e!ect of sti!eners on the response of the shell can be seen from Fig. 14. A good agreement has been found for both the sti!ened and the unsti!ened shells with existing results. This is a typical example of snap-through phenomenon. The arc-length procedure has been adopted to solve the problem as it is not possible to draw the complete nonlinear path by using conventional Newton}Raphson method. 5.4. Pinched stiwened cylinder with rigid diaphragm To test the nonlinear analysis of deep shell, a pinched sti!ened cylindrical shell with rigid diaphragm has been considered. The geometric and material properties and boundary conditions are shown in Fig. 15.
 
 A. Samanta, M. Mukhopadhyay / Finite Elements in Analysis and Design 33 (1999) 187}208
 
@@ -302,7 +302,7 @@ A. Samanta, M. Mukhopadhyay / Finite Elements in Analysis and Design 33 (1999) 1
 
 Fig. 16. Load versus de#ection curve for a pinched sti!ened cylindrical shell.
 
-The present unsti!ened shell results have been compared with that of Saleeb et al. [18] and the solution available in NISA manual [19]. The same sti!ened shell has been solved by the author using the general purpose software NISA using a 24;12 mesh division in octant shell (same mesh division used for unsti!ened shell in NISA manual, [19]). A three noded triangular shell element with 6 d.o.f (u, v, w, , and ) (NKTP 40) and a 3-D beam element have been chosen for the V W X purpose of modelling the shell and sti!ener, respectively. Here the maximum load factor (P/P ) is  taken as 3, where P "812.536 N (182.6lb) is the load 'typically' utilised for linear unsti!ened shell  solution (e.g. [20]). The downward nonlinear de#ections of sti!ened shell under the load for a load factor, (P/P )"3 are 0.0625 and 0.0676 m for the present and the NISA solution, respectively,  whereas for this load the linear static de#ections are 0.0381 and 0.0394 m for the present and the NISA solution, respectively.
+The present unsti!ened shell results have been compared with that of Saleeb et al. [18] and the solution available in NISA manual [19]. The same sti!ened shell has been solved by the author using the general purpose software NISA using a 24;12 mesh division in octant shell (same mesh division used for unsti!ened shell in NISA manual, [19]). A three noded triangular shell element with 6 d.o.f (u, v, w, , and ) (NKTP 40) and a 3-D beam element have been chosen for the V W X purpose of modelling the shell and sti!ener, respectively. Here the maximum load factor (P/P ) is ⬚ taken as 3, where P "812.536 N (182.6lb) is the load 'typically' utilised for linear unsti!ened shell ⬚ solution (e.g. [20]). The downward nonlinear de#ections of sti!ened shell under the load for a load factor, (P/P )"3 are 0.0625 and 0.0676 m for the present and the NISA solution, respectively, ⬚ whereas for this load the linear static de#ections are 0.0381 and 0.0394 m for the present and the NISA solution, respectively.
 
 6. Conclusions A new sti!ened shell element has been developed for the geometric nonlinear static analysis of sti!ened shell structures. The basic shell element contains drilling degrees of freedom which plays a signi"cant role for the imposing of boundary conditions in shell structures. The fact that the sti!ener can be placed anywhere within the shell element obviates the restriction of mesh grading and, has enabled the treatment of sti!ened shell problems in a more elegant manner. Numerical examples have been presented to show the e!ectiveness of the arbitrarily oriented sti!ener formulation. In addition to shallow shell examples, a deep sti!ened shell problem has been solved for the "rst time. Present results when compared with the existing ones as well as those obtained from the general purpose software have yielded good correlation. The element has been found to behave satisfactorily for plates as well as shell structures. However, an improved accuracy can be achieved by taking proper account of the curvature of a shell in the "nite element design.
 

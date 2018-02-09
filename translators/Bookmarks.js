@@ -1,15 +1,15 @@
 {
 	"translatorID": "4e7119e0-02be-4848-86ef-79a64185aad8",
-	"translatorType": 3,
 	"label": "Bookmarks",
 	"creator": "Avram Lyon",
 	"target": "html",
 	"minVersion": "2.1b6",
-	"maxVersion": null,
+	"maxVersion": "",
 	"priority": 100,
 	"inRepository": true,
+	"translatorType": 3,
 	"browserSupport": "gcsibv",
-	"lastUpdated": "2017-12-15 20:50:00"
+	"lastUpdated": "2017-12-17 17:43:00"
 }
 
 /*

@@ -194,12 +194,12 @@ Here, k, l âˆˆ Sj where Sj denotes the set of vertices whose kernel functions ar
 
 Material Optimization
 
-í µí°¥j í µí°— k í µí°§k
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½j ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ k ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½k
 
-í µí°šj
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½j
 
-í µí°ªi j
-i í µí°± j
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½i j
+i ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ j
 
 Even with the location optimization described in the previous section, characters can have poses that are difï¬cult to achieve. Such difï¬cult poses arise, e.g., from conventional articulation such as the sharp bending of an arm. Approximating such poses with a homogeneous material would require a large number of actuators. We address this problem by allowing the material properties to vary spatially, thus building preferences for deformation directly into the model. As a basis for material optimization, we will assume that there is a library of non-miscible base materials (such as silicone and printable plastics) described by energy density functions W i . For simplicity, we restrict considerations to two material types per character, typically a soft and a stiff one. We allow the material properties to vary among the elements but assume that each element consists of a homogeneous material. If we directly constrain each element to take on only material properties from the library, we arrive at a discrete optimization problem and its associated difï¬culties. In order to avoid the need for more complex optimization methods, we convert the discrete problem into a continuous one by allowing the per-element materials to be interpolations of the base materials. We start the optimization by allowing arbitrary (convex) combinations of the base materials and then progressively drive the interpolation weights to the boundary of the intervals, thus enforcing a discrete material distribution. On a technical level, we do not interpolate material descriptions but the elastic energies that would result from the different base materials. The effective deformation energy of a given element e is deï¬ned as W (Fe , Ïe ) = Ïe W 1 (Fe ) + (1 âˆ’ Ïe ) W 2 (Fe ) , (15)
 

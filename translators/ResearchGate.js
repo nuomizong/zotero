@@ -9,7 +9,7 @@
 	"priority": 100,
 	"inRepository": true,
 	"browserSupport": "gcsibv",
-	"lastUpdated": "2017-11-11 16:30:00"
+	"lastUpdated": "2018-01-28 11:10:00"
 }
 
 /*
@@ -47,6 +47,7 @@ function detectWeb(doc, url) {
 			//for logged in users (yes, really...)
 			type = text(doc, 'b[data-reactid]');
 		}
+		type = type.replace('(PDF Available)', '').trim();
 		switch(type) {
 			case "Data"://until we have a data itemType
 			case "Article":

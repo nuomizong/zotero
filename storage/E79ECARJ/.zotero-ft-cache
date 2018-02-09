@@ -314,7 +314,7 @@ where C is an adjustable constant (for instance, it can be set as 5 here as a be
 
 Examples with several tension controlling parameters for r1(u) are plotted in Fig. 8.
 
-4.3 Contour/offset FGM-based tool path generation 4.3.1 Offset curve generation for a type I contour curve Based on the central point of the control points of the abovegenerated contour curve, each control point for a new NURBS-based curve that offsets the contour curve (i.e., offset contour curve) is computed in the following: C P k;j ¼ D þ u  ðC P k;1 À DÞ ð13Þ
+4.3 Contour/offset FGM-based tool path generation 4.3.1 Offset curve generation for a type I contour curve Based on the central point of the control points of the abovegenerated contour curve, each control point for a new NURBS-based curve that offsets the contour curve (i.e., offset contour curve) is computed in the following: C P k;j ¼ D þ u ⬚ ðC P k;1 À DÞ ð13Þ
 
 A contour or offset curve Select potential segment points if the normalized point curvatures are greater than a pre-set threshold value
 
@@ -330,7 +330,7 @@ Apply adaptive forming speeds to the different segments
 
 Fig. 15 The flow of the segmentation and adaptive speed algorithm
 
-where C_P i,j represents an offset contour curve in the ith layer, D represents the geometric central point of the control points of the contour curve, and u is the variable to generate the new control points of the offset contour curve and used to calculate the material composition on the curve according to formulas (7), (8), (9), (10), (11), and (12) (e.g., u is set 0.9 in the following example). It is determined by the diameter of the RP/M nozzles/print head and the overlapping rate between two neighbor tool path lines. For example, illustrated in Fig. 9, a new control point C_P k,j of an offset contour curve is computed as follows.         ;j ;1 ;j x C P k ¼xðDÞþ0:9 x C P k À xðDÞ ;and y C P k ¼     ;1 yðDÞ þ 0:9 y C Pk À yðDÞ :
+where C_P i,j represents an offset contour curve in the ith layer, D represents the geometric central point of the control points of the contour curve, and u is the variable to generate the new control points of the offset contour curve and used to calculate the material composition on the curve according to formulas (7), (8), (9), (10), (11), and (12) (e.g., u is set 0.9 in the following example). It is determined by the diameter of the RP/M nozzles/print head and the overlapping rate between two neighbor tool path lines. For example, illustrated in Fig. 9, a new control point C_P k,j of an offset contour curve is computed as follows. ⬚ ⬚ ⬚ ⬚ ⬚ ⬚ ⬚ ⬚ ;j ;1 ;j x C P k ¼xðDÞþ0:9 x C P k À xðDÞ ;and y C P k ¼ ⬚ ⬚ ⬚ ⬚ ;1 yðDÞ þ 0:9 y C Pk À yðDÞ :
 
 Int J Adv Manuf Technol (2013) 65:97–113 Fig. 16 Illustration of the concepts in the contour/offset curve adaptive speed strategy
 
@@ -364,11 +364,11 @@ m X À Á ðTime S i;j;l Þ l¼1
 
 (a) The length of a segment is less than
 
-where Time represents build time, Ci,j represents the jth contour or offset curve on the ith layer (a set of tool paths will be generated along each curve), Si,j,l represents the lth segment in Ci,j, and m is the total number of the segments in Ci,j. Time(Si,j,l) is further computed in the following. An adaptive speed algorithm for the RP/M nozzle/print head along the tool paths was developed. An example shown in Fig. 16 is used to illustrate the concepts in the algorithm and the computation of Time(Si,j,l). The speed of the RP/M nozzle/print head along a contour-based tool path can be defined below. V i;j;l ¼ DistanceðS i;j;l Þ V LengthðS i;j;l Þ ð16Þ
+where Time represents build time, Ci,j represents the jth contour or offset curve on the ith layer (a set of tool paths will be generated along each curve), Si,j,l represents the lth segment in Ci,j, and m is the total number of the segments in Ci,j. Time(Si,j,l) is further computed in the following. An adaptive speed algorithm for the RP/M nozzle/print head along the tool paths was developed. An example shown in Fig. 16 is used to illustrate the concepts in the algorithm and the computation of Time(Si,j,l). The speed of the RP/M nozzle/print head along a contour-based tool path can be defined below. V i;j;l ¼ DistanceðS i;j;l Þ ⬚V LengthðS i;j;l Þ ð16Þ
 
 (b) The length of a segment equals
 
-where Vi,j,l represents the speed of the RP/M nozzle/print head on segment Si,j,l, Length(Si,j,l) represents the curve length of the segment, Distance(Si,j,l) represents the straight line length from the start point to the end point of the segment, and V is a standard reference speed. The build time spent on the segment Si,j,l is then computed as the following. À Á À Á LengthðS i;j;l Þ ðLength S i;j;l Þ2 1 Time S i;j;l ¼  ¼ V i;j;l DistanceðS i;j;l Þ V ð17Þ
+where Vi,j,l represents the speed of the RP/M nozzle/print head on segment Si,j,l, Length(Si,j,l) represents the curve length of the segment, Distance(Si,j,l) represents the straight line length from the start point to the end point of the segment, and V is a standard reference speed. The build time spent on the segment Si,j,l is then computed as the following. À Á À Á LengthðS i;j;l Þ ðLength S i;j;l Þ2 1 Time S i;j;l ¼ ⬚ ¼ V i;j;l DistanceðS i;j;l Þ V ð17Þ
 
 In the end, the RP/M build time for contour/offset tool paths based on the boundary of the ith RP/M layer is calculated below: n X TimeðLi Þ ¼ TimeðC i;j Þ ð18Þ
 j¼1
@@ -401,8 +401,8 @@ n À Á X Time LiI ¼ TimeðSIi;k Þ k¼1
 
 (b) A Type II error
 
-the jth type II line, and SIIj,k represents the kth segment in the line (m is the total number of the segment in the line). In the following, Time(SIi,k) and Time(SIIj,k) are computed further:   LengthðSIi;k Þ Time SIi;k ¼ VelocityðSIi;k Þ
-j;k   LengthðSII Þ j;k Time SII ¼ j;k VelocityðSII Þ
+the jth type II line, and SIIj,k represents the kth segment in the line (m is the total number of the segment in the line). In the following, Time(SIi,k) and Time(SIIj,k) are computed further: ⬚ ⬚ LengthðSIi;k Þ Time SIi;k ¼ VelocityðSIi;k Þ
+j;k ⬚ ⬚ LengthðSII Þ j;k Time SII ¼ j;k VelocityðSII Þ
 
 ð21Þ
 
@@ -481,7 +481,7 @@ TimeðLi;k Þ I
 
 þ
 
-r ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ 
+r⬚ ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ ⬚
 2Vmin b 2
 
 if LengthðLi;k Þ ¼ I
@@ -513,7 +513,7 @@ TimeðLj;k Þ ¼ II
 
 8 > > > > < > > > > :
 
-2Vmin b rﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ  2 4LengthðLj;k Þ À2Vmin 2Vmin II þ þ b b b 2Vmin b
+2Vmin b rﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ ⬚ ⬚2 4LengthðLj;k Þ À2Vmin 2Vmin II þ þ b b b 2Vmin b
 
 if LengthðLj;k Þ ¼ II
 
@@ -534,7 +534,7 @@ Int J Adv Manuf Technol (2013) 65:97–113
 
 109
 
-Gerrori is comprised of a type I error Gerror_type1i and a type II error Gerror_type2i (shown in Fig. 19). The two errors are defined as follows: [Definition 4] A type I error Gerror_type1i is accumulated between consecutive layers, and it is the principle error of RP/M. It is affected by the thickness of the layer: the thicker the layer, the greater of the type I error. [Definition 5] A type II error Gerror_type2i is accumulated along the boundary of every layer. It is in the boundary area which is not filled during the RP/M process. Gerrori is computed below:   Gierror ¼ f Gierror type1 ; Gierror type2
+Gerrori is comprised of a type I error Gerror_type1i and a type II error Gerror_type2i (shown in Fig. 19). The two errors are defined as follows: [Definition 4] A type I error Gerror_type1i is accumulated between consecutive layers, and it is the principle error of RP/M. It is affected by the thickness of the layer: the thicker the layer, the greater of the type I error. [Definition 5] A type II error Gerror_type2i is accumulated along the boundary of every layer. It is in the boundary area which is not filled during the RP/M process. Gerrori is computed below: ⬚ ⬚ Gierror ¼ f Gierror type1 ; Gierror type2
 i i i ¼ Vmodel À SRP=M Â Hthickness
 
 Fig. 21 The interpolated curve for the relation between the build times and slope degrees of zigzag tool paths

@@ -1261,7 +1261,7 @@ FE-Tet v : array of 4 pointers
 
 FE-Vert-M m : array of dm ﬂoats
 
-X  XXXXXX 
+⬚X ⬚⬚⬚⬚⬚ XXXXXX ⬚
 
 FE-Vert x : array of 3 ﬂoats
 

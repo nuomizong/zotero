@@ -41,16 +41,16 @@ conventional ﬁnite element formulation with slight modiﬁcations in order to 
 
 derivatives of the displacements requires to apply theoretical derivation techniques to a system of linear equations. Next, we introduce some notation aspects that will appear in the derivation algorithms. 4.1. Notation We deﬁne the vector of design variables as ρ = {ρ1ρ2⋯ρn}T. We also deﬁne a generic functional P(ρ):Rn → R. The derivatives of this functional P over the design variables can be deﬁned as dP = dρ & ∂P ∂ρ1 ∂P ∂ρ2 ⋯ ' ∂P : ∂ρn ð6Þ
 
-The matrix K is the stiffness matrix of the structure, α is the vector of nodal displacements and f is the vector of applied loads. Each one of the terms Kji of the stiffness matrix K can be obtained by assembling the elemental contributions as Kji = ΣNe 1Ke , j, i = 1,...,N, being Ne the e= ji number of elements and N the number of nodes of the FEM mesh used. e Each one of the terms Kji can be obtained as  T e Kji = ∫∫∫Ωe LΦj DðLΦi ÞdΩ; ð2Þ
+The matrix K is the stiffness matrix of the structure, α is the vector of nodal displacements and f is the vector of applied loads. Each one of the terms Kji of the stiffness matrix K can be obtained by assembling the elemental contributions as Kji = ΣNe 1Ke , j, i = 1,...,N, being Ne the e= ji number of elements and N the number of nodes of the FEM mesh used. e Each one of the terms Kji can be obtained as ⬚ ⬚T e Kji = ∫∫∫Ωe LΦj DðLΦi ÞdΩ; ð2Þ
 
-The Hessian matrix can be obtained as HP ðρÞ =   d dP T ; dρ dρ ð7Þ
+The Hessian matrix can be obtained as HP ðρÞ = ⬚ ⬚ d dP T ; dρ dρ ð7Þ
 
 On the other hand, we also deﬁne a functional Q(ρ):Rn → Rm. The ﬁrst order derivatives can be stated as dQ = dρ & dQ1 dρ dQ2 dρ ⋯ dQm dρ 'T : ð8Þ
 
 where the matrices Φj and Φi contain the values of the shape functions corresponding to the nodal displacements j and i in a predeﬁned point (ro) of the discretization mesh used. This shape functions can be stated as Φi(ro) = ϕi(ro)Id, where ϕi is the value of the shape function associated to node i and d is the dimension of the problem. L is the differential operator that, applied to the displacement ﬁeld, gives the strains and D is the elasticity tensor of the material. The vector of applied forces fj can be obtained as
-Ne    T À T T pÁ f j = ∫∫Γο Φj tdΓ + ∑ ∫∫∫Ωe Φj b− LΦj D Lu dΩ; σ e=1
+Ne ⬚ ⬚ ⬚ ⬚T À T T pÁ f j = ∫∫Γο Φj tdΓ + ∑ ∫∫∫Ωe Φj b− LΦj D Lu dΩ; σ e=1
 
-and the second order derivatives as HQj ðρÞ =  T d dQ j ; dρ dρ j = 1; :::; m: ð9Þ
+and the second order derivatives as HQj ðρÞ = ⬚ ⬚T d dQ j ; dρ dρ j = 1; :::; m: ð9Þ
 
 If we consider that the vector ρ is obtained iteratively, we can deﬁne an improved value of this vector as: ρ
 k + 1
@@ -65,7 +65,7 @@ k k
 
 ð10Þ
 
-where b is the vector of forces per unit of volume, t is the vector of forces per unit of area and up is the vector of prescribed displacements. This FEM approach may be modiﬁed according to [19,21,22] in order to consider the design variables of the topology optimization e problem (the relative densities). Thus, the contributions Kji can be obtained by considering the relative density (ρe) of element e as:  T e Kji = ∫∫∫Ωe LΦj DðLΦi Þρe dΩ; and the vector of applied forces fj as: f j = ∫∫Γo Φj tdΓ + ∑ σ
+where b is the vector of forces per unit of volume, t is the vector of forces per unit of area and up is the vector of prescribed displacements. This FEM approach may be modiﬁed according to [19,21,22] in order to consider the design variables of the topology optimization e problem (the relative densities). Thus, the contributions Kji can be obtained by considering the relative density (ρe) of element e as: ⬚ ⬚T e Kji = ∫∫∫Ωe LΦj DðLΦi Þρe dΩ; and the vector of applied forces fj as: f j = ∫∫Γo Φj tdΓ + ∑ σ
 T Ne
 
 where sk = {s1s2⋯sn}T is the search direction in the k-th iteration. Thus, the ﬁrst order directional derivatives can be written as: Ds P = dP s; dρ ð11Þ
@@ -75,7 +75,7 @@ and the second order directional derivatives as: Dss P =
 
 ð4Þ
 
-  d dP T dρ T s = s HP s: dρ dρ dθ
+⬚ ⬚ d dP T dρ T s = s HP s: dρ dρ dθ
 
 ð12Þ
 
@@ -83,7 +83,7 @@ e=1
 
 ∫∫∫Ω
 
- T À   T pÁ Φj b− LΦj D Lu ρe dΩ;
+⬚ ⬚T À ⬚ ⬚ T pÁ Φj b− LΦj D Lu ρe dΩ;
 e
 
 Finally, following with the same idea, the ﬁrst and the second order directional derivatives of Q(ρ) can be stated as: ð5Þ Ds Q = fðDs Q1 Þ and Dss Q =
@@ -99,9 +99,9 @@ dQ s; dρ
 
 As it can be observed in Eq. (1), reactions are not involved in this formulation since the trial functions are forced to satisfy the essential boundary conditions [19,22]. 4. Sensitivity analysis of constraints that depend on displacements and design variables The computation of the Sensitivity Analysis of constraints depending on design variables can be easily developed by applying theoretical derivation techniques (chain rule). However, when the constraints of the problem depend on the displacements of the structure, the computation of the sensitivities is much more complicated since it is necessary to obtain a priori the derivatives of the displacements. These derivatives cannot be computed in a direct way since the displacements are obtained by means of a system of linear equations (FEM). Consequently, the computation of the
 
-n  2 Dss Q1
+n⬚ ⬚ 2 Dss Q1
 
-   oT 2 2 Dss Q2 ⋯ Dss Q m ;
+⬚ ⬚ ⬚ ⬚oT 2 2 Dss Q2 ⋯ Dss Q m ;
 
 ð14Þ
 
@@ -113,7 +113,7 @@ J. París et al. / Computer Methods in Applied Mechanics and Engineering 199 (20
 
 depend on the design variables (ρ). In order to simplify the notation, we are going to use q(α) and α(ρ) instead of the complete expressions q ≡ q (α) and α ≡ α(ρ). Thus, we may deﬁne gj ðρÞ = g j ðqÞ
 
-that can be determined by solving the system of linear equations:  T
+that can be determined by solving the system of linear equations: ⬚ ⬚T
 
 j
 
@@ -145,7 +145,7 @@ qðα Þ ⋅ α ðρÞ
 
 where q(α) = {qk(α)}, k = 1, ..., m, being m the dimension of the vector q(α) (usually related to the number of constraints). 4.2.1. First order sensitivity analysis of stress constraints According to Eq. (15) the derivatives of gj(ρ) can be obtained as dgj ∂g j = dρ ∂q
 
-Consequently, the derivatives of the stress constraints can be obtained, by using the “Adjoint variable” λj, as:   dgj dK T df − α : = λj dρ dρ dρ
+Consequently, the derivatives of the stress constraints can be obtained, by using the “Adjoint variable” λj, as: ⬚ ⬚ dgj dK T df − α : = λj dρ dρ dρ
 
 ð21Þ
 
@@ -182,11 +182,11 @@ K
 
 −1
 
-
+⬚
 
 α ðρÞ
 
- df dK − α ⋅ dρ dρ
+⬚ df dK − α ⋅ dρ dρ
 
 ð18Þ
 
@@ -246,7 +246,7 @@ j
 
 Ds α;
 
-and Dsα is obtained by means of the system of linear equations proposed in Eq. (24). The second order directional derivatives of the nodal displacements (D2 α) can be obtained by differentiating Eq. (24) ss as:       2 2 2 K Dss α = Dss f − Dss K α−2ðDs KÞðDs α Þ: ð29Þ
+and Dsα is obtained by means of the system of linear equations proposed in Eq. (24). The second order directional derivatives of the nodal displacements (D2 α) can be obtained by differentiating Eq. (24) ss as: ⬚ ⬚ ⬚ ⬚ ⬚ ⬚ 2 2 2 K Dss α = Dss f − Dss K α−2ðDs KÞðDs α Þ: ð29Þ
 
 where Dsα can be obtained as: KðDs α Þ = ðDs f Þ−ðDs KÞα: ð24Þ Note that the matrix of the system of linear equations matches up with the stiffness matrix of the structural problem. Thus, the second order directional derivative of the constraint (D2 gj) can be obtained ss by solving the system of linear equations proposed in Eq. (29) and by replacing D2 α in Eq. (27). ss 5. Sensitivity analysis of stress constraints that depend on a reference stress and on the design variables In the previous section we have analyzed the general case with constraints that depend on the nodal displacements. Now we focus our attention in the sensitivity analysis of stress constraints that depend on the nodal displacements and the design variables. Thus, we deﬁne a stress constraint ˜j(q(α),ρ) that depends on the design g variables and on a vector q. In this case, vector q corresponds to a material failure criterion like, for example, the Von Mises reference stress: gj ðρÞ = g j ðqðα Þ; ρÞj α ðρÞ ; ˜ ð30Þ
 
@@ -257,7 +257,7 @@ where q(α) = {qk(α)} k = 1, ..., m; being m the number of functions that depen
 
 where σe is the stress tensor and σ̂e is the Von Mises reference stress in the central point of element e. Consequently, ˆ dqe dσ e = dα dσe
 
- d  Dg dρ s j
+⬚ d ⬚ Dg dρ s j
 
 j
 
@@ -313,13 +313,13 @@ Ds α :
 
 ð33Þ
 
-The second order derivatives can be obtained as: (     ) d dqe T d dqe T = dα dα dαij dα where ð34Þ
+The second order derivatives can be obtained as: ( ⬚ ⬚ ⬚ ⬚ ) d dqe T d dqe T = dα dα dαij dα where ð34Þ
 
 Finally, if the previous expression is expanded by developing all the derivatives, the second order directional derivatives of the stress constraints can be obtained as: ∂g j 2 T ∂ Dss gj = ðDs qÞ ∂q ∂q !T
 
 i = 1;:::;N;j = 1;:::;d
 
-Þ ∂q qððα Þ α ðρÞ α ρ   m ∂g j d dqk T T Ds α; + ∑ qðα Þ ðDs α Þ dα dα k = 1 ∂qk α ðρÞ α ðρÞ
+Þ ∂q qððα Þ α ðρÞ α ρ ⬚ ⬚ m ∂g j d dqk T T Ds α; + ∑ qðα Þ ðDs α Þ dα dα k = 1 ∂qk α ðρÞ α ðρÞ
 
 j
 
@@ -345,13 +345,13 @@ Dss α
 
 j
 
-  dσe T  T   d ˆ d dqe dσ e T dα = dαij dα dαij dσe
+⬚ ⬚ dσe T ⬚ ⬚T ⬚ ⬚ d ˆ d dqe dσ e T dα = dαij dα dαij dσe
 
 j
 
 σe ðα Þ
 
-  dˆ e T σ  T d dσe dσe + dα dσe
+⬚ ⬚ dˆ e T σ ⬚ ⬚T d dσe dσe + dα dσe
 
 j
 
@@ -365,15 +365,15 @@ J. París et al. / Computer Methods in Applied Mechanics and Engineering 199 (20
 
 If we take into account the previous considerations (being qe a reference stress) all the derivatives of the stress constraints can be easily obtained by using the techniques proposed in Section 4.2. The previous algorithms and procedures allow to obtain analytically the derivatives of the stress constraints. However, a ﬁnal step in the sensitivity analysis process is required in order to complete the whole sensitivity analysis procedure: it is necessary to compute the derivatives of the reference stress and the derivatives of the stress tensor. 5.1. Sensitivity analysis of the Von Mises failure criterion The most usual reference stress used in topology optimization is the Von Mises stress since most of the structural problems involved are made of metal (steel, aluminium). The Von Mises failure criterion deﬁnes a reference stress by assuming an equal response of the material under tension and compression conﬁgurations. This reference stress is deﬁned, in 2D problems under plane stress hypothesis, by: ˆ σ VM = qﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ 2 2 σx + σy −σx σy + 3τ2 : xy ð36Þ
 
-where N is the number of nodes of the structure. Thus, α = {αi}, i = 1, ..., N and αi = {αi1⋯αid}T, where d is the number of dimensions of the problem (in this case d = 2). Consequently,   À oÁ 1 dσ = DLΦi r ; 0 dαi1   À oÁ 0 dσ = DLΦi r ; i = 1; :::; N 1 dαi2 ð41Þ
+where N is the number of nodes of the structure. Thus, α = {αi}, i = 1, ..., N and αi = {αi1⋯αid}T, where d is the number of dimensions of the problem (in this case d = 2). Consequently, ⬚ ⬚ À oÁ 1 dσ = DLΦi r ; 0 dαi1 ⬚ ⬚ À oÁ 0 dσ = DLΦi r ; i = 1; :::; N 1 dαi2 ð41Þ
 
-where the differential operator L is applied over the matrix Φi(ro). This matrix contains the values of the shape function corresponding to node i in the point ro. According to [19] the matrix Φi(ro) is deﬁned by Φi(ro) = ϕi(ro)I2, where ϕi contains the value of the shape function associated to node i in the point ro. The matrix D and the matrix obtained by applying L over Φi do not depend on the design variables according to the FEM formulation proposed in [19,21,22]. Thus,   d dσ = 0; dαjk dαiℓ ∀ i; j = 1; :::; N; ∀ ℓ; k = 1; 2
+where the differential operator L is applied over the matrix Φi(ro). This matrix contains the values of the shape function corresponding to node i in the point ro. According to [19] the matrix Φi(ro) is deﬁned by Φi(ro) = ϕi(ro)I2, where ϕi contains the value of the shape function associated to node i in the point ro. The matrix D and the matrix obtained by applying L over Φi do not depend on the design variables according to the FEM formulation proposed in [19,21,22]. Thus, ⬚ ⬚ d dσ = 0; dαjk dαiℓ ∀ i; j = 1; :::; N; ∀ ℓ; k = 1; 2
 
 where σ = {σxσyτxy}T are the components of the stress tensor σ in a predeﬁned point stated in a Cartesian coordinate system (x, y, z). The sensitivity analysis of the Von Mises reference stress Eq. (36) can be obtained as: dˆ VM σ = dσ ˆ ∂ σ VM ∂σx ∂ˆ VM σ ∂σy ! ˆ ∂ σ VM ⋅ ∂τxy ð37Þ
 
-Note that, the full procedure to obtain stress constraints derivatives in topology optimization problems has been developed by stating the derivatives of the stress tensor and the derivatives of the reference stress proposed. Thus, speciﬁc sensitivities of the stress constraints approaches proposed in [21,22] can be developed by applying the previous algorithms. 6. Sensitivity analysis of local stress constraints According to [8,9,19,21,22,26], the local stress constraints approach imposes one local constraint in the central point of each element of the ﬁnite element mesh. This local stress constraint is deﬁned, according to [19,21,22], as   ge ðρÞ = g e σ VM;e ; ρe ˜ ˆ
+Note that, the full procedure to obtain stress constraints derivatives in topology optimization problems has been developed by stating the derivatives of the stress tensor and the derivatives of the reference stress proposed. Thus, speciﬁc sensitivities of the stress constraints approaches proposed in [21,22] can be developed by applying the previous algorithms. 6. Sensitivity analysis of local stress constraints According to [8,9,19,21,22,26], the local stress constraints approach imposes one local constraint in the central point of each element of the ﬁnite element mesh. This local stress constraint is deﬁned, according to [19,21,22], as ⬚ ⬚ ge ðρÞ = g e σ VM;e ; ρe ˜ ˆ
 
-Second order derivatives can be obtained by differentiating Eq. (37) as: ! !3   ˆ ˆ ˆ ∂ ∂ σ VM ∂ ∂ σ VM ∂ ∂ σ VM 6 7 6 ∂σx ∂σx ∂σx ∂σy ∂σx ∂τxy 7 6 7 6 ! !7   6 ∂ ∂ σ  ˆ VM ˆ ˆ d dˆ VM T σ ∂ ∂ σ VM ∂ ∂ σ VM 7 6 7 =6 7: ð38Þ 6 ∂σy ∂σx dσ dσ ∂σy ∂σy ∂σy ∂τxy 7 6 7 6 ! !7 6 ∂ ∂ σ  ˆ ˆ VM ∂ ∂ σ VM ∂ ∂ˆ VM 7 σ 4 5 ∂τxy ∂σx ∂τxy ∂σy ∂τxy ∂τxy 2
+Second order derivatives can be obtained by differentiating Eq. (37) as: ! !3 ⬚ ⬚ ˆ ˆ ˆ ∂ ∂ σ VM ∂ ∂ σ VM ∂ ∂ σ VM 6 7 6 ∂σx ∂σx ∂σx ∂σy ∂σx ∂τxy 7 6 7 6 ! !7 ⬚ ⬚ 6 ∂ ⬚∂ σ ⬚ ˆ VM ˆ ˆ d dˆ VM T σ ∂ ∂ σ VM ∂ ∂ σ VM 7 6 7 =6 7: ð38Þ 6 ∂σy ∂σx dσ dσ ∂σy ∂σy ∂σy ∂τxy 7 6 7 6 ! !7 6 ∂ ⬚∂ σ ⬚ ˆ ˆ VM ∂ ∂ σ VM ∂ ∂ˆ VM 7 σ 4 5 ∂τxy ∂σx ∂τxy ∂σy ∂τxy ∂τxy 2
 
 j
 
@@ -381,7 +381,7 @@ j
 
 ð42Þ
 
-being  !   ε q ˆ σ ρe : g e σ VM;e ; ρe = σ VM;e −ˆ max 1−ε + ˜ ˆ ρe
+being ⬚ ⬚! ⬚ ⬚ ε q ˆ σ ρe : g e σ VM;e ; ρe = σ VM;e −ˆ max 1−ε + ˜ ˆ ρe
 
 ð43Þ
 
@@ -423,9 +423,9 @@ dge dρ
 ' dge , i = 1, ..., Ne.
 dρi
 
-ð44Þ  
+ð44Þ ⬚ ⬚
 
-Thus, the derivatives of the nodal displacements replaced in Eq. (44) according to Eq. (21) as:   dge dK ∂g ˜ T df = λe − α + δie e dρi dρi dρi ∂ρi
+Thus, the derivatives of the nodal displacements replaced in Eq. (44) according to Eq. (21) as: ⬚ ⬚ dge dK ∂g ˜ T df = λe − α + δie e dρi dρi dρi ∂ρi
 
 dα dρi
 
@@ -502,20 +502,20 @@ j
 j
 
 ð47Þ being where the term Dsα can be previously obtained by applying Eq. (24). As it can be observed, the rest of the terms match up with the ones previously studied for the ﬁrst order analysis in Eq. (44). Second order directional derivatives of the stress constraints can be obtained according to Eq. (27). In addition, the term D2 α must ss be obtained by solving the system of linear equations proposed in Eq. (29). Thus,
- 2  ∂g e ˜ ∂ 6 ∂σ VM;e ˆ 6 ! 6 ˆ ˆ Ds σ VM;e T 6 ∂ σ VM;e 2 6   Dss ge = 6 se ∂ ge ˜ 6 6 ∂ ∂ρe 4 ˆ ∂ σ VM;e + ∂g e ˜ ˆ ∂σ VM;e  ∂
+⬚ 2 ⬚ ∂g e ˜ ∂ 6 ∂σ VM;e ˆ 6 ! 6 ˆ ˆ Ds σ VM;e T 6 ∂ σ VM;e 2 6 ⬚ ⬚ Dss ge = 6 se ∂ ge ˜ 6 6 ∂ ∂ρe 4 ˆ ∂ σ VM;e + ∂g e ˜ ˆ ∂σ VM;e ⬚ ∂
 ∂ ge ˜ ˆ ∂ σ VM;e
 
 ˆ σ VM;e ðσe Þ ≤0 σ e ðα Þ α ðρÞ
 
 ð50Þ
 
- # " Ne ˆe μ σ * −1 1 1 ˜ ˆ − lnðNe Þ; GKS ðσVM ; ρÞ = ln ∑ exp μ μ e=1
+⬚ ⬚# " Ne ˆe μ σ * −1 1 1 ˜ ˆ − lnðNe Þ; GKS ðσVM ; ρÞ = ln ∑ exp μ μ e=1
 
 ð51Þ
 
-3 7 7 7 7 7 7 7 7 5
+⬚3 7 7 7 7 7 7 7 7 5
 
-∂ρe   ∂ ge ˜ ∂
+∂ρe ⬚ ⬚ ∂ ge ˜ ∂
 ∂ρe
 
 ∂ρe
@@ -545,11 +545,11 @@ j
 
 α ðρÞ
 
-!   2 T Dss α + ðDs α Þ H σ VM;e Ds; α ; ˆ
+! ⬚ ⬚ 2 T Dss α + ðDs α Þ H σ VM;e Ds; α ; ˆ
 
-First order derivatives of the global stress constraint can be obtained, by using the “Adjoint Variable” technique proposed in Section 5, as:   ˜ dGKS dK ∂GKS T df − α + =λ dρ dρ dρ ∂ρ
+First order derivatives of the global stress constraint can be obtained, by using the “Adjoint Variable” technique proposed in Section 5, as: ⬚ ⬚ ˜ dGKS dK ∂GKS T df − α + =λ dρ dρ dρ ∂ρ
 
-ð48Þ where:   dσe T = dα
+ð48Þ where: ⬚ ⬚ dσe T = dα
 
 j
 
@@ -559,7 +559,7 @@ H σ VM;e ˆ
 
 j
 
- T ˆ d d σ VM;e dσe α ðρÞ dσe
+⬚ ⬚T ˆ d d σ VM;e dσe α ðρÞ dσe
 
 j
 
@@ -608,7 +608,7 @@ J. París et al. / Computer Methods in Applied Mechanics and Engineering 199 (20
 7.2. First and second order directional derivatives of the global stress constraint First order derivatives of the global stress constraint have been already calculated in the previous section. Thus, ﬁrst and second order directional derivatives of the global stress constraint can be obtained by applying the “Direct Differentiation” procedure proposed in Section 5. First order directional derivatives can be obtained, according to Eq. (24), as: Ds GKS = ˜ ∂GKS ˆ e = 1 ∂ σ VM;e ∑
 Ne
 
-being σ̂ b = {σ̂VM,e} with e ∈ Bb, VM " À Ã Á#   1 1  b ˆ μ σ −1 ˜b ˆ b GKS σVM ; ρ = ln ∑ exp e − ln Ne ; μ μ e∈Bb
+being σ̂ b = {σ̂VM,e} with e ∈ Bb, VM " À Ã Á# ⬚ ⬚ 1 1 ⬚ b⬚ ˆ μ σ −1 ˜b ˆ b GKS σVM ; ρ = ln ∑ exp e − ln Ne ; μ μ e∈Bb
 
 ð60Þ
 
@@ -641,10 +641,10 @@ j
 and Bb and Nb the set of elements and the number of elements e ⁎ contained in block b. The normalized stress σ̂e computed in the central point of element e is stated according to Eq. (52). The constraints obtained in Eq. (60) are essentially identical to the ones proposed for the global constraint approach but they only aggregate the contribution of the local constraints related to the elements contained in each block. Thus, ﬁrst order derivatives and ﬁrst and second order directional derivatives of the block aggregated constraints can be stated according to the algorithms proposed in Section 7 by taking into account the set of elements contained in each block. 8.1. First order derivatives of the block aggregated constraints First order Sensitivity Analysis of the stress constraint associated to block b can be obtained as:
 
 where Dsα is obtained by applying Eq. (24). Second order directional derivatives are obtained by applying the general procedure proposed in Eqs. (27) and (41) as
-2  T ˜ ∂GKS 6 ∂ ∂σ ˆ VM 6 6 Â ÃT 6 ∂σVM ˆ 2 Dss GKS = Dsσ VM s 6  ˆ T 6 ˜ 6 ∂GKS 6∂ 4 ∂ρ ∂σVM ˆ + ∑
+2 ⬚ ⬚T ˜ ∂GKS 6 ∂ ∂σ ˆ VM 6 6 Â ÃT 6 ∂σVM ˆ 2 Dss GKS = Dsσ VM s 6 ⬚ ˆ ⬚T 6 ˜ 6 ∂GKS 6∂ 4 ∂ρ ∂σVM ˆ + ∑
 Ne
 
- T 3 ˜ ∂ GKS ∂ 7 ∂σVM ˆ 7 7 7 ∂ρ  T 7 7 ˜ 7 ∂ GKS 7 ∂ 5 ∂ρ ∂ρ
+⬚ ⬚T 3 ˜ ∂ GKS ∂ 7 ∂σVM ˆ 7 7 7 ∂ρ ⬚ ⬚T 7 7 ˜ 7 ∂ GKS 7 ∂ 5 ∂ρ ∂ρ
 
 e=1
 
@@ -659,7 +659,7 @@ j
 
 !
 
-  ˜b dGb dK ∂GKS T df KS − α + = λb dρ dρ dρ ∂ρ
+⬚ ⬚ ˜b dGb dK ∂GKS T df KS − α + = λb dρ dρ dρ ∂ρ
 
 j
 
@@ -725,11 +725,11 @@ j
 
 ð57Þ ˜ KS The partial derivatives of the block aggregated constraint (G b ) over (σ̂VM,e) and ρe are obviously null when e ∉ Bb.
 
-and  H σ VM;e = ˆ dσe dα T
+and ⬚ H σ VM;e = ˆ dσe dα ⬚T
 
 j
 
- T ˆ d dσ VM;e dσe α ðρÞ dσe
+⬚ ⬚T ˆ d dσ VM;e dσe α ðρÞ dσe
 
 j
 
@@ -747,7 +747,7 @@ j
 
 8.2. First and second order directional derivatives of the block aggregated constraints First and second order directional derivatives of the block aggregated constraints can be obtained by using the methodology proposed for the global constraint in Section 7.2 by taking into account that only the contributions of the set of elements Bb contained in block b must be considered. Thus, 0 Ds Gb KS B ˜ KS B ∂Gb = ∑ B B ˆ e∈Bb @∂ σ VM;e ˜b ∂GKS + ∂ρ 1
 
-The rest of the terms in Eqs. (56), (57) and (58) can be directly obtained from the general procedures proposed in Section 5. Further details about all the derivatives required can be found in[21]. 8. Sensitivity analysis of the block aggregated approach of the stress constraints In the previous sections we have studied the sensitivity analysis procedures for the local and the global approach of stress constraints. These formulations of the stress constraints have been previously studied in [19,22]. More recently, the authors have also published a different formulation of the stress constraints that deﬁnes groups of elements and states one global constraint per group by aggregating the contributions of the elements of each group. This formulation is called “Block aggregation of stress constraints” and it was implemented successfully in topology optimization problems in [20,21,23,25]. Thus, each constraint is deﬁned for each block as:   b ˜b ˆb GKS ðρÞ = GKS σVM ; ρ
+The rest of the terms in Eqs. (56), (57) and (58) can be directly obtained from the general procedures proposed in Section 5. Further details about all the derivatives required can be found in[21]. 8. Sensitivity analysis of the block aggregated approach of the stress constraints In the previous sections we have studied the sensitivity analysis procedures for the local and the global approach of stress constraints. These formulations of the stress constraints have been previously studied in [19,22]. More recently, the authors have also published a different formulation of the stress constraints that deﬁnes groups of elements and states one global constraint per group by aggregating the contributions of the elements of each group. This formulation is called “Block aggregation of stress constraints” and it was implemented successfully in topology optimization problems in [20,21,23,25]. Thus, each constraint is deﬁned for each block as: ⬚ ⬚ b ˜b ˆb GKS ðρÞ = GKS σVM ; ρ
 
 j
 
@@ -804,7 +804,7 @@ Fig. 3. Theoretical solution of the Michell beam (Michell [15]).
 ð64Þ where ˜ ˜ δGKS ∂GKS = δα ∂ˆ VM;e σ
 b b
 
-9.1. Michell beam The ﬁrst example performs the analysis of the topology optimization problem associated to the well-known Michell beam [15]. This example corresponds to a cantilever beam supported on the border of a circle (see Fig. 2). This example was previously analyzed in 1904 by Michell [15], who obtained the optimal solution theoretically. According to the theoretical solution proposed by Michell in [15] (shown in Fig. 3),the optimal volume of material can be obtained as:    a 1 1 V = F a ln + r0 P Q ð67Þ
+9.1. Michell beam The ﬁrst example performs the analysis of the topology optimization problem associated to the well-known Michell beam [15]. This example corresponds to a cantilever beam supported on the border of a circle (see Fig. 2). This example was previously analyzed in 1904 by Michell [15], who obtained the optimal solution theoretically. According to the theoretical solution proposed by Michell in [15] (shown in Fig. 3),the optimal volume of material can be obtained as: ⬚ ⬚ ⬚⬚ a 1 1 V = F a ln + r0 P Q ð67Þ
 
 j
 
@@ -824,11 +824,11 @@ j
 
 ð65Þ
 
-and Hσ VM;e = ˆ   dσe T dα
+and Hσ VM;e = ˆ ⬚ ⬚ dσe T dα
 
 j
 
- T σ d dˆ VM;e dσe α ðρÞ dσe
+⬚ ⬚T σ d dˆ VM;e dσe α ðρÞ dσe
 
 j
 
