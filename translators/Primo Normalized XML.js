@@ -1,18 +1,18 @@
 {
 	"translatorID": "efd737c9-a227-4113-866e-d57fbc0684ca",
+	"translatorType": 1,
 	"label": "Primo Normalized XML",
 	"creator": "Philipp Zumstein",
 	"target": "xml",
 	"minVersion": "3.0",
-	"maxVersion": "",
+	"maxVersion": null,
 	"priority": 100,
+	"inRepository": true,
+	"browserSupport": "gcsibv",
 	"configOptions": {
 		"dataMode": "xml/dom"
 	},
-	"inRepository": true,
-	"translatorType": 1,
-	"browserSupport": "gcsibv",
-	"lastUpdated": "2018-01-21 18:14:00"
+	"lastUpdated": "2018-02-05 08:35:00"
 }
 
 /*
@@ -350,8 +350,7 @@ function extractNumPages(str) {
 	//   x-109 p., 510 p. and X, 106 S.; 123 S.
 	var numPagesRE = /\[?\b((?:[ivxlcdm\d]+[ ,\-]*)+)\]?\s+[fps]\b/ig;
 	var numPages = [];
-	var m = numPagesRE.exec(str);
-	while(m) {
+	if ((m = numPagesRE.exec(str))) {
 		numPages.push(m[1].trim()
 			.replace(/[ ,\-]+/g,'+')
 			.toLowerCase() // for Roman numerals

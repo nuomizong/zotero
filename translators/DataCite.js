@@ -9,7 +9,7 @@
 	"priority": 100,
 	"inRepository": true,
 	"browserSupport": "gcsibv",
-	"lastUpdated": "2017-06-04 14:50:00"
+	"lastUpdated": "2018-02-06 22:35:00"
 }
 
 function detectSearch(items) {
@@ -68,7 +68,7 @@ function fixJSON(text) {
 
 function processDOIs(dois) {
 	var doi = dois.pop();
-	ZU.doGet('http://data.datacite.org/application/citeproc+json/' + encodeURIComponent(doi), function(text) {
+	ZU.doGet('https://data.datacite.org/application/citeproc+json/' + encodeURIComponent(doi), function(text) {
 		text = fixJSON(text);
 		if(!text) {
 			return;
