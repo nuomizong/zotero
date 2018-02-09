@@ -67,7 +67,7 @@ y
 1
 b
 
-L ^L uk ðx; y; zÞ ¼ uG ðx; y; zÞ þ uk ðx; y; zÞ þ uk ðx; y; zÞ k  k ðx; y; zÞ þ v k ðx; y; zÞ ^L v ðx; y; zÞ ¼ v G ðx; y; zÞ þ v L wk ðx; y; zÞ ¼ wG ðx; y; zÞ
+⬚L ^L uk ðx; y; zÞ ¼ uG ðx; y; zÞ þ uk ðx; y; zÞ þ uk ðx; y; zÞ k ⬚ k ðx; y; zÞ þ v k ðx; y; zÞ ^L v ðx; y; zÞ ¼ v G ðx; y; zÞ þ v L wk ðx; y; zÞ ¼ wG ðx; y; zÞ
 where the global displacement components can be written as
 
 ð1Þ
@@ -104,7 +104,7 @@ The local components can be expressed as
 
 y
 
-L uk ðx; y; zÞ ¼ fk uk ðx; yÞ þ f2 uk ðx; yÞ 1 k 2 L v k ðx; y; zÞ ¼ fk v k ðx; yÞ þ f2 v k ðx; yÞ k 2 1 ^L uk ðx; y; zÞ ¼ f3 uk ðx; yÞ k 3 ^L v k ðx; y; zÞ ¼ f3 v k ðx; yÞ k 3
+⬚L uk ðx; y; zÞ ¼ fk uk ðx; yÞ þ f2 uk ðx; yÞ 1 k 2 ⬚L v k ðx; y; zÞ ¼ fk v k ðx; yÞ þ f2 v k ðx; yÞ k 2 1 ^L uk ðx; y; zÞ ¼ f3 uk ðx; yÞ k 3 ^L v k ðx; y; zÞ ¼ f3 v k ðx; yÞ k 3
 where
 
 ð3Þ
@@ -309,21 +309,21 @@ vj ¼
 
 3 X i¼1
 
-  @2FÃ i B3;3 ¼ /k þ wk ; Mþ2 Mþ2 @x@y
+⬚ ⬚ @2FÃ i B3;3 ¼ /k þ wk ; Mþ2 Mþ2 @x@y
 
-  @2F Ã xi B3;Mþ5 ¼ /k þ wk ; Mþ2 Mþ2 @x@y
+⬚ ⬚ @2F Ã xi B3;Mþ5 ¼ /k þ wk ; Mþ2 Mþ2 @x@y
 
 ðF i w0;i þ F xi w0;xi þ F yi w0;yi Þ ð9Þ
 
 B4;3
 
-3  X Ã wÃ ¼ F i w0;i þ F Ã w0;xi þ F Ã w0;yi xi yi i¼1
+3 ⬚ X⬚ Ã wÃ ¼ F i w0;i þ F Ã w0;xi þ F Ã w0;yi xi yi i¼1
 
 where Li is area coordinate; expressions of Fi, Fxi and Fyi may refer to Eq. (5); expressions of F Ã ; F Ã and F Ã may refer to Eq. (8); (j = 1–M) . i xi yi 3.3. Strain matrix and stiffness matrix of three-node triangular element Based on linear strain–displacement relations, the strain for the kth layer can be written as follows
 
 B5;3
 
-  @2FÃ yi ; B3;2Mþ7 ¼ /k þ wk Mþ2 Mþ2 @x@y ! ! @/k @/k @F i @F xi Mþ2 Mþ2 ¼ 1þ ; B4;Mþ5 ¼ 1 þ ; @z @x @z @x ! @/k @F yi Mþ2 B4;2Mþ7 ¼ 1 þ @z @x ! ! @wk @wk @F i @F xi ¼ 1 þ Mþ2 ; B5;Mþ5 ¼ 1 þ Mþ2 ; @z @y @z @y ! @wk @F yi Mþ2 B5;2Mþ7 ¼ 1 þ : @z @y
+⬚ ⬚ @2FÃ yi ; B3;2Mþ7 ¼ /k þ wk Mþ2 Mþ2 @x@y ! ! @/k @/k @F i @F xi Mþ2 Mþ2 ¼ 1þ ; B4;Mþ5 ¼ 1 þ ; @z @x @z @x ! @/k @F yi Mþ2 B4;2Mþ7 ¼ 1 þ @z @x ! ! @wk @wk @F i @F xi ¼ 1 þ Mþ2 ; B5;Mþ5 ¼ 1 þ Mþ2 ; @z @y @z @y ! @wk @F yi Mþ2 B5;2Mþ7 ¼ 1 þ : @z @y
 
 e ¼ @u ¼ ½ B1 B2 B3 d ¼ Bd
 2 where Â 6 ½@ ¼ 4 0 0 u1 1i
@@ -385,11 +385,11 @@ n XZ i¼1
 
 i
 
-Z Z
+⬚Z Z
 
 iÀ1
 
- BT Q k Bdxdy dz i
+⬚ BT Q k Bdxdy dz i
 
 ð12Þ
 
@@ -577,7 +577,7 @@ Fig. 7. Distribution of transverse shear stress (MPa) through the thickness of p
 
 4. Numerical examples To assess the performance of the present model, several typical examples are considered in this section. There is still lack of interlaminar stress information, so that the three higher-order models are used to ensure the validity of results. In addition, the ﬁnite element results based on the ﬁrst order theory are also presented by authors for comparison.
 
-4.1. Validation of the proposed models Example 1. It this example, simply-supported plates (0/90/90/ 0) stiffened by equally spaced laminated x-stiffeners (See Fig. 2) are analyzed. In this case, the ply orientation, the material constants and the number of layers for the plate and the stiffener are taken as the same. The following material constants [2] are used: E1 =
+4.1. Validation of the proposed models Example 1. It this example, simply-supported plates (0⬚/90⬚/90⬚/ 0⬚) stiffened by equally spaced laminated x-stiffeners (See Fig. 2) are analyzed. In this case, the ply orientation, the material constants and the number of layers for the plate and the stiffener are taken as the same. The following material constants [2] are used: E1 =
 
 Table 5 Comparison of maximum displacement (mm) and stresses (MPa) for ﬁve-layer plate with stiffeners (a = b = 400 mm). w HSDT [15] HSDT [17] Third-order theory (760) Fifth-order theory (760) Seventh-order theory (760) FSDT (760) 0.226 0.255 0.2644 0.2661 0.2679 0.2475
 
@@ -607,9 +607,9 @@ L. Li, R. Xiaohui / Composite Structures 92 (2010) 2936–2945
 144.8 GPa, E2 = E3 = 9.65 GPa, G12 = G13 = 4.14 GPa, G23 = 3.45 GPa, v12 = v13 = v23 = 0.3. The mesh conﬁguration for laminated plate with stiffener can be seen in Fig. 3. The convergence rate of central deﬂection for laminated plate with a stiffener is shown in Table 1. The number in bracket of all tables denotes the number of ﬁnite element meshes used. It can be found that the convergence of the present results with mesh reﬁnement is very good. The center deﬂections for laminated plate with and without stiffeners are presented in Table 2. Numerical results show that the present results obtained from the ﬁrst order theory agree well with the ﬁrst-order ﬁnite element results published [2]. In addition, the following examples are considered to further assess the proposed methods. Example 2. It this example, simply-supported square unstiffened and stiffened laminated plates subjected to sinusoidal loads q = q0 sin (px/a) sin (py/b) are analyzed. The material constants [17] are given by
 
 E1 ¼ 172:4 GPa; E2 ¼ E3 ¼ 6:9 GPa; G12 ¼ G13 ¼ 3:45 GPa; G23 ¼ 1:38 GPa;V 12 ¼ v 13 ¼ v 23 ¼ 0:25; q0 ¼ 1 MPa
-For unstiffened ﬁve-layer plate (0/90/0/90/0) and (6.667/10/ 6.667/10/ 6.667) mm, side length a = 400 mm and thickness
+For unstiffened ﬁve-layer plate (0⬚/90⬚/0⬚/90⬚/0⬚) and (6.667/10/ 6.667/10/ 6.667) mm, side length a = 400 mm and thickness
 
-h = 40 mm, the present results are compared with the exact solutions [25] and other results obtained from the higher-order theories [15,17] in Table 3. It is found that the results obtained from present models are in excellent agreement with the exact solutions. Moreover, the transverse shear stresses obtained from the present models are also given in Table 3, which were not published in [15,17]. Subsequently, the case of a square laminated plate stiffened by four equally spaced laminated x-stiffeners (See Fig. 2) is considered. The geometrical properties are, for plate: side length a = 800 mm, thickness h = 23.33 mm, three layers (0/90/0) and (5.833/11.667/ 5.833) mm; and for stiffeners: cx = 30 mm, dx = 111.11 mm, stacking (0)8 and (13.89 mm)8. The maximum displacement and stresses are shown in Table 4. Without any assumption for plate and stiffeners in the present method, the present higher-order models should be more advanced. The distributions of in-plane stresses through the thickness of plate and stiffeners are shown in Figs. 4 and 5. It is clearly seen that maximum in-plane stress rx occurs at point 1 of stiffener (See Fig. 2). Moreover, the ﬁrst order theory clearly underestimates the in-plane stresses in stiffener of stiffened plates. Subsequently, the distributions of transverse shear stresses through the thickness are presented in Figs. 6–8. Numerical results show that the transverse shear stresses in stiffeners are remarkably higher than those in the plate. It can imply that the failure of stiffened
+h = 40 mm, the present results are compared with the exact solutions [25] and other results obtained from the higher-order theories [15,17] in Table 3. It is found that the results obtained from present models are in excellent agreement with the exact solutions. Moreover, the transverse shear stresses obtained from the present models are also given in Table 3, which were not published in [15,17]. Subsequently, the case of a square laminated plate stiffened by four equally spaced laminated x-stiffeners (See Fig. 2) is considered. The geometrical properties are, for plate: side length a = 800 mm, thickness h = 23.33 mm, three layers (0⬚/90⬚/0⬚) and (5.833/11.667/ 5.833) mm; and for stiffeners: cx = 30 mm, dx = 111.11 mm, stacking (0⬚)8 and (13.89 mm)8. The maximum displacement and stresses are shown in Table 4. Without any assumption for plate and stiffeners in the present method, the present higher-order models should be more advanced. The distributions of in-plane stresses through the thickness of plate and stiffeners are shown in Figs. 4 and 5. It is clearly seen that maximum in-plane stress rx occurs at point 1 of stiffener (See Fig. 2). Moreover, the ﬁrst order theory clearly underestimates the in-plane stresses in stiffener of stiffened plates. Subsequently, the distributions of transverse shear stresses through the thickness are presented in Figs. 6–8. Numerical results show that the transverse shear stresses in stiffeners are remarkably higher than those in the plate. It can imply that the failure of stiffened
 
 0.015 0.01 0.005
 
@@ -708,9 +708,9 @@ Fig. 13. Distribution of in-plane stress (MPa) through the thickness of plate.
 
 L. Li, R. Xiaohui / Composite Structures 92 (2010) 2936–2945
 
-laminated structures may ﬁrstly occur in stiffeners. However, prediction of transverse shear stresses in stiffened laminated plates is lacking in the published literature. Numerical results also show that transverse shear stresses obtained from the ﬁrst order theory are discontinuous through the thickness of laminates. The distribution of in-plane displacement through the thickness of stiffener is given in Fig. 9. A moderately thick ﬁve-layer plate stiffened by four equally spaced laminated x-stiffeners is also analyzed in this example. The geometrical properties are, for plate: side length a = 400 mm, thickness h = 28.33 mm, ﬁve layers (0/90/0/90/0) and (4.722/ 7.083/ 4.722/7.083/4.722) mm; and for stiffeners: cx = 15 mm, dx = 77.78 mm, stacking (0)7 and (11.11 mm)7. Maximum displacements and stresses are given in Table 5. Furthermore, distributions of displacements and stresses through the thickness are shown in Figs. 10–17. The distributions of in-plane stresses through the thickness of laminated plate are plotted in Figs. 10, 12 and 13. It can be observed that the in-plane stresses in the laminated plate obtained from the higher-order theories are close to those computed from the ﬁrst order theory. In Fig. 11, however, it is found that the in-plane stress in the stiffener predicted from the higher-order theories remarkably differ from those obtained
+laminated structures may ﬁrstly occur in stiffeners. However, prediction of transverse shear stresses in stiffened laminated plates is lacking in the published literature. Numerical results also show that transverse shear stresses obtained from the ﬁrst order theory are discontinuous through the thickness of laminates. The distribution of in-plane displacement through the thickness of stiffener is given in Fig. 9. A moderately thick ﬁve-layer plate stiffened by four equally spaced laminated x-stiffeners is also analyzed in this example. The geometrical properties are, for plate: side length a = 400 mm, thickness h = 28.33 mm, ﬁve layers (0⬚/90⬚/0⬚/90⬚/0⬚) and (4.722/ 7.083/ 4.722/7.083/4.722) mm; and for stiffeners: cx = 15 mm, dx = 77.78 mm, stacking (0⬚)7 and (11.11 mm)7. Maximum displacements and stresses are given in Table 5. Furthermore, distributions of displacements and stresses through the thickness are shown in Figs. 10–17. The distributions of in-plane stresses through the thickness of laminated plate are plotted in Figs. 10, 12 and 13. It can be observed that the in-plane stresses in the laminated plate obtained from the higher-order theories are close to those computed from the ﬁrst order theory. In Fig. 11, however, it is found that the in-plane stress in the stiffener predicted from the higher-order theories remarkably differ from those obtained
 
-from the ﬁrst order theory. Subsequently, comparison of transverse shear stresses is presented in Figs. 14–16. Numerical results show that the transverse shear stresses obtained from the higher-order global–local theories satisfy the continuity conditions at interfaces whereas the ﬁrst order theory violates the inter-laminar continuity conditions of transverse shear stresses. In addition, this example shows that the maximum in-plane stress rx and transverse shear stress sxz usually occur in the stiffeners. The distributions of inplane displacement through the thickness of stiffener are also plotted in Fig. 17. It should be emphasized that the present results are based on the thick laminated structures. However, for thin stiffened laminated structures usually used in engineering, the beneﬁt of the proposed formulation should be smaller. For example, a thin ﬁve-layer plate stiffened by four equally spaced laminated x-stiffeners is also analyzed. The geometrical properties are the same as those of the moderately thick stiffened plates, and except that a = 800 mm, cx = 25 mm, dx = 93.33 mm, stacking (0)7 and (13.33 mm)7. The corresponding results are shown in Table 6. It can be found that for thin stiffened laminated plates, the results obtained from the higher-order theories are nearly the same as those calculated from the ﬁrst order theory. In addition, a sevenlayer plate stiffened by four equally spaced laminated x-stiffeners
+from the ﬁrst order theory. Subsequently, comparison of transverse shear stresses is presented in Figs. 14–16. Numerical results show that the transverse shear stresses obtained from the higher-order global–local theories satisfy the continuity conditions at interfaces whereas the ﬁrst order theory violates the inter-laminar continuity conditions of transverse shear stresses. In addition, this example shows that the maximum in-plane stress rx and transverse shear stress sxz usually occur in the stiffeners. The distributions of inplane displacement through the thickness of stiffener are also plotted in Fig. 17. It should be emphasized that the present results are based on the thick laminated structures. However, for thin stiffened laminated structures usually used in engineering, the beneﬁt of the proposed formulation should be smaller. For example, a thin ﬁve-layer plate stiffened by four equally spaced laminated x-stiffeners is also analyzed. The geometrical properties are the same as those of the moderately thick stiffened plates, and except that a = 800 mm, cx = 25 mm, dx = 93.33 mm, stacking (0⬚)7 and (13.33 mm)7. The corresponding results are shown in Table 6. It can be found that for thin stiffened laminated plates, the results obtained from the higher-order theories are nearly the same as those calculated from the ﬁrst order theory. In addition, a sevenlayer plate stiffened by four equally spaced laminated x-stiffeners
 
 0.015 0.01 0.005
 
@@ -808,9 +808,9 @@ L. Li, R. Xiaohui / Composite Structures 92 (2010) 2936–2945
 
 2943
 
-is considered. The geometrical properties are for plate: side length a = 400 mm, thickness h = 31 mm, ﬁve layers (0/90/0Á Á Á) and (3.875/5.167/3.875/5.167/3.875/5.167/3.875) mm; and for stiffeners: cx = 15 mm, dx = 60 mm, stacking (0)6 and (10 mm)6. In Table 7, the results obtained from the present model are compared with the published results [15,17]. Numerical results show that the ﬁrst order theory clearly underestimates the in-plane stresses in stiffeners of stiffened plates. 4.2. Effects of arrangement of stiffeners on bending response of stiffened laminated plates
+is considered. The geometrical properties are for plate: side length a = 400 mm, thickness h = 31 mm, ﬁve layers (0⬚/90⬚/0⬚Á Á Á) and (3.875/5.167/3.875/5.167/3.875/5.167/3.875) mm; and for stiffeners: cx = 15 mm, dx = 60 mm, stacking (0⬚)6 and (10 mm)6. In Table 7, the results obtained from the present model are compared with the published results [15,17]. Numerical results show that the ﬁrst order theory clearly underestimates the in-plane stresses in stiffeners of stiffened plates. 4.2. Effects of arrangement of stiffeners on bending response of stiffened laminated plates
 
-This example used the ﬁfth-order theory to study the effects of the number and the geometry of stiffeners on static response of stiffened laminated plates. The material constants used are the same as those of Example 2. Type 1 [15,17] Problem 1: Square laminated plate without stiffeners, and the geometrical properties are given by Side length a = 400 mm, h = 40 mm and stacking: seven layers (0/90/0Á Á Á) and (5/6.667/5/6.667/5/6.667/5) mm. Problem 2: Square stiffened laminated plate, the geometrical properties are Plate: Side length a = 400 mm and h = 28.33 mm. Stacking sequence: Five layers (0/90/0/90/0) and (4.722/7.083/ 4.722/7.083/4.722/7.083/4.722) mm. Stiffeners: Number of stiffeners N = 4, cx = 15 mm, dx = 77.78 mm. Stacking (0)7 and (11.11)7.
+This example used the ﬁfth-order theory to study the effects of the number and the geometry of stiffeners on static response of stiffened laminated plates. The material constants used are the same as those of Example 2. Type 1 [15,17] Problem 1: Square laminated plate without stiffeners, and the geometrical properties are given by Side length a = 400 mm, h = 40 mm and stacking: seven layers (0⬚/90⬚/0⬚Á Á Á) and (5/6.667/5/6.667/5/6.667/5) mm. Problem 2: Square stiffened laminated plate, the geometrical properties are Plate: Side length a = 400 mm and h = 28.33 mm. Stacking sequence: Five layers (0⬚/90⬚/0⬚/90⬚/0⬚) and (4.722/7.083/ 4.722/7.083/4.722/7.083/4.722) mm. Stiffeners: Number of stiffeners N = 4, cx = 15 mm, dx = 77.78 mm. Stacking (0⬚)7 and (11.11)7.
 
 Example 3. The stiffened and unstiffened composite laminated plates subjected to sinusoidal loads are studied keeping the original volume of the materials.
 
@@ -931,9 +931,9 @@ a
 
 Stresses in stiffeners. Results are obtained from the ﬁfth-order theory.
 
-Problem 3: Same as Problem 2 except that stiffeners: Number of stiffeners N = 4, cx = 12.5 mm, dx = 93.36 mm. Stacking (0)7 and (13.34)7. Problem 4: Same as Problem 2 except that stiffeners: Number of stiffeners N = 4, cx = 10 mm, dx = 116.7 mm. Stacking (0)7 and (16.67)7. Problem 5: Same as Problem 2 except that stiffeners: Number of stiffeners N = 4, cx = 7.5 mm, dx = 155.6 mm. Stacking (0)7 and (22.23)7. The present results are shown in Table 8 together with results in [25]. Numerical results show that by attaching the stiffeners to laminated plates, the stiffness and the strength of the laminates can be obviously improved. Moreover, by varying the geometry of stiffeners, the stiffness and the strength of stiffeners can be gradually improved.
+Problem 3: Same as Problem 2 except that stiffeners: Number of stiffeners N = 4, cx = 12.5 mm, dx = 93.36 mm. Stacking (0⬚)7 and (13.34)7. Problem 4: Same as Problem 2 except that stiffeners: Number of stiffeners N = 4, cx = 10 mm, dx = 116.7 mm. Stacking (0⬚)7 and (16.67)7. Problem 5: Same as Problem 2 except that stiffeners: Number of stiffeners N = 4, cx = 7.5 mm, dx = 155.6 mm. Stacking (0⬚)7 and (22.23)7. The present results are shown in Table 8 together with results in [25]. Numerical results show that by attaching the stiffeners to laminated plates, the stiffness and the strength of the laminates can be obviously improved. Moreover, by varying the geometry of stiffeners, the stiffness and the strength of stiffeners can be gradually improved.
 
-Type 2 [15,17] Problem 1: Same as Problem 2 in Type 1 except that stiffeners: Number of stiffeners N = 2, cx = 30 mm, dx = 77.78 mm and stacking (0)7 and (11.11)7. Geometry of such plate is shown in Fig. 18a. Problem 2: Same as Problem 2 in Type 1. Geometry of stiffened plate is shown in Fig. 18b. Problem 3: Same as Problem 1 except that stiffeners: Number of stiffeners N = 6, cx = 10 mm, dx = 77.78 mm and stacking (0)7 and (11.11)7. Geometry of stiffened plates is presented in Fig. 18c. The results are presented in Table 9. It is found that maximum in-plane stresses at point A of stiffeners for Problem 1 are obvi-
+Type 2 [15,17] Problem 1: Same as Problem 2 in Type 1 except that stiffeners: Number of stiffeners N = 2, cx = 30 mm, dx = 77.78 mm and stacking (0⬚)7 and (11.11)7. Geometry of such plate is shown in Fig. 18a. Problem 2: Same as Problem 2 in Type 1. Geometry of stiffened plate is shown in Fig. 18b. Problem 3: Same as Problem 1 except that stiffeners: Number of stiffeners N = 6, cx = 10 mm, dx = 77.78 mm and stacking (0⬚)7 and (11.11)7. Geometry of stiffened plates is presented in Fig. 18c. The results are presented in Table 9. It is found that maximum in-plane stresses at point A of stiffeners for Problem 1 are obvi-
 
 0.015
 

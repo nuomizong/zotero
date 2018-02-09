@@ -60,8 +60,8 @@ Observations of structures created by nature indicate that in most cases strengt
 LIST OF SYMBOL USED
 U = Total strain energy.
 
-Ub = Strain energy due to bending. Um = Strain energy due to stretching of the mid plane. Up = Total strain energy of plate Us = Total strain energy of stiffener í µí±ˆí µí± í µí±¥ = Strain energies stored in p-th stiffener along x-direction í µí±ˆí µí± í µí±¦ = Strain energies stored in q-th stiffener along y-direction V = Work function Ïƒx = Tensile/compressive stress in axial direction. Ôx = Strain in axial direction. í µí¼€í µí± í µí±¥ = Axial strain of a stiffener along x-direction E = Modulus of elasticity of material. I = Moment of inertia
-í µí± í µí±ž í µí±
+Ub = Strain energy due to bending. Um = Strain energy due to stretching of the mid plane. Up = Total strain energy of plate Us = Total strain energy of stiffener ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = Strain energies stored in p-th stiffener along x-direction ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = Strain energies stored in q-th stiffener along y-direction V = Work function Ïƒx = Tensile/compressive stress in axial direction. Ôx = Strain in axial direction. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = Axial strain of a stiffener along x-direction E = Modulus of elasticity of material. I = Moment of inertia
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 Q = First moment of area u v = Displacement in axial direction due to stretching of mid-plane. = Displacement in axial direction due to stretching of mid plane.
 
@@ -71,7 +71,7 @@ A = Area of crossection of beam. [K] = Stiffness matrix.
 
 II
 
-{f} = Load vector. Ï•i = Displacement field due to bending í µí»¼í µí±– = Displacement field due to stretching í µí»½í µí±– = Displacement field due to stretching di = Unknown coefficient.
+{f} = Load vector. Ï•i = Displacement field due to bending ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = Displacement field due to stretching ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = Displacement field due to stretching di = Unknown coefficient.
 
 D = Flexural rigidity of rectangular plate tp = Thickness of the plate from the neutral plane Âµ = Poissonâ€™s ratio
 
@@ -294,12 +294,12 @@ Strain energy is the energy due to elastic force in material. As the load acting
 
 energy that for a conservative system, of all the kinematically admissible displacement fields, the one corresponding to the stable equilibrium minimizes the total potential energy of the system. The above statement is expressed mathematically as, Î´(U +V) =0 (3.1)
 
-Here, U is total strain energy stored in the system, and V is work function or potential of the external forces. In case of large displacement analysis with geometric nonlinearity both bending and stretching effects are taken into consideration. It is also well known that geometric nonlinearity in structural mechanics arises from nonlinear strain-displacement relations. í µí±ˆ = 2 âˆ« Ïƒx í µí¼€í µí±¥ âˆ‚v vol
+Here, U is total strain energy stored in the system, and V is work function or potential of the external forces. In case of large displacement analysis with geometric nonlinearity both bending and stretching effects are taken into consideration. It is also well known that geometric nonlinearity in structural mechanics arises from nonlinear strain-displacement relations. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = 2 âˆ« Ïƒx ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ‚v vol
 1 .
 
 (3.2)
 
-Total strain energy of the beam is combination of strain energy due to bending and stretching, which is expressed as, U = Ub + Um where, Ub = Strain energy due to bending and Um = Strain energy due to stretching. í µí±ˆ =
+Total strain energy of the beam is combination of strain energy due to bending and stretching, which is expressed as, U = Ub + Um where, Ub = Strain energy due to bending and Um = Strain energy due to stretching. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ =
 Eb 2
 
 (3.3)
@@ -313,17 +313,17 @@ L
 
 2
 
-(3.4) (í µí±¤,í µí±¥ )
+(3.4) (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )
 2
 
-Axial strain due to in-plane stretching (Ôí µí±š ) = (í µí±¢,í µí±¥ ) + í µí±¥
+Axial strain due to in-plane stretching (Ôï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) = (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 (3.5)
 
-For the present analysis, notations have been used for single derivative of function w with respect to function x as í µí±¤,í µí±¥ while for double derivative, it is í µí±¤,í µí±¥í µí±¥ . It should be mentioned here that w and u represents the transverse and in-plane displacements of the mid-plane of the beam, while x is the axial coordinate. However, all the computations are carried out in a non-dimensional plane, where, Î¾ is the normalised coordinate given by, í µí¼‰ = í µí°¿ . By using the above strain displacement relations we get strain energy due to bending and stretching of beam as
-í µí±¥
+For the present analysis, notations have been used for single derivative of function w with respect to function x as ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ while for double derivative, it is ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ . It should be mentioned here that w and u represents the transverse and in-plane displacements of the mid-plane of the beam, while x is the axial coordinate. However, all the computations are carried out in a non-dimensional plane, where, Î¾ is the normalised coordinate given by, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ . By using the above strain displacement relations we get strain energy due to bending and stretching of beam as
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-Ub = 2L3 âˆ«0 (í µí±¤,í µí¼‰í µí¼‰ ) dÎ¾
+Ub = 2L3 âˆ«0 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) dÎ¾
 
 EI
 
@@ -339,7 +339,7 @@ Um =
 
 EA 2
 
-âˆ« {(í µí±¢,í µí±¥ ) + 4 (í µí±¤,í µí±¥ ) + (í µí±¢,í µí±¥ )(í µí±¤,í µí±¥ ) }dÎ¾ 0
+âˆ« {(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + 4 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) }dÎ¾ 0
 
 L
 
@@ -356,7 +356,7 @@ L
 Hence, the total strain energy expression of the beam is given as, U=
 EI 2
 
-âˆ« (í µí±¤,í µí±¥í µí±¥ ) dx + 0
+âˆ« (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) dx + 0
 
 L
 
@@ -364,7 +364,7 @@ L
 
 EA 2
 
-âˆ« {(í µí±¢,í µí±¥ ) + 4 (í µí±¤,í µí±¥ ) + (í µí±¢,í µí±¥ )(í µí±¤,í µí±¥ ) }dx 0
+âˆ« {(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + 4 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) }dx 0
 
 L
 
@@ -378,11 +378,11 @@ L
 
 (3.8)
 
-By using Variational operator (Î´) Î´(U) = Î´(Ub + Um ) =L3 âˆ« (í µí±¤,í µí¼‰í µí¼‰ )Î´(í µí±¤,í µí¼‰í µí¼‰ ) dÎ¾ + 0
+By using Variational operator (Î´) Î´(U) = Î´(Ub + Um ) =L3 âˆ« (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )Î´(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) dÎ¾ + 0
 EA EI 1 EA L
 
-âˆ« (í µí±¢,í µí¼‰ )Î´(í µí±¢,í µí¼‰ )dÎ¾ + 2L2 âˆ« (í µí±¤,í µí¼‰ ) Î´(í µí±¢,í µí¼‰ )dÎ¾ + 0 0
-3 EA 1 âˆ« (í µí±¤,í µí¼‰ ) Î´(í µí±¤,í µí¼‰ )dÎ¾ 2L3 0
+âˆ« (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )Î´(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )dÎ¾ + 2L2 âˆ« (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) Î´(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )dÎ¾ + 0 0
+3 EA 1 âˆ« (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) Î´(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )dÎ¾ 2L3 0
 
 1
 
@@ -392,13 +392,13 @@ EA
 
 2
 
-1 âˆ« (í µí±¤,í µí¼‰ )(í µí±¢,í µí¼‰ )Î´(í µí±¤,í µí¼‰ )dÎ¾ L2 0
+1 âˆ« (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )Î´(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )dÎ¾ L2 0
 
 +
 
 (3.9)
 
-The work potential of external forces is given by, í µí±‰ = âˆ« í µí±í µí±¤í µí±‘í µí¼‰ 0 where, p is the intensity or magnitude of the uniformly distributed loading. The displacement fields w and u can be represented as linear combinations of a set of orthogonal admissible functions and unknown coefficients as shown below, w(Î¾) = âˆ‘í µí±›í µí±¤ í µí±‘í µí±– í µí¼™í µí±– í µí±–=1 u(Î¾) = âˆ‘í µí±›í µí±¤+í µí±›í µí±¢ í µí±‘í µí±– í µí»¼í µí±–âˆ’í µí±›í µí±¤ í µí±–=1+ní µí±¤ (3.11) (3.12)
+The work potential of external forces is given by, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = âˆ« ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0 where, p is the intensity or magnitude of the uniformly distributed loading. The displacement fields w and u can be represented as linear combinations of a set of orthogonal admissible functions and unknown coefficients as shown below, w(Î¾) = âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 u(Î¾) = âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1+nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (3.11) (3.12)
 1
 
 (3.10)
@@ -409,12 +409,12 @@ The work potential of external forces is given by, í µí±‰ = âˆ« í µí±í µí±¤í µí
 18
 
 Boundary condition for clamped-clamped can be mathematically expressed as, At x = 0 and L, w = 0 and
-í µí±‘í µí±¤ í µí±‘í µí±¥
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 = 0;
 
 So, putting the values corresponding to x = 0: c1 = 0 and c0 = 0; By putting the above value in general equation (3.13) At x = L, w(x) = 0; c2 = - (c3L + c4L2) At x = L,
-í µí±‘í µí±¤ í µí±‘í µí±¥
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 (3.14)
 
@@ -432,35 +432,35 @@ GOVERNING SYSTEM OF EQUATIONS
 
 Substituting the energy expressions along with the approximate displacement fields in Eq. (3.1) the governing system of equations are obtained in the matrix form, as follows, [K]{d} = {f} (3.17)
 
-where, [K], {d} and {f} are the stiffness matrix, vector of unknown coefficients and load vector, respectively. The dimensions of all the matrices and vectors are same (nw + nu). The total stiffness matrix of the system is given by [K] = [Kb] + [Km], where, [Kb] and [Km] are contributions from bending and stretching action of the beam. The stiffness matrix, [K], and load vector, {f}, are in the form given below [K] = [ [í µí°¾11 ] [í µí°¾21 ]
-í µí°¸í µí°¼ í µí°¿
+where, [K], {d} and {f} are the stiffness matrix, vector of unknown coefficients and load vector, respectively. The dimensions of all the matrices and vectors are same (nw + nu). The total stiffness matrix of the system is given by [K] = [Kb] + [Km], where, [Kb] and [Km] are contributions from bending and stretching action of the beam. The stiffness matrix, [K], and load vector, {f}, are in the form given below [K] = [ [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½11 ] [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½21 ]
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-[í µí°¾12 ] ] & { f } = {í µí±“11 [í µí°¾22 ]
-1 í µí±‘2 í µí¼™í µí±– í µí±‘í µí¼‰ 2 1 í µí°¸í µí°´
+[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½12 ] ] & { f } = {ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½11 [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½22 ]
+1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±“12 }
-1 í µí±‘í µí¼™í µí±– 2 í µí±‘í µí¼™í µí±– í µí±‘í µí¼™í µí±— ) í µí±‘í µí¼‰ í µí±‘í µí¼‰ í µí±‘í µí¼‰
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½12 }
+1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-[í µí°¾11 ] =
+[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½11 ] =
 
-âˆ‘í µí±›í µí±¤ âˆ‘í µí±›í µí±¤ âˆ« í µí±—=1 í µí±–=1 0 3 +
-í µí°¸í µí°´ í µí°¿2
+âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ« ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 0 3 +
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
 
-dÎ¾ + 2í µí°¿3 âˆ‘í µí±›í µí±¤ âˆ‘í µí±›í µí±¤ âˆ« âˆ‘í µí±›í µí±¤ (í µí±‘í µí±– í µí±—=1 í µí±–=1 0 í µí±–=1
-í µí±‘í µí»¼í µí±–âˆ’í µí±›í µí±¤ í µí±‘í µí¼™í µí±– í µí±‘í µí¼™í µí±— í µí±‘í µí¼‰
+dÎ¾ + 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3 âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ« âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 dÎ¾
 
-âˆ‘í µí±›í µí±¤ âˆ‘í µí±›í µí±¤ âˆ« (âˆ‘í µí±›í µí±¤+í µí±›í µí±¢ í µí±‘í µí±– í µí±—=1 í µí±–=1 0 í µí±–=í µí±›í µí±¤+1
+âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ« (âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+1
 
 )
 
-í µí±‘í µí¼‰ í µí±‘í µí¼‰
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 dÎ¾
 
-[K12] = 0, [K21] = 2í µí°¿2 âˆ‘nw+nu âˆ‘nw âˆ« (âˆ‘nw di j=1 i=1 0 i=1
-í µí°¸í µí°´ 1 dÏ•i dÎ¾
+[K12] = 0, [K21] = 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2 âˆ‘nw+nu âˆ‘nw âˆ« (âˆ‘nw di j=1 i=1 0 i=1
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1 dÏ•i dÎ¾
 
 )
 
@@ -480,13 +480,13 @@ EA L
 
 dÎ¾
 
-{í µí±“11 } = âˆ‘í µí±›í µí±¤+í µí±›í µí±¢ í µí±ƒí µí¼™í µí±— {í µí±“12 } = 0 í µí±—=1 As large displacement induced by geometric nonlinearity is incorporated in the formulation of the problem, the stiffness matrix becomes a function of the undetermined parameters. Hence, the system governing equations become nonlinear in nature and cannot be solved directly. To solve the set of nonlinear equations an iterative procedure employing direct substitution method with successive relaxation scheme is employed.
+{ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½11 } = âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ {ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½12 } = 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 As large displacement induced by geometric nonlinearity is incorporated in the formulation of the problem, the stiffness matrix becomes a function of the undetermined parameters. Hence, the system governing equations become nonlinear in nature and cannot be solved directly. To solve the set of nonlinear equations an iterative procedure employing direct substitution method with successive relaxation scheme is employed.
 
 3.3.
 
 RESULTS AND DISCUSSION
 
-The objective of the present chapter is to determine the load-deflection behavior of slender beams under transverse loading and different geometrical boundary conditions. Four boundary condition of the beam is formulated for the present analysis. First one is clamped-clamped, in which both the side of the beam are clamped or fixed. Second is clamped-simply supported. Third one is simply supported-simply supported and the last one is clamped-free (cantilever). The transverse loading for all the cases is considered to be uniformly distributed. However, the present methodology can be applied for any other transverse loading pattern, mathematically expressible as a function of the coordinates. The results of the static response of the system under transverse loading are presented in normalised load-deflection plane, where the ordinate represents maximum normalised displacement (wmax/t) and abscissa is normalised load (16í µí±¤í µí°¿4 â„í µí°¸í µí±¡ 4 , for uniformly distributed load). For normalized graph maximum value of normalised deflection has been restricted to a value of 2, so that the normalised load goes up to certain value only. The material properties and dimensions of the beam used for generating the results are tabulated below.
+The objective of the present chapter is to determine the load-deflection behavior of slender beams under transverse loading and different geometrical boundary conditions. Four boundary condition of the beam is formulated for the present analysis. First one is clamped-clamped, in which both the side of the beam are clamped or fixed. Second is clamped-simply supported. Third one is simply supported-simply supported and the last one is clamped-free (cantilever). The transverse loading for all the cases is considered to be uniformly distributed. However, the present methodology can be applied for any other transverse loading pattern, mathematically expressible as a function of the coordinates. The results of the static response of the system under transverse loading are presented in normalised load-deflection plane, where the ordinate represents maximum normalised displacement (wmax/t) and abscissa is normalised load (16ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4 â„ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 4 , for uniformly distributed load). For normalized graph maximum value of normalised deflection has been restricted to a value of 2, so that the normalised load goes up to certain value only. The material properties and dimensions of the beam used for generating the results are tabulated below.
 
 21
 
@@ -551,10 +551,10 @@ MATHEMATICAL FORMULATION
 
 It is known from the principle of minimum potential energy that for a conservative system, of all the kinematically admissible displacement fields, the one corresponding to the stable equilibrium minimizes the total potential energy of the system. The above statement is expressed mathematically as, Î´ (U +V)=0 (4.1)
 
-Here, U is total strain energy stored in the system, which comprises of two components -strain energy of the plate (Up) and total strain energy stored in all the stiffeners (Us), and V is work function or potential of the external forces. In case of large displacement analysis with geometric nonlinearity both bending and stretching effects are taken into consideration. It is also well known that geometric nonlinearity in structural mechanics arises from nonlinear strain-displacement relations. So, strain energy of the plate (Up) comprises of two parts - strain energy due to pure bending (Ub) and strain energy due to stretching (Um) of its midplane. The expressions of Ub and Um are well known for rectangular plates and are indicated here for ready reference. í µí±ˆí µí± = 2 (í µí±Ží µí±) âˆ« âˆ« [{í µí±Ž2 (í µí±¤,í µí¼‰í µí¼‰ ) + í µí±2 (í µí±¤,í µí¼‚í µí¼‚ )} + 2(1 âˆ’ í µí¼‡) í µí±Ž2 í µí±2 {(í µí±¤,í µí¼‰í µí¼‰ ) + (í µí±¤,í µí¼‰í µí¼‰ )(í µí±¤,í µí¼‚í µí¼‚ )}] í µí±‘í µí¼‰í µí±‘í µí¼‚ 1 0 (4.2) í µí±ˆí µí±š =
-1 1 í µí°¸í µí± í µí±¡í µí± 2(1âˆ’í µí¼‡ 2) í µí°· 0 1 1 1 2 1 2
+Here, U is total strain energy stored in the system, which comprises of two components -strain energy of the plate (Up) and total strain energy stored in all the stiffeners (Us), and V is work function or potential of the external forces. In case of large displacement analysis with geometric nonlinearity both bending and stretching effects are taken into consideration. It is also well known that geometric nonlinearity in structural mechanics arises from nonlinear strain-displacement relations. So, strain energy of the plate (Up) comprises of two parts - strain energy due to pure bending (Ub) and strain energy due to stretching (Um) of its midplane. The expressions of Ub and Um are well known for rectangular plates and are indicated here for ready reference. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = 2 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) âˆ« âˆ« [{ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )} + 2(1 âˆ’ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2 {(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )}] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1 0 (4.2) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ =
+1 1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2(1âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0 1 1 1 2 1 2
 
-(í µí±Ží µí±) âˆ« âˆ« [í µí±Ž2 (í µí±¢,í µí¼‰ )2 + í µí±Ž3 (í µí±¢,í µí¼‰ )(í µí±¤,í µí¼‰ )2 + í µí±2 (í µí±£,í µí¼‚ )2 + í µí±2 (í µí±£,í µí¼‚ )(í µí±¤,í µí¼‚ )2 + 0 0
+(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) âˆ« âˆ« [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )2 + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )2 + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )2 + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )2 + 0 0
 1 2 1 1 2 1 2
 
 1
@@ -569,10 +569,10 @@ Here, U is total strain energy stored in the system, which comprises of two comp
 
 1
 
-{ (í µí±¤,í µí¼‰ )2 + 2 (í µí±¤,í µí¼‚ )2 } + 2í µí¼‡ { (í µí±¢,í µí¼‰ )(í µí±£,í µí¼‚ ) + 2 (í µí±£,í µí¼‚ )(í µí±¤,í µí¼‚ ) + 2 (í µí±¢,í µí¼‰ )(í µí±¤,í µí¼‚ ) } + 4 í µí±Ž 2 í µí± í µí±Ží µí± 2í µí±Ž í µí± 2í µí± í µí±Ž
-1âˆ’í µí¼‡ 2 2 í µí±Ž 2 í µí±
+{ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )2 + 2 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )2 } + 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ { (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + 2 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + 2 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) } + 4 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+1âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-{ 2 (í µí±¢,í µí¼‚ )2 + (í µí±¢,í µí¼‚ )(í µí±£,í µí¼‰ ) + 2 (í µí±£,í µí¼‰ )2 + 2 (í µí±¢,í µí¼‚ )(í µí±¤,í µí¼‰ )(í µí±¤,í µí¼‚ ) + í µí± í µí±Ží µí± í µí±Ž í µí± í µí±Ž (í µí±£,í µí¼‰ )(í µí±¤,í µí¼‰ )(í µí±¤,í µí¼‚ )}] í µí±‘í µí¼‰í µí±‘í µí¼‚ (4.3)
+{ 2 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )2 + (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + 2 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )2 + 2 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )}] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (4.3)
 
 1
 
@@ -585,35 +585,35 @@ Here, U is total strain energy stored in the system, which comprises of two comp
 28
 
 Here, Ep, Âµ and D = {Ept3p /12(1-Âµ2)} are the elastic modulus, Poissonâ€™s ratio and the flexural rigidity of the plate, respectively. u, v and w represent the displacement fields of the plate along x, y and z directions, respectively. It is to be noted that u and v are in-plane deformation displacement whereas w is transverse body displacement or deflection. In the present analysis these three displacements (u, v and w) are the basic unknown variables. The expression for total strain energy stored in the stiffeners (Us) can be written as,
-í µí±¦ í µí±¥ í µí±ˆí µí±  = âˆ‘í µí±=1 í µí±ˆí µí± í µí±¥ + âˆ‘í µí±ž=1 í µí±ˆí µí± í µí±¦
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ + âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±›í µí± 
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±›í µí± 
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±ž
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 (4.4)
 
-where, í µí±ˆí µí± í µí±¥ í µí±ˆí µí± í µí±¦ are strain energies stored in p-th stiffener along x-direction and q-th stiffener along y-direction, respectively. In order to derive the expressions for strain energies of the individual stiffeners a compatible strain distribution at the line joining the plate and the stiffener is assumed. Hence, the axial strain of a stiffener along x-direction is derived from the expression given by,
-í µí± í µí¼€í µí± í µí±¥ = í µí¼€í µí±í µí±¥ |í µí±§=í µí±¡í µí± /2 âˆ’ (í µí±§ âˆ’ 2 ) í µí±¤,í µí±¥í µí±¥ âˆ’ í µí±¦í µí±  í µí±£,í µí±¥í µí±¥
+where, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ are strain energies stored in p-th stiffener along x-direction and q-th stiffener along y-direction, respectively. In order to derive the expressions for strain energies of the individual stiffeners a compatible strain distribution at the line joining the plate and the stiffener is assumed. Hence, the axial strain of a stiffener along x-direction is derived from the expression given by,
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ |ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ /2 âˆ’ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ’ 2 ) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ’ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±ž
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±¡
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 (4.5)
 
-Where, ys denotes distance from the local minor axis. The plate strain at z = tp/2 is denoted by í µí¼€í µí±í µí±¥ |í µí±§=í µí±¡í µí± /2 and it is expressed as follows. í µí¼€í µí±í µí±¥ |í µí±§=í µí±¡í µí± /2 = í µí±¢,í µí±¥ + 0.5(í µí±¤,í µí±¥ )2 âˆ’ (í µí±¡í µí± /2)í µí±¤,í µí±¥í µí±¥ (4.6)
+Where, ys denotes distance from the local minor axis. The plate strain at z = tp/2 is denoted by ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ |ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ /2 and it is expressed as follows. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ |ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ /2 = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ + 0.5(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )2 âˆ’ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ /2)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (4.6)
 
-Substituting the expression for plate strain at z = tp/2 into Eq. (4.5), the expression for total strain of an x-direction stiffener is obtained as, í µí¼€í µí± í µí±¥ = í µí±¢,í µí±¥ + 0.5(í µí±¤,í µí±¥ )2 âˆ’ í µí±§í µí±¤,í µí±¥í µí±¥ âˆ’ í µí±¦í µí±  í µí±£,í µí±¥í µí±¥
-í µí±
+Substituting the expression for plate strain at z = tp/2 into Eq. (4.5), the expression for total strain of an x-direction stiffener is obtained as, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ + 0.5(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )2 âˆ’ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ’ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 (4.7)
 
@@ -621,50 +621,50 @@ So, the axial strain of a stiffener along x-direction includes axial strain due 
 
 29
 
-expression of strain energy, í µí±ˆí µí± í µí±¥ = (í µí°¸í µí±† /2) âˆ« ( í µí¼€í µí± í µí±¥ ) í µí±‘í µí±‰ the final expression of the strain energy í µí±£í µí±œí µí±™ stored in an x-direction stiffener is obtained. Similarly, the strain energy expression of a y-direction stiffener can be obtained.
-í µí± í µí±ˆí µí± í µí±¥
+expression of strain energy, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ /2) âˆ« ( ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ the final expression of the strain energy ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ stored in an x-direction stiffener is obtained. Similarly, the strain energy expression of a y-direction stiffener can be obtained.
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 .
 
-í µí±
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 2
 
 =
 
-í µí°¸í µí±  í µí±Ž
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-2 1 (í µí°¼í µí±¦ +í µí°´í µí±¦ í µí±’í µí±¥ ) (í µí±¤,í µí¼‰í µí¼‰ ) âˆ« [ 2 0 í µí±Ž 4
+2 1 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ +ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) âˆ« [ 2 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 4
 
-í µí±
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí± í µí± 2
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2
 
 +
 
-(í µí°¼í µí±¦í µí±§ +í µí°´í µí±¦ (í µí±Ží µí¼‚í µí± í µí±¡í µí±“ ) ) í µí±Ž 4
+(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ +ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) ) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 4
 
-í µí±
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±
-
-2
-
-(í µí±£,í µí¼‰í µí¼‰ ) { 3 (í µí±¢,í µí¼‰ )(í µí±¤,í µí¼‰í µí¼‰ ) +
-í µí±Ž
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 2
 
+(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) { 3 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) +
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
 2
 
-1 í µí±Ž 4
+2
 
-(í µí±¤,í µí¼‰í µí¼‰ )(í µí±¤,í µí¼‰ ) } + í µí°´í µí± { 2 (í µí±¢,í µí¼‰ ) + 4 (í µí±¤,í µí¼‰ ) + 3 (í µí±¢,í µí¼‰ )(í µí±¤,í µí¼‰ ) }] í µí±‘í µí¼‰ í µí±¦ í µí±Ž 4í µí±Ž í µí±Ž
-í µí± í µí±ž í µí±ž 2
+1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 4
+
+(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) } + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ { 2 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + 4 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + 3 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) }] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2
 
 2
 
@@ -682,38 +682,38 @@ expression of strain energy, í µí±ˆí µí± í µí±¥ = (í µí°¸í µí±† /2) âˆ« ( í µí¼€
 
 (4.8)
 
-í µí±ž í µí±ˆí µí± í µí±¦
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 =
 
-í µí°¸í µí±  í µí±
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-1 (í µí°¼í µí±¥ +í µí°´í µí±¥ í µí±’í µí±¦ ) (í µí±¤,í µí¼‚í µí¼‚ âˆ« [ 2 0 í µí± 4
+1 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ +ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ« [ 2 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 4
 
 ) +
 
 2
 
-(í µí°¼í µí±¥í µí±§ +í µí°´í µí±¥ (í µí±Ží µí¼‚í µí± í µí±¡í µí±“ ) ) í µí±4
+(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ +ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) ) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4
 
-í µí±ž
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±ž
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±ž
-
-2
-
-í µí±ž (í µí±¢,í µí¼‚í µí¼‚ ) âˆ’ í µí±„í µí±¥ { 3 (í µí±£,í µí¼‚ )(í µí±¤,í µí¼‚í µí¼‚ ) + í µí±
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 2
 
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) âˆ’ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ { 3 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
 2
 
-1 í µí±4
+2
 
-(í µí±¤,í µí¼‚í µí¼‚ )(í µí±¤,í µí¼‚ ) } + í µí°´í µí± { 2 (í µí±£,í µí¼‚ ) + 4 (í µí±¤,í µí¼‚ ) + 3 (í µí±£,í µí¼‚ )(í µí±¤,í µí¼‚ ) }] í µí±‘í µí¼‚ í µí±¥ í µí± 4í µí± í µí±
-í µí±ž í µí±ž í µí±ž 3 í µí± í µí± í µí± 3
+1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4
+
+(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) } + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ { 2 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + 4 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + 3 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) }] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3
 
 2
 
@@ -730,14 +730,14 @@ expression of strain energy, í µí±ˆí µí± í µí±¥ = (í µí°¸í µí±† /2) âˆ« ( í µí¼€
 2
 
 (4.9)
-í µí±ž
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-Here, Es is the elastic modulus of the stiffener material. í µí°¼í µí±¥ = í µí±í µí± í µí±¦ í µí±¡í µí± í µí±¦ /12, í µí°¼í µí±¦ = í µí±í µí± í µí±¥ í µí±¡í µí± í µí±¥ /12 í µí°¼í µí±¥í µí±§ = í µí±í µí± í µí±¥ í µí±¡í µí± í µí±¦ /12 and í µí°¼í µí±¦í µí±§ = í µí±í µí± í µí±¦ í µí±¡í µí± í µí±¥ /12 í µí°¼í µí±¥í µí°¼í µí±‡ = (í µí±í µí± í µí±¤ í µí±¡í µí± í µí±¤ + í µí±í µí± í µí±“ í µí±¡í µí± í µí±“ ) /12 í µí°¼í µí±¦í µí°¼í µí±‡ = (í µí±í µí± í µí±¥í µí±¤ í µí±¡í µí± í µí±¥í µí±¤ + í µí±í µí± í µí±¥í µí±“ í µí±¡í µí± í µí±¥í µí±“ ) /12 í µí°¼í µí±¥í µí°¼í µí±‡ = (í µí±í µí± í µí±¥í µí±¤ í µí±¡í µí± í µí±¦í µí±¤ + í µí±í µí± í µí±¥í µí±“ í µí±¡í µí± í µí±¦í µí±“ ) /12 í µí°¼í µí±¦í µí±§í µí°¼í µí±‡ = (í µí±í µí± í µí±¦í µí±¤ í µí±¡í µí± í µí±¥í µí±¤ + í µí±í µí± í µí±¦í µí±“ í µí±¡í µí± í µí±¥í µí±“ ) /12 These are moment of inertia about the major and minor axis of the stiffener cross-section, while the inertia terms containing â€˜ITâ€™ represent the moment of inertia of inverted-T stiffener and w, b represents dimensions of web and flange respectively. í µí±„í µí±¦ = í µí°´í µí±¥ í µí±’í µí±¦ , í µí±„í µí±¥ = í µí°´í µí±¦ í µí±’í µí±¥ are the first moment of area about the plate mid-plane and í µí°´í µí±¥ , í µí°´í µí±¦ are the cross-sectional areas of the p-th x- and q-th y-direction stiffeners, respectively. The total potential energy (V) due to externally applied uniformly distributed load of intensity p is expressed as follows,
-í µí±ž í µí± í µí± í µí±ž í µí±ž í µí±ž í µí± í µí± í µí± í µí± 3 í µí± í µí± 3 í µí± í µí± í µí± í µí± 3 í µí± í µí± 3 í µí±ž í µí±ž 3 í µí±ž í µí±ž 3 í µí±ž í µí±ž 3 í µí±ž í µí± í µí± 3 í µí± í µí±ž í µí±ž í µí±ž 3 í µí±ž í µí±ž 3
+Here, Es is the elastic modulus of the stiffener material. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ /12, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ /12 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ /12 and ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ /12 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) /12 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) /12 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) /12 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) /12 These are moment of inertia about the major and minor axis of the stiffener cross-section, while the inertia terms containing â€˜ITâ€™ represent the moment of inertia of inverted-T stiffener and w, b represents dimensions of web and flange respectively. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ , ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ are the first moment of area about the plate mid-plane and ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ , ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ are the cross-sectional areas of the p-th x- and q-th y-direction stiffeners, respectively. The total potential energy (V) due to externally applied uniformly distributed load of intensity p is expressed as follows,
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3
 
 30
 
-í µí±‰ = âˆ’(í µí±Ží µí±) âˆ« âˆ« (í µí±í µí±¤)í µí±‘í µí¼‰í µí±‘í µí¼‚ 0 0
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = âˆ’(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) âˆ« âˆ« (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0 0
 
 1
 
@@ -751,18 +751,18 @@ It should be mentioned here that the total potential energy corresponding to oth
 
 APPROXIMATE DISPLACEMENT FIELD
 
-The plate displacement fields (w, u and v) can be depicted as linear combinations of orthogonal functions and unknown coefficients (di) as shown below. í µí±¤(í µí¼‰, í µí¼‚) = âˆ‘í µí±›í µí±¤ í µí±‘í µí±– í µí¼™í µí±– (í µí¼‰, í µí¼‚) í µí±–=1 í µí±¢(í µí¼‰, í µí¼‚) = âˆ‘í µí±›í µí±¤+í µí±›í µí±¢ í µí±‘í µí±– í µí»¼í µí±–âˆ’í µí±›í µí±¤ (í µí¼‰, í µí¼‚) í µí±–=í µí±›í µí±¤+1 í µí±£(í µí¼‰, í µí¼‚) = âˆ‘í µí±›í µí±¤+í µí±›í µí±¢+í µí±›í µí±£ í µí±‘í µí±– í µí»½í µí±–âˆ’í µí±›í µí±¤âˆ’í µí±›í µí±¢ (í µí¼‰, í µí¼‚) í µí±–=í µí±›í µí±¤+í µí±›í µí±¢+1 (4.11) (4.12) (4.13)
+The plate displacement fields (w, u and v) can be depicted as linear combinations of orthogonal functions and unknown coefficients (di) as shown below. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) = âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) = âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) = âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+1 (4.11) (4.12) (4.13)
 
-Here, (í µí¼‰, í µí¼‚) , í µí»¼ (í µí¼‰, í µí¼‚) and í µí»½ (í µí¼‰, í µí¼‚) are sets of nw, nu and nv numbers of orthogonal functions for w, u and v, respectively. The functions í µí¼™í µí±– (í µí¼‰, í µí¼‚) are associated with displacements due to bending, whereas, í µí»¼í µí±– (í µí¼‰, í µí¼‚) and í µí»½í µí±– (í µí¼‰, í µí¼‚) describe stretching of the midplane of the plate. Appropriate start functions for these orthogonal sets are selected in such a way that they satisfy the flexural and membrane boundary conditions of the plate. The two dimensional (2-D) start functions are generated from one dimensional (1-D) functions corresponding to the two coordinate directions. The 1-D starting functions for transverse displacement are taken to be the beam deflection functions, derived from static deflection shape of the beam, corresponding to the boundary
+Here, (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) , ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) and ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) are sets of nw, nu and nv numbers of orthogonal functions for w, u and v, respectively. The functions ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) are associated with displacements due to bending, whereas, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) and ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) describe stretching of the midplane of the plate. Appropriate start functions for these orthogonal sets are selected in such a way that they satisfy the flexural and membrane boundary conditions of the plate. The two dimensional (2-D) start functions are generated from one dimensional (1-D) functions corresponding to the two coordinate directions. The 1-D starting functions for transverse displacement are taken to be the beam deflection functions, derived from static deflection shape of the beam, corresponding to the boundary
 31
 
 condition of the plate along the particular coordinate axis. The higher-order functions are generated from the selected start functions following a two-dimensional implementation of the Gram-Schmidt orthogonalization scheme. It should be noted that the generated functions are for the total domain and they need to be broken down in terms of the subdomains. The sub-domains
-í µí±ší µí±› are represented by the sets of functionsí µí¼™í µí±– , í µí»¼í µí±–í µí±ší µí±› and í µí»½í µí±–í µí±ší µí±› derived through interpolation of the
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ are represented by the sets of functionsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ , ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ and ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ derived through interpolation of the
 
-whole field functions, where m = 1,â€¦â€¦, nsy + 1 and n = 1,â€¦â€¦, nsx + 1. The displacement fields associated with the plate presented in Eq. (4.11-4.13) are two dimensional in nature. But the stiffeners are one dimensional elements and hence the energy functional expressions related to them include single integrations (as shown in Eqs. (4.8) and (4.9). So, the plate displacement fields in their original form cannot be used in these expressions. To make the functions compatible with the stiffeners, plate displacement function is evaluated at the stiffener location ( Î¾stf , Î·stf ) depending on the orientation of the stiffener. For example, in case of a y-direction stiffener the transverse displacement function is taken as, í µí±¤(í µí¼‰, í µí¼‚)|í µí¼‰ í µí±ž = í µí±¤(í µí¼‰í µí± í µí±¡í µí±“ , í µí¼‚).
-í µí± í µí±¡í µí±“
+whole field functions, where m = 1,â€¦â€¦, nsy + 1 and n = 1,â€¦â€¦, nsx + 1. The displacement fields associated with the plate presented in Eq. (4.11-4.13) are two dimensional in nature. But the stiffeners are one dimensional elements and hence the energy functional expressions related to them include single integrations (as shown in Eqs. (4.8) and (4.9). So, the plate displacement fields in their original form cannot be used in these expressions. To make the functions compatible with the stiffeners, plate displacement function is evaluated at the stiffener location ( Î¾stf , Î·stf ) depending on the orientation of the stiffener. For example, in case of a y-direction stiffener the transverse displacement function is taken as, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)|ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ , ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½).
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±ž
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 Table 4.1. Start Function for Displacement w for rectangular plate Flexural Boundary Condition SSSS SCSS CSCS CCSS CCCS CCCC Start Function For w ( Ï•1( Î¾ ,Î·)) {sin(Ï€Î¾)}{sin(Ï€Î·)} {sin(Ï€Î¾)}{Î·2 (3-5Î·+2Î·2)} {Î¾(1-Î¾)}2{sin(Ï€Î·)} {Î¾2(3-5Î¾+2Î¾2)}{Î·2(3-5Î·+2Î·2)} {Î¾(1-Î¾)}2{Î·2(3-5Î·+2Î·2)} {Î¾(1-Î¾)}2{Î·(1-Î·)}2
 
@@ -772,46 +772,44 @@ Table 4.1. Start Function for Displacement w for rectangular plate Flexural Boun
 
 GOVERNING SYSTEM OF EQUATION
 
-Substituting the complete energy expressions along with the approximate displacement fields in Eq. (4.1) the set of system governing equations in matrix form is obtained as, [(í µí°¾{í µí±‘ })]{í µí±‘ } = {í µí±“} (4.14)
+Substituting the complete energy expressions along with the approximate displacement fields in Eq. (4.1) the set of system governing equations in matrix form is obtained as, [(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ })]{ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ } = {ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½} (4.14)
 
 Here, [K], {d} and {f} are stiffness matrix, vector of unknown coefficients and load vector, respectively. The dimensions of all the matrices and vectors are (nw + nu + nv). The total stiffness
-í µí±›í µí± í µí±¥ í µí±¦ matrix [K] of the system is given by, [í µí°¾ ] = [í µí°¾í µí± ] + [í µí°¾í µí±š ] + âˆ‘í µí±=1[í µí°¾í µí± í µí±¥ ]í µí± + âˆ‘í µí±ž=1[í µí°¾í µí± í µí±¦ ] í µí±›í µí±  í µí±ž
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ matrix [K] of the system is given by, [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ] = [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ] + [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ] + âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ + âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-Where, [í µí°¾í µí± ]and [í µí°¾í µí±š ] are contributions from bending and stretching action of the plate, whereas [í µí°¾í µí± í µí±¥ ]í µí± and [í µí°¾í µí± í µí±¦ ]
-í µí±ž
+Where, [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ]and [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ] are contributions from bending and stretching action of the plate, whereas [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ and [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ]
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 represent stiffness matrices of the p-th stiffener along x-direction and q-th
 
 stiffener along y-direction, respectively.
 
-í µí± í µí±˜11 [í µí°¾í µí± ] = [ [0] [0]
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½11 [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ] = [ [0] [0]
 
-í µí±š í µí±˜11 [0] [0] í µí±š [0] [0]] , [í µí°¾í µí±š ] = [í µí±˜21 í µí±š í µí±˜31 [0] [0] í µí± í µí±¦ í µí± í µí±¦
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½11 [0] [0] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [0] [0]] , [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ] = [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½21 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½31 [0] [0] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±š í µí±˜12 í µí±š í µí±˜22 í µí±š í µí±˜32
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½12 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½22 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½32
 
-í µí±š í µí± í µí±¥ í µí±˜13 í µí±˜11 í µí±š í µí± í µí±¥ í µí±˜23 ] , [í µí°¾í µí± í µí±¥ ] = [í µí±˜21 í µí±š í µí± í µí±¥ í µí±˜33 í µí±˜31
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½13 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½11 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½23 ] , [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ] = [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½21 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½33 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½31
 
-í µí± í µí±¥ í µí±˜12 í µí± í µí±¥ í µí±˜22 í µí± í µí±¥ í µí±˜32
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½12 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½22 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½32
 
-í µí± í µí±¥ í µí±˜13 í µí± í µí±¥ í µí±˜23 ] and í µí± í µí±¥ í µí±˜33
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½13 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½23 ] and ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½33
 
-í µí±˜11 í µí± í µí±¦ [í µí°¾í µí± í µí±¦ ] = [í µí±˜21 í µí± í µí±¦ í µí±˜31
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½11 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ] = [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½21 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½31
 
-í µí± í µí±¦
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±˜12 í µí± í µí±¦ í µí±˜22 í µí± í µí±¦ í µí±˜32
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½12 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½22 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½32
 
-í µí±˜13 í µí± í µí±¦ í µí±˜23 ] í µí± í µí±¦ í µí±˜33
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½13 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½23 ] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½33
 
-í µí± [í µí°¾11 ] = 1 í µí±Ž 2 í µí±2
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½11 ] = 1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
 
-í µí°¸í µí± í µí±¡í µí± 3 (í µí±Ží µí±) 12(1âˆ’í µí¼‡ 2 )
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) 12(1âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 )
 
-âˆ‘í µí±›í µí±¤ âˆ‘í µí±›í µí±¤ âˆ« âˆ« [{ 4 (í µí¼™í µí±–,í µí¼‰í µí¼‰ )(í µí¼™í µí±—,í µí¼‰í µí¼‰ ) + 4 (í µí¼™í µí±–,í µí¼‚í µí¼‚ )(í µí¼™í µí±—,í µí¼‚í µí¼‚ ) + í µí±—=1 í µí±–=1 0 0 í µí±Ž í µí± + í µí±Ž2 í µí±2 (í µí¼™í µí±–,í µí¼‚í µí¼‚ )(í µí¼™í µí±—,í µí¼‰í µí¼‰ )} âˆ’
-1 (1âˆ’í µí¼‡) í µí±Ž 2 í µí±2
-
-1
+âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ« âˆ« [{ 4 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + 4 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 0 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )} âˆ’
+1 (1âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
 
 1
 
@@ -819,108 +817,24 @@ stiffener along y-direction, respectively.
 
 1
 
-(í µí¼™í µí±–,í µí¼‰í µí¼‰ )(í µí¼™í µí±—,í µí¼‚í µí¼‚ )
+1
 
-(í µí¼™í µí±–,í µí¼‰í µí¼‰ )(í µí¼™í µí±—,í µí¼‚í µí¼‚ ) + (í µí¼™í µí±–,í µí¼‚í µí¼‚ )(í µí¼™í µí±—,í µí¼‰í µí¼‰ ) âˆ’
+(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )
 
-2(í µí¼™í µí±–,í µí¼‰í µí¼‚ )(í µí¼™í µí±—,í µí¼‰í µí¼‚ )] í µí±‘í µí¼‰í µí±‘í µí¼‚
+(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) âˆ’
+
+2(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 33
 
-í µí±š [í µí°¾11 ] = 1 í µí±4
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½11 ] = 1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4
 
-í µí°¸í µí± í µí±¡í µí± 3(í µí±Ží µí±) 12(1âˆ’í µí¼‡ 2) 2
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) 12(1âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2) 2
 
-âˆ‘í µí±›í µí±¤ âˆ‘í µí±›í µí±¤ âˆ« âˆ« [{ 4 (âˆ‘í µí±›í µí±¤ í µí±‘í µí±– í µí¼™í µí±–,í µí¼‰ ) (í µí¼™í µí±–,í µí¼‰ )(í µí¼™í µí±—,í µí¼‰ ) + í µí±—=1 í µí±–=1 0 0 í µí±–=1 í µí±Ž
-1 í µí±Ž 2 í µí±2
-
-1
+âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ« âˆ« [{ 4 (âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 0 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
 
 1
-
-1
-
-2
-
-(âˆ‘í µí±›í µí±¤ í µí±‘í µí±– í µí¼™í µí±–,í µí¼‚ ) (í µí¼™í µí±–,í µí¼‚ )(í µí¼™í µí±—,í µí¼‚ ) + í µí±–=1
-2
-
-(âˆ‘í µí±›í µí±¤ í µí±‘í µí±– í µí¼™í µí±–,í µí¼‰ ) (í µí¼™í µí±–,í µí¼‚ )(í µí¼™í µí±—,í µí¼‚ ) + í µí±–=1 (í µí¼™í µí±–,í µí¼‰í µí¼‰ )(í µí¼™í µí±—,í µí¼‚í µí¼‚ ) + (í µí¼™í µí±–,í µí¼‚í µí¼‚ )(í µí¼™í µí±—,í µí¼‰í µí¼‰ ) âˆ’ 2(í µí¼™í µí±–,í µí¼‰í µí¼‚ )(í µí¼™í µí±—,í µí¼‰í µí¼‚ ) + (âˆ‘í µí±›í µí±¤+í µí±›í µí±¢+í µí±›í µí±£ í µí±‘í µí±– í µí»½í µí±–âˆ’í µí±›í µí±¤âˆ’í µí±›í µí±¢,í µí¼‚ ) (í µí¼™í µí±–,í µí¼‚ )(í µí¼™í µí±—,í µí¼‚ ) + í µí±–=í µí±›í µí±¤+í µí±›í µí±¢+1
-2í µí¼‡ í µí±2 í µí±Ž 2
-
-2
-
-1 í µí±Ž 2 í µí±2 2 í µí±Ž 3
-
-(âˆ‘í µí±›í µí±¤ í µí±‘í µí±– í µí¼™í µí±–,í µí¼‚ ) (í µí¼™í µí±–,í µí¼‰ )(í µí¼™í µí±—,í µí¼‰ )} âˆ’ í µí±–=1
-2
-
-(1âˆ’í µí¼‡) í µí±Ž 2 í µí±2
-
-(âˆ‘í µí±›í µí±¤+í µí±›í µí±¢ í µí±‘í µí±– í µí»¼í µí±–âˆ’í µí±›í µí±¤,í µí¼‰ ) (í µí¼™í µí±–,í µí¼‰ )(í µí¼™í µí±—,í µí¼‰ ) + í µí±–=í µí±›í µí±¤+1
-2
-
-2 í µí±3
-
-2í µí¼‡ í µí±Ž 2 í µí±
-
-(âˆ‘í µí±›í µí±¤+í µí±›í µí±¢+í µí±›í µí±£ í µí±‘í µí±– í µí»½í µí±–âˆ’í µí±›í µí±¤âˆ’í µí±›í µí±¢,í µí¼‚ ) (í µí¼™í µí±–,í µí¼‰ )(í µí¼™í µí±—,í µí¼‰ ) + í µí±–=í µí±›í µí±¤+í µí±›í µí±¢+1 (âˆ‘í µí±›í µí±¤+í µí±›í µí±¢ í µí±‘í µí±– í µí»¼í µí±–âˆ’í µí±›í µí±¤,í µí¼‚ ) (í µí¼™í µí±–,í µí¼‰ )(í µí¼™í µí±—,í µí¼‚ ) + í µí±–=í µí±›í µí±¤+1
-2 (1âˆ’í µí¼‡) í µí±2 í µí±Ž
-
-(âˆ‘í µí±›í µí±¤+í µí±›í µí±¢ í µí±‘í µí±– í µí»¼í µí±–âˆ’í µí±›í µí±¤,í µí¼‰ ) (í µí¼™í µí±–,í µí¼‚ )(í µí¼™í µí±—,í µí¼‚ ) + í µí±–=í µí±›í µí±¤+1
-2
-
-2
-
-(1âˆ’í µí¼‡) í µí±2 í µí±Ž
-
-(âˆ‘í µí±›í µí±¤+í µí±›í µí±¢ í µí±‘í µí±– í µí»¼í µí±–âˆ’í µí±›í µí±¤,í µí¼‚ ) (í µí¼™í µí±–,í µí¼‚ )(í µí¼™í µí±—,í µí¼‰ )] í µí±‘í µí¼‰í µí±‘í µí¼‚ í µí±–=í µí±›í µí±¤+1
-
-í µí±š í µí±š [í µí°¾12 ] = [í µí°¾13 ] = 0 í µí°¸í µí± í µí±¡í µí± (í µí±Ží µí±) 2(1âˆ’í µí¼‡ 2) 1 1 1
-
-í µí±š [í µí°¾21 ] = í µí¼‡ í µí±Ží µí±2
-
-âˆ‘í µí±›í µí±¤+í µí±›í µí±¢ âˆ‘í µí±›í µí±¤ âˆ« âˆ« [{ 3 (âˆ‘í µí±›í µí±¤ í µí±‘í µí±– í µí¼™í µí±–,í µí¼‰ )(í µí¼™í µí±–,í µí¼‰ )(í µí¼™í µí±—âˆ’í µí±›í µí±¤,í µí¼‰ ) + í µí±—=í µí±›í µí±¤+1 í µí±–=1 0 0 í µí±–=1 í µí±Ž
-(1âˆ’í µí¼‡) í µí±Ží µí±2
-
-(âˆ‘í µí±›í µí±¤ í µí±‘í µí±– í µí¼™í µí±–,í µí¼‚ )(í µí¼™í µí±–,í µí¼‚ )(í µí»¼í µí±—âˆ’í µí±›í µí±¤,í µí¼‰ ) + í µí±–=1
-í µí°¸í µí± í µí±¡í µí± (í µí±Ží µí±) 2(1âˆ’í µí¼‡ 2) 1
-
-(âˆ‘í µí±›í µí±¤ í µí±‘í µí±– í µí¼™í µí±–,í µí¼‰ )(í µí¼™í µí±–,í µí¼‚ )(í µí»¼í µí±—âˆ’í µí±›í µí±¤,í µí¼‚ )}] í µí±‘í µí¼‰í µí±‘í µí¼‚ í µí±–=1
-
-í µí±š [í µí°¾22 ] = í µí¼‡ í µí±Ží µí±2
-
-âˆ‘í µí±›í µí±¤+í µí±›í µí±¢ âˆ‘í µí±›í µí±¤ âˆ« âˆ« [{ 2 (í µí¼™í µí±–âˆ’í µí±›í µí±¤,í µí¼‰ )(í µí¼™í µí±—âˆ’í µí±›í µí±¤,í µí¼‰ ) + í µí±—=í µí±›í µí±¤+1 í µí±–=1 0 0 í µí±Ž
-(1âˆ’í µí¼‡) í µí±2 1 1
-
-1
-
-2
-
-(âˆ‘í µí±›í µí±¤ í µí±‘í µí±– í µí¼™í µí±–,í µí¼‚ )(í µí¼™í µí±–,í µí¼‚ )(í µí»¼í µí±—âˆ’í µí±›í µí±¤,í µí¼‰ ) + í µí±–=1
-í µí°¸í µí± í µí±¡í µí± (í µí±Ží µí±) 2(1âˆ’í µí¼‡ 2)
-
-(í µí¼™í µí±–âˆ’í µí±›í µí±¤,í µí¼‚ )(í µí»¼í µí±—âˆ’í µí±›í µí±¤,í µí¼‚ )}] í µí±‘í µí¼‰í µí±‘í µí¼‚
-1
-
-í µí±š [í µí°¾31 ] = Âµ í µí±Ž 2 í µí±
-
-âˆ‘í µí±›í µí±¤+í µí±›í µí±¢+í µí±›í µí±£ âˆ‘í µí±›í µí±¤ âˆ« âˆ« [{ 3 (âˆ‘í µí±›í µí±¤ í µí±‘í µí±– í µí¼™í µí±–,í µí¼‚ )(í µí¼™í µí±–,í µí¼‚ )(í µí»½í µí±—âˆ’í µí±›í µí±¤âˆ’í µí±›í µí±¢,í µí¼‚ ) + í µí±—=í µí±›í µí±¤+í µí±›í µí±¢+1 í µí±–=1 0 0 í µí±–=1 í µí±
-(1âˆ’í µí¼‡) í µí±Ž 2í µí±
-
-(âˆ‘í µí±›í µí±¤ í µí±‘í µí±– í µí¼™í µí±–,í µí¼‰ )(í µí¼™í µí±–,í µí¼‰ )(í µí»½í µí±—âˆ’í µí±›í µí±¤âˆ’í µí±›í µí±¢,í µí¼‚ ) + í µí±–=1
-í µí°¸í µí± í µí±¡í µí± 2(1âˆ’í µí¼‡ 2) 1 1
-
-(âˆ‘í µí±›í µí±¤ í µí±‘í µí±– í µí¼™í µí±–,í µí¼‚ )(í µí¼™í µí±–,í µí¼‰ )(í µí»¼í µí±—âˆ’í µí±›í µí±¤âˆ’í µí±›í µí±¢,í µí¼‰ )}] í µí±‘í µí¼‰í µí±‘í µí¼‚ í µí±–=1
-
-í µí±š [í µí°¾32 ] =
-
-âˆ‘í µí±›í µí±¤+í µí±›í µí±¢+í µí±›í µí±£ âˆ‘í µí±›í µí±¤ âˆ« âˆ« [{2í µí¼‡(í µí»¼í µí±–âˆ’í µí±›í µí±¤,í µí¼‰ )(í µí»½í µí±—âˆ’í µí±›í µí±¤âˆ’í µí±›í µí±¢,í µí¼‚ ) + (1 âˆ’ í µí±—=í µí±›í µí±¤+í µí±›í µí±¢+1 í µí±–=1 0 0
-
-í µí¼‡)(í µí»¼í µí±–âˆ’í µí±›í µí±¤,í µí¼‚ )(í µí»½í µí±—âˆ’í µí±›í µí±¤âˆ’í µí±›í µí±¢,í µí¼‰ )}]í µí±‘í µí¼‰í µí±‘í µí¼‚
-í µí±š [í µí°¾33 ] = (1âˆ’í µí¼‡) í µí±Ž 2 í µí°¸í µí± í µí±¡í µí± (í µí±Ží µí±) 2(1âˆ’í µí¼‡ 2 )
-
-âˆ‘í µí±›í µí±¤+í µí±›í µí±¢+í µí±›í µí±£ âˆ‘í µí±›í µí±¤+í µí±›í µí±¢+í µí±›í µí±£ âˆ«0 âˆ«0 [{ 2 (í µí»½í µí±–âˆ’í µí±›í µí±¤âˆ’í µí±›í µí±¢,í µí¼‚ )(í µí»½í µí±—âˆ’í µí±›í µí±¤âˆ’í µí±›í µí±¢,í µí¼‚ ) + í µí±—=í µí±›í µí±¤+í µí±›í µí±¢+1 í µí±—=í µí±›í µí±¤+í µí±›í µí±¢+1 í µí±
 
 1
 
@@ -928,90 +842,176 @@ stiffener along y-direction, respectively.
 
 2
 
-(í µí»½í µí±–âˆ’í µí±›í µí±¤âˆ’í µí±›í µí±¢,í µí¼‰ )(í µí»½í µí±—âˆ’í µí±›í µí±¤âˆ’í µí±›í µí±¢,í µí¼‰ )}] í µí±‘í µí¼‰í µí±‘í µí¼‚
+(âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1
+2
+
+(âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) âˆ’ 2(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + (âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+1
+2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2
+
+2
+
+1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2 2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3
+
+(âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )} âˆ’ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1
+2
+
+(1âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+
+(âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+1
+2
+
+2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3
+
+2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+(âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+1 (âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+1
+2 (1âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+(âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+1
+2
+
+2
+
+(1âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+(âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+1
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½12 ] = [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½13 ] = 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) 2(1âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2) 1 1 1
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½21 ] = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+
+âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ« âˆ« [{ 3 (âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 0 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+(1âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+
+(âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) 2(1âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2) 1
+
+(âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )}] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½22 ] = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+
+âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ« âˆ« [{ 2 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 0 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+(1âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2 1 1
+
+1
+
+2
+
+(âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) 2(1âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2)
+
+(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )}] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+1
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½31 ] = Âµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ« âˆ« [{ 3 (âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 0 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+(1âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+(âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2(1âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2) 1 1
+
+(âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )}] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½32 ] =
+
+âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ« âˆ« [{2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + (1 âˆ’ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 0 0
+
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )}]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½33 ] = (1âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) 2(1âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 )
+
+âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ«0 âˆ«0 [{ 2 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+1
+
+1
+
+2
+
+(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )}] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 34
 
-í µí± í µí±¦ [í µí°¾11 ] í µí±ž 2 í µí± 4
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½11 ] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 4
 
 =
 
-í µí±›í µí± í µí±¦ í µí°¸ í µí± âˆ‘í µí±ž=1 [ í µí±  2
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 [ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2
 
-1 2(í µí°¼ +í µí°´í µí±¥ í µí±’ ) âˆ‘í µí±›í µí±¤ âˆ‘í µí±›í µí±¤ âˆ« { í µí±¥ 4 í µí±¦ (í µí¼™í µí±–,í µí¼‚í µí¼‚ )(í µí¼™í µí±—,í µí¼‚í µí¼‚ ) í µí±—=1 í µí±–=1 0 í µí± 2 1 í µí±4
+1 2(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ +ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ« { ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 4 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4
 
-í µí±ž
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±ž
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±ž 2
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2
 
 âˆ’
 
-í µí±„í µí±¥ í µí°´í µí±¥
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±ž (âˆ‘í µí±›í µí±¤ í µí±‘í µí±– í µí¼™í µí±–,í µí¼‚í µí¼‚ ) (í µí¼™í µí±–,í µí¼‚í µí¼‚ )(í µí¼™í µí±—,í µí¼‚ ) âˆ’ í µí±„í µí±¥ í µí±–=1 2 2 í µí±3
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) âˆ’ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 2 2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3
 
-(âˆ‘í µí±›í µí±¤ í µí±‘í µí±– í µí¼™í µí±–,í µí¼‚ )(í µí¼™í µí±–,í µí¼‚ )(í µí¼™í µí±—,í µí¼‚ ) + í µí±–=1
+(âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1
 2
 
-í µí±ž 1 í µí± 4
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 4
 
-(âˆ‘í µí±›í µí±¤ í µí±‘í µí±– í µí¼™í µí±–,í µí¼‚ ) (í µí¼™í µí±–,í µí¼‚ )(í µí¼™í µí±—,í µí¼‚ ) + í µí°´í µí±ž í µí±–=1 í µí±¥
+(âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-(âˆ‘í µí±›í µí±¤+í µí±›í µí±¢+í µí±›í µí±£ í µí±‘í µí±– í µí»½í µí±–âˆ’í µí±›í µí±¤âˆ’í µí±›í µí±¢,í µí¼‚ ) (í µí¼™í µí±–,í µí¼‚ )(í µí¼™í µí±—,í µí¼‚ )} í µí±‘í µí¼‚] í µí±–=í µí±›í µí±¤+í µí±›í µí±¢+1
+(âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+1
 2
 
-í µí± í µí±¦ [í µí°¾22 ]
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½22 ]
 
 =
 
-í µí±›í µí± í µí±¦ í µí°¸ í µí± 1 2(í µí°¼í µí±¥í µí±§ +í µí°´í µí±¥ (í µí±Ží µí¼‰í µí± í µí±¡í µí±“ ) ) âˆ‘í µí±ž=1 [ í µí±  âˆ‘í µí±›í µí±¤ âˆ‘í µí±›í µí±¤ âˆ« { (í µí»¼í µí±–âˆ’í µí±›í µí±¤,í µí¼‚í µí¼‚ )(í µí»¼í µí±—âˆ’í µí±›í µí±¤,í µí¼‚í µí¼‚ )} í µí±‘í µí¼‚] í µí±—=1 í µí±–=1 0 2 í µí±4
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1 2(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ +ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) ) âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 [ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ« { (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 0 2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4
 
-í µí±ž
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±ž
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí±ž
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí± í µí±¦ í µí±¦ [í µí°¾33 ] = âˆ‘í µí±ž=1 [
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½33 ] = âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 [
 
-í µí±›í µí± 
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí°¸í µí±  í µí± 2
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2
 
-âˆ‘í µí±›í µí±¤+í µí±›í µí±¢+í µí±›í µí±£ âˆ‘í µí±›í µí±¤+í µí±›í µí±¢+í µí±›í µí±£ âˆ« { í µí±—=í µí±›í µí±¤+í µí±›í µí±¢+1 í µí±–=í µí±›í µí±¤+í µí±›í µí±¢1 0 âˆ‘í µí±›í µí±¤+í µí±›í µí±¢+í µí±›í µí±£ âˆ‘í µí±›í µí±¤ âˆ« { í µí±—=í µí±›í µí±¤+í µí±›í µí±¢1 í µí±–=1 0
-1 2(í µí±„í µí±¥ ) í µí±3
-í µí±ž
+âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ« { ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1 0 âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ« { ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 0
+1 2(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-1 2(í µí°´í µí±¥ ) í µí±2
+1 2(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
 
-í µí±ž
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-(í µí»½í µí±–âˆ’í µí±›í µí±¤âˆ’í µí±›í µí±¢,í µí¼‚ )(í µí»½í µí±—âˆ’í µí±›í µí±¤âˆ’í µí±›í µí±¢,í µí¼‚ )} í µí±‘í µí¼‚ ]
+(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ]
 
-í µí± í µí±¦ í µí±¦ [í µí°¾31 ] = âˆ‘í µí±ž=1 [ í µí±ž 1 í µí± 3
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½31 ] = âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 [ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3
 
-í µí±›í µí± 
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí°¸í µí±  í µí± 2
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2
 
-(í µí¼™í µí±–,í µí¼‚í µí¼‚ )(í µí»½í µí±—âˆ’í µí±›í µí±¤âˆ’í µí±›í µí±¢,í µí¼‚ ) +
+(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) +
 
-í µí°´í µí±¥
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-(âˆ‘í µí±›í µí±¤ í µí±‘í µí±– í µí¼™í µí±– )2 (í µí¼™í µí±–,í µí¼‚ ) (í µí»½í µí±–âˆ’í µí±›í µí±¤âˆ’í µí±›í µí±¢,í µí¼‚ )} í µí±‘í µí¼‚] í µí±–=1
-í µí±›í µí±  í µí°¸í µí±  í µí± 2 1 2(í µí±„í µí±¥ ) í µí±3
-í µí±ž
+(âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )2 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 1 2(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-í µí± í µí±¦ í µí±¦ [í µí°¾13 ] = âˆ‘í µí±ž=1 [
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½13 ] = âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 [
 
-âˆ‘í µí±›í µí±¤ âˆ‘í µí±›í µí±¤+í µí±›í µí±¢+í µí±›í µí±£ âˆ« {âˆ’ í µí±—=1 í µí±–=í µí±›í µí±¤+í µí±›í µí±¢+1 0
+âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ« {âˆ’ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+1 0
 
-(í µí»½í µí±–âˆ’í µí±›í µí±¤âˆ’í µí±›í µí±¢,í µí¼‚ )(í µí¼™í µí±—,í µí¼‚í µí¼‚ )} í µí±‘í µí¼‚ ]
+(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âˆ’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ]
 
-í µí± í µí±¦ í µí± í µí±¦ í µí± í µí±¦ í µí± í µí±¦ [í µí°¾12 ]= [í µí°¾21 ] [í µí°¾23 ] = [í µí°¾32 ] = 0
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½12 ]= [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½21 ] [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½23 ] = [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½32 ] = 0
 
-The load vector {f } is of the form {í µí±“11 , í µí±“12 , í µí±“13 }T {í µí±“11 } = âˆ‘í µí±›í µí±¤ í µí±ƒí µí¼™í µí±— |í µí¼‰,í µí¼‚ + í µí±(í µí±Ží µí±) âˆ‘í µí±›í µí±¤ âˆ« âˆ« í µí¼™í µí±— í µí±‘í µí¼‰í µí±‘í µí¼‚, {í µí±“12 } = {í µí±“13 } = 0 í µí±—=í µí±– í µí±—=1 0 0
+The load vector {f } is of the form {ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½11 , ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½12 , ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½13 }T {ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½11 } = âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ |ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) âˆ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ âˆ« âˆ« ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, {ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½12 } = {ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½13 } = 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=1 0 0
 1 1
 
 35

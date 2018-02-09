@@ -56,17 +56,17 @@ m¼1n¼1
 
 ð3Þ
 
-where α ¼ π/L, β ¼2π/D, m is the number of axial half waves, n is the number of circumferential full waves. After the substitution of the assumed buckling displacements into the governing equations, the critical buckling load for orthogrid stiffened shells under axial compression can be expressed as    A11 A12 A13    A A A   21 22 23      2R L 2  A31 A32 A33    P cr ¼ ð4Þ  A11 A12  π m      A21 A22  A11 ¼ Ex A22 ¼ Ey A33 ¼ Dx  mπ  2 L n2 R þ Gxy n 2 R ð5Þ ð6Þ
+where α ¼ π/L, β ¼2π/D, m is the number of axial half waves, n is the number of circumferential full waves. After the substitution of the assumed buckling displacements into the governing equations, the critical buckling load for orthogrid stiffened shells under axial compression can be expressed as ⬚ ⬚ ⬚ A11 A12 A13 ⬚ ⬚ ⬚ ⬚A A A ⬚ ⬚ 21 22 23 ⬚ ⬚ ⬚ ⬚ ⬚ 2R L 2 ⬚ A31 A32 A33 ⬚ ⬚ ⬚ P cr ¼ ð4Þ ⬚ A11 A12 ⬚ π m ⬚ ⬚ ⬚ ⬚ ⬚ A21 A22 ⬚ A11 ¼ Ex A22 ¼ Ey A33 ¼ Dx ⬚ mπ ⬚ 2 L ⬚n⬚2 R þ Gxy ⬚n ⬚2 R ð5Þ ð6Þ
 
 þ Gxy
 
- mπ  2 L
+⬚ mπ ⬚ 2 L
 
- n4  mπ  2  n  2 þ Dxy þ Dy R R L L Ey 2C y n2 2C xy mπ 2 þ 2þ þ R R R L R  mπ  4
+⬚ n⬚4 ⬚ mπ ⬚ 2 ⬚ n ⬚ 2 þ Dxy þ Dy R R L L Ey 2C y ⬚n⬚2 2C xy ⬚mπ ⬚2 þ 2þ þ R R R L R ⬚ mπ ⬚ 4
 
 ð7Þ ð8Þ ð9Þ ð10Þ
 
-  mπ n A12 ¼ A21 ¼ Exy þ Gxy L R n3    mπ  2 n E n y A23 ¼ A32 ¼ C xy þ 2K xy þ þ Cy R RR R L A31 ¼ A13 ¼  mπ  n  2  mπ  3  Exy mπ þ Cx þ C xy þ 2K xy R L L L R
+⬚ ⬚ mπ n A12 ¼ A21 ¼ Exy þ Gxy L R ⬚n⬚3 ⬚ ⬚ ⬚ mπ ⬚ 2 n E n y A23 ¼ A32 ¼ C xy þ 2K xy þ þ Cy R RR R L A31 ¼ A13 ¼ ⬚ mπ ⬚ n ⬚ 2 ⬚ mπ ⬚ 3 ⬚ Exy mπ þ Cx þ C xy þ 2K xy R L L L R
 
 where Pcr is the critical buckling load, R and L are the radius and length of the stiffened shell. A stiffened shell can be considered as an assembly of unit cells, which is a repetitive unit of skin and stiffener elements, as shown in Fig. 1(a) and (b). The equivalent stiffness parameters of per unit cell can be expressed as Ex ¼ Et s EAs þ 1 À μ2 bn ð11Þ
 
@@ -99,14 +99,14 @@ Et s 3 EI s EAs þ þ zs 2 bn 12ð1 À μ2 Þ bn
 
 ð15Þ
 
-where E is Young's modulus, υ is Poisson's ratio, b and d are the distances of axial and circumferential stiffeners respectively, h is the stiffener height, tr is the stiffener thickness. By solving Eq. (4), the critical buckling load and corresponding modes (m, n) can be obtained. For the case of local buckling, the skin of per unit cell can be considered as a simply supported rectangular plate. Thus, the critical buckling load for such a plate can be written as  4  2  4 ! m π 2 D1 dn þ2D3 bmnn þ D2 bnn nd P plate ¼ ð24Þ  2
+where E is Young's modulus, υ is Poisson's ratio, b and d are the distances of axial and circumferential stiffeners respectively, h is the stiffener height, tr is the stiffener thickness. By solving Eq. (4), the critical buckling load and corresponding modes (m, n) can be obtained. For the case of local buckling, the skin of per unit cell can be considered as a simply supported rectangular plate. Thus, the critical buckling load for such a plate can be written as ⬚ ⬚4 ⬚ ⬚2 ⬚ ⬚4 ! m π 2 D1 dn þ2D3 bmnn þ D2 bnn nd P plate ¼ ð24Þ ⬚ ⬚2
 m dn
 
 Et s 3 EI r EAr þ þ zr 2 Dy ¼ dn 12ð1 À μ2 Þ dn Dxy Et s 3 GJ GJ þ sþ r ¼ 6ð1 þ μÞ bn dn
 
-ð16Þ D1 ¼ D2 ¼ ð17Þ Et s 3 12ð1 À μ2 Þ  Et s 3 þ D3 ¼ 6ð1 þ μÞ
+ð16Þ D1 ¼ D2 ¼ ð17Þ Et s 3 12ð1 À μ2 Þ ⬚ Et s 3 þ D3 ¼ 6ð1 þ μÞ
 
-ð25Þ  ts 3
+ð25Þ ⬚ ts 3
 
 Eμ þG 1 À μ2
 
@@ -120,7 +120,7 @@ EAs C x ¼ zs bn EAr C y ¼ zr dn C xy ¼ K xy ¼ 0
 
 Furthermore, the local buckling load of the traditional stiffened shell can be expressed as P local ¼ t s bn þ t r h P plate t s bn ð27Þ
 
-where zs and zr are the distances of centroid of axial and circumferential stiffeners, respectively. By the geometric analysis of the unit cell, the geometric characteristics of equivalent sections in two directions can be obtained As ¼ Ar ¼ t r h I s ¼ I r ¼ t r h =12 Js ¼ Jr ¼  ! ht r 3 16 tr tr 4 À 3:36 1À 4 16 3 h 12h
+where zs and zr are the distances of centroid of axial and circumferential stiffeners, respectively. By the geometric analysis of the unit cell, the geometric characteristics of equivalent sections in two directions can be obtained As ¼ Ar ¼ t r h I s ¼ I r ¼ t r h =12 Js ¼ Jr ¼ ⬚ ⬚! ht r 3 16 tr tr 4 À 3:36 1À 4 16 3 h 12h
 3
 
 2.2. SSM for hierarchical stiffened shells The hierarchical stiffened shell is composed of major stiffeners and minor stiffeners, and the minor stiffeners generally lie between adjacent major stiffeners. To obtain the equivalent stiffness parameters, a unit cell is taken out of the hierarchical stiffened shell, as shown in Fig. 1(a) and (c). According to the homogenization method, the equivalent stiffness parameters of such a unit cell can be written as Ex ¼ Es ðAsn þ Asj Þ Et s þ bj 1 À μ2 ð28Þ
@@ -180,14 +180,14 @@ Cy ¼
 
 where teq is the equivalent skin thickness of an orthogrid stiffened shell. Thus the design load is obtained by multiplying the theoretical critical buckling load with this KDF, in order to roughly predict the load-carrying capacity of real structure. However, it is not adequate to represent the actual condition, since the imperfection sensitivities of thin-walled structures are strongly inﬂuenced by manufacturing process and other structural parameters. Moreover, various forms of imperfections can be caused by manufacturing, transportation, installation and serving processes of stiffened shells and other thin-walled structures. According to the previous studies [24,30,31], different imperfection shapes and patterns may have various effects on the pre-buckling evolution and post-buckling path, reﬂecting as different values of KDF. On this account, it requires more detailed modeling of structures and nonlinear analysis for predicting the load redistribution due to pre-buckling bending. In a detailed way, the geometry of an imperfect stiffened shell can be deﬁned by X ¼ Xp þ Ximp Ximp ¼ δN ð52Þ ð53Þ ð54Þ
 
-where Na and Nc are the numbers of axial and circumferential stiffeners respectively, the subscripts n and j stand for the minor and major stiffeners respectively. For the case of local buckling, the skin of per unit cell can be considered as a simply supported orthotropic plate. Consequently, the equivalent stiffness for such an orthotropic plate can be written as  4  2  4 ! mn n π 2 D1 mj þ 2D3 bj dj þ D2 bj d P plate ¼ ð44Þ  2
+where Na and Nc are the numbers of axial and circumferential stiffeners respectively, the subscripts n and j stand for the minor and major stiffeners respectively. For the case of local buckling, the skin of per unit cell can be considered as a simply supported orthotropic plate. Consequently, the equivalent stiffness for such an orthotropic plate can be written as ⬚ ⬚4 ⬚ ⬚2 ⬚ ⬚4 ! mn n π 2 D1 mj þ 2D3 bj dj þ D2 bj d P plate ¼ ð44Þ ⬚ ⬚2
 m dj
 
 α ¼ δ=ðhþ t s Þ
 
 D1 ¼
 
-Et s 3 EI sn þ zsn 2 EAsn þ bj 12ð1 À μ2 Þ Et s 3 EI rn þ zrn 2 EArn þ 2Þ dj 12ð1 À μ  Et s 3 2GJ sn þ EJ sn 2GJ rn þ EJ rn þ þ þ 6ð1 þ μÞ 2bj 2dj
+Et s 3 EI sn þ zsn 2 EAsn þ bj 12ð1 À μ2 Þ Et s 3 EI rn þ zrn 2 EArn þ 2Þ dj 12ð1 À μ ⬚ Et s 3 2GJ sn þ EJ sn 2GJ rn þ EJ rn þ þ þ 6ð1 þ μÞ 2bj 2dj
 Eμ þG 1 À μ2
 
 ð45Þ
@@ -196,7 +196,7 @@ where Xp is the nodal coordinates vector of perfect geometry, Ximp is the nodal 
 
 D2 ¼
 
-ð46Þ 
+ð46Þ ⬚
 
 3. Optimization framework for minimum-weight design 3.1. Optimization formulation
 
