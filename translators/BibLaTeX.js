@@ -17,7 +17,7 @@
 		"exportFileData": false,
 		"useJournalAbbreviation": false
 	},
-	"lastUpdated": "2017-08-31 22:30:00"
+	"lastUpdated": "2018-03-04 22:10:00"
 }
 
 //%a = first listed creator surname
@@ -58,7 +58,8 @@ var revExtraIds = {
 	MR: 'mrnumber',
 	Zbl: 'zmnumber',
 	PMCID: 'pmcid',
-	PMID: 'pmid'
+	PMID: 'pmid',
+	DOI: 'doi'
 };
 
 // Imported by BibTeX. Exported by BibLaTeX only

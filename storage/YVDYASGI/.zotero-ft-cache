@@ -1,0 +1,776 @@
+3D Geometry for Computer Graphics
+Lesson 2: PCA & SVD
+
+Last week - eigendecomposition
+We want to learn how the matrix A works:
+
+A
+
+2
+
+Last week - eigendecomposition
+If we look at arbitrary vectors, it doesn’t tell us much.
+
+A
+
+3
+
+Spectra and diagonalization
+If A is symmetric, the eigenvectors are orthogonal (and there’s always an eigenbasis).
+
+A
+
+A = UΛU
+
+T
+
+Λ=
+
+⎛ λ1 ⎜ λ2 ⎜ ⎜ ⎜ ⎜ ⎝
+
+⎞ ⎟ ⎟ ⎟ ⎟ λn ⎟ ⎠
+
+Aui = λi ui
+4
+
+Why SVD…
+Diagonalizable matrix is essentially a scaling. Most matrices are not diagonalizable – they do other things along with scaling (such as rotation) So, to understand how general matrices behave, only eigenvalues are not enough SVD tells us how general linear transformations behave, and other things…
+
+5
+
+The plan for today
+First we’ll see some applications of PCA – Principal Component Analysis that uses spectral decomposition. Then look at the theory. SVD
+Basic intuition Formal definition Applications
+
+6
+
+PCA – the general idea
+PCA finds an orthogonal basis that best represents given data set.
+y y’ x’
+
+x
+
+The sum of distances2 from the x’ axis is minimized.
+
+7
+
+PCA – the general idea
+PCA finds an orthogonal basis that best represents given data set.
+z
+
+3D point set in standard basis
+
+x
+
+y
+
+PCA finds a best approximating plane (again, in terms of Σdistances2)
+
+8
+
+Application: finding tight bounding box
+An axis-aligned bounding box: agrees with the axes
+y maxY
+
+minX minY
+
+maxX
+
+x
+
+9
+
+Application: finding tight bounding box
+Oriented bounding box: we find better axes!
+y’ x’
+
+10
+
+Application: finding tight bounding box
+This is not the optimal bounding box
+
+z
+
+x
+
+y
+
+11
+
+Application: finding tight bounding box
+Oriented bounding box: we find better axes!
+
+12
+
+Usage of bounding boxes (bounding volumes)
+Serve as very simple “approximation” of the object Fast collision detection, visibility queries Whenever we need to know the dimensions (size) of the object
+The models consist of thousands of polygons To quickly test that they don’t intersect, the bounding boxes are tested Sometimes a hierarchy of BB’s is used The tighter the BB – the less “false alarms” we have
+
+Sample
+
+13
+
+Scanned meshes
+
+14
+
+Point clouds
+Scanners give us raw point cloud data How to compute normals to shade the surface?
+
+normal
+
+15
+
+Point clouds
+Local PCA, take the third vector
+
+16
+
+Notations
+Denote our data points by x1, x2, …, xn ∈ R
+1 ⎛ x1 ⎞ ⎛ x1 ⎞ ⎛ x1 ⎞ n 2 ⎜ 2⎟ ⎜ 2⎟ ⎜ 2⎟ ⎜ x1 ⎟ , x = ⎜ x2 ⎟ , … , x = ⎜ xn ⎟ x1 = n ⎜ ⎟ ⎜ ⎟ 2 ⎜ ⎟ ⎜ d⎟ ⎜ d⎟ ⎜ d⎟ ⎜x ⎟ ⎜x ⎟ ⎜x ⎟ ⎝ 1⎠ ⎝ 2⎠ ⎝ n⎠
+
+d
+
+17
+
+The origin of the new axes
+The origin is zero-order approximation of our data set (a point) It will be the center of mass:
+m =
+1 n
+
+∑x
+i =1 n
+
+n
+
+i
+
+It can be shown that:
+m = argmin ∑ x i - x
+x i =1 2
+
+18
+
+Scatter matrix
+Denote yi = xi – m, i = 1, 2, …, n
+
+S = YY T
+where Y is d×n matrix with yk as columns (k = 1, 2, …, n)
+1 ⎛ y1 ⎜ 2 ⎜ y1 S = ⎜ ⎜ d ⎜y ⎝ 1
+
+y1 2 2 y2
+d y2
+
+1 y1 ⎞ ⎛ y1 n 2 ⎟⎜ yn ⎟ ⎜ y1 2 ⎟⎜ ⎟⎜ d ⎟⎜ 1 yn ⎠ ⎝ yn
+
+y12 2 y2
+2 yn
+
+y1d ⎞ d ⎟ y2 ⎟ ⎟ ⎟ d ⎟ yn ⎠
+T
+19
+
+Y
+
+Y
+
+Variance of projected points
+In a way, S measures variance (= scatterness) of the data in different directions. Let’s look at a line L through the center of mass m, and project our points xi onto it. The variance of the projected points x’i is:
+
+var( L) = 1 ∑|| x′ − m ||2 i n
+i =1
+
+n
+
+L
+Original set Small variance
+
+L
+
+L
+
+L
+Large variance
+20
+
+Variance of projected points
+Given a direction v, ||v|| = 1, the projection of xi onto L = m + vt is:
+
+|| x′ − m || = < v, xi − m > /|| v || = < v, yi > = vT yi i
+xi x’i
+
+L
+
+m
+
+v
+
+21
+
+Variance of projected points
+So,
+
+var( L) = 1 ∑|| x′ - m || = 1 ∑ ( vTyi )2 = 1 || vTY ||2 = i n n n
+2 i =1 i =1
+
+n
+
+n
+
+= 1 || Y T v ||2 = 1 < Y T v, Y T v > = 1 vTYY T v = 1 vT Sv = 1 < Sv, v > n n n n n
+⎛ ⎜ n n ( vT y i )2 = ∑ ⎜ ( v1 v2 ∑ ⎜ i =1 i =1 ⎜ ⎜ ⎝ ⎛ y ⎞⎞ ⎜ ⎟⎟ d ⎜ y ⎟⎟ v ) = ( v1 v 2 ⎜ ⎟⎟ ⎜ d ⎟⎟ ⎜ y ⎟⎟ ⎝ i ⎠⎠
+1 i 2 i 2
+
+⎛y ⎜ d ⎜ y v ) ⎜ ⎜ d ⎜y ⎝ 1
+
+1 1 2 1
+
+y y
+
+1 2 2 2
+
+d y2
+
+y ⎞ ⎟ y ⎟ = || vTY ||2 ⎟ ⎟ d ⎟ yn ⎠
+1 n 2 n
+
+2
+
+22
+
+Directions of maximal variance
+So, we have: var(L) = <Sv, v> Theorem: d Let f : {v ∈ R | ||v|| = 1} → R, f (v) = <Sv, v> (and S is a symmetric matrix).
+Then, the extrema of f are attained at the eigenvectors of S.
+
+So, eigenvectors of S are directions of maximal/minimal variance!
+
+23
+
+Summary so far
+We take the centered data vectors y1, y2, …, yn ∈ Rd Construct the scatter matrix S = YY T S measures the variance of the data points Eigenvectors of S are directions of maximal variance.
+
+24
+
+Scatter matrix - eigendecomposition
+S is symmetric ⇒ S has eigendecomposition: S = VΛVT
+λ1
+v1 v2
+
+S
+
+λ2 λd
+
+=
+
+v1 v2
+
+vd
+
+vd
+
+The eigenvectors form orthogonal basis
+
+25
+
+Principal components
+Eigenvectors that correspond to big eigenvalues are the directions in which the data has strong components (= large variance). If the eigenvalues are more or less the same – there is no preferable direction. Note: the eigenvalues are always non-negative.
+
+26
+
+Principal components
+
+There’s no preferable direction
+
+There is a clear preferable direction
+
+S looks like this:
+
+S looks like this:
+
+⎛λ V⎜ ⎝
+
+⎞ T ⎟V λ⎠
+
+⎛λ V⎜ ⎜ ⎝
+
+⎞ T ⎟V ⎟ μ⎠
+
+Any vector is an eigenvector
+
+μ is close to zero, much smaller than λ.
+27
+
+How to use what we got
+For finding oriented bounding box – we simply compute the bounding box with respect to the axes defined by the eigenvectors. The origin is at the mean point m. v3 v2
+28
+
+v1
+
+For approximation
+y v2 v1
+
+x y y
+
+x This line segment approximates the original data set
+
+x The projected data set approximates the original data set
+29
+
+For approximation
+In general dimension d, the eigenvalues are sorted in descending order: λ1 ≥ λ2 ≥ … ≥ λd The eigenvectors are sorted accordingly. To get an approximation of dimension d’ < d, we take the d’ first eigenvectors and look at the subspace they span (d’ = 1 is a line, d’ = 2 is a plane…)
+
+30
+
+For approximation
+To get an approximating set, we project the original data points onto the chosen subspace: xi = m + α1v1 + α2v2 +…+ αd’vd’ +…+αdvd
+Projection:
+
+xi’ = m + α1v1 + α2v2 +…+ αd’vd’ +0⋅vd’+1+…+ 0⋅ vd
+
+31
+
+SVD
+
+Geometric analysis of linear transformations
+We want to know what a linear transformation A does Need some simple and “comprehendible” representation of the matrix of A. Let’s look what A does to some vectors
+Since A(αv) = αA(v), it’s enough to look at vectors v of unit length
+
+A
+
+33
+
+The geometry of linear transformations
+A linear (non-singular) transform A always takes hyper-spheres to hyper-ellipses.
+
+A
+
+A
+
+34
+
+The geometry of linear transformations
+Thus, one good way to understand what A does is to find which vectors are mapped to the “main axes” of the ellipsoid.
+A
+
+A
+
+35
+
+Geometric analysis of linear transformations
+If we are lucky: A = V Λ V , V orthogonal (true if A is symmetric) The eigenvectors of A are the axes of the ellipse
+T
+
+A
+
+36
+
+Symmetric matrix: eigen decomposition
+In this case A is just a scaling matrix. The eigen decomposition of A tells us which orthogonal axes it scales, and by how much:
+1 1 λ1
+
+A
+
+λ2
+
+⎡λ1 ⎢ λ2 A = [ v1 v 2 … v n ] ⎢ ⎢ ⎢ ⎢ ⎣
+
+⎤ ⎥ ⎥ [ v v … v ]T n ⎥ 1 2 ⎥ λn ⎥ ⎦
+
+Av i = λi v i
+37
+
+General linear transformations: SVD
+In general A will also contain rotations, not just scales:
+σ1
+
+1
+
+1
+
+σ2
+
+A
+
+A = U ∑V T
+⎡σ 1 ⎢ σ2 ⎢ A = [u1 u 2 … u n ] ⎢ ⎢ ⎢ ⎣ ⎤ ⎥ ⎥ [ v v … v ]T n ⎥ 1 2 ⎥ σn⎥ ⎦
+38
+
+General linear transformations: SVD
+
+1
+
+1
+
+σ2
+
+σ1
+
+A
+
+AV = U ∑
+⎡σ 1 orthonormal orthonormal ⎢ σ2 A [ v1 v 2 … v n ] = [u1 u 2 … u n ] ⎢ ⎢ ⎢ ⎢ ⎣ ⎤ ⎥ ⎥ ⎥ ⎥ σn⎥ ⎦
+
+A vi = σ iui , σ i ≥ 0
+39
+
+SVD more formally
+SVD exists for any matrix Formal definition:
+For square matrices A ∈ R , there exist orthogonal matrices n×n U, V ∈ R and a diagonal matrix Σ, such that all the diagonal values σi of Σ are non-negative and
+n×n
+
+A = U ΣV
+=
+
+T
+
+A
+
+U
+
+Σ
+
+VT
+40
+
+SVD more formally
+The diagonal values of Σ (σ1, …, σn) are called the singular values. It is accustomed to sort them: σ1 ≥ σ2≥ … ≥ σn The columns of U (u1, …, un) are called the left singular vectors. They are the axes of the ellipsoid. The columns of V (v1, …, vn) are called the right singular vectors. They are the preimages of the axes of the ellipsoid.
+
+A = U ΣV
+=
+
+T
+
+A
+
+U
+
+Σ
+
+VT
+41
+
+Reduced SVD
+For rectangular matrices, we have two forms of SVD. The reduced SVD looks like this:
+The columns of U are orthonormal Cheaper form for computation and storage
+
+=
+
+A
+
+U
+
+Σ
+
+VT
+42
+
+Full SVD
+We can complete U to a full orthogonal matrix and pad Σ by zeros accordingly
+
+=
+
+A
+
+U
+
+Σ
+
+VT
+
+43
+
+Some history
+SVD was discovered by the following people:
+
+E. Beltrami (1835 − 1900)
+
+M. Jordan (1838 − 1922)
+
+J. Sylvester (1814 − 1897)
+
+E. Schmidt (1876-1959)
+
+H. Weyl (1885-1955)
+44
+
+SVD is the “working horse” of linear algebra
+There are numerical algorithms to compute SVD. Once you have it, you have many things:
+Matrix inverse → can solve square linear systems Numerical rank of a matrix Can solve least-squares systems PCA Many more…
+
+45
+
+Matrix inverse and solving linear systems
+Matrix inverse:
+A = U ∑V T A
+−1
+
+= (U ∑ V ⎡ σ11 ⎢ =V ⎢ ⎢ ⎣
+
+T
+
+)
+
+−1
+
+= (V
+
+T
+
+)
+
+−1
+
+∑ −1 U −1 =
+
+⎤ ⎥ T ⎥U 1 ⎥ σn ⎦
+
+So, to solve Ax = b
+
+x =V ∑ U b
+T
+
+−1
+
+46
+
+Matrix rank
+The rank of A is the number of non-zero singular values
+n
+
+σ1
+m =
+
+σ2 σn
+
+A
+
+U
+
+Σ
+
+VT
+
+47
+
+Numerical rank
+If there are very small singular values, then A is close to being singular. We can set a threshold t, so that numeric_rank(A) = #{σi| σi > t} If rank(A) < n then A is singular. It maps the entire space Rn onto some subspace, like a plane (so A is some sort of projection).
+
+48
+
+Back to PCA
+We wanted to find principal components
+
+y
+
+y’ x’
+
+x
+
+49
+
+PCA
+Move the center of mass to the origin
+pi’ = pi − m
+y y’ x’ x
+
+50
+
+PCA
+Constructed the matrix X of the data points.
+⎡ | ′ X = ⎢ p1 ⎢ ⎢ | ⎣ | p′ 2 | | ⎤ p′ ⎥ n⎥ | ⎥ ⎦
+
+The principal axes are eigenvectors of S = XXT
+⎡ λ1 XX T = S = U ⎢ ⎢ ⎢ ⎣ ⎤ ⎥U T ⎥ λd ⎥ ⎦
+
+51
+
+PCA
+We can compute the principal components by SVD of X:
+
+X = U ΣV T XX T = U Σ V T (U Σ V T )T = = U Σ V T V Σ T U T = U Σ 2U T
+Thus, the left singular vectors of X are the principal components! We sort them by the size of the singular values of X.
+
+52
+
+Shape matching
+We have two objects in correspondence Want to find the rigid transformation that aligns them
+
+53
+
+Shape matching
+When the objects are aligned, the lengths of the connecting lines are small.
+
+54
+
+Shape matching – formalization
+Align two point sets
+
+P = {p1 , …, p n } and Q = {q1 , …, q n } .
+Find a translation vector t and rotation matrix R so that:
+
+∑p
+i =1
+
+n
+
+i
+
+− ( Rqi + t )
+
+2
+
+is minimized
+
+55
+
+Shape matching – solution
+Turns out we can solve the translation and rotation separately. Theorem: if (R, t) is the optimal transformation, then the points {pi} and {Rqi + t} have the same centers of mass.
+1 n p = ∑ pi n i =1
+1 n q = ∑ qi n i =1
+
+1 n p = ∑ ( Rq i + t ) n i =1 ⇓ ⎛1 n ⎞ p = R ⎜ ∑ q i ⎟ + t = Rq + t ⎝ n i =1 ⎠ t = p − Rq
+56
+
+Finding the rotation R
+To find the optimal R, we bring the centroids of both point sets to the origin:
+p′ = p i − p i q′ = q i − q i
+
+We want to find R that minimizes
+
+∑
+i =1
+
+n
+
+p′ − Rq′ i i
+
+2
+
+57
+
+Finding the rotation R
+
+∑
+i =1
+
+n
+
+p′ − Rq′ i i
+n
+
+2
+
+=
+
+∑ ( p ′i − R q ′i )
+i =1
+
+n
+
+T
+
+( p ′i − R q ′i ) =
+I
+
+=
+
+p ′T p ′ − p ′T R q ′ − q ′T R T p ′ + q ′T R T R q ′ ) ∑( i i i i i i i i
+i =1
+
+These terms do not depend on R, so we can ignore them in the minimization
+
+58
+
+Finding the rotation R
+min ∑ ( −p ′ Rq ′ − q ′ R p ′ ) = max ∑ ( p ′T Rq ′ + q ′T R T p ′ ). i i i i i i i i
+T T T i =1 i =1 n n
+
+q′ R p′ = ( q′ R p′ ) = p′ Rq′ i i i i i i
+T T T T T T
+
+this is a scalar
+
+⇒ max ∑ ( 2p ′ Rq ′ ) = max ∑ ( p ′T Rq ′ ) i i i i
+T i =1 i =1
+
+n
+
+n
+
+59
+
+Finding the rotation R
+⎛ n ⎞ ⎛ n ⎞ p ′T Rq ′ ) = Trace ⎜ ∑ Rq ′p ′T ⎟ = Trace ⎜ R ∑ q ′p ′T ⎟ ∑( i i i i i i i =1 ⎝ i =1 ⎠ ⎝ i =1 ⎠
+n
+
+H = ∑ q ′p ′T i i
+i =1
+
+n
+
+= 3 ×1 1 ×3 = 3 ×3
+
+Trace ( A) = ∑ Aii
+i =1
+
+n
+
+60
+
+Finding the rotation R
+So, we want to find R that maximizes
+Trace ( RH )
+
+Theorem: if M is symmetric positive definite (all eigenvalues of M are positive) and B is any orthogonal matrix then
+
+Trace ( M ) ≥ Trace ( BM )
+
+So, let’s find R so that RH is symmetric positive definite. Then we know for sure that Trace(RH) is maximal.
+
+61
+
+Finding the rotation R
+This is easy! Compute SVD of H:
+
+H = U ΣV
+Define R: Check RH:
+
+T
+
+R = VU
+
+T
+
+RH = (VU T )(U Σ V T ) = V Σ V T
+
+This is a symmetric matrix, Its eigenvalues are σi ≥ 0 So RH is positive!
+62
+
+Summary of rigid alignment:
+Translate the input points to the centroids:
+
+p′ = p i − p i
+Compute the “covariance matrix”
+
+q′ = q i − q i q ′p ′T ∑ i i
+i =1 n
+
+H =
+Compute the SVD of H: The optimal rotation is The translation vector is
+
+H = U ΣV T R = VU T
+t = p − Rq
+63
+
+Complexity
+Numerical SVD is an expensive operation We always need to pay attention to the dimensions of the matrix we’re applying SVD to.
+
+64
+
+Small somewhat related example
+
+65
+
+The End
+

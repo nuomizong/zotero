@@ -19,7 +19,7 @@
 		"exportFileData": false,
 		"useJournalAbbreviation": false
 	},
-	"lastUpdated": "2018-01-01 09:35:00"
+	"lastUpdated": "2018-03-04 22:10:00"
 }
 
 function detectImport() {
@@ -117,8 +117,8 @@ var extraIdentifiers = {
 	//ssrn? http://cyber.law.harvard.edu/cybersecurity/Guidelines_for_adding_Bibliography_entries
 };
 
-// Make a reverse map for convenience
-var revExtraIds = {};
+// Make a reverse map for convenience with additional DOI handling
+var revExtraIds = {'DOI': 'doi'};
 for(var field in extraIdentifiers) {
 	revExtraIds[extraIdentifiers[field]] = field;
 }
