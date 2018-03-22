@@ -1,0 +1,1043 @@
+Available online at www.sciencedirect.com
+
+Finite Elements in Analysis and Design 39 (2003) 1125 – 1138
+
+www.elsevier.com/locate/ÿnel
+
+Linear static analysis of composite hat-sti ened laminated shells using ÿnite elements
+B. Gangadhara Prusty∗
+Department of Maritime Engineering, Australian Maritime College, Launceston-7250, Australia
+Received 11 February 2002; accepted 15 April 2002
+Abstract
+Analysis of composite sti ened panels used in aerospace, ship and other engineering structures by the method of ÿnite elements has been presented. The formulation presented is based on the concept of equal displacements at the shell–sti ener interface. An eight-noded isoparametric shell element is used in association with three-noded curved beam element for the formulation of the sti ened panel element. First-order shear deformation theory is used in the present study. The sti ness matrix of the sti ener is computed ÿrst irrespective of its position within the plate/shell element. The sti ness matrix so computed for the sti ener is then transferred to that of the plate/shell element nodes depending on its position and orientation within the element before assembling the element sti ness matrix. A generalised formulation for the hat-shaped sti ener is presented. The investigation is restricted to linear static analysis of composite sti ened panels and parametric studies have been made to study the various aspects of laminated composite shell with open and closed shaped sti eners. ? 2002 Elsevier B.V. All rights reserved.
+Keywords: Finite element; Sti ened shell; Hat sti ener; Composite
+
+1. Introduction
+Sti ened shell structures are extensively used in aircraft structures, ship and boat hulls, bridge decks and other industrial applications. Further, the use of advanced composite materials has increased in the above engineering applications because of their outstanding strength, sti ness and lightweight properties and ease of construction with complex shapes. The purpose of the present study is to present a ÿnite element formulation for the linear static analysis of laminated sti ened shell panels, which are considered to be the building blocks of di erent engineering structures. In the recent
+∗ Fax: 61-03-6395-4720. E-mail address: g.prusty@mte.amc.edu.au (B.G. Prusty).
+0168-874X/03/$ - see front matter ? 2002 Elsevier B.V. All rights reserved. PII: S 0 1 6 8 - 8 7 4 X ( 0 2 ) 0 0 1 6 0 - 9
+
+1126
+
+B.G. Prusty / Finite Elements in Analysis and Design 39 (2003) 1125 – 1138
+
+Nomenclature
+
+Aij Bij Dij Ms; Mr; Msr Ns; Nr; Nsr Nh; Mh; Qh; Th Qs; Qr u ;v ;w
+ks [B]
+[Bstf ] [D]
+[Dstf ] |J |; |Jstf | [Ke] { stf }i { }r []
+[T ]
+
+extensional sti ness, relating in-plane loads to in-plane strains sti nesses, relating in-plane loads to curvatures
+exural sti nesses relating moments to curvatures moments in-plane forces stress resultants (axial, moment, shear, torsion) of a sti ener shear forces displacement components in the sti ener element shear correction factor strain–displacement matrix (derivatives of shape functions) strain–displacement matrix of sti ener rigidity matrix of shell rigidity matrix of sti ener determinant of Jacobian matrix of shell and sti ener element sti ness matrix displacements at the ith node of sti ener element displacements at the rth node of shell element orientation matrix, deÿning the orientation of sti ener in shell element transformation matrix
+
+past, various approaches of modelling composite sti ened panels by method of ÿnite elements have taken new dimension. Satisfying the displacement compatibility at plate/shell and sti ener interface simpliÿes the complexity of the problem to a greater extent.
+Literatures available on isotropic and laminated sti ened plate analysis are plenty. Review of work on static and dynamic analysis of isotropic sti ened shells has been reported by Sinha and Mukhopadhyay [1]. Various researchers [2–8] have reported research works on static analysis of laminated curved panels. Gunay [9] presented geometrically non-linear ÿnite element analysis of laminated sti ened cylindrical shallow shells using composite shallow shell with stringer-type sti eners. In his analysis, two side meshing system is generated to represent cylindrical shell with sti eners in a three-dimensional co-ordinate system. No discussion has been made for the sti eners of various shapes and having arbitrary orientation in the plate/shell panel. Barut [10] developed a sti ened shell element by combining shallow shell for the skin and beam element for the sti ener. The formulation of the sti ened element was achieved by constraining the displacement and rotation ÿelds of the beam element. A geometric non-linear analysis of composite laminate has been formulated. Though the study mentions about the incorporation of arbitrary shape and arbitrarily oriented sti eners, only one example on laminated cross-ply sti ened shell with rectangular sti ener has been covered.
+A ÿnite element formulation has been presented here for the linear static analysis of laminated composite sti ened plates and shells with sti eners of various shapes, i.e. open and closed section under transverse loading and various boundary conditions. The element used here is an eight-noded
+
+B.G. Prusty / Finite Elements in Analysis and Design 39 (2003) 1125 – 1138
+
+1127
+
+quadratic isoparametric for the shell and three-noded beam element for the sti ener. The ÿrst-order shear deformation theory is adopted. Discussion of the theory has not been given emphasis, which is beyond the scope of the present limited study. The analysis takes care of thin/thick and shallow/deep shells elegantly. The concept of equal displacement at the shell–sti ener junction is taken care in this formulation. The formulation for sti ened panel presented here takes care of arbitrarily oriented sti eners placed anywhere inside the element and a generalised formulation for open and closed section sti ener is presented. This approach overcomes the complication imposed by the earlier ones by replacing the sti eners with a plate/shell of orthotropic properties or by aligning the nodal lines along the sti eners. The new approach of analysing isotropic sti ened shells with rectangular sti eners only has been implemented for the static analysis under transverse loading by Prusty and Satsangi [11]. In the present work, the formulation has been modiÿed to incorporate laminated composite materials for the shell and generalised formulation for the open and closed section laminated sti eners has been presented.
+
+2. Finite element formulation
+
+2.1. Sti ness matrix of the shell element
+
+Based on the assumptions of Mindlin’s hypothesis, a C0 continuity large curvature shell element
+
+having eight nodes with ÿve degrees of freedom (d.o.f.) (u; v; w; Âs and Âr) is used in the present investigation. On a shell surface ‘S’, two orthogonal curvilinear co-ordinates having radius
+
+of curvatures R1 and R2 in the s and r axis, respectively (Fig. 1), are deÿned for the global co-ordinate values of x, y and z. The strain terms considered for a doubly curved laminated shell
+
+by Chandrashekhara [12] are expressed as
+
+
+
+  
+
+0 s 0 r 0 rs 0 sz 0 rz
+
+  
+
+=
+
+
+
+@u @r
+
++
+
+@v @s
+
+−
+
+z
+
+@u @s
+
+−
+
+w R1
+
+−
+
+z
+
+@Âr @s
+
+@v @r
+
+−
+
+w R2
+
+−
+
+z
+
+@Âs @r
+
+@Âs @s
+
++
+
+@Âr @r
+
+−
+
+1 2
+
+1 R1
+
+−
+
+1 R2
+
+Âr
+
++
+
+@w @s
+
+−
+
+v R2
+
+Âs
+
++
+
+@w @r
+
+−
+
+u R1
+
+
+
+@v @s
+
+−
+
+@u @r
+
+ ;
+
+(1)
+
+where
+
+s0;
+
+0 r
+
+;
+
+:
+
+:
+
+:
+
+;
+
+correspond
+
+to
+
+mid-plane
+
+strains.
+
+The element sti ness matrix is derived by integrating the curved area of the element and is
+
+expressed as
+
+[Ke] =
+
+[B]T[D][B] ds dr:
+
+(2)
+
+1128
+
+B.G. Prusty / Finite Elements in Analysis and Design 39 (2003) 1125 – 1138
+
+Fig. 1. Laminated sti ened shell.
+
+On transforming the above equation as a function of becomes
+
++1 +1
+
+[Ke] =
+
+[B]T[D][B]|J | d dÁ:
+
+−1 −1
+
+and Á, the elastic sti ness matrix ÿnally (3)
+
+2.2. Sti ness matrix of sti ener element
+
+The sti ener has been modelled as a three-noded curved beam element having ÿve d.o.f. per node as in the case of shell element nodes (Fig. 1). The skew beam formulation of Martini and Vitaliani [13] has been implemented in this formulation. The derivation of sti ness matrix of sti ener element has been made based on the following generalised strain components taken into consideration:
+
+{ stf }T =
+
+@u @p
+
++
+
+w Rstf
+
+−
+
+@Âp @p
+
+@w @p
+
+− Âp −
+
+u Rstf
+
+@Âq @p
+
+:
+
+(4)
+
+B.G. Prusty / Finite Elements in Analysis and Design 39 (2003) 1125 – 1138
+
+1129
+
+Due to the curvature and eccentricity of the sti ener, the displacements at the middle surface of the sti ener are transformed to the middle surface of the shell using a suitable transformation. The detailed derivation of such case for a shell structure with rectangular sti eners within the shell element is explained in [11]. In the derivation of sti ness matrix for arbitrarily oriented sti ener, the strain–displacement matrix considered is
+
+3
+
+{ stf } = [Bstf ]i{ stf }i:
+
+(5)
+
+1
+
+Consideration for the curvature of sti ener has been taken care in the strain–displacement relationship matrix [Bstf ]. The nodal displacements of the sti ener element { stf } are transformed to the shell element nodes by using the transformation matrix as
+
+3
+
+8
+
+{ stf }i = [ ][T ] { }r;
+
+(6)
+
+i=1
+
+r=1
+
+where
+
+ Nir 0 0 0 0 
+
+[T ] =
+
+3 i=1
+
+8 r=1
+
+
+
+0 0 0
+
+Nir 0 0 0 Nir 0 0 0 Nir
+
+0 0 0
+
+
+
+(7)
+
+0 0 0 0 Nir
+
+and
+
+ c s 0 0 0
+
+[
+
+]
+
+=
+
+
+
+−s 0 0
+
+c 0 0
+
+0 1 0
+
+0 0 c
+
+0 0 s
+
+
+
+with c = cos and s = sin :
+
+(8)
+
+0 0 0 −s c
+
+The stress–strain relationship matrix for the sti ener element is expressed as
+
+{ stf } = [Dstf ]{ stf };
+
+(9)
+
+where [Dstf ] is the rigidity matrix of the sti ener. The rigidity matrix for the laminated sti ener having open and closed sections has been explained separately in the subsequent section.
+The sti ness matrix of the sti ener element is then evaluated considering the strain energy of the sti ener element as
+
+[Kstf ] = [T ]T[ ]T[K stf ][T ][ ];
+
+(10)
+
+where
+
+[K stf ] = [Bstf ]T[Dstf ][Bstf ] ds:
+p
+
+(11)
+
+1130
+
+B.G. Prusty / Finite Elements in Analysis and Design 39 (2003) 1125 – 1138
+
+Fig. 2. Laminated hat sti ened shell showing sti ener segments.
+
+Since [Bstf ] is a function of p only, the expression for [Kstf ] can be expressed as
+
++1
+
+[K stf ] =
+
+[Bstf ]T[Dstf ][Bstf ]|Jstf | d :
+
+−1
+
+(12)
+
+Two-point Gauss integration method is adopted in the derivation of the sti ness matrix.
+
+2.3. Rigidity matrix of the hat sti ener
+The rigidity matrix of the hat sti ener has been developed as a sum of three segments of the sti ener (Fig. 2) for the analysis. The present formulation for the closed section (hat) sti ener has the capability to model the open section sti eners such as I, T and rectangular-shaped sti eners using the same rigidity matrix by suitable changes in the input for the sti ener geometry.
+
+B.G. Prusty / Finite Elements in Analysis and Design 39 (2003) 1125 – 1138
+
+1131
+
+The stress–strain relation for segment 1 with respect to sti ener axis system is expressed as
+
+ 
+
+ 
+
+ 
+
+1 6 4
+
+ 
+
+=
+
+
+
+Q11 Q16 0
+
+Q16 Q66 0
+
+0 0 Q44
+
+
+
+ 
+
+1  6  :
+4
+
+(13)
+
+Similarly, the stress–strain relation for the inclined portion of the hat section (segments 2 and 3) is
+
+developed by resolving the stress components as
+
+   Q11
+
+Q16 cos ÿ
+
+Q16 sin ÿ
+
+ 
+
+ 
+
+1 6
+
+ 
+
+=
+
+
+
+Q16
+
+cos
+
+ÿ
+
+4
+
+Q16 sin ÿ
+
+(Q66 cos2 ÿ + Q44 sin2 ÿ)
+
+(Q66
+
+−
+
+Q44)
+
+sin 2ÿ 2
+
+(Q66
+
+−
+
+Q44)
+
+sin 2ÿ 2
+
+
+
+ 
+
+1  6  ;
+
+(Q66 sin2 ÿ + Q44 cos2 ÿ)
+
+4
+
+(14)
+
+where ÿ is the angle of inclination of the sti ener lamina with respect to the shell mid-surface. The stress resultants (axial, exural, shear and torsion) of the sti eners are given by
+
+{Fh}T = {Nh Mh Qh Th};
+
+(15)
+
+Nh = Nh1 + Nh2 + Nh3;
+
+(16)
+
+where
+
+n
+Nh1 =
+k =1
+
+b0 = 2 −b0=2
+
+Zk+1 Zk
+
+1 dp dz
+
+= A11b0
+
+@u @p
+
+−
+
+w Rstf
+
++ B11bh
+
+−
+
+@Âp @p
+
++ B16bh
+
+−
+
+@Âq @p
+
+:
+
+Deriving in the same line for segments 2 and 3, the ÿnal expression for Nh can be
+
+Nh = A11(bh + 2h)
+
+@u @p
+
+−
+
+w Rstf
+
++
+
+B11bh
+
++
+
+2A11
+
+h22
+
+− 2
+
+h12
+
+−
+
+@Âp @p
+
++
+
+B16bh
+
++
+
+2A16
+
+cos
+
+ÿ
+
+h22
+
+− 2
+
+h21
+
+−
+
+@Âq @p
+
+:
+
+(17)
+
+Similarly, Mh, Qh and Th are derived for the ÿnal rigidity matrix, where,
+
+n
+Aij; Bij; Dij =
+k =1
+
+zk+1 [Qij]k (1; z; z2) d z;
+zk
+
+i; j = 1; 2; 6;
+
+n
+Aij =
+k =1
+
+zi+1 [Qij]k d z;
+zi
+
+i; j = 4; 5:
+
+(18)
+
+1132
+
+B.G. Prusty / Finite Elements in Analysis and Design 39 (2003) 1125 – 1138
+
+h1 h h2 dh
+
+ah ts
+e th
+k=2 k=1 bh
+
+Fig. 3. Laminated hat-sti ener.
+
+The above properties are transformed to the plate mid-plane using parallel axes theorem. The torsional rigidity (Jh) of the closed section (Fig. 3) is calculated on the basis of elliptical section formula [14]. The shear correction factor of the hat section is calculated [15] with reference to Fig. 3 as
+
+kh
+
+=
+
+2ch 2ch +
+
+bh
+
+where ch =
+
+ah − bh 2
+
+2
++ d2h:
+
+(19)
+
+For rectangular section the shear correction factor is considered as 5/6 to take care of the parabolic variation of the transverse shear strain.
+
+3. Validation and parametric study
+3.1. Centrally sti ened laminated shell
+In the ÿrst part of the investigation, the static analysis of an all edges clamped laminated shell sti ened with a laminated ‘hat’-shaped sti ener is considered. The sti ened shell structures (Fig. 4) having curvature ratio (R=a) = 5 is subjected to uniformly distributed transverse loading on the shell. In this investigation, the loading considered on the structure is uniformly distributed for all the cases. The geometry, the material properties and the loading on the centrally sti ened and cross-sti ened cylindrical shell shown in Fig. 4 is considered as Span (a) = 1000 mm, E1 = 175:78 × 103 N=mm2, E2 = 7:031 × 103 N=mm2, G12 = 3:516 × 103 N=mm2, G23 = 1:406 × 103 N=mm2 and = 0:25.
+In order to check the accuracy of the present formulation, analysis has been carried out using the present formulation and also using the general-purpose commercial software package NISA (Numerical Integrated Elements for System Analysis) ( NISA Manual [16]). An eight-noded solid element (NKTP = 7 and NORDER = 1) with three degrees of freedom per node has been used to model the structure using the NISA software. An 8 × 8 mesh for the full shell is considered in the analysis using the commercial software NISA. The modelling of the sti ened structure using NISA involved 160 elements whereas the present formulation used only 64 elements.
+
+B.G. Prusty / Finite Elements in Analysis and Design 39 (2003) 1125 – 1138
+
+1000 z (3)
+
+r (2) A
+
+r (2)
+1000 z (3)
+
+a=1000
+R s (1)
+(a)
+
+a=1000
+R s (1)
+(b)
+
+5
+
+[θ/− θ ]
+
+3 50
+
+50 Stiffener cross section
+
+All dimensions are in mm
+
+Fig. 4. Laminated (a) centrally sti ened shell and (b) cross-sti ened shell cylindrical panel.
+
+1133
+
+Displacement in mm
+
+[0 /90]-FEM
+
+[0 /90]-N IS A
+
+0. 18
+
+[15/−15] -FEM
+
+0. 16
+
+[15/−15] -NISA
+
+[30/−30] -FEM
+0. 14
+
+[30/−30] -NISA
+
+0. 12
+
+[45/− 45] -FEM
+
+0. 10
+
+[45/− 45] -NISA
+
+0. 08
+
+0. 06
+
+0. 04
+
+0. 02
+
+0. 00 0
+
+2 00
+
+400
+
+6 00
+
+800
+
+1 000
+
+Distance in mm along r-axis at quarter point from the left edge
+
+Fig. 5. Displacement variation in a 2-layered composite centrally sti ened shell with hat shaped sti ener.
+
+Figs. 5 and 6 show the comparison of transverse displacements for a two- and four-layered antisymmetric laminated composite centrally sti ened cylindrical shell, respectively. Fair agreement of results is observed between the NISA and the present ÿnite element solutions for various lamination sequences.
+
+1134
+
+B.G. Prusty / Finite Elements in Analysis and Design 39 (2003) 1125 – 1138
+
+Displacement in mm
+
+[0/90/0/90]- FEM
+
+[0/90/0/90]- NISA
+
+0.18
+
+[1 5 /−15 /1 5 /−15 ]-E F M
+
+0.16
+
+[1 5 /−15 /1 5 /−15 ]-N IS A
+
+[3 0 /−30 /3 0 /−30 ]-F E M
+
+0.14
+
+[3 0 /−30 /3 0 /−30 ]-N IS A
+
+0.12
+
+[45/−45/45/−45]-FEM
+
+0.10
+
+[4 5 /−45 /4 5 /−45 ]-N IS A
+
+0.08
+
+0.06
+
+0.04
+
+0.02
+
+0.00 0
+
+200
+
+400
+
+600
+
+800
+
+1000
+
+Distance in mm along r-axis at quarter point from left edge
+
+Fig. 6. Displacement variation in a 4-layered composite centrally sti ened shell with hat shaped sti ener.
+
+3.2. Cross-sti ened laminated shell
+A cross-sti ened laminated shell structure (Fig. 4(b)) is considered for validation of the present formulation. Two- and four-layered antisymmetric lamination sequences in the shell and the sti eners have been considered. The structure is subjected to a uniformly distributed load as in the previous case. As in the previous case, the analysis is carried out using a 8 × 8 mesh size for the full shell using NISA and the present formulation. A close agreement is observed between the results using the present formulation and the NISA solution in both the cases. Figs. 7 and 8 show the comparison of displacements at the quarter point along the r-axis of a cross-sti ened cylindrical shell.
+3.3. Parametric study
+In the next part of investigation, a parametric study has been carried out for a centrally sti ened laminated cylindrical shell (Fig. 4(a)). The sti ener sections considered are closed (‘hat’ shaped) and open (rectangular and ‘T’ shaped) keeping the cross-sectional area same for all the types of sti eners, Fig. 9.
+The parametric study on centrally sti ened laminated cylindrical shells covers the following aspects:
+1. E ect of R=a ratio. 2. E ect of thickness ratio and R=a ratio.
+Tables 1 and 2 show the comparison of displacement values at the quarter point (point A shown in Fig. 4(a)) of the clamped, laminated sti ened cylindrical shell. Antisymmetric cross- and angle-ply lamination sequences with two and four layers are considered. The e ect of R=a ratio on the displacement variation of a centrally sti ened cylindrical shell with closed (‘hat’-shaped) and open
+
+B.G. Prusty / Finite Elements in Analysis and Design 39 (2003) 1125 – 1138
+
+[0/90]-FEM
+
+0. 12
+
+[0/90]-NISA
+
+[15/−15]-FEM
+
+0. 10
+
+[15/−15]-NISA
+
+[30/− 30]-FE M
+
+0. 08
+
+[30/− 30]-N IS A
+
+[45/− 45]-FE M
+
+0. 06
+
+[45/− 45]-N IS A
+
+Displacement in mm
+
+0. 04
+
+0. 02
+
+0. 00 0
+
+200
+
+400
+
+600
+
+800
+
+1000
+
+Distance in mm along r-axis at quarter point from the left edge
+
+Fig. 7. Displacement variation in a 2-layered cross-sti ened shell with hat shaped sti eners.
+
+1135
+
+[0/90/0/90]-FEM
+
+[0/90/0/90]-NISA
+
+[15/−15/15/−15]-FEM
+
+[1 5 /−1 5 /1 5 /−1 5 ]-N IS A
+
+0. 12
+
+[30/−30/30/−30]-FEM
+
+[30/−30/30/−30]-NISA
+
+0. 10
+
+[45/−45/45/−45]-FEM
+
+[45/−45/45/−45]-NISA 0. 08
+
+Displacement in mm
+
+0. 06
+
+0. 04
+
+0. 02
+
+0. 00 0
+
+200
+
+400
+
+600
+
+800
+
+1000
+
+Distance in mm along r-axis at quarter point from left edge
+
+Fig. 8. Displacement variation in a 4-layered cross-sti ened shell with hat shaped sti eners.
+
+(rectangular- and ‘T’-shaped) sti eners has been studied. The following observations can be made from the tables.
+(a) In the case of a plate (R=a = 1e30), a signiÿcant reduction in displacement is observed due to a hat-sti ener as compared to sti eners of other sections, i.e. T and rectangular. However, the di erence diminishes as the R=a values decreases and the structure tends towards a deep sti ened shell.
+
+1136
+
+B.G. Prusty / Finite Elements in Analysis and Design 39 (2003) 1125 – 1138
+
+6
+
+50
+
+3
+
+50
+
+3
+
+50
+
+50
+
+8.6
+
+All dimensions are in mm
+
+Fig. 9. Sti ener shapes.
+
+Table 1 E ect of R=a ratio on the displacement variation of a two-layer, laminated sti ened cylindrical shell
+
+Laminate R=a = 5
+
+R=a = 10
+
+R=a = 100
+
+R=a = 1e30
+
+Hat Rect. T
+
+Hat Rect. T
+
+Hat Rect. T
+
+Hat Rect. T
+
+0/90 15= − 15 30= − 30 45= − 45 60= − 60 75= − 75
+
+0.0820 0.0499 0.0750 0.1639 0.3833 0.6377
+
+0.0816 0.0440 0.0739 0.1620 0.3817 0.6376
+
+0.0819 0.0440 0.0750 0.1635 0.3832 0.6385
+
+0.2333 0.1155 0.1953 0.3810 0.7311 1.0140
+
+0.2333 0.1163 0.1953 0.3812 0.7389 1.0300
+
+0.2332 0.1163 0.1956 0.3816 0.7330 1.0190
+
+0.5375 0.2409 0.4115 0.6710 1.0380 1.2550
+
+0.5430 0.2502 0.4221 0.6851 1.0650 1.2890
+
+0.5588 0.2519 0.4165 0.6749 1.0430 1.2640
+
+0.5441 0.2444 0.4189 0.6794 1.0440 1.2590
+
+0.5499 0.2540 0.4302 0.6945 1.0720 1.2930
+
+0.5662 0.2557 0.4240 0.6834 1.0490 1.2670
+
+Table 2 E ect of R=a ratio on the displacement variation of a four-layer, laminated sti ened, cylindrical shell
+
+Laminate
+
+R=a = 5
+
+R=a = 10
+
+R=a = 100
+
+R=a = 1e30
+
+Hat Rect. T
+
+Hat Rect. T
+
+Hat Rect. T
+
+Hat Rect. T
+
+0/90/0/90
+
+0.0680 0.0677 0.0668 0.1560 0.1572 0.1603 0.2595 0.2650 0.2800 0.2612 0.2668 0.2820
+
+15= − 15=15= − 15 0.0379 0.0375 0.0375 0.0842 0.0857 0.0866 0.1426 0.1503 0.1531 0.1441 0.1520 0.1548
+
+30= − 30=30= − 30 0.0594 0.0587 0.0592 0.1235 0.1253 0.1249 0.1956 0.2048 0.2004 0.1981 0.2077 0.2029
+
+45= − 45=45= − 45 0.1273 0.1264 0.1272 0.2335 0.2373 0.2349 0.3279 0.3412 0.3314 0.3308 0.3446 0.3343
+
+60= − 60=60= − 60 0.2992 0.3003 0.2995 0.4781 0.4896 0.4800 0.5986 0.6222 0.6021 0.6011 0.6251 0.6046
+
+75= − 75=75= − 75 0.5391 0.5400 0.5398 0.7891 0.8023 0.7922 0.9307 0.9546 0.9356 0.9327 0.9567 0.9376
+
+(b) With the increase in ply angle for the symmetric and antisymmetric lamination, the sti ened cylindrical shell has a greater sti ness.
+(c) For the same laminate thickness, the displacement decreases with the increase in the number of layers in the laminate.
+(d) For all values of R=a, the sti ened shell with a hat-sti ener shows a smaller displacement at the point under consideration than a shell with sti eners of ‘T’ and rectangular sections of equal cross-sectional area.
+
+B.G. Prusty / Finite Elements in Analysis and Design 39 (2003) 1125 – 1138
+
+1137
+
+Table 3 E ect of thickness ratio (a=h) on the displacement variation of a laminated cylindrical sti ened shell
+
+a=h R=a = 5
+
+R=a = 10
+
+R=a = 100
+
+R=a = 1e30
+
+Hat
+
+Rect. T
+
+Hat
+
+Rect. T
+
+Hat
+
+Rect. T
+
+Hat
+
+Rect. T
+
+200 0.0680 100 0.0229 50 0.0078 10 0.0004
+
+0.0677 0.0232 0.0079 0.0004
+
+0.0668 0.0238 0.0081 0.0004
+
+0.1560 0.0410 0.0113 0.0004
+
+0.1572 0.0421 0.0116 0.0004
+
+0.1603 0.0455 0.0121 0.0004
+
+0.2595 0.0544 0.0133 0.0004
+
+0.2050 0.0566 0.0137 0.0004
+
+0.2800 0.0635 0.0143 0.0004
+
+0.2612 0.0546 0.0133 0.0004
+
+0.2668 0.0568 0.0137 0.0004
+
+0.2820 0.0638 0.0144 0.0004
+
+Table 3 shows a comparison of the displacements of shells of varying thickness and curvature. The lamination sequence in the shell and the sti ener are taken as [0=90=0=90]T. The displacements at the quarter point (point A shown in Fig. 4(a)) of the clamped sti ened cylindrical shell with hat/T/rectangular sti ener are analysed. From the values in Table 3, the following observations may be made:
+(a) With a smaller thickness ratio (a=h), i.e. a thick shell, the e ect of the sti ener is insigniÿcant, so that the maximum displacement occurs at the centre of cylindrical shell. However for comparison purposes, the quarter point displacement is considered. Then, for a thin shell, i.e. with a higher a=h ratio, the displacement values are signiÿcantly high.
+(b) With an increase in the curvature ratio (R=a), i.e. as the shell becomes shallower, the displacement increases substantially.
+(c) A laminated sti ened shell with a ‘hat’-shaped sti ener shows less displacement as compared to a shell with a ‘T’ or rectangular sti ener of equal cross-sectional area in almost all the cases presented.
+4. Conclusions
+Finite element static analysis of composite sti ened plate/shell panels using eight-noded isoparametric element for shell and three-noded curved beam element for sti ener is presented. Modiÿed approach for the shell and sti ener is adopted and concept of equal displacement at shell–sti ener junction is utilised. Uniÿed formulation for laminated arbitrarily oriented hat sti ener is presented. The present method obviates the limitations of positioning the sti ener along nodal lines, which is a substantial improvement over the existing methods. Comparison of results for few examples on static analysis of laminated sti ened plate/shell panels from the published work validates the present formulation and the parametric study gives an overview regarding the selection of sti ener sections in engineering designs.
+References
+[1] G. Sinha, M. Mukhopadhyay, Static and dynamic analysis of sti ened shells—a review, Indian Natl. Sci. Acad. 61 (1995) 195–219.
+
+1138
+
+B.G. Prusty / Finite Elements in Analysis and Design 39 (2003) 1125 – 1138
+
+[2] C.L. Liao, J.N. Reddy, Analysis of anisotropic sti ened composite laminates using a continuum shell element, Comput. Struct. 34 (1990) 805–815.
+[3] K.P. Rao, A rectangular laminated anisotropic shallow thin shell ÿnite element, Comput. Methods Appl. Mech. Eng. 15 (1978) 13–33.
+[4] A. Venkatesh, K.P. Rao, A laminated anisotropic curved beam and shell sti ening ÿnite element, Comput. Struct. 15 (1982) 197–201.
+[5] A. Venkatesh, K.P. Rao, Analysis of laminated shells with laminated sti eners using rectangular shell ÿnite elements, Comput. Methods Appl. Mech. Eng. 38 (1983) 255–272.
+[6] A. Venkatesh, K.P Rao, Analysis of laminated shells of revolution with laminated sti eners using a doubly curved quadrilateral ÿnite element, Comput. Struct. 20 (1985) 669–682.
+[7] A. Bhimaraddi, A.J. Carr, P.J. Moss, Finite element analysis of laminated shells of revolution with laminated sti eners, Comput. Struct. 33 (1989) 295–305.
+[8] S. Goswami, M. Mukhopadhyay, Finite element analysis of laminated composite sti ened shell, J. Reinforced Plastics Compos. 13 (1994) 574–616.
+[9] E. Gunay, Finite element analysis of laminated sti ened cylindrical shallow shell, Appl. Compos. Mater. 6 (1999) 381–385.
+[10] A. Barut, E. Madenci, A. Tessler, J.H. Starnes Jr., A new sti ened shell element for geometrically nonlinear analysis of composite laminates, Comput. Struct. 77 (2000) 11–40.
+[11] B.G. Prusty, S.K. Satsangi, Analysis of sti ened shell for ships and ocean structures by ÿnite element method, Int. J. Ocean Eng. 28 (2001) 621–638.
+[12] K. Chandrashekhara, Free vibrations of anisotropic laminated doubly curved shells, Comput. Struct. 33 (1989) 435–440.
+[13] L. Martini, R. Vitaliani, On the polynomial convergent formulation of a C0 isoparametric skew beam element, Comput. Struct. 29 (1988) 437–449.
+[14] R.K. Roark, W.C. Young, Formulas for Stress and Strain, 5th Edition, McGraw-Hill, New York, 1975. [15] A. Darkov, V. Kuznetsov, Structural Mechanics, MIR Publishers, Moscow, 1969. [16] NISA Manual, Numerically Integrated Elements for System Analysis (NISA) Veriÿcation Manual, Engineering
+Mechanics Research Corporation, Michigan, USA, 1992.
+

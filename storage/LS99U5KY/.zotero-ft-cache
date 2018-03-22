@@ -1,0 +1,1292 @@
+Available online at www.sciencedirect.com
+International Journal of Mechanical Sciences 45 (2003) 73 – 93
+Buckling and vibration of sti ened plates subjected to partial edge loading
+A.K.L. Srivastavaa, P.K. Dattaa;∗, A.H. Sheikhb
+aDepartment of Aerospace Engineering, Indian Institute of Technology, Kharagpur 721302, India bDepartment of Ocean Engineering and Naval Architecture, Indian Institute of Technology, Kharagpur 721302, India Received 29 May 2002; received in revised form 3 December 2002; accepted 29 January 2003
+Abstract The buckling and vibration characteristics of sti ened plates subjected to in-plane partial and concen-
+trated edge loadings are studied using ÿnite element method. The initial stresses are obtained considering the pre-buckling conditions. Buckling loads and vibration frequencies are determined for di erent plate aspect ratios, edge conditions and di erent partial non-uniform edge loading cases. The non-uniform loading may also be caused due to the supports on the edges. The analysis presented determines the stresses all over the region for di erent kinds of loading and edge conditions. In the structural modelling, the plate and the sti eners are treated as separate elements where the compatibility between these two types of elements is maintained. The vibration characteristics are discussed and the results are compared with those available in the literature. Buckling results show that the sti ened plate is less susceptible to buckling for position of loading near the supported edges and near the position of sti eners as well. ? 2003 Elsevier Science Ltd. All rights reserved. Keywords: FEM; Partial edge loadings; Buckling load; Vibration frequency; Sti ener
+1. Introduction
+Sti ened plates are structural components consisting of plates reinforced by a system of ribs to enhance their load carrying capacities. These structures are widely used in aircraft, ship, bridge, building, and some other engineering activities. In many circumstances these structures are found to be exposed to in-plane loading. The buckling and vibration characteristics of sti ened plates
+∗ Corresponding author. Fax: +91-3222-553-03. E-mail addresses: rsaksriv@aero.iitkgp.ernet.in (A.K.L. Srivastava), pkdatta@aero.iitkgp.ernet.in (P.K. Datta), hamid@naval.iitkgp.ernet.in (A.H. Sheikh).
+0020-7403/03/$ - see front matter ? 2003 Elsevier Science Ltd. All rights reserved. doi:10.1016/S0020-7403(03)00038-9
+
+74
+
+A.K.L. Srivastava et al. / International Journal of Mechanical Sciences 45 (2003) 73 – 93
+
+Nomenclature
+
+a; b c d E; G t u; v w q bS ; dS AS {q}r [KG ] [Bp] [BS ] [BGP ] [BGS ] [N ]r Pcr [DP ] [DS ] [Ke] [KS ] FS IS |J | JS TS
+;Á
+
+dimensions of the plate distance of concentrated load from lower edge width of partial distributed load modulus of elasticity and shear modulus of rigidity thickness of the plate in-plane displacements out of plane displacement load intensity web thickness and depth of a sti ener cross sectional area of the sti ener vector of nodal displacement a rth node geometric sti ness matrix strain matrix for the plate element strain matrix for the sti ener element strain matrix for geometric sti ness matrix of plate strain matrix for geometric sti ness matrix of sti ener matrix of a shape function of a node r critical buckling load Rigidity matrix of plate Rigidity matrix of sti ener Elastic sti ness matrix of plate Elastic sti ness matrix of sti ener ÿrst moment of area of the sti ener second moment of area of the sti ener Jacobian torsional constant of the sti ener torsional moment of the sti ener Poisson’s ratio mass density of material non-dimensional element coordinate buckling load parameter
+
+subjected to uniform and non-uniform in-plane edge loadings are of considerable importance to aerospace, naval, mechanical and structural engineers. Aircraft wing skin panels, which are made of thin sheets, are usually subjected to non-uniform in-plane stresses caused by concentrated or partial edge loading at the edges, and due to panel sti ener support conditions.
+Large number of references in the published literature deal with the buckling and vibration behaviour of rectangular sti ened plates subjected to in-plane uniform initial stresses. In these classes of problems, the internal stress ÿeld remains constant throughout the plate, yielding relatively simpler solution to the problems.
+
+A.K.L. Srivastava et al. / International Journal of Mechanical Sciences 45 (2003) 73 – 93
+
+75
+
+The applied load is seldom uniform and the boundary conditions may be completely arbitrary in practice. The situation in which the loads are applied over only part of the edges has received much less attention. The problem becomes complicated when the loading is non-uniformly distributed over the edges. These studies for most part being concerned with the numerical analysis of the theoretical buckling load and also mostly related to unsti ened plates. Sommerÿeld [1] presented a solution for a simply supported plate of inÿnite length subjected to a pair of concentrated forces acting upon two opposite sides. It was assumed that the in-plane stresses were concentrated only along the line of action of applied forces and hence the results were prone to considerable errors. Timoshenko [2] arrived at the same result by using the energy method. In Timoshenko’s approach also, it was implied that the stresses were concentrated only along the line of action of the forces. Yamaki [3] analysed the plate subjected to locally distributed in-plane loading over a ÿnite length of the edge at the center of two opposite edges, by making the same assumptions as made by Sommerÿeld and Timoshenko regarding the in-plane stresses.
+Leggett [4] was able to obtain an approximate non-uniform in-plane stress distribution within the plate subjected to point loading at the two opposite edges. Baker and Pavolic [5] analysed the stability of rectangular plates subjected to a pair of patch loading at the center of two opposite edges by using Ritz method. Cases of practical interests arise when concentrated forces acting along the boundaries cause the in-plane stresses. Leissa and Ayoub [6] have solved the problem of buckling of simply supported rectangular and circular plates subjected to a pair of oppositely directed concentrated compressive and tensile loads anywhere on two opposite edges. Some non-uniform edge loading cases have also been considered by Dawe [7], Grimm and Gerdeen [8], Bassily and Dickinson [9] in buckling analysis.
+A new approach to the plate-buckling problem, which did not require the initial stress ÿeld, was set forth by Alfutove and Balabukh [10]. The vibration of at thin plates subjected to complex middle force system under arbitrary stress system based on Kircho ’s theory is studied by Mei and Yang [11].
+A similar procedure yielding buckling results was presented by Spencer and Surjanhata [12]. Khan and Walker [13] followed this procedure to obtain the buckling loads for simply supported rectangular plates subjected to a partially distributed normal edge loading at the center or near the two ends of the opposite edge, or by shear loading along the two longitudinal (with respect to applied load) edges. Brown [14] applied yet another approach, called the conjugate load displacement method to the problem of buckling of plates under concentrated edge loading. This method was used earlier by Brown and Yettram [15] for the elastic stability analysis of square perforated plates.
+Vibration and buckling calculation for rectangular plates subjected to complicated in-plane stress distribution by using numerical integration in a Raleigh–Ritz analysis is studied by Dickinson and Kalidas [16].
+The vibration characteristics of rectangular plates subjected to non-uniform loading are studied using power series method by Kukla and Skalmierski [17] and di erential quadrature method by Gutierrez and Laura [18]. The vibration and buckling of simply supported plates subjected to concentrated and partial loads were studied by Deolasi and Datta [19].
+Recently Sundersan et al. [20] have studied the in uence of partial edge compression on buckling behaviour of angle ply plates for few orientations.
+As seen from the literature, the vibration and buckling of isotropic plates subjected to partial load and concentrated load have been sparsely treated in the literature and not many results are
+
+76
+
+A.K.L. Srivastava et al. / International Journal of Mechanical Sciences 45 (2003) 73 – 93
+
+available on plates. The author could not ÿnd any work in the literature regarding in-plane partial edge load for sti ened plate. The present paper deals with the problem of vibration and buckling of rectangular sti ened plates subjected to in-plane partial edge load. Compressive loading cases have been considered. Finite element formulation is applied to solve the buckling load and frequency parameters in various modes with di erent boundary conditions, aspect ratios and various parameters of sti ened plates. The analysis presented determines the stresses all over the region for any kind of loading. Di erent edge loading cases have been considered and comparison of buckling loads and frequency parameters with previously published results are found to be good. In the present analysis, the plate is modelled with the nine noded isoparametric quadratic element where the contributions of bending and membrane actions are taken into account. One of the advantages of the element is that it includes the e ect of shear deformation and rotary inertia in its formulation. Thus the analysis can be carried out for both thin and thick plates. Moreover it can be applied to a structure having irregular boundaries. The formulation of the sti ener is done in such a manner so that it may lie anywhere within a plate element [21]. In order to maintain compatibility between plate and sti ener, the interpolation functions used for the plate are used for the sti eners also.
+
+2. Governing equation and ÿnite element formulation
+
+The equation of equilibrium for the sti ened plate subjected to in-plane loads can be written as
+
+[M ]{q} + [[Kb] − P[KG]]{q} = 0:
+
+(1)
+
+Eq. (1) can be reduced to the governing equations for buckling and vibration problems as follows:
+
+Buckling problem {q} = 0,
+
+[[Kb] − P[KG]]{q} = 0:
+
+(2)
+
+Free vibration problem: Assuming that the sti ened plates vibrates harmonically with angular frequency !, Eq. (1) reduces to:
+
+[[Kb] − P[KG] − !2[M ]]{q} = 0:
+
+(3)
+
+The formulation is based on Mindlin’s plate theory, which will allow for the incorporation of shear deformation. The plate skin and the sti eners are modelled as separate elements but the compatibility between them is maintained. This is similar to the concept proposed by Mukherjee and Mukhopadhyay [22]. The middle plane of the plate is taken as the reference plane for both the plate and the sti eners. The 9 noded isoparametric quadratic elements with ÿve degree of freedom (u; v; w; Âx, and Ây) per node are employed in the present analysis. As the plate element for a sti ened plate includes in-plane displacements, the formulation presented here includes both in-plane and bending displacements. The in-plane displacements u and v need to be considered only when the sti eners are connected eccentricity to the plate. If the plate and sti eners are connected concentrically, no in-plane stresses develop. The e ect of in-plane deformations is taken into account in addition to the deformations due to bending, which will help to model the sti ener eccentricity conveniently. The element matrices of the sti ened plate element consist of the contribution of the plate and that of the sti ener. A study of the sti ness and mass matrices of the sti ener element reveals
+
+A.K.L. Srivastava et al. / International Journal of Mechanical Sciences 45 (2003) 73 – 93
+
+77
+
+that the contribution of the beam element is re ected in all 9 nodes of the plate element, which contain the sti ener. This is achieved through the expression of the strain displacement relationship in terms of displacement of 9 nodes of the plate.
+
+2.1. Plate element formulation
+
+The elastic sti ness matrix [Kp], geometric sti ness matrix [KGp] and mass matrix [Mp] of the plate element may be expressed as follows:
+
++1 +1
+
+[Kp] =
+
+[Bp]T[Dp][Bp]|Jp| d dÁ;
+
+(4)
+
+−1 −1
+
++1 +1
+
+[KGp] =
+
+[BGp]T[ p][BGp]|Jp| d dÁ;
+
+(5)
+
+−1 −1
+
++1 +1
+
+[Mp] =
+
+[N ]T[mp][N ]|Jp| d] dÁ;
+
+(6)
+
+−1 −1
+
+where
+
+[BP] = [[BP]1 [BP]2 : : : [BP]r : : : [BP]9];
+
+(7)
+
+[BGP] = [[BGP]1 [BGP]2 : : : [BGP]r : : : [BGP]9]
+
+(8)
+
+and
+
+|Jp| = |J |:
+
+(9)
+
+2.2. Sti ener element formulation
+
+The elastic sti ness matrix [KS], geometric sti ness matrix [KGS] and mass matrix [MS] of a sti ener element placed anywhere within a plate element and oriented in the direction of x may be expressed, in a manner similar to those of the plate element as follows:
+
++1
+
+[KS ] =
+
+[BS ]T[DS ][BS ]|JS | d ;
+
+−1
+
++1
+
+[KGS ] =
+
+[BGS ]T[ S ][BGS ]|JS | d
+
+−1
+
+(10) (11)
+
+and
+
++1
+
+[MS ] =
+
+[N ]T[mS ][N ]|JS | d ;
+
+(12)
+
+−1
+
+where
+
+[BS ] = [[BS ]1 [BS ]2 : : : [BS ]r : : : [BS ]9];
+
+(13)
+
+[BGS ] = [[BGS ]1 [BGS ]2 : : : [BGS ]r : : : [BGS ]9]
+
+(14)
+
+78
+
+A.K.L. Srivastava et al. / International Journal of Mechanical Sciences 45 (2003) 73 – 93
+
+and |JS| is the Jacobian of the sti ener, which is one-half of its actual length within an element. The di erent matrices in the above equations may be written as follows:
+
+ @Nr
+
+[BS]r = 
+
+@x 0
+0
+
+0
+
+0 0 0 0
+
+0
+0
+0 @Nr @x
+
+0
+
+−
+
+@Nr @x
+
+0
+
+−Nr
+
+
+
+0
+0 @Nr @x
+
+ ;
+
+0
+
+(15)
+
+ EAS EFS 0
+
+0
+
+[DS
+
+]
+
+=
+
+
+
+EFS 0
+
+EIS 0
+
+0 GTS
+
+0 0
+
+ ;
+
+(16)
+
+0 0 0 GAS=1:2
+
+
+
+
+
+[BGS ] =  0 0 00
+
+@Nr @x
+0
+
+0
+@Nr @x
+
+0  ; 0
+
+(17)
+
+[ S] =
+
+x AS 0
+
+0 ;
+x IS
+
+(18)
+
+where AS is the area, FS the ÿrst moment of area about a reference plane, IS the second moment of area about the reference plane, TS the torsional constant and PS the polar moment of area of the sti ener cross section. For the sti eners placed in the direction of y, the formulation will be similar with appropriate changes for the co-ordinate variables.
+The geometric sti ness matrix is now constructed with the known stresses. The computer program developed accepts two sets of boundary conditions, the ÿrst for the static analysis and second for the buckling analysis. The overall elastic sti ness matrix, geometric sti ness matrix and mass matrix are generated from the assembly of those element matrices and stored in a single array where the variable bandwidth proÿle storage scheme is used. The solution of eigenvalues is performed by the simultaneous iteration technique proposed by Corr and Jennings [23].
+
+3. Description of the problem
+The problem considered here consists of a rectangular plate (a × b) with sti ener subjected to various types of partial edge loading and concentrated edge load as shown in Fig. 1. The loading shown is compressive in nature. The cross-section of the sti ener is shown in Fig. 2. All the boundaries of the plates are simply supported unless otherwise stated. The concentrated or partial
+
+A.K.L. Srivastava et al. / International Journal of Mechanical Sciences 45 (2003) 73 – 93
+
+79
+
+b a
+a (a)
+
+c
+
+d
+
+a d
+a
+(b)
+
+0.5d
+
+b
+
+d
+
+d
+
+0.5d
+
+a
+
+a
+
+(c)
+
+(d)
+
+Fig. 1. Description of the problem: (a) pair of concentrated edge loading at one end; (b) partial edge loading at one end; (c) partial edge loading at both ends; and (d) partial edge loading at the centre.
+
+A t
+
+b
+
+1 in
+
+dS
+
+A
+
+a bS
+Section A A
+
+Fig. 2. Sti ened plate cross-section.
+
+edge loadings have di erent locations relative to the lower edge or the center of the loaded edges in di erent cases. In Fig. 1a, the plate is subjected to a pair of concentrated in plane loading at variable location at distance c from the lower edge on the two opposite edges. In Fig. 1b, the plate is subjected to partial distributed edge load of width d from lower edge. In Fig. 1c, the plate is subjected to partial edge load at both ends of width 0:5d from upper and lower edge. In Fig. 1d, partial distributed edge loading is at the center of width d. The length (a) of the sti ened plate considered above is varied keeping its other parameters unchanged. Numerical results are presented for isotropic sti ened plate with di erent boundary conditions. In the discussion that followed, S, C and F denote simply supported, clamped and free edges, respectively. The notation SCSF identiÿes a plate with the edges: x = 0; x = a; y = 0; y = b having the boundary conditions in that order (Fig. 3). In Fig. 3, S1, S2, S3, S4 are represented for side 1, side 2, side 3 and side 4, respectively. For comparison problems, the boundary conditions are considered as reported in the respective studies. The boundary conditions considered are as proposed by Sundersan et al. [20].
+Simply supported condition Pre-buckling:
+Along x = 0; a and y = 0; b; w = ÂX = Ây = 0;
+
+80
+
+A.K.L. Srivastava et al. / International Journal of Mechanical Sciences 45 (2003) 73 – 93
+
+Y a
+
+S4
+
+S1
+
+S2
+
+b
+
+S3 X
+Fig. 3. Details of edges for boundary conditions.
+
+At x = a=2; u = ÂX = 0;
+
+At y = b=2; v = Ây = 0: Buckling:
+Along x = 0; a; v = w = Ây = 0:
+
+Along y = 0; b;
+Clamped condition Pre-buckling:
+
+u = w = ÂX = 0;
+
+Along x = 0; a and y = 0; b; w = ÂX = Ây = 0;
+
+At x = a=2; u = ÂX = 0;
+
+At y = b=2; v = Ây = 0: Buckling:
+Along x = 0; a; u = v = w = ÂX = Ây = 0;
+
+Along y = 0; b; u = v = w = ÂX = Ây = 0:
+Here the displacement components (w; ÂX ; Ây) are set to be zero over the whole domain of the plate for pre-buckling analysis thereby reducing the problem size considerably.
+
+4. Results and discussion
+To study the behaviour of sti ened plates under non-uniform in-plane edge loading, rectangular plates with di erent types of compressive edge loading are considered as shown in Fig. 1. The
+
+A.K.L. Srivastava et al. / International Journal of Mechanical Sciences 45 (2003) 73 – 93
+
+81
+
+Table 1 Convergence of frequency parameter (!) for a simply supported square unsti ened plate subjected to in-plane concentrated loads
+
+c=b
+
+Mesh
+
+division
+
+0.25
+
+4×4
+
+6×6
+
+8×8
+
+10 × 10
+
+12 × 12
+
+[P=Pcr ]
+−1
+26.56 26.54 26.54 26.47 26.41
+
+−0.5
+23.74 23.64 23.56 23.54 23.54
+
+0
+19.75 19.73 19.73 19.73 19.73
+
+0.5
+14.41 14.39 14.37 14.38 14.37
+
+0.5
+
+4×4
+
+27.54
+
+24.01
+
+19.75
+
+14.07
+
+6×6
+
+27.59
+
+24.02
+
+19.73
+
+14.06
+
+8×8
+
+27.64
+
+24.04
+
+19.73
+
+14.05
+
+10 × 10
+
+27.67
+
+24.05
+
+19.73
+
+14.05
+
+12 × 12
+
+27.69
+
+24.06
+
+19.73
+
+14.04
+
+cross-section of the sti ened plates is shown in Fig. 2. The plate area of interest is divided into M × N ÿnite element mesh, where M is the number of division along x-axis and N is the number of division along y-axis. The mesh division is generally uniform in both the x and y directions. However to accommodate the mesh division of desired load bandwidth or at a desired edge location, the plate is divided into two zones and each zone is meshed separately with a uniform mesh. The actual values of M and N are based on the convergence studies.
+The loads and frequencies are converted into non-dimensional form according to the following deÿnitions.
+Non-dimensional buckling load parameter, = Pb=D and non-dimensional frequency parameter, $ = !b2 t=D.
+The sti ener parameter terms and are deÿned as: = AS=bt = Ratio of cross-sectional area of the sti ener to the plate area, where AS is the area of the sti ener and = EIS=bD = ratio of bending sti ness rigidity of sti ener to that of the plate, where IS is the moment of inertia of the sti ener cross-section about reference axis.
+4.1. Convergence and validation
+In a ÿnite element analysis, it is desirable to have the convergence studies to estimate the order of mesh size to be necessary for the numerical solution. The convergence studies have been carried out for vibration frequency for a plate subjected to concentrated load as shown in Table 1. As the convergence study shows that a mesh size of 10×10 is su cient enough to get a reasonable order of accuracy, the analysis in the subsequent problems is carried out with this mesh size. In the buckling and vibration analysis, it is necessary to mention the mode shapes. A nomenclature of the mode shapes is adopted wherein, m denotes the number of approximate half waves in x-direction, and n denotes the number of approximate half waves in y-direction.
+
+82
+
+A.K.L. Srivastava et al. / International Journal of Mechanical Sciences 45 (2003) 73 – 93
+
+Table 2 Comparison of buckling loads parameter ( = Pcrb=D) of a simply supported rectangular plate under concentrated edge loading for varying plate geometry and position of applied load
+
+a=b Boundary condition
+
+1
+
+SSSS
+
+CCCC
+
+Non-dimensional buckling load parameter ( )
+
+c=b = 0:5
+Ref. [6]
+25.81 —
+
+Ref. [14]
+25.44 67.23
+
+Present
+26.62 66.66
+
+c=b = 0:25
+Ref. [6]
+37.0 —
+
+Ref. [14]
+36.12 87.02
+
+Present
+33.89 82.60
+
+0.5 SSSS CCCC
+
+30.06 —
+
+29.53 82.30
+
+31.06 81.04
+
+38.282 —
+
+37.07 101.78
+
+35.17 95.56
+
+2
+
+SSSS
+
+CCCC
+
+28.52 —
+
+28.27 65.03
+
+29.30 63.79
+
+36.954 —
+
+36.44 72.25
+
+34.40 68.66
+
+4.2. Buckling and vibration results for sti ened plate under partial loading
+4.2.1. Problem 1: concentrated edge loading (Fig. 1(a)) The case of concentrated edge loading as shown in Fig. 1(a) is considered in this section. It is
+desirable to determine the critical (or lowest) value of load, which causes buckling before studying the e ects of concentrated forces upon the buckling and vibration frequencies of a sti ened plate. Buckling load parameters for di erent load positions (c=b = 0:5; 0:25), aspect ratios and boundary conditions are obtained and compared with the available results of Leissa and Ayoub [6] and Brown [14] in Table 2. The agreement is well. Generally it can be seen that the lowest buckling load will occur for centrally applied point loads, i.e. when c=b = 0:5.
+To study the behaviour of sti ened plates under concentrated in-plane edge load, sti ened plates for various boundary conditions, aspect ratios, sti ener parameters are considered. The cross-section of the sti ened plates subjected to concentrated load is shown in Fig. 2 and the data are as follows: a = 600 mm; b = 600 mm; t = 6:0 mm; bS = 12:7 and dS = 22:2 mm. The e ects of position of concentrated load and aspect ratios for buckling are studied by taking di erent values of c=b and results obtained are shown in Fig. 4 for di erent aspect ratios a=b = 0:5; 1; 2 considering in-plane displacements. In order to study the e ect of aspect ratio (a=b) of a sti ened plate on its buckling behaviour, the length (a) of the sti ened plate considered above is varied keeping its other parameters unchanged. It can be observed from Fig. 4 that the variation of buckling load with the position of the load on the edges is more pronounced for the sti ened plates of the smaller aspect ratios. For the sti ened plates of higher aspect ratios, the buckling loads are not as much a ected with the position of the load. This is due to the fact that for long sti ened plates subjected to concentrated load, a major part of the plate area is subjected to fairly uniform stress distribution comparatively. It can be observed that buckling behaviour of the sti ened plates with the aspect ratio is similar to that of a simply supported unsti ened plate under similar loading [19]. It is observed that a sti ened plate with one central sti ener loaded centrally by
+
+A.K.L. Srivastava et al. / International Journal of Mechanical Sciences 45 (2003) 73 – 93
+
+83
+
+Buckling load parameter (λ)
+
+180
+
+160
+
+140
+
+120
+
+100
+
+80
+
+60
+
+SSSS
+
+a/b=0.5
+
+40
+
+a/b=1
+
+a/b=2
+
+20
+
+0.0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1.0
+
+Load position (c/b)
+
+Fig. 4. Variation of buckling load parameter ( ) with position of load for simply supported sti ened plate subjected to concentrated load.
+
+Table 3 Validation of buckling load parameter of a simply supported sti ened plates under distributed in-plane edge loading (d=b = 1)
+
+Buckling load parameter ( )
+
+AS
+
+EIS
+
+bt
+
+bD
+
+5
+
+10
+
+15
+
+Ref. [2]
+
+0.05 12.0
+
+0.1
+
+11.10
+
+Present
+12.62 12.39
+
+Ref. [21]
+16.0 16.0
+
+Present
+15.99 15.99
+
+Ref. [21]
+16.0 16.0
+
+Present
+15.998 15.995
+
+concentrated loads (c=b = 0:5) buckles with the maximum load. This is because of sti ener placed at the centre.
+4.2.2. Problem 2: partial edge loading at one end (Fig. 1(b)) The analysis may be carried out for d=b=1 for a uniformly distributed partial in-plane edge loading.
+Actually, it corresponds to a fully loaded plate problem, which has analytical, ÿnite element and other solutions available in the literature for unsti ened and sti ened plates. The simply supported square sti ened plate with one central sti ener is analysed in the present case by varying the sti ener parameters. The ratio of the cross-sectional area of the sti ener to that of the plate has been taken 0.05 and 0.10 and the ratio of the bending sti ness of the sti ener to that of the plate has been varied from 5 to 15. The torsional inertia of the sti eners has been neglected. The results obtained are presented with the analytical solution of Timoshenko and Gere [2] and ÿnite element results of Mukherjee and Mukhopadhyay [22] in Table 3. It shows that the agreement between the results obtained from
+
+84
+
+A.K.L. Srivastava et al. / International Journal of Mechanical Sciences 45 (2003) 73 – 93
+
+Buckling load parameter λ
+
+120
+
+Deolasi and Datta[19]
+
+100
+
+Mode11
+
+Mode12
+
+80
+
+Present Mode11
+
+Mode12
+
+60
+
+40
+
+20
+
+0
+
+0.0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1.0
+
+Load width (d/b)
+
+Fig. 5. Non-dimensional buckling load ( ) vs. d=b for partial load at one end for unsti ened plate.
+
+100
+
+Buckling load parameter λ
+
+80
+
+a/b=1
+
+a/b=2
+
+60
+
+a/b=0.5
+
+40
+
+20
+
+0
+
+0.0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1.0
+
+Load width (d/b)
+
+Fig. 6. Variation of buckling load parameter with d=b for unsti ened plate subjected to partial load at one end.
+
+di erent sources is very good. The mesh division of the whole plate has been taken 10×10. The plate is subjected to uniform compression in the x-direction. The variation of non-dimensional buckling load with d=b for ÿrst two lowest modes for unsti ened square plate is obtained and compared with the result of Deolasi and Datta [19] in Fig. 5. The buckling load parameter values at all d=b values are in good agreement. Fig. 6 shows the variation of buckling load for unsti ened plate for a=b = 1; 0:5; 2.
+Fig. 7 shows the variation of non-dimensional buckling load for sti ened plate having one central sti ener ( = 0:1 and = 10) for aspect ratios a=b = 0:5; 1; 1:5; 2 as the load bandwidth, d=b changes from 0 to 1. It can be observed from Fig. 7 that for small value of d=b, the buckling load is usually lower and it increases gradually as d=b increases. This may be due to the restraint imposed
+
+A.K.L. Srivastava et al. / International Journal of Mechanical Sciences 45 (2003) 73 – 93
+
+85
+
+Buckling load parameter λ
+
+180
+
+160
+
+140
+
+a/b=0.5
+
+120
+
+a/b=1
+
+a/b=1.5
+
+100
+
+a/b=2
+
+80
+
+60
+
+40
+
+20
+
+0.0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1.0
+
+Load width (d/b)
+
+Fig. 7. Variation of buckling load parameter with d=b for sti ened plate having one central sti ener ( = 0:1 and = 10) subjected to partial load at one end.
+
+by the sti ener. It is observed interestingly that buckling load parameter values decrease with the increase of aspect ratio except in the load width range 0.2– 0.6. So buckling load parameter values for a=b = 0:5 are more than a=b = 1; 1:5; 2 except d=b range from 0.2 to 0.6 and likewise for other comparative aspect ratios. This reverse trend is in decreasing order from 0.2 to 0.4 and maximum at d=b = 0:4 and then increasing trends starts from 0.4 to 0.6. This behaviour of sti ened plate is distinctly di erent to that of corresponding unsti ened plate results as observed from Figs. 5 and 6. It can be observed from the ÿgures that the buckling load is usually higher for small values of d=b and it decreases gradually as d=b increases. This may be due to the fact that for loading near the corners, the edge restraints (y = 0) increases the capacity to withstand the higher loads and as d=b increases, the e ect of edge restraints decreases resulting in lower buckling load [19].
+Fig. 8 shows the variation of non-dimensional buckling load for sti ened square plate having two-equispaced sti ener ( = 0:1 and = 10) for simply supported and all edges clamped cases for various modes as the load bandwidth, d=b changes from 0 to 1. It is observed that the variations are similar as sti ened square plate with one central sti ener as shown in Fig. 7 for both support conditions simply supported and clamped. However, the buckling parameter values for clamped are more than the simply supported edge condition for all the modes.
+The e ects of aspect ratios for variation of buckling load with load bandwidth are studied for two equispaced sti ened plate and is shown in Fig. 9. It is observed that the buckling values increase with the decreases of aspect ratio as observed for one central sti ener presented in Fig. 7.
+The sti ened square plate with one central sti ener is analysed to study the variation of nondimensional frequencies with non-dimensional applied load for load bandwidth d=b 0.2 and 0.8 in di erent modes and is shown in Fig. 10. It is observed that as the applied compressive load increases, the fundamental frequencies decrease for all the modes and d=b values. It is also seen that for a particular value of the applied load, there is appreciable variation in the frequencies of vibration with d=b at di erent modes. It is observed that the values of frequency parameter at d=b = 0:2 are more than d=b = 0:8.
+
+86
+
+A.K.L. Srivastava et al. / International Journal of Mechanical Sciences 45 (2003) 73 – 93
+
+Buckling load parameter λ
+
+700
+
+600
+
+SSSS mode1
+
+mode2
+
+500
+
+mode3
+
+CCCC
+
+400
+
+mode1
+
+mode2
+
+300
+
+mode3
+
+200
+
+100
+
+0.0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1.0
+
+Load width (d/b)
+
+Fig. 8. Variation of buckling load parameter with d=b for sti ened square plate having two equispaced sti ener ( = 0:1 and = 10) subjected to partial edge load at one end.
+
+Buckling load parameter λ
+
+700
+
+600 2 stiffener δ=0.1 & γ = 10
+
+a/b=1, SSSS
+
+500
+
+a/b=.5, SSSS
+
+a/b=1, CCCC
+
+400
+
+a/b=.5, CCCC
+
+300
+
+200
+
+100
+
+0
+
+0.0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1.0
+
+Load width (d/b)
+
+Fig. 9. Variation of buckling load parameter with d=b for sti ened plate having two-equispaced sti ener ( = 0:1 and = 10) subjected to partial edge load at one end.
+
+4.2.3. Problem 3: partial load at both ends (Fig. 1(c)) The case of partial edge loading at both ends as shown in Fig. 1(c) is considered in this section.
+To study the behaviour of sti ened plates under partial edge loading at both ends, sti ened plates for various boundary conditions, aspect ratios, sti ener parameters are considered. The e ects of load width for buckling are studied and results obtained are shown in Fig. 11 for di erent aspect ratios a=b = 0:5; 1; 2 and edge conditions (SSSS, CCCC). In order to study the e ect of aspect ratio (a=b) of a sti ened plate on its buckling behaviour, the length (a) of the sti ened plate considered above is varied keeping its other parameters unchanged. It can be observed from Fig. 11 that the variation
+
+A.K.L. Srivastava et al. / International Journal of Mechanical Sciences 45 (2003) 73 – 93
+
+87
+
+100
+
+Non-dimensional frequency parameter (ϖ)
+
+mode 4
+80
+
+mode 3
+
+d/b=0.8
+
+60
+
+d/b=0.2
+
+mode 2
+40
+mode 1
+
+20
+
+0.0
+
+0.2
+
+0.4
+
+0.6
+
+P/Pcr
+
+Fig. 10. Non-dimensional frequencies vs. P=Pcr for sti ened plate having one sti ener ( = 0:1 and = 10) subjected to partial edge loading at one end.
+
+Buckling load parameter λ
+
+350
+
+300
+
+250
+
+200
+
+150
+
+100
+
+For SSSS :
+
+50
+
+For CCCC :
+
+0
+
+0.0
+
+0.2
+
+a/b = 0.5, a/b = 0.5,
+
+a/b = 1, a/b = 1,
+
+0.4
+
+0.6
+
+0.8
+
+Load band width (d/b)
+
+a/b = 2 a/b = 2
+1.0
+
+Fig. 11. Variation of buckling load parameters ( ) vs. d=b for sti ened plate with one sti ener ( = 0:1 and = 10) subjected to partial edge loading at both end.
+
+of buckling load with the position of the load on the edges is more pronounced for the sti ened plates of the smaller aspect ratios. For the sti ened plates of higher aspect ratios, the buckling loads are not as much a ected with the load bandwidth. This is due to the fact that for long sti ened plates subjected to partial edge load at both ends, a major part of the plate area is subjected to fairly uniform stress distribution comparatively. It is observed from Fig. 11 that for sti ened plates with small aspect ratios, the boundary condition on the loaded edge has the signiÿcant e ect on the load required to cause elastic instability.
+It can be observed that buckling behaviour of the sti ened plates with the aspect ratio is similar to that of unsti ened plate as shown in Fig. 12, which is also found to be in good agreement with Ref. [19]. For unsti ened plate, it is observed from Fig. 12 that buckling load is higher for the loading of small total bandwidth and decreases with increase in the load bandwidth till the loading
+
+88
+
+A.K.L. Srivastava et al. / International Journal of Mechanical Sciences 45 (2003) 73 – 93
+
+350
+
+300
+
+Buckling load parameter λ
+
+250
+
+200
+
+150
+
+100
+
+50
+
+0
+
+0.0
+
+0.2
+
+For SSSS: For CCCC:
+
+0.4
+
+0.6
+
+0.8
+
+Load width (d/b)
+
+a/b = 0.5, a/b = 0.5,
+
+a/b = 1, a/b = 1,
+
+1.0
+a/b = 2 a/b = 2
+
+Fig. 12. Variation of buckling load parameters ( ) with load bandwidth of unsti ened plate subjected to partial edge loading at both ends.
+
+becomes uniform. This is because of the e ects of edge restraints of the edges at y =0 and b. As d=b increases, the buckling load gradually decreases because of decreasing e ects of edge restraints. The values obtained here agree well with the values available in Ref. [19]. For d=b = 1, it corresponds to the problem of uniformly distributed loading. For clamped case, it can be observed that the buckling behaviour of the plate with respect to load bandwidth and plate aspect ratio is similar to that of a simply supported plate. However, for the loading of small bandwidth near one or both ends of the edges, the stabilizing e ects of the edge restraints are not as much pronounced as in the case of simply supported plates.
+A simply supported square plate with a central sti ener has been analysed with various rigidities of the sti ener. The ratio of the bending sti ness has been varied from 5 to 25. The torsional inertia of the sti eners has been neglected. The e ect of bending sti ness rigidity of the sti ened plate with one central sti ener having ÿxed sti ener area ratio (say = 0:1) on the vibration frequencies is shown in Fig. 13. It is observed that if is ÿxed and is increased, the vibration frequencies increase. The same e ects are observed for other in-plane edge loading cases also. The results in Fig. 13 can be explained by the fact that and are proportional to the cross-sectional area and the cross-sectional moment of inertia of the sti ener, respectively. So as increases, the rigidity of sti ened plate increases and the plate becomes more stable and consequently the frequency increases.
+A simply supported square plate with a central sti ener has also been analysed with various ratio of cross-sectional area of the sti ener to that of the plate ( = 0:05; 0:1; 0:15; 0:2; 0:25) keeping the ÿxed bending sti ness rigidity ( =10). The torsional inertia of the sti eners has been neglected. The e ects of sti ener area ratios of the sti ened plate on the vibration frequencies are studied and the results obtained are presented in Fig. 14 and Table 4. It is observed that the vibration frequencies value decreases as is increased for a ÿxed value of . However, it is observed interestingly that for P=Pcr less than 0.6, the value decreases constantly in a parallel manner with the increase of . This behaviour suggest that for P=Pcr greater than 0.6, the vibration frequencies remains almost una ected with .
+
+A.K.L. Srivastava et al. / International Journal of Mechanical Sciences 45 (2003) 73 – 93
+
+89
+
+Non-dimensional frequency parameters ω
+
+50
+
+40
+
+30
+
+δ = 0.1
+
+20
+
+γ= 5
+
+γ = 10
+
+γ = 25
+
+10
+
+0.0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1.0
+
+P/Pcr
+
+Fig. 13. Variation of frequency parameters (!) vs. P=Pcr of simply supported sti ened plate with one sti ener ( = 0:1) subjected to partial edge loading at both end for various values of , d=b = 0:2; a=b = 1.
+
+Non-dimensional frequency parameters ω
+
+45 40
+
+30
+
+δ =.05
+
+δ =0.1
+
+δ =0.15
+
+20
+
+δ =0.2
+
+δ =0.25
+
+10
+
+0.0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1.0
+
+P/Pcr
+
+Fig. 14. Variation of frequency parameters (!) vs. P=Pcr of simply supported square sti ened plate with one sti ener ( = 10) subjected to partial edge loading at both end for various values of , d=b = 0:2; a=b = 1.
+
+4.2.4. Problem 4: partial edge loading at the center (Fig. 1(d)) The case of partial edge loading at the center as shown in Fig. 1(d) is considered in this section.
+Fig. 15 shows the variation of non-dimensional buckling load of unsti ened/sti ened plate for all edges clamped and having one central sti ener ( = 0:1 and = 10) for aspect ratios of a=b = 0:5; 1; 1:5; 2 as the load bandwidth, d=b changes from 0 to 1. For sti ened plate, it is observed from Fig. 15 that for small value of d=b, the buckling load is usually higher and at d=b = 0, it is maximum. It decreases gradually as d=b increases. At d=b = 0:5, the value is the lowest. Again it starts increasing up to the full width load (d=b = 1). This may be due to the restraint imposed by the sti ener.
+
+90
+
+A.K.L. Srivastava et al. / International Journal of Mechanical Sciences 45 (2003) 73 – 93
+
+Table 4 Variation of frequency parameters (!) vs. P=Pcr of simply supported sti ened plate with one sti ener ( = 10) subjected to partial edge loading at both end for various values of AS =bt (area sti ener ratios) d=b = 0:2; a=b = 1
+
+P=Pcr
+
+Non-dimensional frequency parameter (!) For = 10
+
+= 0:05
+
+= 0:1
+
+= 0:15
+
+= 0:20
+
+= 0:25
+
+0
+
+41.64
+
+0.1
+
+40.73
+
+0.2
+
+39.76
+
+0.4
+
+37.61
+
+0.5
+
+35.99
+
+0.6
+
+32.59
+
+0.8
+
+23.59
+
+0.9
+
+16.92
+
+40.75 39.88 38.96 36.94 35.69 32.58 23.62 16.93
+
+39.73 38.90 38.03 36.12 35.01 32.56 23.64 16.93
+
+38.71 37.93 37.17 35.28 34.24 32.49 23.62 16.93
+
+37.72 36.98 36.23 34.46 33.48 32.21 23.60 16.93
+
+500
+
+Buckling load parameter λ
+
+400
+
+300
+
+200
+
+100
+
+0
+
+0.0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+Load band width (d/b)
+
+unstiffened plate: Stiffened plate:
+
+a/b = 0.5, a/b = 0.5,
+
+a/b = 1, a/b = 1,
+
+1.0
+a/b = 2 a/b = 2
+
+Fig. 15. Variation of buckling loads parameter ( ) with load bandwidth of clamped unsti ened /sti ened plate with one central sti ener ( = 0:1 and = 10) subjected to partial edge loading at the centre.
+
+The loading case of c=b = 0 corresponds to the concentrated load at the centre of the edges which is also the case of d=b=0:5 in Problem 1. This behaviour of sti ened plate is distinctly di erent from that of corresponding unsti ened plate. For unsti ened plate, it can be observed from Fig. 15 that the buckling load increases monotonically from a minimum to a maximum value as the load bandwidth is increased till the loading becomes uniform. This increase in the buckling load is because of the fact that as the load bandwidth is increased, the substantial compressive zone gets extended over a wide plate area where the edge restraints are more e ective. The buckling load also increases due to the increasing e ects of edge restraints of edges y = 0 and b and loading in full width (d=b = 1), the edge restraints increases the capacity to withstand the higher loads. Many researchers Leissa and Ayoub [6], Deolasi and Datta [19], Brown [14] have solved the buckling problem for unsti ened
+
+A.K.L. Srivastava et al. / International Journal of Mechanical Sciences 45 (2003) 73 – 93
+
+91
+
+500
+
+Buckling load parameter (λ)
+
+400
+
+300
+
+200
+
+100
+
+0
+
+0.0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+Load band width (d/b)
+
+Unstiffened plate
+
+(a) a/b=0.5
+
+(SSSS)
+
+CCCC (b) a/b=1
+
+Stiffened plates(1 stiffener (δ = 0.1, γ = 10))
+
+(a) a/b=0.5
+
+SSSS
+
+CCCC (b) a/b=1
+
+SSSS SSSS
+
+1.0
+CCCC CCCC
+
+Fig. 16. Variation of buckling loads parameter ( ) with load bandwidth of unsti ened /sti ened plate with one central sti ener ( = 0:1 and = 10) subjected to partial edge loading at the center.
+
+Table 5 Variation of non-dimensional frequency parameter with P=Pcr for sti ened plate with one central sti ener ( = 0:1 and = 10) subjected to partial edge loading at the center
+
+P=Pcr
+−1 −0.5 0 0.2 0.4 0.5 0.6 0.8
+
+Non-dimensional frequency parameter ($)
+
+d=b = 0:2
+
+d=b = 0:4
+
+SSSS
+
+CCCC
+
+SSSS
+
+CCCC
+
+51.03 49.44 40.75 36.56 31.76 29.04 26.03 18.49
+
+73.35 73.05 72.86 72.46 71.79 70.13 67.84 54.15
+
+54.36 49.54 40.75 36.59 31.84 29.16 26.18 18.73
+
+93.59 75.06 72.86 71.82 70.65 70.04 68.74 52.43
+
+d=b = 0:6
+SSSS
+55.69 48.82 40.75 37.01 32.81 30.48 27.94 21.90
+
+CCCC
+93.62 77.15 72.86 70.99 69.00 67.95 66.82 45.59
+
+plate only for this case with more or less accurate results. It is observed interestingly that buckling load parameter values decreases with the increase of aspect ratio. So buckling load parameter values for a=b=0:5 is more than a=b=1; 1:5; 2. It can be observed from Fig. 15 that the variation of buckling load with load width d=b is more pronounced for the sti ened plates of the smaller aspect ratios. For the sti ened plates of higher aspect ratios, the buckling loads are not much a ected with d=b. This behaviour of sti ened plate is quite similar to that of corresponding unsti ened plate. The above plate was also analysed for simply supported cases and the results obtained are plotted in Fig. 16 along with the results of the clamped plate for comparison. The e ects of boundary restraints can clearly be observed.
+The variation of non-dimensional frequency with P=Pcr for sti ened plate with one central sti ener ( = 0:1 and = 10) subjected to partial edge loading at center has been shown in Table 5.
+
+92
+
+A.K.L. Srivastava et al. / International Journal of Mechanical Sciences 45 (2003) 73 – 93
+
+5. Conclusion
+
+The results from the study of the compressive buckling and vibration behaviour of a sti ened plate subjected to non-uniform in-plane stress distribution can be summarized as follows.
+Natural frequencies decrease as compressive load increases. As expected, the fundamental frequencies become zero at respective values of buckling loads. Also there is signiÿcant change in the natural frequencies with magnitude and position of load width over the edges. Compression buckling analysis for partial edge loading shows that the variation of buckling load with the position of the load on the edges is more pronounced for the sti ened plates of the smaller aspect ratios. For the sti ened plates of higher aspect ratios, the buckling loads are not as much a ected with the position of the load.
+The sti ened plate subjected to in-plane concentrated load gets maximum buckling load when subjected to the sti ener position.
+For the case of partial edge load at one end, the buckling load parameter values decreases with the increase of aspect ratio except in the load width range 0.2– 0.6. This trend is in decreasing order from 0.2 to 0.4 and maximum at d=b = 0:4 and then increasing trends starts from 0.4 to 0.6. For the case of partial edge load near both ends of the two opposite edges, the buckling load is higher for the loading of small total bandwidth and decreases with increase in the load bandwidth till the loading become uniform.
+The vibration frequencies value decreases as is increased for a ÿxed value of . The buckling behaviour of the plate subjected to partial biaxial loading is almost similar to that of a similar plate under uni-axial partial loading at the centre of two opposite edges.
+
+References
+[1] Sommerÿeld A. Uber die knicksicherheiet der Stege von walzewerkproÿlen. Zeitschrift fur Mathematik und Physik 1906;54:113–53.
+[2] Timoshenko SP, Gere JM. Theory of elastic stability, 2nd ed. New York: McGraw-Hill, 1961. [3] Yamaki N. Buckling of rectangular plate under locally distributed forces applied on the two opposite edges. Report
+of the Institute of High Speed Mechanics, No. 27: 89 –98, vol. 26, Tohoko University, Japan, 1953. p. 71–87. [4] Leggett DMA. The e ect of two isolated forces on the elastic stability of a at rectangular plate. Proceedings of the
+Cambridge Philosophical Society 1937;33:325–9. [5] Baker G, Pavolic MN. Elastic stability of simply supported rectangular plates under locally distributed edge forces.
+Journal of Applied Mechanics 1982;49:177–9. [6] Leissa AW, Ayoub EF. Vibration and Buckling of simply supported rectangular plate subjected to a pair of in-plane
+concentrated forces. Journal of Sound and Vibration 1988;127(1):155–71. [7] Dawe DJ. Application of the discrete element method to the buckling analysis of rectangular plates under arbitrary
+membrane loadings. Aeronautical Quarterly 1969;20:114–28. [8] Grimm TR, Gerdeen JC. Instability analysis of thin rectangular plates using the Kantorovich method. Journal of
+Applied Mechanics 1975;42:110–4. [9] Bassily SF, Dickinson SM. Buckling and lateral vibration of rectangular plates subjected to in-plane loads—a Ritz
+approach. Journal of Sound and Vibration 1972;24:219–39. [10] Alfutov NA, Balabukh LI. On the probability of solving plate stability problems without preliminary determination
+of the initial state of stresses. Prikladnaya Matematika I Mekhanika 1967;31:730–6. [11] Mei C, Yang TY. Free vibration of ÿnite element plates subjected to complex middle plane force system. Journal
+of Sound and Vibration 1972;23(2):145–56.
+
+A.K.L. Srivastava et al. / International Journal of Mechanical Sciences 45 (2003) 73 – 93
+
+93
+
+[12] Spencer HH, Surjanhata H. Plate buckling under partial edge loading. In: Propelar CH, editor. Developments in mechanics. Proceedings of the 19th Midwestern Mechanics Conference, vol. 13, Ohio State University, Columbus, Ohio 1985. p. 83–84.
+[13] Khan MZ, Walker AC. Buckling of plates subjected to localized edge loading. The Structural Engineer 1972;50: 225–32.
+[14] Brown CJ. Elastic stability of plates subjected to concentrated loads. Computer and Structures 1989;33(5):1325–7. [15] Brown CJ, Yettram AL. The elastic stability of sti ened plates using the conjugate load displacement method.
+Computer and Structures 1986;23(3):385–91. [16] Dickinson SM, Kalidas MM. Vibration and buckling calculation for rectangular plates subjected to complicated
+in-plane stress distribution by using numerical integration in a Rayleigh–Ritz analysis. Journal of Sound and Vibration 1981;75:151–62. [17] Kukla S, Skalmierski B. Free vibration of rectangular plate loaded by a non-uniform in plane force. Journal of Sound and Vibration 1995;187(2):339–43. [18] Gutierrez RH, Laura PAA. Use of di erential quadrature method when dealing with transverse vibration of a non-uniform stress distribution ÿeld. Journal of Sound and Vibration 1999;22(4):765–9. [19] Deolasi PK, Datta PK, Prabhakar DL. Buckling and vibration of rectangular plates subjected to partial edge loading (Compression or tension). Journal of Structural Engineering 1995;22(3):135–44. [20] Sundersan P, Singh G, Rao GV. Buckling of moderately thick rectangular composite plates subjected to partial edge compression. International Journal of Mechanical Sciences 1998;40(11):105–17. [21] Zienkiewicz OC, Taylor RL. The ÿnite element method, 4th ed. New York: McGraw-Hill, 1989. [22] Mukhopadhyay M, Mukherjee A. Finite element buckling analysis of sti ened plates. Computer and Structures 1990;4(6):795–803. [23] Corr RB, Jennings AA. Simultaneous iteration for symmetric eigen value problem. International Journal for Numerical Methods in Engineering 1976;10:647–63.
+

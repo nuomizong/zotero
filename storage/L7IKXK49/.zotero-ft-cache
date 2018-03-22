@@ -1,0 +1,214 @@
+Engineering Computations
+An isoparametric eccentrically stiffened plate bending element P.A. Thompson, P. Bettess, J.B. Caldwell,
+Article information:
+To cite this document: P.A. Thompson, P. Bettess, J.B. Caldwell, (1988) "An isoparametric eccentrically stiffened plate bending element", Engineering Computations, Vol. 5 Issue: 2, pp.110-116, https://doi.org/10.1108/eb023728 Permanent link to this document: https://doi.org/10.1108/eb023728
+Downloaded on: 20 March 2018, At: 19:59 (PT) References: this document contains references to 0 other documents. To copy this document: permissions@emeraldinsight.com The fulltext of this document has been downloaded 74 times since 2006* Access to this document was granted through an Emerald subscription provided by emerald-srm:284447 []
+For Authors
+If you would like to write for this, or any other Emerald publication, then please use our Emerald for Authors service information about how to choose which publication to write for and submission guidelines are available for all. Please visit www.emeraldinsight.com/authors for more information.
+About Emerald www.emeraldinsight.com
+Emerald is a global publisher linking research and practice to the benefit of society. The company manages a portfolio of more than 290 journals and over 2,350 books and book series volumes, as well as providing an extensive range of online products and additional customer resources and services.
+Emerald is both COUNTER 4 and TRANSFER compliant. The organization is a partner of the Committee on Publication Ethics (COPE) and also works with Portico and the LOCKSS initiative for digital archive preservation.
+*Related content and download information correct at time of download.
+
+Downloaded by BOURNEMOUTH UNIVERSITY At 19:59 20 March 2018 (PT)
+
+An isoparametric eccentrically stiffened plate bending element
+P. A. Thompson, P. Bettess and J. B. Caldwell
+Department of Naval Architecture, School of Marine Technology. University of Newcastle-upon-Tyne, Newcastle-upon-Tyne NE1 7RU, UK {Received October 1987)
+ABSTRACT
+An 8 noded, eccentrically stiffened, plate bending element is introduced. The formulation allows for any number of stiffeners arbitrarily orientated within a plate element without disturbing their individual properties and positions. This is a distinct improvement over conventional lumped stiffener modelling and equivalent orthotropic plate theory and considerably simplifies the modelling of stiffened structures. A technique is also presented which transforms stiffener positions defined in the global cartesian system to the local, isoparametric coordinates of the plate element which contains the given stiffener. Several examples are given which demonstrate the usefulness of the element.
+
+ALTERNATIVE APPROACH TO MODELLING STIFFENED PLATES
+Over the last few years considerable attention has been drawn to the particular benefits of stiffened elements. Here the location of the stiffener is not limited to being placed along the nodal lines but can be placed anywhere within an element to which it is attached.
+For the case of plane stress, stiffeners can be represented by special membrane elements that extend over the same area as the plating and possess the same degrees of freedom as the plane element. The stiffeners are assumed to have the same displacement field as the plate which allows the strain energy of the stiffeners to be computed and a stiffness matrix to be derived for the stiffeners in the same manner as the plating. This approach was used independently by Tingleff1 and Colville and Abbasi2, for representing steel reinforcing in concrete. The former dealt with the constant strain triangle while the latter used the linear strain rectangle displacement function in the formulation. Reference 3 appears to be the first to adopt the constant shear stress rectangle displacement for representing the stiffeners in a rectangular panel. Results show4 that the in-plane stiffness of stiffened panels can be accurately predicted using these elements. Since they account for each stiffener individually, non-uniform stiffened panels can be conveniently taken care of.
+The basic idea of the stiffened element was extended further to produce isoparametric stiffened elements for
+
+Downloaded by BOURNEMOUTH UNIVERSITY At 19:59 20 March 2018 (PT)
+
+INTRODUCTION
+Stiffened plate structures occur widely in engineering. Examples include box girder and suspension bridges, aeroplanes, ships and offshore structures. There is therefore a considerable interest in the static analysis of stiffened plate structures. Three main types of finite element model can be identified, with reference to Figure 1, in increasing order of accuracy.
+1. Coarse model with lumped stiffeners (Figure la) Each stiffener is lumped on the nearest element boundary. This introduces certain inconsistencies. It is theoretically inaccurate, since this approach indicates a coupling only along the nodes to which it is connected. It cannot easily cope with diagonal stiffening.
+2. Orthotropic simulation ofstiffened plates (Figure 1b) The stiffeners contained within a particular element are merged into the plating modelled as orthotropic (or, in some cases, anisotropic) properties. The equivalent properties are determined from those of the plate and stiffener.
+3. Fine model with exact representation of stiffeners (Figure 1c)
+The stiffeners are represented by bar or beam elements. On occasions where great accuracy is required the stiffener may itself be modelled using plate or shell elements. In this model the layout of the stiffeners dictates the layout of the finite element mesh. This may be wasteful and inefficient leading to excessively fine meshes in areas of structure not of prime importance. It may also lead to topological difficulties in mesh generation, where the pattern of stiffeners is irregular or complex. Clearly, in general the optimal mesh layout may not coincide with the actual pattern of stiffeners.
+0264-4401/88/020110-07$2.00 © 1988 Pineridge Press Ltd
+110 Eng. Comput., 1988, Vol. 5, June
+
+Downloaded by BOURNEMOUTH UNIVERSITY At 19:59 20 March 2018 (PT)
+
+Isoparametric eccentrically stiffened plate bending element: P. A. Thompson et al.
+plane stress5 and to plate bending6. In the formulation the stiffener positions and properties remain undisturbed since the effects of each stiffener and the associated generalized strains are expressed by using the plane element shape functions and their derivatives. This is clearly a distinct improvement over existing lumped stiffener and orthotropic plate models. Further, the formulation being based on the isoparametric concept, has the advantage that it takes account of transverse shear deformation and also that curved boundaries can easily be incorporated. However, in the formulation employed the stiffeners are limited to being placed parallel to the Cartesian axes which clearly restricts their applicability.
+A more general formulation is now presented which allows the arbitrary orientation of any number of stiffeners within a plate element. Several examples are given in order to demonstrate the potential of the element.
+A technique is also described and implemented which transforms stiffener positions defined in the Cartesian system to local, isoparametric coordinates of the quadratic elements which contain the given stiffeners.
+
+PROPOSED ANALYSIS
+The evaluation of the fundamental equations of stiffened plates is based on the following assumptions:
+1. The bending deformations follow Mindlin's hy­ pothesis; therefore, the linear elements perpendicular to the middle plane of the plate before bending remain straight but not necessarily normal to the deflection surface of the plate after bending.
+2. The common normal to the plate-stiffener system before deformation remains straight after deformation.
+3. The displacements of the points in the middle plane in the normal direction to this plane are small in comparison to the thickness of the plate.
+4. The stresses in the z-direction are assumed to be zero irrespective of the loading.
+
+It may be noted from Figure 3 that:
+The following is the relationship between the strain and the displacement:
+
+PLATE ELEMENT FORMULATION
+Shape functions The displacements at a node of a quadratic
+isoparametric plate bending element (Figure 2) are ur, vr, wr, 0xr, 0yr.
+At any point inside the element
+
+where [Nr] is the shape function at the rth node, {δ}T = {uvw0x0y} and = {urvrwr0xr0yr}. The shape functions are expressed in terms of non-dimensional parameters ξ and η as shown in Figure 2.
+Strain-displacement relationship Generalized strains at a point are given by:
+
+Eng. Comput., 1988, Vol. 5, June 111
+
+Isoparametric eccentrically stiffened plate bending element: P. A. Thompson et al.
+
+The shape function derivatives are calculated from:
+
+where
+
+and
+
+where [ J ] - 1 is the Jacobian matrix inverse defined as:
+
+The strain components are given by:
+
+Stress-strain relationship The stress-strain relationship for the plate is written as:
+where
+and [D] is a symmetric matrix given by:
+
+The generalized strain components of the stiffener in
+
+Downloaded by BOURNEMOUTH UNIVERSITY At 19:59 20 March 2018 (PT)
+
+The element stiffness matrix of the plate element is given by:
+STIFFENER ELEMENT FORMULATION The specific cases of stiffeners parallel to the edges of the plate has already been presented6. The authors have extended the formulation to allow any arbitrary orientation of any number of stiffeners placed within a plate element (Figure 4).
+The local coordinates of the stiffener system are s and t as shown in Figure 5.
+The displacement field of the stiffener is given by:
+112 Eng. Comput., 1988, Vol. 5, June
+
+Isoparametric eccentrically stiffened plate bending element: P. A. Thompson et al.
+
+the local coordinates can now be identified as:
+
+surface respectively. Also, the coefficient∫∫Ez dt dz will be non-zero for stiffeners placed eccentrically with respect to the plate middle surface. This will provide the necessary interaction between in-plane and transverse displacements which is to be expected in eccentrically stiffened plates.
+The evaluation of the element stiffness matrix for the stiffener is done by following steps similar to that for the plate element stiffness and is written as:
+
+Using (12), (13) can be written as: where
+The generalized strains can be re-written in the x-y coordinate system as follows:
+where
+
+The stiffness matrix may be evaluated by integrating along the length of the stiffener. A careful study of the terms involved in the determination of [K]e shows that the contribution of the stiffener is reflected at all the nodes of the plate element. Since the stiffener properties and position remain undisturbed in the formulation this represents a clear improvement over lumped stiffener and orthotropic plate models.
+CARTESIAN ISOPARAMETRIC MAPPING
+The formulation described above requires the stiffener position defined in the global X-Y axes to be mapped
+
+Downloaded by BOURNEMOUTH UNIVERSITY At 19:59 20 March 2018 (PT)
+
+Stress-strain relationship The stress-strain relationship for the stiffener is written
+as:
+where and
+Using the principle of virtual work and combining (14) and (17) yields:
+where
+
+onto the isoparametric coordinate system of the plate element, i.e. transformation from cartesian global to isoparametric local coordinates. This transformation is often done in the reverse sense using the shape functions themselves, but in this case involves the solution of a pair of simultaneous non-linear equations. In fact, each equation consists of a sum of the quadratic shape functions for the X and Y coordinates. This technique has been developed from previous work9 projecting mapped nodal variables onto regular cartesian grids. With reference to Figure 6 this procedure is now described.
+The derivations of the shape functions in isoparametric elements are described fully elsewhere, but the relation
+
+This yields:
+
+Here,∫∫dt dz is interpreted as the stiffener crosssectional area while∫∫Ez2 dt dz and∫∫(t2+z2) dt dz are taken as the second moment of area and the polar second moment of area of the stiffener about the plate middle
+
+Eng. Comput., 1988, Vol. 5, June 113
+
+Isoparametric eccentrically stiffened plate bending element: P. A. Thompson et al.
+between the cartesian coordinates in terms of X and Y and local isoparametric equivalents ξ and η is expressed as:
+
+where Xi and Yi are coordinates of the ith node. To accomplish the reverse transformation the two
+equations must be solved for ξ and η simultaneously and a suitable iterative numerical technique is required. Newton's method is chosen and requires the equation in the form:
+
+Let ξ = S,η]= T be a root and expand both functions as a truncated series about the point (s, t) in terms of (S — s), (T—t) where (s, t) is a point near the root:
+
+Downloaded by BOURNEMOUTH UNIVERSITY At 19:59 20 March 2018 (PT)
+
+where Fs, Ft, Gs, Gt are the partial derivatives, which can be evaluated numerically by perturbation of the variables,
+e.g.
+
+Unless the elements are greatly distorted, about two to three iterations are required to produce an acceptable solution.
+NUMERICAL EXAMPLES
+The present stiffened plate element formulation has been applied to several examples which demonstrate the usefulness of the element.
+Example 1 A straight cantilever beam provides the simplest means
+to test the formulation of the stiffened element. A single stiffened plate element is shown in Figure 7.
+
+Here, in order to test the stiffener formulation the plate thickness is made negligible so that the deflection at the end of the stiffener within the plate element should coincide with the theoretical result for a straight cantilever under a point load at its free end (including transverse shear deformation). This example demon­ strates that the properties and position of a stiffener placed anywhere within the plate element remain undisturbed.
+With a single element, the tip deflection and moment coincide with theory.
+Example 2
+The geometrical and material properties of the stiffened element are shown in Figure 8. Here, again, the plate thickness is made negligible so that the deflections of the stiffener within the plate element should resemble the solution of a curved beam under a load normal to the plane of initial curvature.
+The deflections, bending and twisting moments for the stiffener within the plate element are compared with theoretical results10 and are in excellent agreement as shown in Figure 9.
+Example 3
+A rectangular steel plate stiffened with 9 T-bar stiffeners in one direction, simply supported along its longer edges and the other two free is shown in Figure 10. A concentrated load of one ton applied at the centre of the plate has been analysed and compared with the theoretical results of Smith7 and the experimental results of Clarkson8. Two sample meshes used are shown. The first uses just four stiffened elements to model a quarter
+
+114 Eng. Comput., 1988, Vol. 5, June
+
+Isoparametric eccentrically stiffened plate bending element: P. A. Thompson et al.
+interest in a rigorous and efficient manner with relatively few stiffened elements.
+Example 4 The simply supported rectangular plate of Figure 12
+has been analysed by Rossow and Ibrahimkhaill11. The geometry and material properties are also shown.
+This example used several example meshes to model the stiffened plate. It should be noted that mesh 2 and
+
+Downloaded by BOURNEMOUTH UNIVERSITY At 19:59 20 March 2018 (PT)
+
+of the plate. The second mesh employs 16 stiffened elements.
+The agreement between the results for displacement and plate moments is excellent for both meshes (Figure 11). This demonstrates the usefulness of being able to represent regions of structure away from the areas of
+
+Eng. Comput., 1988, Vol. 5, June 115
+
+Downloaded by BOURNEMOUTH UNIVERSITY At 19:59 20 March 2018 (PT)
+
+Isoparametric eccentrically stiffened plate bending element: P. A. Thompson et al.
+tional finite element mesh generation, entirely dictated by the location of stiffeners, is either difficult or time consuming.
+
+NOMENCLATURE
+
+[B]
+{e}
+[D]
+[Hs]
+u, v, w U, V, W
+[K]e Qx, Qy {σ}
+0x, 0y 0s, 0t fx, fy E G v
+
+strain matrix modified strain matrix strain vector modified strain vector rigidity matrix modified rigidity matrix matrix connecting strain and modified strain vector for the stiffener displacements in the plane of the plate displacements of any point in the coordinate directions displacements in the plane of the stiffener displacements in the local stiffener coordinates element stiffness matrix shear forces stress vector modified stress vector rotations of the mid-surface normal rotations of the mid-surface normal in the local stiffener coordinates shear rotations of the mid-surface normal Young's modulus modulus of rigidity Poisson's ratio
+
+mesh 3 are used only to illustrate that the formulation will cope with the arbitrary positioning of stiffeners within plate elements. Deflections of both concentric and eccentrically stiffened plates under a uniformly dis­ tributed load are shown in Figure 13 and are in good agreement with other sources11.
+CONCLUSION
+An isoparametric, eccentrically stiffened plate element has been introduced. The stiffeners within a plate element may be curved or have any orientation. The limitations of conventional modelling of stiffeners have been overcome by formulating the stiffened element in such a manner that the properties and positions of the stiffeners remain undisturbed. A technique has also been presented which transforms stiffener positions, defined in the global axes system, to the local isoparametric coordinates of the plate element containing the stiffeners.
+Stiffened plate elements are especially useful when modelling complex stiffened structures where conven­
+
+REFERENCES
+1 Tingleff, A. A method for simulating concentrated forces and local reinforcements in stress computation, Mathematics of Finite Elements and Applications, Academic Press, London, pp. 963-970 (1973)
+2 Colville, J. and Abbassi, J. Plane stress reinforced concrete finite elements, J. Struct. Div. ASCE, 100, 1067-10S3 (1974)
+3 Hughes, O. F. et al., Finite elements in the design of optimum ship structures, Nav. Arch. Report 76/2. University of New South Wales (1976)
+4 Hughes, O. F. Ship Structural Design, Wiley, Chichester (1983) 5 Mukhopadyay, M. Stiffened plate plane stress elements for the
+analysis of ships structures, Comput. Struct., 13, 563-573 (1981) 6 Mukhopadyay, M. and Satsangi, S. K. Isoparametric stiffened
+plate bending element for the analysis of ships structures, Trans. R. Inst. Naval Arch., pp. 141-151 (July 1984) 7 Smith, C. S. Elastic analysis of stiffened plating under lateral loading, Trans. R. Inst. Naval Arch., 108, 113-131 (1966) 8 Clarkson, J. The behaviour of deck stiffening under concentrated loads, Tram. R. Inst. Naral Arch., 104, 57-65 (1962) 9 Byrne, D. J. Pseudo 3-D projections from isoparametric surfaces, Eng. Comput., 1, 219-226 (1984) 10 Timoshenko, S. Strength of materials. Advanced Theory and Problems, Vol. 2, pp. 112-114 11 Rossow, M. P. and Ibrahimkhail, A. K. Constraint method of analysis of stiffened plates, Comput. Struct., 8, 51-60 (1978)
+
+116 Eng. Comput., 1988, Vol. 5, June
+
+This article has been cited by:
+1. Wang Jianwei, Wang Gang, Wen Jihong, Wen Xisen. Flexural Wave Propagation in Periodic Stiffened Plate Structures Using Finite Element Method 230-233. [Crossref]
+2. W. Akl, A. El-Sabbagh, A. Baz. 2008. Finite Element Modeling of Plates with Arbitrary Oriented Isogrid Stiffeners. Mechanics of Advanced Materials and Structures 15:2, 130-141. [Crossref]
+3. Guoqiang Li, Jinquan Cheng. 2007. A Generalized Analytical Modeling of Grid Stiffened Composite Structures. Journal of Composite Materials 41:24, 2939-2969. [Crossref]
+4. Edward A. Sadek, Samer A. Tawfik. 2000. A finite element model for the analysis of stiffened laminated plates. Computers & Structures 75:4, 369-383. [Crossref]
+5. F. Belblidia, S.M.B. Afonso, E. Hinton, G.C.R. Antonino. 1999. Integrated design optimization of stiffened plate structures. Engineering Computations 16:8, 934-952. [Abstract] [Full Text] [PDF]
+6. Long-yuan Li, Peter Bettess, John W. Bull, Tim J. Bond. 1997. Adaptive finite element analysis of stiffened shells. Advances in Engineering Software 28:8, 501-507. [Crossref]
+7. L.Y. Li, I. Applegarth, J.W. Bull, P. Bettess, T.J. Bond, P.A. Thompson. 1997. An auto-adaptive finite element analysis software for stiffened plate and shell structures. Advances in Engineering Software 28:5, 285-291. [Crossref]
+8. T.J. Bond, L.Y. Li, P. Bettess, J.W. Bull, I. Applegarth. 1996. Adaptive mesh refinement for shells with modified Ahmad elements. Computers & Structures 61:6, 1135-1141. [Crossref]
+9. Hong-Ji Chen, Stephen W. Tsai. 1996. Analysis and Optimum Design of Composite Grid Structures. Journal of Composite Materials 30:4, 503-534. [Crossref]
+10. L.-Y. Li, I. Applegarth, J.W. Bull, P. Bettess, T.J. Bond. 1996. Adaptive analysis of stiffened structures using stiffened plate bending elements. International Journal of Pressure Vessels and Piping 65:2, 117-125. [Crossref]
+11. T.P. Holopainen. 1995. Finite element free vibration analysis of eccentrically stiffened plates. Computers & Structures 56:6, 993-1007. [Crossref]
+12. L. Jiang, M.W. Chernuka. 1995. An eccentrically stiffened shell element model with geometrically non‐linear capability. Engineering Computations 12:5, 451-467. [Abstract] [PDF]
+13. D. Talaslidis, I. Sous. 1992. A discrete kirchhoff triangular element for the analysis of thin stiffened shells. Computers & Structures 43:4, 663-674. [Crossref]
+14. G.S. Palani, N.R. Iyer, T.V.S.R.Appa Rao. 1992. An efficient finite element model for static and vibration analysis of eccentrically stiffened plates/shells. Computers & Structures 43:4, 651-661. [Crossref]
+15. D. KARAMANLIDIS, H. AWAL, R. FOERCH, V. PRAKASH. Recent Studies on Buckling, Vibration and Static Response of Anisotropic Shear–Flexible Plates 227-247. [Crossref]
+
+Downloaded by BOURNEMOUTH UNIVERSITY At 19:59 20 March 2018 (PT)
+

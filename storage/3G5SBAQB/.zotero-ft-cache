@@ -1,0 +1,1017 @@
+ELSEVIER
+
+0263-8223(95)00004-6
+
+Prmtcd in Great Britain. All rights rcscrwd 0263-x223/95/s’) 50
+
+Geometrically nonlinear analysis of composite stiffened plates using finite elements
+
+B. Chattopadhyay
+Civil Engineering Department, Bengal Engirleering College, Howrah 711 IO_?I,ndia
+
+P. K. Sinha
+Aerospuce Engineering Department, Indian Institute of Technology, Kharagpplrr 721 302, Indiu
+
+M. Mukhopadhyay OceruElq.yirlrerirlg R NULYIIArchittJcnrre Department, Imlirrrl Institute of Techrlology, tiharugplrr 721 302, India
+Composite stiffened plates have been analysed for large deflection using the finite element method. An eight noded isoparametric laminated stiffened plate bending element developed earlier has been used. The element has the capability of including transverse shear deformation for the plate and the stiffener and incorporating one or more stiffeners anywhere within the element. The finite element analysis has been made using Mindlin’s formulation and with the assumption of small rotation. The nonlinear equilibrium equations are solved by the Newton-Raphson iteration procedure. Plates and stiffened plates of isotropic and anisotropic material with different boundary conditions have been analysed and results have been compared with those available. Parametric studies have also been carried out.
+
+INTRODUCTION
+With the increased application of fibre reinforced composites in various fields, research on their behaviour in different structural forms has also increased. Most commonly used structural forms are plates and shells, used in aircraft and ships’ structures. Stiffened forms have been proved to be more efficient than the unstiffened ones as the former provide effective use of the material. Research on stiffened composite plates has been directed, so far, mostly towards buckling and post-buckling analysis. A few studies on the vibration analysis have recently been found. It is observed that the flexural behaviour of composite stiffened plates has not been studied fully. Very few investigations that have been carried out so far are restricted to small deflections only. At
+
+higher loads, the transverse deflection of plate is large compared to its thickness. The bendingstretching coupling comes into play and the load deflection behaviour ceases to be linear. A large deflection analysis gives accurate responses. For composite plates coupling effects arising from ply orientations make the matter more complicated. The large deflection flexural response of composite plates has been extensively studied in recent years.2
+Even with its growing importance, studies on the large deflection behaviour of composite stiffened plates are rather meagre. Turvey’* has analysed uniformly loaded ring-stiffened composite circular plates for large deflection. In his modelling, the effect of a stiffener has been incorporated in the plate by considering statically equivalent local body forces acting on the plate.
+
+107
+
+108
+
+El. Chattopadhyuy, P. K. Sinha, M. Mukhopadhyay
+
+The large deflection equations have been solved by the finite difference scheme. Liao and Reddy” have investigated the large deflection behaviour of composite stiffened plates and shells by the finite element method. They have used degenerated three dimensional shell elements and associated curved beam elements which have been derived from the degenerated elements by imposing appropriate kinematic constraints. The incremental equations of motion developed using the principle of virtual displacement of a continuum and the total Lagrangian concept have been solved by the Newton-Raphson iteration procedure.
+The experimental investigation on the tlexural behaviour of composite stiffened plate in the nonlinear range has been carried out by Hyer rr a1.j They have used the STAGS (Almroth & Brogan’) computer code to compare the experimental results with the analytical ones. STAGS models the stiffened plate as shell branches.
+In the present paper, an eight-noded isoparametric composite stiffened plate bending element developed earlier (Chattopadhyay et cd.“) has been used for the nonlinear analysis. The element’s ability to include transverse shear deformation for both the plate and the stiffener and to take into account any number of stiffeners within the element has been discussed by them. Nonlinear equilibrium equations have been derived using the principle of virtual work. The finite element formulation has been made using Mindlin’s hypothesis and with the total Lagrangian concept. Nonlinear equilibrium equations arc solved by the Newton-Raphson iteraction procedure.
+Stiffened and unstiffened rectangular plates of isotropic and composite materials have been solved for large deflection flexure and results are compared with those available in the literature. Parametric studies have also been carried out.
+FORMULATION
+As stated earlier, an eight noded isoparametric element has been employed to model the stiffened plate. The element matrices of the stiffened plate element consists of the contributions of the plate and that of the stiffener. The formulations for the element has been presented by Chattopadhyay et al.” and as such the same is not repeated here. Only the formulation for nonlinear equilibrium equations and their solutions has been presented
+
+in this paper. The formulation is based on Mindlin’s hypothesis and with the assumptions of small rotation. Total Lagrangian approach has been adopted. Nonlinear equilibrium equations have been derived using the principle of virtual work.
+Virtual work equation
+For an elastic continuum undergoing small or large displacement, the equilibrium of internal and external forces can be expressed by the virtual work equation as:
+
+{q}d{d}‘= d/c}‘@}-{R}d{6}“={0}
+
+(1)
+
+!,
+
+where j 6 } = nodal displacements of the discretised continuum,
+{ R ] = generalised external nodal forces, { II,) = Resultant of internal and external forces. {E} and {CT] represent strains and stresses as usual. Now,
+
+d{e}=[B]d{6}
+
+(2)
+
+[B] is different from [I?] in the sense that [B] contains terms which are dependent on displacements when displacements are large.
+Combining eqns ( 1) and (2) yields
+
+{v}d{6}‘= d(6}“[~]7jo}-(R}d{6}‘={O} I I’
+or,
+
+Equation (3) is the nonlinear equation of equilibrium to be solved. The integrals are carried out element by element and the contributions to nodal equilibrium are summed in the usual manner. Therefore eqn (3) can represent the equilibrium equation either at element level or in the assembled form.
+Variation of strain
+(i) Plate element Due to the virtual displacements dj 6’) at the nodes, the variation of strain within an element is considered. {SF} are the displacements at the
+
+Nonlinear analysis of composite stiffenedplates
+
+109
+
+nodes of an element represented” by:
+
+{S(‘}={S, &..... S,]
+for an eight noded isoparametric element, where
+
+plate bending
+
+kV=j%4 w, 8_,,?8.A
+The midplane displacement components point within the element are given by
+
+at any
+
+‘U ZI we.,, 8,,}‘= i N,[Z,]{6}, I= 1
+Considering first order nonlinearity, the straindisplacement relations are:
+
+{E:] is the shear strain,
+(8)
+
+and finally the nonlinear strain ( E,,}~ is defined as,
+
+1 aw 7
+
+z ax,
+
+i
+
+ij
+
+component
+
+of inplane
+
+P-4
+
+(4)
+au av )‘,,,2=-+-+
+ax2 ax,
+SO, the generalised strain components are,
+where {&::I is the inplane strain, expressed as,
+(a
+
+The superscript 0 represents the linear and L represents the nonlinear part of the strains. The stress-strain relationship for the linear part of the strains are same as those given by Chattopadhyay et al. 3
+The strain components can be expressed as,
+
+{&j=#+{&JL
+
+(10)
+
+Considering the variation
+
+d{E~=d(&}“+d(riL,
+
+W)
+
+the variation of the nonlinear part of the strain component can ble derived with the help of eqn
+19). k,J’- ofeqn (9) can be expressed as:
+aw
+ax, 0
+
+aw {%I’=- 0
+
+{E,,]is the bending strain,
+
+aw
+
+ax2 ax,
+
+(12)
+
+where
+
+(7)
+
+(Iiaw
+ax,
+aw
+ax,
+
+110
+
+R. Chattopadhyay, I’. K. Sinha, M. Mukhopadhyay
+
+are the displacement gradients with respect to lateral displacement w. Considering the variation of { E,,}~-, i.e.,
+
+d{~,~}f-==;d[A]{B}+;[A]d{B}
+
+(13)
+
+and using the special property (Zienkiewicz”) of [A ] and ( 19}, the above expression reduces to
+
+d{E,J =]A]d@]
+
+(14)
+
+itIN,.
+
+ax,
+
+0
+
+aN
+
+0
+
+Iax,
+
+(24)
+
+aN,
+
+aN,
+
+ax, ax,
+
+( O} may be represented in terms of nodal displacements
+
+iW=Kw”~
+
+11.5)
+
+[G] =[C,G?.....GJ
+
+(16j
+
+FM =
+
+(25)
+
+where
+
+El=
+
+I
+
+(17)
+
+Therefore d{8j=[G]d{&‘]
+Equation ( 14) can be written as d( E,‘}‘=. [A ] [ G] d{6 “1
+Again from vector representations eqns(5)and(lO),
+
+(US)
+(1% of (E]!- as in
+
+dj E}‘,
+
+[Al G,] d/6’}
+
+[()I
+
+= [RI’, d{d “1
+
+WI
+
+(26)
+(ii) Stifjbner element For a stiffener orientated parallel to xI direction, the generalised strain components (Chattopadhyay et 01.~) expressed in terms of the displacements of plate mid-plane are,
+
+Equation ( 11) can be written as d{.z}=[B](‘d{6”}+[B]1. d(P) iE/=[R](lj6’)+i[B](-j6}
+
+(21) (21a)
+
+where [B]” can be represented as
+
+(22)
+
+where
+
+P,J’ Nl -
+
+PI:!= [Ol PJ
+
+(23)
+
+[ [()I m.
+
+L&lzM’ l’ and P,32are represented as follows:
+
+\’ ’ /
+Subscript st is used to indicate stiffener. Considering first order nonlinearity, the strains are
+I aw
+2 ia-x,
+
+{%I =
+
+0
+(28) 0
+
+0
+
+Nonlinear analysis of composite stifened plates
+
+111
+
+(29)
+(30)
+Now, proceeding in a similar way as for the plate element, different matrices related to the variation of strain can be derived. The resulting matrices are given in the following, with subscript st to indicate the stiffener.
+
+\
+
+/
+
+1,
+
+IR-P,)=- I&-,
+
+P”
+
+(31) (32) (33)
+
+I
+
+5,
+
+_%
+
+Displacement
+
+t-*
+
+6 n+l
+
+p’ Ko+ K, = Se cant stiffness
+
+Fig. 1. The Newton-Raphson method.
+
+djc},, =[B]I:dj6’}+[B]i;dr6”}
+where [B]:, is given by Chattopadhyay [RI’;, can be expressed as,
+
+(34) et al.-’ and
+
+(35) The expressions for the variation of strain derived in this section has been utilised in the formulation of the tangent stiffness matrix arising during solution of the nonlinear equations discussed in the next section.
+Solution of nonlinear equations
+The nonlinear equilibrium eqn (3) is solved by the Newton-Raphson iteration procedure. In eqn (3) it+} is a nonlinear function of {S}. The solution process is illustrated in Fig. 1. If solution at n, (d,,} is reached, an improved solution at M+ 1, i.e., {S,,, ,), can be obtained using a curtailed Taylor series expansion of {p],
+
+A{%={@
+
+14r7+1 =k%+A{%
+
+(37)
+
+where A{ d},, can be rewritten by substituting
+
+or, A@},,=-bW1~1,
+
+or,A~6},,=[Kl;‘j-~iy,,
+
+(39)
+
+From eqn (3) it can be understood that
+
+which is the difference between external and internal load at point ~1. As the solution is approached, { ?,!I), tends to zero.’ The iteration process is terminated when
+
+hmw x 1OO~Toll
+
+(40)
+
+({R}7‘{R})"2
+
+where Toll is the specified tolerance. In the present paper 1% tolerance has been adopted for all the problems solved.
+
+Expression for tangent stiffness
+
+Tangent stiffness, expressed in eqn (38), is derived by taking the variation of eqn (3) as,
+
+’ d(a)
+
+(41)
+
+(38) Now{a}=[D](c}andd{o}=[D]d{Ej. Using eqn (2 1),
+
+112
+
+B. Chattopadhyay, P. K. Sinha, M. illukhopadhyay
+
+since
+
+[B] =[R]” +[B]‘~ and d[B] = d[B]‘-.
+
+(43)
+
+Therefore, combining eqns (32)-( 34) yields
+
+where [K], is secant stiffness expressed as
+
+[K],= ([B]“)‘[l)][B]“do+;
+
+,([H]“!‘[I)][R]‘.dr,
+
+1’I
+
+II
+
+! divi= (@I )‘b} (1
+
++ ([HI’.)’ [D][B]”dz/
+I
+
++ ([Bl”+[B]‘.)‘[D]([Bl” +[B]‘)d{d”}
+I ,’
+
+=([K],,+[K]“+[K]‘-)dj&‘}
+
+=[K],.d{d’}
+
+(44)
+
+where
+
+[K]“= [Bjo7[D][Bl”dz~
+
+(45)
+
+I I’
+
+([H]‘.)‘[ll]‘(B]dz~
+
+(49)
+
+The relations are also true for the stiffener element if the appropriate matrices for the stiffener element given earlier are used.
+Tangent stiffnesses and internal forces are calculated at element level and assembled afterwards.
+
+NUMERICAL RESULTS
+
+[K]‘.= [Bl”‘[fl][B]‘~ dr, + [R]L’[D][B]” dv
+
+I ,’
+
+I I’
+
++ [B]“‘[D][B]‘- dz/
+
+(46)
+
+I I’
+
+(47)
+
+where N, , N,, N(, are inplane stress resultants which can be obtained from the relation
+
+To show the accuracy and applicability of the present formulation, a few problems on bare and stiffened plates of isotropic and laminated anisotropic materials have been solved. The results have been compared with those available in the literature. For all the problems solved, applied loading is uniformly distributed and tolerance level is 1%. The stresses have been calculated at Gauss points and extrapolated to get them at nodes using bilinear extrapolation. 4 x 4 mesh divisions have been used for the quarter plate for all the problems except where specifically mentioned.
+
+(46
+
+Bare isotropic plates
+
+where {N}, {M}, A,, B,,, II,, are as defined by Chattopadhyay et al. 3 {E,,} and { chj are defined in eqns (5)-( 7) and (9).
+Expression for internal force
+Internal force j,.[f?]‘o{} can be expressed in the
+following form using eqn (2 1a)
+
+The case of isotropic unstiffened square plates with simply supported and clamped boundary conditions, analysed by Pica et al.” have been solved. Geometry of the plate is indicated in Ref. 8. Material properties are E = 2.0685 x 10” N/m’. Y= 03 16. The abbreviations used, i.e., LN, QS, etc. stand for different element types and are given in the paper of Pica et al.” The nondimensional parameters are W= w(O,O)/t, c, =&/ (Et’), o2 = o(x,y)u’/(E$), where i=x or y, and a(.~, y) is extreme fibre stress.
+
+([B]” +[B]‘)‘[D]([B]“+$[B]‘){&‘}dr~ I’
+= [KW”}
+
+(u) C’lampeci square plute Centre deflections, centre and edge stresses obtained by the present approach at different load levels along with those obtained by Pica et al.” and
+
+Nonlinear analysisof composite stiffeenedplates
+
+113
+
+other researchers have been presented in Tables 1-3. The results are in good agreement.
+(bj Simply supported square plate Results for centre deflection and centre stresses along with those obtained by Pica et al.” and other researchers have been presented in Tables 4 and 5. Results compare well.
+
+Bare composite plates
+A few of the composite unstiffened plates solved for large deflection by Reddy” have been analysed by the present approach. The plates are of cross-ply angle-ply and orthotropic construction. Plate geometry and boundary conditions are as given by Reddy. ’ ’ Material properties are E_,/
+
+Table 1. Clamped square plate - central deflections W
+
+Load
+
+Levy:
+
+Q LN
+
+Finite element (Pica et al.“)
+
+QL
+
+QH
+
+RI
+
+17.7Y
+38.3 63.4 95 134.9 184 245 318 402
+
+0.237 0.471 0.695 0.912 1.121 1.323 1.521 1.714 I902
+
+0.2349 0~4705
+0.6990
+0.9191 1.1318
+I.3350 1.5347
+1.7439 1~9109
+
+0.2368 0.4699 0.6915 0.9029 1.1063 1.3009 1.4928 1.6786 1.8555
+
+0.236 1 0.4687 0.6902
+0.9015 1~1050 1.2997 1.4916
+1.6775 1.8545
+
+0.2387 0.4717 0.6016 @9008 1.1025 1.2961 1.4874, 1.6774 1.8529
+
+LN four noded linear element. QL quadratic Lagrangian element. QH quadratic Heterosis element (Huges & Cohen”). BFS Bogner-Fox-Schmit triangle (Bogner ef a/. I‘). RI Razzaque-Irons triangle (Razzaque’“).
+
+Load Q
+17.79 38.3 63.4 95 134.Y 184 245 318 402
+
+Levy’
+2.6 5.2 8.0 11.1 13.3 15,9 19.2 21.9 25.1
+
+Table 2. Clamped square plate - centre streses 0, (0,O)
+Finite element (Pica et al.“)
+
+LN
+2.6274 5.5435 8.5570 11.575 14.567 17.493 20.446 23.605 26.318
+
+QL
+2.6319 5.48 16 8.3258 11.103 13.827 16.497 19.225 2 1.994 24.780
+
+QH
+2.6144 5.4520 8.2908 11.066 13.789 16.456 19.178 21.938 24.713
+
+RI
+2.6890 54140 8.0205 10.521 12.971 15.390 17.885 20.438 23.020
+
+Load Q
+17.79 38.3 63.4 95 1349 184 245 318 402
+
+Levy’
+5.48 11.52 18.03 25.32 33.5 42.4 52.8 63.9 75.8
+
+Table 3. Clamped square plate - edge stresses U, (a/2,0)
+
+Finite element (Pica et al.“)
+
+LN
+
+QL
+
+QH
+
+RI
+
+3.3663
+7.1122 11.198 15.639 20.46 1 25.597 31.172
+37.459 43.121
+
+5.3163
+11.216 17.726 24.967 33-045 41.885 51.719
+62.325 73.407
+
+5,299 1
+11.189 17.697 24.946
+33.038 41.900 5 1.763
+62.401 73.520
+
+5.2523
+10.807 16.680 23.001 29.875 37.257 45.357
+54.011 63.000
+
+BFS
+0,236 1 0.4685 0.6900 0‘90 12 1.1047 1.2992 1.4908 1.676 1 1.8524
+BFS
+2.6328 5.4847 8.3372 11.127 13.886 16.552 19.296 22.08 1 24.88 1
+BFS
+5.2915 11.137 17.556 24.649 32.485 40.96 1 50.25 1 60.097 70.190
+
+Present
+0.236 1 0.4684 0.6900 0.90 16 1.1054 1.3008 1.4928 1.6788 1.855’)
+Present
+2.6798 5.5898 8.5022 11.347 14.137 16.873 19.659 22.488 24.660
+Present
+5.4218 11.418 18.018 25.333 33.452 42.322 52.109 62.619 73.522
+
+114
+
+R. Chattopadhyay, P. K. Sinha, M. Mukhopadhyay
+
+Table 4. Simply supported square plate - central deflection W
+
+Load 0
+
+Rushton’”
+
+Finite clement (Pica et al.?
+
+LN
+
+OS
+
+QL
+
+9.16 36.6 136.5 586 2344 9377
+
+0.335 0.8 18 1.47 2.40 3.83 6.07
+
+0.353 I O.K.303 1.4Y3 I 24380 3.8985 6.157 I
+
+0.3478 0.8 184 14655 2.3Y27 3.8 124 fkO52 I
+
+0.3480 0.8 185 I.4657 2.3032 3.x I34 6053Y
+
+QS quadratic serindipity clcmcnt.
+
+QH
+0.3478 0.8 184 1.4655 2.3Y28 3.8128 h.0530
+
+Load U
+9.10 366 146.5 586 ‘344 Y377
+
+Table 5. Simply supported square plate - centre stresses (7, (0,O)
+
+Rushton’”
+
+Finite element (Pica et d.“)
+
+LN
+
+OS
+
+QL
+
+OH
+
+246 A.YO 14.5 304 65.2 l-15.3
+
+2fl.354 7.1837 15.263 31.3Y6 6842X 155.24
+
+2.6214 7W’h 13m1 .30. I83 65673 I -IY.hh
+
+2+JO2Y
+6.9 S26 1_1+l35 30. I X8 65.756 1IY.YY
+
+‘60 16 Cc)787 l-l+l I 5 30.1 30 65661 I-lY.87
+
+Present
+0.3437 0~8094 14537 2.3145 3.7851 WOY 3
+Present
+2fi653 7.1556 15.034 31~01 I 67-480 IS.3.7ti
+
+E,. = 40, G,,,/E, = O-6, C;,, /E!. = GJE, = 0.5, and I’,,.= 0.25. The.results of displacements at different load levels have been plotted in Fig. 2 along with those obtained by Reddy. The agreement among the results is excellent.
+Isotropic stiffened plates
+The problem of isotropic square plates simply supported at four edges and stiffened by central stiffeners, one in each direction, has been solved. Geometry and boundary conditions of the plate are given by Reddy. ” Material properties used by Reddy are E=2.07~ 10” N/m’ and ~=03. Figure 3 represents the results of central deflections of stiffened and unstiffened plates at different nondimensional load levels as obtained by the present method and those by Reddy. The results are in good agreement.
+Rectangular plates, clamped along all the edges and having one central stiffener parallel to the x2 direction, have been solved by Koko and Olson6 using super elements. Using symmetry, half of the plate is modelled with 6 x 6 mesh divisions (Fig. 4). Geometry of the plate and the material properties are available from Koko and Olson’@ paper. Figures 5a and 5b present the panel centre and stiffener centre deflections (Fig. 4) respectively at different load levels along with those by
+
+I2.5 Crossply Angleply 2.0 Orthotropic
+
+Present
+___ -,-.-
+
+Reddy 11980)
+A
+0
+A
+
+w 1.5
+T;
+1.0
+
+a/h=100
+
+0.5
+0 0 100 200 300 LOO 500 6C p=q (a/hIL IO-'/Eg
+Fig. 2. Load detlection curves for four layer angle-ply (4S/ - 45/45/ - 45) and cross ply (O/90/0/90) squaw plates.
+
+Koko and Olson.” Panel centre detlections agree well with those of Koko, whereas the stiffener centre deflections are slightly different with a maximum difference of 12%.
+Stiffened composite plates
+The results available on the analysis of rectangular composite plates stiffened by rectangular stiffeners is due to Liao and Reddy.” Problems solved by them have been solved by the present approach. Geometry and boundary conditions of
+
+Nonlinear analysis of composite stiffened plates
+
+115
+
+280 ,” 210-
+
+-
+
+Stiffened
+
+----Non-stiffened
+
+a Reddy 11990 1
+
+1.0 -
+
+Present
+
+0 0.L 0.8 1.2 l-6 Cent re def lectlon w /h
+Fig. 3. Load deflection curves for stiffened and unstiffened square isotropic plate.
+
+Oxtr/
+
+(a)
+
+o-
+
+5
+
+10
+
+Panel centre
+
+I
+
+15
+
+2;
+
+displacement
+
+4
+i!!5
+(mm)
+
+1.0
+
+1
+
+-
+
+Present
+
+O-8-
+
+o Koko (1991) o
+
+Fig. 5.
+
+Stiffenercentre
+
+displacement
+
+i1
+(mm)
+
+Load deflection curves for rectangular plate (isotropic).
+
+stiffened
+
+e
+
+500 mm
+
+cl
+
+IOOOmm
+
+Fig. 4. Mesh divisions for rectangular stiffened plate of Koko and Olson. A - Panel centre. B - stiffener centre.
+
+-
+
+Present
+
+1
+
+- 120-
+
+“E
+
+o Liao 0. Reddy(19891
+
+the simply supported plates with central stiffeners, one along each orthogonal direction, are given by Liao and Reddy.” The material properties are E,/ E!,= 25, E,.= 7.031 X 10” N/m? v,~,= O-25, G,,./ E!,= 0.5, G,, - G,,., GJEy= 0.2. ’
+(a) Cross-ply stiffened plute In Fig. 6: results of central deflections of the stiffened plate at different load levels have been compared with those by Reddy. The results compared well.
+(b) Angle-ply stiffened plate Geometry and material properties for this plate is the same as that of (a). Figure 7 presents the results of central deflections as obtained by the present method and those by Reddy. Present deflections are slightly lower than those by Reddy.
+It can be observed from Figs 6 and 7 that the cross-ply stiffened plates are stiffer than angle-ply stiffened plates. Bending moments M,r, and ikZYazt
+
+Fig. 6.
+
+0 0.2
+Central
+
+I
+0.4 0.6
+deflection,
+
+IJ
+O-8 1.0
+w (xl0mm)
+
+Load deflection curves for cross-ply stiffened plate.
+
+the centre of the cross-ply and angle-ply stiffened plates are presented in Figs 8a and Eb, respectively. These results are not given by Reddy.
+From the figures, the following observations can be made.
+Bending moment M_,.2of the cross-ply stiffened plate is higher than Mx,. This indicates that the structure is stiffer in the xz direction. This is due to the fact that the layers in the x2 direction are arranged in a particular sequence (preferred for
+
+116
+
+B. Chattopadhyay, P. K. Sinha, M. Mukhopadhyay
+
+higher stiffnesses) compared to those in the x, direction. Moments IUY, and 111,?are almost the same at the centre of angle-ply stiffened plates. This is evident from the uniform stacking sequences in both the directions which give similar stiffness properties.
+
+- 120 “E
+2 100
+
+Present 0 Liao IL Reddy(1989)
+0
+
+Parametric study
+The load deflection behaviour of eccentrically stiffened composite plates has been studied for different stiffener parameters. For the purpose of the study an eccentrically stiffened cross-ply square plate has been considered. The stiffeners are placed along the x2 direction. The parameters varied are the eccentricity and the number of the stiffeners. Figures 9a and 9b show the geometry, boundary conditions and stiffener positions. Plates with a single central stiffener are analysed
+
+Fig. 7.
+
+I/ Ln
+
+.,:-Cg
+
+40 60
+
+0
+
+“0 20-
+
+0
+
+-I
+
+0
+
+0
+
+I
+
+I
+
+I
+
+0.2 o-4 0.6
+
+Central deflection,w
+
+1 0.8 1.0 (xlOmm)
+
+Load deflection curves for angle-ply stiffened plate.
+
+62.5 400 mm
+
+2 25.0
+
+-G
+
+>
+
+I2 12.5
+
+z
+
+0
+
+-I
+
+0
+
+0
+
+5
+
+10
+
+15
+
+Moment Mxl x10 (N-mm)
+
+62.5
+
+(4
+x21u =v:w= e,,= ex2= 0 I
+
+Fig. 8.
+
+Moment
+
+Mx2 x 10 I N -mm)
+
+J
+5
+
+Bending moments at centre of stiffened composite plate of Reddy (a) cross-ply (b) angle-ply.
+
+33.33
+
+1-l 33.33 ,-
+
+1_133.33_ ~u=v=w=
+
+I-
+
+- I eq=ex2=o
+
+g:3zy
+(b) Fig. 9. Geometry and boundary condition (BC-6 of Ref. 9) of the composite stiffened plate used for parametric study (a)
+one stiffener and (b) two stiffeners.
+
+Nonlinear analysis of composite stiflenedplates
+
+117
+
+using a quarter plate model and those with two stiffeners using a half plate model. The details of mesh divisions are presented in Figs 9a and 9b. The material properties are the same as those used by Liao and Reddy.x The results are presented in Figs 1Oa, lob, 11 and 12. Figures 1Oa and 10b show the load deflection characteristics of the plate for different stiffener eccentricities, having one and two stiffeners respectively. From these figures it can be observed that the stiffness of the composite stiffened plate increases with the increase in the stiffener eccentricity. Also the nonlinear effects are reduced with the increase in the number of stiffeners.
+Figure 11 shows the load deflection curves for the plate with varying numbers of stiffeners having the same eccentricity. From this figure it can be observed that the increase in the number of stiffeners increases the stiffness of the composite plate. In Fig. 12, the deflection patterns of the stiffened plate along the centre line parallel to the x, direction is presented for a constant load level and varying number of stiffeners. This figure illustrates the change in the deflection pattern with the increase in number of stiffeners.
+
+CONCLUSIONS
+Formulations for geometrically nonlinear analysis of laminated composite plates with laminated stiffeners has been presented in this paper. It is evident from the results that the stiffened composite plate bending element developed earlier (Chattopadhyay et d3) performs well in the nonlinear range for both isotropic and anisotropic stiffened plates.
+The formulation is simple and can be easily programmed.
+For the type of stiffener presented in this paper, the ply orientations of the plate and the stiffener can be arranged properly to achieve desired stiffness properties in any direction. The + 45” orientations in the plate and the stiffener give similar stiffness properties in either of the orthogonal directions.
+For a composite plate the stiffness can be increased either by increasing the number of stiffeners or by increasing the stiffener eccentricity. Though rectangular stiffened plates have been analysed in the present paper, stiffened plates of
+
+- One stiffener
+Deflection (mm) -Two stiffeners
+
+s0
+Fig. 11.
+
+1
+
+es= 9.0mm
+
+Ov V
+
+0
+
+1
+
+2
+
+3
+
+4
+
+Deflection
+
+(mm)
+
+Load-deflection curve for varying no. of stiffeners having same eccentricity.
+
+* Distance
+b
+
+along plate 200
+
+centre (mm) ci
+4001
+
+Fig. 10.
+
+Deflection (mm)
+Load-deflection curves for eccentrically composite plates.
+
+stiffened
+
+Unstiffenedv
+Fig. 12. Deflection shape of the composite stiffened and unstiffened plate along centre line parallel to X, axis.
+
+11x
+
+R. Chattopodhyay, 1’. I(. Sinha. Ml. Mukhopadhyay
+
+any arbitrary planform can be analysed. It can be shown (Chattopadhyay et ~1.~) that the stiffener formulation of the present element can be modified to include general open-section stiffeners.
+The present formulation can be extended to include nonlinear dynamic postbuckling and other aspects of analysis of composite stiffened plates.
+
+REFERENCES
+
+Almroth. B. 0. & Brogan, F. A., The STAGS Computer Code. KASA Cl4 - 2Y50, 1978.
+
+Chia, C. Y., Geometrically nonlinear behaviour of composite plates - a review. A&. Mech. Rev., 41 j1988)
+
+439-50.
+
+Chattopadhyay, B.. Sinha. P. K. & Mukhopadhyay. M.,
+
+F.initc clement free vibration analysis of stiffened composite plates. J. f?cittforwti /‘hsricr & (‘otnp.. 11 i 1W? I
+IOO3-.3-l.
+
+Chattopadhyay. B., Sinha. P. K. & Mukhopadhyay. M..
+
+F.initc element analysis of blade - stiffened composite
+
+plates under transverse loads. ./. Krit~/imw/ ~‘onzp.. 12 i 190.3) 76-100.
+
+I’/us/ic~.s &
+
+Hycr, M. W., Loap, D. C. & Starnes, J. H.. Stiffener/skin
+
+interactions in pressure-loaded composite pan&. AI&I
+
+J.. 28 [ 1990) 532-7.
+
+Koko, T. S. & Olson, M. D.. Non-linear analysis of stif-
+
+fened plates using super elements. Int. J. Nuts. Meth.
+
+Eqyzg., 31(1991) 319-43.
+
+7. Levy, S.. Square plate with clamped edges under normal
+
+pressure producing large deflections. NACA Tech. Note,
+
+8-17. 1942.
+
+s. Liao. C. L. & Reddy. J. N.. Analysis of anisotropic
+
+stiffened composite laminates using a continuum-based shell element. C’omputersR!Smrct., 34 ( 1989) 805-I 5.
+
+9. Pica. A.. Wood. R. D. & Hinton. E.. Finite element
+
+analysis of geometrically nonlinear plate bchaviour
+
+using Mindlin formulation. Cbtnp~rters & Sttwt., 11
+
+! 1980~ 20s 1s.
+
+IO. Rushton. K. R.. Large dcflcction of plates with initial curvature. /tu. J. Mech. Sci.; 12 (19701 1037-5 I.
+
+11. Reddy, J. N.. Analysis of layered composite plates
+
+accounting for large detlections and transverse shear
+
+strains. Kcc~ott Atl~vtttwr itI ~‘l’ot~litriw ~‘otlt/~til(tiiot7f~l
+
+~\fcchrrt~ic~.s. Pineridge Press, UK. 1992. 155-202.
+
+I’. Turvcy, G. J.. Axisymmetric elastic large deflection
+
+hchaviour of stiffened composite plates. <‘amp. Strrwl..
+
+2 i I c)S?j 72-X8.
+
+I i. Zicnkiewicz, 0. C., l/z /kite
+
+E’lrttwt~r
+
+Xle1/7orl. .3rd
+
+Edn. T. M. H. Publishing Co.. New Delhi. 1977. 14. Hughes. J. J. R. S: Cohen. M.. The hcterosis finite clc-
+
+mcnt for plate hcnding. (‘ottlptrret~.stGSwuc~t., 9 1197Sl
+
+-!~5~.ilO.
+
+IS. Bpgner. F. K.. Fox. R. L. & Schmit, L. A., The generation
+
+ot mterclement compatible stiffness and mass matrices
+
+hy the LISA of interpolation formula. In /‘~o(~. C’otlj:
+
+llltrttYs Alethoc~.~Jttwt. Atftrl.. 1965.
+
+16. Razzaquc, A.. Program for triangular bending element
+
+with derivative smoothing. ItIt. J. Mrtn. Meth. hpg. 5
+
+1I9)73, 5xs-00.
+

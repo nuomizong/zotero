@@ -1,0 +1,5601 @@
+Computers and Structures 77 (2000) 11±40
+
+www.elsevier.com/locate/compstruc
+
+A new stiened shell element for geometrically nonlinear analysis of composite laminates
+A. Barut a, E. Madenci a,*, A. Tessler b, J.H. Starnes Jr b
+aDepartment of Aerospace and Mechanical Engineering, The University of Arizona, Aero Building 16, Tucson, AZ 85721, USA bNASA Langley Research Center, MS 240, Hampton, VA 23681-0001, USA
+Received 28 July 1998; accepted 28 July 1999
+Abstract
+A new stiened shell element combining shallow beam and shallow shell elements is developed for geometrically nonlinear analysis of stiened composite laminates under mechanical loading. The formulation of this element is based on the principle of virtual displacements in conjunction with the co-rotational form of the total Lagrangian description of motion. In the ®nite element formulation, both the shell and the beam (stiener) elements account for transverse shear deformations and material anisotropy. The cross section of the stiener (beam) can be arbitrary in geometry and lamination. In order to combine the stiener with the shell element, constraint conditions are applied to the displacement and rotation ®elds of the stiener. These constraint conditions ensure that the cross section of the stiener remains co-planar with the shell section after deformation. The resulting expressions for the displacement and rotation ®elds of the stiener involve only the nodal unknowns of the shell element, thus reducing the total number of degrees-of-freedom. Also, the discretization of the entire stiened shell structure becomes more ¯exible. The robustness of the stiened shell element has been proven by comparison against other shell elements considered previously. 7 2000 Published by Elsevier Science Ltd. All rights reserved.
+Keywords: Stiened shell; Finite element; Composite; Nonlinear
+
+1. Introduction
+External surfaces of aerospace structures are constructed from stiened composite laminates because of their attractive mechanical and thermal properties. In order to achieve a minimum-weight design of stiened panels, the skin is allowed to experience postbuckling behavior before reaching the ultimate loading conditions, provided that the compressive load is completely carried by stieners. In order to take advantage of the postbuckling strength of these structural com-
+* Corresponding author. Fax: +1-502-621-819. E-mail address: madenci@ame.arizona.edu (E. Madenci).
+
+ponents, it is necessary to perform an analysis that predicts their nonlinear response under general loading conditions. Furthermore, the aerospace structures include cut-outs and possibly cracks on the skin, rendering the solution of the problem extremely dicult with available analytical techniques. Therefore, an analysis based on the ®nite element method is the most applicable approach to investigate such structures [32].
+In an analysis of stiened shell structures, existing methods can be grouped as equivalent orthotropic shell models, plate and shell elements for models with detailed discretization, conventional beam±shell ®nite element models, and stiened shell element models. As demonstrated by Ji and Yeh [8], an equivalent orthotropic shell model approximating the actual stiened
+
+0045-7949/00/$ - see front matter 7 2000 Published by Elsevier Science Ltd. All rights reserved. PII: S 0 0 4 5 - 7 9 4 9 ( 9 9 ) 0 0 2 0 1 - 1
+
+12
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+shell behavior can be achieved when stieners are closely placed on the skin of an aircraft. However, in order to take advantage of the postbuckling strength of the skin, the spacing of stieners should be large enough to allow the skin to buckle at loadings lower than their ultimate levels (e.g., rings that are used as supporting structure in aircraft). In this case, the equivalent orthotropic shell model becomes questionable in representing the true structural behavior of stiffened shells if the stieners are not closely spaced.
+An accurate ®nite element modeling of panels stiffened by stringers, rings, and other types of stieners can be obtained by discretizing both the skin and the stieners with plate and shell ®nite elements. In the absence of repeated symmetry conditions, possibly due to local defects in the form of a cut-out or a crack, the ®nite element method becomes very demanding because of the extensive number of elements and the geometric non-linearities inherent in the analysis. In such an analysis based on plate and shell elements and utilizing the symmetry conditions, Starnes et al. [29] employed a ®nite-element-method-based program, STAGS (Structural Analysis of General Shells), along with an energy-based program, PASCO (Panel Analysis and Sizing Code), for buckling and postbuckling analysis of stiened ¯at laminates under compressive edge loading. In their analysis, an eight-noded quadrilateral plate element was used to discretize both the panel and part of the stieners (i.e., webs and ¯anges), and a beam element was used to model the cap of the stieners. Using STAGS with plate and shell elements, Knight and Starnes [12] examined the postbuckling response of a curved stiened panel by tracing the stable and unstable equilibrium paths of the curved panel under axial edge loading. More recently, Sobel and Sharp [26] investigated the postbuckling response of stiened ¯at composite panels subjected to shear loading by utilizing a quadrilateral element with improved in-plane bending behavior for orthotropic laminates.
+In order to analyze the postbuckling response of stiffened laminates with central holes, Nagendra et al. [19] developed a ®nite element model using the EAL (Engineering Analysis Language) computer code. They performed ®nite element modeling of only a local region for detailed analysis. Utilizing PASCO, they computed the size of the panel without a hole before carrying out the local ®nite element analysis in order to estimate the skin size for the buckling load. With the established panel size, they modeled the vicinity of a hole with triangular plate bending elements, and the rest of the skin and stieners with quadrilateral plate bending elements. As pointed out by Koko and Olson [13], this type of ®nite element analysis requires an extensive number of elements and is not suitable for repeated calculations in the preliminary design stage.
+
+In order to improve the eciency of such models, Starnes et al. [27,28] introduced a global±local ®nite element analysis approach for the identi®cation of local instability responses of damaged stiened shells. In the global analysis, they discretized the entire skin with shell elements and the stringer and ring stieners with beam elements. In the local analysis for a region with defects, they discretized both the skin and the stieners using shell elements.
+The ineciency of idealizing both components (skin and stieners) of a stiened structure with plate and shell ®nite elements directed the investigators to search for accurate and computationally eective beam±shell ®nite element models. An admissible beam±shell model, however, requires compatible displacement ®elds for both the beam and shell elements. In other words, the polynomials approximating the displacement ®elds in beams must be of the same order as the polynomials approximating the corresponding displacement ®elds in shell elements. Satisfying this requirement, a few compatible beam±shell ®nite elements were introduced for linear, stability, and nonlinear analyses of stiened shells. For linear analysis of stiffened panels, Liao and Reddy [15] presented an extensive literature review of the previous ®nite element formulations. In the case of stability and nonlinear analyses, early ®nite element models were based on the Kirchho's assumptions disregarding transverse shear deformations. Using simple element con®gurations, Shastry et al. [25] presented a combined beam±plate with the in-plane and out-of-plane displacement ®elds derived from third- and ®fth-order complete polynomials, respectively. They showed that the use of higher-order interpolation functions improves the linear buckling-mode predictions, even with a coarse mesh. However, this formulation excluded the eccentric positioning of stieners. For nonlinear dynamic and static analyses of stiened plates, Koko and Olson [13] and Jiang and Olson [10], respectively, developed compatible higher-order super elements based on ninenoded Lagrangian plate or shell and three-noded eccentric beam elements by utilizing the classical plate, shell, and beam theories.
+Liao and Reddy [14,15] introduced a shear deformable beam±shell element with material anisotropy based on the degenerated continuum ®nite element approach introduced by Ahmad et al. [1] and Bathe [4]. Compared to the Lagrangian elements based on classical beam, plate, and shell theories, the degenerated shell elements utilize the three-dimensional elasticity formulation. However, as the thickness of the shell becomes small, the performance of these elements suers from excessive stiening of the stiness matrix arising from inadequate representation of the shear and membrane stiness terms with respect to the bending stiness terms. Liao and Reddy employed the
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+13
+
+reduced integration strategy to alleviate this problem. As stated by Jiang and Chernuka [9], these beam±plate or beam±shell ®nite element models suer from one drawback, which does not stem from their accuracy but from their extensive modeling requirements. These elements are connected to each other only at their nodal points with appropriate constraint conditions. Therefore, one possible placement of a beam element onto a plate or shell element is achieved by placing the beam element along the edges of the plate or shell element. In this case, the layout of stieners modeled by beam elements has a negative in¯uence on the meshing of the skin with plate and shell elements, especially when repeated analyses are to be performed to estimate the spacing of stieners. For example, the presence of stieners may cause the meshing of the skin to be unnecessarily re®ned in certain regions where the stresses and the deformation gradients are not very high. This problem was partially eliminated by OnÄ ate et al. [21] through the placement of a beam element between any two nodes of the shell element.
+However, the desired con®guration involves the placement of the beam element within the plate or shell element at arbitrary orientations. This requires the de®nition of the displacement ®elds at any point within the stiener in terms of the ®eld variables of the master plate or shell element. Because the beam kinematic ®eld is described by the shell kinematic ®eld, only the master plate and shell elements are needed to discretize the entire stiened shell structure, thus eliminating the modeling diculties attributed to the conventional beam±plate and beam±shell ®nite element models. Based on this approach, Mukhopadhyay and Mukherjee [18] analyzed the geometrically nonlinear response of stiened shells. They employed an eightnoded serendipity plate element to derive the stiness matrix of a stiened plate. In their study, the displacements at any point within the stiener are expressed in terms of the displacements and rotations de®ned across the mid-surface of the plate by enforcing the following constraint condition: a straight line passing through the thicknesses of both the plate and the stiener remains straight after deformation. This also leads to the expressions for the generalized strain components and the strain energy of the stiened plate derived only in terms of the mid-surface displacements and rotations. In deriving these expressions, they utilized a local coordinate system in order to locate the stiener at an arbitrary orientation. Rao et al. [23] applied this approach to a large-de¯ection analysis of stiened plates with arbitrarily oriented stieners. However, they excluded the initial stress eects in stieners based on the assumption that the nonlinear global response of stieners are negligibly small compared to that of plates. Recently, Chattopadhyay et al. [5] extended the capability of an eight-noded stiened plate element for
+
+nonlinear analysis of stiened isotropic plates to account for material anisotropy and multi-stieners within the plate element. Also, Goswami and Mukhopadhyay [6,7] employed a Lagrangian-type shear deformable stiened shell element, with each node sharing ®ve physical degrees-of-freedom (i.e., three translations and two out-of-plane rotations). In the stiness matrix calculations, the stiness terms associated with the missing in-plane rotational degreesof-freedom were represented by arti®cial springs, thus preventing singularity of the stiness matrix in cases of adjacent elements being co-planar. With this element, they performed geometrically nonlinear static and transient analyses of stiened laminates.
+Jiang and Chernuka [9] introduced a nonlinear ®nite element formulation of stiened panels using degenerated stiened shell elements derived from three-dimensional degenerated solid elements. For a serendipitytype degenerated master shell element, they expressed the rotations within the curved stiener along its centroidal axis in terms of the rotations of the shell element by constraining the unit director of the stiener to be identical to the unit outward normal of the shell surface. They utilized a co-rotational formulation in conjunction with the updated Lagrangian description of motion in order to account for large rotations, especially in the calculation of internal force vectors.
+Based on the foregoing discussion, this study presents a geometrically nonlinear shear deformable stiffened shell element that incorporates arbitrary orientation of eccentric stieners within the element and that accounts for large displacements and rotations. A distinct feature of this element, compared to previous laminated stiened shell elements, is that the element formulation accounts for arbitrary cross sections of laminated stieners.
+
+2. Element development
+
+2.1. Principle of virtual displacements
+
+The new stiened shell element is developed by com-
+
+bining the formulations for shallow shell and shallow
+
+beam elements for mechanical loading. The formu-
+
+lation combining these kinematically compatible el-
+
+ements utilizes the co-rotational form of the total
+
+Lagrangian description of motion (Fig. 1). The formu-
+
+lation begins with the principle of virtual work:
+
+
+
+
+
+de 
+
+d0e
+
+T s
+
+0tDt s s
+
+d0 Vs
+
+
+
+d0eTb 0tDtsb d0Vb
+
+0 Vs
+
+0 Vb
+
+1
+
+Between time t and t+Dt, 0es and 0eb represent the components of the incremental Green strain tensor in
+
+14
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+vector form associated with the shell and beam el-
+
+ements, respectively. The components of the Piola±
+
+Kirchho stress tensor for both elements are contained
+
+in
+
+vectors
+
+denoted
+
+by
+
+tDt 0
+
+ss
+
+for
+
+the
+
+shell
+
+element
+
+and
+
+tDt 0
+
+sb
+
+for
+
+the
+
+beam
+
+element.
+
+The
+
+lower-left
+
+subscript
+
+indicates the con®guration by which the quantity is
+
+measured. The upper-left superscripts refer to the con-
+
+®guration of the body at a speci®c time. The volumes
+
+of the elements at the initial con®guration are denoted
+
+by 0Vs for the shell element and 0Vb for the beam element, and de is the virtual work done by the exter-
+
+nal forces at time t+Dt. The integral terms on the right-hand-side of Eq. (1) represent the virtual work done by the internal forces in the shell, and the beam elements and are represented by
+
+
+
+dbi 
+
+d0ebT
+
+tDt 0
+
+s
+
+b
+
+d0Vb
+
+0 Vb
+
+b  s, b; no sum on b 2
+
+where the subscript b identi®es the element type.
+
+The
+
+stress
+
+vector
+
+tDt 0
+
+sb
+
+can
+
+also
+
+be
+
+decomposed
+
+as
+
+Fig. 1. Description of the motion of a triangular stiened shell element in a co-rotational system.
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+15
+
+tDt 0
+
+sb
+
+t0
+
+sb
+
+0
+
+sb
+
+3
+
+in
+
+which
+
+t 0
+
+sb
+
+and
+
+0sb
+
+denote
+
+the
+
+Piola±Kirchho
+
+stresses at time t and in incremental form, respectively.
+
+Substitution of Eq. (3) for 0tDtsb in Eq. (2) results
+
+in
+
+
+
+
+
+dib 
+
+d0
+
+e
+
+T b
+
+t0 s b
+
+d0Vb
+
+
+
+d0
+
+e
+
+T b
+
+0sb
+
+d0Vb
+
+4
+
+0 Vb
+
+0 Vb
+
+The vector of incremental Green strains in Eq. (4) is de®ned as
+
+d0eb  d0ebL  d0ebN
+
+5
+
+where 0ebL and 0ebN represent the linear and nonlinear parts, respectively, of the Green's strains in vector form. Also, the incremental Piola±Kirchho stress vector, 0sb in Eq. (4), is related to the corresponding incremental strain vector, 0eb, as
+
+0sb  Qb 0eb
+
+6
+
+in which Qb represents the anisotropic material property matrix.
+
+Substituting from Eqs. (5) and (6) for the virtual
+
+incremental strain and incremental stress components
+
+in Eq. (4) and rearranging the terms lead to
+
+
+
+dbi 
+
+d0eTb Qb 0eb d0Vb
+
+0 Vb
+
+
+
+
+
+d0e
+
+T bN
+
+t 0
+
+sb
+
+d0Vb
+
+0 Vb
+
+
+
+
+
+d0e
+
+T bL
+
+0t sb
+
+d0Vb
+
+7
+
+0 Vb
+
+The ®rst integral term on the right-hand-side of Eq. (7) is nonlinear in terms of incremental displacement components, whereas the remaining terms are either linearly related to or independent from the incremental displacement components. The nonlinearity of the ®rst integral term may cause diculties in the solution of equilibrium equations. In order to relieve such diculty in the solution process, the linearization procedure outlined by Bathe [4] can be employed for the evaluation of the ®rst integral term, as the true equilibrium con®gurations will be searched by an incremental-iterative strategy. Thus, the following approximations are employed:
+
+d0eb  d0ebL
+
+8a
+
+Qb 0eb  Qb 0ebL
+
+8b
+
+The incorporation of Eq. (8) into the ®rst integral term of Eq. (7) leads to the linearized form of the virtual
+
+work expression due to internal forces, i.e.,
+
+
+
+dbi 
+
+d0ebTLQb 0ebL d0Vb
+
+0 Vb
+
+
+
+
+
+d0ebTN t0sb d0Vb
+
+0 Vb
+
+
+
+
+
+d0 e bTL
+
+t 0
+
+s
+
+b
+
+d0Vb
+
+9
+
+0 Vb
+
+Substituting the expressions for is and bi from Eq. (9) into Eq. (1) and rearranging the terms yield
+
+
+
+
+
+d0eTsLQs 0esL d0Vs 
+
+d0
+
+e
+
+T bL
+
+Qb
+
+0 e bL
+
+d0Vb
+
+0 Vs
+
+0 Vb
+
+
+
+
+
+
+
+d0 e sTN
+
+t 0
+
+s
+
+s
+
+d0 Vs
+
+
+
+d0 e TbN
+
+t 0
+
+s
+
+b
+
+d0 Vb
+
+0 Vs
+
+0 Vb
+
+
+
+ de À
+
+d0e
+
+T sL
+
+t 0
+
+ss
+
+d0Vs
+
+0 Vs
+
+
+
+À
+
+d0
+
+e
+
+T bL
+
+t0 s b
+
+d0Vb
+
+0 Vb
+
+10
+
+In Eq. (10), the terms that involve strains with unknown incremental displacements (i.e., 0esL, 0ebL, d0esN, and d0ebN are grouped on the left-hand-side of the equation; the right-hand-side of the equation, however, contains only the terms that involve traction forces and internal forces, which are known from the previous time step.
+Eq. (10) forms a basis for the derivation of the ®nite element equations of equilibrium for the stiened shell element. The subsequent sections will, therefore, focus on the ®nite element implementation of Eq. (10) and the development of the stiened shell element from its components, shallow shell and shallow beam (stiener) elements.
+
+2.2. Shallow stiened shell element
+The geometric description of the stiened shell element is depicted in Fig. 2. As shown in Fig. 2(a), two Cartesian coordinate systems are used to de®ne the kinematics of the stiened shell element and to derive the element matrices and vectors associated with this element. The element matrices and vectors belonging to the shell element are derived with respect to the (x, y, z ) element coordinate system. In order to carry out integrations of matrices belonging to the beam element, a local coordinate system situated on the reference surface of the shell element is utilized. This coordinate system is established by projecting the longitudinal axis of the beam element to the reference plane. Also, this local coordinate system is represented
+
+16
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+Fig. 2. Geometric description of the stiened shell element: (a) the reference plane; and (b) the cross section.
+
+by the axes x', y ', and z '. Note that the (x'±y ') plane of the local coordinate system lies on the same plane as the (x±y ) plane of the shell element. Hence, a simple plane transformation is sucient to transform variables between these two coordinate systems. The zand the z '-axes of these two coordinate systems are parallel to each other. Thus, the same vertical axis can
+
+be used to de®ne the mid-heights and the transverse displacements in both elements. The position and the orientation of the local coordinate system (x', y ', z ') are identi®ed by the vector rb and the angle fb between the x'- and x-axes, respectively. The height of the shell from the reference surface is denoted by hs (see Fig. 2(b)). The distance between the neutral axis
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+17
+
+of the beam and the shell mid-surface is indicated by the eccentricity parameters zeHcX The positive directions of displacement and rotation ®eld in both elements are shown in Fig. 2(a). They will be discussed later in this section.
+The material lay-ups for both the shell and the stiffener components are illustrated in Figs. 3 and 4, respectively. As shown in Fig. 3, the shallow shell element is made of a layered composite laminate. Each layer is assumed to be homogeneous, elastic, and orthotropic with elastic moduli, E1 and E2; shear modulus, G12; and Poisson's ratio, n12. The subscripts ``1'' and ``2'' specify the longitudinal and transverse directions relative to the ®bers in the layer. Also, the pos-
+
+ition of each ply with respect to the element mid-plane is denoted by the local coordinate z-.
+As in the case of the shell component, the stiener is also made of layered composite materials. The cross section of the stiener can be arbitrary, both in lamination and geometry, as illustrated in Fig. 4. In order to perform integrations over the cross-sectional area of the stiener, the area is ®rst discretized into a ®nite number of segments, as shown in Fig. 4(a). Each segment is then assigned a local coordinate system with the horizontal axis parallel and the vertical axis perpendicular to the layers stacked on this segment. This is illustrated in Fig. 4(b) for the ith segment. Each layer in the ith segment is identi®ed by thickness,
+
+Fig. 3. Geometry and material layout of the shallow shell element with positive directions of nodal displacements and rotations.
+
+18
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+Fig. 4. A close-up view of the laminated stiener: (a) discretization of the cross-sectional pro®le of the stiener into Kb segments; and (b) detailed view of the ith segment in a local coordinate system.
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+19
+
+width, and layered material properties with respect to the assigned local coordinate system. The layered properties de®ned with respect to the ith local coordinate system permit the integrations to be performed. The integration procedure described above for the ith segment can be repeated for all segments to complete the full integration across the cross-sectional area of the stiener.
+Considering the geometrical and material properties for both components of the stiened shell element as described above, the terms belonging to the shell element in Eq. (10) can be represented in double-integral forms, with the integration taken across the surface and through the thickness of the shell element. Similarly, the terms belonging to the beam (stiener) element can be shown in double-integral forms, with the integration taken along the beam axis and across the beam cross-sectional area. These integral manipulations on Eq. (10) lead to
+
+  Ks z"k d0eTsLQs 0esL dz" d0As
+0As k1 z"kÀ1
+
+
+
+
+0l
+
+ Kb 
+i1 Abi 
+
+d0eTbLQb
+
+0 e bL
+
+dAbi
+
+
+
+d0x
+
+H
+
+  Ks z"k
+
+
+
+d0 e TsN
+
+t 0
+
+s
+
+s
+
+dz"
+
+d0 As
+
+0As k1 z"kÀ1
+
+
+
+
+0l
+
+ Kb 
+i1 Abi 
+
+d0
+
+e
+
+T bN
+
+t 0
+
+sb
+
+dAbi 
+
+d0x
+
+H
+
+  Ks z"k
+
+ de À
+
+d0
+
+e
+
+T sL
+
+t 0
+
+s
+
+s
+
+dz"
+
+d0As
+
+0As k1 z"kÀ1
+
+  Kb 
+
+À
+
+0l i1
+
+Abi 
+
+d0 e bTL
+
+t 0
+
+s
+
+b
+
+dAbi 
+
+d0x
+
+H
+
+11
+
+2.3. Displacement ®eld
+
+In accordance with Mindlin's theory [17], the incremental displacement components of the shell element, u, v, and w in the x-, y-, and z--directions, are expressed as
+
+usx, y, z"  us0x, y  z"ysyx, y
+
+12a
+
+vsx, y, z"  vs0x, y  z"ysxx, y
+
+12b
+
+wsx, y, z"  ws0x, y
+
+12c
+
+The functions u0 and v0 represent the in-plane displacements and w0 the out-of-plane displacements on the mid-surface of the shell element. The bending (normal)
+
+rotations about the x- and y-axes are denoted by yx and yy, respectively. The element coordinate system is chosen such that the positive x-axis points in the direction from node 1 to node 2 of the element. As shown in Fig. 3, the element reference plane coincides with the (x±y ) plane. The components of the incremental displacements and bending rotations at each node of the element, with positive sign conventions, are shown in Fig. 2(a). The variable z- is de®ned as
+
+z"  z À hx, y
+
+13
+
+where h(x, y ) describes the shallow mid-surface of the shell element.
+For the beam element, the displacements at a point are expressed based on the Timoshenko beam theory, which assumes constant transverse shear deformations across the thickness of the beam. Considering the interaction between the shell and the stiener, it is also assumed that the in-plane shear and in-plane bending stinesses of the shell element are much higher than those of the beam element. Although this assumption seems somewhat restrictive, it is acceptable for laminated-stiened construction in aerospace applications, in which stieners are designed to carry axial forces and bending moments and the skin section is designed to resist in-plane normal and shear forces. Thus, the slope of the beam element associated with the in-plane bending deformations of the shell element (the drilling rotation) can be disregarded. The resulting expressions for the displacements at a point in the stiener can be written as
+
+ubH x H, y H, z" H   ubH0x H   z" HybHyx H 
+
+14a
+
+vbH x H, y H, z" H   vbH0x H  À z" HybHxx H 
+
+14b
+
+wbH x H, y H, z" H   wbH0x H   y HybHxx H 
+
+14c
+
+where ubH0, vbH0, and wbH0 are the displacements
+along the longitudinal axis of the beam and ybHy represent the rotations about the x '- and
+
+de®ned ybHx and
+y '-axes,
+
+respectively. The sign conventions for the displace-
+
+ments and rotations are illustrated in Fig. 2(a). In Eqs. (14a)±(14c), z-' is obtained from
+
+z" H  z À hbH
+with hbH x H  denoting the height of the neutral (curvilinear) axes of the beam measured from the reference plane. The height function, hbH x H , is related to the shell height function, h(x, y ), as
+
+hbH x H   hxx H, 0, yx H, 0  zeHc
+
+15
+
+where zeHc is the eccentricity of the beam (Fig. 2(b)).
+
+20
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+The coordinates x(x', 0) and y(x', 0) in Eq. (15) are
+
+obtained from the coordinate transformation between
+
+(x'±y ') and (x±y ) planes, i.e.,
+
+&
+
+xx yx
+
+H, H,
+
+yH yH
+
+ 
+
+'
+
+
+
+cos fb sin fb
+
+Àsin cos
+
+fb fb
+
+!&
+
+xH yH
+
+'
+
+
+
+&
+
+rbx rby
+
+'
+
+16
+
+At y '=0, the coordinates x and y de®ne a line passing through the x'-axis:
+
+xx H, 0  cos fbx H  rbx
+
+17a
+
+yx H, 0  sin fbx H  rby
+
+17b
+
+2.4. Strain components
+
+The linear part of the Green's strain tensor is based
+
+on the de®nitions given by Reissner [24] and Mindlin
+
+[17], combined with the shallow shell theory introduced
+
+by Marguerre [16]. The nonlinear strain vector, eN, is the von Karman [11] approximation of its complete
+
+form (i.e., the nonlinear terms due to the gradients of
+
+in-plane mid-surface displacements are also included).
+
+Therefore, the linear and nonlinear parts of the incre-
+
+mental Green's strain tensor for the shallow shell com-
+
+ponent are de®ned as
+
+V bbbb`
+
+us0, vs0,
+
+x y
+
+Àt Àt
+
+h, h,
+
+xysy y ysx
+
+W bbbba
+
+0 e sL
+
+
+
+Xbbbb
+
+us0, y ws0, x ws0, y
+
+ vs0,  ysy  ysx
+
+x
+
+Àt
+
+h,
+
+x yx
+
+Àt
+
+h,
+
+y ysy
+
+bbbbY
+
+V
+
+W
+
+bb`bb
+
+ysy, ysx,
+
+x y
+
+bbbba
+
+
+
+z"bbbXb
+
+ysx, 0 0
+
+x
+
+
+
+ysy,
+
+y
+
+Ybbbb
+
+18a
+
+V
+
+W
+
+0 e sN
+
+
+
+1
+
+`bbbbbb
+
+us20, u2s0,
+
+x y
+
+ 
+
+vs20, vs20,
+
+x y
+
+ 
+
+w2s0, w2s0,
+
+x y
+
+2 bbbbbXb
+
+2us0, 0 0
+
+x us0,
+
+y
+
+
+
+vs0,
+
+x vs0,
+
+y
+
+bbbbbba  ws0, xws0, y bbbbbbY
+
+18b
+
+where thx, y is the height function of the surface of the element at time t. It can readily be obtained from
+
+1 In the derivation of Green strains given in Eq. (19) for the beam, the assumptions introduced by Novozhilov [20] are adopted to simplify the nonlinear terms.
+
+thx, y 0 hx, y t wx, y
+
+in which 0hx, y represents the initial height function and twx, y the current known out-of-plane displacement component of the element. Note that both thx, y and twx, y are measured with respect to the reference plane of the element, which is ¯at, as shown in Figs. 1 and 3.
+As stated at the beginning of this section, the shell element is assumed to be much stier in in-plane bending and in-plane shear deformations than the beam (stiener) element. Under this assumption, the resultant transverse shear and bending deformations of the stiener associated with the in-plane shear and bending deformations of the shell, respectively, can be disregarded. Applying this assumption and using the displacement de®nition for a stiener given in Eqs. (14), the incremental Green strain components for a shallow stiener can be written as 1
+
+V
+
+W
+
+b` ubH0, x H À ybHy thbHz, x H ab
+
+V b`
+
+ybH y,
+
+x
+
+H
+
+W ab
+
+0
+
+e
+
+H bL
+
+
+
+0 bX wbH0,
+
+x
+
+H
+
+
+
+ybH y
+
+bY
+
+
+
+z"
+
+H
+Xb
+
+ÀybH x, 0
+
+x
+
+H
+
+Yb
+
+V
+
+W
+
+`0 a
+
+
+
+yHX
+
+0 ybHx,
+
+x
+
+H
+
+Y
+
+19a
+
+V
+
+W
+
+0
+
+e
+
+H bN
+
+
+
+`bbb
+
+1 2
+
+ubH 02,
+
+bbXb
+
+0 0
+
+x
+
+H
+
+
+
+vbH 02,
+
+x
+
+H
+
+
+
+wbH 02,
+
+x
+
+H
+
+abbb Ybbb
+
+
+
+V
+
+z"
+
+`
+H
+X
+
+ubH 0, 0 0
+
+x
+
+H ybHy,
+
+x
+
+H
+
+À
+
+vbH 0,
+
+x
+
+H ybHx,
+
+x
+
+H
+
+W a Y
+
+19b
+
+Substituting from Eqs. (18) and (19) for the incremental strain components associated with the shell and the beam (stiener) elements, respectively, in Eq. (11) and performing integrations through the thickness of the shell and across the cross-sectional area of the beam lead to
+
+
+
+
+
+d0esTLCa 0esL d0As  d0ebH LT CbH 0ebHL d0x H
+
+0 As
+
+0l
+
+
+
+
+
+
+
+d0esTN 0t s s d0As 
+
+d0ebH NT
+
+t 0
+
+s sH
+
+d0x
+
+H
+
+0 As
+
+0l
+
+
+
+ de À
+
+d0esTL 0t s s d0As
+
+0 As
+
+
+
+À
+
+d0ebH LT
+
+t 0
+
+s
+
+H b
+
+d0x
+
+H
+
+0l
+
+20
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+21
+
+in which Cs is the constitutive matrix composed of the extensional, A, membrane-bending coupling, B, bend-
+
+ing, D, and transverse shear, G, stiness matrices [33],
+
+P
+
+Q
+
+AB0
+
+Cs  R B D 0 S
+
+21
+
+00G
+
+with
+
+Aij  K Qijkz"k À z"kÀ1
+k1
+
+Bij
+
+
+
+1 2
+
+K Qijkz"2k
+k1
+
+À
+
+z"2kÀ1
+
+Dij
+
+
+
+1 3
+
+K Qijk
+k1
+
+z"k3
+
+À z"3kÀ1
+
+Glm  K Qlk3, m3z"k À z"kÀ1 i, j  1, 2, 3
+
+k1
+
+22
+
+l, m  1, 2
+
+The
+
+vector
+
+t 0
+
+s
+
+s
+
+is
+
+de®ned
+
+in
+
+terms
+
+of
+
+the
+
+stress
+
+resul-
+
+tants as
+
+t 0
+
+s Ts
+
+
+
+ft0s eT,
+
+t0s
+
+T k
+
+,
+
+t 0
+
+s
+
+gTg
+
+23
+
+where the subscripts e, k, and g denote the in-plane,
+
+bending, and transverse shear components of the stress
+
+resultants, respectively. These stress resultant vectors
+
+are established by integrating the mechanical stresses t0ss across the thickness of the panel as given by
+
+V `
+
+0t Nsxx
+
+W a
+
+K z"k
+
+V `
+
+t 0
+
+sxx
+
+W a
+
+t 0
+
+s e
+
+
+
+X
+
+0t Nsyy 0t Nsxy
+
+Y
+
+
+
+k1
+
+z"kÀ1
+
+X
+
+t 0
+
+syy
+
+t 0
+
+sxy
+
+Ydz"
+
+24a
+
+V
+
+W
+
+VW
+
+`
+
+t 0
+
+Msxx
+
+a
+
+K z"k ` 0t sxx a
+
+t 0
+
+s k
+
+
+
+X
+
+t 0 t 0
+
+Msyy Msxy
+
+Y
+
+
+
+k1
+
+z"kÀ1
+
+z"X
+
+t0 syy t0 sxy
+
+Ydz"
+
+24b
+
+t 0
+
+s g
+
+
+
+&
+
+t 0
+
+Qsxx
+
+t 0
+
+Qsyz
+
+'
+
+
+
+K z"k
+
+&
+
+t 0
+
+sxz
+
+k1 z"kÀ1
+
+t 0
+
+syz
+
+' dz"
+
+24c
+
+The vectors 0esL and 0esN, containing the linear and nonlinear parts, respectively, of the Green strain components measured at the mid-surface of the shell, are de®ned as
+
+0esTL  f0eeTL, 0eTkL, 0egTLg
+
+25
+
+with
+
+V `
+
+us0,
+
+x
+
+Àt
+
+h,
+
+x ysy
+
+W a
+
+0 eeL
+
+
+
+X
+
+vs0, us0,
+
+y y
+
+Àt h, yysx  vs0, x Àt
+
+h,
+
+x ysx
+
+Àt
+
+h,
+
+y ysy
+
+Y
+
+V
+
+W
+
+` ysy, x
+
+a
+
+0 ekL
+
+
+
+X
+
+ysx, ysx,
+
+y x
+
+
+
+ysy,
+
+y
+
+Y
+
+26a 26b
+
+&
+
+'
+
+0egL 
+
+ws0, x  ysy ws0, y  ysx
+
+26c
+
+and
+
+0esN  f0eeTN, 0T, 0Tg
+
+27
+
+with
+
+V
+
+W
+
+0 eeN
+
+
+
+1 bb` us20, x  v2s0, x  ws20, x
+
+2
+
+Xbb
+
+u2s0, y  vs20, y  w2s0, 2us0, xus0, y  vs0, x
+
+y
+vs0,
+
+y
+
+
+
+ws0, xws0, y
+
+bba bbY
+
+28
+
+The material property matrix CbH for the stiener in Eq. (20) contains
+
+C
+
+H
+
+
+
+P TRT
+
+C
+
+H 11
+
+Sym
+
+C
+
+H 12
+
+C
+
+H 22
+
+C
+
+H 13
+
+C
+
+H 23
+
+C
+
+H 33
+
+C C C
+
+H 14 H 24 H 34
+
+Q USU
+
+C
+
+H 44
+
+29
+
+where the explicit expressions for CmH n are de®ned as
+
+C
+
+H 11
+
+,
+
+C
+
+H 12
+
+,
+
+C
+
+H 22
+
+
+
+
+
+ Kb 
+i1 Abi
+
+
+
+Q1H1
+
+,
+
+Q1H 3 ,
+
+Q3H 3 dAbi
+
+
+
+C
+
+H 13
+
+
+
+ Kb  i1 Abi   y HQ1H4
+
+À z" HQ1H3dAbi 
+
+C
+
+H 23
+
+
+
+ Kb  i1 Abi   y HQ4H4
+
+À z" HQ3H4dAbi 
+
+C
+
+H 14
+
+
+
+ Kb 
+i1 Abi
+
+
+
+z"
+
+H
+
+Q1H1
+
+dAbi
+
+
+
+C
+
+H 24
+
+
+
+ Kb 
+i1 Abi
+
+
+
+z"
+
+H
+
+Q1H4
+
+dAbi
+
+
+
+ Kb 
+
+C
+
+H 33
+
+
+
+i1
+
+Abi  À2y Hz" HQ3H4  y H 2Q4H4 À z" H 2dAbi 
+
+22
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+ Kb 
+
+C
+
+H 34
+
+
+
+i1
+
+Abi   y Hz" HQ1H4 À z" H 2Q1H3dAbi 
+
+C
+
+H 44
+
+
+
+ Kb  z" H
+i1 Abi 
+
+2Q1H1dAbi 
+
+in which QmH n (m, n = 1, 3, 6) are the components of the material property matrix de®ned at a point in the
+ith segment. The incremental resultant strains, 0ebHL and 0ebHN, for the stiener are de®ned along the x '-axis in the form
+
+0ebH LT  fubH0, x H À ybHy thbH, x H , ybHx, x H , ybHy, x H g
+
+wbH0, x H  ybHy,
+
+30a
+
+0ebH NT
+
+
+
+f
+
+1 2
+
+ubH 02,
+
+xH
+
+
+
+vbH 02,
+
+x
+
+H
+
+
+
+wbH 02, x
+
+H ,
+
+ubH0, x H ybHy, x H À vbH0, x H ybHx, x H g
+
+00
+
+30b
+
+The
+
+resultant
+
+stress
+
+vector
+
+t 0
+
+sbH
+
+for
+
+the
+
+stiener
+
+is
+
+de®ned as
+
+plane as that of the shell after deformation), thus leading to constraint equations between the displacement and rotation ®elds of these elements. Based on this approach, the following constraint conditions are, therefore, introduced:
+
+ybHx  Ày! sHx
+
+33a
+
+ybHy  y! sHy
+
+33b
+
+wbH0  w! sH0
+
+33c
+
+ainndwyhbHiycharewbHt0heisslothpeestorafntshveerbseeamdisipnlatcheempernimt eadndcoyobrHx-
+
+dinate system. As shown in Fig. 2(b), the correspond-
+
+ing and
+
+ty!rsaHyn, sbveelrosengdinisgpltaocetmheensth,elwl! sHe0,lemanednt
+
+the are
+
+slopes, de®ned
+
+y! sHx as
+
+functions of x' 2. Utilizing the constraint conditions in
+
+Eqs. (33a) and (33b), two additional constraint
+
+equations can be obtained by relating the displace-
+
+ments of the beam element in terms of the displace-
+
+ments and rotations of the shell element as
+
+t 0
+
+s
+
+H
+b
+
+T
+
+
+
+f0t
+
+N
+
+H bsx
+
+,
+
+t 0
+
+N
+
+bH sz ,
+
+t 0
+
+MbHsx
+
+,
+
+t 0
+
+MbHsy
+
+g
+
+31
+
+ubH0  u!sH0  zeHcy! sHy
+
+34a
+
+with
+
+t0N
+
+H bsx
+
+,
+
+t 0
+
+N
+
+bH sz 
+
+
+
+ Kb 
+i1 Abi
+
+
+
+t0 sbH xx ,
+
+t0 sbH xz dAbi
+
+
+
+32a
+
+ Kb 
+
+0t MbHsx,
+
+t 0
+
+MbHsy
+
+
+
+
+
+i1
+
+Abi 
+
+
+
+yH
+
+t 0
+
+sbH xz
+
+À
+
+z" H
+
+t 0
+
+sbH xy ,
+
+z"0t sbHxxdAbi 
+
+32b
+
+2.5. Constrain conditions
+The interface conditions between the stiener (beam) and the shell elements require the enforcement of the continuity of displacements and stress components. However, this is dicult to achieve with the beam and the shell element formulations. Instead of applying these continuity conditions along the interface, a new approach has been proposed to connect these elements together [23,6,7,9]. This approach requires that the cross section of the beam and the section of the shell before deformation remain co-planar after deformation (i.e., the cross section of the beam lies on the same
+2 The symbol Æ over a function indicates that the function is evaluated at y'=0.
+
+vbH0  v!sH0  zeHcy! sHx
+
+34b
+
+where ubH0 and vbH0 are the displacement components of the beam element in x'- and y '-directions, respectively. The displacement components u!sH0 and v!sH0, also belonging to the shell element, are de®ned as
+functions of x '. The constraint conditions in Eqs. (33)
+and (34) are accurate, as long as the overall thickness
+of the stiened-shell is maintained at a moderate
+range.
+Eqs. (33) and (34) can be rearranged and written in
+matrix notations as
+
+VW
+
+V ` X
+
+ubH0 vbH0 wbH 0
+
+W a Y
+
+
+
+V ` X
+
+usH0 vsH0 wsH0
+
+W a Y
+
+
+
+P R
+
+0 zeHc 0
+
+zeHc 0 0
+
+0 Q`bbbb y!sHx abbbb
+
+0 0
+
+S bbbbX
+
+y! sHy y! sHz
+
+bYbbb
+
+35a
+
+and
+
+VW
+
+V `b Xb
+
+yybbHHyx ybHz
+
+W ba bY
+
+
+
+P R
+
+À1 0 0
+
+0 1 0
+
+0 Qbb`bb y!sHx bbbba
+
+0 1
+
+S bbXbb
+
+y! sHy y! sHz
+
+bbYbb
+
+35b
+
+in which y!sHz  ybHz  0, since the element formulation excludes the drilling rotations in the displacement ®eld.
+In compact form, Eqs. (35) are written as
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+23
+
+& uybbHH00 ' 
+
+I 0
+
+zeHc
+
+!V`
+
+uÆ sH0
+
+W a
+
+J X yÆ sH0 Y
+
+36
+
+where the matrices zeHc and J are de®ned as
+
+P 0
+zeHc  R ÀzeHc
+
+zeHc 0
+
+Q 0 0S
+
+and
+
+P À1
+J  R0
+
+0 1
+
+Q 0 0S
+
+0 00
+
+0 01
+
+2.6. Shape functions
+
+One of the major diculties associated with the development of a shell element is the isoparametric representation of the element displacement interpolation functions that lead to a problem known as ``locking'' for low-order elements when the element thickness becomes small. The locking problem can be described as the excessive stiening of an element due to oversti representations of membrane and shear stiness terms relative to bending stiness terms. This is mainly caused by the kinematic incompatibility of the terms representing the linear part of the strains, since these terms are used in the generation of the linear element stiness matrix. In order to eliminate this problem without resorting to reduced integration techniques, Tessler and Hughes [31] Tessler [30] suggested the use of dierent orders of interpolation functions for in-plane and out-of-plane displacements, as well as out-of-plane rotations. For example, the expression given in Eq. (18a) requires that the order of interpolation functions for out-of-plane displacement components must be one degree higher than those of the out-of-plane rotations. Similarly, considering a quadratic variation of the height function, th, the order of interpolation functions for in-plane displacement components must be two degrees higher than those of the out-of-plane rotations to satisfy kinematic compatibility. In this analysis, the C 0-anisoparametric interpolation functions proposed by Tessler [30] have been utilized. Thus, the incremental in-plane, transverse, and out-of-plane rotational components on the midsurface of the element are approximated as
+
+& us0 vs0
+
+'
+
+
+
+3 xk
+k1
+
+&
+
+u0k v0k
+
+' 
+
+9 & xk
+k4
+
+uv00kk
+
+' 
+
+&
+
+xc
+
+u0c v0c
+
+'
+
+3
+
+6
+
+ws0  wkw0k  wkw0k
+
+k1
+
+k4
+
+& ysx ysy
+
+'
+
+
+
+3 zk
+k1
+
+&
+
+yxk yyk
+
+'
+
+37
+
+The in-plane displacement components, us0 and vs0, are approximated by complete cubic interpolation func-
+tions, xk and xc, which are based on a 10-noded triangular element con®guration. The nodal values at the
+vertices are represented by u0k and v0k. The remaining nodal values are associated with the nodes along the edges, u0k and v0k, and at the element centroid, u0c and v0c. The transverse displacement ®eld, w0, is approximated by complete quadratic interpolation functions, wk, with w0k and w0k representing the nodal values at the vertices and the middle of the edges, respectively.
+Therefore, the out-of-plane displacement ®eld is rep-
+resented by a six-noded triangular element con®gur-
+ation. The out-of-plane rotational components, ysx and ysy, are approximated by linear interpolation functions, zk, with yxk and yyk representing nodal values at the vertices (three-noded element con®guration). Appendix
+A illustrates the anisoparametric nodal con®gurations
+for in-plane and out-of-plane displacements and out-
+of-plane rotations. The explicit forms of these interp-
+olation functions are also given in Appendix A.
+In matrix form, Eq. (37) can be rewritten as
+
+us0  Nuv  Nu v  Ncvc
+
+38a
+
+ys0  Nyv where
+
+uTs0  fus0, vs0, ws0g
+
+and
+
+y
+
+T s0
+
+
+
+fysx,
+
+ysy,
+
+0g
+
+38b
+
+vT  fu01, v01, w01, , yx1, yy1, yz1, F F F , u03, v03, w03, yx3, yy3, yz3g
+
+vT  fu04, F F F , u09, v04, F F F , v09, w04, w05, w06g
+vTc  fu0c, v0cg
+The shape-function matrices Nu and Nu are dependent on xk and wk, with k = 1, F F F , 9 and k = 1, F F F , 6, respectively. The matrix Nc contains only xc. The matrix Ny is composed of the area coordinates xk, with k = 1, 2, 3. Although it is arti®cial, the rotational variable normal to the reference plane, yzk, is included in the formulation because transformation to global coordinates leads to non-zero rotations about all axes. The explicit expressions for the shape-function matrices are given in Appendix A.
+The intra-edge displacement components (represented by hollow circles in Fig. A1 in Appendix A) are eliminated prior to the construction of the stiness matrix by imposing the edge constraints on the linear
+
+24
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+part of the shear and membrane strains. These constraints, introduced by Tessler [30], are given in the form
+
+d ds
+
+d ds
+
+w0s
+
+
+
+!k yns 
+
+0
+
+dp ds p
+
+V bb` bbX
+
+d ds
+
+vns
+
+d ds
+À
+
+us
+
+s
+
+À
+
+yn
+
+d ds
+
+yn
+
+d dn
+
+t
+
+hn,
+
+s
+
+thn, À ys
+
+s
+d ds
+
+thn,
+
+s
+
+bbaWk bYb 
+
+0
+
+39
+
+with k (=1, 2, 3) and p (=1, 2) representing the edge number and the derivative order, respectively. The coordinates s and n denote the directions tangent and
+normal to the edge of the element. The tangential direction, s, points from node 1 to node 2 for k = 1, node 2 to node 3 for k = 2, and node 3 to node 1 of the element for k = 3. The displacement components
+tangent and normal to the kth edge of the element are denoted by usks and vnks, respectively. Similarly, the out-of-plane rotations about s- and the opposite ndirections are denoted by ysk and ynk on the kth edge, respectively. These displacements and rotations are related to those de®ned with respect to the element coor-
+dinates (see Fig. 2) through appropriate transformations.
+Imposing the constraints given by Eq. (39) along the
+edge of the element leads to the following transformation between intra-edge displacements and corner displacements:
+
+vb  Lbv with b  u, v, w
+
+40
+
+or
+
+v  Lv
+
+41
+
+where
+
+LT  LuT LTv LTw and vT  vu T vv T vwT 42
+
+with
+
+vu T  fu04, F F F , u09g
+
+vvT  fv04, F F F , v09g
+
+vwT  fw04, w05, w06g
+The explicit forms of the transformation matrices Lb (b=u, v, w ) are the same as those given by Tessler
+
+[30]. These matrices are presented in Appendix A for completeness.
+After substitution from Eq. (41) into Eq. (38a), Eqs. (38a) and (38b) can be expressed in compact form as
+
+&'
+
+us0 y s0
+
+
+
+NÅ u Ny
+
+!& ' Nc v 0 vc
+
+43
+
+in which NÅ u  Nu  NuLX The anisoparametric interpolation functions given in Eq. (37) is therefore reduced to the form in Eq. (43) by imposing the edge constraints given in Eq. (39). Eq. (39) also reduces the number of total nodal unknowns from 32 to 17 (®ve degrees-of-freedom at each node and two degrees-offreedom at the centre), as identi®ed by the solid circles in Fig. A1 in Appendix A.
+In the ®nite element ®eld approximations of the stiffener component, the interpolation functions approximating the displacements and rotations of the shallow triangular shell element, Eq. (43), will be utilized via the constraint conditions given in Eq. (36) and appropriate nodal vector transformations between the (x'± y ') and (x±y ) planes. The shape matrices in Eq. (43) are constructed by choosing the element coordinate system (x±y ) as the basis for the interpolation function xi, wi, and zi. If the (x '±y ') coordinate system is chosen as the basis for these interpolation functions, Eq. (43) can be rewritten in the form
+
+&
+
+yussHH00
+
+'
+
+
+
+4
+
+NÅ uH NyH
+
+NcH 0
+
+5&
+
+vH vcH
+
+'
+
+44
+
+with
+NÅ uH  NuH  LsHNu H
+In Eq. (44), the shape matrices NuH , Nu H and NyH are de®ned exactly in the same manner as Nu, Nu and Ny, whose explicit forms are given in Appendix A. The interpolation functions used for the construction of matrices NuH , Nu H and NyH are noted by xiH, wiH, and ziHX The expressions for these interpolation functions will also be in the same form as those for xi, wi, and zi presented in Appendix A. The only dierence between these two sets of interpolation functions appears in the choice of their base coordinate systems. The interpolation functions xi and wi utilize the area coordinates that are de®ned in the (x±y ) planes, whereas the interpolation functions xiH and wiH utilize the area coordinates that are de®ned in the (x'±y ') plane.
+The shape matrices in Eq. (44) may be presented in the form
+NÅ uH  NÅ uH z1H , z2H , z3H   NÅ uH x H, y H 
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+25
+
+NcH  NcHz1H , z2H , z3H   NcHx H, y H 
+
+NyH  NyH z1H , z2H , z3H   NyH x H, y H 
+
+45
+
+Note in Eq. (45) that x1H , x2H , and x3H are de®ned in terms of the Cartesian coordinates, x' and y '. In order
+
+to incorporate Eq. (44) into the constraint conditions given by Eq. (36), usH0 and ysH0 are evaluated for y '=0
+as
+
+V ` uÆ sH0 X y! sH0
+
+W a Y
+
+
+
+&
+
+uyssHH00
+
+x x
+
+H, H,
+
+yH yH
+
+ 
+
+0 0
+
+'
+
+
+
+4 NÅ uH NyH
+
+NcH 0
+
+5&
+
+vH vcH
+
+'
+
+46
+
+where the matrices NÅ uH , NcH, and NyH are de®ned over the x'-axis, and they become
+
+NÅ uH x H   NÅ uH x H, y H  0
+
+47a
+
+NcHx H   NcHx H, y H  0
+
+47b
+
+NyH x H   NyH x H, y H  0 Note also that NÅ uH  NuH  LsHNu H with NuH x H   NuH x H, y H  0
+
+47c 48 49a
+
+Nu H x H   Nu H x H, y H  0
+
+49b
+
+The shape function matrices NuH , Nu H , NcH and NyH and the explicit expressions for the interpolation functions, xiH, wiH, and xiH, are given in Appendix B.
+The nodal unknown vectors, v ' and vcH, are also transformed from the (x '±y ') plane to the (x±y ) plane
+in order to assemble them with the shell element. This
+is achieved through the transformation
+
+v H  Avv
+
+50a
+
+vcH  Acvc
+
+50b
+
+where the components of the transformation matrices
+
+Av and Ac are given in Appendix B. Substituting from Eqs. (50) and (46) into Eq. (36) leads to the ®nite el-
+
+ement approximations for the displacement and ro-
+
+tation ®elds of the beam element in terms of the nodal
+
+unknowns of the shell element as
+
+& yubbHH00 '  4 NJÅ NuH AyH Av v zeHcNyH Av
+
+5& '
+
+NcHAc v
+
+0
+
+vc
+
+51
+
+Finally, in order to avoid unnecessary generation of
+
+matrix L ' in the (x '±y ') plane, the matrix LsH can be directly obtained from the matrix Ls, de®ned in the local coordinate system and given by Eq. (41). In the (x ', y ') coordinate system, the matrix LsH relates the inplane displacements de®ned at the interior nodes of
+the three edges of the triangle to displacements and ro-
+tations de®ned at the corner nodes and is expressed as
+
+v H  LsHv H
+
+52
+
+where the vector v ' can be expressed in terms of v in the element coordinate system as given by Eq. (50a). Similarly, the vector v H can be obtained from the transformation
+
+v H  Avv
+
+53
+
+The components of the transformation matrix Av are given in Appendix B. Substituting from Eqs. (53) and (50a) for v H and v ' in Eq. (52) and recalling that the
+transformation matrix Av is orthonormal, the matrix LsH is obtained in terms of the element coordinate system as
+
+LsH  AvTLsAv
+
+54
+
+This transformation becomes very useful, especially for the case of a shell element having multiple stieners. In this case, the matrix Ls will be generated once for the shallow shell element and will be used for each stiffener via Eq. (54).
+
+2.7. Element matrices and vectors
+
+The derivation of the ®nite element matrices and vectors for the stiened shell element employs Eqs. (43) and (51) for the appropriate terms appearing in integrals of Eq. (20). In order to generate the linear stiness matrices, the linear parts of the strain±displacement relations for both components of the stiened shell element are expressed using ®nite element approximations. The linear incremental resultant strain vector, 0esL, for the shallow shell element is approximated through Eqs. (25), (26), and (43),
+
+&'
+
+0esL  BuNÅ u  ByNy
+
+BuNc
+
+v vc
+
+55
+
+where Bu and By constitute the strain±displacement
+transformation matrices. The explicit forms of Bu and
+By are given in Appendix A.
+For the stiener component, the linear incremental resultant strain vector, ebHL, can be cast into a matrix form from Eqs. (30a) and (51) as
+
+26
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+0ebHL  BbHuNÅ uH Av  BbHuzeHcNyH Av  BbHyJNyH Av
+
+&'
+
+BbH u NcH Ac 
+
+v vc
+
+56
+
+in which the matrices BbHu and BbHy are de®ned in Appendix B.
+Considering 0esL in Eq. (55), the ®rst integral in Eq. (20) can be expressed in the form
+
+
+
+&'
+
+d0esTLCs 0esL d0A 
+0A
+
+dv dvc
+
+ksL11 ksTL12
+
+!& ' ksL12 v ksL22 vc
+57
+
+in which
+
+  AvTNyH T JTBbH yT CbH BbHuzeHcNyH Av d0x H
+0l
+  ATv NyH T JTBbH yT CbH BbHyJNyH Av d0x H
+0l
+ kbL12  ATv NÅ uH T BbH uT CbH BbHuNcHAc d0x H
+0l
+  ATv NyH T zeHcT BbH uT CbH BbHuNcHAc d0x H
+0l
+  ATv NyH T JTBbH yT CbH BbHuNcHAc d0x H
+0l
+
+ ksL11  NÅ Tu BTu CsBuNÅ u  NÅ Tu BTu CsByNy
+0A
+ NyTBTy CsBuNÅ u  NTy BTy CsByNyd0A
+
+ kbL22  ATc NcH T BbH uT CbH BbHuNcHAc d0x H
+0l
+In matrix form, the nonlinear part of the strain vector,
+
+
+
+0esN, given by Eq. (27) becomes
+
+ksL12  NÅ uTBuTCsBuNc  NTy ByTCsBuNcd0A
+0A
+
+0 esTN
+
+
+
+1 2
+
+fETs
+
+DTs
+
+,
+
+0T,
+
+0Tg
+
+59
+
+ ksL22  NTc BTu CsBuNc d0A
+0A
+
+The ®nite element representation of the second integral
+
+term, which belongs to the stiener component, is
+
+obtained by substituting from Eq. (56) into the expression for 0ebHL as
+
+ d0 ebH TL CbH
+0l
+
+0 ebH L
+
+d0x
+
+H
+
+
+
+& dv dvc
+
+'T
+
+kbL11 kbTL12
+
+!& ' KbL12 v kbL22 vc
+
+58
+
+in which
+
+
+
+kbL11 
+
+ATv NÅ uH
+
+T
+
+BbH uT
+
+CbH
+
+Bbu
+
+NÅ
+
+H u
+
+Av
+
+d0x
+
+H
+
+0l
+
+
+
+
+
+ATv
+
+NÅ
+
+H
+u
+
+T BbH uT CbH BbHuzeHcNyH Av
+
+d0x
+
+H
+
+0l
+
+
+
+
+
+AvT
+
+NÅ
+
+H
+u
+
+T BbH uT CbH BbHyJNyH Av
+
+d0x
+
+H
+
+0l
+
+
+
+
+
+ATv
+
+N
+
+H
+y
+
+z B T H T H T
+ec bu
+
+CbH BbHuNÅ uH Av
+
+d0x
+
+H
+
+0l
+
+
+
+
+
+ATv
+
+N
+
+H
+y
+
+z B T H T H T
+ec bu
+
+CbH BbHuzeHcNyH Av
+
+d0x
+
+H
+
+0l
+
+
+
+
+
+ATv
+
+N
+
+H
+y
+
+z B T H T H T
+ec bu
+
+CbH BbHyJNyH Av
+
+d0x
+
+H
+
+0l
+
+
+
+
+
+ATv
+
+N
+
+H
+y
+
+T JTBbH yT
+
+CbH BbHuNÅ uH Av
+
+d0x
+
+H
+
+0l
+
+in which
+
+ETs  fus0, x,
+
+vs0, x,
+
+ws0, x,
+
+us0, y,
+
+vs0, y,
+
+ws0, yg 60a
+
+and
+P us0, x
+Ds  R 0 us0, y
+
+vs0, x 0 vs0, y
+
+ws0, x 0 ws0, y
+
+0 us0, y us0, x
+
+0 vs0, y vs0, x
+
+Q 0 ws0, y S ws0, x
+60b
+
+with the properties
+
+dDsEs  DsdEs
+
+and
+
+DTs
+
+t 0
+
+s
+
+e
+
+0t
+
+GÃ xeEs
+
+61
+
+where
+
+t 0
+
+GÃ e
+
+
+
+0t NsxxI t0NsxyI
+
+t 0
+
+Nsxy
+
+I
+
+!
+
+t 0
+
+Nsyy
+
+I
+
+62
+
+with I being a 3 Â 3 identity matrix. The vector Es can be expressed in the form
+
+Es  Bus0
+
+63
+
+with the matrix dierential operator
+
+!
+
+BT  I d , I d
+
+64
+
+dx dy
+
+Using this representation of 0esN and substituting for us0 from Eq. (43), the second and third integral terms in Eq. (20) can be rewritten as
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+27
+
+
+0A
+
+d0 eTsN
+
+t 0
+
+s s
+
+d0A
+
+
+
+&
+
+dv dvc
+
+'T
+
+kss11 kTss12
+
+!& ' kss12 v kss22 vc
+
+65
+
+Substitution
+
+from
+
+Eq.
+
+(51)
+
+into
+
+ubH 0
+
+and
+
+y
+
+H b0
+
+results
+
+in
+
+the ®nite element approximation of EbH as
+
+in which 
+kss11  NÅ Tu BT t0GÃ eBNÅ u d0A
+0A
+
+EbH  BbHuNÅ uH Av  BbHuzeHcNyH Av  BbHyJNyH Av
+
+&'
+
+BbH u NcH Ac 
+
+v vc
+
+71
+
+ kss12  NÅ uTBT 0t GÃ eBNc d0A
+0A
+ kss22  NcTBT 0t GÃ eBNc d0A
+0A
+
+Finally, from Eqs. (69) and (71), the ®nite element implementation of the ®fth and sixth integral terms in Eq. (67) are completed as
+
+ dEbH
+0l
+
+T
+
+0t GÃ bH
+
+d0x
+
+H
+
+
+
+&
+
+dv dc
+
+'T
+
+kbs11 kbTs12
+
+!& ' kbs12 v kbs22 vc
+
+72
+
+The derivation of the geometric stiness matrices
+belonging to the stiener (beam) component requires
+the ®nite element treatment of the ®fth and the sixth
+integral terms in Eq. (20). Similar to the ®nite element
+formulation of the shallow shell component, the non-
+linear part of the incremental strain resultant vector for the beam component, 0ebHN, de®ned by Eq. (19b), is written in matrix form as
+
+0 ebH N
+
+
+
+1 2
+
+DbH EbH
+
+66
+
+where
+
+P
+
+DbH
+
+
+
+TRTT
+
+ubH 0, 0 0
+
+x
+
+H
+
+ybHy, x H
+
+vbH0, x H 0 0 ÀybHx, x H
+
+wbH0, x H 0 0 0
+
+0
+0
+0 ÀvbH0, x H
+
+Q
+
+0
+
+0 0
+
+UUSU
+
+ubH0, x H
+
+67a
+
+and
+
+EbH T  fubH0, x H ,
+
+vbH0, x H ,
+
+wbH0, x H ,
+
+ybHx, x H ,
+
+ybHy, x H g 67b
+
+with DbH and EbH possessing the following properties:
+
+sDbH EbH  DbH dEbH
+
+68a
+
+DbH T
+
+0t s
+
+H b
+
+0t
+
+GÃ bH DbH
+
+68b
+
+in
+
+which
+
+the
+
+components
+
+of
+
+t 0
+
+GÃ bH
+
+are
+
+given
+
+in
+
+Appendix
+
+B. Using the relations in Eqs. (68a) and (68b), the inte-
+
+grands of the ®fth and sixth integrals of Eq. (20) can
+
+be rewritten in the form
+
+d0ebH NT
+
+t 0
+
+s
+
+H s
+
+
+
+dEbH T
+
+t 0
+
+GÃ bH
+
+EbH
+
+69
+
+Also, the matrix representation of EbH leads to
+
+EbH  BbHu
+
+& BbH y 
+
+uybbHH00
+
+'
+
+70
+
+where the sub-matrices kbsij form the geometric stiness matrix of the element and are de®ned as
+
+
+
+kbs11 
+
+ATv NÅ uH T BbH uT
+
+t 0
+
+GÃ bH
+
+BbHuNÅ uH Av
+
+d0x
+
+H
+
+0l
+
+
+
+
+
+AvTNÅ uH T BbH uT
+
+t 0
+
+GÃ bH
+
+BbH u zeHc
+
+NyH
+
+Av
+
+d0x
+
+H
+
+0l
+
+
+
+
+
+ATv NÅ uH T BbH uT
+
+t 0
+
+GÃ bH
+
+BbHyJNyH Av
+
+d0x
+
+H
+
+0l
+
+
+
+
+
+AvT NyH
+
+T
+
+zeHcT BbH uT t0GÃ bH ,
+
+tDt 0
+
+TÃ bH
+
+BbH u
+
+NÅ uH
+
+Av
+
+d0x
+
+H
+
+0l
+
+
+
+
+
+AvT NyH
+
+z B T H T H T
+ec bu
+
+t 0
+
+GÃ bH
+
+BbHuNyH zeHc
+
+Av
+
+d0x
+
+H
+
+0l
+
+
+
+
+
+ATv NyH
+
+z B T H T H T
+ec bu
+
+t 0
+
+GÃ bH
+
+BbH y JNyH
+
+Av
+
+d0x
+
+H
+
+0l
+
+
+
+
+
+ATv NyH
+
+T JTBbH yT
+
+t 0
+
+GÃ bH
+
+BbHu
+
+NÅ uH
+
+Av
+
+d0x
+
+H
+
+0l
+
+
+
+
+
+AvT NyH
+
+T JTBbH yT
+
+t 0
+
+GÃ bH
+
+BbHu
+
+zeHc
+
+NyH
+
+Av
+
+d0x
+
+H
+
+0l
+
+
+
+
+
+ATv NyH
+
+T JTBbH yT
+
+t 0
+
+GÃ bH
+
+BbHyJNyH Av
+
+d0x
+
+H
+
+0l
+
+
+
+kbs12 
+
+ATv NÅ uH T BbH uT
+
+t 0
+
+GÃ bH
+
+BbHuNcH
+
+Ac
+
+d0x
+
+H
+
+0l
+
+
+
+ AvTNyH T zeHcT BbH uT GÃ bH BbHuNcHAc d0x H
+0l
+
+
+
+ ATv NyH T JTBbH yT GÃ bH BbHuNcHAc d0x H
+0l
+
+
+
+kbs22 
+
+AcT NcH
+
+B T H T
+bc
+
+t 0
+
+GÃ bH
+
+BbHc
+
+NcH
+
+Ac
+
+d0x
+
+H
+
+0l
+
+On the right-hand-side of Eq. (20), the ®rst and second integral terms belong to the shallow shell component.
+
+28
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+By employing the expression for the linear resultant
+
+strain vector 0esL from Eq. (55), the ®nite element implementation of these terms is achieved as
+
+
+
+& '& '
+
+d0eTsL 0t s s d0A 
+0A
+
+dv dvc
+
+f ss f ssc
+
+73
+
+in which
+
+
+
+fss 
+
+NÅ uTBTu
+
+
+
+NTy BTy 
+
+t 0
+
+s s
+
+d0A
+
+0A
+
+74a
+
+
+
+fssc 
+
+NÅ cTBcT
+
+t 0
+
+s s
+
+d0A
+
+0A
+
+74b
+
+where the vectors fss and fssc represent the internal forces resulting from the shallow shell component. The
+
+®nite element treatment of the last two integral terms
+
+(belonging to the stiener) on the right-hand-side of
+
+Eq. (20) is achieved by substituting from Eq. (56) for
+
+the ®nite element approximation of the linear incremental strain component, 0ebHL, as
+
+ d0ebH LT
+0l
+
+t 0
+
+s bH
+
+d0x
+
+H
+
+
+
+& dv dvc
+
+'T&
+
+f bs f bsc
+
+'
+
+75
+
+where 
+fbs  AvTNÅ uH T BbH uT  ATv NyH T zeHcT BbH uT
+0l
+
+
+
+AvT NyH
+
+T JTBbH yT
+
+t0s
+
+H b
+
+d0x
+
+H
+
+76a
+
+
+
+fbsc 
+
+AcT N cH
+
+B T H T
+bu
+
+0t s
+
+H b
+
+d0x
+
+H
+
+0l
+
+76b
+
+In Eq. (75), the vectors fss and fssc denote the internal forces resulting from the beam component.
+
+2.8. Computation of internal forces
+
+In order to complete the ®nite element formulation
+
+of the geometric stiness matrices and the internal
+
+force vectors for both components of the stiened shell
+
+element,
+
+the
+
+resultant
+
+stress
+
+vectors,
+
+t 0
+
+s s
+
+and
+
+t 0
+
+s
+
+bH ,
+
+must
+
+be determined a priori. The stress decomposition given
+
+in Eq. (3) can be rewritten between times t and tÀDt
+
+to
+
+obtain
+
+the
+
+stress
+
+vectors
+
+t0 s s
+
+and
+
+t 0
+
+s bH
+
+as
+
+t 0
+
+s s
+
+0tÀDt
+
+s s
+
+
+
+0s
+
+Ã s
+
+77a
+
+t 0
+
+s bH
+
+0tÀDt
+
+s
+
+H b
+
+
+
+0
+
+s
+
+Ã b
+
+H
+
+77b
+
+where
+
+tÀDt 0
+
+s
+
+s
+
+and
+
+time tÀDt, and 0s
+
+sÃ0tÀaDntsd
+
+H b
+0
+
+are
+
+s
+
+Ã b
+
+H
+
+known stress vectors at represent the incremental
+
+resultant stress vectors evaluated between time steps t
+
+and tÀDt. The incremental resultant stress vectors are
+
+related to the incremental resultant strain and 0eÃb H , through the constitutive relations
+
+vectors
+
+0 eÃs
+
+0s Ã  Cs 0esÃ
+
+78a
+
+0
+
+s
+
+Ã b
+
+H
+
+
+
+CbH
+
+0ebÃ H
+
+78b
+
+Also, the incremental 0ebÃ H , are decomposed
+
+resultant strain vectors, 0eÃs and into linear and nonlinear com-
+
+ponents in the form
+
+0esÃ 0 esÃL  0esÃN
+
+79a
+
+0eÃb H 0 eÃbLH  0eÃbNH
+
+79b
+
+Before the vectors 0eÃsL, 0eÃsN and 0ebÃLH , 0eÃbNH  are obtained, respectively, from Eqs. (18) and (19), the incremental displacements and rotations within both components (shell and stiener) of the element are ®rst expressed in terms of the incremental nodal quantities, (vd) and (vcd) of the shell element from Eqs. (43) and (51). The subscript ``d'' is used to indicate the nodal quantities to be measured with respect to the co-rotational (moving element coordinate system) frame.
+The term co-rotational implies that, while the element deforms, the initial con®guration of the element rigidly translates and rotates to coincide with the reference plane of the element (the reference plane is identi®ed by the plane formed by the three corner nodes of the element after deformation). To prevent confusion, this con®guration is called ``rigid'' from now on. Then, the dierence between the deformed and rigid con®gurations of the element yields the elastic deformations of the element. Although the dierence in translational displacements between the two con®gurations (deformed and rigid) can be directly obtained by simple vector subtraction, the dierence in orientations of nodal points requires special treatment of the nodal rotations of the element. In order to ®nd the exact orientations of the element after deformation, a triad is attached to each structural node. After deformation, the orientation of each nodal triad is determined by a (3 Â 3) rotation matrix that can be expressed in terms of three independent quantities (pseudo rotations), as explained by Rankin and Brogan [22].
+After each successive rotation increment, these quantities are updated to give the current orientation of a node. Also, the orientation of the rigid con®guration of the element can be easily determined from the plane formed by the corner nodes of the element, as mentioned above. Thus, the angle dierence between the orientations of deformed and rigid con®gurations of the element (which is assumed to be fairly small so that it allows vector operations) yields the deforma-
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+29
+
+tional rotations of the element at nodal points. The
+
+only dierence between the present analysis and the
+
+one presented by Rankin and Brogan [22] is that the
+
+deformational part of the displacements and rotations
+
+of the element is measured between two successive iter-
+
+ations [2] in the present analysis, whereas these nodal
+
+quantities are measured between the current and initial
+
+time steps in the work by Rankin and Brogan [22].
+
+The deformational part of the incremental displace-
+
+ments and rotations in this analysis is then stored in
+
+the the
+
+appropriate incremental
+
+locations in vectors
+
+stress
+
+vectors
+
+0t s
+
+Ã s
+
+v and
+
+and
+
+t 0
+
+svÃbc.H
+
+Finally, can be
+
+determined via back-substitutions from Eqs. (79), (78),
+
+and (77).
+
+ksTij  ksLij  kssij
+
+kbTij  kbLij  kbsij
+
+For arbitrary virtual displacements and rotations, Eq.
+
+(83) is satis®ed if
+
+ ksT11 kTsT12
+
+!
+
+ksT12 ksT22
+
+
+
+kbT11 kbTT12
+
+!& '
+
+kbT12 kbT22
+
+v vc
+
+
+
+& '& '& '
+
+fe f ec
+
+À
+
+f ss f ssc
+
+À
+
+f bs f bsc
+
+84
+
+2.11. Stiened shell elements with multiple stieners
+
+2.9. External virtual work
+
+The virtual work due to external nodal and traction
+
+forces in the kth element is expressed as
+
+& '& '
+
+de 
+
+dv dvc
+
+fe f ec
+
+80
+
+in which
+
+
+
+fe
+
+
+
+f
+
+nodal e
+
+
+
+NuTP d0A
+
+0A
+
+81a
+
+
+
+f ec
+
+
+
+f
+
+nodal ec
+
+
+
+NTucP d0A
+
+0A
+
+81b
+
+with
+
+PT  f0, 0, zg
+
+82
+
+In this analysis, only the externally applied pressure, z, is considered as the traction force in vector .
+
+2.10. Equations of equilibrium for the stiened shell element
+
+After implementing all of the integral terms in Eq. (20) into the ®nite element formulation and substituting from Eqs. (57), (58), (65), (72), (73), and (75), as well as the external virtual work given by Eq. (80), into Eq. (20), the statement of virtual work becomes
+
+& dv
+
+'T
+
+ksT11
+
+dvc
+
+ksTT12
+
+!& '
+
+ksT12 ksT22
+
+v vc
+
+
+
+kbT11 kbTT12
+
+!& ' kbT12 v kbT22 vc
+
+& ' & ' & '
+
+83
+
+À
+
+fe f ec
+
+
+
+f ss f ssc
+
+
+
+f bs f bsc
+
+0
+
+where
+
+If the shell element has more than one stiener, the
+
+®nite element formulation of each stiener can be per-
+
+formed independently. This is accomplished by relating
+
+the displacements and rotations of each individual stif-
+
+fener in terms of the displacements and rotations of
+
+the shell component using Eq. (51). For example, the
+
+displacements and rotations in the ith stiener (beam)
+
+element can be expressed as
+
+V WP
+
+`
+
+u H i
+b0
+
+
+
+X
+
+y
+
+H i
+b0
+
+
+
+a Y
+
+
+
+R
+
+NÅ
+
+H
+u
+
+A i  i 
+v
+
+
+
+JNyH i  Avi 
+
+z N A H i  H i  i 
+ec y v
+
+NcH
+
+A i  i 
+c
+
+Q& S
+
+v
+
+'
+
+0
+
+vc
+
+85
+
+In order to establish the stiness matrix for the ith stif-
+
+fener component, Eqs. (52) to (84) are also modi®ed
+
+by the superscript (i ) for all appropriate terms belong-
+
+ing to the ith stiener. Therefore, the ®nite element
+
+equations of equilibrium of a stiened shell with Nb stieners are obtained as
+
+H
+
+&
+
+fd
+
+ksT11 ksTT12
+
+ksT12 ksT22
+
+!
+
+
+
+P  Nb
+R
+i1
+
+kbiT11 kbiTT12
+
+kbiT12 kbiT22
+
+QI& Sge
+
+v vc
+
+'
+
+
+
+& fe f ec
+
+'
+
+À
+
+& f ss f ssc
+
+'
+
+À
+
+V
+
+ Nb `
+
+f
+
+i  bs
+
+i1
+
+X
+
+f
+
+i  bsc
+
+W a Y
+
+86
+
+In
+
+Eq.
+
+(86),
+
+NÅ uH i  ,
+
+NyH i  ,
+
+and
+
+N H i 
+c
+
+are
+
+de®ned
+
+in
+
+the
+
+(x '(i )±y '(i )) plane, which is the coordinate system used
+
+for the ith stiener component of the shell.
+
+Eqs. (85) and (86) demonstrate the capability of the
+
+present stiened-shell-element formulation to include
+
+multi-stieners on the shell surface. The locations,
+
+orientations, and the lengths of these stieners can be
+
+arbitrary. On the other hand, the element can be
+
+turned into a shell without stieners (by just setting
+
+the number of stieners attached to the element to
+
+zero) in order to discretize the unstiened section of
+
+the shell surface. Therefore, the element formulation is
+
+30
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+Fig. 5. Curved cantilever stiened plate subjected to a vertical point load at one corner: (a) geometry and material properties; and (b) ®nite element discretization.
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+31
+
+capable of accounting for all geometric possibilities (including discontinuities) of stiened shell con®gurations. However, in a few situations, such as a stiener crossing an opening on a shell, the beam formulation must be utilized for the stiener because the stiener above an opening is connected to the shell at the nodal points only.
+Once Eqs. (85) or (86) is constructed, the element matrices and vectors are transformed from element to global (structural) coordinates to form the structural stiness matrix. The absence of stiness terms associated with the drilling degrees-of-freedom may, however, result in an ill-conditioned or singular structural stiness matrix if all elements adjacent to a node happen to be co-planar. In order to avoid this problem, arti®cial stiness terms are introduced for the drilling degrees-of-freedom as suggested by Zienkiewicz [34]. These stiness terms are de®ned such that the equilibrium is not disturbed in the global coordinates, as numerically veri®ed by Zienkiewicz [34].
+
+3. Numerical results
+The performance of the shell element was veri®ed with numerous examples concerning small and large de¯ection analyses of composite plates and shells in earlier papers by Tessler and Hughes [31], Tessler [30], and Barut et al. [3]. The capability of the stiened shell element is demonstrated by considering a curved cantilever stiened plate with ®ve equally spaced stiffeners that is subjected to a vertical point load as shown in Fig. 5(a). The inner and outer radii of the curved (circular) plate are 4.5 and 5.5 m, respectively. The plate and the stieners are both isotropic, with Young's modulus 2.07 Â 1011 kN/m2 and Poisson's ratio 0.3. While one end of the plate is clamped, the other end is subjected to a vertical point load at the inner corner (see Fig. 5(a)).
+As depicted in Fig. 5(b), four dierent ®nite element discretizations, of orders (1 Â 30), (2 Â 20), (4 Â 30), and (5 Â 30), are considered in the analysis. This pro-
+
+Fig. 6. Comparison of results at x = 4.5, y = 0, and z = 0.
+
+32
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+blem was also considered by Jiang and Chernuka [9]. In their study, they presented a degenerated isoparametric stiened shell element with eight nodes. The results obtained from the present analysis and those reported by Jiang and Chernuka [9] are shown in Fig. 6. The results converge monotonically as the grid size is increased. The comparison of the results between the present ®nite element model and those reported by Jiang and Chernuka [9] using a ®nite element mesh with a grid order of (2 Â 16) is in close proximity for all grid sizes. The small discrepancy may be attributed to the severe non-linearity in the twisting behavior of the plate, requiring re®ned grids in the radial direction to capture the true behavior.
+The behavior of this stiened shell is highly nonlinear in bending and twisting. As observed from the sequence of deformations depicted in Fig. 7, the present stiened shell element can capture out-of-plane de¯ections of a magnitude close to the radius of the curved plate. This ®gure shows that the maximum de¯ection occurs at the unloaded free corner of the plate. This is basically due to the bending deformations that produce a slope higher than the twisting in the opposite direction at the free end of the curved plate.
+The capability of this element is further demonstrated by considering a simply supported composite
+
+stiened shell subjected to a uniform inward pressure, as shown in Fig. 8(a). The shell has the geometry of a spherical patch, with radius R = 2540 cm (1000 in). From the top view, the spherical patch has a square boundary with an edge length, 2a, of 254 cm (100 in). The shell is made up of a cross-ply laminate having two layers, with material properties E1=172.36 Pa (25 Â 106 psi), E2=6.9 GPa (106 psi), G12=3.456 GPa (0.5 Â 106 psi), and n12=0.15, and a ply thickness, tk, equal to 1.27 cm (0.5 in). The cross-ply stacking sequence of the shell is [08/908] from bottom to top.
+As shown in Fig. 8(a), the stieners are located along the two centerlines of the shell. The stieners also have a cross-ply lay-up with four layers. The stacking sequence of these layers, from bottom to top is [08/908]2. The material properties are the same as those assigned for the shell, including the ply thickness. The stieners width is speci®ed as 5.08 cm (2 in).
+In order to investigate the in¯uence of stiener eccentricity on the overall behavior of the stiened shell, the unstiened shell and three other stiened cases, as shown in Fig. 8(b), having stieners on the bottom face of the shell, stieners on both faces of the shell (concentric), and stieners located on the top of the shell are studied. The cases with unstiened and concentrically stiened shells were also investigated by
+
+Fig. 7. Deformed con®gurations of the curved cantilever stiened plate at various load steps.
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+33
+
+Fig. 8. Stiened cross-ply spherical patch subjected to inward pressure: (a) geometry and material properties; and (b) eccentric placements of stieners with respect to the middle surface of the shell.
+
+Liao and Reddy [14]. In their study, they used degenerated isoparametric shell and beam elements to discretize the patch. For this problem, the entire stiened shell is modeled by 160 unstiened and 36 stiened shell elements, as illustrated in Fig. 9, where the stieners are located along the cross-diagonal patch of triangular elements.
+
+This problem also demonstrates the capability of the present stiened shell element to capture the snapthrough buckling behavior of the stiened shell structure. Due to symmetry along the two centerlines, Liao and Reddy [14] introduced symmetry conditions so they could model only one-quarter of the stiened shell. In the present ®nite element model, the sym-
+
+34
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+Fig. 9. Finite element discretization of the stiened cross-ply spherical patch with stieners located on the cross-diagonal elements.
+
+Fig. 10. Comparison of results at the center of the spherical patch.
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+35
+
+metric buckling mode is captured by suppressing the horizontal displacements and rotations about the horizontal axes at the center of the stiened shell. The results for all four cases are illustrated in Fig. 10. Also shown in this ®gure are the results obtained by Liao and Reddy [14], denoted by hollow triangular symbols. The comparison between the present results and the results reported by Liao and Reddy [14] is in excellent agreement for both unstiened and concentrically stiffened cases. As observed from Fig. 10 for all cases, a remarkable conclusion can be drawn. The load carrying capacity of the stiened shell against buckling is in¯uenced by the eccentricity of stieners with respect to the shell middle surface. In this analysis, the snapthrough buckling load increases as the stieners are gradually shifted from bottom to top. Furthermore, the presence of stieners is increasing the load-carrying capacity compared to the unstiened shell case, an expected conclusion.
+
+Appendix A
+
+In Eq. (37), the interpolation functions xk, wk and xk for the triangular element given in Fig. A1 are expressed as
+
+xi
+
+
+
+1 2
+
+zi3zi
+
+À
+
+13zi
+
+À
+
+2
+
+i  1, 2, 3
+
+x4
+
+
+
+9 2
+
+z1
+
+z2
+
+3z1
+
+À
+
+1
+
+x5
+
+
+
+9 2
+
+z1
+
+z2
+
+3z2
+
+À
+
+1
+
+x6
+
+
+
+9 2
+
+z2
+
+z3
+
+3z2
+
+À
+
+1
+
+x7
+
+
+
+9 2
+
+z2
+
+z3
+
+3z3
+
+À
+
+1
+
+4. Conclusions
+A stiened shell element developed by combining shallow beam and shell elements has been presented. The ®nite element formulation of this new stiened shell element was achieved by constraining the displacement and rotation ®elds of the beam element. The constraint conditions were established by enforcing the rotations of the stiener to be the same as those of the shell element along the stiener local axis.
+Application of these constraint conditions permits the approximation of beam displacement and rotation ®elds in terms of the nodal unknowns of the shell element, thus eliminating a further need to apply constraint conditions between the shell and beam nodal points at the structural level. Also, the total numbers of degrees-of-freedom to model the entire stiened structure is reduced considerably.
+The two validation problems demonstrate the capability of the proposed stiened shell element to predict the geometrically nonlinear behavior of stiened panels subjected to mechanical loading. In the ®rst validation problem, attention was focused on the eect of multistiened elements. It was observed that the use of multi-stiened shell elements was reasonably accurate in all cases. The second validation problem emphasized the importance of the stiener eccentricity (with respect to the shell middle surface) on the pre- and postbuckling response of the stiened laminate. The stiener eccentricity in¯uenced the load-carrying capacity of the stiened structure. Therefore, the eccentricity of stieners must be considered in the design of stiened shell structures in order to take advantage of the skin±stiener interaction eectively.
+
+x8
+
+
+
+9 2
+
+z1
+
+z3
+
+3z3
+
+À
+
+1
+
+x9
+
+
+
+9 2
+
+z1
+
+z3
+
+3z1
+
+À
+
+1
+
+xc  27z1z2z3
+
+wi  zi2zi À 1 i  1, 2, 3
+
+w4  4z1z2
+
+w5  4z2z3
+
+w6  4z3z1
+
+A1
+
+where the area parametric coordinates, zi, are de®ned by
+
+zi
+
+
+
+1 2A
+
+ci
+
+ bix
+
+ aiy
+
+in which
+
+ai  x k À x j; bi  yj À yk; ci  x jyk À yjx k; and
+
+A
+
+
+
+a3b2
+
+À 2
+
+b3a2
+
+with xi and yi representing the coordinates of the ith node of the element. In Eq. (38), NÅ u, Nu , Nc and Ny are constructed as
+
+36
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+P
+
+Q
+
+x1 0 0 0 0 0 x2 0 0 0 0 0 x3 0 0 0 0 0
+
+Nu  R 0 x1 0 0 0 0 0 x2 0 0 0 0 0 x3 0 0 0 0 S
+
+0 0 w1 0 0 0 0 0 w2 0 0 0 0 0 w3 0 0 0
+
+P
+
+Q
+
+x4 x5 x6 x7 x8 x9 0 0 0 0 0 0 0 0 0
+
+Nu  R 0
+
+0
+
+0
+
+0
+
+0
+
+0
+
+x4 x5 x6 x7 x8 x9 0
+
+0
+
+0S
+
+0 0 0 0 0 0 0 0 0 0 0 0 w4 w5 w6
+
+P xc
+Nc  R 0 0
+
+Q 0 xc S 0
+
+P
+
+Q
+
+0 0 0 z1 0 0 0 0 0 z2 0 0 0 0 0 z3 0 0 Ny  R 0 0 0 0 z1 0 0 0 0 0 z2 0 0 0 0 0 z3 0 S
+
+0000 0 00000 0 00000 0 0
+
+The matrices Lu, Lv, and Lw in Eq. (40) are expressed in the form
+
+P
+
+Q
+
+2
+
+Lu
+
+
+
+TTTTRTTTTTTTTT
+
+3 1 3
+0
+0
+1 3
+
+0 0 0 0 0
+
+0 0 0 0 0
+
+v131 v331 0
+0 v123
+
+v132 v332 0
+0 v124
+
+0 0 0 0 0
+
+1 3
+2 3
+2 3
+1 3
+0
+
+0 0 0 0 0
+
+0 0 0 0 0
+
+v133 v333 v111 v311
+0
+
+v134 v334 v112 v312
+0
+
+0 0 0 0 0
+
+0
+0
+1 3
+2 3
+2 3
+
+0 0 0 0 0
+
+0 0 0 0 0
+
+0
+0 v113 v313 v121
+
+0
+0 v114 v314 v122
+
+0 0 0 0 0
+
+UUUUUUUSUUUUUU
+
+2 3
+
+0
+
+0
+
+v323
+
+v324
+
+0
+
+0
+
+0
+
+0
+
+0
+
+0
+
+0
+
+1 3
+
+0
+
+0
+
+v321
+
+v322
+
+0
+
+P
+
+Q
+
+Lv
+
+
+
+TTTTTTTTTTTTTR
+
+0 0 0 0 0
+
+2 3
+1 3
+0
+0
+1 3
+
+0 0 0 0 0
+
+v231 v431 0
+0 v223
+
+v232 v432 0
+0 v224
+
+0 0 0 0 0
+
+0 0 0 0 0
+
+1 3
+2 3
+2 3
+1 3
+0
+
+0 0 0 0 0
+
+v233 v433 v211 v411
+0
+
+v234 v434 v212 v412
+0
+
+0 0 0 0 0
+
+0 0 0 0 0
+
+0
+0
+1 3
+2 3
+2 3
+
+0 0 0 0 0
+
+0
+0 v213 v413 v221
+
+0
+0 v214 v414 v222
+
+0 0 0 0 0
+
+UUUUUUUSUUUUUU
+
+0
+
+2 3
+
+0
+
+v423
+
+v424
+
+0
+
+0
+
+0
+
+0
+
+0
+
+0
+
+0
+
+0
+
+1 3
+
+0
+
+v421
+
+v422
+
+0
+
+P
+
+Q
+
+Lw
+
+
+
+TRTTTTTT
+
+0 0
+
+0 0
+
+00
+
+1 2
+0
+1 2
+
+b3 8
+
+0
+
+À
+
+b2 8
+
+À
+
+a3 8
+
+0
+
+a2 8
+
+0 0 0
+
+0 0 0
+
+0 0 0
+
+1 2 1 2
+0
+
+À
+
+b3 8
+
+b1
+
+8
+
+0
+
+a3
+
+8
+
+À
+
+a1 8
+
+0
+
+0 0 0
+
+0 0 0
+
+0 0 0
+
+0
+1 2 1 2
+
+0
+
+À
+
+b1 8
+
+b2
+
+8
+
+0
+
+a1
+
+8
+
+À
+
+a2 8
+
+0 0
+
+UUUUUUSU
+
+0
+
+with vmkn de®ned as 3
+
+v11  p1 À cos c sin cq1, v12  sin 2 cq1
+
+A2a A2b A2c A2d A3a
+A3b
+A3c
+
+3 For simplicity, the superscript (k ) is removed, unless otherwise indicated, since all variables are de®ned along the kth edge.
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+37
+
+v13  p2 À cos c sin cq2, v14  sin 2 cq2
+
+ask2  cos ckh, xx j, yj   sin ckh, yx j, yj 
+
+v21  cos 2 cq1, v22  p1 À cos c sin cq1
+
+ank1  sin ckh, xx i, yi  À cos ckh, yx i, yi 
+
+v23  cos 2 cq2, v24  p2 À cos c sin cq2
+
+v31  p3 À cos c sin cq3, v32  sin 2 cq3
+
+v33  p4 À cos c sin cq4, v34  sin 2 cq4
+
+v41  cos 2 cq3, v42  p3 À cos c sin cq3
+
+v43  cos 2 cq4, v44  p4 À cos c sin cq4
+
+in which pm and qm are
+
+
+
+
+
+p1
+
+
+
+d 9
+
+as1
+
+À
+
+1 9
+
+as21
+
+,
+
+
+
+
+
+p2
+
+
+
+d 9
+
+À
+
+as2
+
+
+
+1 9
+
+as21
+
+A4
+
+
+
+
+
+p3
+
+
+
+d 9
+
+as1
+
+
+
+1 9
+
+as21
+
+,
+
+
+
+
+
+p4
+
+
+
+d 9
+
+À
+
+as2
+
+À
+
+1 9
+
+as21
+
+
+
+
+
+q1
+
+
+
+d 9
+
+an1
+
+
+
+1 9
+
+an21
+
+,
+
+
+
+
+
+q2
+
+
+
+d 9
+
+À
+
+an2
+
+
+
+1 9
+
+an21
+
+
+
+
+
+q3
+
+
+
+d 9
+
+an1
+
+
+
+1 9
+
+an21
+
+,
+
+
+
+
+
+q4
+
+
+
+d 9
+
+À
+
+an2
+
+À
+
+1 9
+
+an21
+
+with
+
+q d k  x j À x i 2   yj À yi 2
+
+A5
+
+ank2  sin ckh, xx j, yj  À cos ckh, yx j, yj  and
+
+A6
+
+cos
+
+ck
+
+
+
+x
+
+jÀx d k
+
+i
+
+,
+
+sin
+
+ck
+
+
+
+yj À yi d k
+
+A7
+
+The subscripts i, j, and k follow the permutation order
+
+i  1, 2, 3; j  2, 3, 1; and k  3, 1, 2
+
+In Eq. (55), the incremental strain±displacement matrix dierential operators Bu and By are expressed as
+
+P d
+
+Bu
+
+
+
+TTRTTTTTTTTTTTTTTTTTTT
+
+dx
+0
+d dy 0 0
+0
+
+0
+
+0
+d dy d dx 0 0
+0
+0
+
+Q
+
+0
+0
+0
+0 0 d dx d
+
+UUUUUUUUUUUUUUUUUUUUUS
+
+dy
+
+and
+
+P
+
+By
+
+
+
+TTTTTTTTTTTTTTTTTTRTTTTTTTT
+
+0
+
+À
+
+d d
+
+h y
+
+À
+
+dh dx
+
+0
+d dy d dx 0
+
+À
+
+dh dx
+
+0
+
+À
+
+d d
+
+h y
+
+d
+
+dx
+
+0
+
+d dy 1
+
+Q
+
+0 0 0 0 0 0 0
+
+UUUUUUUUUUUUSUUUUUUUUUUUUUU
+
+1
+
+0
+
+0
+
+A8a,b
+
+ask1  cos ckh, xx i, yi   sin ckh, yx i, yi 
+
+Appendix B
+
+The shape matrices NuH , Nu H , NcH, and NyH in Eqs. (47) and (49) are established as
+
+NuH
+
+
+
+P R
+
+x1H 0
+
+0 x1H
+
+0 0
+
+0 0
+
+0 0
+
+0 0
+
+x2H 0
+
+0 x2H
+
+0 0
+
+0 0
+
+0 0
+
+0 0
+
+x3H 0
+
+0 x3H
+
+0 0
+
+Q 000 0 0 0S
+
+0 0 w1H 0 0 0 0 0 w2H 0 0 0 0 0 w3H 0 0 0
+
+Nu H
+
+
+
+P R
+
+x4H 0
+
+x5H 0
+
+x6H 0
+
+x7H 0
+
+x8H 0
+
+x9H 0
+
+0 x4H
+
+0 x5H
+
+0 x6H
+
+0 x7H
+
+0 x8H
+
+0 x9H
+
+0 0
+
+0 0
+
+Q 0 0S
+
+0 0 0 0 0 0 0 0 0 0 0 0 w4H w5H w6H
+
+B1a B1b
+
+38
+
+NcH
+
+
+
+P R
+
+xcH 0
+
+0
+
+Q 0 xcH S 0
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+P 0
+NyH  R 0
+
+0 0
+
+0 0
+
+x1H 0
+
+0 x1H
+
+0 0
+
+0 0
+
+0 0
+
+0 0
+
+x2H 0
+
+0 x2H
+
+0 0
+
+0 0
+
+0 0
+
+0 0
+
+x3H 0
+
+0 x3H
+
+Q 0 0S
+
+0000 0 00000 0 00000 0 0
+
+B1c B1d
+
+Fig. A1. Anisoparametric nodal con®gurations of (a) in-plane displacements, u0 and v0, (b) transverse displacement, w0, and (c) out-of-plane rotations, yx and yy. The hollow and solid circles indicate, respectively, the nodes that are eliminated and kept after the imposition of constraint conditions, Eq. (39), prior to the generation of the stiness matrix.
+
+where the interpolation functions, de®ned along the x 'axis, are
+
+xiH
+
+
+
+9biH 3 16A3
+
+x
+
+H
+
+3
+
+
+
+
+
+
+
+27biH 2 ciH 16A3
+
+À
+
+9biH 2 8A2
+
+xH2
+
+
+
+
+
+
+
+27biHciH 2 16A3
+
+À
+
+9biH ciH 4A2
+
+
+
+biH 2A
+
+xH
+
+B2a
+
+
+
+9ciH 3 16A3
+
+À
+
+9ciH 2 8A2
+
+
+
+ciH 2A
+
+i  1, 2, 3
+
+x2H 2i
+
+
+
+27biH 2 bjH 16A3
+
+x
+
+H
+
+3
+
+2
+
+3
+
+
+
+27biH 2 cjH 16A3
+
+
+
+27biHbjHciH 8A3
+
+À
+
+9biH bjH 8A2
+
+x2
+
+2
+
+3
+
+
+
+27biHciHcjH 8A3
+
+
+
+27bjHciH 2 16A3
+
+À
+
+9biH cjH 8A2
+
+À
+
+9bjH ciH 8A2
+
+xH
+
+
+
+27cjH 2 cjH 16A3
+
+À
+
+9ciHcjH 2 8A2
+
+i  1, 2, 3; j  2, 3, 1
+
+B2b
+
+x3H 2i
+
+
+
+27bjH 2 biH 16A3
+
+x
+
+H
+
+3
+
+2
+
+3
+
+
+
+27bjH 2 ciH 16A3
+
+
+
+27bjHbiHcjH 8A3
+
+À
+
+9bjH biH 8A2
+
+xH 2
+
+2
+
+3
+
+
+
+27bjHcjHciH 8A3
+
+
+
+27biHcjH 2 16A3
+
+À
+
+9bjH ciH 8A2
+
+À
+
+9biH cjH 8A2
+
+xH
+
+
+
+27cjH 2 ciH 16A3
+
+À
+
+9cjHciH 2 8A2
+
+i  1, 2, 3; j  2, 3, 1
+
+B2c
+
+xcH
+
+
+
+27b1H b2H b3H 8A3
+
+x
+
+H
+
+3
+
+
+
+
+
+27b1H b2H c3H 8A3
+
+
+
+27b2H b3H c1H 8A3
+
+
+
+27b1H b3H c2H 8A3
+
+ x
+
+H
+
+2
+
+
+
+
+
+27b1H c2H 8A3
+
+c3H
+
+
+
+27b3H c1H c2H 8A3
+
+ x
+
+H
+
+
+
+27c1H c2H c3H 8A3
+
+B2d
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+39
+
+wiH
+
+
+
+biH 2 2A2
+
+x
+
+H
+
+2
+
+
+
+
+
+biHciH A2
+
+À
+
+biH 2A
+
+ x
+
+H
+
+
+
+ciH 2 2A2
+
+À
+
+ciH 2A
+
+i  1, 2, 3
+
+B2e
+
+wiH3
+
+
+
+biH bjH A2
+
+x
+
+H
+
+2
+
+
+
+
+
+biHcjH A2
+
+
+
+bjH ciH A2
+
+ x
+
+H
+
+
+
+ciHcjH A2
+
+i  1, 2, 3; j  2, 3, 1
+
+B2f
+
+xiH
+
+
+
+ciH
+
+ biHx 2A
+
+H
+
+
+
+i  1, 2, 3
+
+B2g
+
+where I6 and I3 are identity matrices of orders (6 Â 6)
+and (3 Â 3), respectively. In Eq. (56), BbHu and BbHy are the matrix dierential
+operators transforming displacements and rotation
+
+®elds in the stiener (beam) to the linear part of the
+
+resultant strains and are de®ned in the form
+
+P d
+
+BbH u
+
+
+
+TTTTTTTR
+
+dx 0 0
+
+H
+
+Q
+
+0
+0 0
+
+0
+d dx 0
+
+H
+
+UUUUUSUU
+
+and
+
+0 00
+
+with biH  yjH À ykH
+
+ciH
+
+
+
+x jHykH
+
+À
+
+x
+
+H k
+
+yjH
+
+i  1, 2, 3; j  2, 3, 1; k  3, 1, 2
+
+In Eqs. (B2), the subscripts i, j, and k following the
+permutation order. The expression for the areas, A,
+was given in Appendix A. The coordinates of the nodal points, xiH and yiH, can be expressed in terms of those de®ned in the (x±y ) coordinate system from Eq.
+(17).
+The transformation of the nodal unknown vectors
+from the (x±y ) to (x '±y ') planes are established by the
+matrices Av and Ac in Eqs. (50) for the nodal unknowns de®ned at the vertex points and centroid of
+the shell element, respectively. The matrices Av and Ac are constructed as follows:
+
+P
+
+Q
+
+BbH y
+
+
+
+TTTTRTTTTT
+
+0
+0 d
+dx
+
+H
+
+0
+
+À
+
+d
+
+d x
+
+H
+
+1
+
+0
+
+d dx H
+
+0 0 0
+
+USUUUUUUUU
+
+0
+
+B6a,b
+
+The resultant stress matrices t0GÃ bH and 0tDtTÃ bH in Eqs. (68) contain the following resultant stress components:
+
+P
+
+t 0
+
+GÃ bH
+
+
+
+TTTTTR
+
+t 0
+
+N
+
+0
+
+0
+
+0
+
+H bsx
+
+t 0
+
+MbHsy
+
+0
+
+t 0
+
+N
+
+H bsx
+
+0
+
+À0t MbHsy 0
+
+0
+
+0
+
+t 0
+
+N
+
+H bsx
+
+0
+
+0
+
+0 Àt0 MbH sy 0
+0
+0
+
+Q
+
+t 0
+
+MbHsy
+
+0
+
+0
+
+0
+
+UUUUUS
+
+0
+
+B7
+
+P
+
+Q
+
+Av6 0 0
+
+Av  R 0 Av6 0 S
+
+0 0 Av6
+
+B3 References
+
+in which
+
+P
+
+Q
+
+cos fb sin fb 0 0
+
+0
+
+0
+
+Av6
+
+
+
+TTRTTTT
+
+Àsin 0 0 0
+
+fb
+
+cos fb 0
+0
+0
+
+0 1 0 0
+
+0
+0
+cos fb sin fb
+
+0
+0
+Àsin fb cos fb
+
+0 0 0 0
+
+SUUUUUU
+
+0
+
+0
+
+00
+
+0
+
+1
+
+and
+
+!
+
+Ac 
+
+cos fb Àsin fb
+
+sin fb cos fb
+
+B4
+
+The transformation matrix, Av , between Ls and LsH in Eq. (54) is constructed as
+
+P
+
+Q
+
+cos fbI6 sin fbI6 0
+
+Av  R Àsin fbI6 cos fbI6 0 S
+
+0
+
+0
+
+I3
+
+B5
+
+[1] Ahmad S, Irons BM, Zienkiewicz OC. Analysis of thick and thin shell structures by curved ®nite elements. Int J Numer Meth Engng 1970;2:419±51.
+[2] Barut A. Nonlinear thermo-mechanical analysis of stiffened composite laminates by a new ®nite element. Ph.D. dissertation, University of Arizona Tucson, 1998.
+[3] Barut A, Madenci E, Tessler A. Nonlinear analysis of laminates through a Mindlin-type shear deformable shallow shell element. Comp Meth Appl Mech Engng 1997;143:155±73.
+[4] Bathe KJ. Finite element procedures. Englewood Clis, NJ: Prentice-Hall, 1996.
+[5] Chattopadhyay B, Sinha PK, Mukhopadhyay M. Geometrically nonlinear analysis of composite stiened plates using ®nite elements. Composite Structures 1995;31:107±18.
+[6] Goswami S, Mukhopadhyay M. Geometrically nonlinear analysis of laminated composite stiened shells. Journal of Reinforced Plastics and Composites 1995;14:1317±36.
+[7] Goswami S, Mukhopadhyay M. Geometrically nonlinear transient dynamic response of laminated composite stif-
+
+40
+
+A. Barut et al. / Computers and Structures 77 (2000) 11±40
+
+fened shells. Journal of Reinforced Plastics and Composites 1995;14:618±40. [8] Ji Z-Y, Yeh K-Y. General solution for nonlinear buckling of nonhomogeneous axial symmetric ring- and stringer-stiened cylindrical shells. Computers and Structures 1990;34:585±91. [9] Jiang L, Chernuka MW. An eccentrically stiened shell element model with geometrically non-linear capability. Engineering Computations 1995;12:451±67. [10] Jiang J, Olson MD. Nonlinear analysis of orthogonally stiened cylindrical shells by a super element approach. Finite Element Analysis and Design 1994;18:99±110. [11] von Karman T. Festigkeitsprobleme im Maschinenbau. Encyklop d math Wissensch 1910;4(II):311±85. [12] Knight Jr NF, Starnes Jr JH. Postbuckling behavior of selected curved stiened graphite±epoxy panels loaded in axial compression. AIAA Journal 1988;26:344±52. [13] Koko TS, Olson MD. Nonlinear transient response of stiened plates to air blast loading by a superelement approach. Comput Methods Appl Mech Engng 1991;90:737±60. [14] Liao CL, Reddy JN. Continuum-based stiened composite shell element for geometrically nonlinear analysis. AIAA Journal 1989;27:95±101. [15] Liao CL, Reddy JN. Analysis of anisotropic, stiened composite laminates using a continuum-based shell element. Computers and Structures 1990;34:805±15. [16] Marguerre K. Zur Theorie der Gekrummten Platte Grosser Formanderung. In: Fifth International Congress for Applied Mechanics, Cambridge, MA, 1938. pp. 93± 101. [17] Mindlin RD. In¯uence of rotatory inertia and shear on ¯exural motions of isotropic, elastic plates. J Applied Mechanics 1951;18:31±8. [18] Mukhopadhyay M, Mukherjee A. Finite element buckling analysis of stiened plates. Computers and Structures 1990;34:795±803. [19] Nagendra S, GuÈ rdal Z, Haftka RT, Starnes Jr JH. Buckling and failure characteristics of compressionloaded stiened composite panels with a hole. Composite Structures 1994;28:1±17. [20] Novozhilov VV. Foundations of the nonlinear theory of elasticity. Rochester, NY: Graylock Press, 1953. [21] OnÄ ate E. Nonlinear analysis of shells by ®nite elements. CISM Courses and Lectures, No. 328. International
+
+Center for Mechanical Sciences, Springer-Verlag, 1994. pp. 223±56. [22] Rankin CC, Brogan FA. An element independent co-rotational procedure for the treatment of large rotations. J Pressure Vessel Technology 1986;108:165±74. [23] Rao DV, Sheikh AH, Mukhopadhyay M. A ®nite element large displacement analysis of stiened plates. Computers and Structures 1993;47:987±93. [24] Reissner E. The eect of transverse shear deformation on the bending of elastic plates. J Applied Mechanics 1945;12:69±77. [25] Shastry BP, Rao GV, Reddy MN. Stability of stiened plates using high precision ®nite elements. Nuclear Engineering and Design 1976;36:91±5. [26] Sobel L, Sharp D. Comparison of analytical and experimental results for the postbuckling behavior of a stiffened, ¯at, composite shear panel. AIAA Paper No. AIAA-94-1365-CP, 1994. pp. 449±57. [27] Starnes JH Jr, Britt VO, Rankin CC. Nonlinear response of damaged stiened shells subjected to combined internal pressure and mechanical loads. AIAA Paper No. AIAA-95-1462-CP, 1995. pp. 2700±712. [28] Starnes Jr JH, Britt VO, Young RD, Rankin CC, Shore, CP, Brains NJC. Nonlinear analysis of damaged stiened fuselage shells subjected to combined loads. In: FAA/ NASA International Symposium on Advanced Structural Integrity Methods for Airframe Durability and Damage Tolerance, Hampton, VA. pp. 1045±1075. [29] Starnes Jr JH, Knight Jr NF, Rouse M. Postbuckling behavior of selected ¯at stiened graphite±epoxy panels loaded in compression. AIAA Journal 1985;23:1236±46. [30] Tessler A. A C 0-anisoparametric three-node shallow shell element. Comp Meth Appl Mech Engng 1990;78:89±103. [31] Tessler A, Hughes Jr T. A 3-node Mindlin plate element with improved transverse-shear. Comp Meth Appl Mech Engng 1985;50:71±101. [32] Tripathy B, Rao KP. Stiened composite cylindrical panels Ð optimum lay-up for buckling by ranking. Computers and Structures 1992;42:481±8. [33] Yang PC, Norris CH, Stavsky Y. Elastic wave propagation in heterogeneous plates. Int J Solids Structures 1966;2:665±84. [34] Zienkiewicz OC. The ®nite element method in engineering science. London: McGraw-Hill, 1971.
+
