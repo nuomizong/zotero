@@ -1,0 +1,927 @@
+Worst-case Structural Analysis
+Qingnan Zhou∗, Julian Panetta† and Denis Zorin‡ New York University
+
+Figure 1: Overview of the steps of the algorithm
+
+Abstract
+Direct digital manufacturing is a set of rapidly evolving technologies that provide easy ways to manufacture highly customized and unique products. The development pipeline for such products is radically different from the conventional manufacturing pipeline: 3D geometric models are designed by users often with little or no manufacturing experience, and sent directly to the printer. Structural analysis on the user side with conventional tools is often unfeasible as it requires specialized training and software. Trial-anderror, the most common approach, is time-consuming and expensive.
+We present a method that would identify structural problems in objects designed for 3D printing based on geometry and material properties only, without speciﬁc assumptions on loads and manual load setup. We solve a constrained optimization problem to determine the “worst” load distribution for a shape that will cause high local stress or large deformations. While in its general form this optimization has a prohibitively high computational cost, we demonstrate that an approximate method makes it possible to solve the problem rapidly for a broad range of printed models. We validate our method both computationally and experimentally and demonstrate that it has good predictive power for a number of diverse 3D printed shapes.
+CR Categories: I.3.5 [Computer Graphics]: Computational Geometry and Object Modeling—[Physically based modeling]; J.6 [Computer-Aided Engineering]: Computer-aided design—.
+Keywords: structural analysis, digital manufacturing
+Links: DL PDF
+∗e-mail: qnzhou@cs.nyu.edu †e-mail: jpanetta@cs.nyu.edu ‡e-mail: dzorin@cs.nyu.edu
+ACM Reference Format Zhou, Q., Panetta, J., Zorin, D. 2013. Worst-case Structural Analysis. ACM Trans. Graph. 32, 4, Article 137 (July 2013), 11 pages. DOI = 10.1145/2461912.2461967 http://doi.acm.org/10.1145/2461912.2461967.
+Copyright Notice Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for proﬁt or commercial advantage and that copies bear this notice and the full citation on the ﬁrst page. Copyrights for components of this work owned by others than the author(s) must be honored. Abstracting with credit is permitted. To copy otherwise, or republish, to post on servers or to redistribute to lists, requires prior speciﬁc permission and/or a fee. Request permissions from permissions@acm.org. 2013 Copyright held by the Owner/Author. Publication rights licensed to ACM. 0730-0301/13/07-ART137 $15.00. DOI: http://dx.doi.org/10.1145/2461912.2461967
+
+1 Introduction
+We present an algorithm approximating the solution of the following problem: From the shape of an object and its material properties, determine the easiest (in terms of minimal applied force) ways to break it or severely deform it.
+Our work is largely motivated by applications in 3D printing. The cost of 3D printing has come down signiﬁcantly over the past few years, and the industry is undergoing a rapid expansion, making customized manufacturing in an increasingly broad variety of materials available to a broad user base. While many of the users are experienced creators of digital 3D shapes, engineering design expertise is far less common, and widely used 3D modeling tools lack accessible ways to predict mechanical behavior of a 3D model.
+There are a number of reasons why a 3D model cannot be manufactured or is likely to fail:
+(1) the dimensions of thin features (walls, cylinder-like features, etc.) are too small for the printing process, resulting in shape fragmentation at the printing stage;
+(2) the strength of the shape is not high enough to withstand gravity, at one of the stages of the printing process;
+(3) the printed shape is likely to be damaged during routine handling during the printing process or shipment;
+(4) the shape breaks during routine use.
+In most cases, the ﬁrst problem is addressed by simple geometric rules ([Telea and Jalba 2011]), and the second is a straightforward direct simulation problem. Our focus is on the other two problems. On the one hand, many 3D printed objects are manufactured with a speciﬁc mechanical role in mind, and full evaluation is possible only if sufﬁcient information on expected loads is available. On the other hand, jewelry, toys, art pieces, various types of clothing, and gadget accessories account for a large fraction of products shipped by 3D printing service providers. These objects are often expected to withstand a variety of poorly deﬁned loads (picking up, accidental bending or dropping, forces during shipping, etc.).
+To be able to predict structural soundness of a printed object, we look for worst-case loads, within a suitably constrained family, that are most likely to result in damage or undesirable deformations. A direct formulation results in difﬁcult nonlinear and nonconvex optimization problems with PDE constraints. We have developed an approximate method for this search, reducing it to an eigenproblem and a sequence of linear programming problems.
+We demonstrate experimentally that our approach predicts the breaking locations and extreme deformations quite well. While primarily designed for 3D printing applications, our method can be
+ACM Transactions on Graphics, Vol. 32, No. 4, Article 137, Publication Date: July 2013
+
+137:2 • Q. Zhou et al.
+applied in any context where loads are unpredictable and structural weaknesses need to be identiﬁed.
+2 Related work
+Computational analysis of structural soundness of mechanical parts and buildings is broadly used, but almost always in the context of known sets of loads. While engineers routinely need to evaluate soundness of structures and mechanisms under worst-case scenarios, in most cases, worst-case loads are designed empirically for speciﬁc problems (e.g., construction of buildings to withstand loads from ﬂooding or earthquakes). Automatic methods are less common: an important set of methods in the context of modeling under uncertainty is based on the idea of anti-optimization (e.g., [Elishakof and Ohsaki 2010]), our work is partially inspired by these concepts.
+In aerospace engineering, ﬁlter-based methods were developed to predict worst-case gusts and turbulence encountered by an airplane. E.g., [Zeiler 1997; Fidkowski et al. 2008] describes a model the aircraft’s response to turbulence as a linear ﬁlter’s response to Gaussian white noise. From this model, a worst-case noise sample and resulting strain are obtained.
+In the context of analysis tailored for 3D printing applications of the type considered in this paper, the closest work to ours is [Stava et al. 2012]. This paper proposes to evaluate 3D shapes in two main scenarios to discover structure weakness: applying gravity loads and gripping the shape using 2 ﬁngers at locations predicted by a heuristic method. This set of ﬁxed usage scenarios is often insufﬁcient to expose the true structure weakness for many printed shapes, as discussed in greater detail in Section 5. The paper also describes methods for automatic improvement of objects. [Telea and Jalba 2011] focuses on purely geometric ways to evaluate whether a structure is suitable for 3D printing based on empirical rules formulated by 3D printing industry ([Z CORPORATION 2011], [Shapeways 2011]).
+Structural stability for simple furniture constructed from rigid planks connected by nails is analyzed at interactive rates in [Umetani et al. 2012]. Their system also suggests corrections when shapes with poor stability are detected.
+A number of recent works address various aspects of computational design for 3D printing. [Bickel et al. 2010] provide a pipeline to print objects in a composite material that reproduces desired deformation behavior. To achieve this goal, the authors accurately model the nonlinear stress-strain relationship of their printing materials and how printed models will respond to imposed loads. The space of deformations is a user-supplied input, and structural soundness of the design with respect to other loads is not considered. While some specialized work on CAD for 3D printing exists, (e.g., the system for heterogeneous material design [Kou and Tan 2007]), overwhelmingly, standard tools with no or little analysis support are used.
+[Luo et al. 2012] proposes a framework to decompose 3D shapes into smaller parts that can be assembled without compromising the physical functionality of the shape so that larger objects can be printed using printers with a small working volume. They use a standard ﬁnite element simulation to estimate stress of the input shape under gravity in a user speciﬁed upright orientation. Other works aim to print articulated models that maintain poses under gravity but do not require manual assembly. [Cal`ı et al. 2012] designs and ﬁts a generic, parametrized printable joint template based on a ball and socket joint. Their joint provides enough internal friction and strength to hold poses and survive manipulation, but they tune its parameters experimentally instead of using a physicallybased optimization. [Ba¨cher et al. 2012] designs a similar ball and socket joint and a hinge joint. An approximate geometric optimization of stresses is performed by maximizing certain cross-sectional areas of the joint.
+3D printing has also been used to reproduce appearance: [Hasˇan et al. 2010] and [Dong et al. 2010] optimize the layering of base
+ACM Transactions on Graphics, Vol. 32, No. 4, Article 137, Publication Date: July 2013
+
+materials in a 3D multi-material printer to print objects whose subsurface scattering best matches an input BSSRDF.
+Our method relies on using eigenmodes of the shape. Modal analysis has proven useful in many contexts. The use of Laplacian eigenmodes of simple shapes for computation predates computers [Timoshenko and Woinowsky-Krieger 1940] and has a long history in model order reduction for a variety of applications including nonlinear elasticity (e.g., [Nickell 1976]). In graphics literature, [Pentland and Williams 1989] ﬁrst introduced eigenmodes as a basis suitable for simulation applications, and more recently, a number of deformation-related algorithms based on eigenmode bases were proposed, e.g., [Hauser et al. 2003; Barbicˇ and James 2005; Barbicˇ and James 2010].
+At the same time, experimental modal analysis (applying periodic forces with different frequencies and measuring displacements at various points) is broadly used to detect structural damage [Ewins 2000].
+Finally, [Pratt et al. 1998] presents an overview of several simulations and experiments exploring how printing parameters (build orientation, layer thickness, scan path and speed, temperature, etc.) affect the accuracy and strength of simple shapes. The goal of these works is to evaluate and improve printing technology itself rather than detecting or ﬁxing deﬁciencies in the input shape.
+2.1 3D printing processes
+To motivate the design of our structural analysis process, we brieﬂy review the most commonly used 3D printing processes and the types of structural problems one can expect. The most relevant aspects of 3D printing processes for structural analysis are the mechanical characteristics of materials produced at different stages and typical loads on the object during the production process and after.
+Common single-stage 3D printing processes either deposit the liquid material only in needed places (e.g., FDM) or deposit material in powder form layer by layer, and then fuse or harden it at points inside the object (e.g., stereolithography uses photosensistive polymers, and laser sintering fuses regular polymers by heat).
+These processes typically use ﬂexible polymers with large elastic and plastic zones in their stress-strain curves. These polymers rarely break if geometric criteria for printability are satisﬁed, but they can undergo large plastic deformations.
+Printing metal, ceramics, and composite materials often involves multiple stages. For example, the object may be printed layer by layer in metal powder with polymer binder. At the next stage, the binder is cured in a furnace, resulting in a green state part, and at the last stage, the metal is fused in a furnace and extra metal is added. Green state is brittle and has low strength, so parts in this state easily damaged. A simpler multistage process is used for relatively brittle composite materials, e.g., gypsum-based multicolor materials; a second curing stage is used to give the material additional strength. Both the green state and the ﬁnal material are relatively brittle. Whenever binding polymer is mixed layer-by-layer with a different material, resulting material is likely to be highly anisotropic.
+To summarize, both brittle and ductile materials are of importance. The former requires predicting where the material is likely to break, and the latter requires predicting extreme deformations likely to become plastic. Due to the layer-by-layer nature of the printing process, anisotropy is common and needs to be taken into account. Some of the loads even during production stages are hard to predict and quantify.
+Goals. These considerations lead to several possible goals for structural analysis, uniﬁed by a common theme of identifying worst-case loads in a family of loads satisfying some constraints (bounds on total force, pressure, direction etc.). The worst-case load is understood to be the one that leads to maximal damage, which can be
+
+measured by a norm of stress, maximal displacements, and various functions of these quantities.
+
+3 Worst-case structural analysis
+Next, we present a formal description of the problem. This formulation is computationally intractable, but it is needed as a foundation for a practical approximate version described in Section 4.
+Linear elasticity. We use an anisotropic linear material model and the linear elasticity equations to model object behavior for the purposes of determining weak spots and worst-case force distribution. This model is adequate for some materials used in 3D printing, but nonlinear models may be necessary for others, as discussed in greater detail in Section 6. We emphasize that a distinction should be made between simulation with given loads used to determine precise stress distributions and computation used to determine approximate worst-case loads: lower accuracy is acceptable for the latter. We brieﬂy review the standard elasticity equations to introduce notation. The stress-strain relationship is linear, and stress is related linearly to displacement:
+
+σ =C :
+
+=
+
+1
+
+“ ∇u
+
++
+
+∇uT
+
+”
+
+(1)
+
+2
+
+where is the strain tensor, σ is the stress tensor, and u is the dis-
+
+placement. C is the rank-4 elasticity tensor, Cijlm, and the no-
+
+tation C : denotes application of this tensor to the strain tensor
+
+,
+
+P
+l,m
+
+Cijlm
+
+lm .
+
+We discuss the choice and effects of elasticity
+
+tensor C in greater detail in Section 6. We assume an orthotropic
+
+material, for which the tensor Cijlm has up to 9 independent pa-
+
+rameters. In a coordinate system aligned with material axes, if we
+
+represent C as as a 6 × 6 matrix acting on vectors of components
+
+of the symmetric strain tensors [ 11, 11, 33, 2 23, 2 31, 2 12], its
+
+inverse is given by
+
+21 6646−−Yνν0YY1111132
+0
+0
+
+−
+
+ν21 1Y2
+
+−YνY2223
+
+0
+
+0
+
+0
+
+− −
+
+ν31 νY332 Y3
+
+1
+
+Y3
+
+0
+
+0
+
+0
+
+0
+0
+0 1/G23
+0 0
+
+0
+0
+0 0 1/G31 0
+
+03
+
+0
+
+7 07
+
+0
+
+7 5
+
+0
+
+1/G12
+
+where Yi are directional Young’s moduli, Gij are shear moduli, and νij are Poisson ratios for different pairs of directions, satisfying νij /Yi = νji/Yj .
+For dynamic linear problems with volume force density F , the equation of motion is
+
+∇ · σ = F + ρu¨,
+
+(2)
+
+where ρ is the density, and the dot signiﬁes the time derivative. We are primarily interested in static problems, but as we use modal analysis at an intermediate stage, we retain the term ρu¨.
+Equation 2 is subject to boundary conditions: we primarily use a surface force density FS, which is captured by the condition σn = −FS on the boundary of the object. If the object is attached to a rigid support, Dirichlet conditions u = 0 can be imposed on a part of the boundary.
+If the equation of motion (2) is written directly in terms of displacement u, we get
+
+∇
+
+·
+
+“ C
+
+:
+
+(∇u
+
++
+
+∇uT
+
+” )
+
+:=
+
+Lu
+
+=
+
+F
+
++
+
+ρu¨.
+
+(3)
+
+Rigid motion, torque and translation constraints for static problems. If the object is not ﬁxed at least at 3 non-collinear points, an arbitrary force distribution will result in motion of the whole object. As we are interested in considering unknown forces, with no assumptions on attachment, we need to be able to eliminate global
+
+Worst-case Structural Analysis • 137:3
+motion. We achieve this by imposing zero total force and zero total torque constraints, which can be written as
+
+Z
+
+Z
+
+F dV + FSdA = 0,
+
+Ω
+
+∂Ω
+
+Z
+
+Z
+
+(4)
+
+F × (x − xc)dV + FS × (x − xc)dA = 0.
+
+Ω
+
+∂Ω
+
+Displacements enter into this system only in the form Lu, and the operator L has inﬁnitesimal rigid motions in its nullspace. To have a unique solution in u, we impose the zero rigid motion constraint, similar to total torque and force constraints:
+
+Z
+
+Z
+
+udV = 0,
+
+u × (x − xc)dV = 0.
+
+(5)
+
+Ω
+
+Ω
+
+Surface force model. In cases of interest, the only volume force is gravity. In all but most extreme cases, gravity does not have a major effect, so we concentrate on surface forces. We restrict the forces in three ways.
+• Only positive normal forces allowed: FS = −pn, where n is the surface normal, and p is pressure, thus ignoring friction. This is an important assumption, as for most situations described in Section 2.1, friction forces are likely to be significantly lower than normal forces. At the same time, it is hard to model the bounds on ratios between normal and tangential components accurately in the absence of detailed knowledge of loads and surfaces. Without such bounds, any optimization is likely to produce unrealistic tangential results. Similarly, negative surface forces (e.g., electrostatic attraction), are not likely to play a major role and are excluded.
+• Pointwise pressure is bounded: p < pmax. If a pressure may be unbounded, an arbitrarily high stress may be produced at a point on the surface. While highly concentrated forces are possible, these are rare, and we assume that a realistic bound on surface pressure is available.
+• The total force is ﬁxed. Again, by increasing the total force, arbitrarily high stresses can be obtained.
+For example, if our primary target is simulating manual handling situations, one can bound the force by a typical force a human can apply by squeezing, and the maximal pressure is derived from the size of the ﬁnger tips.
+Problem formulation. It remains to specify the objective function. One commonly used measure of interest is maximal principal stress, maxΩ maxi=1,2,3 |σi|, where σi are the eigenvalues of the stress tensor. The complete problem of ﬁnding the worst-case force distribution satisfying the constraints of our model and optimizing this objective function, has the form
+
+max max |σi| → max;
+Ω i=1,2,3
+
+Lu = 0 on Ω, C : (∇u + ∇uT )n = pn on ∂Ω,
+
+Z
+
+Z
+
+pndA = 0, pn × (x − xc)dA = 0,
+
+∂Ω
+
+∂Ω
+
+(6)
+
+Z
+
+Z
+
+udV = 0, u × (x − xc)dV = 0,
+
+Ω
+
+Ω
+
+Z
+
+0 ≤ p ≤ pmax on ∂Ω, pdA = Ftot.
+
+∂Ω
+
+Maximal principle stress is a suitable measure if we are interested
+
+in failure of materials, which occurs when the stress in a direction
+
+exceeds a bound. For plastic transition, the norm or some other
+
+function
+
+of
+
+the
+
+deviatoric
+
+stress,
+
+σ
+
+−
+
+1 3
+
+trσI
+
+,
+
+may
+
+be
+
+of
+
+interest.
+
+ACM Transactions on Graphics, Vol. 32, No. 4, Article 137, Publication Date: July 2013
+
+137:4 • Q. Zhou et al.
+We observe that if the material is isotropic and C can be written as Y Cˆ, where Y is the Young’s modulus, and Cˆ is nondimensional, depending only on the Poisson ratio. Then maximal stress does not depend on Y but only on the Poisson ratio.
+Solving this problem yields the worst-case principal stress and, importantly, the pressure distribution on the surface resulting in this stress. The maximal stress makes it possible to evaluate the likelihood of damage during the production process, shipping or use. Examining the pressure distribution makes it possible to evaluate how likely such loads would be and determine how the structure of the object can be strengthened.
+We observe that all constraints in this problem are linear equality and inequality constraints, i.e., the constraints are convex. At the same time, the functional is highly non-linear (in fact, not smooth) and non-convex. Replacing maximal principal stress with another point measure maximized over the surface does not change the nature of the problem.
+A brute-force solution can be obtained by solving a sequence of problems in which the objective functional max |σi|2 is maximized for every point and then taking the maximum of all results. Because we are interested in maximizing the norm, even these simpler perpoint problems remain nonconvex and nonlinear.
+We conclude that solving the optimization problem in general form is impractical, and due to non-linearities and non-convexity, any optimization is likely to get stuck in local minima.
+Extension to displacements. An obvious extension of the algorithm, is optimizing for maximal displacements. The main change is replacing σ with u in the functional: maxΩ |u| → max. This formulation is more relevant for ﬂexible materials.
+4 Efﬁcient approximate algorithm
+Overview. Figure 1 shows the main components of the efﬁcient approximate algorithm for solving (6).
+There are two problems we need to address to make the solution of (6) practical: (1) the need to solve an optimization problem for each point of the object to determine which one results in minimal stress; and (2) the nonlinearity and nonconvexity of each subproblem.
+To address the ﬁrst problem, we use a modal-analysis based heuristic that we found to work remarkably well. The second problem is solved by using tr σ as the linear objective functional. The reasons this substitution is possible for a broad range of cases are discussed in detail below.
+Modal analysis and weak regions. A crucial ingredient of our method is modal analysis, which we use to restrict the part of the object where we need to maximize the stress or another functional.
+Computational modal analysis refers to computing eigenvectors (eigenmodes) ui and eigenvalues λi of L:
+
+Lui = λiui, i = 1, 2 . . .
+
+(7)
+
+It is widely used in engineering and graphics for a variety of purposes. In the context of structural analysis, the most common application of modal analysis is to predict possible damage or deformations in presence of vibrations.
+Our idea is similar in spirit, however there is a signiﬁcant difference. We do not consider vibrations, i.e., periodically changing loads; rather, we consider static or quasi-static loads. We make the following
+Assumption 1: Examining a small number of eigenmodes allows us to ﬁnd all regions of an object where the stress may be high under arbitrary deformation. While this observation is difﬁcult to prove mathematically, physical intuition suggests that vibrations of an object at different frequencies will result in high stress in all structurally weak regions of the object. Weak regions are those
+
+ACM Transactions on Graphics, Vol. 32, No. 4, Article 137, Publication Date: July 2013
+
+where high maximal stress can be obtained with low energy density relative to other parts of the object.
+To validate this assumption, we have performed a brute-force optimization on a number of models (Figure 7) and compared with the results obtained using weak regions only. We obtain a remarkably good agreement in all cases.
+We search for locations of potentially high stress by computing a number, Mm, of eigenmodes and considering a fraction 1 − of points with highest stress under these deformations.
+We deﬁne weak regions to be the connected components of this set. Each mode has multiple weak regions, typically associated with local stress maxima. For each mode we select Mr weak regions.
+Approximate convex problem. The second important change to the problem is to replace the functional in (6) with a functional that can be optimized efﬁciently and that is minimized by a similar pressure distribution, p, to the original. We focus on the maximal stress, although a similar approach can be used for other functionals. We observe that almost invariably for any deformation and any compressible material with Poisson ratio ν sufﬁciently different from 1/2:
+For points where a principal stress is maximal, other principal stresses are small relative to the principal stress.
+We have performed a validation of this observation by running simulations with a variety of loads and computing the ratio of the maximal principal stress to |tr σ|. Over 36 models tested, the average ratio is 0.96 with standard deviation 0.25. Figure 2 illustrate that the distributions of trace and maximal principle stress are visually similar.
+
+Figure 2: The top 10% volume of largest principal stress (left) and largest trace (right) are visually similar
+
+We observe that when this is true, the difference between |σmax| =
+
+maxi=1,2,3|σi|
+
+and
+
+|
+
+P3
+i=1
+
+σi|,
+
+i.e.,
+
+|tr
+
+σ|
+
+is
+
+small,
+
+and
+
+we
+
+can
+
+ap-
+
+proximate the maximal principal stress with the absolute value of
+
+the trace. Finally, we note that we can solve problems separately for
+
+maximal compressive stress, approximated by −tr σ, and tensile
+
+stress, approximated by tr σ. We will focus on the tensile stress.
+
+As weak regions correspond to the highest stress area, and estimated stress tends to have a signiﬁcantly lower accuracy vs. displacement, we use a weighted average of the stress over each weak region. The choice of weighting, as long as it falls off towards the boundary of the region, has relatively small effect on the result. We choose the L2 norm of the stress computed from the eigenmode as the weight w for averaging the stress trace over each weak region.
+
+We ﬁnally arrive at the following approximate problem formulation:
+
+For each eigenmode i, i = 1 . . . Mm and each of its weak regions, Dij, j = 1 . . . Mr, we solve the following linear programming
+
+problem:
+
+Z wtr σdV → max w.r.t. u and p;
+
+Lu = 0 on Ω, C : (∇u + ∇uT )n = pn on ∂Ω,
+
+Z
+
+Z
+
+(8)
+
+pndA = 0, pn × (x − xc)dA = 0,
+
+∂Ω
+
+∂Ω
+
+Z
+
+0 ≤ p ≤ pmax on ∂Ω, pdA = Ftot.
+
+∂Ω
+
+Unlike the original problem, this problem has a unique solution that can be computed efﬁciently using a convex solver.
+Discretization and additional optimizations. We discretize the problem in the simplest conventional way, using piecewise-linear ﬁnite elements. The downside of this approach is that a suitable tetrahedral mesh needs to be generated for each input. For 3D printed models, the task is somewhat simpliﬁed: as the cost of printing is dominated by the amount of material used, almost all objects printed in practice are effectively thick shells to the extent this is allowed by the structural requirements. For this reason, tet meshing does not increase the number of vertices used to represent the object as much as one would expect.
+Let n be the number of vertices, nb ≤ n be the number of boundary vertices, and m be the number of elements. The discretized quantities are: p the vector of pressures deﬁned at boundary vertices of dimension nb; and u, the vector of displacements of dimension 3n.
+In discrete formulation, we optimize the functional
+
+wT V DBu
+
+(9)
+
+In this formula, V is a 6m×6m matrix, with the volume of element
+
+j repeated 6 times on the diagonal for the 6 components of the stress
+
+tensor. D is a 6m × 6m block-diagonal matrix. For each element,
+
+the corresponding 6 × 6 block is the rank-4 tensor C in matrix
+
+form. B is a 6m × 3n applying the FEM discretization of ∇ + ∇T .
+
+Finally, wT is a vector that computes and weights the stress tensor
+
+traces,
+
+so
+
+that
+
+wT
+
+V
+
+x
+
+discretizes
+
+R
+Ω
+
+wtr
+
+xdV
+
+.
+
+The discretized static elasticity equation combined with boundary
+
+conditions takes the form
+
+−Ku + N Ap = 0,
+
+(10)
+
+where K is the standard FEM 3n × 3n stiffness matrix, K = BT V DB. The matrix N is a 3n × nb matrix of components of surface normals, returning per-vertex components of external forces (0 for internal vertices, pn for the boundary), and matrix A is the nb × nb diagonal vertex area matrix.
+
+The discretized formulation of the total force and torque constraints
+
+are:
+
+ΣN Ap = 0, ΣT N Ap = 0
+
+(11)
+
+where Σ is the 3 × 3n matrix, summing n 3D vectors concatenated into a 3n vector, and T is 3n×3n block-diagonal matrix computing the torques of the surface force vectors.
+Putting all these together, the discretized optimization problem is:
+
+w · (V DBu) → max w.r.t. u and p; − Ku + N Ap = 0, ΣN Ap = 0, ΣT N Ap = 0,
+(12) Σvu = 0, ΣvTvu = 0, 0 ≤ pi ≤ pmax for all i, ΣsAp = Ftot,
+
+Worst-case Structural Analysis • 137:5
+
+where Σs sums scalars on the surface, Σv sums vectors in the volume Ω, and Tv computes torsion for each point. The total dimension of the problem is nb + 3n.
+
+Eliminating displacements. As most of the degrees of freedom in
+
+the system are displacements, but quantities of interest are pressures p, eliminating u results in signiﬁcant speedups (u can be elimi-
+
+nated even for the displacement maximization problem). The elasticity equation −Ku + N Ap = 0 is not sufﬁcient for this; it has
+
+a nullspace of dimension 6 corresponding rigid motion degrees of
+
+freedom, so we need to consider the constraints for zero total rigid
+
+» motion, Ru = 0, where R =
+
+Σv Σv T
+
+– . Rewriting this system in
+
+the standard constrained system form,
+
+»K R
+
+RT – » 0
+
+u λ
+
+–» =
+
+N Ap 0
+
+–
+
+(13)
+
+| {z }
+C∗
+
+where λ is the Lagrange multiplier for the constraint Ru = 0. It is
+
+clear from physical considerations that this system is invertible. Let
+
+» S be the selection matrix
+
+I3n×3n 0
+
+– . Then, we can express u as
+
+u = ST C∗−1SN Ap. In this form, the objective of (12) becomes
+
+w · V DBu = wT V DBST C∗−1SN A p = f T p
+
+|
+
+{z
+
+}
+
+fT
+
+The displacement-free optimization problem is
+
+f T p → max w.r.t. p, ΣN Ap = 0, ΣT N Ap = 0, (14)
+0 ≤ pi ≤ pmax for all i, ΣsAp = Ftot.
+
+While the ﬁnal system has only sparse constraint matrices, it may
+
+appear that computing f T for the objective functional requires in-
+
+verting C∗; we observe however that wT V DBST C∗−1SN A =
+
+f T can be rewritten as f = (SN A)T q, where q is the solution of
+
+the equation
+
+C∗T q = SBT DT V T w.
+
+(15)
+
+In other words, it is sufﬁcient to be able to solve a linear system with matrix C∗, and the cost of transforming (12) to (15) is the cost of a single linear solve.
+Finally, for modal analysis, we have observed that the results for isotropic models in particular are well-approximated by simpler eigenanalysis of the Laplacian, which yields a considerable speedup (compare the bottom two rows of Figure 7).
+Algorithm summary and parameters. The main steps of our approach are
+1. Compute a tetrahedral mesh Ω for an input triangle mesh.
+2. Compute Mm modes using an eigensolver.
+3. For each mode, ﬁnd Mr weak regions with highest total energy.
+4. For each weak region, solve the problem (14) to obtain worstcase pressure candidate pi.
+5. Solve Lu = 0, with boundary pressures speciﬁed by pi, to obtain displacements ui, and compute actual maximal principal stress σimax for each weak region.
+6. Maximal stress is determined as maximum of σimax.
+Tetrahedral meshes are generated using tetgen ([Si 2007]).
+We use MOSEK ([MOSEK 2010]) to solve the linear programming problem, UMFPACK ([Davis 2004]) for linear solves, and
+
+ACM Transactions on Graphics, Vol. 32, No. 4, Article 137, Publication Date: July 2013
+
+137:6 • Q. Zhou et al.
+
+35	   30	   25	   20	   15	   10	  
+5	   0	  
+0	  
+
+Weakest	  Region's	  Mode	  Index	  
+20	   40	   60	   80	   100	   120	   140	   160	  
+
+Figure 3: Histogram of the mode number (horizontal axis) in which the weakest region appears for the ﬁrst time.
+
+Weakest	  Region	  Rank	  
+25	  
+
+20	  
+
+15	  
+
+10	  
+
+5	  
+
+0	  
+
+1	  
+
+2	  
+
+3	  
+
+4	  
+
+5	  
+
+6	  
+
+Figure 4: Histogram of the rank of the weakest region in the weak region list sorted by decreasing energy.
+
+ARPACK ([Lehoucq et al. 1998]) for computing eigenvectors and eigenvalues.
+The parameters of the algorithm include Mm, Mr, the choice of threshold 1 − for weak regions, as well as user-deﬁned maximal pressure pmax (the latter can be regarded as a part of the deﬁnition of the force model).
+To determine reasonable choices of Mm and Mr, we have run the modal analysis for a large number of modes (150) and a large number of weak regions per mode for a collection of objects. For each object and each mode, we found the weakest region and checked in which mode it ﬁrst appears,. We also computed its rank in the list of that mode’s weak regions sorted by decreasing energy. The results (Figure 3 and Figure 4) indicate that 15 modes and 5 weak regions per mode are sufﬁcient in over 80% of cases.
+We use = 0.025 in all cases; the dependence of the size of weak regions for one mode on is shown in Figure 5.
+Figure 6 shows two ﬁnal results of the algorithm. Red arrows are total forces obtained by summing nearby per-vertex force values (pressures are typically concentrated in small areas). Colormaps on the deformed surfaces show weakness maps.
+
+Figure 5: Weak regions extracted from three modes with weakness level cutoff, = .10, .05, .03, .01.
+ACM Transactions on Graphics, Vol. 32, No. 4, Article 137, Publication Date: July 2013
+
+Figure 6: Optimal force vectors and weakest regions on the left, resulting deformations and stresses on the right. The gray images in the background show the undeformed state.
+
+5 Validation
+We performed validation of our algorithm in several computational and experimental ways.
+Comparison with direct search for the weakest region. Instead of using the modal analysis stage to identify weak regions and using averaged stress or displacement over weak regions as the target quantity to optimize, we can run the same optimization process directly, treating each tetrahedron as a potential weak region.
+We deﬁne the weakness map as a scalar ﬁeld on the surface mapping each point to the maximal principal stress at this point obtained by approximate optimization. Using our method yields a partial weakness map on the union of all weakness regions we consider. Figure 7 shows a comparison of a complete weakness map, computed using the brute-force approach, with the weakness map obtained by our method. We observe a close agreement between these for all examples in areas where the partial map is deﬁned, and never observe high stress values elsewhere.
+
+# Tets
+2723 2869 2904 5332 11020 12853 14163 16008 16873
+
+Brute Force (s)
+681.367 793.362 894.610 2120.361 11029.721 11334.362 27775.900 19917.838 33937.877
+
+Weak Region (s)
+1.089 1.087 0.641 1.171 2.729 1.694 3.373 1.892 3.210
+
+Speedup
+625.939 x 729.907 x 1396.071 x 1810.199 x 4042.403 x 6692.546 x 8234.925 x 10527.388x 10571.191x
+
+Table 1: Stress analysis timings for brute force optimization vs. weak region optimization. While speedups are already dramatic for extremely small element counts, the higher asymptotic complexity of brute force causes a rapidly increasing speedup for larger models.
+
+Dependence on tetrahedral mesh resolution. To keep the cost of computation low, especially in the context of interactive applications or processing large number of objects at a printing facility, using coarse tetrahedral meshes is desirable. As Figure 8 shows, weakness maps for different resolutions are similar, so higher resolution may be used only at the last stage, after the weakest spots are identiﬁed.
+Drop test. To verify our method for brittle materials, we performed a randomized deformation test by dropping printed models onto horizontal pegs. We dropped the models from 1m high, ensuring a nearly random impact orientation and force application. The test setup is pictured in Figure 9. All models were printed with material zp150.
+Speciﬁc breakages may have two origins: high point forces, which can break even relatively strong spots near the impact point and will vary across drops, and smooth deformations, which are likely to break weak regions consistently. The former does not correspond to typical usage scenarios, which feature distributed bounded forces. Thus, we consider only fractures occurring frequently across drops.
+
+Brute force
+
+Worst-case Structural Analysis • 137:7
+
+Laplacian Sti ness
+
+Figure 9: We used models printed in green state “sandstone” for the drop tests. The testing models often are covered with a loose layer of powder that shakes off upon impact (see the dust in the right image).
+
+Analysis Type
+Brute Force Laplacian Stiffness
+
+Star
+18.300 MPa 15.593 MPa 16.208 MPa
+
+Star Pendant
+36.767 MPa 34.151 MPa 35.939 MPa
+
+“Test 2”
+73.298 MPa 71.689 MPa 70.588 MPa
+
+Figure 7: Comparison of the similar optimum stresses found by brute force, Laplacian-based weak region analysis, and stiffnessbased weak region analysis. The table reports 99.75 percentile (by volume) element stresses. An isotropic metal material was used for this comparison.
+
+Reference
+
+Figure 8: For 5 different mesh resolutions (from left to right the vertex counts are 5K, 13K, 24K, 36K, 50K), the algorithm generates consistent weakness maps.
+
+The testing results, displayed in Figure 10, conﬁrm that the weak regions determined by our method generally agree with the areas with highest occurrence of fracture. Notice in particular the legs of the cow (3rd row, left), the notches of the gear (5th row, left), the arms of the dancer (1st row, right), and the inner piece of the powercog pendant (6th, row left). These are all regions of high weakness map value that break consistently.
+Displacement test. For the objects printed in ductile materials, we performed a different test. We placed the shapes into a cardboard box ﬁlled with packaging material and applied pressure to the box’s exterior. This pressure permanently deformed the models inside. We took photographs of the deformed models in a registered position and compared them to the 3D model from which they were printed. We observe good agreement with the computed map of maximal displacements, i.e., the map similar to the weakness map, but for the displacement maximization problem (see Figure 11).
+Comparison with [Stava et al. 2012]. We compare to the approach described in [Stava et al. 2012], as they all aim to predict the loads that a printed model is likely to experience. The authors use a more speciﬁc force model: pinch grips. They present an empirical model to predict how the object will be gripped with two ﬁngers. There are many designs for which such a grip does not capture typical use
+
+Deformed
+Figure 11: Simulation results (left) are compared to deformed 3D printed model (green) overlaid on an undeformed one (blue). Our algorithm predicts likely regions (red) of large deformation under normal handling. For the blade earring, we conﬁrm that the largest blade deforms little relative to the hook and shaft: after aligning the shafts to be parallel, the largest blades are also roughly parallel (see the yellow parallelograms). The second largest blade is displaced more. Note that the upper right pin of the deformed spinnoloid (middle row, green) was broken during printing.
+cases or mishaps. Figure 12 demonstrates shapes whose worst-case loads cannot be applied or approximated using only a pinch grip.
+Figure 13 shows three examples for which the authors of [Stava et al. 2012] have provided us their force application points. Their “cup” example (left) is an excellent candidate for the pinch grip, the highest stress achieved with a ﬁxed total force agrees with ours, and even exceeds it. However, the other two objects do not ﬁt their model as well. The “UFO” pinch grip is clearly suboptimal, and the forces applied to the bracelet would have much more leverage if they were moved to the open endpoints. In all three cases, our
+ACM Transactions on Graphics, Vol. 32, No. 4, Article 137, Publication Date: July 2013
+
+137:8 • Q. Zhou et al.
+
+Figure 10: Results for a drop test. Model volume is shaded with its weakness map percentile: 90%
+ACM Transactions on Graphics, Vol. 32, No. 4, Article 137, Publication Date: July 2013
+
+99%
+
+Worst-case Structural Analysis • 137:9 in the timing table above.
+
+Figure 12: Models where pinch grips cannot generate worst-case loads. Our method ﬁnds highly intuitive force vectors, regardless. The additional arrows on the top of the Skyrim dragon arise to bring the total force and torque to zero.
+method generates efﬁcient force vectors.
+An interesting observation about the “cup” model is that our method produces a triangle of forces (perhaps at the expense of higher stress) rather than a pair of opposite forces. One possible reason for this is the pressure bound requiring the force to be distributed over a larger area.
+
+Time	  (seconds)	  
+
+Time	  (seconds)	  
+
+Weak	  Region	  Computa:on	  Time	  
+
+18	  
+
+16	  
+
+14	  
+
+Modal	  Analysis	  
+
+12	  
+
+Extrac9on	  
+
+10	  
+
+8	  
+
+6	  
+
+4	  
+
+2	  
+
+0	  
+
+0	   50	   100	   150	   200	   250	   300	   350	   400	   450	  
+
+Thousands	  of	  Elements	  
+
+Weakness	  Analysis	  Time	  Per	  Region	  
+
+16.1	   14.1	   12.1	   10.1	  
+8.1	   6.1	   4.1	   2.1	   0.1	  
+0	  
+
+50	   100	   150	   200	   250	   300	   350	   400	   450	  
+
+Thousands	  of	  Elements	  
+
+Figure 13: Comparison against [Stava et al. 2012]. Our algorithm’s force distribution (top) better identiﬁes structural weakness, especially for the ufo (middle) and bracelet (right).
+
+Timings. Though our pipeline has not yet reached interactive speeds, it is already fast enough to be included in a 3D printing pipeline. For the sizes of models most commonly sent to 3D printing services (see distribution in Figure 15, sizes on the order of 100K vertices are most common), our full algorithm takes only a few minutes:
+# Tets Structural Analysis (mins)
+
+2723 42900 70356 155383 322398 414894
+
+0.028 0.308 0.382 2.566 9.601 4.490
+
+Analyzing the algorithm’s scaling behavior is complicated by its dependence on structural properties—a separate linear program is run for each weak region that is extracted. To make sense of the timings, they have been separated by stage. Modal analysis and weak region extraction are run only once per model; Figure 14 shows how the execution time depends on the element count. The time spent setting up and solving the linear programs (“weakness analysis”) is averaged over all weak regions so that it can be plotted against the same x axis. Note that there is one further cost not shown: the single sparse UMFPACK factorization. This timing depends strongly on matrix structure (despite using ﬁll-in reducing permutations), and adds noise to curves when included. Factorization time is included
+
+Figure 14: The top plots shows how modal analysis and weak region extraction scale with the number of tetrahedra. The dominant cost is the eigensolve. The bottom plots shows the average cost of setting up and running the linear program for each weak region. It excludes the UMFPACK factorization of C∗ that only must be run once.
+
+3000	   2500	   2000	   1500	   1000	  
+500	   0	   0K	  
+
+Model	  Size	  Sta2s2cs	  
+
+120K	  
+
+240K	   Vertex	  Count	  
+
+360K	  
+
+480K	  
+
+Figure 15: Model vertex counts tabulated from 2781 models ordered from Shapeways.
+
+6 Material properties
+Material parameters deﬁning the elasticity tensor C must be measured for each of the 3D printers’ materials. We have observed that the computed maximal stress does not depend on the magnitude of the Young’s modulus in the isotropic case. However, in the anisotropic case, it does depend on the ratios of directional elasticity moduli, which can be signiﬁcant (Figure 16). To predict breakage or plastic deformations under loads, the additional material parameters tensile strength and yield strength are needed.
+In this section, we present the Youngs modulus ratio measurements for three different 3D printing materials that we used to compute
+ACM Transactions on Graphics, Vol. 32, No. 4, Article 137, Publication Date: July 2013
+
+137:10 • Q. Zhou et al.
+our simulation’s elasticity parameters. In addition, we discuss the extent to which various materials match our assumptions on stressstrain linearity and what accuracy one can expect from predictions of the maximal stress to tensile strength ratio. In all cases, we assume a Poisson ratio of 0.3.
+
+Among the three materials tested, green state stainless steel ﬁts the deﬁnition of brittle material the best. Stress grows linearly with strain for all samples tested (Figure 18 left). Bending tests in perpendicular directions show that elastic moduli in these directions are close, with the average Young’s modulus 3.59GPa and standard deviation 0.27GPa. Figure 19 shows critical stress extracted from measurements, which is mostly consistent for all samples, with the average 6.88MPa and 0.62MPa standard deviation. Overall, this material is consistent with our model for stress optimization.
+
+9e+06
+
+Critical Stress
+
+6e+06
+
+Figure 16: Different ratios of directional Young’s moduli can lead to different weakest regions. We show the weakest region found for a truss with a Young’s modulus that is ﬁve times higher in the X (left), Y (middle), and Z (right) directions.
+We have tested three materials used in 3D printing: nylon (PA 2200 by EOS Electro Optical Systems), “sandstone” (zp150 used in the ZPrinter series by 3D Systems), and green state stainless steel (420SS powder bound with proprietary binder used by ExOne). They also represent different classes of materials (brittle vs. ductile, isotropic vs anisotropic). To determine their properties, we conducted a three point bending test consistent with ASTM standard D5032 ([ASTM 2007]), using the Instron 5960 universal testing machine with a ±100N load cell and a support span of 40mm. Figure 17 illustrates the testing setup. The testing samples are rectangular bars with length 60mm and thickness between 1mm and 5mm. A relatively thin test bar was chosen because structurally weak models are likely to contain thin features.
+Figure 17: Three-point bending test on green state stainless steel.
+
+3e+06
+
+0 1.5 2 2.5 3 3.5 4 4.5 5 5.5
+Thickness
+Figure 19: The critical stress distribution of green state metal for samples with thickness 1.5mm up to 5mm.
+
+Models printed in nylon are known to withstand a large range of deformations. Figure 18 (right) shows the stress vs strain curve for 18 nylon samples. Half of them are 1.5mm thick, and the other half are 2mm. For each thickness group, sets of 3 samples were printed along each of X,Y and Z directions. From the results, we observed that nylon samples typically have a very large elastic deformation range before entering the plastic stage. We also note a moderate but obviously present degree of anisotropy (the Young’s modulus for X is 0.80GPa with 0.13GPa deviation, for Y is 1.02GPa with 0.18GPa deviation, and for Z is 0.98GPa with 0.12GPa deviation). See Figure 18, right.
+
+The most complex material we tested is the “sandstone.” Though,
+
+like green state metal, it has a relatively low tensile strength, it
+
+exhibits a signiﬁcant plastic region (Figure 20) and very high de-
+
+gree of anisotropy: we measured X, Y, and Z Young’s moduli
+
+of 1.22GPa (standard deviation 0.13GPa), 0.68GPa (standard de-
+
+viation 0.07GPa), and 0.234GPa (standard deviation 0.02GPa) re-
+
+spectively, with more than 5 times difference between the largest
+
+and lowest values. Thus, we model it as an orthotropic material
+
+with a distinct Young’s modulus per printing axis. We obtain our
+
+shear moduli using a standard formula from [SolidWorks 2011],
+
+i.e.
+
+Gxy
+
+=
+
+. Ex Ey
+Ex+Ey +2Ey νxy
+
+Note that “sandstone” exhibits a
+
+large variability of tensile strength, even for a single direction. This
+
+means only very conservative predictions are possible. Neverthe-
+
+less, we observe that our weak region detection works well for 10.
+
+Stress Stress Stress
+
+7e+06
+
+4.5e+07
+
+6e+06 5e+06 4e+06 3e+06 2e+06 1e+06
+
+4e+07 3.5e+07
+3e+07 2.5e+07
+2e+07 1.5e+07
+1e+07 5e+06
+
+0 0 0.001 0.002 0.003
+Strain
+
+0 0 0.02 0.04 0.06
+Strain
+
+Figure 18: Left: Stress vs strain curve measured on samples in green state stainless steel. The colors indicate different sample thickness (1.5mm red, 2mm green, 3mm blue). Right: Stress vs strain plots for nylon testing samples of thickness 1.5mm and 2mm. The samples printed in different orientation are marked with different colors (red: X, green: Y, blue: Z).
+
+ACM Transactions on Graphics, Vol. 32, No. 4, Article 137, Publication Date: July 2013
+
+5e+06
+
+4e+06
+
+3e+06
+
+2e+06
+
+1e+06
+
+0
+
+0
+
+0.005
+
+0.01
+
+Strain
+
+Figure 20: Stress vs. strain measurements on rectangular bars printed with green state “sandstone” along the printer X (red),Y (green) and Z (blue) direction. Different printing directions inﬂuence the material properties signiﬁcantly.
+
+7 Conclusions
+We have presented an efﬁcient approximate method for determining worst-case loads for a geometric object based on its geometry and material properties only. The method is quite reliable (it relies on a linear solver, an eigensolver, and a convex solver, which all can provide convergence guarantees), efﬁcient, and approximates well worst-case stress and displacement distributions.
+At the same time, there is clearly a number of limitations. Most importantly, only linear elasticity is considered, and the optimized solution at the second stage many not match reality for large plastic deformations. We note, however, that the robustly obtained approximate solution can serve as a starting point for a nonlinear solver. More generally, 3D printed materials exhibit a broad range of complex behaviors, some of which may exhibit considerable variation even for the same printing process. Using computational models reﬂecting material complexity and uncertainty is an important future direction. From the point of view of robustness of the method, tetrahedral mesh generation is the bottleneck. Meshless techniques may yield a fully robust pipeline using only surface geometry as input.
+8 Acknowledgements
+We are grateful to the authors of [Stava et al. 2012] for sharing their data. We also thank Professor Yu Zhang (NYU Dental School) and Professor Nikhil Gupta (NYU Poly), who allowed us to use their facilities for material testing and Professor Alan T. Zehnder (Cornell) for his helpful discussions regarding these tests. Finally, we thank Shapeways for initiating the project and providing raw materials and the many designers whose shapes we tested:
+Stava et al.: soccer cup (Fig 13); improbablecog: ﬂora (Fig 1,10), powercog (Fig 10), blade earring (Fig 11); Novastar Design: skyrim (Fig 12), heart (Fig 2); unellenu: butterﬂy (Fig 10), spinnoloids (Fig 11); kspaho: scorpion (Fig 11); TerryDiF: turret (Fig 6,10); Julia Boersma: trilobyte (Fig 10); Aim@Shape: cow (Fig 10), dilo (Fig 10), dancer (Fig 8, 10, 12), wood chair (Fig 5, 10).
+This work was partially supported by NSF awards IIS-0905502, OCI-1047932, DMS-0602235.
+References
+ASTM. 2007. D5023-07 standard test method for plastics: Dynamic mechanical properties: In ﬂexure (three-point bending). In American Society for Testing and Materials.
+BA¨ CHER, M., BICKEL, B., JAMES, D. L., AND PFISTER, H. 2012. Fabricating articulated characters from skinned meshes. ACM Trans. Graph. 31, 4 (July), 47:1–47:9.
+BARBICˇ , J., AND JAMES, D. L. 2005. Real-time subspace integration for st. venant-kirchhoff deformable models. ACM Trans. Graph. 24, 3 (July), 982–990.
+BARBICˇ , J., AND JAMES, D. L. 2010. Subspace self-collision culling. ACM Trans. Graph. 29, 4 (July), 81:1–81:9.
+BICKEL, B., BA¨ CHER, M., OTADUY, M. A., LEE, H. R., PFISTER, H., GROSS, M., AND MATUSIK, W. 2010. Design and fabrication of materials with desired deformation behavior. ACM Trans. Graph. 29, 4 (July), 63:1–63:10.
+CAL`I, J., CALIAN, D. A., AMATI, C., KLEINBERGER, R., STEED, A., KAUTZ, J., AND WEYRICH, T. 2012. 3d-printing of non-assembly, articulated models. ACM Trans. Graph. 31, 6 (Nov.), 130:1–130:8.
+DAVIS, T. 2004. Algorithm 832: Umfpack v4. 3—an unsymmetricpattern multifrontal method. ACM Transactions on Mathematical Software (TOMS) 30, 2, 196–199.
+DONG, Y., WANG, J., PELLACINI, F., TONG, X., AND GUO, B. 2010. Fabricating spatially-varying subsurface scattering. ACM Trans. Graph. 29, 4 (July), 62:1–62:10.
+
+Worst-case Structural Analysis • 137:11
+ELISHAKOF, I., AND OHSAKI, M. 2010. Optimization and antioptimization of structures under uncertainty. World Scientiﬁc.
+EWINS, D. 2000. Modal testing: theory, practice and application, vol. 2. Research studies press Baldock.
+FIDKOWSKI, K., KROO, I., WILLCOX, K., AND ENGELSON, F. 2008. Stochastic gust analysis techniques for aircraft conceptual design. AIAA paper 2008-5848.
+HAUSER, K., SHEN, C., AND O’BRIEN, J. 2003. Interactive deformation using modal analysis with constraints. In Graphics Interface, vol. 3, 16–17.
+HASˇ AN, M., FUCHS, M., MATUSIK, W., PFISTER, H., AND RUSINKIEWICZ, S. 2010. Physical reproduction of materials with speciﬁed subsurface scattering. ACM Trans. Graph. 29 (July), 61:1–61:10.
+KOU, X., AND TAN, S. 2007. A systematic approach for integrated computer-aided design and ﬁnite element analysis of functionally-graded-material objects. Materials & design 28, 10, 2549–2565.
+LEHOUCQ, R., SORENSEN, D., AND YANG, C. 1998. ARPACK users’ guide: solution of large-scale eigenvalue problems with implicitly restarted Arnoldi methods, vol. 6. SIAM.
+LUO, L., BARAN, I., RUSINKIEWICZ, S., AND MATUSIK, W. 2012. Chopper: partitioning models into 3d-printable parts. ACM Trans. Graph. 31, 6 (Nov.), 129:1–129:9.
+MOSEK, A., 2010. The mosek optimization tools manual. version 6.0., 2010.
+NICKELL, R. 1976. Nonlinear dynamics by mode superposition. Computer Methods in Applied Mechanics and Engineering 7, 1, 107–129.
+PENTLAND, A., AND WILLIAMS, J. 1989. Good vibrations: modal dynamics for graphics and animation. SIGGRAPH Comput. Graph. 23, 3 (July), 207–214.
+PRATT, M., MARSAN, A. L., KUMAR, V., AND DUTTA, D. 1998. An assessment of data requirements and data transfer formats for layered manufacturing. Tech. rep., National Institute of Standards and Technology.
+SHAPEWAYS, 2011. Things to keep in mind when designing for 3d printing. .
+SI, H. 2007. Tetgen: A quality tetrahedral mesh generator and a 3d delaunay triangulator. Weblink: http://tetgen. berlios. de/(accessed on: March 31, 2012).
+SOLIDWORKS, 2011. Solidworks simulation reference, 2011. http://help.solidworks.com/2011/english/ SolidWorks/cworks/LegacyHelp/Simulation/ Materials/Material_models/Linear_Elastic_ Orthotropic_Model.htm.
+STAVA, O., VANEK, J., BENES, B., CARR, N., AND MEˇ CH, R. 2012. Stress relief: improving structural strength of 3d printable objects. ACM Trans. Graph. 31, 4 (July), 48:1–48:11.
+TELEA, A., AND JALBA, A. 2011. Voxel-based assessment of printability of 3d shapes. In Proceedings of the 10th international conference on Mathematical morphology and its applications to image and signal processing, Springer-Verlag, Berlin, Heidelberg, ISMM’11, 393–404.
+TIMOSHENKO, S., AND WOINOWSKY-KRIEGER, S. 1940. Theory of plates and shells. Engineering Societies Monographs, New York: McGraw-Hill.
+UMETANI, N., IGARASHI, T., AND MITRA, N. J. 2012. Guided exploration of physically valid shapes for furniture design. ACM Trans. Graph. 31, 4 (July), 86:1–86:11.
+Z CORPORATION, 2011. Architectural design guide - printing 3d architectural models. .
+ZEILER, T. 1997. Matched ﬁlter concept and maximum gust loads. Journal of aircraft 34, 1, 101–108.
+ACM Transactions on Graphics, Vol. 32, No. 4, Article 137, Publication Date: July 2013
+
