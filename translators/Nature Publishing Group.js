@@ -9,7 +9,7 @@
 	"priority": 100,
 	"inRepository": true,
 	"browserSupport": "gcsibv",
-	"lastUpdated": "2018-02-03 18:45:00"
+	"lastUpdated": "2018-03-27 06:00:00"
 }
 
 /**
@@ -465,6 +465,7 @@ function isNature(url) {
 }
 
 function detectWeb(doc, url) {
+	if (url.endsWith('.pdf')) return false;
 	if (url.search(/\/(full|abs)\/[^\/]+($|\?|#)|\/fp\/.+?[?&]lang=ja(?:&|$)|\/articles\//) != -1) {
 		return 'journalArticle';
 
@@ -728,10 +729,9 @@ function doWeb(doc, url) {
 			//return false; //keep going so we can report this to zotero.org instead of "silently" failing
 		}
 		var items = {};
-		var title, url;
 		for (var i = 0; i < nodes.length; i++) {
-			title = Zotero.Utilities.xpathText(nodes[i], titlex, null, '');
-			link = Zotero.Utilities.xpath(nodes[i], linkx);
+			let title = Zotero.Utilities.xpathText(nodes[i], titlex, null, '');
+			let link = Zotero.Utilities.xpath(nodes[i], linkx);
 			if (title && link.length == 1) {
 				items[link[0].href] = title.trim();
 			}
